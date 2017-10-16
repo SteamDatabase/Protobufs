@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd "$(dirname "$0")"
+
 rsync -arhv ../steamtrack/Protobufs/ ./steam/
 rsync -arhv ../backend/files/csgo/Protobufs/ ./csgo/
 rsync -arhv ../backend/files/dota/Protobufs/ ./dota2/
