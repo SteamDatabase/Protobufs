@@ -326,7 +326,6 @@ message CMsgQuestDef {
 	optional uint32 max_points_1 = 3;
 	optional uint32 max_points_2 = 4;
 	optional string name_loctoken = 5 [(editable) = false, (localized) = true, (allow_add) = false, (allow_delete) = false];
-	optional string desc_loctoken = 6 [(editable) = false, (localized) = true, (allow_add) = false, (allow_delete) = false];
 	optional string operation = 7;
 	optional .CMsgQuestDef.MMCriteria mm_criteria = 8;
 	optional string node_image = 12 [(editable) = false, (display_name) = "Node Image", (comment) = "Filename of the image to show on the node view", (allow_add) = false, (allow_delete) = false];
