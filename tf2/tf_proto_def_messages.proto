@@ -333,6 +333,7 @@ message CMsgQuestDef {
 	optional .CMsgProtoDefID theme = 14 [(valid_type) = DEF_TYPE_QUEST_THEME, (editable) = false, (allow_add) = false, (allow_delete) = false];
 	repeated string loaner_names = 15 [(editable) = false, (display_name) = "Loaners", (comment) = "Names of items to give as loaners", (allow_add) = false, (allow_delete) = false];
 	repeated .CMsgQuestDef.ObjectiveInstance objectives = 16;
+	repeated string map = 17 [(editable) = false, (display_name) = "Maps Modifier", (comment) = "If set, the player must be on one of the listed maps to get credit.", (allow_add) = false, (allow_delete) = false];
 }
 
 message CMsgQuestMapStoreItem {
