@@ -339,6 +339,7 @@ message CMsgQuestDef {
 message CMsgQuestMapStoreItem {
 	required .CMsgProtoDefHeader header = 1;
 	optional string item_name = 2;
+	optional string reward_lootlist_name = 6 [(editable) = false, (display_name) = "Reward Lootlist", (comment) = "The name of the lootlist to roll as a reward", (allow_add) = false, (allow_delete) = false];
 	optional .CMsgVarField price = 3 [(editable) = false, (allow_add) = false, (allow_delete) = false, (var_field_type) = VAR_TYPE_SINT32];
 	optional uint32 purchase_limit = 4 [(editable) = false, (display_name) = "Purchase Limit", (comment) = "How many times this reward can be purchased", (allow_add) = false, (allow_delete) = false];
 	optional uint32 sort_group = 5 [(editable) = false, (display_name) = "Sort group", (comment) = "Sort by this group, then alhpabetically", (allow_add) = false, (allow_delete) = false];
@@ -390,6 +391,7 @@ message CMsgQuestMapNodeDef {
 	repeated .CMsgProtoDefID quest_options = 11 [(valid_type) = DEF_TYPE_QUEST, (editable) = false, (display_name) = "Offered Quests", (comment) = "Which quests this node offers.", (max_count) = 3, (allow_add) = false, (allow_delete) = false];
 	optional string associated_operation = 16 [(editable) = false, (display_name) = "Associated Operation", (comment) = "Operation this node is associated with", (allow_add) = false, (allow_delete) = false];
 	optional string reward_item_name = 18 [(editable) = false, (display_name) = "Reward Item", (comment) = "The name of an item to give as a reward", (allow_add) = false, (allow_delete) = false];
+	optional string reward_lootlist_name = 22 [(editable) = false, (display_name) = "Reward Lootlist", (comment) = "The name of the lootlist to roll as a reward", (allow_add) = false, (allow_delete) = false];
 	optional .ENodeCashReward cash_reward = 19 [default = CASH_REWARD_NONE, (editable) = false, (display_name) = "Cash Reward", (comment) = "How much cash to give when completing the primary objective", (allow_add) = false, (allow_delete) = false];
 	optional .CMsgProtoDefID star_type = 20 [(valid_type) = DEF_TYPE_QUEST_MAP_STAR_TYPE, (editable) = false, (display_name) = "Star Type", (comment) = "Which type of star this node uses", (allow_add) = false, (allow_delete) = false];
 	optional uint32 stars_to_unlock = 21 [default = 1, (editable) = false, (display_name) = "Stars to Unlock", (comment) = "Numbers of stars it costs to unlock", (allow_add) = false, (allow_delete) = false];
