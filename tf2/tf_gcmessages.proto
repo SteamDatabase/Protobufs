@@ -808,6 +808,7 @@ message CTFLobbyPlayerProto {
 	optional uint32 last_connect_time = 17;
 	optional .CTFLobbyPlayerProto.Type type = 19 [default = INVALID_PLAYER];
 	optional double normalized_rating = 20;
+	optional double normalized_uncertainty = 22;
 	optional uint32 rank = 21;
 }
 
