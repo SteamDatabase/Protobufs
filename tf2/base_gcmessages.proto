@@ -104,6 +104,8 @@ message CSOEconGameAccountClient {
 	optional bool phone_identifying = 31 [default = false];
 	optional bool disable_party_quest_progress = 32 [default = false];
 	optional uint32 quest_reward_credits = 33;
+	optional uint32 matchmaking_last_casual_excessive_reports_auto_ban_time = 34;
+	optional uint32 matchmaking_last_comp_excessive_reports_auto_ban_time = 35;
 }
 
 message CSOItemCriteriaCondition {
