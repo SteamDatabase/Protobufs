@@ -95,6 +95,11 @@ enum EGCSystemMsg {
 	k_EGCMsgAccountTwoFactorChange = 520;
 	k_EGCMsgCheckClanMembership = 521;
 	k_EGCMsgCheckClanMembershipResponse = 522;
+	k_EGCMsgInviteUserToLobby = 523;
+	k_EGCMsgGetGamePersonalDataCategoriesRequest = 524;
+	k_EGCMsgGetGamePersonalDataCategoriesResponse = 525;
+	k_EGCMsgGetGamePersonalDataEntriesRequest = 526;
+	k_EGCMsgGetGamePersonalDataEntriesResponse = 527;
 }
 
 enum ESOMsg {
@@ -131,5 +136,33 @@ enum EGCToGCMsg {
 	k_EGCToGCMsgMasterStartupComplete = 157;
 	k_EMsgGCToGCSOCacheSubscribe = 158;
 	k_EMsgGCToGCSOCacheUnsubscribe = 159;
+}
+
+message CCommunity_GamePersonalDataCategoryInfo {
+	optional string type = 1;
+	optional string localization_token = 2;
+	optional string template_file = 3;
+}
+
+message CCommunity_GetGamePersonalDataCategories_Request {
+	optional uint32 appid = 1;
+}
+
+message CCommunity_GetGamePersonalDataCategories_Response {
+	repeated .CCommunity_GamePersonalDataCategoryInfo categories = 1;
+	optional string app_assets_basename = 2;
+}
+
+message CCommunity_GetGamePersonalDataEntries_Request {
+	optional uint32 appid = 1;
+	optional uint64 steamid = 2;
+	optional string type = 3;
+	optional string continue_token = 4;
+}
+
+message CCommunity_GetGamePersonalDataEntries_Response {
+	optional uint32 gceresult = 1;
+	repeated string entries = 2;
+	optional string continue_token = 3;
 }
 
