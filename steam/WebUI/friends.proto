@@ -44,7 +44,7 @@ message CCommunity_GetApps_Request {
 }
 
 message CCommunity_GetApps_Response {
-	repeated ct apps = 1;
+	repeated ut apps = 1;
 }
 
 message CCommunity_GetAppRichPresenceLocalization_Request {
@@ -671,7 +671,7 @@ message CEconItem_Description {
 	optional string market_hash_name = 18;
 	optional string market_fee = 19;
 	optional int32 market_fee_app = 28;
-	optional .CMsgClientServerTimestampRequest contained_item = 20;
+	optional t contained_item = 20;
 	repeated .CEconItem_Action market_actions = 21;
 	optional bool commodity = 22;
 	optional int32 market_tradable_restriction = 23;
@@ -1202,7 +1202,7 @@ message CParental_GetParentalSettings_Request {
 }
 
 message CParental_GetParentalSettings_Response {
-	optional UNKNOWN settings = 1;
+	optional .ParentalSettings settings = 1;
 }
 
 message CParental_GetSignedParentalSettings_Response {
