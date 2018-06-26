@@ -44,7 +44,7 @@ message CCommunity_GetApps_Request {
 }
 
 message CCommunity_GetApps_Response {
-	repeated ut apps = 1;
+	repeated dt apps = 1;
 }
 
 message CCommunity_GetAppRichPresenceLocalization_Request {
