@@ -44,7 +44,7 @@ message CCommunity_GetApps_Request {
 }
 
 message CCommunity_GetApps_Response {
-	repeated dt apps = 1;
+	repeated gt apps = 1;
 }
 
 message CCommunity_GetAppRichPresenceLocalization_Request {
@@ -163,6 +163,7 @@ message CChatRoom_RevokeInvite_Response {
 message CChatRole {
 	optional uint64 role_id = 1;
 	optional string name = 2;
+	optional uint32 ordinal = 3;
 }
 
 message CChatRoleActions {
@@ -198,6 +199,15 @@ message CChatRoom_RenameRole_Request {
 }
 
 message CChatRoom_RenameRole_Response {
+}
+
+message CChatRoom_ReorderRole_Request {
+	optional uint64 chat_group_id = 1;
+	optional uint64 role_id = 2;
+	optional uint32 ordinal = 3;
+}
+
+message CChatRoom_ReorderRole_Response {
 }
 
 message CChatRoom_DeleteRole_Request {
@@ -369,6 +379,9 @@ message CChatRoom_GetMyChatRoomGroups_Request {
 
 message CChatRoom_GetMyChatRoomGroups_Response {
 	repeated .CChatRoomSummaryPair chat_room_groups = 1;
+	optional enum desktop_notification_level = 2;
+	optional enum mobile_notification_level = 3;
+	optional bool unread_indicator_muted = 4;
 }
 
 message CChatRoom_JoinChatRoomGroup_Request {
@@ -447,6 +460,18 @@ message CChatRoom_IncomingChatMessage_Notification {
 	optional string message_no_bbcode = 9;
 }
 
+message CChatRoom_ChatMessageModified_Notification {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_id = 2;
+	repeated .CChatRoom_ChatMessageModified_Notification_ChatMessage messages = 3;
+}
+
+message CChatRoom_ChatMessageModified_Notification_ChatMessage {
+	optional uint32 server_timestamp = 1;
+	optional uint32 ordinal = 2;
+	optional bool deleted = 3;
+}
+
 message CChatRoom_GetMessageHistory_Request {
 	optional uint64 chat_group_id = 1;
 	optional uint64 chat_id = 2;
@@ -468,6 +493,7 @@ message CChatRoom_GetMessageHistory_Response_ChatMessage {
 	optional string message = 3;
 	optional uint32 ordinal = 4;
 	optional .ServerMessage server_message = 5;
+	optional bool deleted = 6;
 }
 
 message CChatRoom_MemberStateChange_Notification {
@@ -587,6 +613,15 @@ message CChatRoom_SetSessionActiveChatRoomGroups_Response {
 	repeated .CChatRoomGroupState chat_states = 1;
 }
 
+message CChatRoom_SetUserChatPreferences_Request {
+	optional enum desktop_notification_level = 1;
+	optional enum mobile_notification_level = 2;
+	optional bool unread_indicator_muted = 3;
+}
+
+message CChatRoom_SetUserChatPreferences_Response {
+}
+
 message CChatRoom_SetUserChatGroupPreferences_Request {
 	optional uint64 chat_group_id = 1;
 	optional .CChatRoom_SetUserChatGroupPreferences_Request_ChatGroupPreferences chat_group_preferences = 2;
@@ -609,6 +644,20 @@ message CChatRoom_SetUserChatGroupPreferences_Request_ChatRoomPreferences {
 message CChatRoom_SetUserChatGroupPreferences_Response {
 }
 
+message CChatRoom_DeleteChatMessages_Request {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_id = 2;
+	repeated .CChatRoom_DeleteChatMessages_Request_Message messages = 3;
+}
+
+message CChatRoom_DeleteChatMessages_Request_Message {
+	optional uint32 server_timestamp = 1;
+	optional uint32 ordinal = 2;
+}
+
+message CChatRoom_DeleteChatMessages_Response {
+}
+
 message CClanChatRooms_GetClanChatRoomInfo_Request {
 	optional fixed64 steamid = 1;
 	optional bool autocreate = 2 [default = true];
@@ -620,6 +669,12 @@ message CClanChatRooms_GetClanChatRoomInfo_Response {
 
 message CClanChatRooms_SetClanChatRoomPrivate_Response {
 	optional bool chat_room_private = 1;
+}
+
+message ChatRoomClient_NotifyChatUserPreferencesChanged_Notification {
+	optional enum desktop_notification_level = 1;
+	optional enum mobile_notification_level = 2;
+	optional bool unread_indicator_muted = 3;
 }
 
 message ChatRoomClient_NotifyChatGroupUserStateChanged_Notification {
@@ -711,16 +766,6 @@ message CEcon_GetAssetClassInfo_Response {
 message CMsgClientFriendsList_Friend {
 	optional fixed64 ulfriendid = 1;
 	optional uint32 efriendrelationship = 2;
-}
-
-message CMsgClientFriendsGroupsList_FriendGroup {
-	optional int32 nGroupID = 1;
-	optional string strGroupName = 2;
-}
-
-message CMsgClientFriendsGroupsList_FriendGroupsMembership {
-	optional fixed64 ulSteamID = 1;
-	optional int32 nGroupID = 2;
 }
 
 message CMsgClientPersonaState_Friend {
@@ -932,6 +977,9 @@ message CFriendsListCategory {
 	optional uint32 groupid = 1;
 	optional string name = 2;
 	repeated uint32 accountid_members = 3;
+}
+
+message CFriendsList_GetCategories_Request {
 }
 
 message CFriendsList_GetCategories_Response {
