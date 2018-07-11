@@ -44,7 +44,7 @@ message CCommunity_GetApps_Request {
 }
 
 message CCommunity_GetApps_Response {
-	repeated gt apps = 1;
+	repeated ft apps = 1;
 }
 
 message CCommunity_GetAppRichPresenceLocalization_Request {
@@ -626,7 +626,7 @@ message CChatRoom_SetUserChatPreferences_Response {
 message CChatRoom_SetUserChatGroupPreferences_Request {
 	optional uint64 chat_group_id = 1;
 	optional .CChatRoom_SetUserChatGroupPreferences_Request_ChatGroupPreferences chat_group_preferences = 2;
-	repeated .CChatRoom_SetUserChatGroupPreferences_Request_ChatRoomPreferences chat_room_preferences = 3;
+	repeated UNKNOWN chat_room_preferences = 3;
 }
 
 message CChatRoom_SetUserChatGroupPreferences_Request_ChatGroupPreferences {
@@ -1013,7 +1013,7 @@ message CFriendsList_FavoritesChanged_Notification {
 }
 
 message CFriendsList_GetFriendsList_Response {
-	optional wo friendslist = 1;
+	optional Oo friendslist = 1;
 }
 
 message CFriendMessages_GetRecentMessages_Request {
