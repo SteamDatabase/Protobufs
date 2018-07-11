@@ -177,6 +177,7 @@ message CChatRoleActions {
 	optional bool can_view_history = 8;
 	optional bool can_change_group_roles = 9;
 	optional bool can_change_user_roles = 10;
+	optional bool can_mention_all = 11;
 }
 
 message CChatRoom_CreateRole_Request {
@@ -784,6 +785,7 @@ message CMsgClientPersonaState_Friend {
 	optional bytes avatar_hash = 31;
 	optional uint32 last_logoff = 45;
 	optional uint32 last_logon = 46;
+	optional uint32 last_seen_online = 47;
 	optional uint32 clan_rank = 50;
 	optional string game_name = 55;
 	optional fixed64 gameid = 56;
@@ -1008,6 +1010,10 @@ message CFriendsList_SetFavorites_Response {
 
 message CFriendsList_FavoritesChanged_Notification {
 	repeated .CFriendsListFavoriteEntry favorites = 1;
+}
+
+message CFriendsList_GetFriendsList_Response {
+	optional wo friendslist = 1;
 }
 
 message CFriendMessages_GetRecentMessages_Request {
