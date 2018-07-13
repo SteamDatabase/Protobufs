@@ -44,7 +44,7 @@ message CCommunity_GetApps_Request {
 }
 
 message CCommunity_GetApps_Response {
-	repeated ft apps = 1;
+	repeated gt apps = 1;
 }
 
 message CCommunity_GetAppRichPresenceLocalization_Request {
@@ -260,7 +260,6 @@ message CChatRoom_ChatRoomHeaderState_Notification {
 
 message CChatRoomMember {
 	optional uint32 accountid = 1;
-	optional uint32 permissions = 2;
 	optional enum state = 3;
 	optional enum rank = 4;
 	optional uint32 time_kick_expire = 6;
@@ -279,6 +278,10 @@ message CChatRoom_GetChatRoomGroupSummary_Response {
 	optional uint32 accountid_owner = 9;
 	repeated uint32 top_members = 10;
 	optional bytes chat_group_avatar_sha = 11;
+	optional enum rank = 12;
+	optional uint64 default_role_id = 13;
+	repeated uint64 role_ids = 14;
+	repeated .CChatRoleActions role_actions = 15;
 }
 
 message CChatRoomState {
@@ -626,7 +629,7 @@ message CChatRoom_SetUserChatPreferences_Response {
 message CChatRoom_SetUserChatGroupPreferences_Request {
 	optional uint64 chat_group_id = 1;
 	optional .CChatRoom_SetUserChatGroupPreferences_Request_ChatGroupPreferences chat_group_preferences = 2;
-	repeated UNKNOWN chat_room_preferences = 3;
+	repeated .CChatRoom_SetUserChatGroupPreferences_Request_ChatRoomPreferences chat_room_preferences = 3;
 }
 
 message CChatRoom_SetUserChatGroupPreferences_Request_ChatGroupPreferences {
@@ -984,7 +987,7 @@ message CFriendsList_GetFriendsList_Request {
 }
 
 message CFriendsList_GetFriendsList_Response {
-	optional wo friendslist = 1;
+	optional Fo friendslist = 1;
 }
 
 message CMsgTrading_InitiateTradeResponse {
