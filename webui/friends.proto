@@ -1,6 +1,24 @@
+message CMsgClientConnectionStats_Stats_UDP {
+	optional uint64 pkts_sent = 1;
+	optional uint64 bytes_sent = 2;
+	optional uint64 pkts_recv = 3;
+	optional uint64 pkts_processed = 4;
+	optional uint64 bytes_recv = 5;
+}
+
 message CMsgClientServersAvailable_Server_Types_Available {
 	optional uint32 server = 1;
 	optional bool changed = 2;
+}
+
+message CMsgClientGetClientAppListResponse_App_DLC {
+	optional uint32 appid = 1;
+	optional bool installed = 2;
+}
+
+message CMsgClientAppInfoResponse_App_Section {
+	optional uint32 section_id = 1;
+	optional bytes section_kv = 2;
 }
 
 message CMsgClientAMGetPersonaNameHistory_IdInstance {
@@ -44,7 +62,7 @@ message CCommunity_GetApps_Request {
 }
 
 message CCommunity_GetApps_Response {
-	repeated gt apps = 1;
+	repeated .CCDDBAppDetailCommon apps = 1;
 }
 
 message CCommunity_GetAppRichPresenceLocalization_Request {
@@ -688,83 +706,9 @@ message ChatRoomClient_NotifyChatGroupUserStateChanged_Notification {
 	optional enum user_action = 4;
 }
 
-message CEconItem_DescriptionLine {
-	optional string type = 1;
-	optional string value = 2;
-	optional string color = 3;
-	optional string label = 4;
-}
-
-message CEconItem_Action {
-	optional string link = 1;
-	optional string name = 2;
-}
-
-message CEconItem_Tag {
-	optional uint32 appid = 1;
-	optional string category = 2;
-	optional string internal_name = 3;
-	optional string localized_category_name = 4;
-	optional string localized_tag_name = 5;
-	optional string color = 6;
-}
-
-message CEconItem_Description {
-	optional int32 appid = 1;
-	optional uint64 classid = 2;
-	optional uint64 instanceid = 3;
-	optional bool currency = 4;
-	optional string background_color = 5;
-	optional string icon_url = 6;
-	optional string icon_url_large = 7;
-	repeated .CEconItem_DescriptionLine descriptions = 8;
-	optional bool tradable = 9;
-	repeated .CEconItem_Action actions = 10;
-	repeated .CEconItem_DescriptionLine owner_descriptions = 11;
-	repeated .CEconItem_Action owner_actions = 12;
-	repeated string fraudwarnings = 13;
-	optional string name = 14;
-	optional string name_color = 15;
-	optional string type = 16;
-	optional string market_name = 17;
-	optional string market_hash_name = 18;
-	optional string market_fee = 19;
-	optional int32 market_fee_app = 28;
-	optional t contained_item = 20;
-	repeated .CEconItem_Action market_actions = 21;
-	optional bool commodity = 22;
-	optional int32 market_tradable_restriction = 23;
-	optional int32 market_marketable_restriction = 24;
-	optional bool marketable = 25;
-	repeated .CEconItem_Tag tags = 26;
-	optional string item_expiration = 27;
-}
-
-message CEcon_GetTradeOfferAccessToken_Request {
-	optional bool generate_new_token = 1;
-}
-
-message CEcon_GetTradeOfferAccessToken_Response {
-	optional string trade_offer_access_token = 1;
-}
-
-message CEcon_ClientGetItemShopOverlayAuthURL_Response {
-	optional string url = 1;
-}
-
-message CEcon_GetAssetClassInfo_Request {
-	optional string language = 1;
-	optional uint32 appid = 2;
-	repeated .CEcon_GetAssetClassInfo_Request_Class classes = 3;
-}
-
 message CEcon_GetAssetClassInfo_Request_Class {
 	optional uint64 classid = 1;
 	optional uint64 instanceid = 2;
-}
-
-message CEcon_GetAssetClassInfo_Response {
-	repeated .CEconItem_Description descriptions = 1;
 }
 
 message CMsgClientFriendsList_Friend {
@@ -817,32 +761,11 @@ message CMsgClientEmoticonList_Emoticon {
 	optional uint32 use_count = 4;
 }
 
-message CPlayer_GetLastPlayedTimes_Response {
-	repeated .CPlayer_GetLastPlayedTimes_Response_Game games = 1;
-}
-
 message CPlayer_GetLastPlayedTimes_Response_Game {
 	optional int32 appid = 1;
 	optional uint32 last_playtime = 2;
 	optional int32 playtime_2weeks = 3;
 	optional int32 playtime_forever = 4;
-}
-
-message CPlayer_GetMutualFriendsForIncomingInvites_Request {
-}
-
-message CPlayer_IncomingInviteMutualFriendList {
-	optional fixed64 steamid = 1;
-	repeated uint32 mutual_friend_account_ids = 2;
-}
-
-message CPlayer_GetMutualFriendsForIncomingInvites_Response {
-	repeated .CPlayer_IncomingInviteMutualFriendList incoming_invite_mutual_friends_lists = 1;
-}
-
-message CPlayer_GetGameBadgeLevels_Response {
-	optional uint32 player_level = 1;
-	repeated .CPlayer_GetGameBadgeLevels_Response_Badge badges = 2;
 }
 
 message CPlayer_GetGameBadgeLevels_Response_Badge {
@@ -851,99 +774,9 @@ message CPlayer_GetGameBadgeLevels_Response_Badge {
 	optional uint32 border_color = 3;
 }
 
-message CPlayer_AcceptSSA_Response {
-}
-
-message CPlayer_GetNicknameList_Request {
-}
-
-message CPlayer_GetNicknameList_Response {
-	repeated .CPlayer_GetNicknameList_Response_PlayerNickname nicknames = 1;
-}
-
 message CPlayer_GetNicknameList_Response_PlayerNickname {
 	optional fixed32 accountid = 1;
 	optional string nickname = 2;
-}
-
-message CPlayer_AddFriend_Request {
-	optional fixed64 steamid = 1;
-}
-
-message CPlayer_AddFriend_Response {
-	optional bool invite_sent = 1;
-	optional uint32 friend_relationship = 2;
-}
-
-message CPlayer_RemoveFriend_Request {
-	optional fixed64 steamid = 1;
-}
-
-message CPlayer_RemoveFriend_Response {
-	optional uint32 friend_relationship = 1;
-}
-
-message CPlayer_IgnoreFriend_Request {
-	optional fixed64 steamid = 1;
-	optional bool unignore = 2;
-}
-
-message CPlayer_IgnoreFriend_Response {
-	optional uint32 friend_relationship = 1;
-}
-
-message CPlayer_CommunityPreferences {
-	optional bool hide_adult_content_violence = 1 [default = true];
-	optional bool hide_adult_content_sex = 2 [default = true];
-	optional bool parenthesize_nicknames = 4;
-	optional uint32 timestamp_updated = 3;
-}
-
-message CPlayer_GetCommunityPreferences_Request {
-}
-
-message CPlayer_GetCommunityPreferences_Response {
-	optional .CPlayer_CommunityPreferences preferences = 1;
-}
-
-message CPlayer_SetCommunityPreferences_Request {
-	optional .CPlayer_CommunityPreferences preferences = 1;
-}
-
-message CPlayer_SetCommunityPreferences_Response {
-}
-
-message CPlayer_GetNewSteamAnnouncementState_Response {
-	optional int32 state = 1;
-	optional string announcement_headline = 2;
-	optional string announcement_url = 3;
-	optional uint32 time_posted = 4;
-	optional uint64 announcement_gid = 5;
-}
-
-message CPlayer_UpdateSteamAnnouncementLastRead_Response {
-}
-
-message CPlayer_LastPlayedTimes_Notification {
-	repeated .CPlayer_GetLastPlayedTimes_Response_Game games = 1;
-}
-
-message CPlayer_FriendNicknameChanged_Notification {
-	optional fixed32 accountid = 1;
-	optional string nickname = 2;
-	optional bool is_echo_to_self = 3;
-}
-
-message CPlayer_NewSteamAnnouncementState_Notification {
-	optional int32 state = 1;
-	optional string announcement_headline = 2;
-	optional string announcement_url = 3;
-	optional uint32 time_posted = 4;
-	optional uint64 announcement_gid = 5;
-}
-
-message CPlayer_CommunityPreferencesChanged_Notification {
-	optional .CPlayer_CommunityPreferences preferences = 1;
 }
 
 message CFriendsListCategory {
@@ -987,27 +820,12 @@ message CFriendsList_GetFriendsList_Request {
 }
 
 message CFriendsList_GetFriendsList_Response {
-	optional Fo friendslist = 1;
+	optional .CMsgClientFriendsList friendslist = 1;
 }
 
-message CMsgTrading_InitiateTradeResponse {
-	optional uint32 response = 1;
-	optional uint32 trade_request_id = 2;
-	optional uint64 other_steamid = 3;
-	optional uint32 steamguard_required_days = 4;
-	optional uint32 new_device_cooldown_days = 5;
-	optional uint32 default_password_reset_probation_days = 6;
-	optional uint32 password_reset_probation_days = 7;
-	optional uint32 default_email_change_probation_days = 8;
-	optional uint32 email_change_probation_days = 9;
-}
-
-message CMsgTrading_CancelTradeRequest {
-	optional uint64 other_steamid = 1;
-}
-
-message CMsgTrading_StartSession {
-	optional uint64 other_steamid = 1;
+message CMsgClientUGSGetGlobalStatsResponse_Day_Stat {
+	optional int32 stat_id = 1;
+	optional int64 data = 2;
 }
 
 message CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId {
@@ -1027,23 +845,6 @@ message CClan_RespondToClanInvite_Request {
 message CClan_RespondToClanInvite_Response {
 }
 
-message CFriendMessages_GetRecentMessages_Request {
-	optional fixed64 steamid1 = 1;
-	optional fixed64 steamid2 = 2;
-	optional uint32 count = 3;
-	optional bool most_recent_conversation = 4;
-	optional fixed32 rtime32_start_time = 5;
-	optional bool bbcode_format = 6;
-	optional uint32 start_ordinal = 7;
-	optional uint32 time_last = 8;
-	optional uint32 ordinal_last = 9;
-}
-
-message CFriendMessages_GetRecentMessages_Response {
-	repeated .CFriendMessages_GetRecentMessages_Response_FriendMessage messages = 1;
-	optional bool more_available = 4;
-}
-
 message CFriendMessages_GetRecentMessages_Response_FriendMessage {
 	optional uint32 accountid = 1;
 	optional uint32 timestamp = 2;
@@ -1051,61 +852,11 @@ message CFriendMessages_GetRecentMessages_Response_FriendMessage {
 	optional uint32 ordinal = 4;
 }
 
-message CFriendsMessages_GetActiveMessageSessions_Request {
-	optional uint32 lastmessage_since = 1;
-}
-
-message CFriendsMessages_GetActiveMessageSessions_Response {
-	repeated .CFriendsMessages_GetActiveMessageSessions_Response_FriendMessageSession message_sessions = 1;
-	optional uint32 timestamp = 2;
-}
-
 message CFriendsMessages_GetActiveMessageSessions_Response_FriendMessageSession {
 	optional uint32 accountid_friend = 1;
 	optional uint32 last_message = 2;
 	optional uint32 last_view = 3;
 	optional uint32 unread_message_count = 4;
-}
-
-message CFriendMessages_SendMessage_Request {
-	optional fixed64 steamid = 1;
-	optional int32 chat_entry_type = 2;
-	optional string message = 3;
-	optional bool contains_bbcode = 4;
-	optional bool echo_to_sender = 5;
-	optional bool low_priority = 6;
-}
-
-message CFriendMessages_SendMessage_Response {
-	optional string modified_message = 1;
-	optional uint32 server_timestamp = 2;
-	optional uint32 ordinal = 3;
-}
-
-message CFriendMessages_IncomingMessage_Notification {
-	optional fixed64 steamid_friend = 1;
-	optional int32 chat_entry_type = 2;
-	optional bool from_limited_account = 3;
-	optional string message = 4;
-	optional fixed32 rtime32_server_timestamp = 5;
-	optional uint32 ordinal = 6;
-	optional bool local_echo = 7;
-	optional string message_no_bbcode = 8;
-	optional bool low_priority = 9;
-}
-
-message CFriendMessages_AckMessage_Notification {
-	optional fixed64 steamid_partner = 1;
-	optional uint32 timestamp = 2;
-}
-
-message CFriendMessages_IsInFriendsUIBeta_Request {
-	optional fixed64 steamid = 1;
-}
-
-message CFriendMessages_IsInFriendsUIBeta_Response {
-	optional bool online_in_friendsui = 1;
-	optional bool has_used_friendsui = 2;
 }
 
 message CVoiceChat_RequestOneOnOneChat_Request {
@@ -1255,187 +1006,6 @@ message CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Request {
 }
 
 message CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Response {
-}
-
-message CParental_EnableParentalSettings_Response {
-}
-
-message CParental_DisableParentalSettings_Response {
-}
-
-message CParental_GetParentalSettings_Request {
-	optional fixed64 steamid = 10;
-}
-
-message CParental_GetParentalSettings_Response {
-	optional .ParentalSettings settings = 1;
-}
-
-message CParental_GetSignedParentalSettings_Response {
-	optional bytes serialized_settings = 1;
-	optional bytes signature = 2;
-}
-
-message CParental_SetParentalSettings_Response {
-}
-
-message CParental_ValidateToken_Request {
-	optional string unlock_token = 1;
-}
-
-message CParental_ValidateToken_Response {
-}
-
-message CParental_ValidatePassword_Request {
-	optional string password = 1;
-	optional string session = 2;
-	optional bool send_unlock_on_success = 3;
-}
-
-message CParental_ValidatePassword_Response {
-	optional string token = 1;
-}
-
-message CParental_LockClient_Response {
-}
-
-message CParental_RequestRecoveryCode_Response {
-}
-
-message CParental_DisableWithRecoveryCode_Response {
-}
-
-message CParental_ParentalSettingsChange_Notification {
-	optional bytes serialized_settings = 1;
-	optional bytes signature = 2;
-	optional string password = 3;
-	optional string sessionid = 4;
-}
-
-message CParental_ParentalUnlock_Notification {
-	optional string password = 1;
-	optional string sessionid = 2;
-}
-
-message CParental_ParentalLock_Notification {
-	optional string sessionid = 1;
-}
-
-message CBroadcast_BeginBroadcastSession_Response {
-	optional fixed64 broadcast_id = 1;
-	optional string thumbnail_upload_address = 2;
-	optional string thumbnail_upload_token = 3;
-	optional uint32 thumbnail_interval_seconds = 4;
-}
-
-message CBroadcast_EndBroadcastSession_Response {
-}
-
-message CBroadcast_StartBroadcastUpload_Response {
-	optional string upload_token = 1;
-	optional string upload_address = 2;
-	optional fixed64 upload_relay_id = 3;
-	optional string thumbnail_upload_address = 4;
-	optional uint32 thumbnail_interval_seconds = 5;
-}
-
-message CBroadcast_GetBroadcastStatus_Request {
-	optional fixed64 steamid = 1;
-	optional fixed64 broadcast_id = 2;
-}
-
-message CBroadcast_GetBroadcastStatus_Response {
-	optional uint64 gameid = 1;
-	optional string title = 2;
-	optional uint32 num_viewers = 3;
-	optional int32 permission = 4;
-	optional bool is_rtmp = 5;
-	optional int32 seconds_delay = 6;
-	optional bool is_publisher = 7;
-}
-
-message CBroadcast_GetBroadcastThumbnail_Request {
-	optional fixed64 steamid = 1;
-	optional fixed64 broadcast_id = 2;
-}
-
-message CBroadcast_GetBroadcastThumbnail_Response {
-	optional string thumbnail_url = 1;
-	optional int32 update_interval = 2;
-}
-
-message CBroadcast_WatchBroadcast_Response {
-	optional enum response = 1;
-	optional string mpd_url = 2;
-	optional fixed64 broadcast_id = 3;
-	optional uint64 gameid = 4;
-	optional string title = 5;
-	optional uint32 num_viewers = 6;
-	optional int32 permission = 7;
-	optional bool is_rtmp = 8;
-	optional int32 seconds_delay = 9;
-	optional fixed64 viewer_token = 10;
-	optional string hls_m3u8_master_url = 11;
-}
-
-message CBroadcast_InviteToBroadcast_Response {
-	optional bool success = 1;
-}
-
-message CBroadcast_SendBroadcastStateToServer_Response {
-}
-
-message CBroadcast_BroadcastViewerState_Notification {
-	optional fixed64 steamid = 1;
-	optional enum state = 2;
-}
-
-message CBroadcast_WaitingBroadcastViewer_Notification {
-	optional fixed64 broadcast_id = 1;
-}
-
-message CBroadcast_StopBroadcastUpload_Notification {
-	optional fixed64 broadcast_id = 1;
-	optional fixed64 broadcast_relay_id = 2;
-	optional uint32 upload_result = 3;
-	optional bool too_many_poor_uploads = 4;
-}
-
-message CBroadcast_SessionClosed_Notification {
-	optional fixed64 broadcast_id = 1;
-}
-
-message CBroadcast_BroadcastStatus_Notification {
-	optional fixed64 broadcast_id = 1;
-	optional int32 num_viewers = 2;
-}
-
-message CBroadcast_SendThumbnailToRelay_Notification {
-	optional string thumbnail_upload_token = 1;
-	optional fixed64 thumbnail_broadcast_session_id = 2;
-	optional bytes thumbnail_data = 3;
-	optional uint32 thumbnail_width = 4;
-	optional uint32 thumbnail_height = 5;
-}
-
-message CBroadcast_ViewerBroadcastInvite_Notification {
-	optional fixed64 broadcaster_steamid = 1;
-}
-
-message CBroadcast_PostChatMessage_Response {
-	optional string persona_name = 1;
-	optional bool in_game = 2;
-	optional int32 result = 3;
-}
-
-message CBroadcast_MuteBroadcastChatUser_Response {
-}
-
-message CBroadcast_RemoveUserChatText_Response {
-}
-
-message CBroadcast_GetBroadcastChatUserNames_Response {
-	repeated .CBroadcast_GetBroadcastChatUserNames_Response_PersonaName persona_names = 1;
 }
 
 message CBroadcast_GetBroadcastChatUserNames_Response_PersonaName {
