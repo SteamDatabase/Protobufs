@@ -848,58 +848,59 @@ message CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Request {
 message CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Response {
 }
 
+message NotImplemented {
+}
+
 service Community {
 	rpc GetApps (.CCommunity_GetApps_Request) returns (.CCommunity_GetApps_Response);
 	rpc GetAppRichPresenceLocalization (.CCommunity_GetAppRichPresenceLocalization_Request) returns (.CCommunity_GetAppRichPresenceLocalization_Response);
 }
 
 service Chat {
-	rpc RequestFriendPersonaStates (.CChat_RequestFriendPersonaStates_Request) returns (.CChat_ResponseFriendPersonaStates_Request);
+	rpc RequestFriendPersonaStates (.CChat_RequestFriendPersonaStates_Request) returns (.CChat_RequestFriendPersonaStates_Response);
 }
 
 service ChatRoom {
 	rpc CreateChatRoomGroup (.CChatRoom_CreateChatRoomGroup_Request) returns (.CChatRoom_CreateChatRoomGroup_Response);
-	rpc RenameChatRoomGroup (.CChatRoom_RenameChatRoomGroup_Request) returns (.CChatRoom_RenameChatRoomGroup_Response);
 	rpc SaveChatRoomGroup (.CChatRoom_SaveChatRoomGroup_Request) returns (.CChatRoom_SaveChatRoomGroup_Response);
+	rpc RenameChatRoomGroup (.CChatRoom_RenameChatRoomGroup_Request) returns (.CChatRoom_RenameChatRoomGroup_Response);
 	rpc SetChatRoomGroupTagline (.CChatRoom_SetChatRoomGroupTagline_Request) returns (.CChatRoom_SetChatRoomGroupTagline_Response);
 	rpc SetChatRoomGroupAvatar (.CChatRoom_SetChatRoomGroupAvatar_Request) returns (.CChatRoom_SetChatRoomGroupAvatar_Response);
-	rpc MuteUser (.CChatRoom_MuteUser_Request) returns (.CChatRoom_MuteUser_Response);
-	rpc KickUser (.CChatRoom_KickUser_Request) returns (.CChatRoom_KickUser_Response);
+	rpc MuteUserInGroup (.CChatRoom_MuteUser_Request) returns (.CChatRoom_MuteUser_Response);
+	rpc KickUserFromGroup (.CChatRoom_KickUser_Request) returns (.CChatRoom_KickUser_Response);
 	rpc SetUserBanState (.CChatRoom_SetUserBanState_Request) returns (.CChatRoom_SetUserBanState_Response);
-	rpc RevokeInvite (.CChatRoom_RevokeInvite_Request) returns (.CChatRoom_RevokeInvite_Response);
+	rpc RevokeInviteToGroup (.CChatRoom_RevokeInvite_Request) returns (.CChatRoom_RevokeInvite_Response);
 	rpc CreateRole (.CChatRoom_CreateRole_Request) returns (.CChatRoom_CreateRole_Response);
+	rpc GetRoles (.NotImplemented) returns (.CChatRoom_GetRoles_Response);
 	rpc RenameRole (.CChatRoom_RenameRole_Request) returns (.CChatRoom_RenameRole_Response);
 	rpc ReorderRole (.CChatRoom_ReorderRole_Request) returns (.CChatRoom_ReorderRole_Response);
 	rpc DeleteRole (.CChatRoom_DeleteRole_Request) returns (.CChatRoom_DeleteRole_Response);
+	rpc GetRoleActions (.NotImplemented) returns (.CChatRoom_GetRoleActions_Response);
 	rpc ReplaceRoleActions (.CChatRoom_ReplaceRoleActions_Request) returns (.CChatRoom_ReplaceRoleActions_Response);
 	rpc AddRoleToUser (.CChatRoom_AddRoleToUser_Request) returns (.CChatRoom_AddRoleToUser_Response);
+	rpc GetRolesForUser (.NotImplemented) returns (.CChatRoom_GetRolesForUser_Response);
 	rpc DeleteRoleFromUser (.CChatRoom_DeleteRoleFromUser_Request) returns (.CChatRoom_DeleteRoleFromUser_Response);
-	rpc ChatRoomHeaderState (.CChatRoom_ChatRoomHeaderState_Notification) returns (.NoResponse);
-	rpc CreateChatRoom (.CChatRoom_CreateChatRoom_Request) returns (.CChatRoom_CreateChatRoom_Response);
-	rpc DeleteChatRoom (.CChatRoom_DeleteChatRoom_Request) returns (.CChatRoom_DeleteChatRoom_Response);
-	rpc RenameChatRoom (.CChatRoom_RenameChatRoom_Request) returns (.CChatRoom_RenameChatRoom_Response);
-	rpc GetChatRoomGroupState (.CChatRoom_GetChatRoomGroupState_Request) returns (.CChatRoom_GetChatRoomGroupState_Response);
-	rpc GetMyChatRoomGroups (.CChatRoom_GetMyChatRoomGroups_Request) returns (.CChatRoom_GetMyChatRoomGroups_Response);
 	rpc JoinChatRoomGroup (.CChatRoom_JoinChatRoomGroup_Request) returns (.CChatRoom_JoinChatRoomGroup_Response);
 	rpc InviteFriendToChatRoomGroup (.CChatRoom_InviteFriendToChatRoomGroup_Request) returns (.CChatRoom_InviteFriendToChatRoomGroup_Response);
 	rpc LeaveChatRoomGroup (.CChatRoom_LeaveChatRoomGroup_Request) returns (.CChatRoom_LeaveChatRoomGroup_Response);
+	rpc CreateChatRoom (.CChatRoom_CreateChatRoom_Request) returns (.CChatRoom_CreateChatRoom_Response);
+	rpc DeleteChatRoom (.CChatRoom_DeleteChatRoom_Request) returns (.CChatRoom_DeleteChatRoom_Response);
+	rpc RenameChatRoom (.CChatRoom_RenameChatRoom_Request) returns (.CChatRoom_RenameChatRoom_Response);
+	rpc SendChatMessage (.CChatRoom_SendChatMessage_Request) returns (.CChatRoom_SendChatMessage_Response);
 	rpc JoinVoiceChat (.CChatRoom_JoinVoiceChat_Request) returns (.CChatRoom_JoinVoiceChat_Response);
 	rpc LeaveVoiceChat (.CChatRoom_LeaveVoiceChat_Request) returns (.CChatRoom_LeaveVoiceChat_Response);
-	rpc NotifyShouldRejoinChatRoomVoiceChat (.CChatRoom_NotifyShouldRejoinChatRoomVoiceChat_Notification) returns (.NoResponse);
-	rpc SendChatMessage (.CChatRoom_SendChatMessage_Request) returns (.CChatRoom_SendChatMessage_Response);
-	rpc IncomingChatMessage (.CChatRoom_IncomingChatMessage_Notification) returns (.NoResponse);
-	rpc ChatMessageModified (.CChatRoom_ChatMessageModified_Notification) returns (.NoResponse);
 	rpc GetMessageHistory (.CChatRoom_GetMessageHistory_Request) returns (.CChatRoom_GetMessageHistory_Response);
-	rpc MemberStateChange (.CChatRoom_MemberStateChange_Notification) returns (.NoResponse);
-	rpc ChatRoomGroupRoomsChange (.CChatRoom_ChatRoomGroupRoomsChange_Notification) returns (.NoResponse);
-	rpc AckChatMessage (.CChatRoom_AckChatMessage_Notification) returns (.NoResponse);
+	rpc GetMyChatRoomGroups (.CChatRoom_GetMyChatRoomGroups_Request) returns (.CChatRoom_GetMyChatRoomGroups_Response);
+	rpc GetChatRoomGroupState (.CChatRoom_GetChatRoomGroupState_Request) returns (.CChatRoom_GetChatRoomGroupState_Response);
+	rpc GetChatRoomGroupSummary (.NotImplemented) returns (.CChatRoom_GetChatRoomGroupSummary_Response);
+	rpc AckChatMessage (.NotImplemented) returns (.NoResponse);
 	rpc CreateInviteLink (.CChatRoom_CreateInviteLink_Request) returns (.CChatRoom_CreateInviteLink_Response);
 	rpc GetInviteLinkInfo (.CChatRoom_GetInviteLinkInfo_Request) returns (.CChatRoom_GetInviteLinkInfo_Response);
 	rpc GetInviteInfo (.CChatRoom_GetInviteInfo_Request) returns (.CChatRoom_GetInviteInfo_Response);
 	rpc GetInviteLinksForGroup (.CChatRoom_GetInviteLinksForGroup_Request) returns (.CChatRoom_GetInviteLinksForGroup_Response);
-	rpc DeleteInviteLink (.CChatRoom_DeleteInviteLink_Request) returns (.CChatRoom_DeleteInviteLink_Response);
 	rpc GetBanList (.CChatRoom_GetBanList_Request) returns (.CChatRoom_GetBanList_Response);
 	rpc GetInviteList (.CChatRoom_GetInviteList_Request) returns (.CChatRoom_GetInviteList_Response);
+	rpc DeleteInviteLink (.CChatRoom_DeleteInviteLink_Request) returns (.CChatRoom_DeleteInviteLink_Response);
 	rpc SetSessionActiveChatRoomGroups (.CChatRoom_SetSessionActiveChatRoomGroups_Request) returns (.CChatRoom_SetSessionActiveChatRoomGroups_Response);
 	rpc SetUserChatPreferences (.CChatRoom_SetUserChatPreferences_Request) returns (.CChatRoom_SetUserChatPreferences_Response);
 	rpc SetUserChatGroupPreferences (.CChatRoom_SetUserChatGroupPreferences_Request) returns (.CChatRoom_SetUserChatGroupPreferences_Response);
@@ -908,14 +909,30 @@ service ChatRoom {
 
 service ClanChatRooms {
 	rpc GetClanChatRoomInfo (.CClanChatRooms_GetClanChatRoomInfo_Request) returns (.CClanChatRooms_GetClanChatRoomInfo_Response);
+	rpc SetClanChatRoomPrivate (.NotImplemented) returns (.CClanChatRooms_SetClanChatRoomPrivate_Response);
+}
+
+service ChatRoomClient {
+	rpc NotifyIncomingChatMessage (.CChatRoom_IncomingChatMessage_Notification) returns (.NoResponse);
+	rpc NotifyChatMessageModified (.CChatRoom_ChatMessageModified_Notification) returns (.NoResponse);
+	rpc NotifyMemberStateChange (.CChatRoom_MemberStateChange_Notification) returns (.NoResponse);
+	rpc NotifyChatRoomHeaderStateChange (.CChatRoom_ChatRoomHeaderState_Notification) returns (.NoResponse);
+	rpc NotifyChatRoomGroupRoomsChange (.CChatRoom_ChatRoomGroupRoomsChange_Notification) returns (.NoResponse);
+	rpc NotifyShouldRejoinChatRoomVoiceChat (.CChatRoom_NotifyShouldRejoinChatRoomVoiceChat_Notification) returns (.NoResponse);
+	rpc NotifyChatUserPreferencesChanged (.ChatRoomClient_NotifyChatUserPreferencesChanged_Notification) returns (.NoResponse);
+	rpc NotifyChatGroupUserStateChanged (.ChatRoomClient_NotifyChatGroupUserStateChanged_Notification) returns (.NoResponse);
+	rpc NotifyAckChatMessageEcho (.CChatRoom_AckChatMessage_Notification) returns (.NoResponse);
 }
 
 service FriendsList {
 	rpc GetCategories (.CFriendsList_GetCategories_Request) returns (.CFriendsList_GetCategories_Response);
+	rpc GetFriendsList (.CFriendsList_GetFriendsList_Request) returns (.CFriendsList_GetFriendsList_Response);
 	rpc GetFavorites (.CFriendsList_GetFavorites_Request) returns (.CFriendsList_GetFavorites_Response);
 	rpc SetFavorites (.CFriendsList_SetFavorites_Request) returns (.CFriendsList_SetFavorites_Response);
+}
+
+service FriendsListClient {
 	rpc FavoritesChanged (.CFriendsList_FavoritesChanged_Notification) returns (.NoResponse);
-	rpc GetFriendsList (.CFriendsList_GetFriendsList_Request) returns (.CFriendsList_GetFriendsList_Response);
 }
 
 service Clan {
@@ -923,19 +940,24 @@ service Clan {
 }
 
 service VoiceChat {
-	rpc RequestOneOnOneChat (.CVoiceChat_RequestOneOnOneChat_Request) returns (.CVoiceChat_ResponseOneOnOneChat_Request);
-	rpc OneOnOneChatRequested (.CVoiceChat_OneOnOneChatRequested_Notification) returns (.NoResponse);
+	rpc UpdateVoiceChatWebRTCData (.CVoiceChat_UpdateVoiceChatWebRTCData_Request) returns (.CVoiceChat_UpdateVoiceChatWebRTCData_Response);
+	rpc NotifyUserVoiceStatus (.NotImplemented) returns (.NoResponse);
+	rpc UploadClientVoiceChatLogs (.CVoiceChat_UploadClientVoiceChatLogs_Request) returns (.CVoiceChat_UploadClientVoiceChatLogs_Response);
+	rpc LeaveVoiceChat (.NotImplemented) returns (.CVoiceChat_LeaveVoiceChat_Response);
+	rpc RequestOneOnOneChat (.CVoiceChat_RequestOneOnOneChat_Request) returns (.CVoiceChat_RequestOneOnOneChat_Response);
 	rpc AnswerOneOnOneChat (.CVoiceChat_AnswerOneOnOneChat_Request) returns (.CVoiceChat_AnswerOneOnOneChat_Response);
-	rpc OneOnOneChatRequestResponse (.CVoiceChat_OneOnOneChatRequestResponse_Notification) returns (.NoResponse);
 	rpc EndOneOnOneChat (.CVoiceChat_EndOneOnOneChat_Request) returns (.CVoiceChat_EndOneOnOneChat_Response);
 	rpc LeaveOneOnOneChat (.CVoiceChat_LeaveOneOnOneChat_Request) returns (.CVoiceChat_LeaveOneOnOneChat_Response);
-	rpc UserJoinedVoiceChat (.CVoiceChat_UserJoinedVoiceChat_Notification) returns (.NoResponse);
-	rpc UserVoiceStatus (.CVoiceChat_UserVoiceStatus_Notification) returns (.NoResponse);
-	rpc AllMembersStatus (.CVoiceChat_AllMembersStatus_Notification) returns (.NoResponse);
-	rpc UpdateVoiceChatWebRTCData (.CVoiceChat_UpdateVoiceChatWebRTCData_Request) returns (.CVoiceChat_UpdateVoiceChatWebRTCData_Response);
-	rpc UploadClientVoiceChatLogs (.CVoiceChat_UploadClientVoiceChatLogs_Request) returns (.CVoiceChat_UploadClientVoiceChatLogs_Response);
-	rpc UserLeftVoiceChat (.CVoiceChat_UserLeftVoiceChat_Notification) returns (.NoResponse);
-	rpc VoiceChatEnded (.CVoiceChat_VoiceChatEnded_Notification) returns (.NoResponse);
+}
+
+service VoiceChatClient {
+	rpc NotifyUserJoinedVoiceChat (.CVoiceChat_UserJoinedVoiceChat_Notification) returns (.NoResponse);
+	rpc NotifyUserLeftVoiceChat (.CVoiceChat_UserLeftVoiceChat_Notification) returns (.NoResponse);
+	rpc NotifyVoiceChatEnded (.CVoiceChat_VoiceChatEnded_Notification) returns (.NoResponse);
+	rpc NotifyUserVoiceStatus (.CVoiceChat_UserVoiceStatus_Notification) returns (.NoResponse);
+	rpc NotifyAllUsersVoiceStatus (.CVoiceChat_AllMembersStatus_Notification) returns (.NoResponse);
+	rpc NotifyOneOnOneChatRequested (.CVoiceChat_OneOnOneChatRequested_Notification) returns (.NoResponse);
+	rpc NotifyOneOnOneChatResponse (.CVoiceChat_OneOnOneChatRequestResponse_Notification) returns (.NoResponse);
 }
 
 service WebRTCClient {
@@ -943,8 +965,8 @@ service WebRTCClient {
 	rpc AcknowledgeUpdatedRemoteDescription (.CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Request) returns (.CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Response);
 }
 
-service WebRTC {
-	rpc WebRTCSessionConnected (.CWebRTC_WebRTCSessionConnected_Notification) returns (.NoResponse);
-	rpc WebRTCUpdateRemoteDescription (.CWebRTC_WebRTCUpdateRemoteDescription_Notification) returns (.NoResponse);
+service WebRTCClientNotifications {
+	rpc NotifyWebRTCSessionConnected (.CWebRTC_WebRTCSessionConnected_Notification) returns (.NoResponse);
+	rpc NotifyWebRTCUpdateRemoteDescription (.CWebRTC_WebRTCUpdateRemoteDescription_Notification) returns (.NoResponse);
 }
 
