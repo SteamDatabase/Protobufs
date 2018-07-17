@@ -1,3 +1,7 @@
+import "steammessages_unified_base.steamclient.proto";
+import "steammessages_base.proto";
+import "steammessages_clientserver_friends.proto";
+
 message CCommunity_GetApps_Request {
 	repeated int32 appids = 1;
 }
