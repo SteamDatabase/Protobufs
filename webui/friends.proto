@@ -37,7 +37,7 @@ message CChat_RequestFriendPersonaStates_Response {
 }
 
 message ServerMessage {
-	optional enum message = 1;
+	optional int32 message = 1;
 	optional string string_param = 2;
 	optional uint32 accountid_param = 3;
 }
@@ -223,8 +223,8 @@ message CChatRoom_ChatRoomHeaderState_Notification {
 
 message CChatRoomMember {
 	optional uint32 accountid = 1;
-	optional enum state = 3;
-	optional enum rank = 4;
+	optional int32 state = 3;
+	optional int32 rank = 4;
 	optional uint32 time_kick_expire = 6;
 	repeated uint64 role_ids = 7;
 }
@@ -241,7 +241,7 @@ message CChatRoom_GetChatRoomGroupSummary_Response {
 	optional uint32 accountid_owner = 9;
 	repeated uint32 top_members = 10;
 	optional bytes chat_group_avatar_sha = 11;
-	optional enum rank = 12;
+	optional int32 rank = 12;
 	optional uint64 default_role_id = 13;
 	repeated uint64 role_ids = 14;
 	repeated .CChatRoleActions role_actions = 15;
@@ -279,8 +279,8 @@ message CUserChatRoomGroupState {
 	optional uint64 chat_group_id = 1;
 	optional uint32 time_joined = 2;
 	repeated .CUserChatRoomState user_chat_room_state = 3;
-	optional enum desktop_notification_level = 4;
-	optional enum mobile_notification_level = 5;
+	optional int32 desktop_notification_level = 4;
+	optional int32 mobile_notification_level = 5;
 	optional uint32 time_last_group_ack = 6;
 	optional bool unread_indicator_muted = 7;
 }
@@ -289,8 +289,8 @@ message CUserChatRoomState {
 	optional uint64 chat_id = 1;
 	optional uint32 time_joined = 2;
 	optional uint32 time_last_ack = 3;
-	optional enum desktop_notification_level = 4;
-	optional enum mobile_notification_level = 5;
+	optional int32 desktop_notification_level = 4;
+	optional int32 mobile_notification_level = 5;
 	optional uint32 time_last_mention = 6;
 	optional bool unread_indicator_muted = 7;
 }
@@ -346,8 +346,8 @@ message CChatRoom_GetMyChatRoomGroups_Request {
 
 message CChatRoom_GetMyChatRoomGroups_Response {
 	repeated .CChatRoomSummaryPair chat_room_groups = 1;
-	optional enum desktop_notification_level = 2;
-	optional enum mobile_notification_level = 3;
+	optional int32 desktop_notification_level = 2;
+	optional int32 mobile_notification_level = 3;
 	optional bool unread_indicator_muted = 4;
 }
 
@@ -466,7 +466,7 @@ message CChatRoom_GetMessageHistory_Response_ChatMessage {
 message CChatRoom_MemberStateChange_Notification {
 	optional uint64 chat_group_id = 1;
 	optional .CChatRoomMember member = 2;
-	optional enum change = 3;
+	optional int32 change = 3;
 }
 
 message CChatRoom_ChatRoomGroupRoomsChange_Notification {
@@ -581,8 +581,8 @@ message CChatRoom_SetSessionActiveChatRoomGroups_Response {
 }
 
 message CChatRoom_SetUserChatPreferences_Request {
-	optional enum desktop_notification_level = 1;
-	optional enum mobile_notification_level = 2;
+	optional int32 desktop_notification_level = 1;
+	optional int32 mobile_notification_level = 2;
 	optional bool unread_indicator_muted = 3;
 }
 
@@ -596,15 +596,15 @@ message CChatRoom_SetUserChatGroupPreferences_Request {
 }
 
 message CChatRoom_SetUserChatGroupPreferences_Request_ChatGroupPreferences {
-	optional enum desktop_notification_level = 1;
-	optional enum mobile_notification_level = 2;
+	optional int32 desktop_notification_level = 1;
+	optional int32 mobile_notification_level = 2;
 	optional bool unread_indicator_muted = 3;
 }
 
 message CChatRoom_SetUserChatGroupPreferences_Request_ChatRoomPreferences {
 	optional uint64 chat_id = 1;
-	optional enum desktop_notification_level = 2;
-	optional enum mobile_notification_level = 3;
+	optional int32 desktop_notification_level = 2;
+	optional int32 mobile_notification_level = 3;
 	optional bool unread_indicator_muted = 4;
 }
 
@@ -639,8 +639,8 @@ message CClanChatRooms_SetClanChatRoomPrivate_Response {
 }
 
 message ChatRoomClient_NotifyChatUserPreferencesChanged_Notification {
-	optional enum desktop_notification_level = 1;
-	optional enum mobile_notification_level = 2;
+	optional int32 desktop_notification_level = 1;
+	optional int32 mobile_notification_level = 2;
 	optional bool unread_indicator_muted = 3;
 }
 
@@ -648,7 +648,7 @@ message ChatRoomClient_NotifyChatGroupUserStateChanged_Notification {
 	optional uint64 chat_group_id = 1;
 	optional .CUserChatRoomGroupState user_chat_group_state = 2;
 	optional .CChatRoom_GetChatRoomGroupSummary_Response group_summary = 3;
-	optional enum user_action = 4;
+	optional int32 user_action = 4;
 }
 
 message CFriendsListCategory {
@@ -897,7 +897,7 @@ service ChatRoom {
 	rpc GetMyChatRoomGroups (.CChatRoom_GetMyChatRoomGroups_Request) returns (.CChatRoom_GetMyChatRoomGroups_Response);
 	rpc GetChatRoomGroupState (.CChatRoom_GetChatRoomGroupState_Request) returns (.CChatRoom_GetChatRoomGroupState_Response);
 	rpc GetChatRoomGroupSummary (.NotImplemented) returns (.CChatRoom_GetChatRoomGroupSummary_Response);
-	rpc AckChatMessage (.NotImplemented) returns (.NoResponse);
+	rpc AckChatMessage (.CChatRoom_AckChatMessage_Notification) returns (.NoResponse);
 	rpc CreateInviteLink (.CChatRoom_CreateInviteLink_Request) returns (.CChatRoom_CreateInviteLink_Response);
 	rpc GetInviteLinkInfo (.CChatRoom_GetInviteLinkInfo_Request) returns (.CChatRoom_GetInviteLinkInfo_Response);
 	rpc GetInviteInfo (.CChatRoom_GetInviteInfo_Request) returns (.CChatRoom_GetInviteInfo_Response);
@@ -945,7 +945,7 @@ service Clan {
 
 service VoiceChat {
 	rpc UpdateVoiceChatWebRTCData (.CVoiceChat_UpdateVoiceChatWebRTCData_Request) returns (.CVoiceChat_UpdateVoiceChatWebRTCData_Response);
-	rpc NotifyUserVoiceStatus (.NotImplemented) returns (.NoResponse);
+	rpc NotifyUserVoiceStatus (.CVoiceChat_UserVoiceStatus_Notification) returns (.NoResponse);
 	rpc UploadClientVoiceChatLogs (.CVoiceChat_UploadClientVoiceChatLogs_Request) returns (.CVoiceChat_UploadClientVoiceChatLogs_Response);
 	rpc LeaveVoiceChat (.NotImplemented) returns (.CVoiceChat_LeaveVoiceChat_Response);
 	rpc RequestOneOnOneChat (.CVoiceChat_RequestOneOnOneChat_Request) returns (.CVoiceChat_RequestOneOnOneChat_Response);
