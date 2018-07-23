@@ -333,10 +333,6 @@ message CChatMentions {
 	repeated uint32 mention_accountids = 3;
 }
 
-message CChatRoom_GetChatRoomGroupState_Request {
-	optional uint64 chat_group_id = 1;
-}
-
 message CChatRoom_GetChatRoomGroupState_Response {
 	optional .CChatRoomGroupState state = 1;
 }
@@ -895,7 +891,7 @@ service ChatRoom {
 	rpc LeaveVoiceChat (.CChatRoom_LeaveVoiceChat_Request) returns (.CChatRoom_LeaveVoiceChat_Response);
 	rpc GetMessageHistory (.CChatRoom_GetMessageHistory_Request) returns (.CChatRoom_GetMessageHistory_Response);
 	rpc GetMyChatRoomGroups (.CChatRoom_GetMyChatRoomGroups_Request) returns (.CChatRoom_GetMyChatRoomGroups_Response);
-	rpc GetChatRoomGroupState (.CChatRoom_GetChatRoomGroupState_Request) returns (.CChatRoom_GetChatRoomGroupState_Response);
+	rpc GetChatRoomGroupState (.NotImplemented) returns (.CChatRoom_GetChatRoomGroupState_Response);
 	rpc GetChatRoomGroupSummary (.NotImplemented) returns (.CChatRoom_GetChatRoomGroupSummary_Response);
 	rpc AckChatMessage (.CChatRoom_AckChatMessage_Notification) returns (.NoResponse);
 	rpc CreateInviteLink (.CChatRoom_CreateInviteLink_Request) returns (.CChatRoom_CreateInviteLink_Response);
