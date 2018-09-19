@@ -353,9 +353,6 @@ message CChatRoom_GetMyChatRoomGroups_Request {
 
 message CChatRoom_GetMyChatRoomGroups_Response {
 	repeated .CChatRoomSummaryPair chat_room_groups = 1;
-	optional int32 desktop_notification_level = 2;
-	optional int32 mobile_notification_level = 3;
-	optional bool unread_indicator_muted = 4;
 }
 
 message CChatRoom_JoinChatRoomGroup_Request {
@@ -587,15 +584,6 @@ message CChatRoom_SetSessionActiveChatRoomGroups_Response {
 	repeated .CChatRoomGroupState chat_states = 1;
 }
 
-message CChatRoom_SetUserChatPreferences_Request {
-	optional int32 desktop_notification_level = 1;
-	optional int32 mobile_notification_level = 2;
-	optional bool unread_indicator_muted = 3;
-}
-
-message CChatRoom_SetUserChatPreferences_Response {
-}
-
 message CChatRoom_SetUserChatGroupPreferences_Request {
 	optional uint64 chat_group_id = 1;
 	optional .CChatRoom_SetUserChatGroupPreferences_Request_ChatGroupPreferences chat_group_preferences = 2;
@@ -643,12 +631,6 @@ message CClanChatRooms_GetClanChatRoomInfo_Response {
 
 message CClanChatRooms_SetClanChatRoomPrivate_Response {
 	optional bool chat_room_private = 1;
-}
-
-message ChatRoomClient_NotifyChatUserPreferencesChanged_Notification {
-	optional int32 desktop_notification_level = 1 [default = 0];
-	optional int32 mobile_notification_level = 2 [default = 0];
-	optional bool unread_indicator_muted = 3 [default = false];
 }
 
 message ChatRoomClient_NotifyChatGroupUserStateChanged_Notification {
@@ -752,6 +734,29 @@ message CChatUsability_ClientUsabilityMetrics_Notification_Metrics {
 	optional int32 friends_favorite_count = 8;
 	optional int32 group_chat_count = 9;
 	optional int32 group_chat_favorite_count = 10;
+}
+
+message PerFriendPreferences {
+	optional fixed32 accountid = 1;
+	optional string nickname = 2;
+	optional int32 notifications_showingame = 3;
+	optional int32 notifications_showonline = 4;
+	optional int32 notifications_showmessages = 5;
+	optional int32 sounds_showingame = 6;
+	optional int32 sounds_showonline = 7;
+	optional int32 sounds_showmessages = 8;
+}
+
+message CPlayer_GetPerFriendPreferences_Response {
+	repeated .PerFriendPreferences preferences = 1;
+}
+
+message CPlayer_SetPerFriendPreferences_Response {
+}
+
+message CPlayer_PerFriendPreferencesChanged_Notification {
+	optional fixed32 accountid = 1;
+	optional .PerFriendPreferences preferences = 2;
 }
 
 message CFriendsListCategory {
@@ -1010,7 +1015,6 @@ service ChatRoom {
 	rpc GetInviteList (.CChatRoom_GetInviteList_Request) returns (.CChatRoom_GetInviteList_Response);
 	rpc DeleteInviteLink (.CChatRoom_DeleteInviteLink_Request) returns (.CChatRoom_DeleteInviteLink_Response);
 	rpc SetSessionActiveChatRoomGroups (.CChatRoom_SetSessionActiveChatRoomGroups_Request) returns (.CChatRoom_SetSessionActiveChatRoomGroups_Response);
-	rpc SetUserChatPreferences (.CChatRoom_SetUserChatPreferences_Request) returns (.CChatRoom_SetUserChatPreferences_Response);
 	rpc SetUserChatGroupPreferences (.CChatRoom_SetUserChatGroupPreferences_Request) returns (.CChatRoom_SetUserChatGroupPreferences_Response);
 	rpc DeleteChatMessages (.CChatRoom_DeleteChatMessages_Request) returns (.CChatRoom_DeleteChatMessages_Response);
 }
@@ -1027,7 +1031,6 @@ service ChatRoomClient {
 	rpc NotifyChatRoomHeaderStateChange (.CChatRoom_ChatRoomHeaderState_Notification) returns (.NoResponse);
 	rpc NotifyChatRoomGroupRoomsChange (.CChatRoom_ChatRoomGroupRoomsChange_Notification) returns (.NoResponse);
 	rpc NotifyShouldRejoinChatRoomVoiceChat (.CChatRoom_NotifyShouldRejoinChatRoomVoiceChat_Notification) returns (.NoResponse);
-	rpc NotifyChatUserPreferencesChanged (.ChatRoomClient_NotifyChatUserPreferencesChanged_Notification) returns (.NoResponse);
 	rpc NotifyChatGroupUserStateChanged (.ChatRoomClient_NotifyChatGroupUserStateChanged_Notification) returns (.NoResponse);
 	rpc NotifyAckChatMessageEcho (.CChatRoom_AckChatMessage_Notification) returns (.NoResponse);
 }
