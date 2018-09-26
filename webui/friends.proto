@@ -150,6 +150,7 @@ message CChatRoleActions {
 	optional bool can_change_group_roles = 9;
 	optional bool can_change_user_roles = 10;
 	optional bool can_mention_all = 11;
+	optional bool can_set_watching_broadcast = 12;
 }
 
 message CChatRoom_CreateRole_Request {
