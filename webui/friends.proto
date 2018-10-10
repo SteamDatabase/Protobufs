@@ -264,6 +264,7 @@ message CChatRoomState {
 	optional bool voice_allowed = 3;
 	repeated uint32 members_in_voice = 4;
 	optional uint32 time_last_message = 5;
+	optional uint32 sort_order = 6;
 }
 
 message CChatRoomGroupHeaderState {
@@ -337,6 +338,15 @@ message CChatRoom_RenameChatRoom_Request {
 }
 
 message CChatRoom_RenameChatRoom_Response {
+}
+
+message CChatRoom_ReorderChatRoom_Request {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_id = 2;
+	optional uint64 move_after_chat_id = 3;
+}
+
+message CChatRoom_ReorderChatRoom_Response {
 }
 
 message CChatMentions {
@@ -737,6 +747,16 @@ message CChatUsability_ClientUsabilityMetrics_Notification_Metrics {
 	optional int32 group_chat_favorite_count = 10;
 }
 
+message CProductImpressionsFromClient_Notification {
+	repeated .CProductImpressionsFromClient_Notification_Impression impressions = 1;
+}
+
+message CProductImpressionsFromClient_Notification_Impression {
+	optional int32 type = 1;
+	optional uint32 appid = 2;
+	optional uint32 num_impressions = 3;
+}
+
 message CFriendsListCategory {
 	optional uint32 groupid = 1;
 	optional string name = 2;
@@ -977,6 +997,7 @@ service ChatRoom {
 	rpc CreateChatRoom (.CChatRoom_CreateChatRoom_Request) returns (.CChatRoom_CreateChatRoom_Response);
 	rpc DeleteChatRoom (.CChatRoom_DeleteChatRoom_Request) returns (.CChatRoom_DeleteChatRoom_Response);
 	rpc RenameChatRoom (.CChatRoom_RenameChatRoom_Request) returns (.CChatRoom_RenameChatRoom_Response);
+	rpc ReorderChatRoom (.CChatRoom_ReorderChatRoom_Request) returns (.CChatRoom_ReorderChatRoom_Response);
 	rpc SendChatMessage (.CChatRoom_SendChatMessage_Request) returns (.CChatRoom_SendChatMessage_Response);
 	rpc JoinVoiceChat (.CChatRoom_JoinVoiceChat_Request) returns (.CChatRoom_JoinVoiceChat_Response);
 	rpc LeaveVoiceChat (.CChatRoom_LeaveVoiceChat_Request) returns (.CChatRoom_LeaveVoiceChat_Response);
@@ -1019,6 +1040,10 @@ service ChatUsability {
 
 service ChatUsabilityClient {
 	rpc NotifyRequestClientUsabilityMetrics (.CChatUsability_RequestClientUsabilityMetrics_Notification) returns (.NoResponse);
+}
+
+service ExperimentService {
+	rpc ReportProductImpressionsFromClient (.NotImplemented) returns (.NoResponse);
 }
 
 service FriendsList {
