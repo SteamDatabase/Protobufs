@@ -1,6 +1,6 @@
 import "steammessages_unified_base.steamclient.proto";
-import "steammessages_player.steamclient.proto";
-import "steammessages_clientserver.proto";
+import "steammessages_base.proto";
+import "steammessages_clientserver_friends.proto";
 
 message CChat_RequestFriendPersonaStates_Request {
 }
@@ -25,7 +25,7 @@ message CChatRoom_CreateChatRoomGroup_Request {
 message CChatRoom_CreateChatRoomGroup_Response {
 	optional uint64 chat_group_id = 1;
 	optional .CChatRoomGroupState state = 2;
-	optional UNKNOWN user_chat_state = 3;
+	optional .CUserChatRoomGroupState user_chat_state = 3;
 }
 
 message CChatRoom_RenameChatRoomGroup_Request {
@@ -131,11 +131,11 @@ message CChatRoom_CreateRole_Request {
 }
 
 message CChatRoom_CreateRole_Response {
-	optional .CPlayer_NewSteamAnnouncementState_Notification actions = 2;
+	optional .CChatRoleActions actions = 2;
 }
 
 message CChatRoom_GetRoles_Response {
-	repeated .CPlayer_FriendNicknameChanged_Notification roles = 1;
+	repeated .CChatRole roles = 1;
 }
 
 message CChatRoom_RenameRole_Request {
@@ -165,13 +165,13 @@ message CChatRoom_DeleteRole_Response {
 }
 
 message CChatRoom_GetRoleActions_Response {
-	repeated .CPlayer_NewSteamAnnouncementState_Notification actions = 1;
+	repeated .CChatRoleActions actions = 1;
 }
 
 message CChatRoom_ReplaceRoleActions_Request {
 	optional uint64 chat_group_id = 1;
 	optional uint64 role_id = 2;
-	optional .CPlayer_NewSteamAnnouncementState_Notification actions = 4;
+	optional .CChatRoleActions actions = 4;
 }
 
 message CChatRoom_ReplaceRoleActions_Response {
@@ -226,7 +226,7 @@ message CChatRoom_GetChatRoomGroupSummary_Response {
 	optional int32 rank = 12;
 	optional uint64 default_role_id = 13;
 	repeated uint64 role_ids = 14;
-	repeated UNKNOWN role_actions = 15;
+	repeated .CChatRoleActions role_actions = 15;
 	optional uint32 watching_broadcast_accountid = 16;
 	optional uint32 appid = 17;
 }
@@ -249,17 +249,17 @@ message CChatRoomGroupHeaderState {
 	optional string tagline = 15;
 	optional bytes avatar_sha = 16;
 	optional uint64 default_role_id = 17;
-	repeated .CPlayer_FriendNicknameChanged_Notification roles = 18;
-	repeated UNKNOWN role_actions = 19;
+	repeated .CChatRole roles = 18;
+	repeated .CChatRoleActions role_actions = 19;
 	optional uint32 watching_broadcast_accountid = 20;
 }
 
 message CChatRoomGroupState {
 	optional .CChatRoomGroupHeaderState header_state = 1;
-	repeated UNKNOWN members = 2;
+	repeated .CChatRoomMember members = 2;
 	optional uint64 default_chat_id = 4;
-	repeated UNKNOWN chat_rooms = 5;
-	repeated UNKNOWN kicked = 7;
+	repeated .CChatRoomState chat_rooms = 5;
+	repeated .CChatRoomMember kicked = 7;
 }
 
 message CUserChatRoomGroupState {
@@ -284,7 +284,7 @@ message CUserChatRoomState {
 
 message CChatRoomSummaryPair {
 	optional .CUserChatRoomGroupState user_chat_group_state = 1;
-	optional UNKNOWN group_summary = 2;
+	optional .CChatRoom_GetChatRoomGroupSummary_Response group_summary = 2;
 }
 
 message CChatRoom_CreateChatRoom_Request {
@@ -348,7 +348,7 @@ message CChatRoom_JoinChatRoomGroup_Request {
 
 message CChatRoom_JoinChatRoomGroup_Response {
 	optional .CChatRoomGroupState state = 1;
-	optional UNKNOWN user_chat_state = 3;
+	optional .CUserChatRoomGroupState user_chat_state = 3;
 	optional uint64 join_chat_id = 4;
 	optional uint32 time_expire = 5;
 }
@@ -412,7 +412,7 @@ message CChatRoom_IncomingChatMessage_Notification {
 	optional uint32 timestamp = 5;
 	optional .CChatMentions mentions = 6;
 	optional uint32 ordinal = 7;
-	optional UNKNOWN server_message = 8;
+	optional .ServerMessage server_message = 8;
 	optional string message_no_bbcode = 9;
 }
 
@@ -448,13 +448,13 @@ message CChatRoom_GetMessageHistory_Response_ChatMessage {
 	optional uint32 server_timestamp = 2;
 	optional string message = 3;
 	optional uint32 ordinal = 4;
-	optional .CFriendsList_FavoritesChanged_Notification server_message = 5;
+	optional .ServerMessage server_message = 5;
 	optional bool deleted = 6;
 }
 
 message CChatRoom_MemberStateChange_Notification {
 	optional uint64 chat_group_id = 1;
-	optional .CMsgClientClanState_Event member = 2;
+	optional .CChatRoomMember member = 2;
 	optional int32 change = 3;
 }
 
@@ -490,7 +490,7 @@ message CChatRoom_GetInviteLinkInfo_Response {
 	optional uint32 time_expires = 4;
 	optional uint64 chat_id = 6;
 	optional .CChatRoom_GetChatRoomGroupSummary_Response group_summary = 8;
-	optional UNKNOWN user_chat_group_state = 9;
+	optional .CUserChatRoomGroupState user_chat_group_state = 9;
 	optional uint32 time_kick_expire = 10;
 	optional bool banned = 11;
 }
@@ -572,7 +572,7 @@ message CChatRoom_SetSessionActiveChatRoomGroups_Response {
 message CChatRoom_SetUserChatGroupPreferences_Request {
 	optional uint64 chat_group_id = 1;
 	optional .CChatRoom_SetUserChatGroupPreferences_Request_ChatGroupPreferences chat_group_preferences = 2;
-	repeated UNKNOWN chat_room_preferences = 3;
+	repeated .CChatRoom_SetUserChatGroupPreferences_Request_ChatRoomPreferences chat_room_preferences = 3;
 }
 
 message CChatRoom_SetUserChatGroupPreferences_Request_ChatGroupPreferences {
@@ -621,7 +621,7 @@ message CClanChatRooms_SetClanChatRoomPrivate_Response {
 message ChatRoomClient_NotifyChatGroupUserStateChanged_Notification {
 	optional uint64 chat_group_id = 1;
 	optional .CUserChatRoomGroupState user_chat_group_state = 2;
-	optional UNKNOWN group_summary = 3;
+	optional .CChatRoom_GetChatRoomGroupSummary_Response group_summary = 3;
 	optional int32 user_action = 4;
 }
 
@@ -635,9 +635,9 @@ message CChatUsability_ClientUsabilityMetrics_Notification {
 	optional uint32 metrics_version = 3;
 	optional bool in_web = 4;
 	optional .CChatUsability_ClientUsabilityMetrics_Notification_Settings settings = 10;
-	optional UNKNOWN voice_settings = 11;
-	optional UNKNOWN ui_state = 12;
-	optional UNKNOWN metrics = 13;
+	optional .CChatUsability_ClientUsabilityMetrics_Notification_VoiceSettings voice_settings = 11;
+	optional .CChatUsability_ClientUsabilityMetrics_Notification_UIState ui_state = 12;
+	optional .CChatUsability_ClientUsabilityMetrics_Notification_Metrics metrics = 13;
 }
 
 message CChatUsability_ClientUsabilityMetrics_Notification_Settings {
@@ -726,7 +726,7 @@ message CCommunity_GetApps_Request {
 }
 
 message CCommunity_GetApps_Response {
-	repeated UNKNOWN apps = 1;
+	repeated .CCDDBAppDetailCommon apps = 1;
 }
 
 message CCommunity_GetAppRichPresenceLocalization_Request {
@@ -736,7 +736,7 @@ message CCommunity_GetAppRichPresenceLocalization_Request {
 
 message CCommunity_GetAppRichPresenceLocalization_Response {
 	optional int32 appid = 1;
-	repeated .CFriendsList_GetFavorites_Request token_lists = 2;
+	repeated .CCommunity_GetAppRichPresenceLocalization_Response_TokenList token_lists = 2;
 }
 
 message CCommunity_GetAppRichPresenceLocalization_Response_Token {
@@ -746,11 +746,11 @@ message CCommunity_GetAppRichPresenceLocalization_Response_Token {
 
 message CCommunity_GetAppRichPresenceLocalization_Response_TokenList {
 	optional string language = 1;
-	repeated .CFriendsListFavoriteEntry tokens = 2;
+	repeated .CCommunity_GetAppRichPresenceLocalization_Response_Token tokens = 2;
 }
 
 message CProductImpressionsFromClient_Notification {
-	repeated .CClan_RespondToClanInvite_Response impressions = 1;
+	repeated .CProductImpressionsFromClient_Notification_Impression impressions = 1;
 }
 
 message CProductImpressionsFromClient_Notification_Impression {
@@ -831,7 +831,7 @@ message CVoiceChat_UserVoiceStatus_Notification {
 
 message CVoiceChat_AllMembersStatus_Notification {
 	optional fixed64 voice_chatid = 1;
-	repeated .CPlayer_GetPerFriendPreferences_Request users = 2;
+	repeated .CVoiceChat_UserVoiceStatus_Notification users = 2;
 }
 
 message CVoiceChat_UpdateVoiceChatWebRTCData_Request {
@@ -897,7 +897,7 @@ message CWebRTC_WebRTCSessionConnected_Notification {
 message CWebRTC_WebRTCUpdateRemoteDescription_Notification {
 	optional string remote_description = 1;
 	optional uint64 remote_description_version = 2;
-	repeated .CFriendsList_GetFavorites_Request ssrcs_to_accountids = 3;
+	repeated .CWebRTC_WebRTCUpdateRemoteDescription_Notification_CSSRCToAccountIDMapping ssrcs_to_accountids = 3;
 }
 
 message CWebRTC_WebRTCUpdateRemoteDescription_Notification_CSSRCToAccountIDMapping {
@@ -957,37 +957,37 @@ message CFriendsList_GetFriendsList_Request {
 }
 
 message CFriendsList_GetFriendsList_Response {
-	optional UNKNOWN friendslist = 1;
+	optional .CMsgClientFriendsList friendslist = 1;
 }
 
 message NotImplemented {
 }
 
 service Chat {
-	rpc RequestFriendPersonaStates (.CFriendsList_SetFavorites_Request) returns (.CFriendsList_SetFavorites_Response);
+	rpc RequestFriendPersonaStates (.CChat_RequestFriendPersonaStates_Request) returns (.CChat_RequestFriendPersonaStates_Response);
 }
 
 service ChatRoom {
-	rpc CreateChatRoomGroup (.CFriendsList_GetFriendsList_Request) returns (.CFriendsList_GetFriendsList_Response);
-	rpc SaveChatRoomGroup (.CPlayer_SetPerFriendPreferences_Request) returns (.CPlayer_SetPerFriendPreferences_Response);
-	rpc RenameChatRoomGroup (.CPlayer_GetPerFriendPreferences_Request) returns (.CPlayer_GetPerFriendPreferences_Response);
-	rpc SetChatRoomGroupTagline (.CPlayer_AddFriend_Request) returns (.CPlayer_AddFriend_Response);
-	rpc SetChatRoomGroupAvatar (.CPlayer_RemoveFriend_Request) returns (.CPlayer_RemoveFriend_Response);
-	rpc SetChatRoomGroupWatchingBroadcast (.CPlayer_IgnoreFriend_Request) returns (.CPlayer_IgnoreFriend_Response);
-	rpc MuteUserInGroup (.CPlayer_GetCommunityPreferences_Request) returns (.CPlayer_GetCommunityPreferences_Request);
-	rpc KickUserFromGroup (.CPlayer_SetCommunityPreferences_Request) returns (.CPlayer_SetCommunityPreferences_Request);
-	rpc SetUserBanState (.CChatRoom_SetUserBanState_Request) returns (.CPlayer_GetNewSteamAnnouncementState_Response);
-	rpc RevokeInviteToGroup (.CPlayer_LastPlayedTimes_Notification) returns (.CPlayer_LastPlayedTimes_Notification);
-	rpc CreateRole (.CPlayer_PerFriendPreferencesChanged_Notification) returns (.CPlayer_PerFriendPreferencesChanged_Notification);
-	rpc GetRoles (.CMsgClientPICSChangesSinceResponse_PackageChange) returns (.CMsgClientPICSChangesSinceResponse_PackageChange);
-	rpc RenameRole (.CMsgClientPICSProductInfoRequest_AppInfo) returns (.CMsgClientPICSProductInfoRequest_AppInfo);
-	rpc ReorderRole (.CMsgClientPICSProductInfoResponse_AppInfo) returns (.CMsgClientPICSProductInfoResponse_AppInfo);
-	rpc DeleteRole (.CMsgClientPICSAccessTokenResponse_PackageToken) returns (.CMsgClientPICSAccessTokenResponse_PackageToken);
-	rpc GetRoleActions (.CMsgClientPICSAccessTokenResponse_AppToken) returns (.CMsgClientPICSAccessTokenResponse_AppToken);
-	rpc ReplaceRoleActions (.CMsgClientAMGetPersonaNameHistory_IdInstance) returns (.CMsgClientAMGetPersonaNameHistory_IdInstance);
-	rpc AddRoleToUser (.CMsgClientAMGetPersonaNameHistoryResponse_NameTableInstance) returns (.CMsgClientAMGetPersonaNameHistoryResponse_NameTableInstance);
-	rpc GetRolesForUser (.CMsgClientAMGetPersonaNameHistoryResponse_NameTableInstance_NameInstance) returns (.CMsgClientAMGetPersonaNameHistoryResponse_NameTableInstance_NameInstance);
-	rpc DeleteRoleFromUser (.CMsgClientClanState_NameInfo) returns (.CMsgClientClanState_NameInfo);
+	rpc CreateChatRoomGroup (.CChatRoom_CreateChatRoomGroup_Request) returns (.CChatRoom_CreateChatRoomGroup_Response);
+	rpc SaveChatRoomGroup (.CChatRoom_SaveChatRoomGroup_Request) returns (.CChatRoom_SaveChatRoomGroup_Response);
+	rpc RenameChatRoomGroup (.CChatRoom_RenameChatRoomGroup_Request) returns (.CChatRoom_RenameChatRoomGroup_Response);
+	rpc SetChatRoomGroupTagline (.CChatRoom_SetChatRoomGroupTagline_Request) returns (.CChatRoom_SetChatRoomGroupTagline_Response);
+	rpc SetChatRoomGroupAvatar (.CChatRoom_SetChatRoomGroupAvatar_Request) returns (.CChatRoom_SetChatRoomGroupAvatar_Response);
+	rpc SetChatRoomGroupWatchingBroadcast (.CChatRoom_SetChatRoomGroupWatchingBroadcast_Request) returns (.CChatRoom_SetChatRoomGroupWatchingBroadcast_Response);
+	rpc MuteUserInGroup (.CChatRoom_MuteUser_Request) returns (.CChatRoom_MuteUser_Response);
+	rpc KickUserFromGroup (.CChatRoom_KickUser_Request) returns (.CChatRoom_KickUser_Response);
+	rpc SetUserBanState (.CChatRoom_SetUserBanState_Request) returns (.CChatRoom_SetUserBanState_Response);
+	rpc RevokeInviteToGroup (.CChatRoom_RevokeInvite_Request) returns (.CChatRoom_RevokeInvite_Response);
+	rpc CreateRole (.CChatRoom_CreateRole_Request) returns (.CChatRoom_CreateRole_Response);
+	rpc GetRoles (.NotImplemented) returns (.CChatRoom_GetRoles_Response);
+	rpc RenameRole (.CChatRoom_RenameRole_Request) returns (.CChatRoom_RenameRole_Response);
+	rpc ReorderRole (.CChatRoom_ReorderRole_Request) returns (.CChatRoom_ReorderRole_Response);
+	rpc DeleteRole (.CChatRoom_DeleteRole_Request) returns (.CChatRoom_DeleteRole_Response);
+	rpc GetRoleActions (.NotImplemented) returns (.CChatRoom_GetRoleActions_Response);
+	rpc ReplaceRoleActions (.CChatRoom_ReplaceRoleActions_Request) returns (.CChatRoom_ReplaceRoleActions_Response);
+	rpc AddRoleToUser (.CChatRoom_AddRoleToUser_Request) returns (.CChatRoom_AddRoleToUser_Response);
+	rpc GetRolesForUser (.NotImplemented) returns (.CChatRoom_GetRolesForUser_Response);
+	rpc DeleteRoleFromUser (.CChatRoom_DeleteRoleFromUser_Request) returns (.CChatRoom_DeleteRoleFromUser_Response);
 	rpc JoinChatRoomGroup (.CChatRoom_JoinChatRoomGroup_Request) returns (.CChatRoom_JoinChatRoomGroup_Response);
 	rpc InviteFriendToChatRoomGroup (.CChatRoom_InviteFriendToChatRoomGroup_Request) returns (.CChatRoom_InviteFriendToChatRoomGroup_Response);
 	rpc LeaveChatRoomGroup (.CChatRoom_LeaveChatRoomGroup_Request) returns (.CChatRoom_LeaveChatRoomGroup_Response);
@@ -1024,7 +1024,7 @@ service ChatRoomClient {
 	rpc NotifyIncomingChatMessage (.CChatRoom_IncomingChatMessage_Notification) returns (.NoResponse);
 	rpc NotifyChatMessageModified (.CChatRoom_ChatMessageModified_Notification) returns (.NoResponse);
 	rpc NotifyMemberStateChange (.CChatRoom_MemberStateChange_Notification) returns (.NoResponse);
-	rpc NotifyChatRoomHeaderStateChange (.CMsgClientClanState_UserCounts) returns (.NoResponse);
+	rpc NotifyChatRoomHeaderStateChange (.CChatRoom_ChatRoomHeaderState_Notification) returns (.NoResponse);
 	rpc NotifyChatRoomGroupRoomsChange (.CChatRoom_ChatRoomGroupRoomsChange_Notification) returns (.NoResponse);
 	rpc NotifyShouldRejoinChatRoomVoiceChat (.CChatRoom_NotifyShouldRejoinChatRoomVoiceChat_Notification) returns (.NoResponse);
 	rpc NotifyChatGroupUserStateChanged (.ChatRoomClient_NotifyChatGroupUserStateChanged_Notification) returns (.NoResponse);
@@ -1040,8 +1040,8 @@ service ChatUsabilityClient {
 }
 
 service Community {
-	rpc GetApps (.CFriendsListCategory) returns (.CFriendsListCategory);
-	rpc GetAppRichPresenceLocalization (.CFriendsList_GetCategories_Request) returns (.CFriendsList_GetCategories_Response);
+	rpc GetApps (.CCommunity_GetApps_Request) returns (.CCommunity_GetApps_Response);
+	rpc GetAppRichPresenceLocalization (.CCommunity_GetAppRichPresenceLocalization_Request) returns (.CCommunity_GetAppRichPresenceLocalization_Response);
 }
 
 service ExperimentService {
@@ -1053,34 +1053,34 @@ service Clan {
 }
 
 service VoiceChat {
-	rpc UpdateVoiceChatWebRTCData (.CPlayer_SetPerFriendPreferences_Request) returns (.CPlayer_SetPerFriendPreferences_Response);
+	rpc UpdateVoiceChatWebRTCData (.CVoiceChat_UpdateVoiceChatWebRTCData_Request) returns (.CVoiceChat_UpdateVoiceChatWebRTCData_Response);
 	rpc NotifyUserVoiceStatus (.CVoiceChat_UserVoiceStatus_Notification) returns (.NoResponse);
-	rpc UploadClientVoiceChatLogs (.CPlayer_AddFriend_Request) returns (.CPlayer_AddFriend_Response);
-	rpc LeaveVoiceChat (.CPlayer_RemoveFriend_Request) returns (.CPlayer_RemoveFriend_Request);
-	rpc RequestOneOnOneChat (.CFriendsList_GetCategories_Request) returns (.CFriendsList_GetCategories_Request);
-	rpc AnswerOneOnOneChat (.CFriendsList_GetFavorites_Request) returns (.CFriendsList_GetFavorites_Request);
-	rpc EndOneOnOneChat (.CFriendsList_SetFavorites_Request) returns (.CFriendsList_SetFavorites_Response);
-	rpc LeaveOneOnOneChat (.CFriendsList_GetFriendsList_Request) returns (.CFriendsList_GetFriendsList_Request);
+	rpc UploadClientVoiceChatLogs (.CVoiceChat_UploadClientVoiceChatLogs_Request) returns (.CVoiceChat_UploadClientVoiceChatLogs_Response);
+	rpc LeaveVoiceChat (.NotImplemented) returns (.CVoiceChat_LeaveVoiceChat_Response);
+	rpc RequestOneOnOneChat (.CVoiceChat_RequestOneOnOneChat_Request) returns (.CVoiceChat_RequestOneOnOneChat_Response);
+	rpc AnswerOneOnOneChat (.CVoiceChat_AnswerOneOnOneChat_Request) returns (.CVoiceChat_AnswerOneOnOneChat_Response);
+	rpc EndOneOnOneChat (.CVoiceChat_EndOneOnOneChat_Request) returns (.CVoiceChat_EndOneOnOneChat_Response);
+	rpc LeaveOneOnOneChat (.CVoiceChat_LeaveOneOnOneChat_Request) returns (.CVoiceChat_LeaveOneOnOneChat_Response);
 }
 
 service VoiceChatClient {
-	rpc NotifyUserJoinedVoiceChat (.CFriendsList_GetFriendsList_Response) returns (.NoResponse);
-	rpc NotifyUserLeftVoiceChat (.CPlayer_RemoveFriend_Response) returns (.NoResponse);
-	rpc NotifyVoiceChatEnded (.CPlayer_IgnoreFriend_Request) returns (.NoResponse);
-	rpc NotifyUserVoiceStatus (.CPlayer_GetPerFriendPreferences_Request) returns (.NoResponse);
-	rpc NotifyAllUsersVoiceStatus (.CPlayer_GetPerFriendPreferences_Response) returns (.NoResponse);
-	rpc NotifyOneOnOneChatRequested (.CFriendsList_GetCategories_Response) returns (.NoResponse);
-	rpc NotifyOneOnOneChatResponse (.CFriendsList_GetFavorites_Response) returns (.NoResponse);
+	rpc NotifyUserJoinedVoiceChat (.CVoiceChat_UserJoinedVoiceChat_Notification) returns (.NoResponse);
+	rpc NotifyUserLeftVoiceChat (.CVoiceChat_UserLeftVoiceChat_Notification) returns (.NoResponse);
+	rpc NotifyVoiceChatEnded (.CVoiceChat_VoiceChatEnded_Notification) returns (.NoResponse);
+	rpc NotifyUserVoiceStatus (.CVoiceChat_UserVoiceStatus_Notification) returns (.NoResponse);
+	rpc NotifyAllUsersVoiceStatus (.CVoiceChat_AllMembersStatus_Notification) returns (.NoResponse);
+	rpc NotifyOneOnOneChatRequested (.CVoiceChat_OneOnOneChatRequested_Notification) returns (.NoResponse);
+	rpc NotifyOneOnOneChatResponse (.CVoiceChat_OneOnOneChatRequestResponse_Notification) returns (.NoResponse);
 }
 
 service WebRTCClient {
-	rpc InitiateWebRTCConnection (.CFriendsList_GetCategories_Request) returns (.CFriendsList_GetCategories_Request);
-	rpc AcknowledgeUpdatedRemoteDescription (.CFriendsList_SetFavorites_Request) returns (.CFriendsList_SetFavorites_Request);
+	rpc InitiateWebRTCConnection (.CWebRTCClient_InitiateWebRTCConnection_Request) returns (.CWebRTCClient_InitiateWebRTCConnection_Response);
+	rpc AcknowledgeUpdatedRemoteDescription (.CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Request) returns (.CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Response);
 }
 
 service WebRTCClientNotifications {
-	rpc NotifyWebRTCSessionConnected (.CFriendsList_GetCategories_Response) returns (.NoResponse);
-	rpc NotifyWebRTCUpdateRemoteDescription (.CFriendsListFavoriteEntry) returns (.NoResponse);
+	rpc NotifyWebRTCSessionConnected (.CWebRTC_WebRTCSessionConnected_Notification) returns (.NoResponse);
+	rpc NotifyWebRTCUpdateRemoteDescription (.CWebRTC_WebRTCUpdateRemoteDescription_Notification) returns (.NoResponse);
 }
 
 service FriendsList {
