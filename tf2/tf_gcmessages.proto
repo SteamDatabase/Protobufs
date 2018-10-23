@@ -1450,6 +1450,7 @@ message CMsgGCMatchMakerStatsResponse {
 }
 
 message CMsgGCMatchHistoryLoad {
+	optional .ETFMatchGroup match_group = 1 [default = k_eTFMatchGroup_Invalid];
 }
 
 message CMsgGCDataCenterPing_Update {
