@@ -17,6 +17,7 @@ enum EDCGGameMessages {
 	k_EMsgGameClientToServerGiveOpponentTime = 11;
 	k_EMsgGameServerToClientInitialGameState = 12;
 	k_EMsgGameServerToClientGameCompleted = 13;
+	k_EMsgGameClientToServerBoardGameStateAck = 14;
 	k_EMsgTutorialEvent = 1000;
 }
 
@@ -93,6 +94,7 @@ message CMsgGameBoardGameState {
 	optional bytes payload = 3;
 	optional uint32 unpacked_state_size = 4;
 	optional uint32 network_group = 5;
+	optional uint32 server_time_ms = 6;
 }
 
 message CMsgGameBoardGameButton {
@@ -169,6 +171,10 @@ message CMsgGameServerToClientChatMsg {
 }
 
 message CMsgGameServerToClientGameCompleted {
+}
+
+message CMsgGameClientToServerBoardGameStateAck {
+	optional uint32 server_time_ms = 1;
 }
 
 message CMsgGameClientToServerPauseTimer {

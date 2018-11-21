@@ -781,7 +781,7 @@ message CMsgClientToGCInitialGrantAck {
 
 message CMsgClientToGCRecycleCards {
 	repeated uint64 item_ids = 1;
-	optional uint32 expected_exchange_rate = 2;
+	optional uint32 recycle_offer_version = 2;
 }
 
 message CMsgClientToGCRecycleCardsResponse {
@@ -794,13 +794,15 @@ message CMsgClientToGCRecycleCardsResponse {
 		k_eInternalError = 0;
 		k_eSuccess = 1;
 		k_eMissingItems = 2;
-		k_eIncorrectRate = 3;
+		k_eIncorrectVersion = 3;
 		k_eDisabled = 4;
 		k_eInvalidItem = 5;
+		k_eTooManyItems = 6;
 	}
 
 	optional .CMsgClientToGCRecycleCardsResponse.EResponse result = 1 [default = k_eInternalError];
 	repeated .CMsgClientToGCRecycleCardsResponse.GrantedItem granted_items = 2;
+	optional uint32 resulting_points = 3;
 }
 
 message CMsgClientToGCReplacementSDRTicketResponse {
