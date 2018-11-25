@@ -294,7 +294,7 @@ message CMsgTFWorldStatus {
 }
 
 message CSOTFDuelSummary {
-	optional uint32 account_id = 1 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional uint32 account_id = 1 [(key_field) = true];
 	optional uint32 duel_wins = 2;
 	optional uint32 duel_losses = 3;
 	optional uint32 last_duel_account_id = 4;
@@ -303,8 +303,8 @@ message CSOTFDuelSummary {
 }
 
 message CSOTFMapContribution {
-	optional uint32 account_id = 1 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
-	optional uint32 def_index = 2 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional uint32 account_id = 1 [(key_field) = true];
+	optional uint32 def_index = 2 [(key_field) = true];
 	optional uint32 contribution_level = 3;
 }
 
@@ -750,7 +750,7 @@ message CSOTFParty {
 		optional fixed32 queued_time = 2;
 	}
 
-	optional uint64 party_id = 1 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional uint64 party_id = 1 [(key_field) = true];
 	optional fixed64 leader_id = 2;
 	repeated fixed64 member_ids = 3;
 	repeated .CSOTFPartyMember members = 13;
@@ -776,7 +776,7 @@ message CSOTFPartyInvite {
 		PENDING_JOIN_REQUEST = 2;
 	}
 
-	optional uint64 group_id = 1 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional uint64 group_id = 1 [(key_field) = true];
 	optional fixed64 inviter = 2;
 	repeated .CSOTFPartyInvite.PartyMember members = 4;
 	optional .CSOTFPartyInvite.Type type = 5 [default = PENDING_INVITE];
@@ -798,7 +798,7 @@ message CTFLobbyPlayerProto {
 		OBSERVING_PLAYER = 3;
 	}
 
-	optional fixed64 id = 1 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional fixed64 id = 1 [(key_field) = true];
 	optional .TF_GC_TEAM team = 3 [default = TF_GC_TEAM_DEFENDERS];
 	optional .CTFLobbyPlayerProto.ConnectState connect_state = 13 [default = INVALID];
 	optional string name = 6;
@@ -813,7 +813,7 @@ message CTFLobbyPlayerProto {
 }
 
 message CTFLobbyInviteProto {
-	optional fixed64 lobby_id = 1 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional fixed64 lobby_id = 1 [(key_field) = true];
 	optional .ETFMatchGroup match_group = 2 [default = k_eTFMatchGroup_Invalid];
 }
 
@@ -830,7 +830,7 @@ message CSOTFGameServerLobby {
 		INVADERS_ARE_HEAVY = 2;
 	}
 
-	optional uint64 lobby_id = 1 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional uint64 lobby_id = 1 [(key_field) = true];
 	repeated .CTFLobbyPlayerProto members = 2;
 	optional fixed64 server_id = 6 [default = 0];
 	optional .CSOTFGameServerLobby.State state = 4 [default = UNKNOWN];
@@ -1129,8 +1129,8 @@ message CMsgSetItemSlotAttribute {
 }
 
 message CSOWarData {
-	optional uint32 account_id = 1 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
-	optional uint32 war_id = 2 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional uint32 account_id = 1 [(key_field) = true];
+	optional uint32 war_id = 2 [(key_field) = true];
 	optional uint32 affiliation = 3;
 	optional uint32 points_scored = 4;
 }
@@ -1206,11 +1206,11 @@ message CMsgTFXPSource {
 		SOURCE_PRESTIGE_BONUS = 7;
 	}
 
-	optional .CMsgTFXPSource.XPSourceType type = 1 [default = SOURCE_SCORE, (editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional .CMsgTFXPSource.XPSourceType type = 1 [default = SOURCE_SCORE, (key_field) = true];
 	optional int32 amount = 2;
 	optional int32 match_group = 3;
-	optional uint32 account_id = 4 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
-	optional uint64 match_id = 5 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional uint32 account_id = 4 [(key_field) = true];
+	optional uint64 match_id = 5 [(key_field) = true];
 }
 
 message CMsgTFXPSourceBreakdown {
@@ -1232,7 +1232,7 @@ message CMsgGCNotification {
 		NOTIFICATION_NUM_TYPES = 5;
 	}
 
-	optional uint64 notification_id = 1 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional uint64 notification_id = 1 [(key_field) = true];
 	optional uint32 account_id = 2;
 	optional fixed32 expiration_time = 3;
 	optional .CMsgGCNotification.NotificationType type = 4 [default = NOTIFICATION_CUSTOM_STRING];
@@ -1287,7 +1287,7 @@ message CMsgGC_Match_Result {
 		MATCH_FINISHED_ABANDON = 7;
 	}
 
-	optional uint64 match_id = 1 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional uint64 match_id = 1 [(key_field) = true];
 	optional int32 match_group = 2;
 	optional .CMsgGC_Match_Result.Status status = 3 [default = MATCH_SUCCEEDED];
 	optional uint32 duration = 4;
@@ -1321,9 +1321,9 @@ message CMsgGC_Client2GCEconPreviewDataBlockResponse {
 }
 
 message CSOTFLadderPlayerStats {
-	optional uint32 account_id = 1 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
-	optional int32 match_group = 2 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
-	optional uint32 season_id = 3 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional uint32 account_id = 1 [(key_field) = true];
+	optional int32 match_group = 2 [(key_field) = true];
+	optional uint32 season_id = 3 [(key_field) = true];
 	optional uint32 games = 9;
 	optional uint32 score = 10;
 	optional uint32 kills = 11;
@@ -1349,8 +1349,8 @@ message CSOTFLadderPlayerStats {
 }
 
 message CSOTFRatingData {
-	optional uint32 account_id = 1 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
-	optional int32 rating_type = 2 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional uint32 account_id = 1 [(key_field) = true];
+	optional int32 rating_type = 2 [(key_field) = true];
 	optional uint32 rating_primary = 3;
 	optional uint32 rating_secondary = 4;
 	optional uint32 rating_tertiary = 5;
@@ -1403,9 +1403,9 @@ message CMsgGC_ReportPlayer {
 }
 
 message CSOTFMatchResultPlayerStats {
-	optional uint64 match_id = 1 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
-	optional uint32 account_id = 2 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
-	optional int32 match_group = 3 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional uint64 match_id = 1 [(key_field) = true];
+	optional uint32 account_id = 2 [(key_field) = true];
+	optional int32 match_group = 3 [(key_field) = true];
 	optional uint32 endtime = 4;
 	optional uint32 season_id = 5;
 	optional uint32 status = 6;
@@ -1486,8 +1486,8 @@ message CMsgGCSurveyResponse {
 }
 
 message CSOQuestMapNode {
-	optional uint32 account_id = 1 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
-	optional uint32 defindex = 3 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional uint32 account_id = 1 [(key_field) = true];
+	optional uint32 defindex = 3 [(key_field) = true];
 	optional uint32 node_id = 4;
 	optional bool star_0_earned = 6 [default = false];
 	optional bool star_1_earned = 7 [default = false];
@@ -1499,7 +1499,7 @@ message CSOQuestMapNode {
 
 message CSOQuest {
 	optional uint32 account_id = 1;
-	optional uint64 quest_id = 2 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional uint64 quest_id = 2 [(key_field) = true];
 	optional uint32 defindex = 3;
 	optional bool active = 4 [default = false];
 	optional uint32 points_0 = 5;
@@ -1511,7 +1511,7 @@ message CSOQuest {
 
 message CSOQuestMapRewardPurchase {
 	optional uint32 account_id = 1;
-	optional uint32 defindex = 2 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional uint32 defindex = 2 [(key_field) = true];
 	optional uint32 count = 3;
 	optional uint32 map_cycle = 4;
 	optional uint32 purchase_id = 5;

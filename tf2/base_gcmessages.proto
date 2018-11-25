@@ -342,9 +342,9 @@ message CMsgSetItemPositions {
 }
 
 message CSOEconItemPresetInstance {
-	optional uint32 class_id = 2 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
-	optional uint32 preset_id = 3 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
-	optional uint32 slot_id = 4 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional uint32 class_id = 2 [(key_field) = true];
+	optional uint32 preset_id = 3 [(key_field) = true];
+	optional uint32 slot_id = 4 [(key_field) = true];
 	optional uint64 item_id = 5;
 }
 
@@ -399,7 +399,7 @@ message CMsgUpdatePeriodicEvent {
 }
 
 message CMsgGCIncrementKillCountResponse {
-	optional uint32 killer_account_id = 1 [(editable) = false, (allow_add) = false, (allow_delete) = false, (key_field) = true];
+	optional uint32 killer_account_id = 1 [(key_field) = true];
 	optional uint32 num_kills = 2;
 	optional uint32 item_def = 3;
 	optional uint32 level_type = 4;
