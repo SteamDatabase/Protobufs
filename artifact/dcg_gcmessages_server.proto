@@ -62,6 +62,8 @@ message CMsgServerCrashSentinelFile {
 	optional uint32 saved_time = 7;
 	optional uint32 server_version = 8;
 	optional .CMsgServerCrashSentinelFile.DCGGameInfo dcg_info = 9;
+	optional uint32 server_private_ip_addr = 10;
+	optional uint32 instance_id = 11;
 }
 
 message CServerLobbyData_CardAchievements {
@@ -296,6 +298,9 @@ message CMsgServerToGCAbandonMatch {
 	optional fixed32 public_ip_address = 9;
 	optional uint32 port = 10;
 	optional uint32 server_version = 11;
+	optional uint32 pid = 12;
+	optional uint32 instance_id = 13;
+	optional uint32 private_ip_address = 14;
 }
 
 message CMsgServerToGCAbandonMatchResponse {
