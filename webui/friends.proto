@@ -1,13 +1,11 @@
 import "steammessages_unified_base.steamclient.proto";
-import "steammessages_base.proto";
-import "steammessages_clientserver_friends.proto";
 
 message CCommunity_GetApps_Request {
 	repeated int32 appids = 1;
 }
 
 message CCommunity_GetApps_Response {
-	repeated .CCDDBAppDetailCommon apps = 1;
+	repeated UNKNOWN2 apps = 1;
 }
 
 message CCommunity_GetAppRichPresenceLocalization_Request {
@@ -30,22 +28,42 @@ message CCommunity_GetAppRichPresenceLocalization_Response_TokenList {
 	repeated .CCommunity_GetAppRichPresenceLocalization_Response_Token tokens = 2;
 }
 
-message CProductImpressionsFromClient_Notification {
-	repeated .CProductImpressionsFromClient_Notification_Impression impressions = 1;
+message CWebRTCClient_InitiateWebRTCConnection_Request {
+	optional string sdp = 1;
 }
 
-message CProductImpressionsFromClient_Notification_Impression {
-	optional int32 type = 1;
-	optional uint32 appid = 2;
-	optional uint32 num_impressions = 3;
+message CWebRTCClient_InitiateWebRTCConnection_Response {
+	optional string remote_description = 1;
 }
 
-message CClan_RespondToClanInvite_Request {
-	optional fixed64 steamid = 1;
-	optional bool accept = 2;
+message CWebRTC_WebRTCSessionConnected_Notification {
+	optional uint32 ssrc = 1;
+	optional uint32 client_ip = 2;
+	optional uint32 client_port = 3;
+	optional uint32 server_ip = 4;
+	optional uint32 server_port = 5;
 }
 
-message CClan_RespondToClanInvite_Response {
+message CWebRTC_WebRTCUpdateRemoteDescription_Notification {
+	optional string remote_description = 1;
+	optional uint64 remote_description_version = 2;
+	repeated .CWebRTC_WebRTCUpdateRemoteDescription_Notification_CSSRCToAccountIDMapping ssrcs_to_accountids = 3;
+}
+
+message CWebRTC_WebRTCUpdateRemoteDescription_Notification_CSSRCToAccountIDMapping {
+	optional uint32 ssrc = 1;
+	optional uint32 accountid = 2;
+}
+
+message CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Request {
+	optional uint32 ip_webrtc_server = 1;
+	optional uint32 port_webrtc_server = 2;
+	optional uint32 ip_webrtc_session_client = 3;
+	optional uint32 port_webrtc_session_client = 4;
+	optional uint64 remote_description_version = 5;
+}
+
+message CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Response {
 }
 
 message CVoiceChat_RequestOneOnOneChat_Request {
@@ -159,44 +177,6 @@ message CVoiceChat_VoiceChatEnded_Notification {
 	optional uint64 chat_group_id = 5;
 }
 
-message CWebRTCClient_InitiateWebRTCConnection_Request {
-	optional string sdp = 1;
-}
-
-message CWebRTCClient_InitiateWebRTCConnection_Response {
-	optional string remote_description = 1;
-}
-
-message CWebRTC_WebRTCSessionConnected_Notification {
-	optional uint32 ssrc = 1;
-	optional uint32 client_ip = 2;
-	optional uint32 client_port = 3;
-	optional uint32 server_ip = 4;
-	optional uint32 server_port = 5;
-}
-
-message CWebRTC_WebRTCUpdateRemoteDescription_Notification {
-	optional string remote_description = 1;
-	optional uint64 remote_description_version = 2;
-	repeated .CWebRTC_WebRTCUpdateRemoteDescription_Notification_CSSRCToAccountIDMapping ssrcs_to_accountids = 3;
-}
-
-message CWebRTC_WebRTCUpdateRemoteDescription_Notification_CSSRCToAccountIDMapping {
-	optional uint32 ssrc = 1;
-	optional uint32 accountid = 2;
-}
-
-message CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Request {
-	optional uint32 ip_webrtc_server = 1;
-	optional uint32 port_webrtc_server = 2;
-	optional uint32 ip_webrtc_session_client = 3;
-	optional uint32 port_webrtc_session_client = 4;
-	optional uint64 remote_description_version = 5;
-}
-
-message CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Response {
-}
-
 message CFriendsListCategory {
 	optional uint32 groupid = 1;
 	optional string name = 2;
@@ -238,7 +218,41 @@ message CFriendsList_GetFriendsList_Request {
 }
 
 message CFriendsList_GetFriendsList_Response {
-	optional .CMsgClientFriendsList friendslist = 1;
+	optional UNKNOWN2 friendslist = 1;
+}
+
+message CClan_RespondToClanInvite_Request {
+	optional fixed64 steamid = 1;
+	optional bool accept = 2;
+}
+
+message CClan_RespondToClanInvite_Response {
+}
+
+message CBroadcast_SetRTMPInfo_Response {
+}
+
+message CBroadcast_GetRTMPInfo_Response {
+	optional int32 broadcast_permission = 1;
+	optional string rtmp_host = 2;
+	optional string rtmp_token = 3;
+	optional int32 broadcast_delay = 4;
+	optional uint32 app_id = 5;
+	optional uint32 required_app_id = 6;
+	optional int32 broadcast_chat_permission = 7;
+	optional int32 broadcast_buffer = 8;
+	optional fixed64 steamid = 9;
+	optional uint32 chat_rate_limit = 10;
+}
+
+message CProductImpressionsFromClient_Notification {
+	repeated .CProductImpressionsFromClient_Notification_Impression impressions = 1;
+}
+
+message CProductImpressionsFromClient_Notification_Impression {
+	optional int32 type = 1;
+	optional uint32 appid = 2;
+	optional uint32 num_impressions = 3;
 }
 
 message NotImplemented {
@@ -249,12 +263,14 @@ service Community {
 	rpc GetAppRichPresenceLocalization (.CCommunity_GetAppRichPresenceLocalization_Request) returns (.CCommunity_GetAppRichPresenceLocalization_Response);
 }
 
-service ExperimentService {
-	rpc ReportProductImpressionsFromClient (.NotImplemented) returns (.NoResponse);
+service WebRTCClient {
+	rpc InitiateWebRTCConnection (.CWebRTCClient_InitiateWebRTCConnection_Request) returns (.CWebRTCClient_InitiateWebRTCConnection_Response);
+	rpc AcknowledgeUpdatedRemoteDescription (.CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Request) returns (.CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Response);
 }
 
-service Clan {
-	rpc RespondToClanInvite (.CClan_RespondToClanInvite_Request) returns (.CClan_RespondToClanInvite_Response);
+service WebRTCClientNotifications {
+	rpc NotifyWebRTCSessionConnected (.CWebRTC_WebRTCSessionConnected_Notification) returns (.NoResponse);
+	rpc NotifyWebRTCUpdateRemoteDescription (.CWebRTC_WebRTCUpdateRemoteDescription_Notification) returns (.NoResponse);
 }
 
 service VoiceChat {
@@ -278,16 +294,6 @@ service VoiceChatClient {
 	rpc NotifyOneOnOneChatResponse (.CVoiceChat_OneOnOneChatRequestResponse_Notification) returns (.NoResponse);
 }
 
-service WebRTCClient {
-	rpc InitiateWebRTCConnection (.CWebRTCClient_InitiateWebRTCConnection_Request) returns (.CWebRTCClient_InitiateWebRTCConnection_Response);
-	rpc AcknowledgeUpdatedRemoteDescription (.CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Request) returns (.CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Response);
-}
-
-service WebRTCClientNotifications {
-	rpc NotifyWebRTCSessionConnected (.CWebRTC_WebRTCSessionConnected_Notification) returns (.NoResponse);
-	rpc NotifyWebRTCUpdateRemoteDescription (.CWebRTC_WebRTCUpdateRemoteDescription_Notification) returns (.NoResponse);
-}
-
 service FriendsList {
 	rpc GetCategories (.CFriendsList_GetCategories_Request) returns (.CFriendsList_GetCategories_Response);
 	rpc GetFriendsList (.CFriendsList_GetFriendsList_Request) returns (.CFriendsList_GetFriendsList_Response);
@@ -297,5 +303,13 @@ service FriendsList {
 
 service FriendsListClient {
 	rpc FavoritesChanged (.CFriendsList_FavoritesChanged_Notification) returns (.NoResponse);
+}
+
+service Clan {
+	rpc RespondToClanInvite (.CClan_RespondToClanInvite_Request) returns (.CClan_RespondToClanInvite_Response);
+}
+
+service ExperimentService {
+	rpc ReportProductImpressionsFromClient (.NotImplemented) returns (.NoResponse);
 }
 
