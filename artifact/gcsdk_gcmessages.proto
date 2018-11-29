@@ -107,6 +107,10 @@ message CMsgGCMultiplexMessage {
 	repeated fixed64 steamids = 3;
 }
 
+message CMsgGCToGCSubGCStarting {
+	optional uint32 dir_index = 1;
+}
+
 message CGCToGCMsgMasterAck {
 	message Process {
 		optional uint32 dir_index = 1;
