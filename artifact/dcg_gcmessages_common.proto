@@ -81,12 +81,18 @@ message CExtraMsgBlock {
 }
 
 message CSODCGLobby {
+	message GauntletInfo {
+		optional uint32 wins = 1;
+		optional uint32 losses = 2;
+	}
+
 	message Member {
 		optional uint32 account_id = 1;
 		optional string persona_name = 2;
 		optional .EDCGLobbyTeam team = 3 [default = k_EDCGLobbyTeam_Team0];
 		optional bool has_left = 4;
 		optional bool is_anonymous = 5;
+		optional .CSODCGLobby.GauntletInfo gauntlet_info = 6;
 	}
 
 	repeated .CSODCGLobby.Member members = 1;
@@ -137,6 +143,7 @@ message CSOGauntlet {
 	optional uint32 wins = 12;
 	optional uint32 losses = 13;
 	optional uint64 wins_mask = 14;
+	optional bool select_random_deck = 15;
 }
 
 message CSOPhantomItem {
@@ -180,6 +187,7 @@ message CSOTourneyMembership {
 	optional uint32 player_status = 3;
 	optional .CSOTourneyMembership.EStatus tourney_status = 4 [default = k_eConfigure];
 	optional uint32 joined_time = 5;
+	optional uint32 open_tourney = 6;
 }
 
 message CSOTourneyInvite {
@@ -229,6 +237,7 @@ message CMsgDeckValidator {
 	message Deck {
 		optional bytes deck_bytes = 1;
 		optional string deck_name = 2;
+		optional uint32 deck_id = 3;
 	}
 
 	message CardLimit {
@@ -313,6 +322,10 @@ message CMsgGauntletConfig {
 		optional uint32 limited_format_overide = 3;
 	}
 
+	message GauntletPointsLeaderboard {
+		optional uint32 expiration_time = 1;
+	}
+
 	optional uint32 gauntlet_id = 1;
 	optional uint32 activate_time = 2;
 	optional uint32 max_wins = 3;
@@ -332,6 +345,11 @@ message CMsgGauntletConfig {
 	optional uint32 close_mm_time = 21;
 	optional uint32 max_wins_trophy_id = 22;
 	optional uint32 cooldown_time = 23;
+	optional uint32 max_wins_per_deck_trophy_id = 24;
+	optional uint32 max_wins_random_mode_trophy_id = 25;
+	optional uint32 is_ai_gauntlet = 26;
+	repeated .CMsgDeckValidator ai_validators = 27;
+	repeated .CMsgGauntletConfig.GauntletPointsLeaderboard gauntlet_points_leaderboards = 29;
 }
 
 message CMsgLimitedFormat {
@@ -442,7 +460,7 @@ message CDCGTourney {
 		optional uint32 limited_format = 5;
 		optional uint64 limited_instance_id = 6;
 		optional uint64 limited_pool_id = 7;
-		optional string phase_name = 8;
+		optional uint32 auto_advance_time = 9;
 	}
 
 	message PlayerDeck {
@@ -516,6 +534,7 @@ message CDCGTourney {
 		k_eFormat_Invalid = 0;
 		k_eFormat_Bracket_SingleElim = 1;
 		k_eFormat_Swiss = 2;
+		k_eFormat_FreeForAll = 3;
 	}
 
 	optional uint64 tourney_id = 1;
@@ -536,6 +555,7 @@ message CDCGTourney {
 	optional uint64 steam_chat_room_id = 16;
 	repeated .CDCGTourney.PaidEntryItem paid_entry_items = 17;
 	repeated .CDCGTourney.EntryItem entry_items = 18;
+	optional uint32 created_time = 19;
 }
 
 message CMsgRegionPingTimesClient {

@@ -49,6 +49,8 @@ enum EGCDCGClientMessages {
 	k_EMsgClientToGCGetGauntletMatchesResponse = 9103;
 	k_EMsgClientToGCRegisterGauntletDeck = 9104;
 	k_EMsgClientToGCRegisterGauntletDeckResponse = 9105;
+	k_EMsgClientToGCAIGauntletResult = 9106;
+	k_EMsgClientToGCAIGauntletResultResponse = 9107;
 	k_EMsgClientToGCPrivateLobbyCreate = 9110;
 	k_EMsgClientToGCPrivateLobbyCreateResponse = 9111;
 	k_EMsgClientToGCPrivateLobbyLeave = 9112;
@@ -139,6 +141,8 @@ enum EGCDCGClientMessages {
 	k_EMsgClientToGCTourneyPlayerAbandonResponse = 9568;
 	k_EMsgClientToGCTourneyChangeValue = 9569;
 	k_EMsgClientToGCTourneyChangeValueResponse = 9570;
+	k_EMsgClientToGCTourneyJoinOpenTourney = 9571;
+	k_EMsgClientToGCTourneyJoinOpenTourneyResponse = 9572;
 }
 
 enum EChatRoomType {
@@ -431,6 +435,7 @@ message CMsgClientToGCJoinGauntlet {
 	optional bytes deck_bytes = 2;
 	optional uint32 entry_id = 3;
 	repeated uint64 entry_costs = 4;
+	optional bool select_random_deck = 5;
 }
 
 message CMsgClientToGCJoinGauntletResponse {
@@ -446,6 +451,7 @@ message CMsgClientToGCJoinGauntletResponse {
 		k_eDisabled = 8;
 		k_eHasUnownedCards = 9;
 		k_eRateLimited = 10;
+		k_eRandomDeckNotAllowed = 11;
 	}
 
 	optional .CMsgClientToGCJoinGauntletResponse.EResponse result = 1 [default = k_eInternalError];
@@ -471,6 +477,28 @@ message CMsgClientToGCAbandonGauntletResponse {
 
 	optional .CMsgClientToGCAbandonGauntletResponse.EResponse result = 1 [default = k_eInternalError];
 	repeated .CMsgClientToGCAbandonGauntletResponse.RewardItem reward_items = 2;
+}
+
+message CMsgClientToGCAIGauntletResult {
+	optional uint32 gauntlet_id = 1;
+	optional bool is_win = 2;
+	optional fixed64 secret_key = 3;
+	optional uint32 expected_wins = 4;
+	optional uint32 expected_losses = 5;
+}
+
+message CMsgClientToGCAIGauntletResultResponse {
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eFailed = 2;
+		k_eDisabled = 3;
+		k_eBusy = 4;
+		k_eInvalidKey = 5;
+		k_eMismatchedGames = 6;
+	}
+
+	optional .CMsgClientToGCAIGauntletResultResponse.EResponse result = 1 [default = k_eInternalError];
 }
 
 message CMsgGCToClientAvailableGauntlets {
@@ -872,6 +900,11 @@ message CMsgCreateTourneyPhase {
 		optional uint32 finals_best_of = 2;
 	}
 
+	message FreeForAll {
+		optional uint32 max_games_per_player = 1;
+		optional uint32 auto_advance_after_s = 2;
+	}
+
 	enum ESwissMatches {
 		k_eBestOfOne = 0;
 		k_eOneMatch = 1;
@@ -898,10 +931,10 @@ message CMsgCreateTourneyPhase {
 	optional .CDCGTourney.EFormat format = 1 [default = k_eFormat_Invalid];
 	optional .CMsgCreateTourneyPhase.DeckSettings deck_settings = 2;
 	optional uint32 max_players = 3;
-	optional string phase_name = 4;
 	optional bool edit_stage = 5;
 	optional .CMsgCreateTourneyPhase.Bracket bracket = 20;
 	optional .CMsgCreateTourneyPhase.Swiss swiss = 21;
+	optional .CMsgCreateTourneyPhase.FreeForAll free_for_all = 22;
 }
 
 message CMsgClientToGCCreateTourney {
@@ -918,6 +951,8 @@ message CMsgClientToGCCreateTourney {
 	optional bool seed_stage = 5;
 	optional bool advanced_mode = 6;
 	optional .CMsgClientToGCCreateTourney.EPrivacy privacy_mode = 7 [default = k_ePrivacy_Default];
+	optional bool open_spectating = 8;
+	optional uint32 timer_mode = 9;
 }
 
 message CMsgClientToGCCreateTourneyResponse {
@@ -1491,13 +1526,21 @@ message CMsgClientToGCTourneyPlayerAbandonResponse {
 
 message CMsgClientToGCTourneyChangeValue {
 	enum EValueType {
+		k_eGlobal_SeedStage = 1;
+		k_eGlobal_OpenSpectating = 2;
+		k_eGlobal_TimerMode = 3;
 		k_ePhase_MaxPlayers = 50;
+		k_ePhase_EditStage = 51;
 		k_eSwiss_NumRounds = 100;
+		k_eSwiss_Matches = 101;
+		k_eBracket_BestOf = 150;
+		k_eBracket_FinalsBestOf = 151;
+		k_eFreeForAll_MaxGames = 200;
 	}
 
 	optional uint64 tourney_id = 1;
 	optional uint32 phase_id = 2;
-	optional .CMsgClientToGCTourneyChangeValue.EValueType value_type = 3 [default = k_ePhase_MaxPlayers];
+	optional .CMsgClientToGCTourneyChangeValue.EValueType value_type = 3 [default = k_eGlobal_SeedStage];
 	optional uint32 int_value = 4;
 }
 
@@ -1515,5 +1558,29 @@ message CMsgClientToGCTourneyChangeValueResponse {
 	}
 
 	optional .CMsgClientToGCTourneyChangeValueResponse.EResponse result = 1 [default = k_eInternalError];
+}
+
+message CMsgClientToGCTourneyJoinOpenTourney {
+	optional uint32 language = 1;
+	optional string community_key = 2;
+	optional uint32 open_tourney_mode = 3;
+}
+
+message CMsgClientToGCTourneyJoinOpenTourneyResponse {
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eDisabled = 2;
+		k_eInvalidMode = 3;
+		k_eInvalidRequest = 4;
+		k_eTooBusy = 5;
+		k_eRateLimited = 6;
+		k_eInTooManyOpenAlready = 7;
+		k_eInTooManyTotal = 8;
+	}
+
+	optional .CMsgClientToGCTourneyJoinOpenTourneyResponse.EResponse result = 1 [default = k_eInternalError];
+	optional uint64 joined_tourney_id = 2;
+	optional uint32 cooldown_time_after = 3;
 }
 

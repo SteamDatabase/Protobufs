@@ -20,6 +20,7 @@ enum EDCGGameMessages {
 	k_EMsgGameClientToServerBoardGameStateAck = 14;
 	k_EMsgGameServerToClientGoodbye = 15;
 	k_EMsgTutorialEvent = 1000;
+	k_EMsgVenchatoquistEvent = 1001;
 }
 
 enum EScriptBlockType {
@@ -163,6 +164,21 @@ message CMsgTutorialEvent {
 	optional string param1 = 3;
 	optional string param2 = 4;
 	optional string param3 = 5;
+}
+
+message CMsgVenchatoquistEvent {
+	enum EChatSource {
+		eObjectID = 1;
+		ePlayer = 2;
+		eDeckImp = 3;
+	}
+
+	optional string text = 1;
+	optional uint32 object_id = 2;
+	optional .CMsgVenchatoquistEvent.EChatSource chat_source = 3 [default = eObjectID];
+	optional string persona_name = 4;
+	optional uint32 user_id = 5;
+	optional uint32 line_id = 6;
 }
 
 message CMsgGameClientToServerChatMsg {
