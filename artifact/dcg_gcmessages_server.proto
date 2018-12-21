@@ -33,9 +33,11 @@ enum EGCServerLobbyData {
 	k_EServerLobbyData_PlayerMMR = 5;
 	k_EServerLobbyData_CardAchievements = 6;
 	k_EServerLobbyData_GauntletInfo = 7;
+	k_EServerLobbyData_PlayerInfo = 8;
 }
 
 enum EGCServerSignoutData {
+	k_EServerSignoutData_PlayerProgress = 1;
 	k_EServerSignoutData_PlayerDecks = 2;
 	k_EServerSignoutData_LobbyInfo = 4;
 	k_EServerSignoutData_GameOptions = 9;
@@ -114,6 +116,17 @@ message CServerLobbyData_DeckValidator {
 	optional .CMsgDeckValidator deck_validator = 1;
 }
 
+message CServerLobbyData_PlayerInfo {
+	optional uint32 account_id = 1;
+	optional uint32 progress_level = 2;
+	optional uint32 progress_xp = 3;
+	optional uint32 mmr_level = 4;
+	optional uint32 last_win_bonus_time = 5;
+	optional uint32 win_streak = 6;
+	optional uint32 bonus_period_wins = 7;
+	optional uint32 player_badge = 8;
+}
+
 message CSODCGServerLobby {
 	repeated .CExtraMsgBlock extra_messages = 1;
 	optional fixed64 server_steam_id = 2;
@@ -155,6 +168,18 @@ message CMsgServerSignoutData_PlayerDecks {
 
 	repeated .CMsgServerSignoutData_PlayerDecks.Player players = 1;
 	optional uint32 stats_version = 2;
+}
+
+message CMsgServerSignoutData_PlayerProgress {
+	message PointBonus {
+		optional uint32 bonus_id = 1;
+		optional uint32 bonus_points = 2;
+	}
+
+	optional uint32 account_id = 1;
+	optional uint32 xp_to_grant = 2;
+	repeated .CMsgServerSignoutData_PlayerProgress.PointBonus bonuses = 3;
+	optional bool granted_weekly_bonus = 4;
 }
 
 message CMsgServerToGCMatchSignoutPermission {

@@ -76,6 +76,7 @@ enum EGCDCGClientMessages {
 	k_EMsgClientToGCInitialGrantAck = 9134;
 	k_EMsgClientToGCRecycleCards = 9135;
 	k_EMsgClientToGCRecycleCardsResponse = 9136;
+	k_EMsgClientToGCSetPlayerBadge = 9137;
 	k_EMsgClientToGCTourneyGetInfo = 9500;
 	k_EMsgClientToGCTourneyGetInfoResponse = 9501;
 	k_EMsgClientToGCTourneyUnsubscribe = 9502;
@@ -831,6 +832,10 @@ message CMsgClientToGCRecycleCardsResponse {
 	optional .CMsgClientToGCRecycleCardsResponse.EResponse result = 1 [default = k_eInternalError];
 	repeated .CMsgClientToGCRecycleCardsResponse.GrantedItem granted_items = 2;
 	optional uint32 resulting_points = 3;
+}
+
+message CMsgClientToGCSetPlayerBadge {
+	optional uint32 player_badge = 1;
 }
 
 message CMsgClientToGCReplacementSDRTicketResponse {

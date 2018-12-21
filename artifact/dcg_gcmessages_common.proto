@@ -129,6 +129,14 @@ message CSOGameAccountClient {
 	optional uint32 flags = 3;
 	optional uint32 initial_grant_ack_def = 5;
 	optional uint32 recycling_progress = 6;
+	optional uint32 progress_level = 7;
+	optional uint32 progress_xp = 8;
+	optional uint32 constructed_mmr_level = 9;
+	optional uint32 last_win_bounus_time = 10;
+	optional uint32 match_win_streak = 11;
+	optional uint32 bonus_period_wins = 12;
+	optional uint32 player_badge = 13;
+	optional uint32 draft_mmr_level = 14;
 }
 
 message CSOGauntlet {
