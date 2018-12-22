@@ -179,7 +179,7 @@ message CMsgServerSignoutData_PlayerProgress {
 	optional uint32 account_id = 1;
 	optional uint32 xp_to_grant = 2;
 	repeated .CMsgServerSignoutData_PlayerProgress.PointBonus bonuses = 3;
-	optional bool granted_weekly_bonus = 4;
+	optional uint32 weekly_bonus_reset_time = 5;
 }
 
 message CMsgServerToGCMatchSignoutPermission {
