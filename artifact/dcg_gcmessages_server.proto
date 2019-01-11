@@ -44,6 +44,7 @@ enum EGCServerSignoutData {
 	k_EServerSignoutData_CardAchievements = 11;
 	k_EServerSignoutData_PerformanceStats = 12;
 	k_EServerSignoutData_Disconnections = 13;
+	k_EServerSignoutData_MatchChatStats = 14;
 }
 
 message CMsgServerCrashSentinelFile {
@@ -134,6 +135,21 @@ message CSODCGServerLobby {
 	optional fixed32 replay_salt = 4;
 	optional fixed64 private_lobby_id = 5;
 	optional .EDCGLobbyTimer timer_mode = 6 [default = k_eDCGLobbyTimer_Unspecified];
+}
+
+message CMsgServerSignoutData_MatchChatStats {
+	message ChatStats {
+		optional uint32 account_id = 1;
+		optional uint32 total_messages = 2;
+		optional uint32 total_custom_messages = 3;
+		optional bool user_sent_custom_message_before_mute = 4;
+		optional uint32 total_messages_sent_while_muted = 5;
+		optional uint32 num_times_squelched = 6;
+		optional bool user_muted_opponent_before_receiving_message = 7;
+		optional bool user_was_muted_then_was_unmuted = 8;
+	}
+
+	repeated .CMsgServerSignoutData_MatchChatStats.ChatStats chat_stats = 1;
 }
 
 message CMsgServerSignoutData_LobbyInfo {

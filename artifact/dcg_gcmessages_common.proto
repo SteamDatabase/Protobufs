@@ -358,6 +358,7 @@ message CMsgGauntletConfig {
 	optional uint32 is_ai_gauntlet = 26;
 	repeated .CMsgDeckValidator ai_validators = 27;
 	repeated .CMsgGauntletConfig.GauntletPointsLeaderboard gauntlet_points_leaderboards = 29;
+	optional string timer = 30;
 }
 
 message CMsgLimitedFormat {

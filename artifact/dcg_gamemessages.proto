@@ -179,6 +179,7 @@ message CMsgVenchatoquistEvent {
 	optional string persona_name = 4;
 	optional uint32 user_id = 5;
 	optional uint32 line_id = 6;
+	optional bool toggle_mute = 7;
 }
 
 message CMsgGameClientToServerChatMsg {
