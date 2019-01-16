@@ -223,69 +223,12 @@ message CFriendsList_GetFriendsList_Response {
 	optional .CMsgClientFriendsList friendslist = 1;
 }
 
-message CStore_UserPreferences {
-	optional uint32 primary_language = 1;
-	optional uint32 secondary_languages = 2;
-	optional bool platform_windows = 3;
-	optional bool platform_mac = 4;
-	optional bool platform_linux = 5;
-	optional bool hide_adult_content_violence = 6;
-	optional bool hide_adult_content_sex = 7;
-	optional uint32 timestamp_updated = 8;
-	optional bool hide_store_broadcast = 9;
-	optional int32 timestamp_content_descriptor_preferences_updated = 10;
-}
-
-message CStore_UserTagPreferences {
-	repeated .CStore_UserTagPreferences_Tag tags_to_exclude = 1;
-}
-
-message CStore_UserTagPreferences_Tag {
-	optional uint32 tagid = 1;
-	optional string name = 2;
-	optional uint32 timestamp_added = 3;
-}
-
-message CStore_UserContentDescriptorPreferences {
-	repeated .CStore_UserContentDescriptorPreferences_ContentDescriptor content_descriptors_to_exclude = 1;
-}
-
-message CStore_UserContentDescriptorPreferences_ContentDescriptor {
-	optional uint32 content_descriptorid = 1;
-	optional uint32 timestamp_added = 2;
-}
-
-message CStore_GetStorePreferences_Request {
-}
-
-message CStore_GetStorePreferences_Response {
-	optional .CStore_UserPreferences preferences = 1;
-	optional .CStore_UserTagPreferences tag_preferences = 2;
-	optional .CStore_UserContentDescriptorPreferences content_descriptor_preferences = 3;
-}
-
 message CClan_RespondToClanInvite_Request {
 	optional fixed64 steamid = 1;
 	optional bool accept = 2;
 }
 
 message CClan_RespondToClanInvite_Response {
-}
-
-message CBroadcast_SetRTMPInfo_Response {
-}
-
-message CBroadcast_GetRTMPInfo_Response {
-	optional int32 broadcast_permission = 1;
-	optional string rtmp_host = 2;
-	optional string rtmp_token = 3;
-	optional int32 broadcast_delay = 4;
-	optional uint32 app_id = 5;
-	optional uint32 required_app_id = 6;
-	optional int32 broadcast_chat_permission = 7 [(description) = "enum"];
-	optional int32 broadcast_buffer = 8;
-	optional fixed64 steamid = 9;
-	optional uint32 chat_rate_limit = 10;
 }
 
 message CProductImpressionsFromClient_Notification {
