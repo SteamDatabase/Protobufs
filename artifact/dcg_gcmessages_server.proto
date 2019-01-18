@@ -147,6 +147,7 @@ message CMsgServerSignoutData_MatchChatStats {
 		optional uint32 num_times_squelched = 6;
 		optional bool user_muted_opponent_before_receiving_message = 7;
 		optional bool user_was_muted_then_was_unmuted = 8;
+		optional bool user_was_muted_at_match_end = 9;
 	}
 
 	repeated .CMsgServerSignoutData_MatchChatStats.ChatStats chat_stats = 1;
