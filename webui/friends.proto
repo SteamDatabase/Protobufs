@@ -252,6 +252,18 @@ message CSteamTV_GetBroadcastChannelProfile_Response {
 	optional string panels = 9;
 }
 
+message CSteamTV_SetBroadcastChannelImage_Request {
+	optional fixed64 broadcast_channel_id = 1;
+	optional int32 image_type = 2 [(description) = "enum"];
+	optional uint32 image_index = 3;
+	optional uint32 image_width = 4;
+	optional uint32 image_height = 5;
+	optional uint32 file_size = 6;
+	optional string file_extension = 7;
+	optional string file_hash = 8;
+	optional bool undo = 9;
+}
+
 message CSteamTV_SetBroadcastChannelImage_Response {
 	optional string replace_image_hash = 1;
 }
@@ -431,6 +443,15 @@ message CSteamTV_GetChatModerators_Response {
 	repeated .CSteamTV_ChatModerator results = 1;
 }
 
+message CSteamTV_JoinChat_Request {
+	optional fixed64 broadcast_channel_id = 1;
+}
+
+message CSteamTV_JoinChat_Response {
+	optional fixed64 chat_id = 1;
+	optional string view_url_template = 2;
+}
+
 message CFriendsListCategory {
 	optional uint32 groupid = 1;
 	optional string name = 2;
@@ -494,10 +515,6 @@ message CBroadcast_UpdateChatMessageFlair_Response {
 	optional string flair = 3;
 }
 
-message CBroadcast_WebRTCNeedTURNServer_Notification {
-	optional fixed64 broadcast_session_id = 1;
-}
-
 message CProductImpressionsFromClient_Notification {
 	repeated .CProductImpressionsFromClient_Notification_Impression impressions = 1;
 }
@@ -552,7 +569,7 @@ service SteamTV {
 	rpc GetBroadcastChannelID (.CSteamTV_GetBroadcastChannelID_Request) returns (.CSteamTV_GetBroadcastChannelID_Response);
 	rpc SetBroadcastChannelProfile (.CSteamTV_SetBroadcastChannelProfile_Request) returns (.CSteamTV_SetBroadcastChannelProfile_Response);
 	rpc GetBroadcastChannelProfile (.CSteamTV_GetBroadcastChannelProfile_Request) returns (.CSteamTV_GetBroadcastChannelProfile_Response);
-	rpc SetBroadcastChannelImage (.NotImplemented) returns (.CSteamTV_SetBroadcastChannelImage_Response);
+	rpc SetBroadcastChannelImage (.CSteamTV_SetBroadcastChannelImage_Request) returns (.CSteamTV_SetBroadcastChannelImage_Response);
 	rpc GetBroadcastChannelImages (.CSteamTV_GetBroadcastChannelImages_Request) returns (.CSteamTV_GetBroadcastChannelImages_Response);
 	rpc GetBroadcastChannelBroadcasters (.NotImplemented) returns (.CSteamTV_GetBroadcastChannelBroadcasters_Response);
 	rpc GetBroadcastChannelStatus (.CSteamTV_GetBroadcastChannelStatus_Request) returns (.CSteamTV_GetBroadcastChannelStatus_Response);
@@ -568,6 +585,7 @@ service SteamTV {
 	rpc GetChatBans (.CSteamTV_GetChatBans_Request) returns (.CSteamTV_GetChatBans_Response);
 	rpc AddChatModerator (.CSteamTV_AddChatModerator_Request) returns (.CSteamTV_AddChatModerator_Response);
 	rpc GetChatModerators (.CSteamTV_GetChatModerators_Request) returns (.CSteamTV_GetChatModerators_Response);
+	rpc JoinChat (.CSteamTV_JoinChat_Request) returns (.CSteamTV_JoinChat_Response);
 }
 
 service FriendsList {
