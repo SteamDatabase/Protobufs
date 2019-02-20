@@ -296,6 +296,14 @@ message GetBroadcastChannelEntry {
 	optional string background_url = 13;
 }
 
+message CSteamTV_GetFollowedChannels_Response {
+	repeated .GetBroadcastChannelEntry results = 1;
+}
+
+message CSteamTV_GetSubscribedChannels_Response {
+	repeated .GetBroadcastChannelEntry results = 1;
+}
+
 message CSteamTV_GetBroadcastChannels_Response {
 	repeated .GetBroadcastChannelEntry results = 1;
 }
@@ -350,6 +358,7 @@ message CSteamTV_ChatBan {
 	optional fixed64 chatter_steamid = 2;
 	optional string time_expires = 3;
 	optional bool permanent = 4;
+	optional string name = 5;
 }
 
 message CSteamTV_AddChatBan_Request {
@@ -387,6 +396,13 @@ message CSteamTV_ChatModerator {
 
 message CSteamTV_GetChatModerators_Response {
 	repeated .CSteamTV_ChatModerator results = 1;
+}
+
+message CSteamTV_AddWordBan_Response {
+}
+
+message CSteamTV_GetWordBans_Response {
+	repeated string results = 1;
 }
 
 message CSteamTV_JoinChat_Request {
@@ -470,6 +486,47 @@ message CBroadcast_UpdateChatMessageFlair_Response {
 	optional string flair = 3;
 }
 
+message CBroadcast_GetBroadcastUploadStats_Response {
+	repeated .CBroadcast_GetBroadcastUploadStats_Response_UploadStats upload_stats = 1;
+}
+
+message CBroadcast_GetBroadcastUploadStats_Response_UploadStats {
+	optional uint32 upload_result = 1;
+	optional uint32 time_stopped = 2;
+	optional uint32 seconds_uploaded = 3;
+	optional uint32 max_viewers = 4;
+	optional uint32 resolution_x = 5;
+	optional uint32 resolution_y = 6;
+	optional uint32 avg_bandwidth = 7;
+	optional uint64 total_bytes = 8;
+	optional uint32 app_id = 9;
+	optional uint32 total_unique_viewers = 10;
+	optional uint64 total_seconds_watched = 11;
+	optional uint32 time_started = 12;
+	optional uint64 upload_id = 13;
+	optional string local_address = 14;
+	optional string remote_address = 15;
+	optional uint32 frames_per_second = 16;
+	optional uint32 num_representations = 17;
+	optional string app_name = 18;
+	optional bool is_replay = 19;
+}
+
+message CBroadcast_GetBroadcastViewerStats_Response {
+	repeated .CBroadcast_GetBroadcastViewerStats_Response_ViewerStats viewer_stats = 1;
+	repeated .CBroadcast_GetBroadcastViewerStats_Response_CountryStats country_stats = 2;
+}
+
+message CBroadcast_GetBroadcastViewerStats_Response_ViewerStats {
+	optional uint32 time = 1;
+	optional uint32 num_viewers = 2;
+}
+
+message CBroadcast_GetBroadcastViewerStats_Response_CountryStats {
+	optional string country_code = 1;
+	optional uint32 num_viewers = 2;
+}
+
 message CProductImpressionsFromClient_Notification {
 	repeated .CProductImpressionsFromClient_Notification_Impression impressions = 1;
 }
@@ -529,6 +586,8 @@ service SteamTV {
 	rpc SetBroadcastChannelLinkRegions (.NotImplemented) returns (.CSteamTV_SetBroadcastChannelLinkRegions_Response);
 	rpc GetBroadcastChannelLinks (.NotImplemented) returns (.CSteamTV_GetBroadcastChannelLinks_Response);
 	rpc GetBroadcastChannelBroadcasters (.NotImplemented) returns (.CSteamTV_GetBroadcastChannelBroadcasters_Response);
+	rpc GetFollowedChannels (.NotImplemented) returns (.CSteamTV_GetFollowedChannels_Response);
+	rpc GetSubscribedChannels (.NotImplemented) returns (.CSteamTV_GetSubscribedChannels_Response);
 	rpc GetBroadcastChannelStatus (.NotImplemented) returns (.CSteamTV_GetBroadcastChannelStatus_Response);
 	rpc GetBroadcastChannels (.NotImplemented) returns (.CSteamTV_GetBroadcastChannels_Response);
 	rpc FollowBroadcastChannel (.NotImplemented) returns (.CSteamTV_FollowBroadcastChannel_Response);
@@ -542,6 +601,8 @@ service SteamTV {
 	rpc GetChatBans (.NotImplemented) returns (.CSteamTV_GetChatBans_Response);
 	rpc AddChatModerator (.CSteamTV_AddChatModerator_Request) returns (.CSteamTV_AddChatModerator_Response);
 	rpc GetChatModerators (.CSteamTV_GetChatModerators_Request) returns (.CSteamTV_GetChatModerators_Response);
+	rpc AddWordBan (.NotImplemented) returns (.CSteamTV_AddWordBan_Response);
+	rpc GetWordBans (.NotImplemented) returns (.CSteamTV_GetWordBans_Response);
 	rpc JoinChat (.CSteamTV_JoinChat_Request) returns (.CSteamTV_JoinChat_Response);
 	rpc Search (.NotImplemented) returns (.CSteamTV_Search_Response);
 }
