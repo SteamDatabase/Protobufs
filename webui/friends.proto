@@ -30,6 +30,18 @@ message CCommunity_GetAppRichPresenceLocalization_Response_TokenList {
 	repeated .CCommunity_GetAppRichPresenceLocalization_Response_Token tokens = 2;
 }
 
+message CPlayer_GetEmoticonList_Response {
+	repeated .CPlayer_GetEmoticonList_Response_Emoticon emoticons = 1;
+}
+
+message CPlayer_GetEmoticonList_Response_Emoticon {
+	optional string name = 1;
+	optional int32 count = 2;
+	optional uint32 time_last_used = 3;
+	optional uint32 use_count = 4;
+	optional uint32 time_received = 5;
+}
+
 message CPlayer_GetFriendsGameplayInfo_Response {
 	optional .CPlayer_GetFriendsGameplayInfo_Response_OwnGameplayInfo your_info = 1;
 	repeated .CPlayer_GetFriendsGameplayInfo_Response_FriendsGameplayInfo in_game = 2;
@@ -294,6 +306,9 @@ message GetBroadcastChannelEntry {
 	optional fixed64 broadcaster_steamid = 11;
 	optional uint64 subscribers = 12;
 	optional string background_url = 13;
+	optional bool is_featured = 14;
+	optional bool is_disabled = 15;
+	optional bool is_live = 16;
 }
 
 message CSteamTV_GetFollowedChannels_Response {
@@ -301,10 +316,6 @@ message CSteamTV_GetFollowedChannels_Response {
 }
 
 message CSteamTV_GetSubscribedChannels_Response {
-	repeated .GetBroadcastChannelEntry results = 1;
-}
-
-message CSteamTV_GetBroadcastChannels_Response {
 	repeated .GetBroadcastChannelEntry results = 1;
 }
 
@@ -332,10 +343,6 @@ message CSteamTV_Game {
 }
 
 message CSteamTV_GetGames_Response {
-	repeated .CSteamTV_Game results = 1;
-}
-
-message CSteamTV_GetGamesForUser_Response {
 	repeated .CSteamTV_Game results = 1;
 }
 
@@ -416,6 +423,14 @@ message CSteamTV_JoinChat_Response {
 
 message CSteamTV_Search_Response {
 	repeated .GetBroadcastChannelEntry results = 1;
+}
+
+message CSteamTV_GetSteamTVUserSettings_Response {
+	optional bool stream_live_email = 1;
+	optional bool stream_live_notification = 2;
+}
+
+message CSteamTV_SetSteamTVUserSettings_Response {
 }
 
 message CFriendsListCategory {
@@ -589,13 +604,11 @@ service SteamTV {
 	rpc GetFollowedChannels (.NotImplemented) returns (.CSteamTV_GetFollowedChannels_Response);
 	rpc GetSubscribedChannels (.NotImplemented) returns (.CSteamTV_GetSubscribedChannels_Response);
 	rpc GetBroadcastChannelStatus (.NotImplemented) returns (.CSteamTV_GetBroadcastChannelStatus_Response);
-	rpc GetBroadcastChannels (.NotImplemented) returns (.CSteamTV_GetBroadcastChannels_Response);
 	rpc FollowBroadcastChannel (.NotImplemented) returns (.CSteamTV_FollowBroadcastChannel_Response);
 	rpc SubscribeBroadcastChannel (.NotImplemented) returns (.CSteamTV_SubscribeBroadcastChannel_Response);
 	rpc ReportBroadcastChannel (.NotImplemented) returns (.CSteamTV_ReportBroadcastChannel_Response);
 	rpc GetBroadcastChannelInteraction (.NotImplemented) returns (.CSteamTV_GetBroadcastChannelInteraction_Response);
 	rpc GetGames (.NotImplemented) returns (.CSteamTV_GetGames_Response);
-	rpc GetGamesForUser (.NotImplemented) returns (.CSteamTV_GetGamesForUser_Response);
 	rpc GetFeatured (.NotImplemented) returns (.CSteamTV_GetFeatured_Response);
 	rpc AddChatBan (.CSteamTV_AddChatBan_Request) returns (.CSteamTV_AddChatBan_Response);
 	rpc GetChatBans (.NotImplemented) returns (.CSteamTV_GetChatBans_Response);
@@ -605,6 +618,8 @@ service SteamTV {
 	rpc GetWordBans (.NotImplemented) returns (.CSteamTV_GetWordBans_Response);
 	rpc JoinChat (.CSteamTV_JoinChat_Request) returns (.CSteamTV_JoinChat_Response);
 	rpc Search (.NotImplemented) returns (.CSteamTV_Search_Response);
+	rpc GetSteamTVUserSettings (.NotImplemented) returns (.CSteamTV_GetSteamTVUserSettings_Response);
+	rpc SetSteamTVUserSettings (.NotImplemented) returns (.CSteamTV_SetSteamTVUserSettings_Response);
 }
 
 service FriendsList {
