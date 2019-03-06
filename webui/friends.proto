@@ -309,6 +309,8 @@ message GetBroadcastChannelEntry {
 	optional bool is_featured = 14;
 	optional bool is_disabled = 15;
 	optional bool is_live = 16;
+	optional string language = 17;
+	optional uint32 reports = 18;
 }
 
 message CSteamTV_GetFollowedChannels_Response {
@@ -431,6 +433,10 @@ message CSteamTV_GetSteamTVUserSettings_Response {
 }
 
 message CSteamTV_SetSteamTVUserSettings_Response {
+}
+
+message CSteamTV_GetMyBroadcastChannels_Response {
+	repeated .GetBroadcastChannelEntry results = 1;
 }
 
 message CFriendsListCategory {
@@ -620,6 +626,7 @@ service SteamTV {
 	rpc Search (.NotImplemented) returns (.CSteamTV_Search_Response);
 	rpc GetSteamTVUserSettings (.NotImplemented) returns (.CSteamTV_GetSteamTVUserSettings_Response);
 	rpc SetSteamTVUserSettings (.NotImplemented) returns (.CSteamTV_SetSteamTVUserSettings_Response);
+	rpc GetMyBroadcastChannels (.NotImplemented) returns (.CSteamTV_GetMyBroadcastChannels_Response);
 }
 
 service FriendsList {
