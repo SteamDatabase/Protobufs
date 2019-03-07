@@ -30,41 +30,6 @@ message CCommunity_GetAppRichPresenceLocalization_Response_TokenList {
 	repeated .CCommunity_GetAppRichPresenceLocalization_Response_Token tokens = 2;
 }
 
-message CPlayer_GetEmoticonList_Response {
-	repeated .CPlayer_GetEmoticonList_Response_Emoticon emoticons = 1;
-}
-
-message CPlayer_GetEmoticonList_Response_Emoticon {
-	optional string name = 1;
-	optional int32 count = 2;
-	optional uint32 time_last_used = 3;
-	optional uint32 use_count = 4;
-	optional uint32 time_received = 5;
-}
-
-message CPlayer_GetFriendsGameplayInfo_Response {
-	optional .CPlayer_GetFriendsGameplayInfo_Response_OwnGameplayInfo your_info = 1;
-	repeated .CPlayer_GetFriendsGameplayInfo_Response_FriendsGameplayInfo in_game = 2;
-	repeated .CPlayer_GetFriendsGameplayInfo_Response_FriendsGameplayInfo played_recently = 3;
-	repeated .CPlayer_GetFriendsGameplayInfo_Response_FriendsGameplayInfo played_ever = 4;
-	repeated .CPlayer_GetFriendsGameplayInfo_Response_FriendsGameplayInfo owns = 5;
-	repeated .CPlayer_GetFriendsGameplayInfo_Response_FriendsGameplayInfo in_wishlist = 6;
-}
-
-message CPlayer_GetFriendsGameplayInfo_Response_FriendsGameplayInfo {
-	optional fixed64 steamid = 1;
-	optional uint32 minutes_played = 2;
-	optional uint32 minutes_played_forever = 3;
-}
-
-message CPlayer_GetFriendsGameplayInfo_Response_OwnGameplayInfo {
-	optional fixed64 steamid = 1;
-	optional uint32 minutes_played = 2;
-	optional uint32 minutes_played_forever = 3;
-	optional bool in_wishlist = 4;
-	optional bool owned = 5;
-}
-
 message CWebRTCClient_InitiateWebRTCConnection_Request {
 	optional string sdp = 1;
 }
@@ -489,63 +454,6 @@ message CClan_RespondToClanInvite_Request {
 }
 
 message CClan_RespondToClanInvite_Response {
-}
-
-message CBroadcast_BroadcastChannelLive_Notification {
-	optional fixed64 broadcast_channel_id = 1;
-	optional string broadcast_channel_name = 2;
-}
-
-message CBroadcast_UpdateChatMessageFlair_Request {
-	optional fixed64 chat_id = 1;
-	optional string flair = 2;
-}
-
-message CBroadcast_UpdateChatMessageFlair_Response {
-	optional int32 result = 1;
-	optional fixed64 chat_id = 2;
-	optional string flair = 3;
-}
-
-message CBroadcast_GetBroadcastUploadStats_Response {
-	repeated .CBroadcast_GetBroadcastUploadStats_Response_UploadStats upload_stats = 1;
-}
-
-message CBroadcast_GetBroadcastUploadStats_Response_UploadStats {
-	optional uint32 upload_result = 1;
-	optional uint32 time_stopped = 2;
-	optional uint32 seconds_uploaded = 3;
-	optional uint32 max_viewers = 4;
-	optional uint32 resolution_x = 5;
-	optional uint32 resolution_y = 6;
-	optional uint32 avg_bandwidth = 7;
-	optional uint64 total_bytes = 8;
-	optional uint32 app_id = 9;
-	optional uint32 total_unique_viewers = 10;
-	optional uint64 total_seconds_watched = 11;
-	optional uint32 time_started = 12;
-	optional uint64 upload_id = 13;
-	optional string local_address = 14;
-	optional string remote_address = 15;
-	optional uint32 frames_per_second = 16;
-	optional uint32 num_representations = 17;
-	optional string app_name = 18;
-	optional bool is_replay = 19;
-}
-
-message CBroadcast_GetBroadcastViewerStats_Response {
-	repeated .CBroadcast_GetBroadcastViewerStats_Response_ViewerStats viewer_stats = 1;
-	repeated .CBroadcast_GetBroadcastViewerStats_Response_CountryStats country_stats = 2;
-}
-
-message CBroadcast_GetBroadcastViewerStats_Response_ViewerStats {
-	optional uint32 time = 1;
-	optional uint32 num_viewers = 2;
-}
-
-message CBroadcast_GetBroadcastViewerStats_Response_CountryStats {
-	optional string country_code = 1;
-	optional uint32 num_viewers = 2;
 }
 
 message CProductImpressionsFromClient_Notification {
