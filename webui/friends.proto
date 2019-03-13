@@ -30,6 +30,54 @@ message CCommunity_GetAppRichPresenceLocalization_Response_TokenList {
 	repeated .CCommunity_GetAppRichPresenceLocalization_Response_Token tokens = 2;
 }
 
+message CAppPriority {
+	optional uint32 priority = 1;
+	repeated uint32 appid = 2;
+}
+
+message CCommunity_GetUserPartnerEventNews_Response {
+	repeated .CClanMatchEventByRange results = 1;
+}
+
+message CClanEventUserNewsTuple {
+	optional uint32 clanid = 1;
+	optional fixed64 event_gid = 2;
+	optional fixed64 announcement_gid = 3;
+	optional uint32 rtime_start = 4;
+	optional uint32 rtime_end = 5;
+	optional uint32 priority_score = 6;
+	optional uint32 type = 7;
+	optional uint32 clamp_range_slot = 8;
+	optional uint32 appid = 9;
+}
+
+message CClanMatchEventByRange {
+	optional uint32 rtime_before = 1;
+	optional uint32 rtime_after = 2;
+	optional uint32 qualified = 3;
+	repeated .CClanEventUserNewsTuple events = 4;
+}
+
+message CPrivacySettings {
+	optional int32 privacy_state = 1;
+	optional int32 privacy_state_inventory = 2;
+	optional int32 privacy_state_gifts = 3;
+	optional int32 privacy_state_ownedgames = 4;
+	optional int32 privacy_state_playtime = 5;
+	optional int32 privacy_state_friendslist = 6;
+}
+
+message CPlayer_GetPrivacySettings_Request {
+}
+
+message CPlayer_GetPrivacySettings_Response {
+	optional .CPrivacySettings privacy_settings = 1;
+}
+
+message CPlayer_PrivacySettingsChanged_Notification {
+	optional .CPrivacySettings privacy_settings = 1;
+}
+
 message CWebRTCClient_InitiateWebRTCConnection_Request {
 	optional string sdp = 1;
 }
@@ -307,13 +355,17 @@ message CSteamTV_Game {
 	optional string name = 2;
 	optional string image = 3;
 	optional uint64 viewers = 4;
+	repeated .GetBroadcastChannelEntry channels = 5;
+	optional string release_date = 6;
+	optional string developer = 7;
+	optional string publisher = 8;
 }
 
 message CSteamTV_GetGames_Response {
 	repeated .CSteamTV_Game results = 1;
 }
 
-message CSteamTV_GetFeatured_Response {
+message CSteamTV_GetChannels_Response {
 	repeated .GetBroadcastChannelEntry results = 1;
 }
 
@@ -472,6 +524,7 @@ message NotImplemented {
 service Community {
 	rpc GetApps (.CCommunity_GetApps_Request) returns (.CCommunity_GetApps_Response);
 	rpc GetAppRichPresenceLocalization (.CCommunity_GetAppRichPresenceLocalization_Request) returns (.CCommunity_GetAppRichPresenceLocalization_Response);
+	rpc GetUserPartnerEventNews (.NotImplemented) returns (.CCommunity_GetUserPartnerEventNews_Response);
 }
 
 service WebRTCClient {
@@ -523,7 +576,7 @@ service SteamTV {
 	rpc ReportBroadcastChannel (.NotImplemented) returns (.CSteamTV_ReportBroadcastChannel_Response);
 	rpc GetBroadcastChannelInteraction (.NotImplemented) returns (.CSteamTV_GetBroadcastChannelInteraction_Response);
 	rpc GetGames (.NotImplemented) returns (.CSteamTV_GetGames_Response);
-	rpc GetFeatured (.NotImplemented) returns (.CSteamTV_GetFeatured_Response);
+	rpc GetChannels (.NotImplemented) returns (.CSteamTV_GetChannels_Response);
 	rpc AddChatBan (.CSteamTV_AddChatBan_Request) returns (.CSteamTV_AddChatBan_Response);
 	rpc GetChatBans (.NotImplemented) returns (.CSteamTV_GetChatBans_Response);
 	rpc AddChatModerator (.CSteamTV_AddChatModerator_Request) returns (.CSteamTV_AddChatModerator_Response);
