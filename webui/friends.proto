@@ -303,6 +303,7 @@ message CSteamTV_GetBroadcastChannelStatus_Response {
 	optional string thumbnail_url = 7;
 	optional uint64 followers = 8;
 	optional uint64 subscribers = 9;
+	optional string unique_name = 10;
 }
 
 message GetBroadcastChannelEntry {
@@ -456,6 +457,32 @@ message CSteamTV_GetMyBroadcastChannels_Response {
 	repeated .GetBroadcastChannelEntry results = 1;
 }
 
+message CSteamTV_HomePageTemplate_Takeover {
+	repeated .GetBroadcastChannelEntry broadcasts = 1;
+}
+
+message CSteamTV_HomePageTemplate_SingleGame {
+	repeated .GetBroadcastChannelEntry broadcasts = 1;
+	optional uint32 appid = 2;
+	optional string title = 3;
+}
+
+message CSteamTV_HomePageTemplate_QuickExplore {
+	repeated .GetBroadcastChannelEntry broadcasts = 1;
+	optional string title = 2;
+}
+
+message CSteamTV_HomePageContentRow {
+	optional int32 template_type = 1 [(description) = "enum"];
+	optional .CSteamTV_HomePageTemplate_Takeover takeover = 2;
+	optional .CSteamTV_HomePageTemplate_SingleGame single_game = 3;
+	optional .CSteamTV_HomePageTemplate_QuickExplore quick_explore = 4;
+}
+
+message CSteamTV_GetHomePageContents_Response {
+	repeated .CSteamTV_HomePageContentRow rows = 1;
+}
+
 message CFriendsListCategory {
 	optional uint32 groupid = 1;
 	optional string name = 2;
@@ -588,6 +615,7 @@ service SteamTV {
 	rpc GetSteamTVUserSettings (.NotImplemented) returns (.CSteamTV_GetSteamTVUserSettings_Response);
 	rpc SetSteamTVUserSettings (.NotImplemented) returns (.CSteamTV_SetSteamTVUserSettings_Response);
 	rpc GetMyBroadcastChannels (.NotImplemented) returns (.CSteamTV_GetMyBroadcastChannels_Response);
+	rpc GetHomePageContents (.NotImplemented) returns (.CSteamTV_GetHomePageContents_Response);
 }
 
 service FriendsList {
