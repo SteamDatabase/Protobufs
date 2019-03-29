@@ -6,8 +6,6 @@ option cc_generic_services = false;
 
 enum ETFGCMsg {
 	k_EMsgGCReportWarKill = 5001;
-	k_EMsgGCVoteKickBanPlayer = 5018;
-	k_EMsgGCVoteKickBanPlayerResult = 5019;
 	k_EMsgGCKickPlayer_DEPRECATED = 5020;
 	k_EMsgGCStartedTraining_DEPRECATED = 5021;
 	k_EMsgGCFreeTrial_ChooseMostHelpfulFriend = 5022;
@@ -141,8 +139,6 @@ enum ETFGCMsg {
 	k_EMsgGC_QuestMapUnlockNode = 6547;
 	k_EMsgGC_QuestMapPurchaseReward = 6549;
 	k_EMsgGC_SetDisablePartyQuestProgress = 6550;
-	k_EMsgGCPlayerVoteKickedAfterLeavingMatch = 6551;
-	k_EMsgGCPlayerVoteKickedAfterLeavingMatchResponse = 6552;
 	k_EMsgGCQuestProgressReport = 6553;
 	k_EMsgGCParty_SetOptions = 6554;
 	k_EMsgGCParty_SetOptionsResponse = 6555;
@@ -170,6 +166,8 @@ enum ETFGCMsg {
 	k_EMsgGCQuestStrangeEvent = 6577;
 	k_EMsgGC_AcceptLobbyInvite = 6578;
 	k_EMsgGC_AcceptLobbyInviteReply = 6579;
+	k_EMsgGC_ProcessMatchVoteKick = 6581;
+	k_EMsgGC_ProcessMatchVoteKickResponse = 6582;
 	k_EMsgGCDev_GrantWarKill = 10001;
 }
 
@@ -252,6 +250,13 @@ enum TFMatchLeaveReason {
 	TFMatchLeaveReason_GC_REMOVED = 6;
 }
 
+enum TFVoteKickReason {
+	TFVoteKickReason_Other = 0;
+	TFVoteKickReason_Cheating = 1;
+	TFVoteKickReason_Idle = 2;
+	TFVoteKickReason_Scamming = 3;
+}
+
 enum ServerMatchmakingState {
 	ServerMatchmakingState_INVALID = 0;
 	ServerMatchmakingState_NOT_PARTICIPATING = 1;
@@ -306,21 +311,6 @@ message CSOTFMapContribution {
 	optional uint32 account_id = 1 [(key_field) = true];
 	optional uint32 def_index = 2 [(key_field) = true];
 	optional uint32 contribution_level = 3;
-}
-
-message CMsgTFVoteKickBanPlayer {
-	optional uint32 account_id_subject = 1;
-	optional uint32 kick_reason = 2;
-}
-
-message CMsgTFVoteKickBanPlayerResult {
-	optional uint32 account_id_initiator = 1;
-	optional uint32 account_id_subject = 2;
-	optional uint32 kick_reason = 3;
-	optional bool kick_successful = 4;
-	optional uint32 num_yes_votes = 5;
-	optional uint32 num_no_votes = 6;
-	optional uint32 num_possible_votes = 7;
 }
 
 message CMsgTFFreeTrialChooseMostHelpfulFriend {
@@ -1031,10 +1021,22 @@ message CMsgPlayerLeftMatch {
 message CMsgPlayerLeftMatchResponse {
 }
 
-message CMsgPlayerVoteKickedAfterLeavingMatch {
-	optional fixed64 steam_id = 1;
-	optional fixed64 lobby_id = 2;
-	optional fixed64 match_id = 3;
+message CMsgProcessMatchVoteKick {
+	message Vote {
+		optional fixed64 steam_id = 1;
+		optional bool vote_yay = 2;
+	}
+
+	optional fixed64 match_id = 1;
+	optional fixed64 initiator_steam_id = 2;
+	optional fixed64 target_steam_id = 3;
+	optional .TFVoteKickReason reason = 4 [default = TFVoteKickReason_Other];
+	repeated .CMsgProcessMatchVoteKick.Vote votes = 5;
+	optional bool default_pass = 6;
+}
+
+message CMsgProcessMatchVoteKickResponse {
+	optional bool rip = 1;
 }
 
 message CMsgPlayerVoteKickedAfterLeavingMatchResponse {
@@ -1357,13 +1359,16 @@ message CSOTFRatingData {
 }
 
 message CMsgGC_TFVoteKickPlayerRequest {
-	optional uint32 account_id = 1;
 	optional uint64 target_id = 2;
+	optional uint64 voter_id = 3;
+	optional .TFVoteKickReason reason = 4 [default = TFVoteKickReason_Other];
+	optional uint64 match_id = 5;
 }
 
 message CMsgGC_VoteKickPlayerRequestResponse {
 	optional bool allowed = 1;
-	optional uint32 cooldown = 2;
+	optional bool voter_inhibit = 3;
+	optional bool target_inhibit = 4;
 }
 
 message CMsgGC_DailyCompetitiveStatsRollup {
