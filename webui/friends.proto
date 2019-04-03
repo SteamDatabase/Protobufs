@@ -211,6 +211,7 @@ message CSteamTV_GetBroadcastChannelProfile_Response {
 	optional string schedule = 7;
 	optional string rules = 8;
 	optional string panels = 9;
+	optional bool is_partnered = 10;
 }
 
 message CSteamTV_SetBroadcastChannelImage_Response {
@@ -286,6 +287,7 @@ message GetBroadcastChannelEntry {
 	optional bool is_live = 16;
 	optional string language = 17;
 	optional uint32 reports = 18;
+	optional bool is_partnered = 19;
 }
 
 message CSteamTV_GetFollowedChannels_Response {
@@ -520,6 +522,15 @@ message CClan_RespondToClanInvite_Request {
 }
 
 message CClan_RespondToClanInvite_Response {
+}
+
+message CBroadcast_BroadcastUploadStarted_Notification {
+	optional fixed64 broadcast_id = 1;
+	optional string upload_token = 2;
+	optional string upload_address = 3;
+	optional fixed64 broadcast_upload_id = 4;
+	optional uint32 heartbeat_interval_seconds = 5;
+	optional bool is_rtmp = 6;
 }
 
 message CProductImpressionsFromClient_Notification {
