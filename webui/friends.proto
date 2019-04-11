@@ -528,9 +528,10 @@ message CBroadcast_BroadcastUploadStarted_Notification {
 	optional fixed64 broadcast_id = 1;
 	optional string upload_token = 2;
 	optional string upload_address = 3;
-	optional fixed64 broadcast_upload_id = 4;
-	optional uint32 heartbeat_interval_seconds = 5;
-	optional bool is_rtmp = 6;
+	optional string http_address = 4;
+	optional fixed64 broadcast_upload_id = 5;
+	optional uint32 heartbeat_interval_seconds = 6;
+	optional bool is_rtmp = 7;
 }
 
 message CProductImpressionsFromClient_Notification {
