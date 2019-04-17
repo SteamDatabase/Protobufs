@@ -458,6 +458,11 @@ message CSteamTV_HomePageTemplate_WatchParty {
 	optional uint64 chat_group_id = 3;
 }
 
+message CSteamTV_HomePageTemplate_Developer {
+	optional .GetBroadcastChannelEntry broadcast = 1;
+	optional string title = 2;
+}
+
 message CSteamTV_HomePageContentRow {
 	optional int32 template_type = 1 [(description) = "enum"];
 	optional .CSteamTV_HomePageTemplate_Takeover takeover = 2;
@@ -466,6 +471,7 @@ message CSteamTV_HomePageContentRow {
 	optional .CSteamTV_HomePageTemplate_QuickExplore quick_explore = 5;
 	optional .CSteamTV_HomePageTemplate_ConveyorBelt conveyor_belt = 6;
 	optional .CSteamTV_HomePageTemplate_WatchParty watch_party = 7;
+	optional .CSteamTV_HomePageTemplate_Developer developer = 8;
 }
 
 message CSteamTV_GetHomePageContents_Response {
