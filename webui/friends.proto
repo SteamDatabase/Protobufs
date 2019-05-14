@@ -484,6 +484,23 @@ message CSteamTV_GetHomePageContents_Response {
 	repeated .CSteamTV_HomePageContentRow rows = 1;
 }
 
+message CSteamTV_BroadcastClipInfo {
+	optional uint64 broadcast_clip_id = 1;
+	optional uint64 channel_id = 2;
+	optional uint32 app_id = 3;
+	optional fixed64 broadcaster_steamid = 4;
+	optional fixed64 creator_steamid = 5;
+	optional string video_description = 6;
+	optional uint32 live_time = 7;
+	optional uint32 length_ms = 8;
+	optional string thumbnail_path = 9;
+}
+
+message CSteamTV_GetBroadcastChannelClips_Response {
+	repeated .CSteamTV_BroadcastClipInfo clips = 1;
+	optional string thumbnail_host = 2;
+}
+
 message CFriendsListCategory {
 	optional uint32 groupid = 1;
 	optional string name = 2;
@@ -631,6 +648,7 @@ service SteamTV {
 	rpc GetBroadcastChannelStatus (.NotImplemented) returns (.CSteamTV_GetBroadcastChannelStatus_Response);
 	rpc FollowBroadcastChannel (.NotImplemented) returns (.CSteamTV_FollowBroadcastChannel_Response);
 	rpc SubscribeBroadcastChannel (.NotImplemented) returns (.CSteamTV_SubscribeBroadcastChannel_Response);
+	rpc GetBroadcastChannelClips (.NotImplemented) returns (.CSteamTV_GetBroadcastChannelClips_Response);
 	rpc ReportBroadcastChannel (.NotImplemented) returns (.CSteamTV_ReportBroadcastChannel_Response);
 	rpc GetBroadcastChannelInteraction (.NotImplemented) returns (.CSteamTV_GetBroadcastChannelInteraction_Response);
 	rpc GetGames (.NotImplemented) returns (.CSteamTV_GetGames_Response);
