@@ -39,11 +39,6 @@ message CCommunity_GetUserPartnerEventNews_Response {
 	repeated .CClanMatchEventByRange results = 1;
 }
 
-message CPlayer_GetDurationControl_Response {
-	optional bool is_enabled = 1;
-	optional int32 seconds = 2;
-}
-
 message CWebRTCClient_InitiateWebRTCConnection_Request {
 	optional string sdp = 1;
 }
@@ -551,36 +546,6 @@ message CClan_RespondToClanInvite_Request {
 }
 
 message CClan_RespondToClanInvite_Response {
-}
-
-message CBroadcast_BroadcastUploadStarted_Notification {
-	optional fixed64 broadcast_id = 1;
-	optional string upload_token = 2;
-	optional string upload_address = 3;
-	optional string http_address = 4;
-	optional fixed64 broadcast_upload_id = 5;
-	optional uint32 heartbeat_interval_seconds = 6;
-	optional bool is_rtmp = 7;
-}
-
-message CBroadcast_StartBuildClip_Response {
-	optional fixed64 broadcast_clip_id = 1;
-}
-
-message CBroadcast_GetBuildClipStatus_Response {
-}
-
-message CBroadcast_GetClipDetails_Response {
-	optional uint64 broadcast_clip_id = 1;
-	optional uint64 video_id = 2;
-	optional uint64 channel_id = 3;
-	optional uint32 app_id = 4;
-	optional uint32 accountid_broadcaster = 5;
-	optional uint32 accountid_clipmaker = 6;
-	optional string video_description = 7;
-	optional uint32 start_time = 8;
-	optional uint32 length_milliseconds = 9;
-	optional string thumbnail_path = 10;
 }
 
 message CProductImpressionsFromClient_Notification {
