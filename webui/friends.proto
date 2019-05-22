@@ -4,6 +4,7 @@ import "steammessages_clientserver_friends.proto";
 
 message CCommunity_GetApps_Request {
 	repeated int32 appids = 1;
+	optional uint32 language = 2;
 }
 
 message CCommunity_GetApps_Response {
@@ -546,6 +547,9 @@ message CClan_RespondToClanInvite_Request {
 }
 
 message CClan_RespondToClanInvite_Response {
+}
+
+message CBroadcast_SetClipDetails_Response {
 }
 
 message CProductImpressionsFromClient_Notification {
