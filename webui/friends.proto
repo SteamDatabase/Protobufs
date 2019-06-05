@@ -40,6 +40,17 @@ message CCommunity_GetUserPartnerEventNews_Response {
 	repeated .CClanMatchEventByRange results = 1;
 }
 
+message CPlayer_PostStatusToFriends_Response {
+}
+
+message CPlayer_GetPostedStatus_Response {
+	optional uint32 accountid = 1;
+	optional uint64 postid = 2;
+	optional string status_text = 3;
+	optional bool deleted = 4;
+	optional uint32 appid = 5;
+}
+
 message CWebRTCClient_InitiateWebRTCConnection_Request {
 	optional string sdp = 1;
 }
@@ -539,6 +550,14 @@ message CFriendsList_GetFriendsList_Request {
 
 message CFriendsList_GetFriendsList_Response {
 	optional .CMsgClientFriendsList friendslist = 1;
+}
+
+message CMsgClientSecret {
+	optional uint32 version = 1;
+	optional uint32 appid = 2;
+	optional uint32 deviceid = 3;
+	optional fixed64 nonce = 4;
+	optional bytes hmac = 5;
 }
 
 message CClan_RespondToClanInvite_Request {
