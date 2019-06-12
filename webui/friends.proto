@@ -51,6 +51,9 @@ message CPlayer_GetPostedStatus_Response {
 	optional uint32 appid = 5;
 }
 
+message CPlayer_DeletePostedStatus_Response {
+}
+
 message CWebRTCClient_InitiateWebRTCConnection_Request {
 	optional string sdp = 1;
 }
@@ -476,6 +479,10 @@ message CSteamTV_HomePageTemplate_Developer {
 	optional string title = 2;
 }
 
+message CSteamTV_HomePageTemplate_Event {
+	optional string title = 1;
+}
+
 message CSteamTV_HomePageContentRow {
 	optional int32 template_type = 1 [(description) = "enum"];
 	optional .CSteamTV_HomePageTemplate_Takeover takeover = 2;
@@ -485,6 +492,7 @@ message CSteamTV_HomePageContentRow {
 	optional .CSteamTV_HomePageTemplate_ConveyorBelt conveyor_belt = 6;
 	optional .CSteamTV_HomePageTemplate_WatchParty watch_party = 7;
 	optional .CSteamTV_HomePageTemplate_Developer developer = 8;
+	optional .CSteamTV_HomePageTemplate_Event event = 9;
 }
 
 message CSteamTV_GetHomePageContents_Response {
