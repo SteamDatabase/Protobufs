@@ -1,0 +1,321 @@
+import "dac_gcmessages_common.proto";
+
+option optimize_for = SPEED;
+option cc_generic_services = false;
+
+enum EGCDACServerMessages {
+	k_EMsgServerToGCMatchSignoutPermission = 10001;
+	k_EMsgServerToGCMatchSignoutPermissionResponse = 10002;
+	k_EMsgServerToGCMatchSignout = 10003;
+	k_EMsgServerToGCMatchSignoutResponse = 10004;
+	k_EMsgServerToGCIdlePing = 10005;
+	k_EMsgGCToServerRequestPing = 10006;
+	k_EMsgGCToServerAllocateForMatch = 10007;
+	k_EMsgGCToServerAllocateForMatchResponse = 10008;
+	k_EMsgServerToGCEnterMatchmaking = 10009;
+	k_EMsgGCToServerCancelAllocateForMatch = 10010;
+	k_EMsgServerToGCUpdateLobbyServerState = 10011;
+	k_EMsgServerToGCAbandonMatch = 10012;
+	k_EMsgServerToGCAbandonMatchResponse = 10013;
+	k_EMsgServerToGCTestConnection = 10014;
+	k_EMsgServerToGCTestConnectionResponse = 10015;
+	k_EMsgGCToServerAddSpectator = 10016;
+	k_EMsgGCToServerAddSpectatorResponse = 10017;
+}
+
+enum EGCServerLobbyData {
+	k_EServerLobbyData_PlayerInfo = 1;
+	k_EServerLobbyData_PlayerMMR = 2;
+}
+
+enum EGCServerSignoutData {
+	k_EMatchSignoutData_Disconnections = 1;
+	k_EMatchSignoutData_PerformanceStats = 2;
+	k_EMatchSignoutData_CombatStats = 3;
+	k_EPlayerSignoutData_MMRUpdate = 10;
+	k_EPlayerSignoutData_EventGrantProgress = 11;
+}
+
+message CMsgServerCrashSentinelFile {
+	message GameInfo {
+		optional uint64 match_id = 1;
+		optional fixed64 lobby_id = 2;
+		optional uint32 server_state = 4;
+		repeated uint32 client_account_ids = 5;
+	}
+
+	optional uint32 version = 1;
+	optional fixed64 server_steam_id = 2;
+	optional fixed32 server_public_ip_addr = 3;
+	optional uint32 server_port = 4;
+	optional uint32 server_cluster = 5;
+	optional uint32 pid = 6;
+	optional uint32 saved_time = 7;
+	optional uint32 server_version = 8;
+	optional .CMsgServerCrashSentinelFile.GameInfo game_info = 9;
+	optional uint32 server_private_ip_addr = 10;
+	optional uint32 instance_id = 11;
+}
+
+message CServerLobbyData_PlayerMMR {
+	message Player {
+		optional uint32 account_id = 1;
+		optional uint32 mmr = 2;
+		optional uint32 uncertainty = 3;
+	}
+
+	repeated .CServerLobbyData_PlayerMMR.Player players = 1;
+}
+
+message CSODACServerDynamicLobby {
+	optional uint64 lobby_id = 1;
+	repeated uint32 left_account_ids = 2 [packed = true];
+}
+
+message CSODACServerStaticLobby {
+	message Member {
+		optional uint32 account_id = 1;
+		optional string persona_name = 2;
+		optional .EDACLobbyTeam team = 3 [default = k_EDACLobbyTeam_Team0];
+		optional uint32 player_slot = 4;
+		optional .EDACAIType ai_type = 5 [default = k_EDACAIType_Invalid];
+		optional uint32 party_index = 6;
+		optional .EDACPlatform platform = 7 [default = k_eDACPlatform_None];
+	}
+
+	repeated .CExtraMsgBlock extra_messages = 1;
+	optional fixed64 server_steam_id = 2;
+	optional uint64 lobby_id = 3;
+	optional fixed32 replay_salt = 4;
+	repeated .CSODACServerStaticLobby.Member members = 6;
+	optional bool trusted_server = 7;
+}
+
+message CMsgMatchSignoutData_PerformanceStats {
+	optional uint32 start_memory_bytes = 1;
+	optional uint32 peak_memory_bytes = 2;
+	optional uint32 end_memory_bytes = 3;
+	optional uint32 total_update_time_ms = 4;
+	optional uint32 total_match_time_ms = 5;
+	optional uint32 sent_messages = 6;
+	optional uint32 received_messages = 7;
+	optional uint32 sent_bytes = 8;
+	optional uint32 received_bytes = 9;
+	optional uint32 max_update_time_micros = 10;
+	optional uint32 num_updates = 11;
+	optional uint32 replay_size_bytes = 12;
+}
+
+message CMsgMatchDisconnection {
+	optional uint32 account_id = 1;
+	optional uint32 disconnect_time = 2;
+	optional uint32 connection_state = 3;
+	optional uint32 reason_code = 4;
+	optional uint32 reconnect_delay = 5;
+}
+
+message CMsgMatchSignoutData_Disconnections {
+	repeated .CMsgMatchDisconnection disconnections = 1;
+}
+
+message CMsgMatchSignoutData_CombatStats {
+	message CombatRound {
+		optional uint32 round_number = 1;
+		repeated uint32 player_elements = 2 [packed = true];
+		repeated uint32 opponent_elements = 3 [packed = true];
+		optional uint32 player_damage = 4;
+		optional uint32 combat_duration_s = 5;
+		optional bool player_won = 6;
+		optional uint32 player_slot = 7;
+		optional uint32 opponent_slot = 8;
+		optional uint32 player_starting_life = 9;
+		optional uint32 player_level = 10;
+		optional uint32 player_rerolls = 11;
+		optional uint32 player_gold = 12;
+		optional uint32 player_interest_gold = 14;
+		optional uint32 player_streak_gold = 15;
+		optional uint32 player_bonus_gold = 16;
+	}
+
+	message FinalPlaces {
+		optional uint32 player_slot = 1;
+		optional uint32 final_place = 2;
+		optional uint32 elimination_time_s = 3;
+		optional uint32 elimination_round = 4;
+	}
+
+	repeated .CMsgMatchSignoutData_CombatStats.CombatRound combat_rounds = 1;
+	optional uint32 match_mmr = 2;
+	repeated .CMsgMatchSignoutData_CombatStats.FinalPlaces final_places = 3;
+}
+
+message CMsgPlayerSignoutData_MMRUpdate {
+	message Opponent {
+		optional uint32 place = 1;
+		optional uint32 mmr = 2;
+		optional uint32 uncertainty = 3;
+		optional uint32 account_id = 4;
+	}
+
+	optional uint32 final_place = 1;
+	repeated .CMsgPlayerSignoutData_MMRUpdate.Opponent opponents = 2;
+}
+
+message CMsgPlayerSignoutData_EventGrantProgress {
+	message Achievement {
+		optional uint32 achievement_id = 1;
+		optional uint32 grant_progress = 2;
+	}
+
+	message Challenge {
+		optional uint32 slot_id = 1;
+		optional uint32 sequence_id = 2;
+		optional uint32 progress = 3;
+	}
+
+	optional uint32 event_id = 1;
+	optional uint32 event_points = 2;
+	repeated .CMsgPlayerSignoutData_EventGrantProgress.Achievement achievements = 3;
+	repeated .CMsgPlayerSignoutData_EventGrantProgress.Challenge challenges = 4;
+}
+
+message CMsgServerToGCMatchSignout {
+	message MatchSignout {
+		optional .EDACMatchState match_state = 1 [default = k_EMatchState_InProgress];
+		repeated .CExtraMsgBlock additional_data = 2;
+		optional uint32 match_duration_s = 3;
+		optional uint32 match_rounds = 4;
+	}
+
+	message PlayerSignout {
+		optional uint32 player_slot = 1;
+		optional uint32 account_id = 2;
+		optional .EDACPlayerState player_state = 3 [default = k_EPlayerState_Playing];
+		repeated .CExtraMsgBlock additional_data = 4;
+		optional uint32 final_placement = 6;
+		optional uint32 survival_time_s = 7;
+		optional uint32 survival_round = 8;
+	}
+
+	optional uint64 lobby_id = 1;
+	optional bool should_signout_match = 2;
+	optional .CMsgServerToGCMatchSignout.MatchSignout match_signout = 3;
+	repeated .CMsgServerToGCMatchSignout.PlayerSignout player_signouts = 4;
+	optional uint32 signout_start_time = 5;
+}
+
+message CMsgServerToGCMatchSignoutResponse {
+	enum ESignoutResult {
+		k_ESignout_Failed_Retry = 1;
+		k_ESignout_Failed_NoRetry = 2;
+		k_ESignout_Failed_InFlight = 3;
+		k_ESignout_Success = 4;
+		k_ESignout_Success_AlreadySignedOut = 5;
+	}
+
+	optional .CMsgServerToGCMatchSignoutResponse.ESignoutResult result = 1 [default = k_ESignout_Failed_Retry];
+}
+
+message CMsgServerWelcomeDAC {
+}
+
+message CMsgServerToGCIdlePing {
+	optional uint32 server_version = 1;
+}
+
+message CMsgGCToServerRequestPing {
+}
+
+message CMsgGCToServerAllocateForMatch {
+	optional uint64 match_id = 1;
+}
+
+message CMsgGCToServerAllocateForMatchResponse {
+	optional bool success = 1;
+}
+
+message CMsgServerToGCMatchSignoutPermission {
+	optional uint64 lobby_id = 1;
+	optional .EDACMatchMode match_mode = 2 [default = k_EDACMatchMode_Casual];
+}
+
+message CMsgServerToGCMatchSignoutPermissionResponse {
+	optional bool can_sign_out = 1;
+	optional uint32 retry_time_s = 2;
+	repeated .EGCServerSignoutData requested_data = 3;
+}
+
+message CMsgServerToGCEnterMatchmaking {
+	optional uint32 server_version = 1;
+	optional string search_key = 2;
+	optional uint32 region_id = 3;
+	optional uint32 cluster_id = 4;
+	optional uint32 server_public_ip = 5;
+	optional uint32 server_private_ip = 6;
+	optional uint32 server_port = 7;
+	optional bytes sdr_address = 9;
+}
+
+message CMsgGCToServerCancelAllocateForMatch {
+	optional uint64 match_id = 1;
+}
+
+message CMsgServerToGCUpdateLobbyServerState {
+	optional uint64 lobby_id = 1;
+	optional .ELobbyServerState server_state = 2 [default = k_eLobbyServerState_Assign];
+}
+
+message CMsgServerToGCAbandonMatch {
+	message Player {
+		optional uint32 account_id = 1;
+		optional uint64 additional_data = 2;
+	}
+
+	enum EReason {
+		eReason_ServerCrash = 1;
+		eReason_ClientsFailedToConnect = 2;
+	}
+
+	optional fixed64 server_steam_id = 1;
+	optional fixed64 lobby_id = 2;
+	optional uint32 cluster_id = 3;
+	optional .CMsgServerToGCAbandonMatch.EReason reason_code = 4 [default = eReason_ServerCrash];
+	optional uint64 additional_data = 5;
+	optional uint64 match_id = 6;
+	repeated .CMsgServerToGCAbandonMatch.Player players = 8;
+	optional fixed32 public_ip_address = 9;
+	optional uint32 port = 10;
+	optional uint32 server_version = 11;
+	optional uint32 pid = 12;
+	optional uint32 instance_id = 13;
+	optional uint32 private_ip_address = 14;
+}
+
+message CMsgServerToGCAbandonMatchResponse {
+}
+
+message CMsgServerToGCTestConnection {
+}
+
+message CMsgServerToGCTestConnectionResponse {
+	optional uint32 state = 1;
+	optional uint64 lobby_id = 2;
+}
+
+message CMsgGCToServerAddSpectator {
+	optional uint64 lobby_id = 1;
+	optional uint32 account_id = 2;
+	optional uint32 account_to_spectate = 3;
+}
+
+message CMsgGCToServerAddSpectatorResponse {
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eServerFull = 2;
+	}
+
+	optional .CMsgGCToServerAddSpectatorResponse.EResponse result = 1 [default = k_eInternalError];
+	optional uint32 account_to_spectate = 2;
+}
+

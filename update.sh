@@ -7,6 +7,7 @@ rsync -arhv ../backend/files/csgo/Protobufs/ ./csgo/
 rsync -arhv ../backend/files/dota/Protobufs/ ./dota2/
 rsync -arhv ../backend/files/tf/Protobufs/ ./tf2/
 rsync -arhv ../backend/files/artifact/Protobufs/ ./artifact/
+rsync -arhv ../backend/files/underlords/Protobufs/ ./underlords/
 cp -r ./steam/google ./
 
 git add -A

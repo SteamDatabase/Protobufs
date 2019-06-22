@@ -1,0 +1,231 @@
+import "steammessages.proto";
+
+option optimize_for = SPEED;
+option cc_generic_services = false;
+
+enum EGCDACCommonMessages {
+	k_EMsgAnyToGCReportAsserts = 7000;
+	k_EMsgAnyToGCReportAssertsResponse = 7001;
+	k_EMsgGCItemEditorReservationsRequest = 7283;
+	k_EMsgGCItemEditorReservationsResponse = 7284;
+	k_EMsgGCItemEditorReserveItemDef = 7285;
+	k_EMsgGCItemEditorReserveItemDefResponse = 7286;
+	k_EMsgGCItemEditorReleaseReservation = 7287;
+	k_EMsgGCItemEditorReleaseReservationResponse = 7288;
+}
+
+enum EDACMatchMode {
+	k_EDACMatchMode_Casual = 1;
+	k_EDACMatchMode_PrivateLobby = 2;
+	k_EDACMatchMode_SoloBot = 3;
+}
+
+enum EDACPlatform {
+	k_eDACPlatform_None = 0;
+	k_eDACPlatform_PC = 1;
+	k_eDACPlatform_Mac = 2;
+	k_eDACPlatform_Linux = 3;
+	k_eDACPlatform_Android = 4;
+	k_eDACPlatform_iOS = 5;
+}
+
+enum EDACLobbyTeam {
+	k_EDACLobbyTeam_Team0 = 0;
+	k_EDACLobbyTeam_Team1 = 1;
+	k_EDACLobbyTeam_Team2 = 2;
+	k_EDACLobbyTeam_Team3 = 3;
+	k_EDACLobbyTeam_Team4 = 4;
+	k_EDACLobbyTeam_Team5 = 5;
+	k_EDACLobbyTeam_Team6 = 6;
+	k_EDACLobbyTeam_Team7 = 7;
+	k_EDACLobbyTeam_Spectator = 250;
+}
+
+enum EDACAIType {
+	k_EDACAIType_Invalid = 0;
+	k_EDACAIType_Lvl1 = 1;
+	k_EDACAIType_Lvl2 = 2;
+	k_EDACAIType_Lvl3 = 3;
+	k_EDACAIType_Lvl4 = 4;
+	k_EDACAIType_Lvl5 = 5;
+	k_EDACAIType_Lvl6 = 6;
+	k_EDACAIType_Lvl7 = 7;
+	k_EDACAIType_Lvl8 = 8;
+	k_EDACAIType_PB0 = 20;
+	k_EDACAIType_PB1 = 21;
+	k_EDACAIType_PB2 = 22;
+	k_EDACAIType_PB3 = 23;
+	k_EDACAIType_PB4 = 24;
+	k_EDACAIType_PB5 = 25;
+	k_EDACAIType_PB6 = 26;
+	k_EDACAIType_PB7 = 27;
+	k_EDACAIType_PB8 = 28;
+	k_EDACAIType_PB9 = 29;
+	k_EDACAIType_PB10 = 30;
+	k_EDACAIType_PB11 = 31;
+	k_EDACAIType_PB12 = 32;
+	k_EDACAIType_PB13 = 33;
+	k_EDACAIType_PB14 = 34;
+	k_EDACAIType_PB15 = 35;
+	k_EDACAIType_PB16 = 36;
+	k_EDACAIType_PB17 = 37;
+	k_EDACAIType_PB18 = 38;
+	k_EDACAIType_PB19 = 39;
+}
+
+enum EDACMatchState {
+	k_EMatchState_InProgress = 0;
+	k_EMatchState_Completed = 1;
+	k_EMatchState_Failed_NetworkIssues = 2;
+	k_EMatchState_Failed_ServerCrash = 3;
+}
+
+enum EDACPlayerState {
+	k_EPlayerState_Playing = 0;
+	k_EPlayerState_Eliminated = 1;
+	k_EPlayerState_Abandoned = 2;
+	k_EPlayerState_Disconnected = 3;
+	k_EPlayerState_ServerCrashed = 4;
+}
+
+enum ELobbyServerState {
+	k_eLobbyServerState_Assign = 0;
+	k_eLobbyServerState_InGame = 1;
+	k_eLobbyServerState_PostMatch = 2;
+	k_eLobbyServerState_SignedOut = 3;
+	k_eLobbyServerState_Abandoned = 4;
+}
+
+message CExtraMsgBlock {
+	optional uint32 msg_type = 1;
+	optional bytes contents = 2;
+	optional uint64 msg_key = 3;
+	optional bool is_compressed = 4;
+}
+
+message CServerLobbyData_PlayerInfo {
+	message LoadoutSlot {
+		optional uint32 loadout_slot = 1;
+		optional uint32 def_index = 2;
+	}
+
+	message Achievement {
+		optional uint32 achievement_id = 1;
+		optional uint32 progress = 2;
+	}
+
+	message Challenge {
+		optional uint32 challenge_id = 1;
+		optional uint32 progress = 2;
+		optional uint32 sequence_id = 3;
+		optional uint32 slot_id = 4;
+		optional uint32 config_id = 5;
+	}
+
+	optional uint32 account_id = 1;
+	optional uint32 mmr_level = 2;
+	optional uint32 event_id = 3;
+	optional uint32 event_points = 4;
+	optional bool event_owned = 5;
+	repeated .CServerLobbyData_PlayerInfo.LoadoutSlot loadout = 6;
+	repeated .CServerLobbyData_PlayerInfo.Achievement achievements = 7;
+	repeated .CServerLobbyData_PlayerInfo.Challenge challenges = 8;
+}
+
+message CMsgRegionPingTimesClient {
+	repeated fixed32 data_center_codes = 1 [packed = true];
+	repeated uint32 ping_times = 2 [packed = true];
+}
+
+message CSODACLobby {
+	optional uint32 server_version = 1;
+	optional fixed64 server_steam_id = 3;
+	optional uint64 lobby_id = 5;
+	optional uint64 match_id = 6;
+	optional .ELobbyServerState server_state = 8 [default = k_eLobbyServerState_Assign];
+	optional .EDACMatchMode match_mode = 10 [default = k_EDACMatchMode_Casual];
+	optional uint32 udp_connect_ip = 11;
+	optional uint32 udp_connect_port = 12;
+}
+
+message CSODACParty {
+	message Member {
+		optional uint32 account_id = 1;
+		optional string persona_name = 2;
+		optional uint32 rights_flags = 3;
+		optional bool is_ready = 4;
+		optional .CSODACParty.EPlayerType player_type = 5 [default = k_ePlayerType_Player];
+	}
+
+	message LeftMember {
+		optional uint32 account_id = 1;
+		optional uint32 rights_flags = 2;
+		optional .CSODACParty.EPlayerType player_type = 3 [default = k_ePlayerType_Player];
+	}
+
+	message Invite {
+		optional uint32 account_id = 1;
+		optional string persona_name = 2;
+		optional uint32 invited_by = 3;
+	}
+
+	enum EMemberRights {
+		k_eMemberRights_Admin = 1;
+		k_eMemberRights_Creator = 2;
+	}
+
+	enum EPlayerType {
+		k_ePlayerType_Player = 0;
+		k_ePlayerType_Spectator = 1;
+	}
+
+	enum EBotDifficulty {
+		k_eBotDifficulty_None = 0;
+		k_eBotDifficulty_Easy = 1;
+		k_eBotDifficulty_Medium = 2;
+		k_eBotDifficulty_Hard = 3;
+		k_eBotDifficulty_Nightmare = 4;
+	}
+
+	optional uint64 party_id = 1;
+	repeated .CSODACParty.Member members = 2;
+	repeated .CSODACParty.Invite invites = 3;
+	optional bool in_match_making = 5;
+	optional string party_password = 6;
+	optional uint32 min_client_version = 8;
+	optional uint32 max_client_version = 9;
+	repeated .CSODACParty.LeftMember left_members = 10;
+	optional uint64 join_code = 11;
+	optional .CSODACParty.EBotDifficulty bot_difficulty = 12 [default = k_eBotDifficulty_None];
+}
+
+message CSOGameAccountClient {
+	optional uint32 account_id = 1 [(key_field) = true];
+	optional uint32 mmr_level = 2;
+}
+
+message CMsgStartFindingMatchInfo {
+	optional uint32 client_version = 2;
+	optional .EDACMatchMode match_mode = 3 [default = k_EDACMatchMode_Casual];
+	optional .EDACPlatform platform = 4 [default = k_eDACPlatform_None];
+}
+
+message CMsgAnyToGCReportAsserts {
+	message TrackedAssert {
+		optional string filename = 1;
+		optional uint32 line_number = 2;
+		optional string sample_msg = 3;
+		optional string sample_stack = 4;
+		optional uint32 times_fired = 5;
+		optional string function_name = 6;
+		optional string condition = 7;
+	}
+
+	optional uint32 version = 1;
+	repeated .CMsgAnyToGCReportAsserts.TrackedAssert asserts = 2;
+}
+
+message CMsgAnyToGCReportAssertsResponse {
+	optional bool success = 1;
+}
+
