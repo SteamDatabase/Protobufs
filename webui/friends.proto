@@ -31,6 +31,64 @@ message CCommunity_GetAppRichPresenceLocalization_Response_TokenList {
 	repeated .CCommunity_GetAppRichPresenceLocalization_Response_Token tokens = 2;
 }
 
+message CCommunity_Comment {
+	optional fixed64 gidcomment = 1;
+	optional fixed64 steamid = 2;
+	optional uint32 timestamp = 3;
+	optional string text = 4;
+	optional int32 upvotes = 5;
+	optional bool hidden = 6;
+	optional bool hidden_by_user = 7;
+	optional bool deleted = 8;
+	optional .CMsgIPAddress ipaddress = 9;
+	optional int32 total_hidden = 10;
+	optional bool upvoted_by_user = 11;
+}
+
+message CCommunity_GetCommentThread_Response {
+	repeated .CCommunity_Comment comments = 1;
+	repeated .CCommunity_Comment deleted_comments = 2;
+	optional fixed64 steamid = 3;
+	optional fixed64 commentthreadid = 4;
+	optional int32 start = 5;
+	optional int32 count = 6;
+	optional int32 total_count = 7;
+	optional int32 upvotes = 8;
+	repeated uint32 upvoters = 9;
+	optional bool user_subscribed = 10;
+	optional bool user_upvoted = 11;
+	optional fixed64 answer_commentid = 12;
+	optional uint32 answer_actor = 13;
+	optional int32 answer_actor_rank = 14;
+	optional bool can_post = 15;
+}
+
+message CCommunity_PostCommentToThread_Response {
+	optional fixed64 gidcomment = 1;
+	optional fixed64 commentthreadid = 2;
+	optional int32 count = 3;
+	optional int32 upvotes = 4;
+}
+
+message CCommunity_DeleteCommentFromThread_Response {
+}
+
+message CCommunity_RateCommentThread_Response {
+	optional uint64 gidcomment = 1;
+	optional uint64 commentthreadid = 2;
+	optional uint32 count = 3;
+	optional uint32 upvotes = 4;
+	optional bool has_upvoted = 5;
+}
+
+message CCommunity_GetCommentThreadRatings_Response {
+	optional uint64 commentthreadid = 1;
+	optional uint64 gidcomment = 2;
+	optional uint32 upvotes = 3;
+	optional bool has_upvoted = 4;
+	repeated uint32 upvoter_accountids = 5;
+}
+
 message CAppPriority {
 	optional uint32 priority = 1;
 	repeated uint32 appid = 2;
@@ -38,6 +96,45 @@ message CAppPriority {
 
 message CCommunity_GetUserPartnerEventNews_Response {
 	repeated .CClanMatchEventByRange results = 1;
+}
+
+message CCommunity_PartnerEventResult {
+	optional uint32 clanid = 1;
+	optional fixed64 event_gid = 2;
+	optional fixed64 announcement_gid = 3;
+	optional uint32 appid = 4;
+	optional bool possible_takeover = 5;
+	optional uint32 rtime32_last_modified = 6 [default = 0];
+}
+
+message CCommunity_GetBestEventsForUser_Response {
+	repeated .CCommunity_PartnerEventResult results = 1;
+}
+
+message CCommunity_MarkPartnerEventsForUser_Request_PartnerEventMarking {
+	optional uint32 clanid = 1;
+	optional fixed64 event_gid = 2;
+	optional int32 display_location = 3 [(description) = "enum"];
+	optional bool mark_shown = 4;
+	optional bool mark_read = 5;
+}
+
+message CCommunity_MarkPartnerEventsForUser_Response {
+}
+
+message CCommunity_ClanAnnouncementInfo {
+	optional uint64 gid = 1;
+	optional uint64 clanid = 2;
+	optional uint64 posterid = 3;
+	optional string headline = 4;
+	optional uint32 posttime = 5;
+	optional uint32 updatetime = 6;
+	optional string body = 7;
+	optional int32 commentcount = 8;
+	repeated string tags = 9;
+	optional int32 language = 10;
+	optional bool hidden = 11;
+	optional fixed64 forum_topic_id = 12;
 }
 
 message CPlayer_PostStatusToFriends_Response {
@@ -595,7 +692,14 @@ message NotImplemented {
 service Community {
 	rpc GetApps (.CCommunity_GetApps_Request) returns (.CCommunity_GetApps_Response);
 	rpc GetAppRichPresenceLocalization (.CCommunity_GetAppRichPresenceLocalization_Request) returns (.CCommunity_GetAppRichPresenceLocalization_Response);
+	rpc GetCommentThread (.NotImplemented) returns (.CCommunity_GetCommentThread_Response);
+	rpc PostCommentToThread (.NotImplemented) returns (.CCommunity_PostCommentToThread_Response);
+	rpc DeleteCommentFromThread (.NotImplemented) returns (.CCommunity_DeleteCommentFromThread_Response);
+	rpc RateCommentThread (.NotImplemented) returns (.CCommunity_RateCommentThread_Response);
+	rpc GetCommentThreadRatings (.NotImplemented) returns (.CCommunity_GetCommentThreadRatings_Response);
 	rpc GetUserPartnerEventNews (.NotImplemented) returns (.CCommunity_GetUserPartnerEventNews_Response);
+	rpc GetBestEventsForUser (.NotImplemented) returns (.CCommunity_GetBestEventsForUser_Response);
+	rpc MarkPartnerEventsForUser (.NotImplemented) returns (.CCommunity_MarkPartnerEventsForUser_Response);
 }
 
 service WebRTCClient {
