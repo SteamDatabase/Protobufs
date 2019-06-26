@@ -20,15 +20,6 @@ enum EDACMatchMode {
 	k_EDACMatchMode_SoloBot = 3;
 }
 
-enum EDACPlatform {
-	k_eDACPlatform_None = 0;
-	k_eDACPlatform_PC = 1;
-	k_eDACPlatform_Mac = 2;
-	k_eDACPlatform_Linux = 3;
-	k_eDACPlatform_Android = 4;
-	k_eDACPlatform_iOS = 5;
-}
-
 enum EDACLobbyTeam {
 	k_EDACLobbyTeam_Team0 = 0;
 	k_EDACLobbyTeam_Team1 = 1;
@@ -139,6 +130,7 @@ message CMsgRegionPingTimesClient {
 
 message CSODACLobby {
 	optional uint32 server_version = 1;
+	optional uint32 compatibility_version = 2;
 	optional fixed64 server_steam_id = 3;
 	optional uint64 lobby_id = 5;
 	optional uint64 match_id = 6;
@@ -155,6 +147,8 @@ message CSODACParty {
 		optional uint32 rights_flags = 3;
 		optional bool is_ready = 4;
 		optional .CSODACParty.EPlayerType player_type = 5 [default = k_ePlayerType_Player];
+		optional uint32 compatibility_version = 6;
+		optional .EDACPlatform platform = 7 [default = k_eDACPlatform_None];
 	}
 
 	message LeftMember {
@@ -192,8 +186,6 @@ message CSODACParty {
 	repeated .CSODACParty.Invite invites = 3;
 	optional bool in_match_making = 5;
 	optional string party_password = 6;
-	optional uint32 min_client_version = 8;
-	optional uint32 max_client_version = 9;
 	repeated .CSODACParty.LeftMember left_members = 10;
 	optional uint64 join_code = 11;
 	optional .CSODACParty.EBotDifficulty bot_difficulty = 12 [default = k_eBotDifficulty_None];

@@ -1,3 +1,4 @@
+import "steammessages.proto";
 import "dac_gcmessages_common.proto";
 
 option optimize_for = SPEED;
@@ -121,6 +122,7 @@ message CMsgClientToGCLeaveLobbyResponse {
 message CMsgClientWelcomeDAC {
 	optional uint32 currency = 1;
 	repeated .CExtraMsgBlock extra_messages = 2;
+	optional uint32 compatibility_version = 3;
 }
 
 message CMsgClientToGCIsInMatchmaking {
@@ -269,6 +271,7 @@ message CMsgClientToGCPartyStartMatchResponse {
 		k_eTooManySpectatorsForPrivate = 17;
 		k_eTooFewPlayersForMM = 18;
 		k_eTooFewPlayersForPrivate = 19;
+		k_eMismatchedVersions = 20;
 	}
 
 	optional .CMsgClientToGCPartyStartMatchResponse.EResponse result = 1 [default = k_eInternalError];

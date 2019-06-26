@@ -1,3 +1,4 @@
+import "steammessages.proto";
 import "dac_gcmessages_common.proto";
 
 option optimize_for = SPEED;
