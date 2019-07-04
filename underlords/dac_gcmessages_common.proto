@@ -20,6 +20,12 @@ enum EDACMatchMode {
 	k_EDACMatchMode_SoloBot = 3;
 }
 
+enum EDACGameMode {
+	k_EDACGameMode_Invalid = 0;
+	k_EDACGameMode_Normal = 1;
+	k_EDACGameMode_Turbo = 2;
+}
+
 enum EDACLobbyTeam {
 	k_EDACLobbyTeam_Team0 = 0;
 	k_EDACLobbyTeam_Team1 = 1;
@@ -62,6 +68,7 @@ enum EDACAIType {
 	k_EDACAIType_PB17 = 37;
 	k_EDACAIType_PB18 = 38;
 	k_EDACAIType_PB19 = 39;
+	k_EDACAIType_PB20 = 40;
 }
 
 enum EDACMatchState {
@@ -98,11 +105,12 @@ message CServerLobbyData_PlayerInfo {
 	message LoadoutSlot {
 		optional uint32 loadout_slot = 1;
 		optional uint32 def_index = 2;
+		optional uint32 loadout_sub_slot = 3;
 	}
 
-	message Achievement {
-		optional uint32 achievement_id = 1;
-		optional uint32 progress = 2;
+	message Currency {
+		optional uint32 currency_id = 1;
+		optional uint32 amount = 2;
 	}
 
 	message Challenge {
@@ -113,14 +121,25 @@ message CServerLobbyData_PlayerInfo {
 		optional uint32 config_id = 5;
 	}
 
+	message VirtualItem {
+		optional uint32 def_index = 1;
+		optional uint32 equip_slot = 2;
+		optional uint32 equip_sub_slot = 3;
+	}
+
+	message Event {
+		optional uint32 event_id = 1;
+		optional bool event_owned = 2;
+		repeated .CServerLobbyData_PlayerInfo.Challenge challenges = 3;
+		repeated .CServerLobbyData_PlayerInfo.Currency currencies = 4;
+		repeated .CServerLobbyData_PlayerInfo.VirtualItem virtual_items = 5;
+	}
+
 	optional uint32 account_id = 1;
 	optional uint32 mmr_level = 2;
-	optional uint32 event_id = 3;
-	optional uint32 event_points = 4;
-	optional bool event_owned = 5;
-	repeated .CServerLobbyData_PlayerInfo.LoadoutSlot loadout = 6;
-	repeated .CServerLobbyData_PlayerInfo.Achievement achievements = 7;
-	repeated .CServerLobbyData_PlayerInfo.Challenge challenges = 8;
+	repeated .CServerLobbyData_PlayerInfo.LoadoutSlot loadout = 3;
+	repeated .CServerLobbyData_PlayerInfo.Event events = 4;
+	optional uint32 global_leaderboard_rank = 5;
 }
 
 message CMsgRegionPingTimesClient {
@@ -138,6 +157,7 @@ message CSODACLobby {
 	optional .EDACMatchMode match_mode = 10 [default = k_EDACMatchMode_Casual];
 	optional uint32 udp_connect_ip = 11;
 	optional uint32 udp_connect_port = 12;
+	optional .EDACGameMode game_mode = 13 [default = k_EDACGameMode_Invalid];
 }
 
 message CSODACParty {
@@ -194,6 +214,7 @@ message CSODACParty {
 message CSOGameAccountClient {
 	optional uint32 account_id = 1 [(key_field) = true];
 	optional uint32 mmr_level = 2;
+	optional uint32 mmr_leaderboard = 3;
 }
 
 message CMsgStartFindingMatchInfo {

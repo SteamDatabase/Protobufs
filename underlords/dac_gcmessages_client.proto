@@ -123,6 +123,7 @@ message CMsgClientWelcomeDAC {
 	optional uint32 currency = 1;
 	repeated .CExtraMsgBlock extra_messages = 2;
 	optional uint32 compatibility_version = 3;
+	optional uint64 steam_announcement_gid = 5;
 }
 
 message CMsgClientToGCIsInMatchmaking {
@@ -311,6 +312,7 @@ message CMsgGCToClientPartyEvent {
 		k_eMatchMakingStopped_NoServerRegion = 7;
 		k_eLeftParty = 8;
 		k_eDeclinedInvite = 9;
+		k_eMatchMakingStopped_FailedOther = 10;
 	}
 
 	optional fixed64 party_id = 1;

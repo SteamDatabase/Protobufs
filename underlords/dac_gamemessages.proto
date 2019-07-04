@@ -255,6 +255,7 @@ message CMsgUnit {
 	optional int32 gold_value = 6;
 	optional uint32 kill_count = 8;
 	optional uint32 kill_streak = 9;
+	repeated .EUnitKeyword keywords = 10;
 }
 
 message CMsgShopItem {
@@ -302,6 +303,14 @@ message CMsgPublicPlayerState {
 	optional uint32 vs_opponent_losses = 31;
 	optional uint32 vs_opponent_draws = 32;
 	optional .EDACPlatform platform = 33 [default = k_eDACPlatform_None];
+	optional uint32 event_tier = 34;
+	optional uint32 progress_xp = 35;
+	optional string persona_name = 36;
+	optional uint32 wins = 37;
+	optional uint32 losses = 38;
+	optional uint32 global_leaderboard_rank = 39;
+	optional uint32 net_worth = 41;
+	optional int32 stored_win_gold = 42;
 	oneof opponent {
 		uint32 opponent_player_slot = 24;
 		uint32 opponent_neutral_wave = 25;
@@ -405,6 +414,7 @@ message CMsgUnitSnapshot {
 	optional uint32 kill_count = 12;
 	optional uint32 kill_streak = 13;
 	optional int32 max_health = 14;
+	repeated .EUnitKeyword keywords = 15;
 	optional bool client_synthesized_for_setup = 1001;
 	optional bool client_is_on_bench = 1002;
 }
