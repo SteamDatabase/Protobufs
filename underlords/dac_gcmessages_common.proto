@@ -15,9 +15,11 @@ enum EGCDACCommonMessages {
 }
 
 enum EDACMatchMode {
+	k_EDACMatchMode_Invalid = 0;
 	k_EDACMatchMode_Casual = 1;
 	k_EDACMatchMode_PrivateLobby = 2;
 	k_EDACMatchMode_SoloBot = 3;
+	k_EDACMatchMode_Ranked = 4;
 }
 
 enum EDACGameMode {
@@ -154,7 +156,7 @@ message CSODACLobby {
 	optional uint64 lobby_id = 5;
 	optional uint64 match_id = 6;
 	optional .ELobbyServerState server_state = 8 [default = k_eLobbyServerState_Assign];
-	optional .EDACMatchMode match_mode = 10 [default = k_EDACMatchMode_Casual];
+	optional .EDACMatchMode match_mode = 10 [default = k_EDACMatchMode_Invalid];
 	optional uint32 udp_connect_ip = 11;
 	optional uint32 udp_connect_port = 12;
 	optional .EDACGameMode game_mode = 13 [default = k_EDACGameMode_Invalid];
@@ -215,12 +217,16 @@ message CSOGameAccountClient {
 	optional uint32 account_id = 1 [(key_field) = true];
 	optional uint32 mmr_level = 2;
 	optional uint32 mmr_leaderboard = 3;
+	optional uint64 flags = 4;
+	optional uint32 unlock_ranked_progress = 5;
+	optional uint32 mmr_level_score = 6;
 }
 
 message CMsgStartFindingMatchInfo {
 	optional uint32 client_version = 2;
-	optional .EDACMatchMode match_mode = 3 [default = k_EDACMatchMode_Casual];
+	optional .EDACMatchMode match_mode = 3 [default = k_EDACMatchMode_Invalid];
 	optional .EDACPlatform platform = 4 [default = k_eDACPlatform_None];
+	optional .CSODACParty.EBotDifficulty bot_difficulty = 5 [default = k_eBotDifficulty_None];
 }
 
 message CMsgAnyToGCReportAsserts {

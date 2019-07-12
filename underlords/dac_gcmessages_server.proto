@@ -22,6 +22,7 @@ enum EGCDACServerMessages {
 	k_EMsgServerToGCTestConnectionResponse = 10015;
 	k_EMsgGCToServerAddSpectator = 10016;
 	k_EMsgGCToServerAddSpectatorResponse = 10017;
+	k_EMsgGCToServerUpdateConsoleCommands = 10018;
 }
 
 enum EGCServerLobbyData {
@@ -90,6 +91,7 @@ message CSODACServerStaticLobby {
 	optional fixed32 replay_salt = 4;
 	repeated .CSODACServerStaticLobby.Member members = 6;
 	optional bool trusted_server = 7;
+	optional .CSODACParty.EBotDifficulty bot_difficulty = 8 [default = k_eBotDifficulty_None];
 }
 
 message CMsgMatchSignoutData_PerformanceStats {
@@ -163,20 +165,19 @@ message CMsgPlayerSignoutData_MMRUpdate {
 }
 
 message CMsgPlayerSignoutData_EventGrantProgress {
-	message Achievement {
-		optional uint32 achievement_id = 1;
-		optional uint32 grant_progress = 2;
-	}
-
 	message Challenge {
 		optional uint32 slot_id = 1;
 		optional uint32 sequence_id = 2;
 		optional uint32 progress = 3;
 	}
 
+	message Currency {
+		optional uint32 currency_id = 1;
+		optional uint32 grant = 2;
+	}
+
 	optional uint32 event_id = 1;
-	optional uint32 event_points = 2;
-	repeated .CMsgPlayerSignoutData_EventGrantProgress.Achievement achievements = 3;
+	repeated .CMsgPlayerSignoutData_EventGrantProgress.Currency currencies = 2;
 	repeated .CMsgPlayerSignoutData_EventGrantProgress.Challenge challenges = 4;
 }
 
@@ -218,6 +219,7 @@ message CMsgServerToGCMatchSignoutResponse {
 }
 
 message CMsgServerWelcomeDAC {
+	repeated string console_commands = 1;
 }
 
 message CMsgServerToGCIdlePing {
@@ -237,7 +239,7 @@ message CMsgGCToServerAllocateForMatchResponse {
 
 message CMsgServerToGCMatchSignoutPermission {
 	optional uint64 lobby_id = 1;
-	optional .EDACMatchMode match_mode = 2 [default = k_EDACMatchMode_Casual];
+	optional .EDACMatchMode match_mode = 2 [default = k_EDACMatchMode_Invalid];
 }
 
 message CMsgServerToGCMatchSignoutPermissionResponse {
@@ -318,5 +320,9 @@ message CMsgGCToServerAddSpectatorResponse {
 
 	optional .CMsgGCToServerAddSpectatorResponse.EResponse result = 1 [default = k_eInternalError];
 	optional uint32 account_to_spectate = 2;
+}
+
+message CMsgGCToServerUpdateConsoleCommands {
+	repeated string console_commands = 1;
 }
 

@@ -59,6 +59,13 @@ enum EGCDACClientMessages {
 	k_EMsgClientToGCRedeemFriendCodeResponse = 9162;
 	k_EMsgClientToGCRevokeFriendCode = 9163;
 	k_EMsgClientToGCRevokeFriendCodeResponse = 9164;
+	k_EMsgClientToGCEventRequestInfoSync = 9165;
+	k_EMsgClientToGCEventRequestInfoSyncResponse = 9166;
+	k_EMsgClientToGCEventEquipVirtualItem = 9167;
+	k_EMsgClientToGCEventEquipVirtualItemResponse = 9168;
+	k_EMsgClientToGCDevEventOperation = 9169;
+	k_EMsgClientToGCDevEventOperationResponse = 9170;
+	k_EMsgGCToClientUpdateConsoleCommands = 9171;
 }
 
 enum EItemEditorReservationResult {
@@ -66,6 +73,15 @@ enum EItemEditorReservationResult {
 	k_EItemEditorReservationResult_AlreadyExists = 2;
 	k_EItemEditorReservationResult_Reserved = 3;
 	k_EItemEditorReservationResult_TimedOut = 4;
+}
+
+enum EClientStatsEvent {
+	k_EClientStatsEvent_Boot = 1;
+	k_EClientStatsEvent_StartMatch = 2;
+	k_EClientStatsEvent_AbandonMatch = 3;
+	k_EClientStatsEvent_FinishMatch = 4;
+	k_EClientStatsEvent_StartSteamSignon = 5;
+	k_EClientStatsEvent_FinishSteamSignon = 6;
 }
 
 message CMsgPartyMMInfo {
@@ -90,6 +106,7 @@ message CMsgClientToGCStartMatchmakingResponse {
 		k_EResult_InternalError = 6;
 		k_EResult_NoRegionPings = 7;
 		k_EResult_InParty = 8;
+		k_EResult_ModeLocked = 9;
 	}
 
 	optional .CMsgClientToGCStartMatchmakingResponse.EResultCode result = 1 [default = k_EResult_OK];
@@ -123,7 +140,9 @@ message CMsgClientWelcomeDAC {
 	optional uint32 currency = 1;
 	repeated .CExtraMsgBlock extra_messages = 2;
 	optional uint32 compatibility_version = 3;
+	repeated uint32 active_events = 4;
 	optional uint64 steam_announcement_gid = 5;
+	repeated string console_commands = 6;
 }
 
 message CMsgClientToGCIsInMatchmaking {
@@ -391,9 +410,9 @@ message CMsgClientToGCEventRequestInfo {
 }
 
 message CMsgGCToClientEventInfo {
-	message Achievement {
-		optional uint32 achievement_id = 1;
-		optional uint32 progress = 2;
+	message Currency {
+		optional uint32 currency_id = 1;
+		optional uint32 balance = 2;
 	}
 
 	message Claim {
@@ -411,13 +430,46 @@ message CMsgGCToClientEventInfo {
 		optional uint32 config_id = 7;
 	}
 
+	message VirtualItem {
+		optional uint32 def_index = 1;
+		optional uint32 equip_slot = 2;
+		optional uint32 equip_sub_slot = 3;
+	}
+
 	optional uint32 account_id = 1;
 	optional uint32 event_id = 2;
-	optional uint32 event_points = 3;
 	optional bool event_owned = 4;
-	repeated .CMsgGCToClientEventInfo.Achievement achievements = 5;
+	repeated .CMsgGCToClientEventInfo.Currency currencies = 5;
 	repeated .CMsgGCToClientEventInfo.Claim claims = 6;
 	repeated .CMsgGCToClientEventInfo.Challenge challenges = 7;
+	repeated .CMsgGCToClientEventInfo.VirtualItem virtual_items = 8;
+}
+
+message CMsgClientToGCEventRequestInfoSync {
+	optional uint32 account_id = 1;
+	optional uint32 event_id = 2;
+}
+
+message CMsgClientToGCEventRequestInfoSyncResponse {
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eInvalidEventID = 3;
+		k_eInvalidPermissions = 4;
+		k_eRateLimited = 5;
+		k_eDisabled = 6;
+		k_eTooBusy = 7;
+	}
+
+	optional .CMsgClientToGCEventRequestInfoSyncResponse.EResponse result = 1 [default = k_eInternalError];
+	optional .CMsgGCToClientEventInfo event_info = 2;
+}
+
+message CMsgGCToClientEventInfoSerialize {
+	optional .CMsgGCToClientEventInfo event_info = 1;
+	optional uint32 time_stamp = 2;
+	optional uint32 version = 3;
+	optional uint32 account_id = 4;
 }
 
 message CMsgClientToGCEventClaim {
@@ -437,9 +489,22 @@ message CMsgEventClaimRewards {
 		optional uint32 progress = 2;
 	}
 
+	message Currency {
+		optional uint32 currency_id = 1;
+		optional uint32 grant = 2;
+	}
+
+	message Challenge {
+		optional uint32 challenge_slot = 1;
+		optional uint32 progress = 2;
+		optional bool activated = 3;
+		optional bool rolled = 4;
+	}
+
 	repeated .CMsgEventClaimRewards.Item items = 1;
 	repeated .CMsgEventClaimRewards.Achievement achievements = 2;
-	optional uint32 event_points = 3;
+	repeated .CMsgEventClaimRewards.Currency currencies = 3;
+	repeated .CMsgEventClaimRewards.Challenge challenges = 4;
 }
 
 message CMsgClientToGCEventClaimResponse {
@@ -461,6 +526,7 @@ message CMsgClientToGCEventClaimResponse {
 message CMsgClientToGCEquipLoadout {
 	repeated uint32 loadout_slot = 1;
 	repeated uint64 item_id = 2;
+	repeated uint32 loadout_sub_slot = 3;
 }
 
 message CMsgClientToGCEquipLoadoutResponse {
@@ -653,5 +719,50 @@ message CMsgClientToGCRevokeFriendCodeResponse {
 	}
 
 	optional .CMsgClientToGCRevokeFriendCodeResponse.EResponse result = 1 [default = k_eInternalError];
+}
+
+message CMsgClientToGCEventEquipVirtualItem {
+	optional uint32 event_id = 1;
+	optional uint32 def_index = 2;
+	optional uint32 equip_slot = 3;
+	optional uint32 equip_sub_slot = 4;
+}
+
+message CMsgClientToGCEventEquipVirtualItemResponse {
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eDisabled = 2;
+		k_eTooBusy = 3;
+		k_eInvalidItem = 4;
+		k_eInvalidSlot = 5;
+		k_eEventInactive = 6;
+	}
+
+	optional .CMsgClientToGCEventEquipVirtualItemResponse.EResponse result = 1 [default = k_eInternalError];
+}
+
+message CMsgClientToGCDevEventOperation {
+	enum EOperation {
+		k_eOp_Reset = 0;
+		k_eOp_GrantCurrency = 1;
+		k_eOp_GrantChallenge = 2;
+		k_eOp_RerollCooldown = 3;
+		k_eOp_SetCurrencyLevel = 4;
+		k_eOp_SetCurrencyValue = 5;
+		k_eOp_SetChallengeValue = 6;
+	}
+
+	optional .CMsgClientToGCDevEventOperation.EOperation operation = 1 [default = k_eOp_Reset];
+	optional uint32 event_id = 2;
+	optional uint32 id = 3;
+	optional uint32 amount = 4;
+}
+
+message CMsgClientToGCDevEventOperationResponse {
+}
+
+message CMsgGCToClientUpdateConsoleCommands {
+	repeated string console_commands = 1;
 }
 

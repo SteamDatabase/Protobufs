@@ -21,12 +21,13 @@ enum EDACGameMessages {
 	k_EMsgPlayerEliminated = 14;
 	k_EMsgRecordLocalBotStats = 15;
 	k_EMsgPlayerOrderProcessed = 16;
-	k_EMsgClientToServerTutorial = 17;
 	k_EMsgPlayerAcquiredItem = 18;
 	k_EMsgPlayerLevelUp = 19;
 	k_EMsgClientToServerUpvoteNotification = 20;
 	k_EMsgServerToClientNotificationChanged = 21;
 	k_EMsgItemChangedOwner = 22;
+	k_EMsgLocalPlayerInventory = 23;
+	k_eMsgIndividualPostMatchStats = 24;
 }
 
 enum EDACDisconnectReason {
@@ -213,33 +214,13 @@ message CMsgItemChangedOwner {
 	optional uint32 new_player_slot = 2;
 	optional uint32 item_id = 3;
 	optional uint32 notification_id = 4;
+	optional uint32 old_item_slot = 5;
 }
 
 message CMsgPlayerEliminated {
 	optional uint32 player_slot = 1;
 	optional uint32 final_position = 2;
 	optional uint32 notification_id = 3;
-}
-
-message CMsgClientToServerTutorial {
-	optional .ERoundState round_state = 1 [default = ERoundState_Preparing];
-	optional bool shop = 2;
-	optional uint32 shop0 = 3;
-	optional uint32 shop1 = 4;
-	optional uint32 shop2 = 5;
-	optional uint32 shop3 = 6;
-	optional uint32 shop4 = 7;
-	optional bool reward = 8;
-	optional uint32 reward0 = 9;
-	optional uint32 reward1 = 10;
-	optional uint32 reward2 = 11;
-	optional float timer = 12;
-	optional float timer_prepare = 13;
-	optional float timer_ready = 14;
-	optional float timer_round_over = 15;
-	optional bool allow_round_start = 16;
-	optional int32 add_player_gold = 17;
-	optional int32 add_player_xp = 18;
 }
 
 message CMsgPosition {
@@ -263,16 +244,22 @@ message CMsgShopItem {
 	optional bool can_combine = 2;
 }
 
-message CMsgPublicPlayerState {
-	message ItemSlot {
-		required uint32 item_id = 1;
-		optional int32 assigned_unit_entindex = 2;
-	}
+message CMsgSynergy {
+	optional .EUnitKeyword keyword = 1 [default = EUnitKeyword_Beast];
+	optional int32 unique_unit_count = 2;
+	optional int32 bench_additional_unique_unit_count = 3;
+}
 
-	message Synergy {
-		optional .EUnitKeyword keyword = 1 [default = EUnitKeyword_Beast];
-		optional int32 unique_unit_count = 2;
-		optional int32 bench_additional_unique_unit_count = 3;
+message CMsgItemSlot {
+	required uint32 item_id = 1;
+	optional int32 assigned_unit_entindex = 2;
+}
+
+message CMsgPublicPlayerState {
+	message LoadoutItem {
+		optional uint32 slot = 1;
+		optional uint32 sub_slot = 2;
+		optional uint32 def_index = 3;
 	}
 
 	required uint32 player_slot = 1;
@@ -283,11 +270,11 @@ message CMsgPublicPlayerState {
 	optional int32 gold = 6;
 	optional int32 level = 7;
 	optional int32 xp = 8;
-	repeated .CMsgPublicPlayerState.ItemSlot item_slots = 9;
+	repeated .CMsgItemSlot item_slots = 9;
 	repeated .CMsgUnit units = 10;
 	optional uint32 final_place = 14;
 	optional int32 next_level_xp = 15;
-	repeated .CMsgPublicPlayerState.Synergy synergies = 16;
+	repeated .CMsgSynergy synergies = 16;
 	optional string bot_persona_name = 17;
 	optional uint64 sequence_number = 18;
 	optional int32 unit_limit_bonus = 19;
@@ -304,11 +291,11 @@ message CMsgPublicPlayerState {
 	optional uint32 vs_opponent_draws = 32;
 	optional .EDACPlatform platform = 33 [default = k_eDACPlatform_None];
 	optional uint32 event_tier = 34;
-	optional uint32 progress_xp = 35;
 	optional string persona_name = 36;
 	optional uint32 wins = 37;
 	optional uint32 losses = 38;
 	optional uint32 global_leaderboard_rank = 39;
+	repeated .CMsgPublicPlayerState.LoadoutItem player_loadout = 40;
 	optional uint32 net_worth = 41;
 	optional int32 stored_win_gold = 42;
 	oneof opponent {
@@ -318,30 +305,37 @@ message CMsgPublicPlayerState {
 }
 
 message CMsgPublicPostMatchStats {
+	message PlayerPerRoundInfo {
+		optional uint32 gold = 1;
+		optional uint32 health = 2;
+		optional uint32 level = 3;
+		optional uint32 wins = 4;
+		optional uint32 losses = 5;
+		optional uint32 net_worth = 6;
+		repeated .CMsgUnit units = 7;
+		repeated uint32 synergies = 8;
+		repeated .CMsgItemSlot item_slots = 9;
+	}
+
 	message PlayerInfo {
-		optional uint32 player_slot = 1;
-		optional uint32 gold = 2;
-		optional uint32 health = 3;
-		optional uint32 level = 4;
+		repeated .CMsgPublicPostMatchStats.PlayerPerRoundInfo rounds = 1;
+		optional uint32 player_slot = 2;
+		optional uint32 account_id = 3;
+		optional bool is_human_player = 4;
+		optional string persona_name = 5;
+		optional uint32 rank_tier = 6;
+		optional uint32 global_leaderboard_rank = 7;
+		optional uint32 final_position = 8;
 	}
 
-	message Round {
-		repeated .CMsgPublicPostMatchStats.PlayerInfo players = 1;
-	}
-
-	repeated .CMsgPublicPostMatchStats.Round rounds = 1;
+	repeated .CMsgPublicPostMatchStats.PlayerInfo players = 1;
 }
 
 message CMsgIndividualPostMatchStats {
-	message ItemStat {
-		optional uint32 item = 1;
-		optional uint32 equipped_unit = 2;
-	}
-
 	message Round {
-		repeated uint32 units = 1;
+		repeated .CMsgUnit units = 1;
 		repeated uint32 synergies = 2;
-		repeated .CMsgIndividualPostMatchStats.ItemStat items = 3;
+		repeated .CMsgItemSlot items = 3;
 		optional uint32 gold_spent_on_rerolls = 4;
 		optional uint32 gold_earned = 5;
 		optional uint32 interest_gold_earned = 6;
@@ -358,9 +352,31 @@ message CMsgIndividualPostMatchStats {
 		optional uint32 damage_dealt_to_units = 17;
 	}
 
+	message Challenge {
+		optional uint32 slot_id = 1;
+		optional uint32 sequence_id = 2;
+		optional uint32 progress = 3;
+		optional uint32 initial_progress = 4;
+	}
+
+	message Currency {
+		optional uint32 currency_id = 1;
+		optional uint32 initial_amount = 2;
+		optional uint32 amount_gained = 3;
+	}
+
+	message Event {
+		optional uint32 event_id = 1;
+		optional bool event_owned = 2;
+		optional uint32 event_tier = 3;
+		repeated .CMsgIndividualPostMatchStats.Challenge challenges = 4;
+		repeated .CMsgIndividualPostMatchStats.Currency currencies = 5;
+	}
+
 	repeated .CMsgIndividualPostMatchStats.Round rounds = 1;
 	optional uint32 player_slot = 2;
 	optional uint32 position = 3;
+	repeated .CMsgIndividualPostMatchStats.Event events = 4;
 }
 
 message CMsgPrivatePlayerState {
@@ -599,6 +615,7 @@ message CMsgClientConnectionStarted {
 	optional bool in_developer_mode = 1;
 	optional bool in_offline_mode = 2;
 	optional bool is_local_bot_game = 3;
+	optional .EDACMatchMode match_mode = 4 [default = k_EDACMatchMode_Invalid];
 }
 
 message CMsgClientConnectionComplete {
@@ -653,7 +670,23 @@ message CMsgClientToServerUpvoteNotification {
 }
 
 message CMsgServerToClientNotificationChanged {
+	message UpvoteSubtype {
+		optional uint32 item_id = 1;
+		optional uint32 upvotes = 2;
+	}
+
 	optional uint32 notification_id = 1;
 	optional uint32 upvotes = 2;
+	repeated .CMsgServerToClientNotificationChanged.UpvoteSubtype subtypes = 3;
+}
+
+message CMsgClientToServerLocalPlayerInventory {
+	message LoadoutItem {
+		optional uint32 slot = 1;
+		optional uint32 sub_slot = 2;
+		optional uint32 def_index = 3;
+	}
+
+	repeated .CMsgClientToServerLocalPlayerInventory.LoadoutItem player_loadout = 1;
 }
 
