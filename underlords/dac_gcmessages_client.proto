@@ -66,6 +66,8 @@ enum EGCDACClientMessages {
 	k_EMsgClientToGCDevEventOperation = 9169;
 	k_EMsgClientToGCDevEventOperationResponse = 9170;
 	k_EMsgGCToClientUpdateConsoleCommands = 9171;
+	k_EMsgClientToGCPerformAutoActions = 9172;
+	k_EMsgClientToGCPerformAutoActionsResponse = 9173;
 }
 
 enum EItemEditorReservationResult {
@@ -764,5 +766,24 @@ message CMsgClientToGCDevEventOperationResponse {
 
 message CMsgGCToClientUpdateConsoleCommands {
 	repeated string console_commands = 1;
+}
+
+message CMsgClientToGCPerformAutoActions {
+	optional uint32 event_id = 1;
+	optional bool update_challenges = 2;
+	optional bool update_auto_claims = 3;
+}
+
+message CMsgClientToGCPerformAutoActionsResponse {
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eDisabled = 2;
+		k_eTooBusy = 3;
+		k_eInvalidEventID = 4;
+	}
+
+	optional .CMsgClientToGCPerformAutoActionsResponse.EResponse result = 1 [default = k_eInternalError];
+	optional .CMsgEventClaimRewards rewards = 2;
 }
 

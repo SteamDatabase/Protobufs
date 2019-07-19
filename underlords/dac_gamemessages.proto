@@ -80,6 +80,14 @@ enum EUnitKeyword {
 	EUnitKeyword_Shaman = 22;
 	EUnitKeyword_Warlock = 23;
 	EUnitKeyword_Warrior = 24;
+	EUnitKEyword_MegaWarrior = 25;
+	EUnitKeyword_MegaAssassin = 26;
+	EUnitKeyword_MegaBloodbound = 27;
+	EUnitKeyword_MegaElusive = 28;
+	EUnitKeyword_MegaWarlock = 29;
+	EUnitKeyword_MegaScaled = 30;
+	EUnitKeyword_MegaTroll = 31;
+	EUnitKeyword_MegaDemon = 32;
 }
 
 enum ESynergyType {
@@ -93,6 +101,7 @@ enum EDACItemType {
 	EDACItemType_Equipment_Offensive = 1;
 	EDACItemType_Equipment_Defensive = 2;
 	EDACItemType_Equipment_Support = 3;
+	EDACItemType_Alliance = 4;
 }
 
 enum EPlayerConnectionState {
@@ -253,6 +262,7 @@ message CMsgSynergy {
 message CMsgItemSlot {
 	required uint32 item_id = 1;
 	optional int32 assigned_unit_entindex = 2;
+	optional uint32 rank = 3;
 }
 
 message CMsgPublicPlayerState {
@@ -298,6 +308,7 @@ message CMsgPublicPlayerState {
 	repeated .CMsgPublicPlayerState.LoadoutItem player_loadout = 40;
 	optional uint32 net_worth = 41;
 	optional int32 stored_win_gold = 42;
+	optional uint32 combat_result = 43;
 	oneof opponent {
 		uint32 opponent_player_slot = 24;
 		uint32 opponent_neutral_wave = 25;
@@ -384,6 +395,7 @@ message CMsgPrivatePlayerState {
 		message Choice {
 			required uint32 item_id = 1;
 			optional bool available = 2;
+			optional uint32 rank = 3;
 		}
 
 		required int32 reward_id = 1;
