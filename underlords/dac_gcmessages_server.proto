@@ -36,6 +36,7 @@ enum EGCServerSignoutData {
 	k_EMatchSignoutData_CombatStats = 3;
 	k_EPlayerSignoutData_MMRUpdate = 10;
 	k_EPlayerSignoutData_EventGrantProgress = 11;
+	k_EPlayerSignoutData_ChatStats = 12;
 }
 
 message CMsgServerCrashSentinelFile {
@@ -64,6 +65,7 @@ message CServerLobbyData_PlayerMMR {
 		optional uint32 account_id = 1;
 		optional uint32 mmr = 2;
 		optional uint32 uncertainty = 3;
+		optional uint32 mmr_level_score = 4;
 	}
 
 	repeated .CServerLobbyData_PlayerMMR.Player players = 1;
@@ -83,6 +85,7 @@ message CSODACServerStaticLobby {
 		optional .EDACAIType ai_type = 5 [default = k_EDACAIType_Invalid];
 		optional uint32 party_index = 6;
 		optional .EDACPlatform platform = 7 [default = k_eDACPlatform_None];
+		optional bool chat_muted = 8;
 	}
 
 	repeated .CExtraMsgBlock extra_messages = 1;
@@ -179,6 +182,13 @@ message CMsgPlayerSignoutData_EventGrantProgress {
 	optional uint32 event_id = 1;
 	repeated .CMsgPlayerSignoutData_EventGrantProgress.Currency currencies = 2;
 	repeated .CMsgPlayerSignoutData_EventGrantProgress.Challenge challenges = 4;
+}
+
+message CMsgPlayerSignoutData_ChatStats {
+	repeated uint32 muted_by = 1;
+	optional uint32 chat_text_count = 2;
+	optional uint32 yo_count = 3;
+	optional uint32 chat_line_count = 4;
 }
 
 message CMsgServerToGCMatchSignout {

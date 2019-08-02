@@ -28,6 +28,8 @@ enum EDACGameMessages {
 	k_EMsgItemChangedOwner = 22;
 	k_EMsgLocalPlayerInventory = 23;
 	k_eMsgIndividualPostMatchStats = 24;
+	k_EMsgPlayerPreferences = 25;
+	k_EMsgPlayerStateUpdatesComplete = 26;
 }
 
 enum EDACDisconnectReason {
@@ -88,6 +90,10 @@ enum EUnitKeyword {
 	EUnitKeyword_MegaScaled = 30;
 	EUnitKeyword_MegaTroll = 31;
 	EUnitKeyword_MegaDemon = 32;
+	EUnitKeyword_Primordial = 33;
+	EUnitKeyword_Brawny = 34;
+	EUnitKeyword_Savage = 35;
+	EUnitKeyword_Inventor = 36;
 }
 
 enum ESynergyType {
@@ -128,12 +134,26 @@ enum EPlayerOrder {
 	EPlayerOrder_SpectatePlayer = 18;
 	EPlayerOrder_RequestPlayerStats = 19;
 	EPlayerOrder_StepForward = 20;
+	EPlayerOrder_MutePlayer = 21;
+	EPlayerOrder_SelectTalent = 22;
 }
 
 enum ERoundCombatResult {
 	ERoundCombatResult_Draw = 0;
 	ERoundCombatResult_HomeWin = 1;
 	ERoundCombatResult_AwayWin = 2;
+}
+
+enum ERoundVictoryLevel {
+	ERoundVictoryLevel_HomeDecisive = 0;
+	ERoundVictoryLevel_HomeNarrow = 1;
+	ERoundVictoryLevel_HomeFlawless = 2;
+	ERoundVictoryLevel_HomeNormal = 3;
+	ERoundVictoryLevel_AwayDecisive = 4;
+	ERoundVictoryLevel_AwayNarrow = 5;
+	ERoundVictoryLevel_AwayFlawless = 6;
+	ERoundVictoryLevel_AwayNormal = 7;
+	ERoundVictoryLevel_Draw = 8;
 }
 
 enum EUnitAIState {
@@ -146,6 +166,7 @@ enum EUnitAIState {
 	EUnitAIState_Portrait = 6;
 	EUnitAIState_WalkBack = 7;
 	EUnitAIState_Celebrate = 8;
+	EUnitAIState_ClientControl = 9;
 }
 
 enum EDACNetBuffer {
@@ -166,6 +187,9 @@ message CClientReconnectInfo {
 	optional uint32 udp_connect_ip = 4;
 	optional uint32 udp_connect_port = 5;
 	optional uint32 compatibility_version = 7;
+}
+
+message CMsgPlayerStateUpdatesComplete {
 }
 
 message CMsgPlayerOrder {
@@ -246,6 +270,7 @@ message CMsgUnit {
 	optional uint32 kill_count = 8;
 	optional uint32 kill_streak = 9;
 	repeated .EUnitKeyword keywords = 10;
+	optional bool is_summoned = 11;
 }
 
 message CMsgShopItem {
@@ -309,6 +334,10 @@ message CMsgPublicPlayerState {
 	optional uint32 net_worth = 41;
 	optional int32 stored_win_gold = 42;
 	optional uint32 combat_result = 43;
+	optional .EDACLobbyTeam lobby_team = 44 [default = k_EDACLobbyTeam_Team0];
+	repeated uint32 underlord_selected_talents = 45;
+	optional bool is_mirrored_match = 46;
+	optional uint32 underlord = 47;
 	oneof opponent {
 		uint32 opponent_player_slot = 24;
 		uint32 opponent_neutral_wave = 25;
@@ -337,6 +366,7 @@ message CMsgPublicPostMatchStats {
 		optional uint32 rank_tier = 6;
 		optional uint32 global_leaderboard_rank = 7;
 		optional uint32 final_position = 8;
+		optional .EDACLobbyTeam lobby_team = 9 [default = k_EDACLobbyTeam_Team0];
 	}
 
 	repeated .CMsgPublicPostMatchStats.PlayerInfo players = 1;
@@ -361,6 +391,7 @@ message CMsgIndividualPostMatchStats {
 		optional uint32 gold_spent_on_levels = 15;
 		optional uint32 gold_spent_on_units = 16;
 		optional uint32 damage_dealt_to_units = 17;
+		optional uint32 victory_level = 18;
 	}
 
 	message Challenge {
@@ -368,6 +399,7 @@ message CMsgIndividualPostMatchStats {
 		optional uint32 sequence_id = 2;
 		optional uint32 progress = 3;
 		optional uint32 initial_progress = 4;
+		optional uint32 claimed = 5;
 	}
 
 	message Currency {
@@ -388,6 +420,16 @@ message CMsgIndividualPostMatchStats {
 	optional uint32 player_slot = 2;
 	optional uint32 position = 3;
 	repeated .CMsgIndividualPostMatchStats.Event events = 4;
+	optional uint32 initial_mmr_level_score = 9;
+	optional uint32 initial_mmr_level = 5;
+	optional float initial_mmr_level_partial_progress = 6;
+	optional uint32 final_mmr_level_score = 10;
+	optional uint32 final_mmr_level = 7;
+	optional float final_mmr_level_partial_progress = 8;
+}
+
+message CMsgPlayerPreferences {
+	optional bool auto_deploy_units = 1;
 }
 
 message CMsgPrivatePlayerState {
@@ -402,6 +444,20 @@ message CMsgPrivatePlayerState {
 		repeated .CMsgPrivatePlayerState.ItemChoiceReward.Choice choices = 2;
 	}
 
+	message Challenge {
+		optional uint32 slot_id = 1;
+		optional uint32 sequence_id = 2;
+		optional uint32 progress = 3;
+		optional uint32 initial_progress = 4;
+		optional uint32 claimed = 5;
+	}
+
+	enum EGrantRewards {
+		EGrantRewards_No = 0;
+		EGrantRewards_Yes = 1;
+		EGrantRewards_NoLongerEligible = 2;
+	}
+
 	required uint32 player_slot = 1;
 	optional int32 unclaimed_reward_count = 2;
 	optional .CMsgPrivatePlayerState.ItemChoiceReward oldest_unclaimed_reward = 3;
@@ -409,6 +465,8 @@ message CMsgPrivatePlayerState {
 	repeated .CMsgShopItem shop_units = 5;
 	optional uint32 gold_earned_this_round = 6;
 	optional uint32 shop_generation_id = 7;
+	repeated .CMsgPrivatePlayerState.Challenge challenges = 8;
+	optional .CMsgPrivatePlayerState.EGrantRewards grants_rewards = 9 [default = EGrantRewards_No];
 }
 
 message CMsgMatchState {
@@ -443,6 +501,8 @@ message CMsgUnitSnapshot {
 	optional uint32 kill_streak = 13;
 	optional int32 max_health = 14;
 	repeated .EUnitKeyword keywords = 15;
+	optional .CMsgUnitPositionAndFacing starting_position = 16;
+	optional bool is_summoned = 17;
 	optional bool client_synthesized_for_setup = 1001;
 	optional bool client_is_on_bench = 1002;
 }
@@ -535,10 +595,23 @@ message CMsgCombatEvent_StartGesture {
 message CMsgCombatEvent_CancelAttack {
 }
 
+message CMsgCombatEvent_UnitsDealingDamage {
+	message UnitDamageRecord {
+		required int32 unit_id = 1;
+		optional int32 rank = 2;
+		optional int32 damage_dealt_raw = 3;
+		optional int32 damage_dealt_total = 4;
+	}
+
+	required uint32 winning_player_slot = 1;
+	repeated .CMsgCombatEvent_UnitsDealingDamage.UnitDamageRecord units = 2;
+}
+
 message CMsgCombatEvent_TeamWiped {
 	required uint32 winning_team = 1;
 	optional uint32 player_player_slot = 2;
 	optional uint32 opponent_player_slot = 3;
+	optional .ERoundVictoryLevel victory_level = 4 [default = ERoundVictoryLevel_HomeDecisive];
 }
 
 message CMsgCombatEvent_GoldChange {
@@ -570,6 +643,7 @@ message CMsgCombatEvent {
 		.CMsgCombatEvent_AttackEvaded details_attack_evaded = 16;
 		.CMsgCombatEvent_AttackBlocked details_attack_blocked = 17;
 		.CMsgCombatEvent_GoldChange details_gold_change = 18;
+		.CMsgCombatEvent_UnitsDealingDamage details_units_dealing_damage = 19;
 	}
 }
 

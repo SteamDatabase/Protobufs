@@ -26,6 +26,7 @@ enum EDACGameMode {
 	k_EDACGameMode_Invalid = 0;
 	k_EDACGameMode_Normal = 1;
 	k_EDACGameMode_Turbo = 2;
+	k_EDACGameMode_BuddyBattles = 3;
 }
 
 enum EDACLobbyTeam {
@@ -121,6 +122,7 @@ message CServerLobbyData_PlayerInfo {
 		optional uint32 sequence_id = 3;
 		optional uint32 slot_id = 4;
 		optional uint32 config_id = 5;
+		optional uint32 claimed = 6;
 	}
 
 	message VirtualItem {
@@ -142,6 +144,7 @@ message CServerLobbyData_PlayerInfo {
 	repeated .CServerLobbyData_PlayerInfo.LoadoutSlot loadout = 3;
 	repeated .CServerLobbyData_PlayerInfo.Event events = 4;
 	optional uint32 global_leaderboard_rank = 5;
+	optional uint32 underlord = 6;
 }
 
 message CMsgRegionPingTimesClient {
@@ -188,6 +191,8 @@ message CSODACParty {
 	enum EMemberRights {
 		k_eMemberRights_Admin = 1;
 		k_eMemberRights_Creator = 2;
+		k_eMemberRights_RankedMM = 4;
+		k_eMemberRights_HighRankedMM = 8;
 	}
 
 	enum EPlayerType {
@@ -219,7 +224,9 @@ message CSOGameAccountClient {
 	optional uint32 mmr_leaderboard = 3;
 	optional uint64 flags = 4;
 	optional uint32 unlock_ranked_progress = 5;
-	optional uint32 mmr_level_score = 6;
+	optional uint32 active_underlord = 7;
+	optional float mmr_level_partial_progress = 6;
+	optional uint32 mmr_level_score = 8;
 }
 
 message CMsgStartFindingMatchInfo {
