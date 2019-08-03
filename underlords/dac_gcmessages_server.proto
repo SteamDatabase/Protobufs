@@ -308,6 +308,7 @@ message CMsgServerToGCAbandonMatchResponse {
 }
 
 message CMsgServerToGCTestConnection {
+	optional bytes test_payload = 1;
 }
 
 message CMsgServerToGCTestConnectionResponse {
