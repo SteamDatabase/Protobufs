@@ -224,6 +224,7 @@ message CMsgPlayerCombatResult {
 	optional .ERoundCombatResult result = 4 [default = ERoundCombatResult_Draw];
 	optional uint32 damage_taken = 5;
 	optional uint32 notification_id = 6;
+	optional bool aegis_used = 7;
 	oneof opponent {
 		uint32 opponent_player_slot = 2;
 		uint32 opponent_neutral_wave = 3;
