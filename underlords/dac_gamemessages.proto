@@ -317,7 +317,6 @@ message CMsgPublicPlayerState {
 	optional int32 shop_cost_modifier = 20;
 	optional float combat_duration = 21;
 	optional int32 reroll_cost_modifier = 22;
-	optional int32 dismissed_combat_round = 23;
 	optional int32 win_streak = 26;
 	optional int32 lose_streak = 27;
 	optional uint32 rank_tier = 28;

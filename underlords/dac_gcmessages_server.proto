@@ -66,6 +66,9 @@ message CServerLobbyData_PlayerMMR {
 		optional uint32 mmr = 2;
 		optional uint32 uncertainty = 3;
 		optional uint32 mmr_level_score = 4;
+		optional uint32 mmr_level_score_max_gain = 5;
+		optional uint32 mmr_level_score_max_loss = 6;
+		optional uint32 party_index = 7;
 	}
 
 	repeated .CServerLobbyData_PlayerMMR.Player players = 1;
@@ -161,6 +164,7 @@ message CMsgPlayerSignoutData_MMRUpdate {
 		optional uint32 mmr = 2;
 		optional uint32 uncertainty = 3;
 		optional uint32 account_id = 4;
+		optional uint32 mmr_level_score = 5;
 	}
 
 	optional uint32 final_place = 1;
