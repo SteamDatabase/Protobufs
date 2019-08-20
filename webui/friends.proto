@@ -132,6 +132,8 @@ message CPlayer_GetFriendsAppsActivity_Response {
 	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo popular = 4;
 	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo dont_forget = 5;
 	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo being_discussed = 6;
+	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo new_to_group = 7;
+	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo returned_to_group = 8;
 }
 
 message CPlayer_GetFriendsAppsActivity_Response_FriendPlayTime {
