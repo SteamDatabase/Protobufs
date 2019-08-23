@@ -66,12 +66,13 @@ message CServerLobbyData_PlayerMMR {
 		optional uint32 mmr = 2;
 		optional uint32 uncertainty = 3;
 		optional uint32 mmr_level_score = 4;
-		optional uint32 mmr_level_score_max_gain = 5;
-		optional uint32 mmr_level_score_max_loss = 6;
 		optional uint32 party_index = 7;
+		optional uint32 lords_elo_ante = 8;
+		optional bool lords_elo_ignore = 9;
 	}
 
 	repeated .CServerLobbyData_PlayerMMR.Player players = 1;
+	optional uint32 lords_elo_k = 8;
 }
 
 message CSODACServerDynamicLobby {
@@ -254,6 +255,8 @@ message CMsgGCToServerAllocateForMatchResponse {
 message CMsgServerToGCMatchSignoutPermission {
 	optional uint64 lobby_id = 1;
 	optional .EDACMatchMode match_mode = 2 [default = k_EDACMatchMode_Invalid];
+	optional uint32 failed_signouts = 3;
+	optional uint32 permission_request = 4;
 }
 
 message CMsgServerToGCMatchSignoutPermissionResponse {
