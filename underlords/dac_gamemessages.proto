@@ -108,6 +108,7 @@ enum EDACItemType {
 	EDACItemType_Equipment_Defensive = 2;
 	EDACItemType_Equipment_Support = 3;
 	EDACItemType_Alliance = 4;
+	EDACItemType_Placeable = 5;
 }
 
 enum EPlayerConnectionState {
@@ -272,11 +273,14 @@ message CMsgUnit {
 	optional uint32 kill_streak = 9;
 	repeated .EUnitKeyword keywords = 10;
 	optional bool is_summoned = 11;
+	optional int32 unit_cap_cost = 13;
+	optional bool is_placeable_item = 14;
 }
 
 message CMsgShopItem {
 	optional int32 unit_id = 1;
 	optional bool can_combine = 2;
+	optional bool wanted_legendary = 4;
 }
 
 message CMsgSynergy {
@@ -508,6 +512,8 @@ message CMsgUnitSnapshot {
 	repeated .EUnitKeyword keywords = 15;
 	optional .CMsgUnitPositionAndFacing starting_position = 16;
 	optional bool is_summoned = 17;
+	optional int32 summon_owner_entindex = 18;
+	optional uint32 armor = 20;
 	optional bool client_synthesized_for_setup = 1001;
 	optional bool client_is_on_bench = 1002;
 }
