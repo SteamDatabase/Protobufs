@@ -206,6 +206,21 @@ message CCommunity_MarkPartnerEventsForUser_Request_PartnerEventMarking {
 message CCommunity_MarkPartnerEventsForUser_Response {
 }
 
+message CMsgClientUCMPublishedFileSubscribed {
+	optional fixed64 published_file_id = 1;
+	optional uint32 app_id = 2;
+	optional fixed64 file_hcontent = 3;
+	optional uint32 file_size = 4;
+	optional uint32 rtime_subscribed = 5;
+	optional bool is_depot_content = 6;
+	optional uint32 rtime_updated = 7;
+}
+
+message CMsgClientUCMPublishedFileUnsubscribed {
+	optional fixed64 published_file_id = 1;
+	optional uint32 app_id = 2;
+}
+
 message CProductImpressionsFromClient_Notification {
 	repeated .CProductImpressionsFromClient_Notification_Impression impressions = 1;
 }
