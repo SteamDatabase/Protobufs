@@ -279,8 +279,9 @@ message CMsgUnit {
 
 message CMsgShopItem {
 	optional int32 unit_id = 1;
-	optional bool can_combine = 2;
+	optional bool will_combine_two_stars = 2;
 	optional bool wanted_legendary = 4;
+	optional bool will_combine_three_stars = 5;
 }
 
 message CMsgSynergy {
