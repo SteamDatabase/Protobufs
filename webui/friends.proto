@@ -134,6 +134,7 @@ message CPlayer_GetFriendsAppsActivity_Response {
 	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo being_discussed = 6;
 	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo new_to_group = 7;
 	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo returned_to_group = 8;
+	optional uint32 active_friend_count = 9 [default = 0];
 }
 
 message CPlayer_GetFriendsAppsActivity_Response_FriendPlayTime {
