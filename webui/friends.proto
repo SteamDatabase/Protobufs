@@ -92,6 +92,11 @@ message CCommunity_GetCommentThreadRatings_Response {
 message CCommunity_RateClanAnnouncement_Response {
 }
 
+message CCommunity_GetClanAnnouncementVoteForUser_Response {
+	optional bool voted_up = 1;
+	optional bool voted_down = 2;
+}
+
 message CAppPriority {
 	optional uint32 priority = 1;
 	repeated uint32 appid = 2;
@@ -123,31 +128,6 @@ message CCommunity_MarkPartnerEventsForUser_Request_PartnerEventMarking {
 }
 
 message CCommunity_MarkPartnerEventsForUser_Response {
-}
-
-message CPlayer_GetFriendsAppsActivity_Response {
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo trending = 1;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo recent_purchases = 2;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo unowned = 3;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo popular = 4;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo dont_forget = 5;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo being_discussed = 6;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo new_to_group = 7;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo returned_to_group = 8;
-	optional uint32 active_friend_count = 9 [default = 0];
-}
-
-message CPlayer_GetFriendsAppsActivity_Response_FriendPlayTime {
-	optional fixed64 steamid = 1;
-	optional uint32 minutes_played_this_week = 2;
-	optional uint32 minutes_played_two_weeks = 3;
-	optional uint32 minutes_played_forever = 4;
-	optional uint32 event_count = 5;
-}
-
-message CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo {
-	optional uint32 appid = 1;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_FriendPlayTime friends = 2;
 }
 
 message CWebRTCClient_InitiateWebRTCConnection_Request {
@@ -656,15 +636,6 @@ message CFriendsList_GetFriendsList_Response {
 	optional .CMsgClientFriendsList friendslist = 1;
 }
 
-message CMsgClientItemAnnouncements_UnseenItem {
-	optional uint32 appid = 1;
-	optional uint64 context_id = 2;
-	optional uint64 asset_id = 3;
-	optional uint64 amount = 4;
-	optional fixed32 rtime32_gained = 5;
-	optional uint32 source_appid = 6;
-}
-
 message CClan_RespondToClanInvite_Request {
 	optional fixed64 steamid = 1;
 	optional bool accept = 2;
@@ -695,6 +666,7 @@ service Community {
 	rpc RateCommentThread (.NotImplemented) returns (.CCommunity_RateCommentThread_Response);
 	rpc GetCommentThreadRatings (.NotImplemented) returns (.CCommunity_GetCommentThreadRatings_Response);
 	rpc RateClanAnnouncement (.NotImplemented) returns (.CCommunity_RateClanAnnouncement_Response);
+	rpc GetClanAnnouncementVoteForUser (.NotImplemented) returns (.CCommunity_GetClanAnnouncementVoteForUser_Response);
 	rpc GetUserPartnerEventNews (.NotImplemented) returns (.CCommunity_GetUserPartnerEventNews_Response);
 	rpc GetBestEventsForUser (.NotImplemented) returns (.CCommunity_GetBestEventsForUser_Response);
 	rpc MarkPartnerEventsForUser (.NotImplemented) returns (.CCommunity_MarkPartnerEventsForUser_Response);
