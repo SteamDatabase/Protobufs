@@ -153,6 +153,23 @@ message CCommunity_GetCommentThreadRatings_Response {
 	repeated uint32 upvoter_accountids = 5;
 }
 
+message CCommunity_RateClanAnnouncement_Request {
+	optional uint64 announcementid = 1;
+	optional bool vote_up = 2;
+}
+
+message CCommunity_RateClanAnnouncement_Response {
+}
+
+message CCommunity_GetClanAnnouncementVoteForUser_Request {
+	optional uint64 announcementid = 1;
+}
+
+message CCommunity_GetClanAnnouncementVoteForUser_Response {
+	optional bool voted_up = 1;
+	optional bool voted_down = 2;
+}
+
 message CAppPriority {
 	optional uint32 priority = 1;
 	repeated uint32 appid = 2;
@@ -204,21 +221,6 @@ message CCommunity_MarkPartnerEventsForUser_Request_PartnerEventMarking {
 }
 
 message CCommunity_MarkPartnerEventsForUser_Response {
-}
-
-message CMsgClientUCMPublishedFileSubscribed {
-	optional fixed64 published_file_id = 1;
-	optional uint32 app_id = 2;
-	optional fixed64 file_hcontent = 3;
-	optional uint32 file_size = 4;
-	optional uint32 rtime_subscribed = 5;
-	optional bool is_depot_content = 6;
-	optional uint32 rtime_updated = 7;
-}
-
-message CMsgClientUCMPublishedFileUnsubscribed {
-	optional fixed64 published_file_id = 1;
-	optional uint32 app_id = 2;
 }
 
 message CProductImpressionsFromClient_Notification {
@@ -493,6 +495,8 @@ service Community {
 	rpc DeleteCommentFromThread (.CCommunity_DeleteCommentFromThread_Request) returns (.CCommunity_DeleteCommentFromThread_Response);
 	rpc RateCommentThread (.CCommunity_RateCommentThread_Request) returns (.CCommunity_RateCommentThread_Response);
 	rpc GetCommentThreadRatings (.CCommunity_GetCommentThreadRatings_Request) returns (.CCommunity_GetCommentThreadRatings_Response);
+	rpc RateClanAnnouncement (.CCommunity_RateClanAnnouncement_Request) returns (.CCommunity_RateClanAnnouncement_Response);
+	rpc GetClanAnnouncementVoteForUser (.CCommunity_GetClanAnnouncementVoteForUser_Request) returns (.CCommunity_GetClanAnnouncementVoteForUser_Response);
 	rpc GetUserPartnerEventNews (.CCommunity_GetUserPartnerEventNews_Request) returns (.CCommunity_GetUserPartnerEventNews_Response);
 	rpc GetBestEventsForUser (.CCommunity_GetBestEventsForUser_Request) returns (.CCommunity_GetBestEventsForUser_Response);
 	rpc MarkPartnerEventsForUser (.CCommunity_MarkPartnerEventsForUser_Request) returns (.CCommunity_MarkPartnerEventsForUser_Response);
