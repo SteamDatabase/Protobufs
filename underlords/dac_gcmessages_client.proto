@@ -115,6 +115,7 @@ message CMsgClientToGCStartMatchmakingResponse {
 		k_EResult_NoRegionPings = 7;
 		k_EResult_InParty = 8;
 		k_EResult_ModeLocked = 9;
+		k_EResult_ModeBanned = 10;
 	}
 
 	optional .CMsgClientToGCStartMatchmakingResponse.EResultCode result = 1 [default = k_EResult_OK];
@@ -304,6 +305,7 @@ message CMsgClientToGCPartyStartMatchResponse {
 		k_eMismatchedVersions = 20;
 		k_eInvalidPartyMatchMode = 21;
 		k_eNotAllPlayersCanPlayRanked = 22;
+		k_ePlayerBannedFromMode = 23;
 	}
 
 	optional .CMsgClientToGCPartyStartMatchResponse.EResponse result = 1 [default = k_eInternalError];

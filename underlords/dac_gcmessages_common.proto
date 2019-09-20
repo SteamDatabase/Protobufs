@@ -227,6 +227,10 @@ message CSOGameAccountClient {
 	optional uint32 active_underlord = 7;
 	optional float mmr_level_partial_progress = 6;
 	optional uint32 mmr_level_score = 8;
+	optional uint32 mm_ban_time_stamp = 9;
+	optional uint32 mm_ban_reason = 10;
+	optional uint32 mm_ranked_ban_time_stamp = 11;
+	optional uint32 mm_ranked_ban_reason = 12;
 }
 
 message CMsgStartFindingMatchInfo {
