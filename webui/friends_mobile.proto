@@ -202,10 +202,25 @@ message CCommunity_PartnerEventResult {
 	optional uint32 appid = 4;
 	optional bool possible_takeover = 5;
 	optional uint32 rtime32_last_modified = 6 [default = 0];
+	optional int32 user_app_priority = 7;
 }
 
 message CCommunity_GetBestEventsForUser_Response {
 	repeated .CCommunity_PartnerEventResult results = 1;
+}
+
+message CCommunity_PartnerEventsShowMoreForApp_Request {
+	optional uint32 appid = 1;
+}
+
+message CCommunity_PartnerEventsShowMoreForApp_Response {
+}
+
+message CCommunity_PartnerEventsShowLessForApp_Request {
+	optional uint32 appid = 1;
+}
+
+message CCommunity_PartnerEventsShowLessForApp_Response {
 }
 
 message CCommunity_MarkPartnerEventsForUser_Request {
@@ -448,6 +463,7 @@ message CMobilePerAccount_GetSettings_Response {
 	optional uint32 chat_notification_level = 5;
 	optional bool notify_direct_chat = 6;
 	optional bool notify_group_chat = 7;
+	optional bool allow_event_push = 8 [default = true];
 }
 
 message CMobilePerAccount_SetSettings_Request {
@@ -456,6 +472,7 @@ message CMobilePerAccount_SetSettings_Request {
 	optional uint32 chat_notification_level = 4;
 	optional bool notify_direct_chat = 5;
 	optional bool notify_group_chat = 6;
+	optional bool allow_event_push = 7 [default = true];
 }
 
 message CMobilePerAccount_SetSettings_Response {
@@ -500,6 +517,8 @@ service Community {
 	rpc GetUserPartnerEventNews (.CCommunity_GetUserPartnerEventNews_Request) returns (.CCommunity_GetUserPartnerEventNews_Response);
 	rpc GetBestEventsForUser (.CCommunity_GetBestEventsForUser_Request) returns (.CCommunity_GetBestEventsForUser_Response);
 	rpc MarkPartnerEventsForUser (.CCommunity_MarkPartnerEventsForUser_Request) returns (.CCommunity_MarkPartnerEventsForUser_Response);
+	rpc PartnerEventsShowMoreForApp (.CCommunity_PartnerEventsShowMoreForApp_Request) returns (.CCommunity_PartnerEventsShowMoreForApp_Response);
+	rpc PartnerEventsShowLessForApp (.CCommunity_PartnerEventsShowLessForApp_Request) returns (.CCommunity_PartnerEventsShowLessForApp_Response);
 }
 
 service ExperimentService {
