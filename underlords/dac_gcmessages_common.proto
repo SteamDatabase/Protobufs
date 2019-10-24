@@ -1,4 +1,5 @@
 import "steammessages.proto";
+import "econ_gcmessages.proto";
 
 option optimize_for = SPEED;
 option cc_generic_services = false;
@@ -14,6 +15,19 @@ enum EGCDACCommonMessages {
 	k_EMsgGCItemEditorReleaseReservationResponse = 7288;
 }
 
+enum EDACStoreID {
+	k_EDACStoreID_Invalid = 0;
+	k_EDACStoreID_iOS = 1;
+	k_EDACStoreID_GooglePlay = 2;
+	k_EDACStoreID_SteamOverlay = 3;
+	k_EDACStoreID_Test = 4;
+}
+
+enum EDACRegionMode {
+	k_EDACRegionMode_ROW = 0;
+	k_EDACRegionMode_China = 1;
+}
+
 enum EDACMatchMode {
 	k_EDACMatchMode_Invalid = 0;
 	k_EDACMatchMode_Casual = 1;
@@ -26,7 +40,9 @@ enum EDACGameMode {
 	k_EDACGameMode_Invalid = 0;
 	k_EDACGameMode_Normal = 1;
 	k_EDACGameMode_Turbo = 2;
-	k_EDACGameMode_BuddyBattles = 3;
+	k_EDACGameMode_Duos = 3;
+	k_EDACGameMode_TechPrototypeA = 4;
+	k_EDACGameMode_Sandbox = 5;
 }
 
 enum EDACLobbyTeam {
@@ -72,6 +88,18 @@ enum EDACAIType {
 	k_EDACAIType_PB18 = 38;
 	k_EDACAIType_PB19 = 39;
 	k_EDACAIType_PB20 = 40;
+	k_EDACAIType_PB21 = 41;
+	k_EDACAIType_PB22 = 42;
+	k_EDACAIType_PB23 = 43;
+	k_EDACAIType_PB24 = 44;
+	k_EDACAIType_PB25 = 45;
+	k_EDACAIType_PB26 = 46;
+	k_EDACAIType_PB27 = 47;
+	k_EDACAIType_PB28 = 48;
+	k_EDACAIType_PB29 = 49;
+	k_EDACAIType_PB30 = 50;
+	k_EDACAIType_PB31 = 51;
+	k_EDACAIType_PB32 = 52;
 }
 
 enum EDACMatchState {
@@ -97,11 +125,8 @@ enum ELobbyServerState {
 	k_eLobbyServerState_Abandoned = 4;
 }
 
-message CExtraMsgBlock {
-	optional uint32 msg_type = 1;
-	optional bytes contents = 2;
-	optional uint64 msg_key = 3;
-	optional bool is_compressed = 4;
+message CMsgGameModifiers {
+	repeated uint32 banned_game_ids = 1 [packed = true];
 }
 
 message CServerLobbyData_PlayerInfo {
@@ -156,6 +181,7 @@ message CSODACLobby {
 	optional uint32 server_version = 1;
 	optional uint32 compatibility_version = 2;
 	optional fixed64 server_steam_id = 3;
+	optional bool dev_load_staging_files = 4;
 	optional uint64 lobby_id = 5;
 	optional uint64 match_id = 6;
 	optional .ELobbyServerState server_state = 8 [default = k_eLobbyServerState_Assign];
@@ -174,6 +200,7 @@ message CSODACParty {
 		optional .CSODACParty.EPlayerType player_type = 5 [default = k_ePlayerType_Player];
 		optional uint32 compatibility_version = 6;
 		optional .EDACPlatform platform = 7 [default = k_eDACPlatform_None];
+		optional uint32 team = 8;
 	}
 
 	message LeftMember {
@@ -224,13 +251,13 @@ message CSOGameAccountClient {
 	optional uint32 mmr_leaderboard = 3;
 	optional uint64 flags = 4;
 	optional uint32 unlock_ranked_progress = 5;
-	optional uint32 active_underlord = 7;
 	optional float mmr_level_partial_progress = 6;
 	optional uint32 mmr_level_score = 8;
 	optional uint32 mm_ban_time_stamp = 9;
 	optional uint32 mm_ban_reason = 10;
 	optional uint32 mm_ranked_ban_time_stamp = 11;
 	optional uint32 mm_ranked_ban_reason = 12;
+	optional uint32 credits = 13;
 }
 
 message CMsgStartFindingMatchInfo {
@@ -238,6 +265,9 @@ message CMsgStartFindingMatchInfo {
 	optional .EDACMatchMode match_mode = 3 [default = k_EDACMatchMode_Invalid];
 	optional .EDACPlatform platform = 4 [default = k_eDACPlatform_None];
 	optional .CSODACParty.EBotDifficulty bot_difficulty = 5 [default = k_eBotDifficulty_None];
+	optional .EDACGameMode game_mode = 6 [default = k_EDACGameMode_Invalid];
+	optional uint32 underlord_id = 7;
+	optional .EDACRegionMode region_mode = 8 [default = k_EDACRegionMode_ROW];
 }
 
 message CMsgAnyToGCReportAsserts {

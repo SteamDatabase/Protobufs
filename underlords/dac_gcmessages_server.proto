@@ -1,5 +1,6 @@
 import "steammessages.proto";
 import "dac_gcmessages_common.proto";
+import "econ_gcmessages.proto";
 
 option optimize_for = SPEED;
 option cc_generic_services = false;
@@ -28,6 +29,7 @@ enum EGCDACServerMessages {
 enum EGCServerLobbyData {
 	k_EServerLobbyData_PlayerInfo = 1;
 	k_EServerLobbyData_PlayerMMR = 2;
+	k_EServerLobbyData_GameModifiers = 3;
 }
 
 enum EGCServerSignoutData {
@@ -75,6 +77,10 @@ message CServerLobbyData_PlayerMMR {
 	optional uint32 lords_elo_k = 8;
 }
 
+message CServerLobbyData_GameModifiers {
+	optional .CMsgGameModifiers game_modifiers = 1;
+}
+
 message CSODACServerDynamicLobby {
 	optional uint64 lobby_id = 1;
 	repeated uint32 left_account_ids = 2 [packed = true];
@@ -96,6 +102,7 @@ message CSODACServerStaticLobby {
 	optional fixed64 server_steam_id = 2;
 	optional uint64 lobby_id = 3;
 	optional fixed32 replay_salt = 4;
+	optional uint32 active_event_id = 5;
 	repeated .CSODACServerStaticLobby.Member members = 6;
 	optional bool trusted_server = 7;
 	optional .CSODACParty.EBotDifficulty bot_difficulty = 8 [default = k_eBotDifficulty_None];
@@ -257,6 +264,7 @@ message CMsgServerToGCMatchSignoutPermission {
 	optional .EDACMatchMode match_mode = 2 [default = k_EDACMatchMode_Invalid];
 	optional uint32 failed_signouts = 3;
 	optional uint32 permission_request = 4;
+	optional .EDACGameMode game_mode = 5 [default = k_EDACGameMode_Invalid];
 }
 
 message CMsgServerToGCMatchSignoutPermissionResponse {

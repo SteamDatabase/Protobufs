@@ -1,5 +1,6 @@
 import "steammessages.proto";
 import "dac_gcmessages_common.proto";
+import "econ_gcmessages.proto";
 
 option optimize_for = SPEED;
 option cc_generic_services = false;
@@ -70,6 +71,25 @@ enum EGCDACClientMessages {
 	k_EMsgClientToGCPerformAutoActionsResponse = 9173;
 	k_EMsgClientToGCSetActiveUnderlord = 9174;
 	k_EMsgClientToGCSetActiveUnderlordResponse = 9175;
+	k_EMsgClientToGCCanPurchaseItem = 9176;
+	k_EMsgClientToGCCanPurchaseItemResponse = 9177;
+	k_EMsgClientToGCHandleItemPurchase = 9178;
+	k_EMsgClientToGCHandleItemPurchaseResponse = 9179;
+	k_EMsgClientToGCEventEquipVirtualItems = 9188;
+	k_EMsgClientToGCEventEquipVirtualItemsResponse = 9189;
+	k_EMsgClientToGCClearPurchaseReserve = 9190;
+	k_EMsgClientToGCClearPurchaseReserveResponse = 9191;
+	k_EMsgGCToClientAcquireRegionModeInfo = 9192;
+	k_EMsgGCToClientDurationControlWarning = 9193;
+	k_EMsgClientToGCGetRegionModeInfo = 9194;
+	k_EMsgClientToGCGetRegionModeInfoResponse = 9195;
+	k_EMsgGCToClientGameModifiersUpdated = 9196;
+	k_EMsgClientToGCEventChallengeProgress = 9197;
+	k_EMsgClientToGCEventChallengeProgressResponse = 9198;
+	k_EMsgClientToGCAssociateDevice = 9199;
+	k_EMsgClientToGCAssociateDeviceResponse = 9200;
+	k_EMsgClientToGCEventPurchase = 9201;
+	k_EMsgClientToGCEventPurchaseResponse = 9202;
 }
 
 enum EItemEditorReservationResult {
@@ -88,14 +108,39 @@ enum EClientStatsEvent {
 	k_EClientStatsEvent_FinishSteamSignon = 6;
 }
 
+message CMsgWebAPIClientDeviceInfo {
+	enum EFlags {
+		k_eFlags_StartedTutorial = 1;
+		k_eFlags_FinishedTutorial = 2;
+		k_eFlags_SideLoaded = 4;
+		k_eFlags_China = 8;
+		k_eFlags_RegisteredAccount = 16;
+	}
+
+	optional fixed64 device_id = 1;
+	optional .EDACPlatform platform = 2 [default = k_eDACPlatform_None];
+	optional fixed32 salt = 3;
+	optional uint32 time_stamp = 4;
+	optional fixed64 access_key = 5;
+	optional uint32 client_version = 6;
+	optional uint32 flags = 7;
+	optional uint32 bot_matches_started = 8;
+	optional uint32 bot_matches_completed = 9;
+	optional string country = 10;
+	optional uint32 times_launched = 11;
+}
+
 message CMsgPartyMMInfo {
 	optional .EDACPlatform platform = 1 [default = k_eDACPlatform_None];
 	optional .CMsgRegionPingTimesClient ping_times = 2;
 	optional uint32 client_version = 3;
+	optional uint32 underlord_id = 4;
+	optional .EDACRegionMode region_mode = 5 [default = k_EDACRegionMode_ROW];
 }
 
 message CMsgDACClientHello {
 	optional bool side_loaded = 1;
+	optional .EDACRegionMode region_mode = 2 [default = k_EDACRegionMode_ROW];
 }
 
 message CMsgClientToGCStartMatchmaking {
@@ -116,6 +161,8 @@ message CMsgClientToGCStartMatchmakingResponse {
 		k_EResult_InParty = 8;
 		k_EResult_ModeLocked = 9;
 		k_EResult_ModeBanned = 10;
+		k_EResult_RegionInfoNotProvided = 11;
+		k_EResult_DurationControlBlocked = 12;
 	}
 
 	optional .CMsgClientToGCStartMatchmakingResponse.EResultCode result = 1 [default = k_EResult_OK];
@@ -149,7 +196,6 @@ message CMsgClientWelcomeDAC {
 	optional uint32 currency = 1;
 	repeated .CExtraMsgBlock extra_messages = 2;
 	optional uint32 compatibility_version = 3;
-	repeated uint32 active_events = 4;
 	optional uint64 steam_announcement_gid = 5;
 	repeated string console_commands = 6;
 	optional string patch_notes_preview_password = 7;
@@ -193,6 +239,8 @@ message CMsgClientToGCPartyCreateResponse {
 		k_eTooBusy = 6;
 		k_eRateLimited = 7;
 		k_eNotFriends = 8;
+		k_eRegionInfoNotProvided = 9;
+		k_eDurationControlBlocked = 10;
 	}
 
 	optional .CMsgClientToGCPartyCreateResponse.EResponse result = 1 [default = k_eInternalError];
@@ -234,6 +282,8 @@ message CMsgClientToGCPartyJoinResponse {
 		k_eTooBusy = 8;
 		k_eInvalidCode = 9;
 		k_eRateLimited = 10;
+		k_eRegionInfoNotProvided = 11;
+		k_eDurationControlBlocked = 12;
 	}
 
 	optional .CMsgClientToGCPartyJoinResponse.EResponse result = 1 [default = k_eInternalError];
@@ -248,6 +298,8 @@ message CMsgClientToGCPartyAction {
 		k_eSetPlayerType = 5;
 		k_eSetBotDifficulty = 6;
 		k_eEnablePartyCode = 7;
+		k_eSetMemberTeam = 8;
+		k_eSetMemberUnderlord = 9;
 	}
 
 	optional fixed64 party_id = 1;
@@ -277,9 +329,11 @@ message CMsgClientToGCPartyActionResponse {
 
 message CMsgClientToGCPartyStartMatch {
 	optional fixed64 party_id = 1;
-	optional bool private_match = 2;
 	optional string server_search_key = 3;
 	optional .EDACMatchMode match_mode = 4 [default = k_EDACMatchMode_Invalid];
+	optional bool dev_load_staging_files = 5;
+	optional .EDACGameMode game_mode = 6 [default = k_EDACGameMode_Invalid];
+	optional .CSODACParty.EBotDifficulty bot_difficulty = 7 [default = k_eBotDifficulty_None];
 }
 
 message CMsgClientToGCPartyStartMatchResponse {
@@ -306,6 +360,9 @@ message CMsgClientToGCPartyStartMatchResponse {
 		k_eInvalidPartyMatchMode = 21;
 		k_eNotAllPlayersCanPlayRanked = 22;
 		k_ePlayerBannedFromMode = 23;
+		k_eTooManyPlayersOnTeam = 24;
+		k_eUnableToFillTeam = 25;
+		k_eInvalidTeam = 26;
 	}
 
 	optional .CMsgClientToGCPartyStartMatchResponse.EResponse result = 1 [default = k_eInternalError];
@@ -379,7 +436,6 @@ message CMsgClientToGCPartyJoinViaCodeResponse {
 
 message CMsgGCToClientDevMMStatus {
 	optional uint32 users_in_queue = 1;
-	optional uint32 match_size = 2;
 }
 
 message CMsgGCItemEditorReservationsRequest {
@@ -424,6 +480,10 @@ message CMsgClientToGCEventRequestInfo {
 }
 
 message CMsgGCToClientEventInfo {
+	message EventState {
+		optional bool event_owned = 1;
+	}
+
 	message Currency {
 		optional uint32 currency_id = 1;
 		optional uint32 balance = 2;
@@ -451,13 +511,21 @@ message CMsgGCToClientEventInfo {
 		optional uint32 equip_sub_slot = 3;
 	}
 
+	message VirtualItemEquip {
+		optional uint32 equip_slot = 1;
+		optional uint32 equip_sub_slot = 2;
+		optional uint32 def_index = 3;
+	}
+
 	optional uint32 account_id = 1;
 	optional uint32 event_id = 2;
-	optional bool event_owned = 4;
+	optional .CMsgGCToClientEventInfo.EventState event_state = 3;
 	repeated .CMsgGCToClientEventInfo.Currency currencies = 5;
 	repeated .CMsgGCToClientEventInfo.Claim claims = 6;
 	repeated .CMsgGCToClientEventInfo.Challenge challenges = 7;
 	repeated .CMsgGCToClientEventInfo.VirtualItem virtual_items = 8;
+	repeated .CMsgGCToClientEventInfo.VirtualItemEquip virtual_item_equips = 9;
+	optional bool merge_contents = 10;
 }
 
 message CMsgClientToGCEventRequestInfoSync {
@@ -563,6 +631,7 @@ message CMsgClientToGCEquipLoadoutResponse {
 
 message CMsgClientToGCSpectateUser {
 	optional uint32 spectate_account_id = 1;
+	optional .EDACRegionMode region_mode = 2 [default = k_EDACRegionMode_ROW];
 }
 
 message CMsgClientToGCSpectateUserResponse {
@@ -576,6 +645,8 @@ message CMsgClientToGCSpectateUserResponse {
 		k_eDisabledForGame = 6;
 		k_eServerFull = 7;
 		k_eNotFriends = 8;
+		k_eRegionInfoNotProvided = 9;
+		k_eDurationControlBlocked = 10;
 	}
 
 	optional .CMsgClientToGCSpectateUserResponse.EResponse result = 1 [default = k_eInternalError];
@@ -594,6 +665,8 @@ message CMsgClientToGCRecordLocalBotMatch {
 	optional uint32 rounds = 6;
 	optional uint32 remaining_players = 7;
 	optional .EDACPlatform platform = 8 [default = k_eDACPlatform_None];
+	optional bool is_tutorial = 9;
+	optional .EDACGameMode game_mode = 10 [default = k_EDACGameMode_Invalid];
 }
 
 message CMsgClientToGCRerollChallenge {
@@ -766,6 +839,9 @@ message CMsgClientToGCDevEventOperation {
 		k_eOp_SetCurrencyLevel = 4;
 		k_eOp_SetCurrencyValue = 5;
 		k_eOp_SetChallengeValue = 6;
+		k_eOp_GrantOwnership = 7;
+		k_eOp_GrantVirtualItem = 8;
+		k_eOp_RevokeVirtualItem = 9;
 	}
 
 	optional .CMsgClientToGCDevEventOperation.EOperation operation = 1 [default = k_eOp_Reset];
@@ -783,7 +859,6 @@ message CMsgGCToClientUpdateConsoleCommands {
 
 message CMsgClientToGCPerformAutoActions {
 	optional uint32 event_id = 1;
-	optional bool update_auto_claims = 3;
 	repeated uint32 update_challenge_slots = 4;
 	repeated uint32 update_claims = 5;
 	optional uint32 client_version = 6;
@@ -802,21 +877,228 @@ message CMsgClientToGCPerformAutoActionsResponse {
 	optional .CMsgEventClaimRewards rewards = 2;
 }
 
-message CMsgClientToGCSetActiveUnderlord {
-	optional uint32 underlord_id = 1;
+message CMsgClientToGCCanPurchaseItem {
+	optional uint32 def_index = 1;
+	optional uint32 client_version = 2;
+	optional .EDACStoreID store_id = 3 [default = k_EDACStoreID_Invalid];
+	optional uint32 quantity = 4;
+	optional .EDACPlatform platform = 5 [default = k_eDACPlatform_None];
+	optional uint64 device_id = 6;
+	optional bool create_reservation = 7;
+	optional bool ignore_reservations = 8;
 }
 
-message CMsgClientToGCSetActiveUnderlordResponse {
+message CMsgClientToGCCanPurchaseItemResponse {
+	message Reservation {
+		optional .EDACStoreID store_id = 1 [default = k_EDACStoreID_Invalid];
+		optional uint32 quantity = 2;
+		optional uint32 time_stamp = 3;
+		optional uint64 device_id = 4;
+	}
+
 	enum EResponse {
 		k_eInternalError = 0;
 		k_eSuccess = 1;
 		k_eDisabled = 2;
 		k_eTooBusy = 3;
-		k_eInvalidID = 4;
-		k_eUnowned = 5;
-		k_eUnavailable = 6;
+		k_eItemDisabled = 4;
+		k_eItemExpired = 5;
+		k_eExceedsLimit = 6;
+		k_eExceedsLimitPending = 7;
+		k_eInvalidItem = 8;
+		k_eStoreDisabled = 9;
+		k_eInvalidClientVersion = 10;
+		k_eInvalidStoreForItem = 11;
+		k_eInvalidQuantity = 12;
+		k_eOutstandingReservations = 13;
 	}
 
-	optional .CMsgClientToGCSetActiveUnderlordResponse.EResponse result = 1 [default = k_eInternalError];
+	optional .CMsgClientToGCCanPurchaseItemResponse.EResponse result = 1 [default = k_eInternalError];
+	repeated .CMsgClientToGCCanPurchaseItemResponse.Reservation reservations = 2;
+}
+
+message CMsgClientToGCHandleItemPurchase {
+	message StoreInfo_iOS {
+		optional bytes receipt = 1;
+	}
+
+	message StoreInfo_GooglePlay {
+		optional string token = 1;
+		optional string store_sku_id = 2;
+	}
+
+	message StoreInfo_Test {
+		optional string token = 1;
+		optional uint32 def_index = 2;
+		optional uint32 quantity = 3;
+	}
+
+	optional .EDACStoreID store_id = 1 [default = k_EDACStoreID_Invalid];
+	optional uint32 client_version = 2;
+	optional uint64 device_id = 3;
+	optional .CMsgClientToGCHandleItemPurchase.StoreInfo_iOS store_info_ios = 4;
+	optional .CMsgClientToGCHandleItemPurchase.StoreInfo_GooglePlay store_info_google_play = 5;
+	repeated .CMsgClientToGCHandleItemPurchase.StoreInfo_Test store_info_test = 6;
+}
+
+message CMsgClientToGCHandleItemPurchaseResponse {
+	message PurchaseResponse {
+		enum EPurchaseResponse {
+			k_eInternalError = 0;
+			k_eSuccess = 1;
+			k_ePurchaseItemError = 2;
+			k_eInvalidOrderID = 3;
+			k_eUnableToValidate = 4;
+			k_eAlreadyResolved = 5;
+			k_eResolvedOnOtherAccount = 6;
+			k_ePurchaseRefunded = 7;
+			k_ePurchasePending = 8;
+			k_ePurchaseCanceled = 9;
+			k_ePurchaseNotConsumed = 10;
+		}
+
+		optional .CMsgClientToGCHandleItemPurchaseResponse.PurchaseResponse.EPurchaseResponse result = 1 [default = k_eInternalError];
+		optional .CMsgClientToGCCanPurchaseItemResponse.EResponse purchase_item_result = 2 [default = k_eInternalError];
+		optional string store_sku_id = 3;
+		optional string token = 4;
+	}
+
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eStoreDisabled = 2;
+		k_eTooBusy = 3;
+		k_eInvalidReceipt = 4;
+		k_eUnableToValidateReceipt = 5;
+	}
+
+	optional .CMsgClientToGCHandleItemPurchaseResponse.EResponse result = 1 [default = k_eInternalError];
+	repeated .CMsgClientToGCHandleItemPurchaseResponse.PurchaseResponse purchase_responses = 2;
+}
+
+message CMsgClientToGCEventEquipVirtualItems {
+	message Equip {
+		optional uint32 def_index = 2;
+		optional uint32 equip_slot = 3;
+		optional uint32 equip_sub_slot = 4;
+	}
+
+	optional uint32 event_id = 1;
+	repeated .CMsgClientToGCEventEquipVirtualItems.Equip equip_list = 2;
+}
+
+message CMsgClientToGCEventEquipVirtualItemsResponse {
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eDisabled = 2;
+		k_eTooBusy = 3;
+		k_eInvalidItem = 4;
+		k_eInvalidSlot = 5;
+		k_eEventInactive = 6;
+		k_eTooManyEquips = 7;
+		k_eDuplicateEquip = 8;
+	}
+
+	optional .CMsgClientToGCEventEquipVirtualItemsResponse.EResponse result = 1 [default = k_eInternalError];
+}
+
+message CMsgClientToGCClearPurchaseReserve {
+	optional uint32 def_index = 1;
+	optional .EDACStoreID store_id = 2 [default = k_EDACStoreID_Invalid];
+	optional uint64 device_id = 3;
+}
+
+message CMsgClientToGCClearPurchaseReserveResponse {
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eTooBusy = 2;
+	}
+
+	optional .CMsgClientToGCClearPurchaseReserveResponse.EResponse result = 1 [default = k_eInternalError];
+}
+
+message CMsgGCToClientAcquireRegionModeInfo {
+	optional string password = 1;
+}
+
+message CMsgGCToClientDurationControlWarning {
+	optional uint32 time_remaining = 1;
+}
+
+message CMsgClientToGCGetRegionModeInfo {
+}
+
+message CMsgClientToGCGetRegionModeInfoResponse {
+	optional string password = 1;
+}
+
+message CMsgGCToClientGameModifiersUpdated {
+	optional .CMsgGameModifiers game_modifiers = 1;
+	optional uint32 next_update_time = 2;
+}
+
+message CMsgClientToGCEventChallengeProgress {
+	optional uint32 event_id = 1;
+	optional uint32 slot_id = 2;
+	optional uint32 sequence_id = 3;
+	optional uint32 progress = 4;
+	optional uint64 audit_data = 5;
+}
+
+message CMsgClientToGCEventChallengeProgressResponse {
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eDisabled = 2;
+		k_eTooBusy = 3;
+		k_eEventInactive = 4;
+		k_eInvalidSlot = 5;
+		k_eInvalidChallengeConfig = 6;
+		k_eSequenceMismatch = 7;
+		k_eRateLimited = 8;
+	}
+
+	optional .CMsgClientToGCEventChallengeProgressResponse.EResponse result = 1 [default = k_eInternalError];
+}
+
+message CMsgClientToGCAssociateDevice {
+	optional uint64 device_id = 1;
+	optional .EDACPlatform platform = 2 [default = k_eDACPlatform_None];
+	optional uint32 salt = 3;
+}
+
+message CMsgClientToGCAssociateDeviceResponse {
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eDisabled = 2;
+		k_eTooBusy = 3;
+		k_eRateLimited = 4;
+		k_eNotFound = 5;
+	}
+
+	optional .CMsgClientToGCAssociateDeviceResponse.EResponse result = 1 [default = k_eInternalError];
+}
+
+message CMsgClientToGCEventPurchase {
+	optional uint32 event_id = 1;
+	optional uint32 expected_credits = 2;
+}
+
+message CMsgClientToGCEventPurchaseResponse {
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eDisabled = 2;
+		k_eTooBusy = 3;
+		k_eInvalidEvent = 5;
+		k_eInsufficientCredits = 6;
+		k_eExpectedCostMismatch = 7;
+		k_eAlreadyOwned = 8;
+	}
+
+	optional .CMsgClientToGCEventPurchaseResponse.EResponse result = 1 [default = k_eInternalError];
 }
 
