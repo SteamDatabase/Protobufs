@@ -134,11 +134,8 @@ message CAppOverview {
 	optional bool visible_in_game_list = 4;
 	optional string sort_as = 6;
 	optional int32 app_type = 7 [(description) = "enum"];
-	optional bool favorite = 11;
-	optional bool hidden = 12;
 	optional uint32 mru_index = 13;
 	optional uint32 rt_recent_activity_time = 14 [default = 0];
-	repeated string user_tag = 15;
 	optional uint32 minutes_playtime_forever = 16 [default = 0];
 	optional uint32 minutes_playtime_last_two_weeks = 17 [default = 0];
 	optional uint32 rt_last_time_played = 18 [default = 0];
@@ -291,6 +288,7 @@ message CPlayer_GetFriendsGameplayInfo_Response_OwnGameplayInfo {
 
 message CPlayer_GetFriendsAppsActivity_Request {
 	optional string news_language = 1;
+	optional uint32 request_flags = 2;
 }
 
 message CPlayer_GetFriendsAppsActivity_Response {
@@ -614,7 +612,15 @@ message CCommunity_GetBestEventsForUser_Response {
 	repeated .CCommunity_PartnerEventResult results = 1;
 }
 
+message CCommunity_PartnerEventsShowMoreForApp_Request {
+	optional uint32 appid = 1;
+}
+
 message CCommunity_PartnerEventsShowMoreForApp_Response {
+}
+
+message CCommunity_PartnerEventsShowLessForApp_Request {
+	optional uint32 appid = 1;
 }
 
 message CCommunity_PartnerEventsShowLessForApp_Response {
@@ -1493,6 +1499,20 @@ message CPublishedFile_FileDeleted_Client_Notification {
 	optional uint32 app_id = 2;
 }
 
+message CUserReviews_Update_Request {
+	optional uint64 recommendationid = 1;
+	optional string review_text = 2;
+	optional bool voted_up = 3;
+	optional bool is_public = 4;
+	optional string language = 5;
+	optional bool is_in_early_access = 6;
+	optional bool received_compensation = 7;
+	optional bool comments_disabled = 8;
+}
+
+message CUserReviews_Update_Response {
+}
+
 message RecommendationDetails {
 	optional uint64 recommendationid = 1;
 	optional uint64 steamid = 2;
@@ -2094,8 +2114,8 @@ service Community {
 	rpc GetUserPartnerEventNews (.NotImplemented) returns (.CCommunity_GetUserPartnerEventNews_Response);
 	rpc GetBestEventsForUser (.NotImplemented) returns (.CCommunity_GetBestEventsForUser_Response);
 	rpc MarkPartnerEventsForUser (.CCommunity_MarkPartnerEventsForUser_Request) returns (.CCommunity_MarkPartnerEventsForUser_Response);
-	rpc PartnerEventsShowMoreForApp (.NotImplemented) returns (.CCommunity_PartnerEventsShowMoreForApp_Response);
-	rpc PartnerEventsShowLessForApp (.NotImplemented) returns (.CCommunity_PartnerEventsShowLessForApp_Response);
+	rpc PartnerEventsShowMoreForApp (.CCommunity_PartnerEventsShowMoreForApp_Request) returns (.CCommunity_PartnerEventsShowMoreForApp_Response);
+	rpc PartnerEventsShowLessForApp (.CCommunity_PartnerEventsShowLessForApp_Request) returns (.CCommunity_PartnerEventsShowLessForApp_Response);
 }
 
 service UserNews {
@@ -2204,6 +2224,7 @@ service PublishedFileClient {
 }
 
 service UserReviews {
+	rpc Update (.CUserReviews_Update_Request) returns (.CUserReviews_Update_Response);
 	rpc GetIndividualRecommendations (.CUserReviews_GetIndividualRecommendations_Request) returns (.CUserReviews_GetIndividualRecommendations_Response);
 }
 
