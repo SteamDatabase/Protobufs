@@ -90,6 +90,12 @@ enum EGCDACClientMessages {
 	k_EMsgClientToGCAssociateDeviceResponse = 9200;
 	k_EMsgClientToGCEventPurchase = 9201;
 	k_EMsgClientToGCEventPurchaseResponse = 9202;
+	k_EMsgClientToGCPartySetGameModifier = 9203;
+	k_EMsgClientToGCPartySetGameModifierResponse = 9204;
+	k_EMsgClientToGCAckSupportCredits = 9205;
+	k_EMsgClientToGCAckSupportCreditsResponse = 9206;
+	k_EMsgClientToGCSetTeamName = 9207;
+	k_EMsgClientToGCSetTeamNameResponse = 9208;
 }
 
 enum EItemEditorReservationResult {
@@ -331,7 +337,7 @@ message CMsgClientToGCPartyStartMatch {
 	optional fixed64 party_id = 1;
 	optional string server_search_key = 3;
 	optional .EDACMatchMode match_mode = 4 [default = k_EDACMatchMode_Invalid];
-	optional bool dev_load_staging_files = 5;
+	optional bool dev_ignore_staging_files = 5;
 	optional .EDACGameMode game_mode = 6 [default = k_EDACGameMode_Invalid];
 	optional .CSODACParty.EBotDifficulty bot_difficulty = 7 [default = k_eBotDifficulty_None];
 }
@@ -902,15 +908,12 @@ message CMsgClientToGCCanPurchaseItemResponse {
 		k_eDisabled = 2;
 		k_eTooBusy = 3;
 		k_eItemDisabled = 4;
-		k_eItemExpired = 5;
-		k_eExceedsLimit = 6;
-		k_eExceedsLimitPending = 7;
-		k_eInvalidItem = 8;
-		k_eStoreDisabled = 9;
-		k_eInvalidClientVersion = 10;
-		k_eInvalidStoreForItem = 11;
-		k_eInvalidQuantity = 12;
-		k_eOutstandingReservations = 13;
+		k_eInvalidItem = 5;
+		k_eStoreDisabled = 6;
+		k_eInvalidClientVersion = 7;
+		k_eInvalidQuantity = 8;
+		k_eOutstandingReservations = 9;
+		k_eExceedsCreditLimit = 10;
 	}
 
 	optional .CMsgClientToGCCanPurchaseItemResponse.EResponse result = 1 [default = k_eInternalError];
@@ -1100,5 +1103,62 @@ message CMsgClientToGCEventPurchaseResponse {
 	}
 
 	optional .CMsgClientToGCEventPurchaseResponse.EResponse result = 1 [default = k_eInternalError];
+}
+
+message CMsgClientToGCPartySetGameModifier {
+	optional uint64 party_id = 1;
+	optional bool use_custom_modifier = 2;
+	optional .CMsgGameModifiers custom_modifier = 3;
+}
+
+message CMsgClientToGCPartySetGameModifierResponse {
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eDisabled = 2;
+		k_eTooBusy = 3;
+		k_eInvalidPartyID = 4;
+		k_eInvalidPermissions = 5;
+		k_eInvalidModifier = 6;
+		k_eInMatchMaking = 7;
+	}
+
+	optional .CMsgClientToGCPartySetGameModifierResponse.EResponse result = 1 [default = k_eInternalError];
+}
+
+message CMsgClientToGCAckSupportCredits {
+	optional uint64 item_id = 1;
+}
+
+message CMsgClientToGCAckSupportCreditsResponse {
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eDisabled = 2;
+		k_eTooBusy = 3;
+		k_eInvalidItem = 4;
+	}
+
+	optional .CMsgClientToGCAckSupportCreditsResponse.EResponse result = 1 [default = k_eInternalError];
+}
+
+message CMsgClientToGCSetTeamName {
+	optional uint32 routing_id = 1;
+	optional uint32 other_account_id = 2;
+	optional string team_name = 3;
+}
+
+message CMsgClientToGCSetTeamNameResponse {
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eDisabled = 2;
+		k_eTooBusy = 3;
+		k_eNotUnlocked = 4;
+		k_eInCooldown = 5;
+		k_eNameTooLong = 6;
+	}
+
+	optional .CMsgClientToGCSetTeamNameResponse.EResponse result = 1 [default = k_eInternalError];
 }
 

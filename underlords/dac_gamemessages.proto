@@ -257,6 +257,8 @@ enum EDuosMessageType {
 	k_eDuosMessageType_Sent5Gold = 1008;
 	k_eDuosMessageType_INoLongerWant = 1009;
 	k_eDuosMessageType_WantGold = 1010;
+	k_eDuosMessageType_LevelUpQuestion = 1011;
+	k_eDuosMessageType_SpendRerollQuestion = 1012;
 }
 
 enum EDuosMessageTargetType {
@@ -820,6 +822,10 @@ message CMsgCombatEvent_StartGesture {
 	optional float duration = 5;
 }
 
+message CMsgCombatEvent_StopGesture {
+	required uint32 activity = 1;
+}
+
 message CMsgCombatEvent_CancelAttack {
 }
 
@@ -855,6 +861,7 @@ message CMsgCombatEvent {
 		.CMsgCombatEvent_Resurrect details_resurrect = 18;
 		.CMsgCombatEvent_SpeechEvent details_speech_event = 19;
 		.CMsgCombatEvent_CastAbility details_cast_ability = 20;
+		.CMsgCombatEvent_StopGesture details_stop_gesture = 21;
 	}
 }
 

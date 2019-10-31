@@ -181,7 +181,7 @@ message CSODACLobby {
 	optional uint32 server_version = 1;
 	optional uint32 compatibility_version = 2;
 	optional fixed64 server_steam_id = 3;
-	optional bool dev_load_staging_files = 4;
+	optional bool dev_ignore_staging_files = 4;
 	optional uint64 lobby_id = 5;
 	optional uint64 match_id = 6;
 	optional .ELobbyServerState server_state = 8 [default = k_eLobbyServerState_Assign];
@@ -201,6 +201,7 @@ message CSODACParty {
 		optional uint32 compatibility_version = 6;
 		optional .EDACPlatform platform = 7 [default = k_eDACPlatform_None];
 		optional uint32 team = 8;
+		optional uint32 underlord_id = 9;
 	}
 
 	message LeftMember {
@@ -213,6 +214,18 @@ message CSODACParty {
 		optional uint32 account_id = 1;
 		optional string persona_name = 2;
 		optional uint32 invited_by = 3;
+	}
+
+	message TeamInfo {
+		repeated uint32 account_ids = 1 [packed = true];
+		optional string team_name = 2;
+		optional uint32 first_played = 3;
+		optional uint32 casual_games = 4;
+		optional uint32 ranked_games = 5;
+		optional uint32 num_first_place = 6;
+		optional uint32 num_top_three = 7;
+		optional uint32 mmr_level_score = 8;
+		optional uint32 flags = 9;
 	}
 
 	enum EMemberRights {
@@ -235,6 +248,11 @@ message CSODACParty {
 		k_eBotDifficulty_Nightmare = 4;
 	}
 
+	enum ETeamFlags {
+		k_eTeamFlags_CanRename = 1;
+		k_eTeamFlags_RenameCooldown = 2;
+	}
+
 	optional uint64 party_id = 1;
 	repeated .CSODACParty.Member members = 2;
 	repeated .CSODACParty.Invite invites = 3;
@@ -243,6 +261,9 @@ message CSODACParty {
 	repeated .CSODACParty.LeftMember left_members = 10;
 	optional uint64 join_code = 11;
 	optional .CSODACParty.EBotDifficulty bot_difficulty = 12 [default = k_eBotDifficulty_None];
+	optional bool use_custom_modifier = 13;
+	optional .CMsgGameModifiers custom_modifier = 14;
+	repeated .CSODACParty.TeamInfo teams = 15;
 }
 
 message CSOGameAccountClient {
