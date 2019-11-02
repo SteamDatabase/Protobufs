@@ -314,6 +314,7 @@ message CPlayer_GetFriendsAppsActivity_Response_FriendPlayTime {
 message CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo {
 	optional uint32 appid = 1;
 	repeated .CPlayer_GetFriendsAppsActivity_Response_FriendPlayTime friends = 2;
+	optional uint32 display_order = 3;
 }
 
 message CPlayer_AcceptSSA_Response {
