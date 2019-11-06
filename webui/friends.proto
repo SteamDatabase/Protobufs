@@ -120,6 +120,9 @@ message CCommunity_GetBestEventsForUser_Response {
 	repeated .CCommunity_PartnerEventResult results = 1;
 }
 
+message CCommunity_ClearUserPartnerEventsAppPriorities_Response {
+}
+
 message CCommunity_PartnerEventsShowMoreForApp_Response {
 }
 
@@ -135,6 +138,19 @@ message CCommunity_MarkPartnerEventsForUser_Request_PartnerEventMarking {
 }
 
 message CCommunity_MarkPartnerEventsForUser_Response {
+}
+
+message CPlayer_GetAchievementsProgress_Response {
+	repeated .CPlayer_GetAchievementsProgress_Response_AchievementProgress achievement_progress = 1;
+}
+
+message CPlayer_GetAchievementsProgress_Response_AchievementProgress {
+	optional uint32 appid = 1;
+	optional uint32 unlocked = 2;
+	optional uint32 total = 3;
+	optional float percentage = 4;
+	optional bool all_unlocked = 5;
+	optional uint32 cache_time = 6;
 }
 
 message CWebRTCClient_InitiateWebRTCConnection_Request {
@@ -679,6 +695,7 @@ service Community {
 	rpc MarkPartnerEventsForUser (.NotImplemented) returns (.CCommunity_MarkPartnerEventsForUser_Response);
 	rpc PartnerEventsShowMoreForApp (.NotImplemented) returns (.CCommunity_PartnerEventsShowMoreForApp_Response);
 	rpc PartnerEventsShowLessForApp (.NotImplemented) returns (.CCommunity_PartnerEventsShowLessForApp_Response);
+	rpc ClearUserPartnerEventsAppPriorities (.NotImplemented) returns (.CCommunity_ClearUserPartnerEventsAppPriorities_Response);
 }
 
 service WebRTCClient {
