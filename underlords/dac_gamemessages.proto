@@ -484,6 +484,7 @@ message CMsgPublicPlayerState {
 	optional uint32 next_combat_opponent_neutral_wave = 49;
 	optional uint32 brawny_kills = 51;
 	optional int32 board_unit_limit = 52;
+	repeated uint32 underlord_available_talents = 53;
 	oneof opponent {
 		uint32 opponent_player_slot = 24;
 		uint32 opponent_neutral_wave = 25;
@@ -625,6 +626,12 @@ message CMsgPrivatePlayerState {
 }
 
 message CMsgMatchState {
+	message TeamInfo {
+		optional .EDACLobbyTeam lobby_team = 1 [default = k_EDACLobbyTeam_Team0];
+		optional string team_name = 2;
+		optional uint32 team_mmr_score = 3;
+	}
+
 	optional .EGameState game_state = 1 [default = EGameState_Intro];
 	optional .ERoundState round_state = 2 [default = ERoundState_Preparing];
 	optional int32 round_number = 3;
@@ -633,6 +640,7 @@ message CMsgMatchState {
 	optional float paused_state_time_remaining = 6;
 	optional uint64 match_id = 8;
 	optional .CMsgGameModifiers game_modifiers = 9;
+	repeated .CMsgMatchState.TeamInfo team_info = 10;
 }
 
 message CMsgGameModeState_Normal {

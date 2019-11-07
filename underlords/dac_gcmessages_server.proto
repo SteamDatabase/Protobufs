@@ -39,6 +39,7 @@ enum EGCServerSignoutData {
 	k_EPlayerSignoutData_MMRUpdate = 10;
 	k_EPlayerSignoutData_EventGrantProgress = 11;
 	k_EPlayerSignoutData_ChatStats = 12;
+	k_EPlayerSignoutData_TeamUpdate = 13;
 }
 
 message CMsgServerCrashSentinelFile {
@@ -106,6 +107,7 @@ message CSODACServerStaticLobby {
 	repeated .CSODACServerStaticLobby.Member members = 6;
 	optional bool trusted_server = 7;
 	optional .CSODACParty.EBotDifficulty bot_difficulty = 8 [default = k_eBotDifficulty_None];
+	repeated .CMsgTeamInfo team_info = 9;
 }
 
 message CMsgMatchSignoutData_PerformanceStats {
@@ -201,6 +203,11 @@ message CMsgPlayerSignoutData_ChatStats {
 	optional uint32 chat_text_count = 2;
 	optional uint32 yo_count = 3;
 	optional uint32 chat_line_count = 4;
+}
+
+message CMsgPlayerSignoutData_TeamUpdate {
+	optional uint32 other_team_member = 1;
+	optional uint32 final_place = 2;
 }
 
 message CMsgServerToGCMatchSignout {
