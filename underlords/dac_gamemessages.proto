@@ -735,7 +735,6 @@ message CMsgUnitMeterDamageDealt {
 }
 
 message CMsgUnitMeterDetail {
-	optional string ability_name = 1;
 	optional int32 value = 2;
 	optional uint32 id = 3;
 }
