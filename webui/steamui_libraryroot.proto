@@ -161,6 +161,10 @@ message CAppOverview {
 	optional uint32 rt_store_asset_mtime = 46;
 	optional uint32 rt_custom_image_mtime = 47;
 	optional uint32 optional_parent_app_id = 48;
+	optional uint32 owner_account_id = 49;
+	optional bool compat_mapping_enabled = 50;
+	optional uint32 compat_mapping_priority = 51;
+	optional string compat_mapping_tool_name = 52;
 }
 
 message CAppOverview_Change {
@@ -257,6 +261,25 @@ message CPlayer_DeletePostedStatus_Request {
 }
 
 message CPlayer_DeletePostedStatus_Response {
+}
+
+message CPlayer_GetAchievementsProgress_Request {
+	optional uint64 steamid = 1;
+	optional string language = 2;
+	repeated uint32 appids = 3;
+}
+
+message CPlayer_GetAchievementsProgress_Response {
+	repeated .CPlayer_GetAchievementsProgress_Response_AchievementProgress achievement_progress = 1;
+}
+
+message CPlayer_GetAchievementsProgress_Response_AchievementProgress {
+	optional uint32 appid = 1;
+	optional uint32 unlocked = 2;
+	optional uint32 total = 3;
+	optional float percentage = 4;
+	optional bool all_unlocked = 5;
+	optional uint32 cache_time = 6;
 }
 
 message CPlayer_GetFriendsGameplayInfo_Request {
@@ -611,6 +634,9 @@ message CCommunity_PartnerEventResult {
 
 message CCommunity_GetBestEventsForUser_Response {
 	repeated .CCommunity_PartnerEventResult results = 1;
+}
+
+message CCommunity_ClearUserPartnerEventsAppPriorities_Response {
 }
 
 message CCommunity_PartnerEventsShowMoreForApp_Request {
@@ -1331,241 +1357,6 @@ message CChatUsability_ClientUsabilityMetrics_Notification_Metrics {
 	optional int32 group_chat_favorite_count = 10;
 }
 
-message CMsgClientUCMUpdatePublishedFile_AdditionalPreview {
-	optional string original_file_name = 1;
-	optional string internal_file_name = 2;
-	optional string videoid = 3;
-	optional uint32 preview_type = 4;
-	optional int32 update_index = 5 [default = -1];
-}
-
-message CMsgClientItemAnnouncements_UnseenItem {
-	optional uint32 appid = 1;
-	optional uint64 context_id = 2;
-	optional uint64 asset_id = 3;
-	optional uint64 amount = 4;
-	optional fixed32 rtime32_gained = 5;
-	optional uint32 source_appid = 6;
-}
-
-message CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage {
-	optional uint32 accountid = 1;
-	optional uint32 timestamp = 2;
-	optional string message = 3;
-	optional bool unread = 4;
-}
-
-message CMsgBadgeCraftedNotification {
-	optional uint32 appid = 1;
-	optional uint32 badge_level = 2;
-}
-
-message CQuest_GetCommunityItemDefinitions_Request {
-	optional uint32 appid = 1;
-	optional bool work_in_progress = 2;
-	optional uint32 item_type = 3;
-	optional string language = 4;
-	optional uint64 broadcast_channel_id = 5;
-	optional bool keyvalues_as_json = 6;
-}
-
-message CQuest_GetCommunityItemDefinitions_Response {
-	repeated .CQuest_GetCommunityItemDefinitions_Response_ItemDefinition item_definitions = 1;
-}
-
-message CQuest_GetCommunityItemDefinitions_Response_ItemDefinition {
-	optional uint32 item_type = 1;
-	optional uint32 appid = 2;
-	optional string item_name = 3;
-	optional string item_title = 4;
-	optional string item_description = 5;
-	optional string item_image_small = 6;
-	optional string item_image_large = 7;
-	optional string item_key_values = 8;
-	optional uint32 item_series = 9;
-	optional uint32 item_class = 10;
-	optional uint32 editor_accountid = 11;
-	optional bool active = 12;
-	optional string item_image_composed = 13;
-	optional string item_image_composed_foil = 14;
-	optional bool deleted = 15;
-	optional uint32 item_last_changed = 16;
-	optional uint64 broadcast_channel_id = 17;
-}
-
-message PublishedFileDetails_PlaytimeStats {
-	optional uint64 playtime_seconds = 1;
-	optional uint64 num_sessions = 2;
-}
-
-message CPublishedFile_GetUserFiles_Request_KVTag {
-	optional string key = 1;
-	optional string value = 2;
-}
-
-message CPublishedFile_AddAppRelationship_Response {
-}
-
-message CPublishedFile_RemoveAppRelationship_Response {
-}
-
-message CPublishedFile_GetAppRelationships_Response {
-	repeated .CPublishedFile_GetAppRelationships_Response_AppRelationship app_relationships = 3;
-}
-
-message CPublishedFile_GetAppRelationships_Response_AppRelationship {
-	optional uint32 appid = 1;
-	optional uint32 relationship = 2;
-}
-
-message CPublishedFile_StartPlaytimeTracking_Response {
-}
-
-message CPublishedFile_StopPlaytimeTracking_Response {
-}
-
-message CPublishedFile_StopPlaytimeTrackingForAllAppItems_Response {
-}
-
-message CPublishedFile_SetPlaytimeForControllerConfigs_Request_ControllerConfigUsage {
-	optional uint64 publishedfileid = 1;
-	optional float seconds_active = 2;
-}
-
-message CPublishedFile_SetPlaytimeForControllerConfigs_Response {
-}
-
-message CPublishedFile_AddChild_Response {
-}
-
-message CPublishedFile_RemoveChild_Response {
-}
-
-message CPublishedFile_AreFilesInSubscriptionList_Request {
-	optional uint32 appid = 1;
-	repeated fixed64 publishedfileids = 2;
-	optional uint32 listtype = 3;
-	optional uint32 filetype = 4;
-	optional uint32 workshopfiletype = 5;
-}
-
-message CPublishedFile_AreFilesInSubscriptionList_Response {
-	repeated .CPublishedFile_AreFilesInSubscriptionList_Response_InList files = 1;
-}
-
-message CPublishedFile_AreFilesInSubscriptionList_Response_InList {
-	optional fixed64 publishedfileid = 1;
-	optional bool inlist = 2;
-}
-
-message CPublishedFile_GetUserVoteSummary_Request {
-	repeated fixed64 publishedfileids = 1;
-}
-
-message CPublishedFile_GetUserVoteSummary_Response {
-	repeated .CPublishedFile_GetUserVoteSummary_Response_VoteSummary summaries = 1;
-}
-
-message CPublishedFile_GetUserVoteSummary_Response_VoteSummary {
-	optional fixed64 publishedfileid = 1;
-	optional bool vote_for = 2;
-	optional bool vote_against = 3;
-	optional bool reported = 4;
-}
-
-message CPublishedFile_FileSubscribed_Notification {
-	optional fixed64 published_file_id = 1;
-	optional uint32 app_id = 2;
-	optional fixed64 file_hcontent = 3;
-	optional uint32 file_size = 4;
-	optional uint32 rtime_subscribed = 5;
-	optional bool is_depot_content = 6;
-	optional uint32 rtime_updated = 7;
-	repeated .CPublishedFile_FileSubscribed_Notification_RevisionData revisions = 8;
-}
-
-message CPublishedFile_FileSubscribed_Notification_RevisionData {
-	optional int32 revision = 1 [(description) = "enum"];
-	optional fixed64 file_hcontent = 2;
-	optional uint32 rtime_updated = 3;
-}
-
-message CPublishedFile_FileUnsubscribed_Notification {
-	optional fixed64 published_file_id = 1;
-	optional uint32 app_id = 2;
-}
-
-message CPublishedFile_FileDeleted_Client_Notification {
-	optional fixed64 published_file_id = 1;
-	optional uint32 app_id = 2;
-}
-
-message CUserReviews_Update_Request {
-	optional uint64 recommendationid = 1;
-	optional string review_text = 2;
-	optional bool voted_up = 3;
-	optional bool is_public = 4;
-	optional string language = 5;
-	optional bool is_in_early_access = 6;
-	optional bool received_compensation = 7;
-	optional bool comments_disabled = 8;
-}
-
-message CUserReviews_Update_Response {
-}
-
-message RecommendationDetails {
-	optional uint64 recommendationid = 1;
-	optional uint64 steamid = 2;
-	optional uint32 appid = 3;
-	optional string review = 4;
-	optional uint32 time_created = 5;
-	optional uint32 time_updated = 6;
-	optional uint32 votes_up = 7;
-	optional uint32 votes_down = 8;
-	optional float vote_score = 9;
-	optional string language = 10;
-	optional uint32 comment_count = 11;
-	optional bool voted_up = 12;
-	optional bool is_public = 13;
-	optional bool moderator_hidden = 14;
-	optional int32 flagged_by_developer = 15 [(description) = "enum"];
-	optional uint32 report_score = 16;
-	optional uint64 steamid_moderator = 17;
-	optional uint64 steamid_developer = 18;
-	optional uint64 steamid_dev_responder = 19;
-	optional string developer_response = 20;
-	optional uint32 time_developer_responded = 21;
-	optional bool developer_flag_cleared = 22;
-	optional bool written_during_early_access = 23;
-	optional uint32 votes_funny = 24;
-	optional bool received_compensation = 25;
-	optional bool unverified_purchase = 26;
-	optional int32 review_quality = 27 [(description) = "enum"];
-	optional float weighted_vote_score = 28;
-	optional string moderation_note = 29;
-	optional int32 payment_method = 30;
-	optional int32 playtime_2weeks = 31;
-	optional int32 playtime_forever = 32;
-	optional int32 last_playtime = 33;
-	optional bool comments_disabled = 34;
-	optional int32 playtime_at_review = 35;
-	optional bool approved_for_china = 36;
-}
-
-message CUserReviews_GetIndividualRecommendations_Request {
-	repeated .CUserReviews_GetIndividualRecommendations_Request_RecommendationRequest requests = 1;
-}
-
-message CUserReviews_GetIndividualRecommendations_Request_RecommendationRequest {
-	optional uint64 steamid = 1;
-	optional uint32 appid = 2;
-}
-
-message CUserReviews_GetIndividualRecommendations_Response {
-	repeated .RecommendationDetails recommendations = 1;
-}
-
 message CBroadcast_BroadcastUploadStarted_Notification {
 	optional fixed64 broadcast_id = 1;
 	optional string upload_token = 2;
@@ -2056,6 +1847,241 @@ message CSteamTV_GetBroadcastChannelClips_Response {
 	optional string thumbnail_host = 2;
 }
 
+message CMsgClientUCMUpdatePublishedFile_AdditionalPreview {
+	optional string original_file_name = 1;
+	optional string internal_file_name = 2;
+	optional string videoid = 3;
+	optional uint32 preview_type = 4;
+	optional int32 update_index = 5 [default = -1];
+}
+
+message CMsgClientItemAnnouncements_UnseenItem {
+	optional uint32 appid = 1;
+	optional uint64 context_id = 2;
+	optional uint64 asset_id = 3;
+	optional uint64 amount = 4;
+	optional fixed32 rtime32_gained = 5;
+	optional uint32 source_appid = 6;
+}
+
+message CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage {
+	optional uint32 accountid = 1;
+	optional uint32 timestamp = 2;
+	optional string message = 3;
+	optional bool unread = 4;
+}
+
+message CMsgBadgeCraftedNotification {
+	optional uint32 appid = 1;
+	optional uint32 badge_level = 2;
+}
+
+message CQuest_GetCommunityItemDefinitions_Request {
+	optional uint32 appid = 1;
+	optional bool work_in_progress = 2;
+	optional uint32 item_type = 3;
+	optional string language = 4;
+	optional uint64 broadcast_channel_id = 5;
+	optional bool keyvalues_as_json = 6;
+}
+
+message CQuest_GetCommunityItemDefinitions_Response {
+	repeated .CQuest_GetCommunityItemDefinitions_Response_ItemDefinition item_definitions = 1;
+}
+
+message CQuest_GetCommunityItemDefinitions_Response_ItemDefinition {
+	optional uint32 item_type = 1;
+	optional uint32 appid = 2;
+	optional string item_name = 3;
+	optional string item_title = 4;
+	optional string item_description = 5;
+	optional string item_image_small = 6;
+	optional string item_image_large = 7;
+	optional string item_key_values = 8;
+	optional uint32 item_series = 9;
+	optional uint32 item_class = 10;
+	optional uint32 editor_accountid = 11;
+	optional bool active = 12;
+	optional string item_image_composed = 13;
+	optional string item_image_composed_foil = 14;
+	optional bool deleted = 15;
+	optional uint32 item_last_changed = 16;
+	optional uint64 broadcast_channel_id = 17;
+}
+
+message PublishedFileDetails_PlaytimeStats {
+	optional uint64 playtime_seconds = 1;
+	optional uint64 num_sessions = 2;
+}
+
+message CPublishedFile_GetUserFiles_Request_KVTag {
+	optional string key = 1;
+	optional string value = 2;
+}
+
+message CPublishedFile_AddAppRelationship_Response {
+}
+
+message CPublishedFile_RemoveAppRelationship_Response {
+}
+
+message CPublishedFile_GetAppRelationships_Response {
+	repeated .CPublishedFile_GetAppRelationships_Response_AppRelationship app_relationships = 3;
+}
+
+message CPublishedFile_GetAppRelationships_Response_AppRelationship {
+	optional uint32 appid = 1;
+	optional uint32 relationship = 2;
+}
+
+message CPublishedFile_StartPlaytimeTracking_Response {
+}
+
+message CPublishedFile_StopPlaytimeTracking_Response {
+}
+
+message CPublishedFile_StopPlaytimeTrackingForAllAppItems_Response {
+}
+
+message CPublishedFile_SetPlaytimeForControllerConfigs_Request_ControllerConfigUsage {
+	optional uint64 publishedfileid = 1;
+	optional float seconds_active = 2;
+}
+
+message CPublishedFile_SetPlaytimeForControllerConfigs_Response {
+}
+
+message CPublishedFile_AddChild_Response {
+}
+
+message CPublishedFile_RemoveChild_Response {
+}
+
+message CPublishedFile_AreFilesInSubscriptionList_Request {
+	optional uint32 appid = 1;
+	repeated fixed64 publishedfileids = 2;
+	optional uint32 listtype = 3;
+	optional uint32 filetype = 4;
+	optional uint32 workshopfiletype = 5;
+}
+
+message CPublishedFile_AreFilesInSubscriptionList_Response {
+	repeated .CPublishedFile_AreFilesInSubscriptionList_Response_InList files = 1;
+}
+
+message CPublishedFile_AreFilesInSubscriptionList_Response_InList {
+	optional fixed64 publishedfileid = 1;
+	optional bool inlist = 2;
+}
+
+message CPublishedFile_GetUserVoteSummary_Request {
+	repeated fixed64 publishedfileids = 1;
+}
+
+message CPublishedFile_GetUserVoteSummary_Response {
+	repeated .CPublishedFile_GetUserVoteSummary_Response_VoteSummary summaries = 1;
+}
+
+message CPublishedFile_GetUserVoteSummary_Response_VoteSummary {
+	optional fixed64 publishedfileid = 1;
+	optional bool vote_for = 2;
+	optional bool vote_against = 3;
+	optional bool reported = 4;
+}
+
+message CPublishedFile_FileSubscribed_Notification {
+	optional fixed64 published_file_id = 1;
+	optional uint32 app_id = 2;
+	optional fixed64 file_hcontent = 3;
+	optional uint32 file_size = 4;
+	optional uint32 rtime_subscribed = 5;
+	optional bool is_depot_content = 6;
+	optional uint32 rtime_updated = 7;
+	repeated .CPublishedFile_FileSubscribed_Notification_RevisionData revisions = 8;
+}
+
+message CPublishedFile_FileSubscribed_Notification_RevisionData {
+	optional int32 revision = 1 [(description) = "enum"];
+	optional fixed64 file_hcontent = 2;
+	optional uint32 rtime_updated = 3;
+}
+
+message CPublishedFile_FileUnsubscribed_Notification {
+	optional fixed64 published_file_id = 1;
+	optional uint32 app_id = 2;
+}
+
+message CPublishedFile_FileDeleted_Client_Notification {
+	optional fixed64 published_file_id = 1;
+	optional uint32 app_id = 2;
+}
+
+message CUserReviews_Update_Request {
+	optional uint64 recommendationid = 1;
+	optional string review_text = 2;
+	optional bool voted_up = 3;
+	optional bool is_public = 4;
+	optional string language = 5;
+	optional bool is_in_early_access = 6;
+	optional bool received_compensation = 7;
+	optional bool comments_disabled = 8;
+}
+
+message CUserReviews_Update_Response {
+}
+
+message RecommendationDetails {
+	optional uint64 recommendationid = 1;
+	optional uint64 steamid = 2;
+	optional uint32 appid = 3;
+	optional string review = 4;
+	optional uint32 time_created = 5;
+	optional uint32 time_updated = 6;
+	optional uint32 votes_up = 7;
+	optional uint32 votes_down = 8;
+	optional float vote_score = 9;
+	optional string language = 10;
+	optional uint32 comment_count = 11;
+	optional bool voted_up = 12;
+	optional bool is_public = 13;
+	optional bool moderator_hidden = 14;
+	optional int32 flagged_by_developer = 15 [(description) = "enum"];
+	optional uint32 report_score = 16;
+	optional uint64 steamid_moderator = 17;
+	optional uint64 steamid_developer = 18;
+	optional uint64 steamid_dev_responder = 19;
+	optional string developer_response = 20;
+	optional uint32 time_developer_responded = 21;
+	optional bool developer_flag_cleared = 22;
+	optional bool written_during_early_access = 23;
+	optional uint32 votes_funny = 24;
+	optional bool received_compensation = 25;
+	optional bool unverified_purchase = 26;
+	optional int32 review_quality = 27 [(description) = "enum"];
+	optional float weighted_vote_score = 28;
+	optional string moderation_note = 29;
+	optional int32 payment_method = 30;
+	optional int32 playtime_2weeks = 31;
+	optional int32 playtime_forever = 32;
+	optional int32 last_playtime = 33;
+	optional bool comments_disabled = 34;
+	optional int32 playtime_at_review = 35;
+	optional bool approved_for_china = 36;
+}
+
+message CUserReviews_GetIndividualRecommendations_Request {
+	repeated .CUserReviews_GetIndividualRecommendations_Request_RecommendationRequest requests = 1;
+}
+
+message CUserReviews_GetIndividualRecommendations_Request_RecommendationRequest {
+	optional uint64 steamid = 1;
+	optional uint32 appid = 2;
+}
+
+message CUserReviews_GetIndividualRecommendations_Response {
+	repeated .RecommendationDetails recommendations = 1;
+}
+
 message NotImplemented {
 }
 
@@ -2074,6 +2100,7 @@ service Player {
 	rpc GetFriendsAppsActivity (.CPlayer_GetFriendsAppsActivity_Request) returns (.CPlayer_GetFriendsAppsActivity_Response);
 	rpc GetGameBadgeLevels (.NotImplemented) returns (.CPlayer_GetGameBadgeLevels_Response);
 	rpc GetEmoticonList (.NotImplemented) returns (.CPlayer_GetEmoticonList_Response);
+	rpc GetAchievementsProgress (.CPlayer_GetAchievementsProgress_Request) returns (.CPlayer_GetAchievementsProgress_Response);
 	rpc PostStatusToFriends (.CPlayer_PostStatusToFriends_Request) returns (.CPlayer_PostStatusToFriends_Response);
 	rpc GetPostedStatus (.CPlayer_GetPostedStatus_Request) returns (.CPlayer_GetPostedStatus_Response);
 	rpc DeletePostedStatus (.CPlayer_DeletePostedStatus_Request) returns (.CPlayer_DeletePostedStatus_Response);
@@ -2117,6 +2144,7 @@ service Community {
 	rpc MarkPartnerEventsForUser (.CCommunity_MarkPartnerEventsForUser_Request) returns (.CCommunity_MarkPartnerEventsForUser_Response);
 	rpc PartnerEventsShowMoreForApp (.CCommunity_PartnerEventsShowMoreForApp_Request) returns (.CCommunity_PartnerEventsShowMoreForApp_Response);
 	rpc PartnerEventsShowLessForApp (.CCommunity_PartnerEventsShowLessForApp_Request) returns (.CCommunity_PartnerEventsShowLessForApp_Response);
+	rpc ClearUserPartnerEventsAppPriorities (.NotImplemented) returns (.CCommunity_ClearUserPartnerEventsAppPriorities_Response);
 }
 
 service UserNews {
@@ -2214,21 +2242,6 @@ service ChatRoomClient {
 	rpc NotifyAckChatMessageEcho (.CChatRoom_AckChatMessage_Notification) returns (.NoResponse);
 }
 
-service Quest {
-	rpc GetCommunityItemDefinitions (.CQuest_GetCommunityItemDefinitions_Request) returns (.CQuest_GetCommunityItemDefinitions_Response);
-}
-
-service PublishedFileClient {
-	rpc NotifyFileSubscribed (.CPublishedFile_FileSubscribed_Notification) returns (.NoResponse);
-	rpc NotifyFileUnsubscribed (.CPublishedFile_FileUnsubscribed_Notification) returns (.NoResponse);
-	rpc NotifyFileDeleted (.CPublishedFile_FileDeleted_Client_Notification) returns (.NoResponse);
-}
-
-service UserReviews {
-	rpc Update (.CUserReviews_Update_Request) returns (.CUserReviews_Update_Response);
-	rpc GetIndividualRecommendations (.CUserReviews_GetIndividualRecommendations_Request) returns (.CUserReviews_GetIndividualRecommendations_Response);
-}
-
 service SteamTV {
 	rpc CreateBroadcastChannel (.NotImplemented) returns (.CSteamTV_CreateBroadcastChannel_Response);
 	rpc GetBroadcastChannelID (.NotImplemented) returns (.CSteamTV_GetBroadcastChannelID_Response);
@@ -2261,5 +2274,20 @@ service SteamTV {
 	rpc SetSteamTVUserSettings (.NotImplemented) returns (.CSteamTV_SetSteamTVUserSettings_Response);
 	rpc GetMyBroadcastChannels (.NotImplemented) returns (.CSteamTV_GetMyBroadcastChannels_Response);
 	rpc GetHomePageContents (.NotImplemented) returns (.CSteamTV_GetHomePageContents_Response);
+}
+
+service Quest {
+	rpc GetCommunityItemDefinitions (.CQuest_GetCommunityItemDefinitions_Request) returns (.CQuest_GetCommunityItemDefinitions_Response);
+}
+
+service PublishedFileClient {
+	rpc NotifyFileSubscribed (.CPublishedFile_FileSubscribed_Notification) returns (.NoResponse);
+	rpc NotifyFileUnsubscribed (.CPublishedFile_FileUnsubscribed_Notification) returns (.NoResponse);
+	rpc NotifyFileDeleted (.CPublishedFile_FileDeleted_Client_Notification) returns (.NoResponse);
+}
+
+service UserReviews {
+	rpc Update (.CUserReviews_Update_Request) returns (.CUserReviews_Update_Response);
+	rpc GetIndividualRecommendations (.CUserReviews_GetIndividualRecommendations_Request) returns (.CUserReviews_GetIndividualRecommendations_Response);
 }
 
