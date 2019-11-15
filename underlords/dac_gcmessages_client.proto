@@ -96,6 +96,8 @@ enum EGCDACClientMessages {
 	k_EMsgClientToGCAckSupportCreditsResponse = 9206;
 	k_EMsgClientToGCSetTeamName = 9207;
 	k_EMsgClientToGCSetTeamNameResponse = 9208;
+	k_EMsgClientToGCModifyGACFlags = 9209;
+	k_EMsgClientToGCModifyGACFlagsResponse = 9211;
 }
 
 enum EItemEditorReservationResult {
@@ -1160,5 +1162,20 @@ message CMsgClientToGCSetTeamNameResponse {
 	}
 
 	optional .CMsgClientToGCSetTeamNameResponse.EResponse result = 1 [default = k_eInternalError];
+}
+
+message CMsgClientToGCModifyGACFlags {
+	optional uint64 set_flags = 1;
+}
+
+message CMsgClientToGCModifyGACFlagsResponse {
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eDisabled = 2;
+		k_eTooBusy = 3;
+	}
+
+	optional .CMsgClientToGCModifyGACFlagsResponse.EResponse result = 1 [default = k_eInternalError];
 }
 
