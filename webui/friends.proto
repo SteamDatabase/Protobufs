@@ -140,19 +140,6 @@ message CCommunity_MarkPartnerEventsForUser_Request_PartnerEventMarking {
 message CCommunity_MarkPartnerEventsForUser_Response {
 }
 
-message CPlayer_GetAchievementsProgress_Response {
-	repeated .CPlayer_GetAchievementsProgress_Response_AchievementProgress achievement_progress = 1;
-}
-
-message CPlayer_GetAchievementsProgress_Response_AchievementProgress {
-	optional uint32 appid = 1;
-	optional uint32 unlocked = 2;
-	optional uint32 total = 3;
-	optional float percentage = 4;
-	optional bool all_unlocked = 5;
-	optional uint32 cache_time = 6;
-}
-
 message CWebRTCClient_InitiateWebRTCConnection_Request {
 	optional string sdp = 1;
 }
