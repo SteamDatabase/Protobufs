@@ -568,16 +568,21 @@ message CMsgIndividualPostMatchStats {
 		repeated .CMsgIndividualPostMatchStats.Currency currencies = 5;
 	}
 
+	message RankUpdate {
+		optional uint32 initial_level_score = 1;
+		optional uint32 initial_level = 2;
+		optional float initial_level_partial_progress = 3;
+		optional uint32 final_level_score = 4;
+		optional uint32 final_level = 5;
+		optional float final_level_partial_progress = 6;
+	}
+
 	repeated .CMsgIndividualPostMatchStats.Round rounds = 1;
 	optional uint32 player_slot = 2;
 	optional uint32 position = 3;
 	repeated .CMsgIndividualPostMatchStats.Event events = 4;
-	optional uint32 initial_mmr_level_score = 9;
-	optional uint32 initial_mmr_level = 5;
-	optional float initial_mmr_level_partial_progress = 6;
-	optional uint32 final_mmr_level_score = 10;
-	optional uint32 final_mmr_level = 7;
-	optional float final_mmr_level_partial_progress = 8;
+	optional .CMsgIndividualPostMatchStats.RankUpdate individual_rank_update = 5;
+	optional .CMsgIndividualPostMatchStats.RankUpdate duos_rank_update = 6;
 }
 
 message CMsgPlayerPreferences {
@@ -620,17 +625,14 @@ message CMsgPrivatePlayerState {
 	optional .CMsgPrivatePlayerState.EGrantRewards grants_rewards = 9 [default = EGrantRewards_No];
 	optional uint32 sequence_number = 10;
 	optional int32 reroll_cost = 11;
-	optional sint32 mmrchange_overall_min = 12;
-	optional sint32 mmrchange_overall_max = 13;
-	optional sint32 mmrchange_current_min = 14;
-	optional sint32 mmrchange_current_max = 15;
 }
 
 message CMsgMatchState {
 	message TeamInfo {
 		optional .EDACLobbyTeam lobby_team = 1 [default = k_EDACLobbyTeam_Team0];
 		optional string team_name = 2;
-		optional uint32 team_mmr_score = 3;
+		optional uint32 team_mmr_level = 3;
+		optional uint32 team_leaderboard_place = 4;
 	}
 
 	optional .EGameState game_state = 1 [default = EGameState_Intro];
@@ -761,6 +763,9 @@ message CMsgUnitMeterSnapshot {
 	repeated .CMsgUnitMeterDetail damage_dealt_details = 11;
 	repeated .CMsgUnitMeterDetail healing_done_details = 12;
 	optional float disable_done = 13;
+	repeated .CMsgUnitMeterDetail damage_taken_details = 14;
+	repeated .CMsgUnitMeterDetail kills_details = 15;
+	repeated .CMsgUnitMeterDetail disable_done_details = 16;
 }
 
 message CMsgCombatMetersSnapshot {

@@ -1159,6 +1159,8 @@ message CMsgClientToGCSetTeamNameResponse {
 		k_eNotUnlocked = 4;
 		k_eInCooldown = 5;
 		k_eNameTooLong = 6;
+		k_eCommunityBanned = 7;
+		k_eGameBanned = 8;
 	}
 
 	optional .CMsgClientToGCSetTeamNameResponse.EResponse result = 1 [default = k_eInternalError];

@@ -72,10 +72,19 @@ message CServerLobbyData_PlayerMMR {
 		optional uint32 party_index = 7;
 		optional uint32 lords_elo_ante = 8;
 		optional bool lords_elo_ignore = 9;
+		optional float level_score_change_mult = 10 [default = 1];
+	}
+
+	message Team {
+		optional uint32 lords_elo_ante = 3;
+		optional bool lords_elo_ignore = 4;
 	}
 
 	repeated .CServerLobbyData_PlayerMMR.Player players = 1;
+	repeated .CServerLobbyData_PlayerMMR.Team teams = 2;
 	optional uint32 lords_elo_k = 8;
+	optional float duos_mmr_level_score_change_mult = 9;
+	optional uint32 lords_elo_k_duos = 10;
 }
 
 message CServerLobbyData_GameModifiers {
@@ -161,6 +170,7 @@ message CMsgMatchSignoutData_CombatStats {
 		optional uint32 final_place = 2;
 		optional uint32 elimination_time_s = 3;
 		optional uint32 elimination_round = 4;
+		optional uint32 underlord_id = 5;
 	}
 
 	repeated .CMsgMatchSignoutData_CombatStats.CombatRound combat_rounds = 1;

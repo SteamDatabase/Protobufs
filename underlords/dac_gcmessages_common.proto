@@ -133,6 +133,8 @@ message CMsgTeamInfo {
 	repeated uint32 member_account_ids = 1 [packed = true];
 	optional string team_name = 2;
 	optional uint32 mmr_level_score = 3;
+	optional uint32 mmr_level = 4;
+	optional uint32 mmr_leaderboard_place = 5;
 }
 
 message CServerLobbyData_PlayerInfo {
@@ -226,12 +228,15 @@ message CSODACParty {
 		repeated uint32 account_ids = 1 [packed = true];
 		optional string team_name = 2;
 		optional uint32 first_played = 3;
-		optional uint32 casual_games = 4;
-		optional uint32 ranked_games = 5;
+		optional uint32 games_played = 4;
 		optional uint32 num_first_place = 6;
 		optional uint32 num_top_three = 7;
-		optional uint32 mmr_level_score = 8;
-		optional uint32 flags = 9;
+		optional uint32 mmr_level = 8;
+		optional uint32 mmr_level_progress = 9;
+		optional uint32 mmr_level_score = 10;
+		optional uint32 flags = 11;
+		optional uint32 leaderboard_place = 12;
+		optional uint32 games_to_unlock_rename = 13;
 	}
 
 	enum EMemberRights {
@@ -285,10 +290,6 @@ message CSOGameAccountClient {
 	optional uint32 mm_ranked_ban_time_stamp = 11;
 	optional uint32 mm_ranked_ban_reason = 12;
 	optional uint32 credits = 13;
-	optional uint32 duos_mmr_level = 14;
-	optional uint32 duos_mmr_leaderboard = 15;
-	optional float duos_mmr_level_partial_progress = 16;
-	optional uint32 duos_mmr_level_score = 17;
 }
 
 message CMsgStartFindingMatchInfo {
