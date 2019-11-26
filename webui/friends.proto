@@ -646,6 +646,29 @@ message CFriendsList_GetFriendsList_Response {
 	optional .CMsgClientFriendsList friendslist = 1;
 }
 
+message CMsgClientEmoticonList_Sticker {
+	optional string name = 1;
+	optional int32 count = 2;
+	optional uint32 time_received = 3;
+}
+
+message CMsgClientEmoticonList_Effect {
+	optional string name = 1;
+	optional int32 count = 2;
+	optional uint32 time_received = 3;
+}
+
+message CChatRoom_JoinMiniGameForChatRoomGroup_Response {
+	optional uint64 minigame_id = 1;
+}
+
+message CChatRoom_EndMiniGameForChatRoomGroup_Response {
+}
+
+message ChatRoomClient_NotifyChatRoomDisconnect_Notification {
+	repeated uint64 chat_group_ids = 1;
+}
+
 message CClan_RespondToClanInvite_Request {
 	optional fixed64 steamid = 1;
 	optional bool accept = 2;
