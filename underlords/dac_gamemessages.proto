@@ -63,6 +63,7 @@ enum ERoundState {
 }
 
 enum EUnitKeyword {
+	EUnitKeyword_Invalid = 0;
 	EUnitKeyword_Beast = 1;
 	EUnitKeyword_Demon = 2;
 	EUnitKeyword_Dragon = 3;
@@ -177,6 +178,10 @@ enum EPlayerOrder {
 	EPlayerOrder_DevRemoveAllUnits = 34;
 	EPlayerOrder_DevSetUnitRank = 35;
 	EPlayerOrder_DevRemoveAllItems = 36;
+	EPlayerOrder_ClearBoard = 37;
+	EPlayerOrder_GoToTutorialState = 38;
+	EPlayerOrder_SelectTurboBucket = 39;
+	EPlayerOrder_TurboBucketReroll = 40;
 }
 
 enum ERoundCombatResult {
@@ -202,6 +207,18 @@ enum ERoundVictoryLevel {
 	ERoundVictoryLevel_AwayFlawless = 6;
 	ERoundVictoryLevel_AwayNormal = 7;
 	ERoundVictoryLevel_Draw = 8;
+}
+
+enum EDACPuzzleRule {
+	k_EDACPuzzleRule_None = 0;
+	k_EDACPuzzleRule_UnitCountLimit = 1;
+	k_EDACPuzzleRule_UnitStarLimit = 2;
+	k_EDACPuzzleRule_BoardStarLimit = 3;
+	k_EDACPuzzleRule_UnitCostLimit = 4;
+	k_EDACPuzzleRule_BoardCostLimit = 5;
+	k_EDACPuzzleRule_ItemCountLimit = 6;
+	k_EDACPuzzleRule_UnderlordCountLimit = 7;
+	k_EDACPuzzleRule_SynergyRequirements = 8;
 }
 
 enum EUnitAIState {
@@ -415,10 +432,16 @@ message CMsgShopItem {
 	optional int32 gold_cost = 3;
 	optional bool wanted_legendary = 4;
 	optional bool will_combine_three_stars = 5;
+	repeated .EUnitKeyword keywords = 6;
+}
+
+message CMsgTurboBucket {
+	repeated .EUnitKeyword keywords = 1;
+	repeated int32 unit_ids = 2;
 }
 
 message CMsgSynergy {
-	optional .EUnitKeyword keyword = 1 [default = EUnitKeyword_Beast];
+	optional .EUnitKeyword keyword = 1 [default = EUnitKeyword_Invalid];
 	optional int32 unique_unit_count = 2;
 	optional int32 bench_additional_unique_unit_count = 3;
 }
@@ -625,6 +648,8 @@ message CMsgPrivatePlayerState {
 	optional .CMsgPrivatePlayerState.EGrantRewards grants_rewards = 9 [default = EGrantRewards_No];
 	optional uint32 sequence_number = 10;
 	optional int32 reroll_cost = 11;
+	optional bool used_turbo_bucket_reroll = 20;
+	repeated .CMsgTurboBucket turbo_buckets = 21;
 }
 
 message CMsgMatchState {
@@ -675,6 +700,24 @@ message CMsgGameModeState_Sandbox {
 	optional int32 opponent_player_slot = 1;
 }
 
+message CMsgGameModeState_Puzzle {
+	message ActiveRule {
+		optional .EDACPuzzleRule rule = 1 [default = k_EDACPuzzleRule_None];
+		optional bool satisfied = 2;
+		repeated int32 constraints = 3 [packed = true];
+	}
+
+	optional int32 opponent_player_slot = 1;
+	repeated .CMsgGameModeState_Puzzle.ActiveRule active_rules = 2;
+	optional bool active_rules_satisfied = 3;
+	optional int32 puzzle_id = 4;
+}
+
+message CMsgGameModeState_Tutorial {
+	optional uint32 tutorial_state_index = 1;
+	optional int32 opponent_player_slot = 2;
+}
+
 message CMsgGameModeState {
 	oneof details {
 		.CMsgGameModeState_Normal details_normal = 1;
@@ -682,6 +725,8 @@ message CMsgGameModeState {
 		.CMsgGameModeState_Duos details_duos = 3;
 		.CMsgGameModeState_TechPrototypeA details_tech_prototype_a = 4;
 		.CMsgGameModeState_Sandbox details_sandbox = 5;
+		.CMsgGameModeState_Puzzle details_puzzle = 6;
+		.CMsgGameModeState_Tutorial details_tutorial = 7;
 	}
 }
 
@@ -843,6 +888,7 @@ message CMsgCombatEvent_CancelAttack {
 }
 
 message CMsgCombatEvent_CombatEnded {
+	optional bool ran_out_of_time = 1;
 }
 
 message CMsgCombatEvent_Resurrect {
@@ -1067,5 +1113,12 @@ message CMsgClientToServerInitData {
 	optional int32 bot_difficulty = 9 [default = -1];
 	optional bool tutorial = 10;
 	optional .EDACGameMode game_mode = 11 [default = k_EDACGameMode_Normal];
+	optional .CMsgGameModeSettings game_mode_settings = 12;
+}
+
+message CMsgClientAccountSyncStorageFile {
+	optional uint32 version = 1;
+	repeated uint32 ids = 2;
+	repeated uint32 values = 3;
 }
 

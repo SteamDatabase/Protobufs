@@ -96,8 +96,11 @@ enum EGCDACClientMessages {
 	k_EMsgClientToGCAckSupportCreditsResponse = 9206;
 	k_EMsgClientToGCSetTeamName = 9207;
 	k_EMsgClientToGCSetTeamNameResponse = 9208;
-	k_EMsgClientToGCModifyGACFlags = 9209;
-	k_EMsgClientToGCModifyGACFlagsResponse = 9211;
+	k_EMsgClientToGCDevOperation = 9212;
+	k_EMsgClientToGCDevOperationResponse = 9213;
+	k_EMsgClientToGCUpdateAccountSync = 9214;
+	k_EMsgClientToGCUpdateAccountSyncResponse = 9215;
+	k_EMsgGCToClientUpdateAvailable = 9216;
 }
 
 enum EItemEditorReservationResult {
@@ -123,6 +126,7 @@ message CMsgWebAPIClientDeviceInfo {
 		k_eFlags_SideLoaded = 4;
 		k_eFlags_China = 8;
 		k_eFlags_RegisteredAccount = 16;
+		k_eFlags_StartedTutorialBot = 32;
 	}
 
 	optional fixed64 device_id = 1;
@@ -207,6 +211,8 @@ message CMsgClientWelcomeDAC {
 	optional uint64 steam_announcement_gid = 5;
 	repeated string console_commands = 6;
 	optional string patch_notes_preview_password = 7;
+	optional uint32 latest_compat_version = 8;
+	optional uint32 latest_client_version = 9;
 }
 
 message CMsgClientToGCIsInMatchmaking {
@@ -342,6 +348,7 @@ message CMsgClientToGCPartyStartMatch {
 	optional bool dev_ignore_staging_files = 5;
 	optional .EDACGameMode game_mode = 6 [default = k_EDACGameMode_Invalid];
 	optional .CSODACParty.EBotDifficulty bot_difficulty = 7 [default = k_eBotDifficulty_None];
+	optional .CMsgGameModeSettings game_mode_settings = 8;
 }
 
 message CMsgClientToGCPartyStartMatchResponse {
@@ -443,7 +450,14 @@ message CMsgClientToGCPartyJoinViaCodeResponse {
 }
 
 message CMsgGCToClientDevMMStatus {
-	optional uint32 users_in_queue = 1;
+	message Party {
+		optional uint32 party_size = 1;
+		optional uint32 compat_version = 2;
+		optional .EDACGameMode game_mode = 3 [default = k_EDACGameMode_Invalid];
+		optional .EDACMatchMode match_mode = 4 [default = k_EDACMatchMode_Invalid];
+	}
+
+	repeated .CMsgGCToClientDevMMStatus.Party parties = 2;
 }
 
 message CMsgGCItemEditorReservationsRequest {
@@ -1166,18 +1180,42 @@ message CMsgClientToGCSetTeamNameResponse {
 	optional .CMsgClientToGCSetTeamNameResponse.EResponse result = 1 [default = k_eInternalError];
 }
 
-message CMsgClientToGCModifyGACFlags {
-	optional uint64 set_flags = 1;
+message CMsgClientToGCDevOperation {
+	enum EOperation {
+		k_eSetGACFlags = 0;
+		k_eGrantCreditObject = 1;
+		k_eClearAllCredits = 2;
+		k_eForceAccountSyncValue = 3;
+	}
+
+	optional .CMsgClientToGCDevOperation.EOperation op = 1 [default = k_eSetGACFlags];
+	optional uint64 uint_value = 2;
+	optional string str_value = 3;
+	optional uint64 uint_value_2 = 4;
 }
 
-message CMsgClientToGCModifyGACFlagsResponse {
+message CMsgClientToGCDevOperationResponse {
+}
+
+message CMsgClientToGCUpdateAccountSync {
+	repeated uint32 ids = 1;
+	repeated uint32 values = 2;
+}
+
+message CMsgClientToGCUpdateAccountSyncResponse {
 	enum EResponse {
 		k_eInternalError = 0;
 		k_eSuccess = 1;
 		k_eDisabled = 2;
 		k_eTooBusy = 3;
+		k_eInvalidMessage = 4;
 	}
 
-	optional .CMsgClientToGCModifyGACFlagsResponse.EResponse result = 1 [default = k_eInternalError];
+	optional .CMsgClientToGCUpdateAccountSyncResponse.EResponse result = 1 [default = k_eInternalError];
+}
+
+message CMsgGCToClientUpdateAvailable {
+	optional uint32 latest_compat_version = 1;
+	optional uint32 latest_client_version = 2;
 }
 

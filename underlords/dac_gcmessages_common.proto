@@ -43,6 +43,8 @@ enum EDACGameMode {
 	k_EDACGameMode_Duos = 3;
 	k_EDACGameMode_TechPrototypeA = 4;
 	k_EDACGameMode_Sandbox = 5;
+	k_EDACGameMode_Puzzle = 6;
+	k_EDACGameMode_Tutorial = 7;
 }
 
 enum EDACLobbyTeam {
@@ -67,6 +69,7 @@ enum EDACAIType {
 	k_EDACAIType_Lvl6 = 6;
 	k_EDACAIType_Lvl7 = 7;
 	k_EDACAIType_Lvl8 = 8;
+	k_EDACAIType_ML = 19;
 	k_EDACAIType_PB0 = 20;
 	k_EDACAIType_PB1 = 21;
 	k_EDACAIType_PB2 = 22;
@@ -100,6 +103,9 @@ enum EDACAIType {
 	k_EDACAIType_PB30 = 50;
 	k_EDACAIType_PB31 = 51;
 	k_EDACAIType_PB32 = 52;
+	k_EDACAIType_PB33 = 53;
+	k_EDACAIType_PB34 = 54;
+	k_EDACAIType_PB35 = 55;
 }
 
 enum EDACMatchState {
@@ -257,6 +263,7 @@ message CSODACParty {
 		k_eBotDifficulty_Medium = 2;
 		k_eBotDifficulty_Hard = 3;
 		k_eBotDifficulty_Nightmare = 4;
+		k_eBotDifficulty_ML = 5;
 	}
 
 	enum ETeamFlags {
@@ -277,6 +284,12 @@ message CSODACParty {
 	repeated .CSODACParty.TeamInfo teams = 15;
 }
 
+message CSOAccountSyncStorage {
+	optional uint32 account_id = 1;
+	optional uint32 id = 2;
+	optional uint32 value = 3;
+}
+
 message CSOGameAccountClient {
 	optional uint32 account_id = 1 [(key_field) = true];
 	optional uint32 mmr_level = 2;
@@ -292,6 +305,14 @@ message CSOGameAccountClient {
 	optional uint32 credits = 13;
 }
 
+message CMsgGameModeSettings {
+	oneof settings {
+		uint32 puzzle_id = 1;
+		uint32 tutorial_phase = 2;
+		string sandbox_share_code = 3;
+	}
+}
+
 message CMsgStartFindingMatchInfo {
 	optional uint32 client_version = 2;
 	optional .EDACMatchMode match_mode = 3 [default = k_EDACMatchMode_Invalid];
@@ -300,6 +321,7 @@ message CMsgStartFindingMatchInfo {
 	optional .EDACGameMode game_mode = 6 [default = k_EDACGameMode_Invalid];
 	optional uint32 underlord_id = 7;
 	optional .EDACRegionMode region_mode = 8 [default = k_EDACRegionMode_ROW];
+	optional .CMsgGameModeSettings game_mode_settings = 9;
 }
 
 message CMsgAnyToGCReportAsserts {

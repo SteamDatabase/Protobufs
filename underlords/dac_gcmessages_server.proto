@@ -117,6 +117,7 @@ message CSODACServerStaticLobby {
 	optional bool trusted_server = 7;
 	optional .CSODACParty.EBotDifficulty bot_difficulty = 8 [default = k_eBotDifficulty_None];
 	repeated .CMsgTeamInfo team_info = 9;
+	optional .CMsgGameModeSettings game_mode_settings = 10;
 }
 
 message CMsgMatchSignoutData_PerformanceStats {
@@ -209,10 +210,9 @@ message CMsgPlayerSignoutData_EventGrantProgress {
 }
 
 message CMsgPlayerSignoutData_ChatStats {
-	repeated uint32 muted_by = 1;
-	optional uint32 chat_text_count = 2;
 	optional uint32 yo_count = 3;
 	optional uint32 chat_line_count = 4;
+	optional uint32 combat_line_count = 5;
 }
 
 message CMsgPlayerSignoutData_TeamUpdate {
