@@ -771,6 +771,7 @@ message CMsgUnitSnapshot {
 	optional int32 damage_bonus = 27;
 	optional bool full_update = 28;
 	repeated .CMsgUnitAbilityCooldown ability_cooldowns = 29;
+	repeated uint32 abilities_enabled = 30;
 	optional bool client_synthesized_for_setup = 1001;
 	optional bool client_is_on_bench = 1002;
 }
