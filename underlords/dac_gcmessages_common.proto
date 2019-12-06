@@ -303,6 +303,10 @@ message CSOGameAccountClient {
 	optional uint32 mm_ranked_ban_time_stamp = 11;
 	optional uint32 mm_ranked_ban_reason = 12;
 	optional uint32 credits = 13;
+	optional uint32 turbo_mmr_level = 14;
+	optional uint32 turbo_mmr_leaderboard = 15;
+	optional float turbo_mmr_level_partial_progress = 16;
+	optional uint32 turbo_mmr_level_score = 17;
 }
 
 message CMsgGameModeSettings {

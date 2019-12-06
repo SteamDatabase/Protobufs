@@ -219,6 +219,7 @@ enum EDACPuzzleRule {
 	k_EDACPuzzleRule_ItemCountLimit = 6;
 	k_EDACPuzzleRule_UnderlordCountLimit = 7;
 	k_EDACPuzzleRule_SynergyRequirements = 8;
+	k_EDACPuzzleRule_ValidBoardPositions = 9;
 }
 
 enum EUnitAIState {
