@@ -118,6 +118,7 @@ message CSODACServerStaticLobby {
 	optional .CSODACParty.EBotDifficulty bot_difficulty = 8 [default = k_eBotDifficulty_None];
 	repeated .CMsgTeamInfo team_info = 9;
 	optional .CMsgGameModeSettings game_mode_settings = 10;
+	optional string feature_controls = 11;
 }
 
 message CMsgMatchSignoutData_PerformanceStats {
@@ -236,6 +237,7 @@ message CMsgServerToGCMatchSignout {
 		optional uint32 final_placement = 6;
 		optional uint32 survival_time_s = 7;
 		optional uint32 survival_round = 8;
+		optional uint32 underlord_id = 9;
 	}
 
 	optional uint64 lobby_id = 1;

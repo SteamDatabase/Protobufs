@@ -132,7 +132,6 @@ enum ELobbyServerState {
 }
 
 message CMsgGameModifiers {
-	repeated uint32 banned_game_ids = 1 [packed = true];
 }
 
 message CMsgTeamInfo {

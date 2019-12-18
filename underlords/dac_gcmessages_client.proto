@@ -100,7 +100,8 @@ enum EGCDACClientMessages {
 	k_EMsgClientToGCDevOperationResponse = 9213;
 	k_EMsgClientToGCUpdateAccountSync = 9214;
 	k_EMsgClientToGCUpdateAccountSyncResponse = 9215;
-	k_EMsgGCToClientUpdateAvailable = 9216;
+	k_EMsgClientToGCGetDuosRanks = 9216;
+	k_EMsgClientToGCGetDuosRanksResponse = 9217;
 }
 
 enum EItemEditorReservationResult {
@@ -1186,6 +1187,7 @@ message CMsgClientToGCDevOperation {
 		k_eGrantCreditObject = 1;
 		k_eClearAllCredits = 2;
 		k_eForceAccountSyncValue = 3;
+		k_eSetAccountSearchKey = 4;
 	}
 
 	optional .CMsgClientToGCDevOperation.EOperation op = 1 [default = k_eSetGACFlags];
@@ -1214,8 +1216,45 @@ message CMsgClientToGCUpdateAccountSyncResponse {
 	optional .CMsgClientToGCUpdateAccountSyncResponse.EResponse result = 1 [default = k_eInternalError];
 }
 
-message CMsgGCToClientUpdateAvailable {
-	optional uint32 latest_compat_version = 1;
-	optional uint32 latest_client_version = 2;
+message CMsgClientToGCGetDuosRanks {
+	enum ESortOrder {
+		k_eSort_LastPlayed = 0;
+		k_eSort_HighestRanked = 1;
+		k_eSort_MostGames = 2;
+	}
+
+	optional uint32 account_id = 1;
+	optional uint32 cursor_value = 2;
+	optional uint32 batch_size = 3;
+	optional .CMsgClientToGCGetDuosRanks.ESortOrder sort_order = 4 [default = k_eSort_LastPlayed];
+}
+
+message CMsgClientToGCGetDuosRanksResponse {
+	message Team {
+		optional uint32 other_account_id = 1;
+		optional uint32 last_played = 2;
+		optional string team_name = 3;
+		optional uint32 games_played = 4;
+		optional uint32 num_first_place = 6;
+		optional uint32 num_top_three = 7;
+		optional uint32 mmr_level = 8;
+		optional uint32 mmr_level_progress = 9;
+		optional uint32 mmr_level_score = 10;
+		optional uint32 leaderboard_place = 12;
+	}
+
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eDisabled = 2;
+		k_eTooBusy = 3;
+		k_eInvalidMessage = 4;
+		k_eRateLimited = 5;
+		k_eInvalidPermission = 6;
+	}
+
+	optional .CMsgClientToGCGetDuosRanksResponse.EResponse result = 1 [default = k_eInternalError];
+	repeated .CMsgClientToGCGetDuosRanksResponse.Team teams = 2;
+	optional uint32 cursor_value = 3;
 }
 

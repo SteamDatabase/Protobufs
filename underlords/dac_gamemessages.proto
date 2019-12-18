@@ -131,9 +131,6 @@ enum EDACItemType {
 	EDACItemType_Equipment_Defensive = 2;
 	EDACItemType_Equipment_Support = 3;
 	EDACItemType_Placeable = 5;
-	EDACItemType_Gem_Offensive = 6;
-	EDACItemType_Gem_Defensive = 7;
-	EDACItemType_Gem_Support = 8;
 }
 
 enum EPlayerConnectionState {
@@ -182,6 +179,7 @@ enum EPlayerOrder {
 	EPlayerOrder_GoToTutorialState = 38;
 	EPlayerOrder_SelectTurboBucket = 39;
 	EPlayerOrder_TurboBucketReroll = 40;
+	EPlayerOrder_SelectUnderlord = 41;
 }
 
 enum ERoundCombatResult {
@@ -321,6 +319,7 @@ message CMsgPlayerOrder {
 	optional int32 param4 = 7;
 	optional int32 param5 = 8;
 	optional int32 param6 = 9;
+	optional string string_param1 = 10;
 }
 
 message CMsgPlayerOrderProcessed {
@@ -367,7 +366,6 @@ message CMsgPlayerCombatResult {
 	optional bool aegis_used = 7;
 	optional .ERoundVictoryLevel victory_level = 8 [default = ERoundVictoryLevel_HomeDecisive];
 	optional uint32 notification_id = 9;
-	optional uint32 gem_earned = 10;
 	optional uint32 total_gold = 11;
 	optional uint32 gold_from_interest = 12;
 	optional uint32 gold_from_streak = 13;
@@ -441,23 +439,21 @@ message CMsgTurboBucket {
 	repeated int32 unit_ids = 2;
 }
 
+message CMsgUnderlordPickerOffering {
+	optional uint32 underlord_id = 1;
+	optional uint32 build_id = 2;
+}
+
 message CMsgSynergy {
 	optional .EUnitKeyword keyword = 1 [default = EUnitKeyword_Invalid];
 	optional int32 unique_unit_count = 2;
 	optional int32 bench_additional_unique_unit_count = 3;
 }
 
-message CMsgItemGems {
-	optional uint32 support_gems = 1;
-	optional uint32 offensive_gems = 2;
-	optional uint32 defensive_gems = 3;
-}
-
 message CMsgItemSlot {
 	optional uint32 slot_index = 1;
 	required uint32 item_id = 2;
 	optional int32 assigned_unit_entindex = 3;
-	optional .CMsgItemGems gems = 4;
 }
 
 message CMsgPublicPlayerState {
@@ -510,6 +506,12 @@ message CMsgPublicPlayerState {
 	optional uint32 brawny_kills = 51;
 	optional int32 board_unit_limit = 52;
 	repeated uint32 underlord_available_talents = 53;
+	optional uint32 stat_best_victory_duration_ms = 1000;
+	optional uint32 stat_best_victory_net_worth = 1001;
+	optional uint32 stat_best_victory_remaining_health_percent = 1002;
+	optional uint32 stat_prev_victory_duration_ms = 1003;
+	optional uint32 stat_prev_victory_net_worth = 1004;
+	optional uint32 stat_prev_victory_remaining_health_percent = 1005;
 	oneof opponent {
 		uint32 opponent_player_slot = 24;
 		uint32 opponent_neutral_wave = 25;
@@ -607,6 +609,8 @@ message CMsgIndividualPostMatchStats {
 	repeated .CMsgIndividualPostMatchStats.Event events = 4;
 	optional .CMsgIndividualPostMatchStats.RankUpdate individual_rank_update = 5;
 	optional .CMsgIndividualPostMatchStats.RankUpdate duos_rank_update = 6;
+	optional .EDACGameMode game_mode = 7 [default = k_EDACGameMode_Invalid];
+	optional .EDACMatchMode match_mode = 8 [default = k_EDACMatchMode_Invalid];
 }
 
 message CMsgPlayerPreferences {
@@ -651,6 +655,8 @@ message CMsgPrivatePlayerState {
 	optional int32 reroll_cost = 11;
 	optional bool used_turbo_bucket_reroll = 20;
 	repeated .CMsgTurboBucket turbo_buckets = 21;
+	optional bool can_select_underlord = 22;
+	repeated .CMsgUnderlordPickerOffering underlord_picker_offering = 23;
 }
 
 message CMsgMatchState {
@@ -670,6 +676,7 @@ message CMsgMatchState {
 	optional uint64 match_id = 8;
 	optional .CMsgGameModifiers game_modifiers = 9;
 	repeated .CMsgMatchState.TeamInfo team_info = 10;
+	optional string feature_controls = 11;
 }
 
 message CMsgGameModeState_Normal {
@@ -706,16 +713,20 @@ message CMsgGameModeState_Puzzle {
 		optional .EDACPuzzleRule rule = 1 [default = k_EDACPuzzleRule_None];
 		optional bool satisfied = 2;
 		repeated int32 constraints = 3 [packed = true];
+		optional int32 current_value = 4;
 	}
 
 	optional int32 opponent_player_slot = 1;
 	repeated .CMsgGameModeState_Puzzle.ActiveRule active_rules = 2;
 	optional bool active_rules_satisfied = 3;
 	optional int32 puzzle_id = 4;
+	repeated uint32 allowed_unit_def_indices = 5;
+	repeated uint32 allowed_underlord_def_indices = 6;
+	repeated uint32 allowed_item_def_indices = 7;
 }
 
 message CMsgGameModeState_Tutorial {
-	optional uint32 tutorial_state_index = 1;
+	optional string tutorial_state_name = 1;
 	optional int32 opponent_player_slot = 2;
 }
 
@@ -773,6 +784,7 @@ message CMsgUnitSnapshot {
 	optional bool full_update = 28;
 	repeated .CMsgUnitAbilityCooldown ability_cooldowns = 29;
 	repeated uint32 abilities_enabled = 30;
+	repeated uint32 buff_status = 31;
 	optional bool client_synthesized_for_setup = 1001;
 	optional bool client_is_on_bench = 1002;
 }
@@ -981,9 +993,24 @@ message CMsgNetBufferRemoved {
 
 message CMsgClientConnectionStarted {
 	message GameConstants {
+		message UnitChances {
+			repeated float chance = 1;
+		}
+
 		repeated int32 player_experience_table = 1;
 		optional int32 experience_purchase_gold_cost = 2;
 		optional int32 experience_purchase_amount = 3;
+		repeated .CMsgClientConnectionStarted.GameConstants.UnitChances unit_tier_chances = 5;
+		optional int32 max_interest_gold = 6;
+		optional int32 interest_gold_divisor = 7;
+		optional bool win_matters_for_item_rewards = 8;
+		repeated int32 loot_round_numbers = 9;
+		optional bool has_neutral_rounds = 10;
+		optional int32 underlord_selection_round = 11;
+	}
+
+	message GameManager {
+		optional bool staging = 1;
 	}
 
 	optional bool in_developer_mode = 1;
@@ -993,6 +1020,7 @@ message CMsgClientConnectionStarted {
 	optional .EDACMatchMode match_mode = 5 [default = k_EDACMatchMode_Invalid];
 	optional .EDACGameMode game_mode = 6 [default = k_EDACGameMode_Invalid];
 	optional .CMsgClientConnectionStarted.GameConstants game_constants = 7;
+	optional .CMsgClientConnectionStarted.GameManager game_manager = 8;
 }
 
 message CMsgClientConnectionComplete {
@@ -1116,6 +1144,7 @@ message CMsgClientToServerInitData {
 	optional bool tutorial = 10;
 	optional .EDACGameMode game_mode = 11 [default = k_EDACGameMode_Normal];
 	optional .CMsgGameModeSettings game_mode_settings = 12;
+	optional string feature_controls = 13;
 }
 
 message CMsgClientAccountSyncStorageFile {
