@@ -123,6 +123,18 @@ message CCommunity_GetBestEventsForUser_Response {
 message CCommunity_ClearUserPartnerEventsAppPriorities_Response {
 }
 
+message CCommunity_PartnerEventsAppPriority {
+	optional uint32 appid = 1;
+	optional int32 user_app_priority = 2;
+}
+
+message CCommunity_GetUserPartnerEventsAppPriorities_Response {
+	repeated .CCommunity_PartnerEventsAppPriority priorities = 1;
+}
+
+message CCommunity_ClearSinglePartnerEventsAppPriority_Response {
+}
+
 message CCommunity_PartnerEventsShowMoreForApp_Response {
 }
 
@@ -658,19 +670,8 @@ message CMsgClientEmoticonList_Effect {
 	optional uint32 time_received = 3;
 }
 
-message CChatRoom_JoinMiniGameForChatRoomGroup_Request {
-	optional uint64 chat_group_id = 1;
-	optional uint64 chat_id = 2;
-}
-
 message CChatRoom_JoinMiniGameForChatRoomGroup_Response {
 	optional uint64 minigame_id = 1;
-}
-
-message CChatRoom_EndMiniGameForChatRoomGroup_Request {
-	optional uint64 chat_group_id = 1;
-	optional uint64 chat_id = 2;
-	optional uint64 minigame_id = 3;
 }
 
 message CChatRoom_EndMiniGameForChatRoomGroup_Response {
@@ -686,106 +687,6 @@ message CClan_RespondToClanInvite_Request {
 }
 
 message CClan_RespondToClanInvite_Response {
-}
-
-message CDecorateGingerbreadHouse_GameData {
-	optional int32 decorations_used = 1;
-	optional int32 num_players = 2;
-	optional uint32 timestamp_start = 3;
-	optional uint32 timestamp_end = 4;
-	optional int32 sale_day = 5;
-}
-
-message CDecorateGingerbreadHouse_GetGameData_Request {
-	optional uint64 gameid = 1;
-}
-
-message CDecorateGingerbreadHouse_GetGameData_Response {
-	optional .CDecorateGingerbreadHouse_GameData game_data = 1;
-	optional int32 status = 2 [(description) = "enum"];
-	optional int32 time_left_secs = 3;
-}
-
-message CDecorateGingerbreadHouse_AddDecorations_Request {
-	optional uint64 gameid = 1;
-	repeated .CDecorateGingerbreadHouse_AddDecorations_Request_DecorationEvent events = 2;
-}
-
-message CDecorateGingerbreadHouse_AddDecorations_Request_DecorationEvent {
-	optional int32 num_decorations = 2;
-	optional float pos_x = 3;
-	optional float pos_y = 4;
-}
-
-message CDecorateGingerbreadHouse_AddDecorations_Response {
-	optional int32 decorations_used = 1;
-	optional int32 decorations_available = 2;
-	optional int32 decorations_used_total = 3;
-}
-
-message CDecorateGingerbreadHouse_GetPlayerSummary_Request {
-	optional fixed64 steamid = 1;
-}
-
-message CDecorateGingerbreadHouse_GetPlayerSummary_Response {
-	optional int32 decorations_total = 1;
-	optional int32 decorations_used = 2;
-	optional int32 decorations_per_day_gratis = 4;
-	optional int32 decorations_per_day_bonus = 5;
-	optional int32 decorations_claimable_today = 6;
-	optional int32 decorations_claimed_today = 7;
-}
-
-message CDecorateGingerbreadHouse_GetPlayerHistory_Response {
-	repeated .CDecorateGingerbreadHouse_GetPlayerHistory_Response_GameHistory history = 1;
-}
-
-message CDecorateGingerbreadHouse_GetPlayerHistory_Response_GameHistory {
-	optional uint64 gameid = 1;
-	optional int32 sale_day = 2;
-	optional int32 decorations_used = 3;
-	optional float party_size_bonus = 4;
-	optional int64 points_earned = 5;
-	optional uint32 timestamp = 6;
-}
-
-message CDecorateGingerbreadHouse_ClaimPerDayDecorations_Request {
-}
-
-message CDecorateGingerbreadHouse_ClaimPerDayDecorations_Response {
-	optional int32 num_decorations_claimed = 4;
-}
-
-message CDecorateGingerbreadHouse_GameDataChanged_Notification {
-	optional .CDecorateGingerbreadHouse_GameData game_data = 1;
-	optional int32 status = 2 [(description) = "enum"];
-	optional int32 time_left_secs = 3;
-	repeated .CDecorateGingerbreadHouse_GameDataChanged_Notification_EventsByAccount events_by_account = 4;
-	optional uint64 gameid = 5;
-}
-
-message CDecorateGingerbreadHouse_GameDataChanged_Notification_DecorationEvent {
-	optional uint32 accountid = 1;
-	optional int32 decorations_used = 2;
-	optional float pos_x = 3;
-	optional float pos_y = 4;
-}
-
-message CDecorateGingerbreadHouse_GameDataChanged_Notification_EventsByAccount {
-	optional uint32 accountid = 1;
-	repeated .CDecorateGingerbreadHouse_GameDataChanged_Notification_DecorationEvent events = 2;
-}
-
-message CDecorateGingerbreadHouse_UserScorecard_Notification {
-	optional int32 decorations_used = 1;
-	optional float party_size_bonus = 2;
-	optional int64 points_earned = 3;
-	optional uint64 gameid = 4;
-}
-
-message CDecorateGingerbreadHouse_UserHasNewDecorations_Notification {
-	optional int32 decorations_total = 1;
-	optional int32 decorations_used = 2;
 }
 
 message CProductImpressionsFromClient_Notification {
@@ -817,6 +718,8 @@ service Community {
 	rpc PartnerEventsShowMoreForApp (.NotImplemented) returns (.CCommunity_PartnerEventsShowMoreForApp_Response);
 	rpc PartnerEventsShowLessForApp (.NotImplemented) returns (.CCommunity_PartnerEventsShowLessForApp_Response);
 	rpc ClearUserPartnerEventsAppPriorities (.NotImplemented) returns (.CCommunity_ClearUserPartnerEventsAppPriorities_Response);
+	rpc GetUserPartnerEventsAppPriorities (.NotImplemented) returns (.CCommunity_GetUserPartnerEventsAppPriorities_Response);
+	rpc ClearSinglePartnerEventsAppPriority (.NotImplemented) returns (.CCommunity_ClearSinglePartnerEventsAppPriority_Response);
 }
 
 service WebRTCClient {
@@ -897,20 +800,6 @@ service FriendsListClient {
 
 service Clan {
 	rpc RespondToClanInvite (.CClan_RespondToClanInvite_Request) returns (.CClan_RespondToClanInvite_Response);
-}
-
-service DecorateGingerbreadHouseMinigame {
-	rpc GetGameData (.CDecorateGingerbreadHouse_GetGameData_Request) returns (.CDecorateGingerbreadHouse_GetGameData_Response);
-	rpc AddDecorations (.CDecorateGingerbreadHouse_AddDecorations_Request) returns (.CDecorateGingerbreadHouse_AddDecorations_Response);
-	rpc GetPlayerSummary (.CDecorateGingerbreadHouse_GetPlayerSummary_Request) returns (.CDecorateGingerbreadHouse_GetPlayerSummary_Response);
-	rpc GetPlayerHistory (.NotImplemented) returns (.CDecorateGingerbreadHouse_GetPlayerHistory_Response);
-	rpc ClaimDecorations (.CDecorateGingerbreadHouse_ClaimPerDayDecorations_Request) returns (.CDecorateGingerbreadHouse_ClaimPerDayDecorations_Response);
-}
-
-service DecorateGingerbreadHouseMinigameClient {
-	rpc NotifyGameDataChanged (.CDecorateGingerbreadHouse_GameDataChanged_Notification) returns (.NoResponse);
-	rpc NotifyUserScorecard (.CDecorateGingerbreadHouse_UserScorecard_Notification) returns (.NoResponse);
-	rpc NotifyUserHasNewDecorations (.CDecorateGingerbreadHouse_UserHasNewDecorations_Notification) returns (.NoResponse);
 }
 
 service ExperimentService {
