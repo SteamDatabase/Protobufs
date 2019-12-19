@@ -13,6 +13,18 @@ message CHelpRequestLogs_UploadUserApplicationLog_Response {
 	optional uint64 id = 1;
 }
 
+message CMsgClientEmoticonList_Sticker {
+	optional string name = 1;
+	optional int32 count = 2;
+	optional uint32 time_received = 3;
+}
+
+message CMsgClientEmoticonList_Effect {
+	optional string name = 1;
+	optional int32 count = 2;
+	optional uint32 time_received = 3;
+}
+
 message CCommunity_GetApps_Request {
 	repeated int32 appids = 1;
 	optional uint32 language = 2;
@@ -194,6 +206,7 @@ message CCommunity_GetUserPartnerEventNews_Response {
 
 message CCommunity_GetBestEventsForUser_Request {
 	optional bool include_steam_blog = 1;
+	optional uint32 filter_to_played_within_days = 2;
 }
 
 message CCommunity_PartnerEventResult {
@@ -214,6 +227,25 @@ message CCommunity_ClearUserPartnerEventsAppPriorities_Request {
 }
 
 message CCommunity_ClearUserPartnerEventsAppPriorities_Response {
+}
+
+message CCommunity_PartnerEventsAppPriority {
+	optional uint32 appid = 1;
+	optional int32 user_app_priority = 2;
+}
+
+message CCommunity_GetUserPartnerEventsAppPriorities_Request {
+}
+
+message CCommunity_GetUserPartnerEventsAppPriorities_Response {
+	repeated .CCommunity_PartnerEventsAppPriority priorities = 1;
+}
+
+message CCommunity_ClearSinglePartnerEventsAppPriority_Request {
+	optional uint32 appid = 1;
+}
+
+message CCommunity_ClearSinglePartnerEventsAppPriority_Response {
 }
 
 message CCommunity_PartnerEventsShowMoreForApp_Request {
@@ -243,6 +275,28 @@ message CCommunity_MarkPartnerEventsForUser_Request_PartnerEventMarking {
 }
 
 message CCommunity_MarkPartnerEventsForUser_Response {
+}
+
+message CChatRoom_JoinMiniGameForChatRoomGroup_Request {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_id = 2;
+}
+
+message CChatRoom_JoinMiniGameForChatRoomGroup_Response {
+	optional uint64 minigame_id = 1;
+}
+
+message CChatRoom_EndMiniGameForChatRoomGroup_Request {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_id = 2;
+	optional uint64 minigame_id = 3;
+}
+
+message CChatRoom_EndMiniGameForChatRoomGroup_Response {
+}
+
+message ChatRoomClient_NotifyChatRoomDisconnect_Notification {
+	repeated uint64 chat_group_ids = 1;
 }
 
 message CProductImpressionsFromClient_Notification {
@@ -527,6 +581,8 @@ service Community {
 	rpc PartnerEventsShowMoreForApp (.CCommunity_PartnerEventsShowMoreForApp_Request) returns (.CCommunity_PartnerEventsShowMoreForApp_Response);
 	rpc PartnerEventsShowLessForApp (.CCommunity_PartnerEventsShowLessForApp_Request) returns (.CCommunity_PartnerEventsShowLessForApp_Response);
 	rpc ClearUserPartnerEventsAppPriorities (.CCommunity_ClearUserPartnerEventsAppPriorities_Request) returns (.CCommunity_ClearUserPartnerEventsAppPriorities_Response);
+	rpc GetUserPartnerEventsAppPriorities (.CCommunity_GetUserPartnerEventsAppPriorities_Request) returns (.CCommunity_GetUserPartnerEventsAppPriorities_Response);
+	rpc ClearSinglePartnerEventsAppPriority (.CCommunity_ClearSinglePartnerEventsAppPriority_Request) returns (.CCommunity_ClearSinglePartnerEventsAppPriority_Response);
 }
 
 service ExperimentService {
