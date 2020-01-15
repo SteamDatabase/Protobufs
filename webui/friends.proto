@@ -675,8 +675,39 @@ message CChatRoom_JoinMiniGameForChatRoomGroup_Response {
 message CChatRoom_EndMiniGameForChatRoomGroup_Response {
 }
 
+message CChatRoom_UpdateMemberListView_Notification {
+	optional uint64 chat_group_id = 1;
+	optional uint64 view_id = 2;
+	optional int32 start = 3;
+	optional int32 end = 4;
+	optional int32 client_changenumber = 5;
+	optional bool delete_view = 6;
+}
+
+message CChatRoomMemberListView {
+	optional uint64 chat_group_id = 1;
+	optional uint64 view_id = 2;
+	optional int32 start = 3;
+	optional int32 end = 4;
+	optional int32 total_count = 5;
+	optional int32 client_changenumber = 6;
+	optional int32 server_changenumber = 7;
+}
+
 message ChatRoomClient_NotifyChatRoomDisconnect_Notification {
 	repeated uint64 chat_group_ids = 1;
+}
+
+message CChatRoomClient_MemberListViewUpdated_Notification {
+	optional .CChatRoomMemberListView view = 1;
+	repeated .CChatRoomClient_MemberListViewUpdated_Notification_MemberListViewEntry members = 2;
+	optional uint32 status_flags = 3;
+}
+
+message CChatRoomClient_MemberListViewUpdated_Notification_MemberListViewEntry {
+	optional int32 rank = 1;
+	optional uint32 accountid = 2;
+	optional .undefined persona = 3;
 }
 
 message CClan_RespondToClanInvite_Request {
