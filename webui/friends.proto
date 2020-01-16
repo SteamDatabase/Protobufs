@@ -1,4 +1,6 @@
 import "steammessages_unified_base.steamclient.proto";
+import "steammessages_base.proto";
+import "steammessages_clientserver_friends.proto";
 
 message CCommunity_GetApps_Request {
 	repeated int32 appids = 1;
@@ -6,7 +8,7 @@ message CCommunity_GetApps_Request {
 }
 
 message CCommunity_GetApps_Response {
-	repeated .undefined apps = 1;
+	repeated .CCDDBAppDetailCommon apps = 1;
 }
 
 message CCommunity_GetAppRichPresenceLocalization_Request {
@@ -38,7 +40,7 @@ message CCommunity_Comment {
 	optional bool hidden = 6;
 	optional bool hidden_by_user = 7;
 	optional bool deleted = 8;
-	optional .undefined ipaddress = 9;
+	optional .CMsgIPAddress ipaddress = 9;
 	optional int32 total_hidden = 10;
 	optional bool upvoted_by_user = 11;
 }
@@ -101,7 +103,7 @@ message CAppPriority {
 }
 
 message CCommunity_GetUserPartnerEventNews_Response {
-	repeated .undefined results = 1;
+	repeated .CClanMatchEventByRange results = 1;
 }
 
 message CCommunity_PartnerEventResult {
@@ -653,7 +655,7 @@ message CFriendsList_GetFriendsList_Request {
 }
 
 message CFriendsList_GetFriendsList_Response {
-	optional .undefined friendslist = 1;
+	optional .CMsgClientFriendsList friendslist = 1;
 }
 
 message CMsgClientEmoticonList_Sticker {
@@ -707,7 +709,7 @@ message CChatRoomClient_MemberListViewUpdated_Notification {
 message CChatRoomClient_MemberListViewUpdated_Notification_MemberListViewEntry {
 	optional int32 rank = 1;
 	optional uint32 accountid = 2;
-	optional .undefined persona = 3;
+	optional .CMsgClientPersonaState_Friend persona = 3;
 }
 
 message CClan_RespondToClanInvite_Request {
