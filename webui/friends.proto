@@ -684,11 +684,11 @@ message CChatRoom_UpdateMemberListView_Notification {
 	optional int32 end = 4;
 	optional int32 client_changenumber = 5;
 	optional bool delete_view = 6;
+	repeated int32 persona_subscribe_accountids = 7;
+	repeated int32 persona_unsubscribe_accountids = 8;
 }
 
 message CChatRoomMemberListView {
-	optional uint64 chat_group_id = 1;
-	optional uint64 view_id = 2;
 	optional int32 start = 3;
 	optional int32 end = 4;
 	optional int32 total_count = 5;
@@ -696,14 +696,24 @@ message CChatRoomMemberListView {
 	optional int32 server_changenumber = 7;
 }
 
+message CChatRoomMemberSummaryCounts {
+	optional int32 ingame = 1;
+	optional int32 online = 2;
+	optional int32 offline = 3;
+}
+
 message ChatRoomClient_NotifyChatRoomDisconnect_Notification {
 	repeated uint64 chat_group_ids = 1;
 }
 
 message CChatRoomClient_MemberListViewUpdated_Notification {
-	optional .CChatRoomMemberListView view = 1;
-	repeated .CChatRoomClient_MemberListViewUpdated_Notification_MemberListViewEntry members = 2;
-	optional uint32 status_flags = 3;
+	optional uint64 chat_group_id = 1;
+	optional uint64 view_id = 2;
+	optional .CChatRoomMemberListView view = 3;
+	repeated .CChatRoomClient_MemberListViewUpdated_Notification_MemberListViewEntry members = 4;
+	optional uint32 status_flags = 5;
+	optional .CChatRoomMemberSummaryCounts member_summary = 6;
+	repeated .CMsgClientPersonaState_Friend subscribed_personas = 7;
 }
 
 message CChatRoomClient_MemberListViewUpdated_Notification_MemberListViewEntry {
