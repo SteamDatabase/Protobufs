@@ -53,6 +53,18 @@ message CMsgClientPersonaState_Friend_KV {
 	optional string value = 2;
 }
 
+message CMsgClientEmoticonList_Sticker {
+	optional string name = 1;
+	optional int32 count = 2;
+	optional uint32 time_received = 3;
+}
+
+message CMsgClientEmoticonList_Effect {
+	optional string name = 1;
+	optional int32 count = 2;
+	optional uint32 time_received = 3;
+}
+
 message CMsgClientServerTimestampRequest {
 	optional uint64 client_request_timestamp = 1;
 }
@@ -682,6 +694,13 @@ message CChatRoom_SetChatRoomGroupAvatar_Response {
 message CChatRoom_SetChatRoomGroupWatchingBroadcast_Response {
 }
 
+message CChatRoom_JoinMiniGameForChatRoomGroup_Response {
+	optional uint64 minigame_id = 1;
+}
+
+message CChatRoom_EndMiniGameForChatRoomGroup_Response {
+}
+
 message CChatRoom_MuteUser_Response {
 }
 
@@ -788,6 +807,7 @@ message CChatRoom_GetChatRoomGroupSummary_Response {
 	optional uint32 appid = 17;
 	repeated .CChatPartyBeacon party_beacons = 18;
 	optional uint64 watching_broadcast_channel_id = 19;
+	optional uint64 active_minigame_id = 20;
 }
 
 message CChatRoomState {
@@ -815,6 +835,7 @@ message CChatRoomGroupHeaderState {
 	optional uint32 watching_broadcast_accountid = 20;
 	repeated .CChatPartyBeacon party_beacons = 22;
 	optional uint64 watching_broadcast_channel_id = 23;
+	optional uint64 active_minigame_id = 24;
 }
 
 message CChatRoomGroupState {
@@ -1024,6 +1045,7 @@ message CChatRoom_GetInviteList_Response {
 
 message CChatRoom_SetSessionActiveChatRoomGroups_Response {
 	repeated .CChatRoomGroupState chat_states = 1;
+	repeated uint64 virtualize_members_chat_group_ids = 2;
 }
 
 message CChatRoom_SetUserChatGroupPreferences_Request_ChatGroupPreferences {
@@ -1050,6 +1072,20 @@ message CChatRoom_DeleteChatMessages_Request_Message {
 message CChatRoom_DeleteChatMessages_Response {
 }
 
+message CChatRoomMemberListView {
+	optional int32 start = 3;
+	optional int32 end = 4;
+	optional int32 total_count = 5;
+	optional int32 client_changenumber = 6;
+	optional int32 server_changenumber = 7;
+}
+
+message CChatRoomMemberSummaryCounts {
+	optional int32 ingame = 1;
+	optional int32 online = 2;
+	optional int32 offline = 3;
+}
+
 message CClanChatRooms_GetClanChatRoomInfo_Response {
 	optional .CChatRoom_GetChatRoomGroupSummary_Response chat_group_summary = 1;
 }
@@ -1063,6 +1099,26 @@ message ChatRoomClient_NotifyChatGroupUserStateChanged_Notification {
 	optional .CUserChatRoomGroupState user_chat_group_state = 2;
 	optional .CChatRoom_GetChatRoomGroupSummary_Response group_summary = 3;
 	optional int32 user_action = 4 [(description) = "enum"];
+}
+
+message ChatRoomClient_NotifyChatRoomDisconnect_Notification {
+	repeated uint64 chat_group_ids = 1;
+}
+
+message CChatRoomClient_MemberListViewUpdated_Notification {
+	optional uint64 chat_group_id = 1;
+	optional uint64 view_id = 2;
+	optional .CChatRoomMemberListView view = 3;
+	repeated .CChatRoomClient_MemberListViewUpdated_Notification_MemberListViewEntry members = 4;
+	optional uint32 status_flags = 5;
+	optional .CChatRoomMemberSummaryCounts member_summary = 6;
+	repeated .CMsgClientPersonaState_Friend subscribed_personas = 7;
+}
+
+message CChatRoomClient_MemberListViewUpdated_Notification_MemberListViewEntry {
+	optional int32 rank = 1;
+	optional uint32 accountid = 2;
+	optional .CMsgClientPersonaState_Friend persona = 3;
 }
 
 message CChatUsability_RequestClientUsabilityMetrics_Notification {
@@ -2249,6 +2305,8 @@ service ChatRoom {
 	rpc SetChatRoomGroupTagline (.NotImplemented) returns (.CChatRoom_SetChatRoomGroupTagline_Response);
 	rpc SetChatRoomGroupAvatar (.NotImplemented) returns (.CChatRoom_SetChatRoomGroupAvatar_Response);
 	rpc SetChatRoomGroupWatchingBroadcast (.NotImplemented) returns (.CChatRoom_SetChatRoomGroupWatchingBroadcast_Response);
+	rpc JoinMiniGameForChatRoomGroup (.NotImplemented) returns (.CChatRoom_JoinMiniGameForChatRoomGroup_Response);
+	rpc EndMiniGameForChatRoomGroup (.NotImplemented) returns (.CChatRoom_EndMiniGameForChatRoomGroup_Response);
 	rpc MuteUserInGroup (.NotImplemented) returns (.CChatRoom_MuteUser_Response);
 	rpc KickUserFromGroup (.NotImplemented) returns (.CChatRoom_KickUser_Response);
 	rpc SetUserBanState (.NotImplemented) returns (.CChatRoom_SetUserBanState_Response);
@@ -2288,6 +2346,7 @@ service ChatRoom {
 	rpc SetSessionActiveChatRoomGroups (.NotImplemented) returns (.CChatRoom_SetSessionActiveChatRoomGroups_Response);
 	rpc SetUserChatGroupPreferences (.NotImplemented) returns (.CChatRoom_SetUserChatGroupPreferences_Response);
 	rpc DeleteChatMessages (.NotImplemented) returns (.CChatRoom_DeleteChatMessages_Response);
+	rpc UpdateMemberListView (.NotImplemented) returns (.NoResponse);
 }
 
 service ClanChatRooms {
@@ -2304,6 +2363,8 @@ service ChatRoomClient {
 	rpc NotifyShouldRejoinChatRoomVoiceChat (.CChatRoom_NotifyShouldRejoinChatRoomVoiceChat_Notification) returns (.NoResponse);
 	rpc NotifyChatGroupUserStateChanged (.ChatRoomClient_NotifyChatGroupUserStateChanged_Notification) returns (.NoResponse);
 	rpc NotifyAckChatMessageEcho (.CChatRoom_AckChatMessage_Notification) returns (.NoResponse);
+	rpc NotifyChatRoomDisconnect (.ChatRoomClient_NotifyChatRoomDisconnect_Notification) returns (.NoResponse);
+	rpc NotifyMemberListViewUpdated (.CChatRoomClient_MemberListViewUpdated_Notification) returns (.NoResponse);
 }
 
 service Store {
