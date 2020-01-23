@@ -13,18 +13,6 @@ message CHelpRequestLogs_UploadUserApplicationLog_Response {
 	optional uint64 id = 1;
 }
 
-message CMsgClientEmoticonList_Sticker {
-	optional string name = 1;
-	optional int32 count = 2;
-	optional uint32 time_received = 3;
-}
-
-message CMsgClientEmoticonList_Effect {
-	optional string name = 1;
-	optional int32 count = 2;
-	optional uint32 time_received = 3;
-}
-
 message CCommunity_GetApps_Request {
 	repeated int32 appids = 1;
 	optional uint32 language = 2;
@@ -275,28 +263,6 @@ message CCommunity_MarkPartnerEventsForUser_Request_PartnerEventMarking {
 }
 
 message CCommunity_MarkPartnerEventsForUser_Response {
-}
-
-message CChatRoom_JoinMiniGameForChatRoomGroup_Request {
-	optional uint64 chat_group_id = 1;
-	optional uint64 chat_id = 2;
-}
-
-message CChatRoom_JoinMiniGameForChatRoomGroup_Response {
-	optional uint64 minigame_id = 1;
-}
-
-message CChatRoom_EndMiniGameForChatRoomGroup_Request {
-	optional uint64 chat_group_id = 1;
-	optional uint64 chat_id = 2;
-	optional uint64 minigame_id = 3;
-}
-
-message CChatRoom_EndMiniGameForChatRoomGroup_Response {
-}
-
-message ChatRoomClient_NotifyChatRoomDisconnect_Notification {
-	repeated uint64 chat_group_ids = 1;
 }
 
 message CProductImpressionsFromClient_Notification {
