@@ -658,68 +658,21 @@ message CFriendsList_GetFriendsList_Response {
 	optional .CMsgClientFriendsList friendslist = 1;
 }
 
-message CMsgClientEmoticonList_Sticker {
-	optional string name = 1;
-	optional int32 count = 2;
-	optional uint32 time_received = 3;
-}
-
-message CMsgClientEmoticonList_Effect {
-	optional string name = 1;
-	optional int32 count = 2;
-	optional uint32 time_received = 3;
-}
-
-message CChatRoom_JoinMiniGameForChatRoomGroup_Response {
-	optional uint64 minigame_id = 1;
-}
-
-message CChatRoom_EndMiniGameForChatRoomGroup_Response {
-}
-
-message CChatRoom_UpdateMemberListView_Notification {
+message CChatRoom_SearchMembers_Request {
 	optional uint64 chat_group_id = 1;
-	optional uint64 view_id = 2;
-	optional int32 start = 3;
-	optional int32 end = 4;
-	optional int32 client_changenumber = 5;
-	optional bool delete_view = 6;
-	repeated int32 persona_subscribe_accountids = 7;
-	repeated int32 persona_unsubscribe_accountids = 8;
+	optional uint64 search_id = 2;
+	optional string search_text = 3;
+	optional int32 max_results = 4;
 }
 
-message CChatRoomMemberListView {
-	optional int32 start = 3;
-	optional int32 end = 4;
-	optional int32 total_count = 5;
-	optional int32 client_changenumber = 6;
-	optional int32 server_changenumber = 7;
+message CChatRoom_SearchMembers_Response {
+	repeated .CChatRoom_SearchMembers_Response_MemberMatch matching_members = 1;
+	optional uint32 status_flags = 2;
 }
 
-message CChatRoomMemberSummaryCounts {
-	optional int32 ingame = 1;
-	optional int32 online = 2;
-	optional int32 offline = 3;
-}
-
-message ChatRoomClient_NotifyChatRoomDisconnect_Notification {
-	repeated uint64 chat_group_ids = 1;
-}
-
-message CChatRoomClient_MemberListViewUpdated_Notification {
-	optional uint64 chat_group_id = 1;
-	optional uint64 view_id = 2;
-	optional .CChatRoomMemberListView view = 3;
-	repeated .CChatRoomClient_MemberListViewUpdated_Notification_MemberListViewEntry members = 4;
-	optional uint32 status_flags = 5;
-	optional .CChatRoomMemberSummaryCounts member_summary = 6;
-	repeated .CMsgClientPersonaState_Friend subscribed_personas = 7;
-}
-
-message CChatRoomClient_MemberListViewUpdated_Notification_MemberListViewEntry {
-	optional int32 rank = 1;
-	optional uint32 accountid = 2;
-	optional .CMsgClientPersonaState_Friend persona = 3;
+message CChatRoom_SearchMembers_Response_MemberMatch {
+	optional int32 accountid = 1;
+	optional .CMsgClientPersonaState_Friend persona = 2;
 }
 
 message CClan_RespondToClanInvite_Request {
