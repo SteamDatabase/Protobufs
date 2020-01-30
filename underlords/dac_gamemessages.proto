@@ -786,6 +786,7 @@ message CMsgUnitSnapshot {
 	repeated uint32 abilities_enabled = 30;
 	repeated uint32 buff_status = 31;
 	optional bool force_big_healthbar = 32;
+	optional uint32 override_item_slot = 33;
 	optional bool client_synthesized_for_setup = 1001;
 	optional bool client_is_on_bench = 1002;
 }
