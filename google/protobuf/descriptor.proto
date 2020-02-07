@@ -210,4 +210,3 @@ message SourceCodeInfo {
 
 	repeated .google.protobuf.SourceCodeInfo.Location location = 1;
 }
-
