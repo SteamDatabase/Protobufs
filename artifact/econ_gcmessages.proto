@@ -1031,4 +1031,3 @@ message CMsgGCToGCUpdateSubscriptionItems {
 	optional uint32 account_id = 1;
 	optional bool always_notify = 2;
 }
-

@@ -345,4 +345,3 @@ message CMsgAnyToGCReportAsserts {
 message CMsgAnyToGCReportAssertsResponse {
 	optional bool success = 1;
 }
-

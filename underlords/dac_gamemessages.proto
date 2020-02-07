@@ -372,6 +372,7 @@ message CMsgPlayerCombatResult {
 	optional uint32 gold_from_items = 14;
 	optional uint32 gold_from_round_bonus = 15;
 	optional uint32 gold_from_victory = 16;
+
 	oneof opponent {
 		uint32 opponent_player_slot = 2;
 		uint32 opponent_neutral_wave = 3;
@@ -512,6 +513,7 @@ message CMsgPublicPlayerState {
 	optional uint32 stat_prev_victory_duration_ms = 1003;
 	optional uint32 stat_prev_victory_net_worth = 1004;
 	optional uint32 stat_prev_victory_remaining_health_percent = 1005;
+
 	oneof opponent {
 		uint32 opponent_player_slot = 24;
 		uint32 opponent_neutral_wave = 25;
@@ -918,6 +920,7 @@ message CMsgCombatEvent {
 	required float event_time = 1;
 	optional uint32 source_entindex = 2;
 	optional uint32 target_entindex = 3;
+
 	oneof details {
 		.CMsgCombatEvent_Attack details_attack = 4;
 		.CMsgCombatEvent_Damage details_damage = 5;
@@ -960,6 +963,7 @@ message CMsgRoundCombat {
 	optional uint32 player_player_slot = 8;
 	repeated .CMsgCombatMetersSnapshot meter_snapshots = 11;
 	repeated .CMsgCombatHighlight combat_highlights = 12;
+
 	oneof opponent {
 		uint32 opponent_player_slot = 9;
 		uint32 opponent_neutral_wave = 10;
@@ -1154,4 +1158,3 @@ message CMsgClientAccountSyncStorageFile {
 	repeated uint32 ids = 2;
 	repeated uint32 values = 3;
 }
-

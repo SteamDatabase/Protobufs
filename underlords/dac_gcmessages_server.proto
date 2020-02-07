@@ -370,4 +370,3 @@ message CMsgGCToServerAddSpectatorResponse {
 message CMsgGCToServerUpdateConsoleCommands {
 	repeated string console_commands = 1;
 }
-

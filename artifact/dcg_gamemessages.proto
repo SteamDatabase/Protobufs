@@ -636,4 +636,3 @@ message CTraceMsg_PlayerResult {
 	optional uint32 owner_id = 1;
 	optional bool has_won = 2;
 }
-

@@ -1257,4 +1257,3 @@ message CMsgClientToGCGetDuosRanksResponse {
 	repeated .CMsgClientToGCGetDuosRanksResponse.Team teams = 2;
 	optional uint32 cursor_value = 3;
 }
-

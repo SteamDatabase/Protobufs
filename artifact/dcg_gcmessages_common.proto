@@ -613,4 +613,3 @@ message CMsgMatchData {
 	optional .EDCGLobbyTeam winning_team = 7 [default = k_EDCGLobbyTeam_Team0];
 	repeated .CMsgMatchData.PlayerInfo players = 8;
 }
-
