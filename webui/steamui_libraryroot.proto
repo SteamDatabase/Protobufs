@@ -572,6 +572,7 @@ message CPlayer_SetPerFriendPreferences_Response {
 message CPlayer_AddFriend_Response {
 	optional bool invite_sent = 1;
 	optional uint32 friend_relationship = 2;
+	optional int32 result = 3;
 }
 
 message CPlayer_RemoveFriend_Response {
@@ -627,6 +628,8 @@ message CPlayer_GetDurationControl_Response {
 	optional bool is_enabled = 1;
 	optional int32 seconds = 2;
 	optional int32 seconds_today = 3;
+	optional bool is_steamchina_account = 4;
+	optional bool is_age_verified = 5;
 }
 
 message CPlayer_LastPlayedTimes_Notification {
@@ -1084,6 +1087,16 @@ message CChatRoomMemberSummaryCounts {
 	optional int32 ingame = 1;
 	optional int32 online = 2;
 	optional int32 offline = 3;
+}
+
+message CChatRoom_SearchMembers_Response {
+	repeated .CChatRoom_SearchMembers_Response_MemberMatch matching_members = 1;
+	optional uint32 status_flags = 2;
+}
+
+message CChatRoom_SearchMembers_Response_MemberMatch {
+	optional int32 accountid = 1;
+	optional .CMsgClientPersonaState_Friend persona = 2;
 }
 
 message CClanChatRooms_GetClanChatRoomInfo_Response {
@@ -2347,6 +2360,7 @@ service ChatRoom {
 	rpc SetUserChatGroupPreferences (.NotImplemented) returns (.CChatRoom_SetUserChatGroupPreferences_Response);
 	rpc DeleteChatMessages (.NotImplemented) returns (.CChatRoom_DeleteChatMessages_Response);
 	rpc UpdateMemberListView (.NotImplemented) returns (.NoResponse);
+	rpc SearchMembers (.NotImplemented) returns (.CChatRoom_SearchMembers_Response);
 }
 
 service ClanChatRooms {
