@@ -658,21 +658,12 @@ message CFriendsList_GetFriendsList_Response {
 	optional .CMsgClientFriendsList friendslist = 1;
 }
 
-message CChatRoom_SearchMembers_Request {
-	optional uint64 chat_group_id = 1;
-	optional uint64 search_id = 2;
-	optional string search_text = 3;
-	optional int32 max_results = 4;
-}
-
-message CChatRoom_SearchMembers_Response {
-	repeated .CChatRoom_SearchMembers_Response_MemberMatch matching_members = 1;
-	optional uint32 status_flags = 2;
-}
-
-message CChatRoom_SearchMembers_Response_MemberMatch {
-	optional int32 accountid = 1;
-	optional .CMsgClientPersonaState_Friend persona = 2;
+message CMsgCREEnumeratePublishedFilesResponse_PublishedFileId {
+	optional fixed64 published_file_id = 1;
+	optional int32 votes_for = 2;
+	optional int32 votes_against = 3;
+	optional int32 reports = 4;
+	optional float score = 5;
 }
 
 message CClan_RespondToClanInvite_Request {
