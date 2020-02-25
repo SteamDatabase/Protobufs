@@ -24,6 +24,10 @@ enum EGCDACServerMessages {
 	k_EMsgGCToServerAddSpectator = 10016;
 	k_EMsgGCToServerAddSpectatorResponse = 10017;
 	k_EMsgGCToServerUpdateConsoleCommands = 10018;
+	k_EMsgServertoGCPuzzleResults = 10019;
+	k_EMsgServertoGCPuzzleResultsResponse = 10020;
+	k_EMsgServertoGCPuzzleBestRequest = 10021;
+	k_EMsgServertoGCPuzzleBestResponse = 10022;
 }
 
 enum EGCServerLobbyData {
@@ -36,10 +40,12 @@ enum EGCServerSignoutData {
 	k_EMatchSignoutData_Disconnections = 1;
 	k_EMatchSignoutData_PerformanceStats = 2;
 	k_EMatchSignoutData_CombatStats = 3;
+	k_EMatchSignoutData_PostMatchStats = 4;
 	k_EPlayerSignoutData_MMRUpdate = 10;
 	k_EPlayerSignoutData_EventGrantProgress = 11;
 	k_EPlayerSignoutData_ChatStats = 12;
 	k_EPlayerSignoutData_TeamUpdate = 13;
+	k_EPlayerSignoutData_MatchStats = 14;
 }
 
 message CMsgServerCrashSentinelFile {
@@ -106,6 +112,7 @@ message CSODACServerStaticLobby {
 		optional uint32 party_index = 6;
 		optional .EDACPlatform platform = 7 [default = k_eDACPlatform_None];
 		optional bool chat_muted = 8;
+		optional uint32 active_challenge_slot_id = 9;
 	}
 
 	repeated .CExtraMsgBlock extra_messages = 1;
@@ -115,7 +122,7 @@ message CSODACServerStaticLobby {
 	optional uint32 active_event_id = 5;
 	repeated .CSODACServerStaticLobby.Member members = 6;
 	optional bool trusted_server = 7;
-	optional .CSODACParty.EBotDifficulty bot_difficulty = 8 [default = k_eBotDifficulty_None];
+	optional .EDACBotDifficulty bot_difficulty = 8 [default = k_EDACBotDifficulty_None];
 	repeated .CMsgTeamInfo team_info = 9;
 	optional .CMsgGameModeSettings game_mode_settings = 10;
 	optional string feature_controls = 11;
@@ -191,6 +198,15 @@ message CMsgPlayerSignoutData_MMRUpdate {
 
 	optional uint32 final_place = 1;
 	repeated .CMsgPlayerSignoutData_MMRUpdate.Opponent opponents = 2;
+}
+
+message CMsgPlayerSignoutData_MatchStats {
+	message MatchStat {
+		optional uint32 stat_id = 1;
+		optional uint32 value = 2;
+	}
+
+	repeated .CMsgPlayerSignoutData_MatchStats.MatchStat match_stats = 1;
 }
 
 message CMsgPlayerSignoutData_EventGrantProgress {
@@ -369,4 +385,33 @@ message CMsgGCToServerAddSpectatorResponse {
 
 message CMsgGCToServerUpdateConsoleCommands {
 	repeated string console_commands = 1;
+}
+
+message CMsgServertoGCPuzzleResults {
+	optional uint32 account_id = 1;
+	optional uint32 puzzle_id = 2;
+	optional string board_code = 3;
+	optional uint32 gold = 4;
+	optional uint32 time = 5;
+	optional uint32 health_pct = 6;
+	optional uint32 units = 7;
+}
+
+message CMsgServertoGCPuzzleResultsResponse {
+	optional .CMsgPuzzleLeaderboardHistogramList histogram_list = 1;
+}
+
+message CMsgServertoGCPuzzleBestRequest {
+	optional uint32 account_id = 1;
+	optional uint32 puzzle_id = 2;
+}
+
+message CMsgServertoGCPuzzleBestResponse {
+	message Leaderboard {
+		optional uint32 leaderboard_type = 1;
+		optional uint32 value = 2;
+		optional string board_code = 3;
+	}
+
+	repeated .CMsgServertoGCPuzzleBestResponse.Leaderboard leaderboards = 1;
 }
