@@ -473,6 +473,7 @@ message CMsgUnit {
 	optional bool can_move_to_bench = 16;
 	optional bool can_be_sold = 17;
 	optional bool recommended_for_placement = 18;
+	optional float float_kill_count = 38;
 }
 
 message CMsgShopItem {
@@ -876,6 +877,7 @@ message CMsgUnitSnapshot {
 	optional bool can_move_to_bench = 35;
 	optional bool can_be_sold = 36;
 	optional bool recommended_for_placement = 37;
+	optional float float_kill_count = 38;
 	optional bool client_synthesized_for_setup = 1001;
 	optional bool client_is_on_bench = 1002;
 }
