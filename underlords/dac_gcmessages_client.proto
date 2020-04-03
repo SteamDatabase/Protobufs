@@ -1462,3 +1462,56 @@ message CMsgClientToGCGetPostMatchStatsResponse {
 	optional .CMsgClientToGCGetPostMatchStatsResponse.EResponse result = 1 [default = k_eInternalError];
 	optional .CMsgPublicPostMatchStats match_stats = 2;
 }
+
+message CMsgMatchStats {
+	message RoundUnitStats {
+		optional uint32 entity_id = 1;
+		optional uint32 num_wins = 2;
+		optional uint32 num_losses = 3;
+		optional uint64 final_place = 4;
+	}
+
+	message RoundStats {
+		optional uint32 round_min = 1;
+		optional uint32 round_max = 2;
+		optional uint32 num_combat_rounds = 3;
+		optional uint64 starting_life = 4;
+		optional uint64 player_level = 5;
+		optional uint64 rerolls = 6;
+		optional uint64 gold = 7;
+		optional uint64 interest_gold = 8;
+		optional uint64 streak_gold = 9;
+		optional uint64 bonus_gold = 10;
+		optional uint64 total_damage = 11;
+		optional uint64 total_losses = 12;
+		optional bool is_creep = 13;
+		repeated .CMsgMatchStats.RoundUnitStats unit_stats = 14;
+	}
+
+	message UnderlordStats {
+		optional uint32 underlord_id = 1;
+		optional uint32 total_players = 2;
+		optional uint64 total_place = 3;
+	}
+
+	message EntityInfo {
+		optional uint32 entity_id = 1;
+		optional string name = 2;
+		optional string type = 3;
+	}
+
+	optional uint32 timestamp = 1;
+	optional .EDACMatchMode match_mode = 2 [default = k_EDACMatchMode_Invalid];
+	optional .EDACGameMode game_mode = 3 [default = k_EDACGameMode_Invalid];
+	optional uint32 mmr_min = 4;
+	optional uint32 mmr_max = 5;
+	optional uint32 num_games = 10;
+	optional uint32 num_players = 11;
+	optional uint64 total_duration_seconds = 12;
+	optional uint64 total_rounds = 13;
+	optional uint64 player_duration_seconds = 14;
+	optional uint64 player_rounds = 15;
+	repeated .CMsgMatchStats.RoundStats round_stats = 20;
+	repeated .CMsgMatchStats.UnderlordStats underlord_stats = 21;
+	repeated .CMsgMatchStats.EntityInfo entity_infos = 22;
+}
