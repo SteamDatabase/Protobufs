@@ -366,4 +366,3 @@ message CMsgCraftCommonStatClock {
 message CMsgGCQuestDiscard_Request {
 	optional uint64 quest_id = 1;
 }
-

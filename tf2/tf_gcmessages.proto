@@ -1615,4 +1615,3 @@ message GCQuestStrangeEvent {
 	optional uint32 strange_event_id = 4;
 	optional uint32 score = 5;
 }
-
