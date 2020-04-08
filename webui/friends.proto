@@ -152,6 +152,62 @@ message CCommunity_MarkPartnerEventsForUser_Request_PartnerEventMarking {
 message CCommunity_MarkPartnerEventsForUser_Response {
 }
 
+message ProfileItem {
+	optional uint64 communityitemid = 1;
+	optional string image_small = 2;
+	optional string image_large = 3;
+	optional string name = 4;
+	optional string item_title = 5;
+	optional string item_description = 6;
+	optional uint32 appid = 7;
+	optional uint32 item_type = 8;
+	optional uint32 item_class = 9;
+	optional string movie_webm = 10;
+	optional string movie_mp4 = 11;
+}
+
+message CPlayer_GetProfileBackground_Response {
+	optional .ProfileItem profile_background = 1;
+}
+
+message CPlayer_SetProfileBackground_Response {
+}
+
+message CPlayer_GetMiniProfileBackground_Response {
+	optional .ProfileItem profile_background = 1;
+}
+
+message CPlayer_SetMiniProfileBackground_Response {
+}
+
+message CPlayer_GetAvatarFrame_Response {
+	optional .ProfileItem avatar_frame = 1;
+}
+
+message CPlayer_SetAvatarFrame_Response {
+}
+
+message CPlayer_GetAnimatedAvatar_Response {
+	optional .ProfileItem avatar = 1;
+}
+
+message CPlayer_SetAnimatedAvatar_Response {
+}
+
+message CPlayer_GetProfileItemsOwned_Response {
+	repeated .ProfileItem profile_backgrounds = 1;
+	repeated .ProfileItem mini_profile_backgrounds = 2;
+	repeated .ProfileItem avatar_frames = 3;
+	repeated .ProfileItem animated_avatars = 4;
+}
+
+message CPlayer_GetProfileItemsEquipped_Response {
+	optional .ProfileItem profile_background = 1;
+	optional .ProfileItem mini_profile_background = 2;
+	optional .ProfileItem avatar_frame = 3;
+	optional .ProfileItem animated_avatar = 4;
+}
+
 message CWebRTCClient_InitiateWebRTCConnection_Request {
 	optional string sdp = 1;
 }
