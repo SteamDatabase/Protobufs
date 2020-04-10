@@ -315,6 +315,7 @@ message CMsgStreetfightSettings {
 	optional uint32 underlord_id = 1;
 	optional uint32 streetfight_id = 2;
 	repeated uint32 item_ids_for_player = 3;
+	optional uint32 prestige_level = 4;
 }
 
 message CMsgGameModeSettings {

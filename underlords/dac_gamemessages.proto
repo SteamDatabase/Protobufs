@@ -192,6 +192,7 @@ enum EPlayerOrder {
 	EPlayerOrder_DevMakeTestBot = 42;
 	EPlayerOrder_ItemRewardChoiceReroll = 43;
 	EPlayerOrder_BuyPuzzleUnit = 44;
+	EPlayerOrder_Dungeon_AdvancePhase = 45;
 }
 
 enum ERoundCombatResult {
@@ -247,6 +248,28 @@ enum EDACPuzzleRule {
 	k_EDACPuzzleRule_UnitDisallowed2 = 141;
 	k_EDACPuzzleRule_UnitDisallowed3 = 142;
 	k_EDACPuzzleRule_UnitDisallowed4 = 143;
+}
+
+enum EDACDungeonRoomType {
+	k_EDACDungeonRoomType_None = 0;
+	k_EDACDungeonRoomType_Shop = 1;
+	k_EDACDungeonRoomType_Mystery = 2;
+	k_EDACDungeonRoomType_MiniGame = 3;
+	k_EDACDungeonRoomType_StandardCombat = 4;
+	k_EDACDungeonRoomType_MiniBoss = 5;
+	k_EDACDungeonRoomType_Boss = 6;
+}
+
+enum EDACDungeonPhase {
+	k_EDACDungeonPhase_None = 0;
+	k_EDACDungeonPhase_Intro_ChoosingUnderlord = 1;
+	k_EDACDungeonPhase_Intro_ChoosingFirstUnit = 2;
+	k_EDACDungeonPhase_Room_Setup = 3;
+	k_EDACDungeonPhase_Room_Main = 4;
+	k_EDACDungeonPhase_Room_Post_Rewards = 5;
+	k_EDACDungeonPhase_Room_Post_ChooseNextRoom = 6;
+	k_EDACDungeonPhase_Victory = 7;
+	k_EDACDungeonPhase_Defeat = 8;
 }
 
 enum EUnitAIState {
@@ -571,6 +594,8 @@ message CMsgPublicPlayerState {
 	optional .CMsgBoardBuddy board_buddy = 55;
 	repeated .CMsgMapProp prop_state = 56;
 	optional float brawny_kills_float = 57;
+	optional bool owns_event = 58;
+	optional uint32 city_prestige_level = 59;
 	optional uint32 stat_best_victory_duration = 1000;
 	optional uint32 stat_best_victory_net_worth = 1001;
 	optional uint32 stat_best_victory_remaining_health_percent = 1002;
@@ -809,6 +834,17 @@ message CMsgGameModeState_Streetfight {
 	optional int32 opponent_player_slot = 2;
 }
 
+message DungeonActionCard {
+	optional int32 card_id = 1;
+}
+
+message CMsgGameModeState_Dungeon {
+	optional .EDACDungeonPhase dungeon_phase = 1 [default = k_EDACDungeonPhase_None];
+	optional .EDACDungeonRoomType current_room_type = 2 [default = k_EDACDungeonRoomType_None];
+	repeated .EDACDungeonRoomType next_room_types = 3;
+	repeated .DungeonActionCard available_cards = 4;
+}
+
 message CMsgGameModeState {
 	oneof details {
 		.CMsgGameModeState_Normal details_normal = 1;
@@ -819,6 +855,7 @@ message CMsgGameModeState {
 		.CMsgGameModeState_Puzzle details_puzzle = 6;
 		.CMsgGameModeState_Tutorial details_tutorial = 7;
 		.CMsgGameModeState_Streetfight details_streetfight = 8;
+		.CMsgGameModeState_Dungeon details_dungeon = 9;
 	}
 }
 
@@ -1137,10 +1174,11 @@ message CMsgClientConnectionStarted {
 		optional bool has_neutral_rounds = 10;
 		optional int32 underlord_selection_round = 11;
 		optional float kill_multiplier = 12;
+		optional uint32 prestige_level = 13;
 	}
 
 	message GameManager {
-		optional bool staging = 1;
+		optional uint32 definition_set = 1;
 	}
 
 	optional bool in_developer_mode = 1;

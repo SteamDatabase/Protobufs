@@ -556,6 +556,7 @@ message CMsgGCToClientEventInfo {
 	repeated .CMsgGCToClientEventInfo.Challenge challenges = 7;
 	repeated .CMsgGCToClientEventInfo.VirtualItem virtual_items = 8;
 	repeated .CMsgGCToClientEventInfo.VirtualItemEquip virtual_item_equips = 9;
+	repeated .CMsgGCToClientEventInfo.VirtualItem virtual_item_revokes = 11;
 	optional bool merge_contents = 10;
 }
 
