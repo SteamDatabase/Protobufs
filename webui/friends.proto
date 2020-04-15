@@ -152,6 +152,17 @@ message CCommunity_MarkPartnerEventsForUser_Request_PartnerEventMarking {
 message CCommunity_MarkPartnerEventsForUser_Response {
 }
 
+message CCommunity_GetUserPartnerEventViewStatus_Response {
+	repeated .CCommunity_GetUserPartnerEventViewStatus_Response_PartnerEvent events = 1;
+}
+
+message CCommunity_GetUserPartnerEventViewStatus_Response_PartnerEvent {
+	optional fixed64 event_gid = 1;
+	optional uint32 last_shown_time = 2;
+	optional uint32 last_read_time = 3;
+	optional uint32 clan_account_id = 4;
+}
+
 message ProfileItem {
 	optional uint64 communityitemid = 1;
 	optional string image_small = 2;
@@ -714,14 +725,6 @@ message CFriendsList_GetFriendsList_Response {
 	optional .CMsgClientFriendsList friendslist = 1;
 }
 
-message CMsgCREEnumeratePublishedFilesResponse_PublishedFileId {
-	optional fixed64 published_file_id = 1;
-	optional int32 votes_for = 2;
-	optional int32 votes_against = 3;
-	optional int32 reports = 4;
-	optional float score = 5;
-}
-
 message CClan_RespondToClanInvite_Request {
 	optional fixed64 steamid = 1;
 	optional bool accept = 2;
@@ -756,6 +759,7 @@ service Community {
 	rpc GetUserPartnerEventNews (.NotImplemented) returns (.CCommunity_GetUserPartnerEventNews_Response);
 	rpc GetBestEventsForUser (.NotImplemented) returns (.CCommunity_GetBestEventsForUser_Response);
 	rpc MarkPartnerEventsForUser (.NotImplemented) returns (.CCommunity_MarkPartnerEventsForUser_Response);
+	rpc GetUserPartnerEventViewStatus (.NotImplemented) returns (.CCommunity_GetUserPartnerEventViewStatus_Response);
 	rpc PartnerEventsShowMoreForApp (.NotImplemented) returns (.CCommunity_PartnerEventsShowMoreForApp_Response);
 	rpc PartnerEventsShowLessForApp (.NotImplemented) returns (.CCommunity_PartnerEventsShowLessForApp_Response);
 	rpc ClearUserPartnerEventsAppPriorities (.NotImplemented) returns (.CCommunity_ClearUserPartnerEventsAppPriorities_Response);
