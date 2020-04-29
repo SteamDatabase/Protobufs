@@ -163,6 +163,29 @@ message CCommunity_GetUserPartnerEventViewStatus_Response_PartnerEvent {
 	optional uint32 clan_account_id = 4;
 }
 
+message CPlayer_GetOwnedGames_Response {
+	optional uint32 game_count = 1;
+	repeated .CPlayer_GetOwnedGames_Response_Game games = 2;
+}
+
+message CPlayer_GetOwnedGames_Response_Game {
+	optional int32 appid = 1;
+	optional string name = 2;
+	optional int32 playtime_2weeks = 3;
+	optional int32 playtime_forever = 4;
+	optional string img_icon_url = 5;
+	optional string img_logo_url = 6;
+	optional bool has_community_visible_stats = 7;
+	optional int32 playtime_windows_forever = 8;
+	optional int32 playtime_mac_forever = 9;
+	optional int32 playtime_linux_forever = 10;
+}
+
+message CPlayer_GetPlayNext_Response {
+	optional uint32 last_update_time = 1;
+	repeated uint32 appids = 2;
+}
+
 message ProfileItem {
 	optional uint64 communityitemid = 1;
 	optional string image_small = 2;
