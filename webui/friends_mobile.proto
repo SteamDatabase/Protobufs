@@ -319,6 +319,36 @@ message CFriendsList_GetFriendsList_Response {
 	optional .CMsgClientFriendsList friendslist = 1;
 }
 
+message CMsgClientUCMPublishedFileDeleted {
+	optional fixed64 published_file_id = 1;
+	optional uint32 app_id = 2;
+}
+
+message CMsgCREEnumeratePublishedFiles {
+	optional uint32 app_id = 1;
+	optional int32 query_type = 2;
+	optional uint32 start_index = 3;
+	optional uint32 days = 4;
+	optional uint32 count = 5;
+	repeated string tags = 6;
+	repeated string user_tags = 7;
+	optional uint32 matching_file_type = 8 [default = 13];
+}
+
+message CMsgCREEnumeratePublishedFilesResponse {
+	optional int32 eresult = 1 [default = 2];
+	repeated .CMsgCREEnumeratePublishedFilesResponse_PublishedFileId published_files = 2;
+	optional uint32 total_results = 3;
+}
+
+message CMsgCREEnumeratePublishedFilesResponse_PublishedFileId {
+	optional fixed64 published_file_id = 1;
+	optional int32 votes_for = 2;
+	optional int32 votes_against = 3;
+	optional int32 reports = 4;
+	optional float score = 5;
+}
+
 message CClan_RespondToClanInvite_Request {
 	optional fixed64 steamid = 1;
 	optional bool accept = 2;
