@@ -227,6 +227,7 @@ message LoyaltyRewardDefinition {
 	optional bool active = 12;
 	optional .LoyaltyRewardDefinition_CommunityItemData community_item_data = 13;
 	repeated uint32 bundle_defids = 15;
+	optional uint32 usable_duration = 16;
 }
 
 message LoyaltyRewardDefinition_CommunityItemData {
