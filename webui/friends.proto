@@ -198,6 +198,7 @@ message ProfileItem {
 	optional uint32 item_class = 9;
 	optional string movie_webm = 10;
 	optional string movie_mp4 = 11;
+	optional uint32 equipped_flags = 12;
 }
 
 message CPlayer_GetProfileBackground_Response {
@@ -247,6 +248,9 @@ message CPlayer_GetProfileItemsEquipped_Response {
 	optional .ProfileItem avatar_frame = 3;
 	optional .ProfileItem animated_avatar = 4;
 	optional .ProfileItem profile_modifier = 5;
+}
+
+message CPlayer_SetEquippedProfileItemFlags_Response {
 }
 
 message CPlayer_FriendEquippedProfileItemsChanged_Notification {
