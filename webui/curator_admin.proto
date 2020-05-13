@@ -25,6 +25,10 @@ message CNewsFeedPostDef {
 	optional bool deleted = 9;
 	optional string tags = 10;
 	repeated uint32 appids = 11;
+	optional int32 recommendation_state = 12 [(description) = "enum"];
+	optional bool received_compensation = 13;
+	optional bool received_for_free = 14;
+	optional string blurb = 15;
 }
 
 message CNews_ConvertHTMLToBBCode_Response {
@@ -49,6 +53,7 @@ message CNews_PreviewPartnerEvents_Request {
 message CNews_PreviewPartnerEvents_Response {
 	optional string rss_url = 1;
 	repeated .CNewsPartnerEventPreview results = 2;
+	optional string error_msg = 3;
 }
 
 message CNews_GetNewsFeedByRepublishClan_Response {
