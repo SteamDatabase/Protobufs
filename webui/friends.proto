@@ -97,6 +97,16 @@ message CCommunity_GetClanAnnouncementVoteForUser_Response {
 	optional bool voted_down = 2;
 }
 
+message CCommunity_GetAvatarHistory_Response {
+	repeated .CCommunity_GetAvatarHistory_Response_AvatarData avatars = 1;
+}
+
+message CCommunity_GetAvatarHistory_Response_AvatarData {
+	optional string avatar_sha1 = 1;
+	optional bool user_uploaded = 2;
+	optional uint32 timestamp = 3;
+}
+
 message CAppPriority {
 	optional uint32 priority = 1;
 	repeated uint32 appid = 2;
@@ -794,6 +804,7 @@ service Community {
 	rpc GetCommentThreadRatings (.NotImplemented) returns (.CCommunity_GetCommentThreadRatings_Response);
 	rpc RateClanAnnouncement (.NotImplemented) returns (.CCommunity_RateClanAnnouncement_Response);
 	rpc GetClanAnnouncementVoteForUser (.NotImplemented) returns (.CCommunity_GetClanAnnouncementVoteForUser_Response);
+	rpc GetAvatarHistory (.NotImplemented) returns (.CCommunity_GetAvatarHistory_Response);
 	rpc GetUserPartnerEventNews (.NotImplemented) returns (.CCommunity_GetUserPartnerEventNews_Response);
 	rpc GetBestEventsForUser (.NotImplemented) returns (.CCommunity_GetBestEventsForUser_Response);
 	rpc MarkPartnerEventsForUser (.NotImplemented) returns (.CCommunity_MarkPartnerEventsForUser_Response);
