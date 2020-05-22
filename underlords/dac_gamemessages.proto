@@ -915,6 +915,7 @@ message CMsgUnitSnapshot {
 	optional bool can_be_sold = 36;
 	optional bool recommended_for_placement = 37;
 	optional float float_kill_count = 38;
+	optional float cooldown_multiplier = 39;
 	optional bool client_synthesized_for_setup = 1001;
 	optional bool client_is_on_bench = 1002;
 }
