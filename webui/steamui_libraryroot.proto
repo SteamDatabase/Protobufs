@@ -2,34 +2,6 @@ import "steammessages_unified_base.steamclient.proto";
 import "steammessages_clientserver.proto";
 import "steammessages_base.proto";
 
-message CClientMetrics_AppInterfaceCreation {
-	optional string raw_version = 1;
-	optional string requested_interface_type = 2;
-}
-
-message CClientMetrics_AppInterfaceMethodCounts {
-	optional string interface_name = 1;
-	optional string method_name = 2;
-	optional uint32 call_count = 3;
-}
-
-message CClientMetrics_IPv6Connectivity_Result {
-	optional uint32 protocol_tested = 1;
-	optional uint32 connectivity_state = 2;
-}
-
-message CClientMetrics_ReportClientError_Notification {
-	optional string product = 1;
-	optional string version = 2;
-	repeated .CClientMetrics_ReportClientError_Notification_Error errors = 3;
-}
-
-message CClientMetrics_ReportClientError_Notification_Error {
-	optional string identifier = 1;
-	optional string message = 2;
-	optional uint32 count = 3;
-}
-
 message CMsgClientPersonaState_Friend_ClanData {
 	optional uint32 ogg_app_id = 1;
 	optional uint64 chat_group_id = 2;
@@ -44,12 +16,15 @@ message CMsgClientEmoticonList_Sticker {
 	optional string name = 1;
 	optional int32 count = 2;
 	optional uint32 time_received = 3;
+	optional uint32 appid = 4;
 }
 
 message CMsgClientEmoticonList_Effect {
 	optional string name = 1;
 	optional int32 count = 2;
 	optional uint32 time_received = 3;
+	optional bool infinite_use = 4;
+	optional uint32 appid = 5;
 }
 
 message CMsgClientServerTimestampRequest {
@@ -223,6 +198,7 @@ message ProfileItem {
 	optional uint32 item_class = 9;
 	optional string movie_webm = 10;
 	optional string movie_mp4 = 11;
+	optional uint32 equipped_flags = 12;
 }
 
 message CPlayer_GetProfileBackground_Response {
@@ -267,6 +243,9 @@ message CPlayer_GetProfileItemsEquipped_Response {
 	optional .ProfileItem avatar_frame = 3;
 	optional .ProfileItem animated_avatar = 4;
 	optional .ProfileItem profile_modifier = 5;
+}
+
+message CPlayer_SetEquippedProfileItemFlags_Response {
 }
 
 message CPlayer_GetEmoticonList_Response {
@@ -666,6 +645,12 @@ message CChatRoom_GetChatRoomGroupSummary_Response {
 	repeated .CChatPartyBeacon party_beacons = 18;
 	optional uint64 watching_broadcast_channel_id = 19;
 	optional uint64 active_minigame_id = 20;
+	optional string avatar_ugc_url = 21;
+}
+
+message CChatRoom_SetAppChatRoomGroupForceActive_Response {
+	optional uint32 result = 1;
+	repeated uint32 accounts_in_channel = 2;
 }
 
 message CChatRoomState {
@@ -694,6 +679,7 @@ message CChatRoomGroupHeaderState {
 	repeated .CChatPartyBeacon party_beacons = 22;
 	optional uint64 watching_broadcast_channel_id = 23;
 	optional uint64 active_minigame_id = 24;
+	optional string avatar_ugc_url = 25;
 }
 
 message CChatRoomGroupState {
@@ -1019,6 +1005,7 @@ message CChatUsability_ClientUsabilityMetrics_Notification_Settings {
 	optional bool do_not_disturb_mode = 22;
 	optional bool disable_embed_inlining = 23;
 	optional bool sign_into_friends = 24;
+	optional bool animated_avatars = 25;
 }
 
 message CChatUsability_ClientUsabilityMetrics_Notification_VoiceSettings {
@@ -1150,6 +1137,7 @@ message CAppOverview_PerClientData {
 	optional bool streaming_to_local_client = 9;
 	optional bool is_available_on_current_platform = 10;
 	optional bool is_invalid_os_type = 11;
+	optional uint32 playtime_left = 12;
 }
 
 message CAppOverview {
@@ -1313,6 +1301,8 @@ message CUserAccount_GetAvailableValveDiscountPromotions_Response_ValveDiscountP
 	optional int32 available_use_count = 7;
 	optional int32 promotional_discount_type = 8;
 	optional int32 loyalty_reward_id = 9;
+	optional string localized_name_token = 10;
+	optional int32 max_use_count = 11;
 }
 
 message CUserAccount_GetAccountLinkStatus_Response {
@@ -1464,14 +1454,30 @@ message CQuest_GetCommunityItemDefinitions_Response_ItemDefinition {
 	optional string item_movie_mp4 = 19;
 }
 
+message CQuest_ActivateProfileModifierItem_Response {
+}
+
 message PublishedFileDetails_PlaytimeStats {
 	optional uint64 playtime_seconds = 1;
 	optional uint64 num_sessions = 2;
 }
 
+message PublishedFileDetails_Reaction {
+	optional uint32 reactionid = 1;
+	optional uint32 count = 2;
+}
+
 message CPublishedFile_GetUserFiles_Request_KVTag {
 	optional string key = 1;
 	optional string value = 2;
+}
+
+message CPublishedFile_GetUserFiles_Request_TagGroup {
+	repeated string tags = 1;
+}
+
+message CPublishedFile_QueryFiles_Request_TagGroup {
+	repeated string tags = 1;
 }
 
 message CPublishedFile_AddAppRelationship_Response {
@@ -1585,6 +1591,11 @@ message CUserReviews_Update_Request {
 message CUserReviews_Update_Response {
 }
 
+message CUserReviews_Recommendation_LoyaltyReaction {
+	optional uint32 reaction_type = 1;
+	optional uint32 count = 2;
+}
+
 message RecommendationDetails {
 	optional uint64 recommendationid = 1;
 	optional uint64 steamid = 2;
@@ -1622,6 +1633,10 @@ message RecommendationDetails {
 	optional bool comments_disabled = 34;
 	optional int32 playtime_at_review = 35;
 	optional bool approved_for_china = 36;
+	optional int32 ban_check_result = 37 [(description) = "enum"];
+	optional bool refunded = 38;
+	optional int32 account_score_spend = 39;
+	repeated .CUserReviews_Recommendation_LoyaltyReaction reactions = 40;
 }
 
 message CUserReviews_GetIndividualRecommendations_Request {
@@ -1786,6 +1801,16 @@ message CCommunity_GetClanAnnouncementVoteForUser_Response {
 	optional bool voted_down = 2;
 }
 
+message CCommunity_GetAvatarHistory_Response {
+	repeated .CCommunity_GetAvatarHistory_Response_AvatarData avatars = 1;
+}
+
+message CCommunity_GetAvatarHistory_Response_AvatarData {
+	optional string avatar_sha1 = 1;
+	optional bool user_uploaded = 2;
+	optional uint32 timestamp = 3;
+}
+
 message CAppPriority {
 	optional uint32 priority = 1;
 	repeated uint32 appid = 2;
@@ -1860,6 +1885,17 @@ message CCommunity_MarkPartnerEventsForUser_Request_PartnerEventMarking {
 message CCommunity_MarkPartnerEventsForUser_Response {
 }
 
+message CCommunity_GetUserPartnerEventViewStatus_Response {
+	repeated .CCommunity_GetUserPartnerEventViewStatus_Response_PartnerEvent events = 1;
+}
+
+message CCommunity_GetUserPartnerEventViewStatus_Response_PartnerEvent {
+	optional fixed64 event_gid = 1;
+	optional uint32 last_shown_time = 2;
+	optional uint32 last_read_time = 3;
+	optional uint32 clan_account_id = 4;
+}
+
 message CMsgIPAddress {
 	optional fixed32 v4 = 1;
 	optional bytes v6 = 2;
@@ -1899,15 +1935,11 @@ message CCommunity_ClanAnnouncementInfo {
 	optional bool hidden = 11;
 	optional fixed64 forum_topic_id = 12;
 	optional fixed64 event_gid = 13;
+	optional int32 voteupcount = 14;
+	optional int32 votedowncount = 15;
 }
 
 message NotImplemented {
-}
-
-service ClientMetrics {
-	rpc ClientAppInterfaceStatsReport (.NotImplemented) returns (.NoResponse);
-	rpc ClientIPv6ConnectivityReport (.NotImplemented) returns (.NoResponse);
-	rpc ReportClientError (.CClientMetrics_ReportClientError_Notification) returns (.NoResponse);
 }
 
 service CloudConfigStore {
@@ -1943,6 +1975,7 @@ service Player {
 	rpc SetAnimatedAvatar (.NotImplemented) returns (.CPlayer_SetAnimatedAvatar_Response);
 	rpc GetProfileItemsOwned (.NotImplemented) returns (.CPlayer_GetProfileItemsOwned_Response);
 	rpc GetProfileItemsEquipped (.NotImplemented) returns (.CPlayer_GetProfileItemsEquipped_Response);
+	rpc SetEquippedProfileItemFlags (.NotImplemented) returns (.CPlayer_SetEquippedProfileItemFlags_Response);
 	rpc GetEmoticonList (.NotImplemented) returns (.CPlayer_GetEmoticonList_Response);
 	rpc GetAchievementsProgress (.CPlayer_GetAchievementsProgress_Request) returns (.CPlayer_GetAchievementsProgress_Response);
 	rpc PostStatusToFriends (.CPlayer_PostStatusToFriends_Request) returns (.CPlayer_PostStatusToFriends_Response);
@@ -2015,6 +2048,8 @@ service ChatRoom {
 	rpc GetMyChatRoomGroups (.NotImplemented) returns (.CChatRoom_GetMyChatRoomGroups_Response);
 	rpc GetChatRoomGroupState (.NotImplemented) returns (.CChatRoom_GetChatRoomGroupState_Response);
 	rpc GetChatRoomGroupSummary (.NotImplemented) returns (.CChatRoom_GetChatRoomGroupSummary_Response);
+	rpc SetAppChatRoomGroupForceActive (.NotImplemented) returns (.CChatRoom_SetAppChatRoomGroupForceActive_Response);
+	rpc SetAppChatRoomGroupStopForceActive (.NotImplemented) returns (.NoResponse);
 	rpc AckChatMessage (.CChatRoom_AckChatMessage_Notification) returns (.NoResponse);
 	rpc CreateInviteLink (.NotImplemented) returns (.CChatRoom_CreateInviteLink_Response);
 	rpc GetInviteLinkInfo (.NotImplemented) returns (.CChatRoom_GetInviteLinkInfo_Response);
@@ -2081,6 +2116,7 @@ service UserAccount {
 service Quest {
 	rpc GetCommunityInventory (.NotImplemented) returns (.CQuest_GetCommunityInventory_Response);
 	rpc GetCommunityItemDefinitions (.CQuest_GetCommunityItemDefinitions_Request) returns (.CQuest_GetCommunityItemDefinitions_Response);
+	rpc ActivateProfileModifierItem (.NotImplemented) returns (.CQuest_ActivateProfileModifierItem_Response);
 }
 
 service PublishedFileClient {
@@ -2104,9 +2140,11 @@ service Community {
 	rpc GetCommentThreadRatings (.NotImplemented) returns (.CCommunity_GetCommentThreadRatings_Response);
 	rpc RateClanAnnouncement (.CCommunity_RateClanAnnouncement_Request) returns (.CCommunity_RateClanAnnouncement_Response);
 	rpc GetClanAnnouncementVoteForUser (.CCommunity_GetClanAnnouncementVoteForUser_Request) returns (.CCommunity_GetClanAnnouncementVoteForUser_Response);
+	rpc GetAvatarHistory (.NotImplemented) returns (.CCommunity_GetAvatarHistory_Response);
 	rpc GetUserPartnerEventNews (.NotImplemented) returns (.CCommunity_GetUserPartnerEventNews_Response);
 	rpc GetBestEventsForUser (.NotImplemented) returns (.CCommunity_GetBestEventsForUser_Response);
 	rpc MarkPartnerEventsForUser (.CCommunity_MarkPartnerEventsForUser_Request) returns (.CCommunity_MarkPartnerEventsForUser_Response);
+	rpc GetUserPartnerEventViewStatus (.NotImplemented) returns (.CCommunity_GetUserPartnerEventViewStatus_Response);
 	rpc PartnerEventsShowMoreForApp (.CCommunity_PartnerEventsShowMoreForApp_Request) returns (.CCommunity_PartnerEventsShowMoreForApp_Response);
 	rpc PartnerEventsShowLessForApp (.CCommunity_PartnerEventsShowLessForApp_Request) returns (.CCommunity_PartnerEventsShowLessForApp_Response);
 	rpc ClearUserPartnerEventsAppPriorities (.NotImplemented) returns (.CCommunity_ClearUserPartnerEventsAppPriorities_Response);
