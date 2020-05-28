@@ -1652,6 +1652,44 @@ message CUserReviews_GetIndividualRecommendations_Response {
 	repeated .RecommendationDetails recommendations = 1;
 }
 
+message CClientMetrics_AppInterfaceCreation {
+	optional string raw_version = 1;
+	optional string requested_interface_type = 2;
+}
+
+message CClientMetrics_AppInterfaceMethodCounts {
+	optional string interface_name = 1;
+	optional string method_name = 2;
+	optional uint32 call_count = 3;
+}
+
+message CClientMetrics_IPv6Connectivity_Result {
+	optional uint32 protocol_tested = 1;
+	optional uint32 connectivity_state = 2;
+}
+
+message CClientMetrics_ReportClientError_Notification {
+	optional string product = 1;
+	optional string version = 2;
+	repeated .CClientMetrics_ReportClientError_Notification_Error errors = 3;
+}
+
+message CClientMetrics_ReportClientError_Notification_Error {
+	optional string identifier = 1;
+	optional string message = 2;
+	optional uint32 count = 3;
+}
+
+message CClientMetrics_SteamPipeWorkStats_Operation {
+	optional int32 type = 1 [(description) = "enum"];
+	optional uint32 num_ops = 2;
+	optional uint64 num_bytes = 3;
+	optional uint64 busy_time_ms = 4;
+	optional uint64 idle_time_ms = 5;
+	optional uint64 sum_run_time_ms = 6;
+	optional uint64 sum_wait_time_ms = 7;
+}
+
 message CCommunity_GetApps_Request {
 	repeated int32 appids = 1;
 	optional uint32 language = 2;
@@ -2128,6 +2166,13 @@ service PublishedFileClient {
 service UserReviews {
 	rpc Update (.CUserReviews_Update_Request) returns (.CUserReviews_Update_Response);
 	rpc GetIndividualRecommendations (.CUserReviews_GetIndividualRecommendations_Request) returns (.CUserReviews_GetIndividualRecommendations_Response);
+}
+
+service ClientMetrics {
+	rpc ClientAppInterfaceStatsReport (.NotImplemented) returns (.NoResponse);
+	rpc ClientIPv6ConnectivityReport (.NotImplemented) returns (.NoResponse);
+	rpc SteamPipeWorkStatsReport (.NotImplemented) returns (.NoResponse);
+	rpc ReportClientError (.CClientMetrics_ReportClientError_Notification) returns (.NoResponse);
 }
 
 service Community {
