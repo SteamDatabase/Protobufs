@@ -228,6 +228,7 @@ enum EDACPuzzleRule {
 	k_EDACPuzzleRule_ItemCountLimit = 4;
 	k_EDACPuzzleRule_ValidBoardPositions = 5;
 	k_EDACPuzzleRule_MaxCombatDuration = 6;
+	k_EDACPuzzleRule_UnitCopyLimit = 7;
 	k_EDACPuzzleRule_Custom1 = 100;
 	k_EDACPuzzleRule_Custom2 = 101;
 	k_EDACPuzzleRule_Custom3 = 102;
