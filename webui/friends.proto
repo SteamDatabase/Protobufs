@@ -89,7 +89,17 @@ message CCommunity_GetCommentThreadRatings_Response {
 	repeated uint32 upvoter_accountids = 5;
 }
 
+message CCommunity_RateClanAnnouncement_Request {
+	optional uint64 announcementid = 1;
+	optional bool vote_up = 2;
+	optional uint32 clan_accountid = 3;
+}
+
 message CCommunity_RateClanAnnouncement_Response {
+}
+
+message CCommunity_GetClanAnnouncementVoteForUser_Request {
+	optional uint64 announcementid = 1;
 }
 
 message CCommunity_GetClanAnnouncementVoteForUser_Response {
@@ -149,6 +159,10 @@ message CCommunity_PartnerEventsShowMoreForApp_Response {
 }
 
 message CCommunity_PartnerEventsShowLessForApp_Response {
+}
+
+message CCommunity_MarkPartnerEventsForUser_Request {
+	repeated .CCommunity_MarkPartnerEventsForUser_Request_PartnerEventMarking markings = 1;
 }
 
 message CCommunity_MarkPartnerEventsForUser_Request_PartnerEventMarking {
@@ -708,12 +722,12 @@ service Community {
 	rpc DeleteCommentFromThread (.NotImplemented) returns (.CCommunity_DeleteCommentFromThread_Response);
 	rpc RateCommentThread (.NotImplemented) returns (.CCommunity_RateCommentThread_Response);
 	rpc GetCommentThreadRatings (.NotImplemented) returns (.CCommunity_GetCommentThreadRatings_Response);
-	rpc RateClanAnnouncement (.NotImplemented) returns (.CCommunity_RateClanAnnouncement_Response);
-	rpc GetClanAnnouncementVoteForUser (.NotImplemented) returns (.CCommunity_GetClanAnnouncementVoteForUser_Response);
+	rpc RateClanAnnouncement (.CCommunity_RateClanAnnouncement_Request) returns (.CCommunity_RateClanAnnouncement_Response);
+	rpc GetClanAnnouncementVoteForUser (.CCommunity_GetClanAnnouncementVoteForUser_Request) returns (.CCommunity_GetClanAnnouncementVoteForUser_Response);
 	rpc GetAvatarHistory (.NotImplemented) returns (.CCommunity_GetAvatarHistory_Response);
 	rpc GetUserPartnerEventNews (.NotImplemented) returns (.CCommunity_GetUserPartnerEventNews_Response);
 	rpc GetBestEventsForUser (.NotImplemented) returns (.CCommunity_GetBestEventsForUser_Response);
-	rpc MarkPartnerEventsForUser (.NotImplemented) returns (.CCommunity_MarkPartnerEventsForUser_Response);
+	rpc MarkPartnerEventsForUser (.CCommunity_MarkPartnerEventsForUser_Request) returns (.CCommunity_MarkPartnerEventsForUser_Response);
 	rpc GetUserPartnerEventViewStatus (.NotImplemented) returns (.CCommunity_GetUserPartnerEventViewStatus_Response);
 	rpc PartnerEventsShowMoreForApp (.NotImplemented) returns (.CCommunity_PartnerEventsShowMoreForApp_Response);
 	rpc PartnerEventsShowLessForApp (.NotImplemented) returns (.CCommunity_PartnerEventsShowLessForApp_Response);
