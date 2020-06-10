@@ -11,6 +11,9 @@ message CNewsFeedDef {
 	optional string kv_filter = 8;
 	optional uint32 publish_to_clan_account_id = 9;
 	optional uint32 language = 10;
+	optional uint32 last_error = 11;
+	optional uint32 last_update = 12;
+	optional uint32 last_checked = 13;
 }
 
 message CNewsFeedPostDef {
@@ -29,6 +32,8 @@ message CNewsFeedPostDef {
 	optional bool received_compensation = 13;
 	optional bool received_for_free = 14;
 	optional string blurb = 15;
+	optional string event_subtitle = 16;
+	optional string event_summary = 17;
 }
 
 message CNews_ConvertHTMLToBBCode_Response {
