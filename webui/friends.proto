@@ -187,6 +187,60 @@ message CCommunity_GetUserPartnerEventViewStatus_Response_PartnerEvent {
 	optional uint32 clan_account_id = 4;
 }
 
+message CPlayer_GetFavoriteBadge_Response {
+	optional bool has_favorite_badge = 1;
+	optional uint32 badgeid = 2;
+	optional uint64 communityitemid = 3;
+	optional uint32 item_type = 4;
+	optional uint32 border_color = 5;
+	optional uint32 appid = 6;
+	optional uint32 level = 7;
+}
+
+message CPlayer_SetFavoriteBadge_Response {
+}
+
+message ProfileCustomizationSlot {
+	optional uint32 slot = 1;
+	optional uint32 appid = 2;
+	optional uint64 publishedfileid = 3;
+	optional uint64 item_assetid = 4;
+	optional uint64 item_contextid = 5;
+	optional string notes = 6;
+	optional string title = 7;
+	optional uint32 accountid = 8;
+	optional uint32 badgeid = 9;
+	optional uint32 border_color = 10;
+	optional uint64 item_classid = 11;
+	optional uint64 item_instanceid = 12;
+}
+
+message ProfileCustomization {
+	optional int32 customization_type = 1 [(description) = "enum"];
+	optional bool large = 2;
+	repeated .ProfileCustomizationSlot slots = 3;
+	optional bool active = 4;
+	optional int32 customization_style = 5 [(description) = "enum"];
+}
+
+message ProfileTheme {
+	optional string theme_id = 1;
+	optional string title = 2;
+}
+
+message CPlayer_GetProfileCustomization_Response {
+	repeated .ProfileCustomization customizations = 1;
+	optional uint32 slots_available = 2;
+	optional .ProfileTheme profile_theme = 3;
+}
+
+message CPlayer_GetProfileThemesAvailable_Response {
+	repeated .ProfileTheme profile_themes = 1;
+}
+
+message CPlayer_SetProfileTheme_Response {
+}
+
 message CWebRTCClient_InitiateWebRTCConnection_Request {
 	optional string sdp = 1;
 }
