@@ -800,6 +800,7 @@ message CTFLobbyPlayerProto {
 	optional double normalized_rating = 20;
 	optional double normalized_uncertainty = 22;
 	optional uint32 rank = 21;
+	optional bool chat_suspension = 23;
 }
 
 message CTFLobbyInviteProto {
