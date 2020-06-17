@@ -493,6 +493,36 @@ message CSteamTV_GetBroadcastChannelClips_Response {
 message NotImplemented {
 }
 
+service Broadcast {
+	rpc GetBroadcastThumbnail (.NotImplemented) returns (.CBroadcast_GetBroadcastThumbnail_Response);
+	rpc UpdateChatMessageFlair (.CBroadcast_UpdateChatMessageFlair_Request) returns (.CBroadcast_UpdateChatMessageFlair_Response);
+	rpc StartBuildClip (.NotImplemented) returns (.CBroadcast_StartBuildClip_Response);
+	rpc GetBuildClipStatus (.NotImplemented) returns (.CBroadcast_GetBuildClipStatus_Response);
+	rpc SetClipDetails (.NotImplemented) returns (.CBroadcast_SetClipDetails_Response);
+	rpc GetClipDetails (.NotImplemented) returns (.CBroadcast_GetClipDetails_Response);
+	rpc SetRTMPInfo (.NotImplemented) returns (.CBroadcast_SetRTMPInfo_Response);
+	rpc GetRTMPInfo (.NotImplemented) returns (.CBroadcast_GetRTMPInfo_Response);
+	rpc WebRTCStartResult (.NotImplemented) returns (.CBroadcast_WebRTCStartResult_Response);
+	rpc WebRTCStopped (.NotImplemented) returns (.CBroadcast_WebRTCStopped_Response);
+	rpc WebRTCSetAnswer (.NotImplemented) returns (.CBroadcast_WebRTCSetAnswer_Response);
+	rpc WebRTCLookupTURNServer (.NotImplemented) returns (.CBroadcast_WebRTCLookupTURNServer_Response);
+	rpc WebRTCAddHostCandidate (.NotImplemented) returns (.CBroadcast_WebRTCAddHostCandidate_Response);
+	rpc WebRTCAddViewerCandidate (.NotImplemented) returns (.CBroadcast_WebRTCAddViewerCandidate_Response);
+	rpc WebRTCGetHostCandidates (.NotImplemented) returns (.CBroadcast_WebRTCGetHostCandidates_Response);
+	rpc GetBroadcastUploadStats (.NotImplemented) returns (.CBroadcast_GetBroadcastUploadStats_Response);
+	rpc GetBroadcastViewerStats (.NotImplemented) returns (.CBroadcast_GetBroadcastViewerStats_Response);
+}
+
+service BroadcastClient {
+	rpc NotifyBroadcastUploadStarted (.CBroadcast_BroadcastUploadStarted_Notification) returns (.NoResponse);
+	rpc NotifyBroadcastChannelLive (.CBroadcast_BroadcastChannelLive_Notification) returns (.NoResponse);
+	rpc SendThumbnailToRelay (.CBroadcast_SendThumbnailToRelay_Notification) returns (.NoResponse);
+	rpc NotifyWebRTCNeedTURNServer (.CBroadcast_WebRTCNeedTURNServer_Notification) returns (.NoResponse);
+	rpc NotifyWebRTCStart (.CBroadcast_WebRTCStart_Notification) returns (.NoResponse);
+	rpc NotifyWebRTCSetAnswer (.CBroadcast_WebRTCSetAnswer_Notification) returns (.NoResponse);
+	rpc NotifyWebRTCAddViewerCandidate (.CBroadcast_WebRTCAddViewerCandidate_Notification) returns (.NoResponse);
+}
+
 service SteamTV {
 	rpc CreateBroadcastChannel (.NotImplemented) returns (.CSteamTV_CreateBroadcastChannel_Response);
 	rpc GetBroadcastChannelID (.NotImplemented) returns (.CSteamTV_GetBroadcastChannelID_Response);
