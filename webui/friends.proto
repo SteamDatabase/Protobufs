@@ -790,6 +790,14 @@ service Community {
 	rpc ClearSinglePartnerEventsAppPriority (.NotImplemented) returns (.CCommunity_ClearSinglePartnerEventsAppPriority_Response);
 }
 
+service Player {
+	rpc GetFavoriteBadge (.NotImplemented) returns (.CPlayer_GetFavoriteBadge_Response);
+	rpc SetFavoriteBadge (.NotImplemented) returns (.CPlayer_SetFavoriteBadge_Response);
+	rpc GetProfileCustomization (.NotImplemented) returns (.CPlayer_GetProfileCustomization_Response);
+	rpc GetProfileThemesAvailable (.NotImplemented) returns (.CPlayer_GetProfileThemesAvailable_Response);
+	rpc SetProfileTheme (.NotImplemented) returns (.CPlayer_SetProfileTheme_Response);
+}
+
 service WebRTCClient {
 	rpc InitiateWebRTCConnection (.CWebRTCClient_InitiateWebRTCConnection_Request) returns (.CWebRTCClient_InitiateWebRTCConnection_Response);
 	rpc AcknowledgeUpdatedRemoteDescription (.CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Request) returns (.CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Response);
@@ -868,9 +876,5 @@ service FriendsListClient {
 
 service Clan {
 	rpc RespondToClanInvite (.CClan_RespondToClanInvite_Request) returns (.CClan_RespondToClanInvite_Response);
-}
-
-service ExperimentService {
-	rpc ReportProductImpressionsFromClient (.NotImplemented) returns (.NoResponse);
 }
 
