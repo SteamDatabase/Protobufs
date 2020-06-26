@@ -878,3 +878,7 @@ service Clan {
 	rpc RespondToClanInvite (.CClan_RespondToClanInvite_Request) returns (.CClan_RespondToClanInvite_Response);
 }
 
+service ExperimentService {
+	rpc ReportProductImpressionsFromClient (.NotImplemented) returns (.NoResponse);
+}
+
