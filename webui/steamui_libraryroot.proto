@@ -2087,6 +2087,7 @@ service ChatRoom {
 	rpc GetChatRoomGroupState (.NotImplemented) returns (.CChatRoom_GetChatRoomGroupState_Response);
 	rpc GetChatRoomGroupSummary (.NotImplemented) returns (.CChatRoom_GetChatRoomGroupSummary_Response);
 	rpc SetAppChatRoomGroupForceActive (.NotImplemented) returns (.CChatRoom_SetAppChatRoomGroupForceActive_Response);
+	rpc SetAppChatRoomGroupStopForceActive (.NotImplemented) returns (.NoResponse);
 	rpc AckChatMessage (.CChatRoom_AckChatMessage_Notification) returns (.NoResponse);
 	rpc CreateInviteLink (.NotImplemented) returns (.CChatRoom_CreateInviteLink_Response);
 	rpc GetInviteLinkInfo (.NotImplemented) returns (.CChatRoom_GetInviteLinkInfo_Response);
@@ -2098,6 +2099,7 @@ service ChatRoom {
 	rpc SetSessionActiveChatRoomGroups (.NotImplemented) returns (.CChatRoom_SetSessionActiveChatRoomGroups_Response);
 	rpc SetUserChatGroupPreferences (.NotImplemented) returns (.CChatRoom_SetUserChatGroupPreferences_Response);
 	rpc DeleteChatMessages (.NotImplemented) returns (.CChatRoom_DeleteChatMessages_Response);
+	rpc UpdateMemberListView (.NotImplemented) returns (.NoResponse);
 	rpc SearchMembers (.NotImplemented) returns (.CChatRoom_SearchMembers_Response);
 }
 
@@ -2181,6 +2183,9 @@ service UserReviews {
 }
 
 service ClientMetrics {
+	rpc ClientAppInterfaceStatsReport (.NotImplemented) returns (.NoResponse);
+	rpc ClientIPv6ConnectivityReport (.NotImplemented) returns (.NoResponse);
+	rpc SteamPipeWorkStatsReport (.NotImplemented) returns (.NoResponse);
 	rpc ReportClientError (.CClientMetrics_ReportClientError_Notification) returns (.NoResponse);
 }
 

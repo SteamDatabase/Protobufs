@@ -494,6 +494,8 @@ message NotImplemented {
 }
 
 service Broadcast {
+	rpc HeartbeatBroadcast (.NotImplemented) returns (.NoResponse);
+	rpc StopWatchingBroadcast (.NotImplemented) returns (.NoResponse);
 	rpc GetBroadcastThumbnail (.NotImplemented) returns (.CBroadcast_GetBroadcastThumbnail_Response);
 	rpc UpdateChatMessageFlair (.CBroadcast_UpdateChatMessageFlair_Request) returns (.CBroadcast_UpdateChatMessageFlair_Response);
 	rpc StartBuildClip (.NotImplemented) returns (.CBroadcast_StartBuildClip_Response);
@@ -502,6 +504,7 @@ service Broadcast {
 	rpc GetClipDetails (.NotImplemented) returns (.CBroadcast_GetClipDetails_Response);
 	rpc SetRTMPInfo (.NotImplemented) returns (.CBroadcast_SetRTMPInfo_Response);
 	rpc GetRTMPInfo (.NotImplemented) returns (.CBroadcast_GetRTMPInfo_Response);
+	rpc NotifyWebRTCHaveTURNServer (.NotImplemented) returns (.NoResponse);
 	rpc WebRTCStartResult (.NotImplemented) returns (.CBroadcast_WebRTCStartResult_Response);
 	rpc WebRTCStopped (.NotImplemented) returns (.CBroadcast_WebRTCStopped_Response);
 	rpc WebRTCSetAnswer (.NotImplemented) returns (.CBroadcast_WebRTCSetAnswer_Response);

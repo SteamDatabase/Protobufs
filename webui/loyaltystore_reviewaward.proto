@@ -171,7 +171,7 @@ service LoyaltyRewards {
 	rpc GetPointsForSpend (.NotImplemented) returns (.CLoyaltyRewards_GetPointsForSpend_Response);
 	rpc GetSummary (.CLoyaltyRewards_GetSummary_Request) returns (.CLoyaltyRewards_GetSummary_Response);
 	rpc RedeemPoints (.CLoyaltyRewards_RedeemPoints_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
-	rpc RedeemPointsForBadgeLevel (.CLoyaltyRewards_RedeemPoints_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
+	rpc RedeemPointsForBadgeLevel (.CLoyaltyRewards_RedeemPointsForBadgeLevel_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
 	rpc RedeemPointsToUpgradeItem (.CLoyaltyRewards_RedeemPoints_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
 	rpc AddReaction (.CLoyaltyRewards_AddReaction_Request) returns (.CLoyaltyRewards_AddReaction_Response);
 	rpc GetReactions (.CLoyaltyRewards_GetReactions_Request) returns (.CLoyaltyRewards_GetReactions_Response);
