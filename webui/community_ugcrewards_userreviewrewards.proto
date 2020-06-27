@@ -1,0 +1,164 @@
+import "steammessages_unified_base.steamclient.proto";
+
+message CLoyaltyRewards_GetSummary_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CLoyaltyRewards_GetSummary_Response {
+	optional .CLoyaltyRewards_GetSummary_Response_Summary summary = 1;
+	optional uint32 timestamp_updated = 2;
+	optional uint64 auditid_highwater = 3;
+}
+
+message CLoyaltyRewards_GetSummary_Response_Summary {
+	optional int64 points = 1;
+	optional int64 points_earned = 2;
+	optional int64 points_spent = 3;
+}
+
+message CLoyaltyRewards_GetPointsForSpend_Response {
+	optional int64 points = 1;
+}
+
+message CLoyaltyRewards_RedeemPoints_Response {
+	optional uint64 communityitemid = 1;
+	repeated uint64 bundle_community_item_ids = 2;
+}
+
+message CLoyaltyRewards_AddReaction_Request {
+	optional int32 target_type = 1 [(description) = "enum"];
+	optional uint64 targetid = 2;
+	optional uint32 reactionid = 3;
+}
+
+message CLoyaltyRewards_AddReaction_Response {
+}
+
+message CLoyaltyRewards_GetReactions_Request {
+	optional int32 target_type = 1 [(description) = "enum"];
+	optional uint64 targetid = 2;
+}
+
+message CLoyaltyRewards_GetReactions_Response {
+	repeated uint32 reactionids = 1;
+}
+
+message CLoyaltyRewards_GetReactionConfig_Request {
+}
+
+message CLoyaltyRewards_GetReactionConfig_Response {
+	optional uint32 points_cost = 1;
+	optional uint32 points_transferred = 2;
+}
+
+message CLoyaltyRewards_GetEligibleApps_Response {
+	repeated .CLoyaltyRewards_GetEligibleApps_Response_EligibleApp apps = 1;
+}
+
+message CLoyaltyRewards_GetEligibleApps_Response_EligibleApp {
+	optional uint32 appid = 1;
+	optional bool has_items_anyone_can_purchase = 2;
+	optional bool event_app = 3;
+}
+
+message LoyaltyRewardDefinition {
+	optional uint32 appid = 1;
+	optional uint32 defid = 2;
+	optional int32 type = 3 [(description) = "enum"];
+	optional int32 community_item_class = 4;
+	optional uint32 community_item_type = 5;
+	optional int64 point_cost = 6;
+	optional uint32 timestamp_created = 7;
+	optional uint32 timestamp_updated = 8;
+	optional uint32 timestamp_available = 9;
+	optional uint32 timestamp_available_end = 14;
+	optional int64 quantity = 10;
+	optional string internal_description = 11;
+	optional bool active = 12;
+	optional .LoyaltyRewardDefinition_CommunityItemData community_item_data = 13;
+	repeated uint32 bundle_defids = 15;
+	optional uint32 usable_duration = 16;
+}
+
+message LoyaltyRewardDefinition_CommunityItemData {
+	optional string item_name = 1;
+	optional string item_title = 2;
+	optional string item_description = 3;
+	optional string item_image_small = 4;
+	optional string item_image_large = 5;
+	optional string item_movie_webm = 6;
+	optional string item_movie_mp4 = 7;
+	optional string item_movie_webm_small = 10;
+	optional string item_movie_mp4_small = 11;
+	optional bool animated = 8;
+	repeated .LoyaltyRewardDefinition_BadgeData badge_data = 9;
+}
+
+message LoyaltyRewardDefinition_BadgeData {
+	optional int32 level = 1;
+	optional string image = 2;
+}
+
+message LoyaltyRewardPurchaseBonus {
+	optional uint64 bonusid = 1;
+	optional uint32 appid = 2;
+	optional bool active = 3;
+	optional int32 points = 4;
+	optional uint32 timestamp_start = 5;
+	optional uint32 timestamp_end = 6;
+	optional string internal_description = 7;
+}
+
+message CLoyaltyRewards_GetActivePurchaseBonuses_Response {
+	repeated .LoyaltyRewardPurchaseBonus bonuses = 1;
+}
+
+message CLoyaltyRewards_QueryRewardItems_Request {
+	repeated uint32 appids = 1;
+	optional uint32 time_available = 2;
+	repeated int32 community_item_classes = 3;
+	optional string language = 4;
+	optional int32 count = 5;
+	optional string cursor = 6;
+	optional int32 sort = 7 [default = 1, (description) = "enum"];
+	optional bool sort_descending = 8 [default = true];
+	repeated int32 reward_types = 9 [(description) = "enum"];
+	repeated int32 excluded_community_item_classes = 10;
+	repeated uint32 definitionids = 11;
+	repeated int32 filters = 12 [(description) = "enum"];
+}
+
+message CLoyaltyRewards_QueryRewardItems_Response {
+	repeated .LoyaltyRewardDefinition definitions = 1;
+	optional int32 total_count = 2;
+	optional int32 count = 3;
+	optional string next_cursor = 4;
+}
+
+message CLoyaltyRewards_BatchedQueryRewardItems_Response {
+	repeated .CLoyaltyRewards_BatchedQueryRewardItems_Response_Response responses = 1;
+}
+
+message CLoyaltyRewards_BatchedQueryRewardItems_Response_Response {
+	optional int32 eresult = 1;
+	optional .CLoyaltyRewards_QueryRewardItems_Response response = 2;
+}
+
+message NotImplemented {
+}
+
+service LoyaltyRewards {
+	rpc GetPointsForSpend (.NotImplemented) returns (.CLoyaltyRewards_GetPointsForSpend_Response);
+	rpc GetSummary (.CLoyaltyRewards_GetSummary_Request) returns (.CLoyaltyRewards_GetSummary_Response);
+	rpc RedeemPoints (.NotImplemented) returns (.CLoyaltyRewards_RedeemPoints_Response);
+	rpc RedeemPointsForBadgeLevel (.NotImplemented) returns (.CLoyaltyRewards_RedeemPoints_Response);
+	rpc RedeemPointsToUpgradeItem (.NotImplemented) returns (.CLoyaltyRewards_RedeemPoints_Response);
+	rpc AddReaction (.CLoyaltyRewards_AddReaction_Request) returns (.CLoyaltyRewards_AddReaction_Response);
+	rpc GetReactions (.CLoyaltyRewards_GetReactions_Request) returns (.CLoyaltyRewards_GetReactions_Response);
+	rpc GetReactionConfig (.CLoyaltyRewards_GetReactionConfig_Request) returns (.CLoyaltyRewards_GetReactionConfig_Response);
+	rpc GetEligibleApps (.NotImplemented) returns (.CLoyaltyRewards_GetEligibleApps_Response);
+	rpc GetActivePurchaseBonuses (.NotImplemented) returns (.CLoyaltyRewards_GetActivePurchaseBonuses_Response);
+	rpc QueryRewardItems (.CLoyaltyRewards_QueryRewardItems_Request) returns (.CLoyaltyRewards_QueryRewardItems_Response);
+	rpc BatchedQueryRewardItems (.NotImplemented) returns (.CLoyaltyRewards_BatchedQueryRewardItems_Response);
+}
+
