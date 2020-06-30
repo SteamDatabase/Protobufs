@@ -2121,6 +2121,10 @@ service ChatRoomClient {
 	rpc NotifyMemberListViewUpdated (.CChatRoomClient_MemberListViewUpdated_Notification) returns (.NoResponse);
 }
 
+service ChatUsability {
+	rpc NotifyClientUsabilityMetrics (.NotImplemented) returns (.NoResponse);
+}
+
 service Store {
 	rpc GetLocalizedNameForTags (.NotImplemented) returns (.CStore_GetLocalizedNameForTags_Response);
 	rpc GetStorePreferences (.CStore_GetStorePreferences_Request) returns (.CStore_GetStorePreferences_Response);
@@ -2149,6 +2153,14 @@ service UserAccount {
 	rpc RedeemFriendInviteToken (.NotImplemented) returns (.CUserAccount_RedeemFriendInviteToken_Response);
 	rpc RevokeFriendInviteToken (.NotImplemented) returns (.CUserAccount_RevokeFriendInviteToken_Response);
 	rpc RegisterCompatTool (.NotImplemented) returns (.CUserAccount_RegisterCompatTool_Response);
+}
+
+service AccountLinking {
+	rpc GetLinkedAccountInfo (.NotImplemented) returns (.CAccountLinking_GetLinkedAccountInfo_Response);
+}
+
+service EmbeddedClient {
+	rpc AuthorizeCurrentDevice (.NotImplemented) returns (.CEmbeddedClient_AuthorizeDevice_Response);
 }
 
 service Quest {
