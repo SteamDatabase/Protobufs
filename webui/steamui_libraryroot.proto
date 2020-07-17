@@ -198,6 +198,8 @@ message ProfileItem {
 	optional uint32 item_class = 9;
 	optional string movie_webm = 10;
 	optional string movie_mp4 = 11;
+	optional string movie_webm_small = 13;
+	optional string movie_mp4_small = 14;
 	optional uint32 equipped_flags = 12;
 }
 
@@ -305,6 +307,60 @@ message CPlayer_GetAchievementsProgress_Response_AchievementProgress {
 	optional float percentage = 4;
 	optional bool all_unlocked = 5;
 	optional uint32 cache_time = 6;
+}
+
+message CPlayer_GetFavoriteBadge_Response {
+	optional bool has_favorite_badge = 1;
+	optional uint32 badgeid = 2;
+	optional uint64 communityitemid = 3;
+	optional uint32 item_type = 4;
+	optional uint32 border_color = 5;
+	optional uint32 appid = 6;
+	optional uint32 level = 7;
+}
+
+message CPlayer_SetFavoriteBadge_Response {
+}
+
+message ProfileCustomizationSlot {
+	optional uint32 slot = 1;
+	optional uint32 appid = 2;
+	optional uint64 publishedfileid = 3;
+	optional uint64 item_assetid = 4;
+	optional uint64 item_contextid = 5;
+	optional string notes = 6;
+	optional string title = 7;
+	optional uint32 accountid = 8;
+	optional uint32 badgeid = 9;
+	optional uint32 border_color = 10;
+	optional uint64 item_classid = 11;
+	optional uint64 item_instanceid = 12;
+}
+
+message ProfileCustomization {
+	optional int32 customization_type = 1 [(description) = "enum"];
+	optional bool large = 2;
+	repeated .ProfileCustomizationSlot slots = 3;
+	optional bool active = 4;
+	optional int32 customization_style = 5 [(description) = "enum"];
+}
+
+message ProfileTheme {
+	optional string theme_id = 1;
+	optional string title = 2;
+}
+
+message CPlayer_GetProfileCustomization_Response {
+	repeated .ProfileCustomization customizations = 1;
+	optional uint32 slots_available = 2;
+	optional .ProfileTheme profile_theme = 3;
+}
+
+message CPlayer_GetProfileThemesAvailable_Response {
+	repeated .ProfileTheme profile_themes = 1;
+}
+
+message CPlayer_SetProfileTheme_Response {
 }
 
 message CPlayer_GetFriendsGameplayInfo_Request {
@@ -460,6 +516,7 @@ message CPlayer_GetDurationControl_Response {
 	optional int32 seconds_today = 3;
 	optional bool is_steamchina_account = 4;
 	optional bool is_age_verified = 5;
+	optional uint32 seconds_allowed_today = 6;
 }
 
 message CPlayer_LastPlayedTimes_Notification {
@@ -1182,6 +1239,9 @@ message CAppOverview {
 	optional uint32 review_score_without_bombs = 55;
 	optional uint32 review_percentage_without_bombs = 56;
 	optional string library_id = 57;
+	optional bool vr_only = 58;
+	optional uint32 mastersub_appid = 59;
+	optional string mastersub_includedwith_logo = 60;
 }
 
 message CAppOverview_Change {
@@ -1308,6 +1368,7 @@ message CUserAccount_GetAvailableValveDiscountPromotions_Response_ValveDiscountP
 message CUserAccount_GetAccountLinkStatus_Response {
 	optional uint32 pwid = 1;
 	optional uint32 identity_verification = 2;
+	optional bool performed_age_verification = 3;
 }
 
 message CUserAccount_CancelLicenseForApp_Request {
@@ -1452,9 +1513,32 @@ message CQuest_GetCommunityItemDefinitions_Response_ItemDefinition {
 	optional uint64 broadcast_channel_id = 17;
 	optional string item_movie_webm = 18;
 	optional string item_movie_mp4 = 19;
+	optional string item_movie_webm_small = 20;
+	optional string item_movie_mp4_small = 21;
 }
 
 message CQuest_ActivateProfileModifierItem_Response {
+}
+
+message CSummerSale2020_ClaimItem_Response {
+	optional string item_name = 1;
+	optional string item_title = 2;
+	optional string item_description = 3;
+	optional string item_image_small = 4;
+	optional string item_image_large = 5;
+	optional bool animated = 6;
+	optional uint64 communityitemid = 7;
+}
+
+message CSummerSale2020_CanClaimItem_Response {
+	optional bool can_claim = 1;
+	optional string item_name = 2;
+	optional string item_title = 3;
+	optional string item_description = 4;
+	optional string item_image_small = 5;
+	optional string item_image_large = 6;
+	optional bool animated = 7;
+	optional uint64 communityitemid = 8;
 }
 
 message PublishedFileDetails_PlaytimeStats {
@@ -1637,6 +1721,7 @@ message RecommendationDetails {
 	optional bool refunded = 38;
 	optional int32 account_score_spend = 39;
 	repeated .CUserReviews_Recommendation_LoyaltyReaction reactions = 40;
+	optional string ipaddress = 41;
 }
 
 message CUserReviews_GetIndividualRecommendations_Request {
@@ -1650,6 +1735,29 @@ message CUserReviews_GetIndividualRecommendations_Request_RecommendationRequest 
 
 message CUserReviews_GetIndividualRecommendations_Response {
 	repeated .RecommendationDetails recommendations = 1;
+}
+
+message CClientMetrics_ClientBootstrap_RequestInfo {
+	optional string original_hostname = 1;
+	optional string actual_hostname = 2;
+	optional string path = 3;
+	optional string base_name = 4;
+	optional bool success = 5;
+	optional uint32 status_code = 6;
+	optional string address_of_request_url = 7;
+	optional uint32 response_time_ms = 8;
+	optional uint64 bytes_received = 9;
+	optional uint32 num_retries = 10;
+}
+
+message CClientMetrics_ClientBootstrap_Summary {
+	optional uint32 launcher_type = 1;
+	optional uint32 steam_realm = 2;
+	optional string beta_name = 3;
+	optional bool download_completed = 4;
+	optional uint32 total_time_ms = 6;
+	repeated .CClientMetrics_ClientBootstrap_RequestInfo manifest_requests = 7;
+	repeated .CClientMetrics_ClientBootstrap_RequestInfo package_requests = 8;
 }
 
 message CClientMetrics_AppInterfaceCreation {
@@ -1774,6 +1882,7 @@ message CCommunity_PostCommentToThread_Request {
 	optional string text = 6;
 	optional fixed64 gidparentcomment = 7;
 	optional bool suppress_notifications = 8;
+	optional bool is_report = 9;
 }
 
 message CCommunity_PostCommentToThread_Response {
@@ -2016,6 +2125,11 @@ service Player {
 	rpc SetEquippedProfileItemFlags (.NotImplemented) returns (.CPlayer_SetEquippedProfileItemFlags_Response);
 	rpc GetEmoticonList (.NotImplemented) returns (.CPlayer_GetEmoticonList_Response);
 	rpc GetAchievementsProgress (.CPlayer_GetAchievementsProgress_Request) returns (.CPlayer_GetAchievementsProgress_Response);
+	rpc GetFavoriteBadge (.NotImplemented) returns (.CPlayer_GetFavoriteBadge_Response);
+	rpc SetFavoriteBadge (.NotImplemented) returns (.CPlayer_SetFavoriteBadge_Response);
+	rpc GetProfileCustomization (.NotImplemented) returns (.CPlayer_GetProfileCustomization_Response);
+	rpc GetProfileThemesAvailable (.NotImplemented) returns (.CPlayer_GetProfileThemesAvailable_Response);
+	rpc SetProfileTheme (.NotImplemented) returns (.CPlayer_SetProfileTheme_Response);
 	rpc PostStatusToFriends (.CPlayer_PostStatusToFriends_Request) returns (.CPlayer_PostStatusToFriends_Response);
 	rpc GetPostedStatus (.CPlayer_GetPostedStatus_Request) returns (.CPlayer_GetPostedStatus_Response);
 	rpc DeletePostedStatus (.CPlayer_DeletePostedStatus_Request) returns (.CPlayer_DeletePostedStatus_Response);
@@ -2169,6 +2283,11 @@ service Quest {
 	rpc ActivateProfileModifierItem (.NotImplemented) returns (.CQuest_ActivateProfileModifierItem_Response);
 }
 
+service SummerSale2020 {
+	rpc ClaimItem (.NotImplemented) returns (.CSummerSale2020_ClaimItem_Response);
+	rpc CanClaimItem (.NotImplemented) returns (.CSummerSale2020_CanClaimItem_Response);
+}
+
 service PublishedFile {
 	rpc AreFilesInSubscriptionList (.CPublishedFile_AreFilesInSubscriptionList_Request) returns (.CPublishedFile_AreFilesInSubscriptionList_Response);
 	rpc AddAppRelationship (.NotImplemented) returns (.CPublishedFile_AddAppRelationship_Response);
@@ -2199,6 +2318,7 @@ service ClientMetrics {
 	rpc ClientIPv6ConnectivityReport (.NotImplemented) returns (.NoResponse);
 	rpc SteamPipeWorkStatsReport (.NotImplemented) returns (.NoResponse);
 	rpc ReportClientError (.CClientMetrics_ReportClientError_Notification) returns (.NoResponse);
+	rpc ClientBootstrapReport (.NotImplemented) returns (.NoResponse);
 }
 
 service Community {
