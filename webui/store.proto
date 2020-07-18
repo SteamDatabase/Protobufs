@@ -186,29 +186,6 @@ message CCommunity_GetUserPartnerEventViewStatus_Response_PartnerEvent {
 	optional uint32 clan_account_id = 4;
 }
 
-message CClientMetrics_ClientBootstrap_RequestInfo {
-	optional string original_hostname = 1;
-	optional string actual_hostname = 2;
-	optional string path = 3;
-	optional string base_name = 4;
-	optional bool success = 5;
-	optional uint32 status_code = 6;
-	optional string address_of_request_url = 7;
-	optional uint32 response_time_ms = 8;
-	optional uint64 bytes_received = 9;
-	optional uint32 num_retries = 10;
-}
-
-message CClientMetrics_ClientBootstrap_Summary {
-	optional uint32 launcher_type = 1;
-	optional uint32 steam_realm = 2;
-	optional string beta_name = 3;
-	optional bool download_completed = 4;
-	optional uint32 total_time_ms = 6;
-	repeated .CClientMetrics_ClientBootstrap_RequestInfo manifest_requests = 7;
-	repeated .CClientMetrics_ClientBootstrap_RequestInfo package_requests = 8;
-}
-
 message NotImplemented {
 }
 
@@ -232,9 +209,5 @@ service Community {
 	rpc ClearUserPartnerEventsAppPriorities (.NotImplemented) returns (.CCommunity_ClearUserPartnerEventsAppPriorities_Response);
 	rpc GetUserPartnerEventsAppPriorities (.NotImplemented) returns (.CCommunity_GetUserPartnerEventsAppPriorities_Response);
 	rpc ClearSinglePartnerEventsAppPriority (.NotImplemented) returns (.CCommunity_ClearSinglePartnerEventsAppPriority_Response);
-}
-
-service ClientMetrics {
-	rpc ClientBootstrapReport (.NotImplemented) returns (.NoResponse);
 }
 
