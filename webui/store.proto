@@ -60,6 +60,9 @@ message CCommunity_GetCommentThread_Response {
 	optional uint32 answer_actor = 13;
 	optional int32 answer_actor_rank = 14;
 	optional bool can_post = 15;
+	optional uint32 comment_thread_type = 16;
+	optional fixed64 gidfeature = 17;
+	optional fixed64 gidfeature2 = 18;
 }
 
 message CCommunity_PostCommentToThread_Response {

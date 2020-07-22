@@ -61,6 +61,9 @@ message CCommunity_GetCommentThread_Response {
 	optional uint32 answer_actor = 13;
 	optional int32 answer_actor_rank = 14;
 	optional bool can_post = 15;
+	optional uint32 comment_thread_type = 16;
+	optional fixed64 gidfeature = 17;
+	optional fixed64 gidfeature2 = 18;
 }
 
 message CCommunity_PostCommentToThread_Response {
@@ -185,60 +188,6 @@ message CCommunity_GetUserPartnerEventViewStatus_Response_PartnerEvent {
 	optional uint32 last_shown_time = 2;
 	optional uint32 last_read_time = 3;
 	optional uint32 clan_account_id = 4;
-}
-
-message CPlayer_GetFavoriteBadge_Response {
-	optional bool has_favorite_badge = 1;
-	optional uint32 badgeid = 2;
-	optional uint64 communityitemid = 3;
-	optional uint32 item_type = 4;
-	optional uint32 border_color = 5;
-	optional uint32 appid = 6;
-	optional uint32 level = 7;
-}
-
-message CPlayer_SetFavoriteBadge_Response {
-}
-
-message ProfileCustomizationSlot {
-	optional uint32 slot = 1;
-	optional uint32 appid = 2;
-	optional uint64 publishedfileid = 3;
-	optional uint64 item_assetid = 4;
-	optional uint64 item_contextid = 5;
-	optional string notes = 6;
-	optional string title = 7;
-	optional uint32 accountid = 8;
-	optional uint32 badgeid = 9;
-	optional uint32 border_color = 10;
-	optional uint64 item_classid = 11;
-	optional uint64 item_instanceid = 12;
-}
-
-message ProfileCustomization {
-	optional int32 customization_type = 1 [(description) = "enum"];
-	optional bool large = 2;
-	repeated .ProfileCustomizationSlot slots = 3;
-	optional bool active = 4;
-	optional int32 customization_style = 5 [(description) = "enum"];
-}
-
-message ProfileTheme {
-	optional string theme_id = 1;
-	optional string title = 2;
-}
-
-message CPlayer_GetProfileCustomization_Response {
-	repeated .ProfileCustomization customizations = 1;
-	optional uint32 slots_available = 2;
-	optional .ProfileTheme profile_theme = 3;
-}
-
-message CPlayer_GetProfileThemesAvailable_Response {
-	repeated .ProfileTheme profile_themes = 1;
-}
-
-message CPlayer_SetProfileTheme_Response {
 }
 
 message CWebRTCClient_InitiateWebRTCConnection_Request {
@@ -755,29 +704,6 @@ message CClan_RespondToClanInvite_Request {
 message CClan_RespondToClanInvite_Response {
 }
 
-message CClientMetrics_ClientBootstrap_RequestInfo {
-	optional string original_hostname = 1;
-	optional string actual_hostname = 2;
-	optional string path = 3;
-	optional string base_name = 4;
-	optional bool success = 5;
-	optional uint32 status_code = 6;
-	optional string address_of_request_url = 7;
-	optional uint32 response_time_ms = 8;
-	optional uint64 bytes_received = 9;
-	optional uint32 num_retries = 10;
-}
-
-message CClientMetrics_ClientBootstrap_Summary {
-	optional uint32 launcher_type = 1;
-	optional uint32 steam_realm = 2;
-	optional string beta_name = 3;
-	optional bool download_completed = 4;
-	optional uint32 total_time_ms = 6;
-	repeated .CClientMetrics_ClientBootstrap_RequestInfo manifest_requests = 7;
-	repeated .CClientMetrics_ClientBootstrap_RequestInfo package_requests = 8;
-}
-
 message CProductImpressionsFromClient_Notification {
 	repeated .CProductImpressionsFromClient_Notification_Impression impressions = 1;
 }
@@ -811,14 +737,6 @@ service Community {
 	rpc ClearUserPartnerEventsAppPriorities (.NotImplemented) returns (.CCommunity_ClearUserPartnerEventsAppPriorities_Response);
 	rpc GetUserPartnerEventsAppPriorities (.NotImplemented) returns (.CCommunity_GetUserPartnerEventsAppPriorities_Response);
 	rpc ClearSinglePartnerEventsAppPriority (.NotImplemented) returns (.CCommunity_ClearSinglePartnerEventsAppPriority_Response);
-}
-
-service Player {
-	rpc GetFavoriteBadge (.NotImplemented) returns (.CPlayer_GetFavoriteBadge_Response);
-	rpc SetFavoriteBadge (.NotImplemented) returns (.CPlayer_SetFavoriteBadge_Response);
-	rpc GetProfileCustomization (.NotImplemented) returns (.CPlayer_GetProfileCustomization_Response);
-	rpc GetProfileThemesAvailable (.NotImplemented) returns (.CPlayer_GetProfileThemesAvailable_Response);
-	rpc SetProfileTheme (.NotImplemented) returns (.CPlayer_SetProfileTheme_Response);
 }
 
 service WebRTCClient {
@@ -899,10 +817,6 @@ service FriendsListClient {
 
 service Clan {
 	rpc RespondToClanInvite (.CClan_RespondToClanInvite_Request) returns (.CClan_RespondToClanInvite_Response);
-}
-
-service ClientMetrics {
-	rpc ClientBootstrapReport (.NotImplemented) returns (.NoResponse);
 }
 
 service ExperimentService {
