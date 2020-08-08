@@ -20,15 +20,6 @@ message CLoyaltyRewards_GetPointsForSpend_Response {
 	optional int64 points = 1;
 }
 
-message CLoyaltyRewards_RedeemPoints_Request {
-	optional uint32 defid = 1;
-}
-
-message CLoyaltyRewards_RedeemPointsForBadgeLevel_Request {
-	optional uint32 defid = 1;
-	optional int32 num_levels = 2 [default = 1];
-}
-
 message CLoyaltyRewards_RedeemPoints_Response {
 	optional uint64 communityitemid = 1;
 	repeated uint64 bundle_community_item_ids = 2;
@@ -58,10 +49,6 @@ message CLoyaltyRewards_GetReactionConfig_Request {
 message CLoyaltyRewards_GetReactionConfig_Response {
 	optional uint32 points_cost = 1;
 	optional uint32 points_transferred = 2;
-}
-
-message CLoyaltyRewards_GetEligibleApps_Request {
-	optional bool include_event_apps = 1;
 }
 
 message CLoyaltyRewards_GetEligibleApps_Response {
@@ -122,9 +109,6 @@ message LoyaltyRewardPurchaseBonus {
 	optional string internal_description = 7;
 }
 
-message CLoyaltyRewards_GetActivePurchaseBonuses_Request {
-}
-
 message CLoyaltyRewards_GetActivePurchaseBonuses_Response {
 	repeated .LoyaltyRewardPurchaseBonus bonuses = 1;
 }
@@ -151,10 +135,6 @@ message CLoyaltyRewards_QueryRewardItems_Response {
 	optional string next_cursor = 4;
 }
 
-message CLoyaltyRewards_BatchedQueryRewardItems_Request {
-	repeated .CLoyaltyRewards_QueryRewardItems_Request requests = 1;
-}
-
 message CLoyaltyRewards_BatchedQueryRewardItems_Response {
 	repeated .CLoyaltyRewards_BatchedQueryRewardItems_Response_Response responses = 1;
 }
@@ -170,15 +150,15 @@ message NotImplemented {
 service LoyaltyRewards {
 	rpc GetPointsForSpend (.NotImplemented) returns (.CLoyaltyRewards_GetPointsForSpend_Response);
 	rpc GetSummary (.CLoyaltyRewards_GetSummary_Request) returns (.CLoyaltyRewards_GetSummary_Response);
-	rpc RedeemPoints (.CLoyaltyRewards_RedeemPoints_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
-	rpc RedeemPointsForBadgeLevel (.CLoyaltyRewards_RedeemPointsForBadgeLevel_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
-	rpc RedeemPointsToUpgradeItem (.CLoyaltyRewards_RedeemPoints_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
+	rpc RedeemPoints (.NotImplemented) returns (.CLoyaltyRewards_RedeemPoints_Response);
+	rpc RedeemPointsForBadgeLevel (.NotImplemented) returns (.CLoyaltyRewards_RedeemPoints_Response);
+	rpc RedeemPointsToUpgradeItem (.NotImplemented) returns (.CLoyaltyRewards_RedeemPoints_Response);
 	rpc AddReaction (.CLoyaltyRewards_AddReaction_Request) returns (.CLoyaltyRewards_AddReaction_Response);
 	rpc GetReactions (.CLoyaltyRewards_GetReactions_Request) returns (.CLoyaltyRewards_GetReactions_Response);
 	rpc GetReactionConfig (.CLoyaltyRewards_GetReactionConfig_Request) returns (.CLoyaltyRewards_GetReactionConfig_Response);
-	rpc GetEligibleApps (.CLoyaltyRewards_GetEligibleApps_Request) returns (.CLoyaltyRewards_GetEligibleApps_Response);
-	rpc GetActivePurchaseBonuses (.CLoyaltyRewards_GetActivePurchaseBonuses_Request) returns (.CLoyaltyRewards_GetActivePurchaseBonuses_Response);
+	rpc GetEligibleApps (.NotImplemented) returns (.CLoyaltyRewards_GetEligibleApps_Response);
+	rpc GetActivePurchaseBonuses (.NotImplemented) returns (.CLoyaltyRewards_GetActivePurchaseBonuses_Response);
 	rpc QueryRewardItems (.CLoyaltyRewards_QueryRewardItems_Request) returns (.CLoyaltyRewards_QueryRewardItems_Response);
-	rpc BatchedQueryRewardItems (.CLoyaltyRewards_BatchedQueryRewardItems_Request) returns (.CLoyaltyRewards_BatchedQueryRewardItems_Response);
+	rpc BatchedQueryRewardItems (.NotImplemented) returns (.CLoyaltyRewards_BatchedQueryRewardItems_Response);
 }
 

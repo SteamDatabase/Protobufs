@@ -13,6 +13,16 @@ message CHelpRequestLogs_UploadUserApplicationLog_Response {
 	optional uint64 id = 1;
 }
 
+message CMsgClientAppMinutesPlayedData {
+	repeated .CMsgClientAppMinutesPlayedData_AppMinutesPlayedData minutes_played = 1;
+}
+
+message CMsgClientAppMinutesPlayedData_AppMinutesPlayedData {
+	optional uint32 app_id = 1;
+	optional int32 forever = 2;
+	optional int32 last_two_weeks = 3;
+}
+
 message CCommunity_GetApps_Request {
 	repeated int32 appids = 1;
 	optional uint32 language = 2;
