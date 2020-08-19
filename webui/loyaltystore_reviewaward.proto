@@ -72,6 +72,7 @@ message CLoyaltyRewards_GetEligibleApps_Response_EligibleApp {
 	optional uint32 appid = 1;
 	optional bool has_items_anyone_can_purchase = 2;
 	optional bool event_app = 3;
+	optional string hero_carousel_image = 4;
 }
 
 message LoyaltyRewardDefinition {
@@ -142,6 +143,8 @@ message CLoyaltyRewards_QueryRewardItems_Request {
 	repeated int32 excluded_community_item_classes = 10;
 	repeated uint32 definitionids = 11;
 	repeated int32 filters = 12 [(description) = "enum"];
+	repeated string filter_match_all_category_tags = 13;
+	repeated string filter_match_any_category_tags = 14;
 }
 
 message CLoyaltyRewards_QueryRewardItems_Response {

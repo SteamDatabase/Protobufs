@@ -59,6 +59,7 @@ message CLoyaltyRewards_GetEligibleApps_Response_EligibleApp {
 	optional uint32 appid = 1;
 	optional bool has_items_anyone_can_purchase = 2;
 	optional bool event_app = 3;
+	optional string hero_carousel_image = 4;
 }
 
 message LoyaltyRewardDefinition {
