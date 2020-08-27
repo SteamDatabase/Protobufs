@@ -111,20 +111,20 @@ enum EUnitKeyword {
 	EUnitKeyword_Summoner = 39;
 	EUnitKeyword_SpiritBrother = 40;
 	EUnitKeyword_Meepo = 41;
-	EUnitKeyword_Monk = 42;
 	EUnitKeyword_Brawler = 43;
-	EUnitKeyword_Invoker = 44;
-	EUnitKeyword_Sorceror = 45;
 	EUnitKeyword_Guardian = 46;
-	EUnitKeyword_Commander = 47;
-	EUnitKeyword_Faerie = 48;
-	EUnitKeyword_Necromancer = 49;
 	EUnitKeyword_Champion = 50;
 	EUnitKeyword_Wisp = 51;
 	EUnitKeyword_Brutal = 52;
 	EUnitKeyword_Healer = 53;
 	EUnitKeyword_Vigilant = 54;
 	EUnitKeyword_Void = 55;
+	EUnitKeyword_Fallen = 42;
+	EUnitKeyword_Wild = 44;
+	EUnitKeyword_Swordsman = 45;
+	EUnitKeyword_Rogue = 47;
+	EUnitKeyword_Poisoner = 48;
+	EUnitKeyword_Magus = 49;
 }
 
 enum ESynergyType {
@@ -441,6 +441,7 @@ message CMsgPlayerCombatResult {
 	optional uint32 gold_from_items = 14;
 	optional uint32 gold_from_round_bonus = 15;
 	optional uint32 gold_from_victory = 16;
+	optional bool free_reroll = 17;
 
 	oneof opponent {
 		uint32 opponent_player_slot = 2;

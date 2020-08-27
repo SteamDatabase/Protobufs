@@ -46,6 +46,7 @@ enum EDACGameMode {
 	k_EDACGameMode_Puzzle = 6;
 	k_EDACGameMode_Tutorial = 7;
 	k_EDACGameMode_Streetfight = 8;
+	k_EDACGameMode_Classic = 11;
 }
 
 enum EDACLobbyTeam {
