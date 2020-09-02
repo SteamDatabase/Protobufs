@@ -49,6 +49,15 @@ message CLoyaltyRewards_GetReactionConfig_Request {
 message CLoyaltyRewards_GetReactionConfig_Response {
 	optional uint32 points_cost = 1;
 	optional uint32 points_transferred = 2;
+	repeated .CLoyaltyRewards_GetReactionConfig_Response_ReactionConfig reactions = 3;
+}
+
+message CLoyaltyRewards_GetReactionConfig_Response_ReactionConfig {
+	optional int32 reactionid = 1 [(description) = "enum"];
+	optional uint32 points_cost = 2;
+	optional uint32 points_transferred = 3;
+	repeated int32 valid_target_types = 4 [(description) = "enum"];
+	repeated uint32 valid_ugc_types = 5;
 }
 
 message CLoyaltyRewards_GetEligibleApps_Response {
