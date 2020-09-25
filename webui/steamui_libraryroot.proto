@@ -470,6 +470,7 @@ message CPlayer_CommunityPreferences {
 	optional bool parenthesize_nicknames = 4 [default = false];
 	optional int32 text_filter_setting = 5 [(description) = "enum"];
 	optional bool text_filter_ignore_friends = 6;
+	optional uint32 text_filter_words_revision = 7;
 	optional uint32 timestamp_updated = 3;
 }
 
@@ -486,6 +487,7 @@ message CPlayer_SetCommunityPreferences_Response {
 message CPlayer_TextFilterWords {
 	repeated string text_filter_custom_banned_words = 1;
 	repeated string text_filter_custom_clean_words = 2;
+	optional uint32 text_filter_words_revision = 3;
 }
 
 message CPlayer_GetTextFilterWords_Response {
