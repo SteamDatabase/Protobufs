@@ -2,6 +2,39 @@ import "steammessages_unified_base.steamclient.proto";
 import "steammessages_clientserver.proto";
 import "steammessages_base.proto";
 
+message CVideo_ClientGetVideoURL_Response {
+	optional uint64 video_id = 1;
+	optional string video_url = 2;
+}
+
+message CVideo_UnlockedH264_Notification {
+	optional bytes encryption_key = 1;
+}
+
+message CFovasVideo_ClientGetOPFSettings_Response {
+	optional uint32 app_id = 1;
+	optional string opf_settings = 2;
+}
+
+message VideoBookmark {
+	optional uint32 app_id = 1;
+	optional uint32 playback_position_in_seconds = 2;
+	optional uint64 video_track_id = 3;
+	optional uint64 audio_track_id = 4;
+	optional uint64 timedtext_track_id = 5;
+	optional uint32 last_modified = 6;
+	optional bool hide_from_watch_history = 7 [default = false];
+	optional bool hide_from_library = 8 [default = false];
+}
+
+message CVideo_SetVideoBookmark_Notification {
+	repeated .VideoBookmark bookmarks = 1;
+}
+
+message CVideo_GetVideoBookmarks_Response {
+	repeated .VideoBookmark bookmarks = 1;
+}
+
 message CMsgClientPersonaState_Friend_ClanData {
 	optional uint32 ogg_app_id = 1;
 	optional uint64 chat_group_id = 2;
@@ -934,7 +967,6 @@ message CQuest_GetCommunityInventory_Response {
 
 message CQuest_GetCommunityItemDefinitions_Request {
 	optional uint32 appid = 1;
-	optional bool work_in_progress = 2;
 	optional uint32 item_type = 3;
 	optional string language = 4;
 	optional uint64 broadcast_channel_id = 5;
@@ -970,60 +1002,6 @@ message CQuest_GetCommunityItemDefinitions_Response_ItemDefinition {
 }
 
 message CQuest_ActivateProfileModifierItem_Response {
-}
-
-message CAuction_Bid {
-	optional uint32 accountid = 1;
-	optional uint64 auctiondescriptionid = 2;
-	optional int32 state = 3 [(description) = "enum"];
-	optional uint32 time_created = 4;
-	optional uint32 time_updated = 5;
-	optional int64 amount_bid = 6;
-	optional int64 amount_paid = 7;
-	optional int64 auctionbidid = 8;
-}
-
-message CAuction_Item {
-	optional uint64 auctiondescriptionid = 1;
-	optional uint32 time_start = 2;
-	optional uint32 time_end = 3;
-	optional uint32 time_next_process = 4;
-	optional int64 amount_total = 5;
-	optional int64 amount_remaining = 6;
-	optional int64 highest_amount = 7;
-	optional uint32 highest_bidder_accountid = 8;
-	optional uint32 community_item_appid = 9;
-	optional uint32 community_item_type = 10;
-	optional uint32 store_appid = 11;
-	repeated uint32 store_packageids = 12;
-	optional int64 reserve_price = 13;
-	optional bool valve_purchase = 14;
-}
-
-message CAuction_PlaceBid_Response {
-}
-
-message CAuction_CancelBid_Response {
-	optional int64 amount_returned = 1;
-}
-
-message CAuction_GetBidsForUser_Response {
-	repeated .CAuction_Bid bids = 1;
-}
-
-message CAuction_GetBidsForItem_Response {
-	optional .CAuction_Item item = 1;
-	optional int32 count_total = 2;
-	optional int32 current_user_position = 3;
-	repeated .CAuction_Bid winning_bids = 4;
-}
-
-message CAuction_GetUserBidForItem_Response {
-	optional .CAuction_Bid bid = 1;
-}
-
-message CAuction_GetItemDetails_Response {
-	optional .CAuction_Item item = 1;
 }
 
 message CSummerSale2020_ClaimItem_Response {
@@ -1636,6 +1614,223 @@ message CClanMatchEventByRange {
 	repeated .CClanEventUserNewsTuple events = 4;
 }
 
+message CClientMetrics_ReportClientError_Notification {
+	optional string product = 1;
+	optional string version = 2;
+	repeated .CClientMetrics_ReportClientError_Notification_Error errors = 3;
+}
+
+message CClientMetrics_ReportClientError_Notification_Error {
+	optional string identifier = 1;
+	optional string message = 2;
+	optional uint32 count = 3;
+}
+
+message StoreGameRating {
+	optional string type = 1;
+	optional string rating = 2;
+	repeated string descriptors = 3;
+	optional string interactive_elements = 4;
+	optional int32 required_age = 10;
+	optional bool use_age_gate = 11;
+	optional string image_url = 20;
+	optional string image_target = 21;
+}
+
+message StoreItem {
+	optional int32 item_type = 1 [(description) = "enum"];
+	optional uint32 id = 2;
+	optional uint32 success = 3;
+	optional bool visible = 4;
+	optional bool unvailable_for_country_restriction = 5;
+	optional string name = 6;
+	optional string store_url_path = 7;
+	optional string short_description = 8;
+	optional uint32 appid = 9;
+	optional int32 type = 10 [(description) = "enum"];
+	repeated int32 included_types = 11 [(description) = "enum"];
+	optional bool is_free = 12;
+	optional bool is_early_access = 13;
+	optional .StoreItem_RelatedItems related_items = 15;
+	repeated int32 content_descriptorids = 20 [(description) = "enum"];
+	repeated uint32 tagids = 21;
+	optional .StoreItem_Categories categories = 22;
+	optional .StoreItem_Reviews reviews = 23;
+	optional .StoreItem_Assets assets = 30;
+	optional .StoreItem_ReleaseInfo release = 31;
+	optional .StoreItem_Platforms platforms = 32;
+	optional .StoreGameRating game_rating = 33;
+	optional .StoreItem_PurchaseOption best_purchase_option = 40;
+	repeated .StoreItem_PurchaseOption purchase_options = 41;
+	repeated .StoreItem_PurchaseOption accessories = 42;
+	optional .StoreItem_Screenshots screenshots = 50;
+	optional .StoreItem_Trailers trailers = 51;
+}
+
+message StoreItem_RelatedItems {
+	optional uint32 parent_appid = 1;
+}
+
+message StoreItem_Categories {
+	repeated uint32 supported_player_categoryids = 2;
+	repeated uint32 feature_categoryids = 3;
+	repeated uint32 controller_categoryids = 4;
+}
+
+message StoreItem_Reviews {
+	optional .StoreItem_Reviews_StoreReviewSummary summary_filtered = 1;
+	optional .StoreItem_Reviews_StoreReviewSummary summary_unfiltered = 2;
+}
+
+message StoreItem_Reviews_StoreReviewSummary {
+	optional uint32 review_count = 1;
+	optional int32 percent_positive = 2;
+	optional int32 review_score = 3 [(description) = "enum"];
+	optional string review_score_label = 4;
+}
+
+message StoreItem_Assets {
+	optional string asset_url_format = 1;
+	optional string main_capsule = 2;
+	optional string small_capsule = 3;
+	optional string header = 4;
+	optional string package_header = 5;
+	optional string page_background = 6;
+	optional string hero_capsule = 7;
+	optional string hero_capsule_2x = 8;
+}
+
+message StoreItem_ReleaseInfo {
+	optional uint32 steam_release_date = 1;
+	optional uint32 original_release_date = 2;
+	optional uint32 original_steam_release_date = 3;
+	optional bool is_coming_soon = 4;
+	optional bool is_preload = 5;
+	optional string custom_release_date_message = 6;
+	optional bool is_abridged_release_date = 7;
+	optional bool is_early_access = 10;
+	optional uint32 mac_release_date = 20;
+	optional uint32 linux_release_date = 21;
+}
+
+message StoreItem_Platforms {
+	optional bool windows = 1;
+	optional bool mac = 2;
+	optional bool linux = 3;
+	optional .StoreItem_Platforms_VRSupport vr_support = 10;
+}
+
+message StoreItem_Platforms_VRSupport {
+	optional bool vrhmd = 1;
+	optional bool vrhmd_only = 2;
+	optional bool htc_vive = 40;
+	optional bool oculus_rift = 41;
+	optional bool windows_mr = 42;
+	optional bool valve_index = 43;
+}
+
+message StoreItem_PurchaseOption {
+	optional int32 packageid = 1;
+	optional int32 bundleid = 2;
+	optional string purchase_option_name = 3;
+	optional int64 final_price_in_cents = 5;
+	optional int64 original_price_in_cents = 6;
+	optional int64 user_final_price_in_cents = 7;
+	optional int32 discount_pct = 10;
+	optional int32 user_discount_pct = 11;
+	optional int32 bundle_discount_pct = 12;
+	repeated .StoreItem_PurchaseOption_Discount active_discounts = 20;
+	repeated .StoreItem_PurchaseOption_Discount user_active_discounts = 21;
+	repeated .StoreItem_PurchaseOption_Discount inactive_discounts = 22;
+	optional bool user_can_purchase = 30;
+	optional bool user_can_purchase_as_gift = 31;
+}
+
+message StoreItem_PurchaseOption_Discount {
+	optional int64 discount_amount = 1;
+	optional string discount_description = 2;
+	optional uint32 discount_end_date = 3;
+}
+
+message StoreItem_Screenshots {
+	repeated .StoreItem_Screenshots_Screenshot all_ages_screenshots = 2;
+	repeated .StoreItem_Screenshots_Screenshot mature_content_screenshots = 3;
+}
+
+message StoreItem_Screenshots_Screenshot {
+	optional string filename = 1;
+	optional int32 ordinal = 2;
+}
+
+message StoreItem_Trailers {
+	repeated .StoreItem_Trailers_Trailer highlights = 1;
+	repeated .StoreItem_Trailers_Trailer other_trailers = 2;
+}
+
+message StoreItem_Trailers_VideoSource {
+	optional string filename = 1;
+	optional string type = 2;
+}
+
+message StoreItem_Trailers_Trailer {
+	optional string trailer_name = 1;
+	optional string trailer_url_format = 2;
+	repeated .StoreItem_Trailers_VideoSource trailer_480p = 3;
+	repeated .StoreItem_Trailers_VideoSource trailer_max = 4;
+	repeated .StoreItem_Trailers_VideoSource microtrailer = 5;
+	optional string screenshot_medium = 10;
+	optional string screenshot_full = 11;
+	optional int32 trailer_base_id = 12;
+}
+
+message StoreBrowseItemDataRequest {
+	optional bool include_assets = 1 [default = true];
+	optional bool include_release = 2 [default = true];
+	optional bool include_platforms = 3 [default = true];
+	optional bool include_all_purchase_options = 4;
+	optional bool include_screenshots = 5;
+	optional bool include_trailers = 6;
+	optional bool include_ratings = 7;
+	optional int32 include_tag_count = 8 [default = 0];
+	optional bool include_reviews = 9 [default = true];
+}
+
+message StoreBrowseContext {
+	optional string language = 1;
+	optional int32 elanguage = 2;
+	optional string country_code = 3;
+	optional int32 steam_realm = 4;
+}
+
+message StoreItemID {
+	optional uint32 appid = 1;
+	optional uint32 packageid = 2;
+	optional uint32 bundleid = 3;
+}
+
+message CStoreBrowse_GetItems_Request {
+	repeated .StoreItemID ids = 1;
+	optional .StoreBrowseContext context = 2;
+	optional .StoreBrowseItemDataRequest data_request = 3;
+}
+
+message CStoreBrowse_GetItems_Response {
+	repeated .StoreItem store_items = 1;
+}
+
+message CStoreBrowse_GetStoreCategories_Response {
+	repeated .CStoreBrowse_GetStoreCategories_Response_Category categories = 1;
+}
+
+message CStoreBrowse_GetStoreCategories_Response_Category {
+	optional uint32 categoryid = 1;
+	optional int32 type = 2 [(description) = "enum"];
+	optional string internal_name = 3;
+	optional string display_name = 4;
+	optional string image_url = 5;
+	optional bool show_in_search = 6;
+}
+
 message CPlayer_GetLastPlayedTimes_Response {
 	repeated .CPlayer_GetLastPlayedTimes_Response_Game games = 1;
 }
@@ -2095,19 +2290,17 @@ message CPlayer_PrivacySettingsChanged_Notification {
 	optional .CPrivacySettings privacy_settings = 1;
 }
 
-message CClientMetrics_ReportClientError_Notification {
-	optional string product = 1;
-	optional string version = 2;
-	repeated .CClientMetrics_ReportClientError_Notification_Error errors = 3;
-}
-
-message CClientMetrics_ReportClientError_Notification_Error {
-	optional string identifier = 1;
-	optional string message = 2;
-	optional uint32 count = 3;
-}
-
 message NotImplemented {
+}
+
+service Video {
+	rpc ClientGetVideoURL (.NotImplemented) returns (.CVideo_ClientGetVideoURL_Response);
+	rpc SetVideoBookmark (.CVideo_SetVideoBookmark_Notification) returns (.NoResponse);
+	rpc GetVideoBookmarks (.NotImplemented) returns (.CVideo_GetVideoBookmarks_Response);
+}
+
+service FovasVideo {
+	rpc ClientGetOPFSettings (.NotImplemented) returns (.CFovasVideo_ClientGetOPFSettings_Response);
 }
 
 service FriendsList {
@@ -2251,15 +2444,6 @@ service Quest {
 	rpc ActivateProfileModifierItem (.NotImplemented) returns (.CQuest_ActivateProfileModifierItem_Response);
 }
 
-service Auction {
-	rpc PlaceBid (.NotImplemented) returns (.CAuction_PlaceBid_Response);
-	rpc CancelBid (.NotImplemented) returns (.CAuction_CancelBid_Response);
-	rpc GetBidsForUser (.NotImplemented) returns (.CAuction_GetBidsForUser_Response);
-	rpc GetBidsForItem (.NotImplemented) returns (.CAuction_GetBidsForItem_Response);
-	rpc GetUserBidForItem (.NotImplemented) returns (.CAuction_GetUserBidForItem_Response);
-	rpc GetItemDetails (.NotImplemented) returns (.CAuction_GetItemDetails_Response);
-}
-
 service SummerSale2020 {
 	rpc ClaimItem (.NotImplemented) returns (.CSummerSale2020_ClaimItem_Response);
 	rpc CanClaimItem (.NotImplemented) returns (.CSummerSale2020_CanClaimItem_Response);
@@ -2327,6 +2511,19 @@ service Community {
 	rpc ClearSinglePartnerEventsAppPriority (.CCommunity_ClearSinglePartnerEventsAppPriority_Request) returns (.CCommunity_ClearSinglePartnerEventsAppPriority_Response);
 }
 
+service ClientMetrics {
+	rpc ClientAppInterfaceStatsReport (.NotImplemented) returns (.NoResponse);
+	rpc ClientIPv6ConnectivityReport (.NotImplemented) returns (.NoResponse);
+	rpc SteamPipeWorkStatsReport (.NotImplemented) returns (.NoResponse);
+	rpc ReportClientError (.CClientMetrics_ReportClientError_Notification) returns (.NoResponse);
+	rpc ClientBootstrapReport (.NotImplemented) returns (.NoResponse);
+}
+
+service StoreBrowse {
+	rpc GetItems (.CStoreBrowse_GetItems_Request) returns (.CStoreBrowse_GetItems_Response);
+	rpc GetStoreCategories (.NotImplemented) returns (.CStoreBrowse_GetStoreCategories_Response);
+}
+
 service Player {
 	rpc GetMutualFriendsForIncomingInvites (.NotImplemented) returns (.CPlayer_GetMutualFriendsForIncomingInvites_Response);
 	rpc GetOwnedGames (.NotImplemented) returns (.CPlayer_GetOwnedGames_Response);
@@ -2381,13 +2578,5 @@ service PlayerClient {
 	rpc NotifyTextFilterWordsChanged (.CPlayer_TextFilterWordsChanged_Notification) returns (.NoResponse);
 	rpc NotifyPerFriendPreferencesChanged (.CPlayer_PerFriendPreferencesChanged_Notification) returns (.NoResponse);
 	rpc NotifyPrivacyPrivacySettingsChanged (.CPlayer_PrivacySettingsChanged_Notification) returns (.NoResponse);
-}
-
-service ClientMetrics {
-	rpc ClientAppInterfaceStatsReport (.NotImplemented) returns (.NoResponse);
-	rpc ClientIPv6ConnectivityReport (.NotImplemented) returns (.NoResponse);
-	rpc SteamPipeWorkStatsReport (.NotImplemented) returns (.NoResponse);
-	rpc ReportClientError (.CClientMetrics_ReportClientError_Notification) returns (.NoResponse);
-	rpc ClientBootstrapReport (.NotImplemented) returns (.NoResponse);
 }
 
