@@ -185,6 +185,20 @@ message CCommunity_GetUserPartnerEventViewStatus_Response_PartnerEvent {
 	optional uint32 clan_account_id = 4;
 }
 
+message CPlayer_GetProfileCustomization_Response_PurchasedCustomization {
+	optional uint64 purchaseid = 1;
+	optional int32 customization_type = 2 [(description) = "enum"];
+}
+
+message CPlayer_GetPurchasedProfileCustomizations_Response {
+	repeated .CPlayer_GetPurchasedProfileCustomizations_Response_PurchasedCustomization purchased_customizations = 1;
+}
+
+message CPlayer_GetPurchasedProfileCustomizations_Response_PurchasedCustomization {
+	optional uint64 purchaseid = 1;
+	optional int32 customization_type = 2 [(description) = "enum"];
+}
+
 message CWebRTCClient_InitiateWebRTCConnection_Request {
 	optional string sdp = 1;
 }
@@ -927,6 +941,10 @@ service Community {
 	rpc ClearUserPartnerEventsAppPriorities (.NotImplemented) returns (.CCommunity_ClearUserPartnerEventsAppPriorities_Response);
 	rpc GetUserPartnerEventsAppPriorities (.NotImplemented) returns (.CCommunity_GetUserPartnerEventsAppPriorities_Response);
 	rpc ClearSinglePartnerEventsAppPriority (.NotImplemented) returns (.CCommunity_ClearSinglePartnerEventsAppPriority_Response);
+}
+
+service Player {
+	rpc GetPurchasedProfileCustomizations (.NotImplemented) returns (.CPlayer_GetPurchasedProfileCustomizations_Response);
 }
 
 service WebRTCClient {

@@ -1,5 +1,23 @@
 import "steammessages_unified_base.steamclient.proto";
 
+message CPlayer_GetProfileCustomization_Response_PurchasedCustomization {
+	optional uint64 purchaseid = 1;
+	optional int32 customization_type = 2 [(description) = "enum"];
+}
+
+message CPlayer_GetPurchasedProfileCustomizations_Response {
+	repeated .CPlayer_GetPurchasedProfileCustomizations_Response_PurchasedCustomization purchased_customizations = 1;
+}
+
+message CPlayer_GetPurchasedProfileCustomizations_Response_PurchasedCustomization {
+	optional uint64 purchaseid = 1;
+	optional int32 customization_type = 2 [(description) = "enum"];
+}
+
 message NotImplemented {
+}
+
+service Player {
+	rpc GetPurchasedProfileCustomizations (.NotImplemented) returns (.CPlayer_GetPurchasedProfileCustomizations_Response);
 }
 

@@ -34,6 +34,10 @@ message CLoyaltyRewards_RedeemPoints_Response {
 	repeated uint64 bundle_community_item_ids = 2;
 }
 
+message CLoyaltyRewards_RedeemPointsForProfileCustomization_Response {
+	optional uint64 purchaseid = 1;
+}
+
 message CLoyaltyRewards_AddReaction_Request {
 	optional int32 target_type = 1 [(description) = "enum"];
 	optional uint64 targetid = 2;
@@ -185,6 +189,7 @@ service LoyaltyRewards {
 	rpc RedeemPoints (.CLoyaltyRewards_RedeemPoints_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
 	rpc RedeemPointsForBadgeLevel (.CLoyaltyRewards_RedeemPointsForBadgeLevel_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
 	rpc RedeemPointsToUpgradeItem (.CLoyaltyRewards_RedeemPoints_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
+	rpc RedeemPointsForProfileCustomization (.NotImplemented) returns (.CLoyaltyRewards_RedeemPointsForProfileCustomization_Response);
 	rpc AddReaction (.CLoyaltyRewards_AddReaction_Request) returns (.CLoyaltyRewards_AddReaction_Response);
 	rpc GetReactions (.CLoyaltyRewards_GetReactions_Request) returns (.CLoyaltyRewards_GetReactions_Response);
 	rpc GetReactionConfig (.CLoyaltyRewards_GetReactionConfig_Request) returns (.CLoyaltyRewards_GetReactionConfig_Response);
