@@ -38,6 +38,9 @@ message CLoyaltyRewards_RedeemPointsForProfileCustomization_Response {
 	optional uint64 purchaseid = 1;
 }
 
+message CLoyaltyRewards_RedeemPointsForProfileCustomizationUpgrade_Response {
+}
+
 message CLoyaltyRewards_AddReaction_Request {
 	optional int32 target_type = 1 [(description) = "enum"];
 	optional uint64 targetid = 2;
@@ -56,12 +59,29 @@ message CLoyaltyRewards_GetReactions_Response {
 	repeated uint32 reactionids = 1;
 }
 
+message CLoyaltyRewards_GetReactionsSummaryForUser_Response {
+	repeated .CLoyaltyRewards_GetReactionsSummaryForUser_Response_Breakdown total = 1;
+	repeated .CLoyaltyRewards_GetReactionsSummaryForUser_Response_Breakdown user_reviews = 2;
+	repeated .CLoyaltyRewards_GetReactionsSummaryForUser_Response_Breakdown ugc = 3;
+	repeated .CLoyaltyRewards_GetReactionsSummaryForUser_Response_Breakdown profile = 4;
+	optional uint32 total_given = 5;
+	optional uint32 total_received = 6;
+	optional int64 total_points_given = 7;
+	optional int64 total_points_received = 8;
+}
+
+message CLoyaltyRewards_GetReactionsSummaryForUser_Response_Breakdown {
+	optional int32 reactionid = 1 [(description) = "enum"];
+	optional uint32 given = 2;
+	optional uint32 received = 3;
+	optional int64 points_given = 4;
+	optional int64 points_received = 5;
+}
+
 message CLoyaltyRewards_GetReactionConfig_Request {
 }
 
 message CLoyaltyRewards_GetReactionConfig_Response {
-	optional uint32 points_cost = 1;
-	optional uint32 points_transferred = 2;
 	repeated .CLoyaltyRewards_GetReactionConfig_Response_ReactionConfig reactions = 3;
 }
 
@@ -71,6 +91,13 @@ message CLoyaltyRewards_GetReactionConfig_Response_ReactionConfig {
 	optional uint32 points_transferred = 3;
 	repeated int32 valid_target_types = 4 [(description) = "enum"];
 	repeated uint32 valid_ugc_types = 5;
+}
+
+message CLoyaltyRewards_GetProfileCustomizationsConfig_Response {
+	optional uint32 points_cost = 1;
+	optional uint32 upgrade_points_cost = 2;
+	repeated int32 purchasable_customization_types = 3 [(description) = "enum"];
+	repeated int32 upgradable_customization_types = 4 [(description) = "enum"];
 }
 
 message CLoyaltyRewards_GetEligibleApps_Request {
@@ -190,9 +217,12 @@ service LoyaltyRewards {
 	rpc RedeemPointsForBadgeLevel (.CLoyaltyRewards_RedeemPointsForBadgeLevel_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
 	rpc RedeemPointsToUpgradeItem (.CLoyaltyRewards_RedeemPoints_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
 	rpc RedeemPointsForProfileCustomization (.NotImplemented) returns (.CLoyaltyRewards_RedeemPointsForProfileCustomization_Response);
+	rpc RedeemPointsForProfileCustomizationUpgrade (.NotImplemented) returns (.CLoyaltyRewards_RedeemPointsForProfileCustomizationUpgrade_Response);
 	rpc AddReaction (.CLoyaltyRewards_AddReaction_Request) returns (.CLoyaltyRewards_AddReaction_Response);
 	rpc GetReactions (.CLoyaltyRewards_GetReactions_Request) returns (.CLoyaltyRewards_GetReactions_Response);
+	rpc GetReactionsSummaryForUser (.NotImplemented) returns (.CLoyaltyRewards_GetReactionsSummaryForUser_Response);
 	rpc GetReactionConfig (.CLoyaltyRewards_GetReactionConfig_Request) returns (.CLoyaltyRewards_GetReactionConfig_Response);
+	rpc GetProfileCustomizationsConfig (.NotImplemented) returns (.CLoyaltyRewards_GetProfileCustomizationsConfig_Response);
 	rpc GetEligibleApps (.CLoyaltyRewards_GetEligibleApps_Request) returns (.CLoyaltyRewards_GetEligibleApps_Response);
 	rpc GetActivePurchaseBonuses (.CLoyaltyRewards_GetActivePurchaseBonuses_Request) returns (.CLoyaltyRewards_GetActivePurchaseBonuses_Response);
 	rpc QueryRewardItems (.CLoyaltyRewards_QueryRewardItems_Request) returns (.CLoyaltyRewards_QueryRewardItems_Response);
