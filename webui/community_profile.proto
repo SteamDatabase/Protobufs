@@ -167,6 +167,8 @@ message CLoyaltyRewards_GetProfileCustomizationsConfig_Response {
 	optional uint32 upgrade_points_cost = 2;
 	repeated int32 purchasable_customization_types = 3 [(description) = "enum"];
 	repeated int32 upgradable_customization_types = 4 [(description) = "enum"];
+	optional uint32 max_slots_per_type = 5;
+	optional uint32 max_upgradable_level = 6;
 }
 
 message CLoyaltyRewards_GetEligibleApps_Response {
