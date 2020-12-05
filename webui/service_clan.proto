@@ -1,0 +1,14 @@
+import "steammessages_unified_base.steamclient.proto";
+
+message CClan_RespondToClanInvite_Request {
+	optional fixed64 steamid = 1;
+	optional bool accept = 2;
+}
+
+message CClan_RespondToClanInvite_Response {
+}
+
+service Clan {
+	rpc RespondToClanInvite (.CClan_RespondToClanInvite_Request) returns (.CClan_RespondToClanInvite_Response);
+}
+
