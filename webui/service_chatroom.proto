@@ -387,12 +387,20 @@ message CChatRoom_GetMessageHistory_Response_ChatMessage {
 	optional uint32 ordinal = 4;
 	optional .ServerMessage server_message = 5;
 	optional bool deleted = 6;
+	repeated .CChatRoom_GetMessageHistory_Response_ChatMessage_MessageReaction reactions = 7;
 }
 
 message ServerMessage {
 	optional int32 message = 1 [(description) = "enum"];
 	optional string string_param = 2;
 	optional uint32 accountid_param = 3;
+}
+
+message CChatRoom_GetMessageHistory_Response_ChatMessage_MessageReaction {
+	optional int32 reaction_type = 1 [(description) = "enum"];
+	optional string reaction = 2;
+	optional uint32 num_reactors = 3;
+	optional bool has_user_reacted = 4;
 }
 
 message CChatRoom_GetMyChatRoomGroups_Request {
@@ -652,6 +660,34 @@ message CMsgClientPersonaState_Friend_KV {
 	optional string value = 2;
 }
 
+message CChatRoom_UpdateMessageReaction_Request {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_id = 2;
+	optional uint32 server_timestamp = 3;
+	optional uint32 ordinal = 4;
+	optional int32 reaction_type = 5 [(description) = "enum"];
+	optional string reaction = 6;
+	optional bool is_add = 7;
+}
+
+message CChatRoom_UpdateMessageReaction_Response {
+	optional uint32 num_reactors = 1;
+}
+
+message CChatRoom_GetMessageReactionReactors_Request {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_id = 2;
+	optional uint32 server_timestamp = 3;
+	optional uint32 ordinal = 4;
+	optional int32 reaction_type = 5 [(description) = "enum"];
+	optional string reaction = 6;
+	optional uint32 limit = 7;
+}
+
+message CChatRoom_GetMessageReactionReactors_Response {
+	repeated uint32 reactors = 1;
+}
+
 message CChatRoom_IncomingChatMessage_Notification {
 	optional uint64 chat_group_id = 1;
 	optional uint64 chat_id = 2;
@@ -745,6 +781,17 @@ message CChatRoomMemberSummaryCounts {
 	optional int32 offline = 3;
 }
 
+message CChatRoom_MessageReaction_Notification {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_id = 2;
+	optional uint32 server_timestamp = 3;
+	optional uint32 ordinal = 4;
+	optional fixed64 reactor = 5;
+	optional int32 reaction_type = 6 [(description) = "enum"];
+	optional string reaction = 7;
+	optional bool is_add = 8;
+}
+
 service ChatRoom {
 	rpc CreateChatRoomGroup (.CChatRoom_CreateChatRoomGroup_Request) returns (.CChatRoom_CreateChatRoomGroup_Response);
 	rpc SaveChatRoomGroup (.CChatRoom_SaveChatRoomGroup_Request) returns (.CChatRoom_SaveChatRoomGroup_Response);
@@ -797,6 +844,8 @@ service ChatRoom {
 	rpc DeleteChatMessages (.CChatRoom_DeleteChatMessages_Request) returns (.CChatRoom_DeleteChatMessages_Response);
 	rpc UpdateMemberListView (.CChatRoom_UpdateMemberListView_Notification) returns (.NoResponse);
 	rpc SearchMembers (.CChatRoom_SearchMembers_Request) returns (.CChatRoom_SearchMembers_Response);
+	rpc UpdateMessageReaction (.CChatRoom_UpdateMessageReaction_Request) returns (.CChatRoom_UpdateMessageReaction_Response);
+	rpc GetMessageReactionReactors (.CChatRoom_GetMessageReactionReactors_Request) returns (.CChatRoom_GetMessageReactionReactors_Response);
 }
 
 service ChatRoomClient {
@@ -810,5 +859,6 @@ service ChatRoomClient {
 	rpc NotifyAckChatMessageEcho (.CChatRoom_AckChatMessage_Notification) returns (.NoResponse);
 	rpc NotifyChatRoomDisconnect (.ChatRoomClient_NotifyChatRoomDisconnect_Notification) returns (.NoResponse);
 	rpc NotifyMemberListViewUpdated (.CChatRoomClient_MemberListViewUpdated_Notification) returns (.NoResponse);
+	rpc NotifyMessageReaction (.CChatRoom_MessageReaction_Notification) returns (.NoResponse);
 }
 

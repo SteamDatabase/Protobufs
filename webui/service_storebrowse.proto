@@ -30,6 +30,7 @@ message StoreBrowseItemDataRequest {
 	optional bool include_ratings = 7;
 	optional int32 include_tag_count = 8 [default = 0];
 	optional bool include_reviews = 9 [default = true];
+	optional bool include_basic_info = 10 [default = true];
 }
 
 message CStoreBrowse_GetItems_Response {
@@ -44,17 +45,18 @@ message StoreItem {
 	optional bool unvailable_for_country_restriction = 5;
 	optional string name = 6;
 	optional string store_url_path = 7;
-	optional string short_description = 8;
 	optional uint32 appid = 9;
 	optional int32 type = 10 [(description) = "enum"];
 	repeated int32 included_types = 11 [(description) = "enum"];
-	optional bool is_free = 12;
-	optional bool is_early_access = 13;
+	repeated uint32 included_appids = 12;
+	optional bool is_free = 13;
+	optional bool is_early_access = 14;
 	optional .StoreItem_RelatedItems related_items = 15;
 	repeated int32 content_descriptorids = 20 [(description) = "enum"];
 	repeated uint32 tagids = 21;
 	optional .StoreItem_Categories categories = 22;
 	optional .StoreItem_Reviews reviews = 23;
+	optional .StoreItem_BasicInfo basic_info = 24;
 	optional .StoreItem_Assets assets = 30;
 	optional .StoreItem_ReleaseInfo release = 31;
 	optional .StoreItem_Platforms platforms = 32;
@@ -86,6 +88,12 @@ message StoreItem_Reviews_StoreReviewSummary {
 	optional int32 percent_positive = 2;
 	optional int32 review_score = 3 [(description) = "enum"];
 	optional string review_score_label = 4;
+}
+
+message StoreItem_BasicInfo {
+	optional string short_description = 1;
+	repeated string publishers = 2;
+	repeated string developers = 3;
 }
 
 message StoreItem_Assets {
