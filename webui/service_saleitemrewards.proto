@@ -1,0 +1,20 @@
+import "steammessages_unified_base.steamclient.proto";
+import "common.proto";
+
+message CSaleItemRewards_ClaimItem_Response {
+	optional uint64 communityitemid = 1;
+	optional uint32 next_claim_time = 2;
+	optional .LoyaltyRewardDefinition reward_item = 3;
+}
+
+message CSaleItemRewards_CanClaimItem_Response {
+	optional bool can_claim = 1;
+	optional uint32 next_claim_time = 2;
+	optional .LoyaltyRewardDefinition reward_item = 3;
+}
+
+service SaleItemRewards {
+	rpc ClaimItem (.NotImplemented) returns (.CSaleItemRewards_ClaimItem_Response);
+	rpc CanClaimItem (.NotImplemented) returns (.CSaleItemRewards_CanClaimItem_Response);
+}
+
