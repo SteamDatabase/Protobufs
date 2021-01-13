@@ -268,6 +268,7 @@ message CPlayer_GetProfileCustomization_Response {
 	optional uint32 slots_available = 2;
 	optional .ProfileTheme profile_theme = 3;
 	repeated .CPlayer_GetProfileCustomization_Response_PurchasedCustomization purchased_customizations = 4;
+	optional .ProfilePreferences profile_preferences = 5;
 }
 
 message ProfileCustomization {
@@ -307,6 +308,10 @@ message CPlayer_GetProfileCustomization_Response_PurchasedCustomization {
 	optional uint32 level = 3;
 }
 
+message ProfilePreferences {
+	optional bool hide_profile_awards = 1;
+}
+
 message CPlayer_GetPurchasedProfileCustomizations_Response {
 	repeated .CPlayer_GetPurchasedProfileCustomizations_Response_PurchasedCustomization purchased_customizations = 1;
 }
@@ -344,6 +349,9 @@ message CPlayer_SetProfileTheme_Request {
 }
 
 message CPlayer_SetProfileTheme_Response {
+}
+
+message CPlayer_SetProfilePreferences_Response {
 }
 
 message CPlayer_PostStatusToFriends_Request {
@@ -603,6 +611,7 @@ service Player {
 	rpc GetPurchasedAndUpgradedProfileCustomizations (.CPlayer_GetPurchasedAndUpgradedProfileCustomizations_Request) returns (.CPlayer_GetPurchasedAndUpgradedProfileCustomizations_Response);
 	rpc GetProfileThemesAvailable (.NotImplemented) returns (.CPlayer_GetProfileThemesAvailable_Response);
 	rpc SetProfileTheme (.CPlayer_SetProfileTheme_Request) returns (.CPlayer_SetProfileTheme_Response);
+	rpc SetProfilePreferences (.NotImplemented) returns (.CPlayer_SetProfilePreferences_Response);
 	rpc PostStatusToFriends (.CPlayer_PostStatusToFriends_Request) returns (.CPlayer_PostStatusToFriends_Response);
 	rpc GetPostedStatus (.CPlayer_GetPostedStatus_Request) returns (.CPlayer_GetPostedStatus_Response);
 	rpc DeletePostedStatus (.CPlayer_DeletePostedStatus_Request) returns (.CPlayer_DeletePostedStatus_Response);
