@@ -648,6 +648,7 @@ message CMsgClientPersonaState_Friend {
 	optional uint32 watching_broadcast_appid = 75;
 	optional uint32 watching_broadcast_viewers = 76;
 	optional string watching_broadcast_title = 77;
+	optional bool is_community_banned = 78;
 }
 
 message CMsgClientPersonaState_Friend_ClanData {
