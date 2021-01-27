@@ -57,6 +57,7 @@ message StoreItem {
 	optional .StoreItem_Categories categories = 22;
 	optional .StoreItem_Reviews reviews = 23;
 	optional .StoreItem_BasicInfo basic_info = 24;
+	repeated .StoreItem_Tag tags = 25;
 	optional .StoreItem_Assets assets = 30;
 	optional .StoreItem_ReleaseInfo release = 31;
 	optional .StoreItem_Platforms platforms = 32;
@@ -94,6 +95,11 @@ message StoreItem_BasicInfo {
 	optional string short_description = 1;
 	repeated string publishers = 2;
 	repeated string developers = 3;
+}
+
+message StoreItem_Tag {
+	optional uint32 tagid = 1;
+	optional uint32 weight = 2;
 }
 
 message StoreItem_Assets {

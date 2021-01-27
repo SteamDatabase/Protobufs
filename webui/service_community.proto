@@ -94,11 +94,17 @@ message CCommunity_Comment {
 	optional .CMsgIPAddress ipaddress = 9;
 	optional int32 total_hidden = 10;
 	optional bool upvoted_by_user = 11;
+	repeated .CCommunity_Comment_Reaction reactions = 12;
 }
 
 message CMsgIPAddress {
 	optional fixed32 v4 = 1;
 	optional bytes v6 = 2;
+}
+
+message CCommunity_Comment_Reaction {
+	optional uint32 reactionid = 1;
+	optional uint32 count = 2;
 }
 
 message CCommunity_PostCommentToThread_Request {
