@@ -138,6 +138,7 @@ message PublishedFileDetails_Preview {
 message PublishedFileDetails_Tag {
 	optional string tag = 1;
 	optional bool adminonly = 2;
+	optional string display_name = 3;
 }
 
 message PublishedFileDetails_Child {
