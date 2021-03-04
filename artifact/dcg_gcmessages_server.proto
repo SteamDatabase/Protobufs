@@ -96,7 +96,8 @@ message CServerLobbyData_DraftCards {
 }
 
 message CServerLobbyData_PlayerDeck {
-	optional bytes deck_data = 1;
+	optional bytes deck_code = 1;
+	optional bytes collection_code = 2;
 }
 
 message CServerLobbyData_PlayerMMR {

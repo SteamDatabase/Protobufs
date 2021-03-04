@@ -123,6 +123,7 @@ message CLobbyData_PostMatchSurvey {
 message CSOGameAccountClient {
 	enum EFlags {
 		k_eDeveloper = 1;
+		k_eFreePlayer = 2;
 	}
 
 	optional uint32 account_id = 1 [(key_field) = true];
@@ -211,8 +212,9 @@ message CMsgStartFindingMatchInfo {
 	optional string server_search_key = 2;
 	optional uint32 client_version = 3;
 	optional .EDCGMatchMode match_mode = 4 [default = k_EDCGMatchMode_Unranked];
-	optional bytes deck_data = 5;
-	optional bool is_anonymous = 6;
+	optional bytes deck_code = 5;
+	optional bool is_anonymous = 7;
+	optional bytes collection_code = 8;
 }
 
 message CMsgDCGCombatLogEntry {
