@@ -95,6 +95,7 @@ message StoreItem_BasicInfo {
 	optional string short_description = 1;
 	repeated string publishers = 2;
 	repeated string developers = 3;
+	repeated string franchises = 4;
 }
 
 message StoreItem_Tag {

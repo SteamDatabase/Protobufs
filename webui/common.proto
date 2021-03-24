@@ -248,6 +248,7 @@ message CMsgClientGetEmoticonList {
 }
 
 message CMsgClientHeartBeat {
+	optional bool send_reply = 1;
 }
 
 message CMsgClientInviteToGame {
