@@ -1,4 +1,5 @@
 import "steammessages_unified_base.steamclient.proto";
+import "common.proto";
 
 message CSaleItemRewards_ClaimItem_Request {
 	optional string language = 1;

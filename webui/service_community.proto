@@ -97,11 +97,6 @@ message CCommunity_Comment {
 	repeated .CCommunity_Comment_Reaction reactions = 12;
 }
 
-message CMsgIPAddress {
-	optional fixed32 v4 = 1;
-	optional bytes v6 = 2;
-}
-
 message CCommunity_Comment_Reaction {
 	optional uint32 reactionid = 1;
 	optional uint32 count = 2;

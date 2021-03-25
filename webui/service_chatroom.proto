@@ -49,45 +49,12 @@ message CChatRole {
 	optional uint32 ordinal = 3;
 }
 
-message CChatRoleActions {
-	optional uint64 role_id = 1;
-	optional bool can_create_rename_delete_channel = 2;
-	optional bool can_kick = 3;
-	optional bool can_ban = 4;
-	optional bool can_invite = 5;
-	optional bool can_change_tagline_avatar_name = 6;
-	optional bool can_chat = 7;
-	optional bool can_view_history = 8;
-	optional bool can_change_group_roles = 9;
-	optional bool can_change_user_roles = 10;
-	optional bool can_mention_all = 11;
-	optional bool can_set_watching_broadcast = 12;
-}
-
-message CChatPartyBeacon {
-	optional uint32 app_id = 1;
-	optional fixed64 steamid_owner = 2;
-	optional fixed64 beacon_id = 3;
-	optional string game_metadata = 4;
-}
-
 message CChatRoomMember {
 	optional uint32 accountid = 1;
 	optional int32 state = 3 [(description) = "enum"];
 	optional int32 rank = 4 [(description) = "enum"];
 	optional uint32 time_kick_expire = 6;
 	repeated uint64 role_ids = 7;
-}
-
-message CChatRoomState {
-	optional uint64 chat_id = 1;
-	optional string chat_name = 2;
-	optional bool voice_allowed = 3;
-	repeated uint32 members_in_voice = 4;
-	optional uint32 time_last_message = 5;
-	optional uint32 sort_order = 6;
-	optional string last_message = 7;
-	optional uint32 accountid_last_message = 8;
 }
 
 message CUserChatRoomGroupState {
@@ -416,31 +383,6 @@ message CChatRoomSummaryPair {
 	optional .CChatRoom_GetChatRoomGroupSummary_Response group_summary = 2;
 }
 
-message CChatRoom_GetChatRoomGroupSummary_Response {
-	optional uint64 chat_group_id = 1;
-	optional string chat_group_name = 2;
-	optional uint32 active_member_count = 3;
-	optional uint32 active_voice_member_count = 4;
-	optional uint64 default_chat_id = 5;
-	repeated .CChatRoomState chat_rooms = 6;
-	optional uint32 clanid = 7;
-	optional string chat_group_tagline = 8;
-	optional uint32 accountid_owner = 9;
-	repeated uint32 top_members = 10;
-	optional bytes chat_group_avatar_sha = 11;
-	optional int32 rank = 12 [(description) = "enum"];
-	optional uint64 default_role_id = 13;
-	repeated uint64 role_ids = 14;
-	repeated .CChatRoleActions role_actions = 15;
-	optional uint32 watching_broadcast_accountid = 16;
-	optional uint32 appid = 17;
-	repeated .CChatPartyBeacon party_beacons = 18;
-	optional uint64 watching_broadcast_channel_id = 19;
-	optional uint64 active_minigame_id = 20;
-	optional string avatar_ugc_url = 21;
-	optional bool disabled = 22;
-}
-
 message CChatRoom_GetChatRoomGroupState_Response {
 	optional .CChatRoomGroupState state = 1;
 }
@@ -619,50 +561,6 @@ message CChatRoom_SearchMembers_Response {
 message CChatRoom_SearchMembers_Response_MemberMatch {
 	optional int32 accountid = 1;
 	optional .CMsgClientPersonaState_Friend persona = 2;
-}
-
-message CMsgClientPersonaState_Friend {
-	optional fixed64 friendid = 1;
-	optional uint32 persona_state = 2;
-	optional uint32 game_played_app_id = 3;
-	optional uint32 game_server_ip = 4;
-	optional uint32 game_server_port = 5;
-	optional uint32 persona_state_flags = 6;
-	optional uint32 online_session_instances = 7;
-	optional bool persona_set_by_user = 10;
-	optional string player_name = 15;
-	optional uint32 query_port = 20;
-	optional fixed64 steamid_source = 25;
-	optional bytes avatar_hash = 31;
-	optional uint32 last_logoff = 45;
-	optional uint32 last_logon = 46;
-	optional uint32 last_seen_online = 47;
-	optional uint32 clan_rank = 50;
-	optional string game_name = 55;
-	optional fixed64 gameid = 56;
-	optional bytes game_data_blob = 60;
-	optional .CMsgClientPersonaState_Friend_ClanData clan_data = 64;
-	optional string clan_tag = 65;
-	repeated .CMsgClientPersonaState_Friend_KV rich_presence = 71;
-	optional fixed64 broadcast_id = 72;
-	optional fixed64 game_lobby_id = 73;
-	optional uint32 watching_broadcast_accountid = 74;
-	optional uint32 watching_broadcast_appid = 75;
-	optional uint32 watching_broadcast_viewers = 76;
-	optional string watching_broadcast_title = 77;
-	optional bool is_community_banned = 78;
-	optional bool player_name_pending_review = 79;
-	optional bool avatar_pending_review = 80;
-}
-
-message CMsgClientPersonaState_Friend_ClanData {
-	optional uint32 ogg_app_id = 1;
-	optional uint64 chat_group_id = 2;
-}
-
-message CMsgClientPersonaState_Friend_KV {
-	optional string key = 1;
-	optional string value = 2;
 }
 
 message CChatRoom_UpdateMessageReaction_Request {
