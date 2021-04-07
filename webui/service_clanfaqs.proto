@@ -1,0 +1,90 @@
+import "steammessages_unified_base.steamclient.proto";
+import "common.proto";
+
+message CClanFAQS_Create_Request {
+	optional uint64 steamid = 1;
+	optional string internal_name = 2;
+}
+
+message CClanFAQS_Create_Response {
+	optional uint64 faq_id = 1;
+}
+
+message CClanFAQS_Delete_Request {
+	optional uint64 steamid = 1;
+	optional uint64 faq_id = 2;
+}
+
+message CClanFAQS_Delete_Response {
+}
+
+message CClanFAQS_SetVisibility_Response {
+}
+
+message CClanFAQS_UpdateDraft_Request {
+	optional uint64 steamid = 1;
+	optional uint64 faq_id = 2;
+	optional uint32 language = 3;
+	optional string content = 4;
+	optional string title = 5;
+}
+
+message CClanFAQS_UpdateDraft_Response {
+}
+
+message CClanFAQS_PublishDraft_Response {
+}
+
+message CClanFAQS_PreviewDraft_Response {
+	optional .CClanFAQContent faq = 1;
+}
+
+message CClanFAQContent {
+	optional uint64 faq_id = 1;
+	optional uint32 language = 2;
+	optional uint64 version = 3;
+	optional string content = 4;
+	optional string title = 5;
+	optional fixed32 timestamp = 6;
+	optional uint64 author_account_id = 7;
+}
+
+message CClanFAQS_GetFAQ_Response {
+	optional .CClanFAQContent faq = 1;
+}
+
+message CClanFAQS_GetAllDrafts_Request {
+	optional uint64 steamid = 1;
+	optional uint64 faq_id = 2;
+}
+
+message CClanFAQS_GetAllDrafts_Response {
+	optional .CClanFAQSummary summary = 1;
+	repeated .CClanFAQContent draft = 2;
+}
+
+message CClanFAQSummary {
+	optional uint64 faq_id = 1;
+	optional string internal_name = 2;
+	optional bool visible_in_global_realm = 3;
+	optional bool visible_in_china_realm = 4;
+	optional fixed32 last_update_timestamp = 5;
+	optional fixed32 last_publish_timestamp = 6;
+}
+
+message CClanFAQS_GetAllFAQsForClan_Response {
+	repeated .CClanFAQSummary faq = 1;
+}
+
+service ClanFAQS {
+	rpc Create (.CClanFAQS_Create_Request) returns (.CClanFAQS_Create_Response);
+	rpc Delete (.CClanFAQS_Delete_Request) returns (.CClanFAQS_Delete_Response);
+	rpc SetVisibility (.NotImplemented) returns (.CClanFAQS_SetVisibility_Response);
+	rpc UpdateDraft (.CClanFAQS_UpdateDraft_Request) returns (.CClanFAQS_UpdateDraft_Response);
+	rpc PublishDraft (.NotImplemented) returns (.CClanFAQS_PublishDraft_Response);
+	rpc PreviewDraft (.NotImplemented) returns (.CClanFAQS_PreviewDraft_Response);
+	rpc GetFAQ (.NotImplemented) returns (.CClanFAQS_GetFAQ_Response);
+	rpc GetAllDrafts (.CClanFAQS_GetAllDrafts_Request) returns (.CClanFAQS_GetAllDrafts_Response);
+	rpc GetAllFAQsForClan (.NotImplemented) returns (.CClanFAQS_GetAllFAQsForClan_Response);
+}
+
