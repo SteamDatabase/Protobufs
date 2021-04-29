@@ -4,6 +4,7 @@ import "common.proto";
 message CClanFAQS_Create_Request {
 	optional uint64 steamid = 1;
 	optional string internal_name = 2;
+	optional string json_data = 3;
 }
 
 message CClanFAQS_Create_Response {
@@ -27,6 +28,9 @@ message CClanFAQS_UpdateInternalName_Request {
 message CClanFAQS_UpdateInternalName_Response {
 }
 
+message CClanFAQS_UpdateJsonData_Response {
+}
+
 message CClanFAQS_SetVisibility_Request {
 	optional uint64 steamid = 1;
 	optional uint64 faq_id = 2;
@@ -46,10 +50,7 @@ message CClanFAQS_UpdateDraft_Request {
 }
 
 message CClanFAQS_UpdateDraft_Response {
-	optional uint64 steamid = 1;
-	optional uint64 faq_id = 2;
-	optional uint32 language = 3;
-	optional fixed32 last_update_timestamp = 5;
+	optional fixed32 last_update_timestamp = 1;
 }
 
 message CClanFAQS_PublishDraft_Request {
@@ -59,10 +60,7 @@ message CClanFAQS_PublishDraft_Request {
 }
 
 message CClanFAQS_PublishDraft_Response {
-	optional uint64 steamid = 1;
-	optional uint64 faq_id = 2;
-	repeated uint32 language = 3;
-	repeated fixed32 last_publish_timestamp = 6;
+	optional fixed32 last_publish_timestamp = 1;
 }
 
 message CClanFAQS_PreviewDraft_Response {
@@ -102,8 +100,14 @@ message CClanFAQSummary {
 	optional string internal_name = 2;
 	optional bool visible_in_global_realm = 3;
 	optional bool visible_in_china_realm = 4;
-	optional fixed32 last_update_timestamp = 5;
-	optional fixed32 last_publish_timestamp = 6;
+	optional string json_data = 5;
+	repeated .CClanFAQSummary_CLanguageInfo per_language_info = 6;
+}
+
+message CClanFAQSummary_CLanguageInfo {
+	optional uint32 language = 1;
+	optional fixed32 last_update_timestamp = 2;
+	optional fixed32 last_publish_timestamp = 3;
 }
 
 message CClanFAQS_GetAllFAQsForClan_Response {
@@ -126,6 +130,7 @@ service ClanFAQS {
 	rpc Create (.CClanFAQS_Create_Request) returns (.CClanFAQS_Create_Response);
 	rpc Delete (.CClanFAQS_Delete_Request) returns (.CClanFAQS_Delete_Response);
 	rpc UpdateInternalName (.CClanFAQS_UpdateInternalName_Request) returns (.CClanFAQS_UpdateInternalName_Response);
+	rpc UpdateJsonData (.NotImplemented) returns (.CClanFAQS_UpdateJsonData_Response);
 	rpc SetVisibility (.CClanFAQS_SetVisibility_Request) returns (.CClanFAQS_SetVisibility_Response);
 	rpc UpdateDraft (.CClanFAQS_UpdateDraft_Request) returns (.CClanFAQS_UpdateDraft_Response);
 	rpc PublishDraft (.CClanFAQS_PublishDraft_Request) returns (.CClanFAQS_PublishDraft_Response);
