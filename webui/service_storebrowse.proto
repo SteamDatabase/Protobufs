@@ -112,6 +112,10 @@ message StoreItem_Assets {
 	optional string page_background = 6;
 	optional string hero_capsule = 7;
 	optional string hero_capsule_2x = 8;
+	optional string library_capsule = 9;
+	optional string library_capsule_2x = 10;
+	optional string library_hero = 11;
+	optional string library_hero_2x = 12;
 }
 
 message StoreItem_ReleaseInfo {

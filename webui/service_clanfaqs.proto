@@ -28,6 +28,12 @@ message CClanFAQS_UpdateInternalName_Request {
 message CClanFAQS_UpdateInternalName_Response {
 }
 
+message CClanFAQS_UpdateJsonData_Request {
+	optional uint64 steamid = 1;
+	optional uint64 faq_id = 2;
+	optional string json_data = 3;
+}
+
 message CClanFAQS_UpdateJsonData_Response {
 }
 
@@ -114,11 +120,6 @@ message CClanFAQS_GetAllFAQsForClan_Response {
 	repeated .CClanFAQSummary faq = 1;
 }
 
-message CClanFAQS_GetAllLatestVersionPublishedFAQS_Request {
-	optional uint64 steamid = 1;
-	optional uint64 faq_id = 2;
-}
-
 message CClanFAQS_GetAllLatestVersionPublishedFAQS_Response {
 	repeated .CClanFAQContent faqs = 1;
 }
@@ -130,7 +131,7 @@ service ClanFAQS {
 	rpc Create (.CClanFAQS_Create_Request) returns (.CClanFAQS_Create_Response);
 	rpc Delete (.CClanFAQS_Delete_Request) returns (.CClanFAQS_Delete_Response);
 	rpc UpdateInternalName (.CClanFAQS_UpdateInternalName_Request) returns (.CClanFAQS_UpdateInternalName_Response);
-	rpc UpdateJsonData (.NotImplemented) returns (.CClanFAQS_UpdateJsonData_Response);
+	rpc UpdateJsonData (.CClanFAQS_UpdateJsonData_Request) returns (.CClanFAQS_UpdateJsonData_Response);
 	rpc SetVisibility (.CClanFAQS_SetVisibility_Request) returns (.CClanFAQS_SetVisibility_Response);
 	rpc UpdateDraft (.CClanFAQS_UpdateDraft_Request) returns (.CClanFAQS_UpdateDraft_Response);
 	rpc PublishDraft (.CClanFAQS_PublishDraft_Request) returns (.CClanFAQS_PublishDraft_Response);
@@ -139,7 +140,7 @@ service ClanFAQS {
 	rpc GetFAQVersion (.NotImplemented) returns (.CClanFAQS_GetFAQVersion_Response);
 	rpc GetAllDrafts (.CClanFAQS_GetAllDrafts_Request) returns (.CClanFAQS_GetAllDrafts_Response);
 	rpc GetAllFAQsForClan (.NotImplemented) returns (.CClanFAQS_GetAllFAQsForClan_Response);
-	rpc GetAllLatestVersionPublishedFAQS (.CClanFAQS_GetAllLatestVersionPublishedFAQS_Request) returns (.CClanFAQS_GetAllLatestVersionPublishedFAQS_Response);
+	rpc GetAllLatestVersionPublishedFAQS (.NotImplemented) returns (.CClanFAQS_GetAllLatestVersionPublishedFAQS_Response);
 	rpc CheckFAQPermissions (.NotImplemented) returns (.CClanFAQS_CheckFAQPermissions_Response);
 }
 
