@@ -20,5 +20,6 @@ service ClientMetrics {
 	rpc ReportClientError (.CClientMetrics_ReportClientError_Notification) returns (.NoResponse);
 	rpc ClientBootstrapReport (.NotImplemented) returns (.NoResponse);
 	rpc ClientDownloadRatesReport (.NotImplemented) returns (.NoResponse);
+	rpc ClientContentValidationReport (.NotImplemented) returns (.NoResponse);
 }
 
