@@ -163,6 +163,7 @@ message CLoyaltyRewards_QueryRewardItems_Request {
 	repeated string filter_match_all_category_tags = 13;
 	repeated string filter_match_any_category_tags = 14;
 	repeated uint32 contains_definitionids = 15;
+	optional bool include_direct_purchase_disabled = 16;
 }
 
 message CLoyaltyRewards_QueryRewardItems_Response {

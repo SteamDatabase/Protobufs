@@ -21,5 +21,6 @@ service ClientMetrics {
 	rpc ClientBootstrapReport (.NotImplemented) returns (.NoResponse);
 	rpc ClientDownloadRatesReport (.NotImplemented) returns (.NoResponse);
 	rpc ClientContentValidationReport (.NotImplemented) returns (.NoResponse);
+	rpc ClientCloudAppSyncStats (.NotImplemented) returns (.NoResponse);
 }
 
