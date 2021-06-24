@@ -711,6 +711,7 @@ message LoyaltyRewardDefinition_CommunityItemData {
 	optional string item_movie_mp4_small = 11;
 	optional bool animated = 8;
 	repeated .LoyaltyRewardDefinition_BadgeData badge_data = 9;
+	optional string profile_theme_id = 12;
 }
 
 message NotImplemented {
