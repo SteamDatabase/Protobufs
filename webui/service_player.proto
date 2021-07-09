@@ -13,15 +13,6 @@ message CPlayer_IncomingInviteMutualFriendList {
 	repeated uint32 mutual_friend_account_ids = 2;
 }
 
-message CPlayer_GetOwnedGames_Request {
-	optional uint64 steamid = 1;
-	optional bool include_appinfo = 2;
-	optional bool include_played_free_games = 3;
-	repeated uint32 appids_filter = 4;
-	optional bool include_free_sub = 5;
-	optional bool skip_unvetted_apps = 6 [default = true];
-}
-
 message CPlayer_GetOwnedGames_Response {
 	optional uint32 game_count = 1;
 	repeated .CPlayer_GetOwnedGames_Response_Game games = 2;
@@ -557,7 +548,7 @@ message CPlayer_PrivacySettingsChanged_Notification {
 
 service Player {
 	rpc GetMutualFriendsForIncomingInvites (.CPlayer_GetMutualFriendsForIncomingInvites_Request) returns (.CPlayer_GetMutualFriendsForIncomingInvites_Response);
-	rpc GetOwnedGames (.CPlayer_GetOwnedGames_Request) returns (.CPlayer_GetOwnedGames_Response);
+	rpc GetOwnedGames (.NotImplemented) returns (.CPlayer_GetOwnedGames_Response);
 	rpc GetPlayNext (.NotImplemented) returns (.CPlayer_GetPlayNext_Response);
 	rpc GetFriendsGameplayInfo (.NotImplemented) returns (.CPlayer_GetFriendsGameplayInfo_Response);
 	rpc GetFriendsAppsActivity (.NotImplemented) returns (.CPlayer_GetFriendsAppsActivity_Response);
