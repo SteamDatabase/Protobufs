@@ -860,7 +860,6 @@ message StoreItem_PurchaseOption {
 	repeated .StoreItem_PurchaseOption_Discount inactive_discounts = 22;
 	optional bool user_can_purchase = 30;
 	optional bool user_can_purchase_as_gift = 31;
-	optional bool is_commercial_license = 40;
 }
 
 // Used by: StoreQuery,StoreBrowse
