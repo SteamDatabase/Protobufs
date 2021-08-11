@@ -116,7 +116,6 @@ message CLoyaltyRewards_GetProfileCustomizationsConfig_Response {
 }
 
 message CLoyaltyRewards_GetEligibleApps_Request {
-	optional bool include_event_apps = 1;
 }
 
 message CLoyaltyRewards_GetEligibleApps_Response {
