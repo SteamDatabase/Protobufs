@@ -15,16 +15,16 @@ message StoreBrowseContext {
 }
 
 message StoreBrowseItemDataRequest {
-	optional bool include_assets = 1 [default = true];
-	optional bool include_release = 2 [default = true];
-	optional bool include_platforms = 3 [default = true];
+	optional bool include_assets = 1;
+	optional bool include_release = 2;
+	optional bool include_platforms = 3;
 	optional bool include_all_purchase_options = 4;
 	optional bool include_screenshots = 5;
 	optional bool include_trailers = 6;
 	optional bool include_ratings = 7;
-	optional int32 include_tag_count = 8 [default = 0];
-	optional bool include_reviews = 9 [default = true];
-	optional bool include_basic_info = 10 [default = true];
+	optional int32 include_tag_count = 8;
+	optional bool include_reviews = 9;
+	optional bool include_basic_info = 10;
 }
 
 message CStoreBrowse_GetItems_Response {
