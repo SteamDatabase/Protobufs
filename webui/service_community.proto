@@ -131,6 +131,11 @@ message CCommunity_GetClanAnnouncementVoteForUser_Response {
 	optional bool voted_down = 2;
 }
 
+message CCommunity_GetAvatarHistory_Request {
+	optional fixed64 steamid = 1;
+	optional bool filter_user_uploaded_only = 2;
+}
+
 message CCommunity_GetAvatarHistory_Response {
 	repeated .CCommunity_GetAvatarHistory_Response_AvatarData avatars = 1;
 }
@@ -236,7 +241,7 @@ service Community {
 	rpc GetCommentThreadRatings (.NotImplemented) returns (.CCommunity_GetCommentThreadRatings_Response);
 	rpc RateClanAnnouncement (.CCommunity_RateClanAnnouncement_Request) returns (.CCommunity_RateClanAnnouncement_Response);
 	rpc GetClanAnnouncementVoteForUser (.CCommunity_GetClanAnnouncementVoteForUser_Request) returns (.CCommunity_GetClanAnnouncementVoteForUser_Response);
-	rpc GetAvatarHistory (.NotImplemented) returns (.CCommunity_GetAvatarHistory_Response);
+	rpc GetAvatarHistory (.CCommunity_GetAvatarHistory_Request) returns (.CCommunity_GetAvatarHistory_Response);
 	rpc GetUserPartnerEventNews (.NotImplemented) returns (.CCommunity_GetUserPartnerEventNews_Response);
 	rpc GetBestEventsForUser (.NotImplemented) returns (.CCommunity_GetBestEventsForUser_Response);
 	rpc MarkPartnerEventsForUser (.CCommunity_MarkPartnerEventsForUser_Request) returns (.CCommunity_MarkPartnerEventsForUser_Response);
