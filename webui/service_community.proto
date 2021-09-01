@@ -80,6 +80,7 @@ message CCommunity_Comment {
 	optional int32 total_hidden = 10;
 	optional bool upvoted_by_user = 11;
 	repeated .CCommunity_Comment_Reaction reactions = 12;
+	optional fixed64 gidparentcomment = 13;
 }
 
 message CCommunity_Comment_Reaction {
