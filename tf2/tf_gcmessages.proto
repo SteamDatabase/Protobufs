@@ -166,6 +166,7 @@ enum ETFGCMsg {
 	k_EMsgGCQuestStrangeEvent = 6577;
 	k_EMsgGC_AcceptLobbyInvite = 6578;
 	k_EMsgGC_AcceptLobbyInviteReply = 6579;
+	k_EMsgGC_SDRTicket = 6580;
 	k_EMsgGC_ProcessMatchVoteKick = 6581;
 	k_EMsgGC_ProcessMatchVoteKickResponse = 6582;
 	k_EMsgGCDev_GrantWarKill = 10001;
@@ -1615,4 +1616,8 @@ message GCQuestStrangeEvent {
 	optional uint64 quest_id = 3;
 	optional uint32 strange_event_id = 4;
 	optional uint32 score = 5;
+}
+
+message CMsgSDRTicket {
+	optional bytes serialized_ticket = 1;
 }
