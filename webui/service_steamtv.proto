@@ -304,6 +304,9 @@ message CSteamTV_HomePageTemplate_Event {
 	optional string title = 1;
 }
 
+message CSteamTV_AppCheer_Response {
+}
+
 service SteamTV {
 	rpc CreateBroadcastChannel (.NotImplemented) returns (.CSteamTV_CreateBroadcastChannel_Response);
 	rpc GetBroadcastChannelID (.NotImplemented) returns (.CSteamTV_GetBroadcastChannelID_Response);
@@ -336,5 +339,6 @@ service SteamTV {
 	rpc SetSteamTVUserSettings (.NotImplemented) returns (.CSteamTV_SetSteamTVUserSettings_Response);
 	rpc GetMyBroadcastChannels (.NotImplemented) returns (.CSteamTV_GetMyBroadcastChannels_Response);
 	rpc GetHomePageContents (.NotImplemented) returns (.CSteamTV_GetHomePageContents_Response);
+	rpc AppCheer (.NotImplemented) returns (.CSteamTV_AppCheer_Response);
 }
 
