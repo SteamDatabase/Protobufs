@@ -492,7 +492,6 @@ message CMsgProtoBufHeader {
 	optional bool is_from_external_source = 26;
 	repeated uint32 forward_to_sysid = 27;
 	optional uint32 cm_sysid = 28;
-	optional string wg_token = 30;
 	optional uint32 launcher_type = 31 [default = 0];
 	optional uint32 realm = 32 [default = 0];
 }

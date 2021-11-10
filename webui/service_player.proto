@@ -59,32 +59,6 @@ message CPlayer_GetFriendsGameplayInfo_Response_FriendsGameplayInfo {
 	optional uint32 minutes_played_forever = 3;
 }
 
-message CPlayer_GetFriendsAppsActivity_Response {
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo trending = 1;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo recent_purchases = 2;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo unowned = 3;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo popular = 4;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo dont_forget = 5;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo being_discussed = 6;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo new_to_group = 7;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo returned_to_group = 8;
-	optional uint32 active_friend_count = 9 [default = 0];
-}
-
-message CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo {
-	optional uint32 appid = 1;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_FriendPlayTime friends = 2;
-	optional uint32 display_order = 3;
-}
-
-message CPlayer_GetFriendsAppsActivity_Response_FriendPlayTime {
-	optional fixed64 steamid = 1;
-	optional uint32 minutes_played_this_week = 2;
-	optional uint32 minutes_played_two_weeks = 3;
-	optional uint32 minutes_played_forever = 4;
-	optional uint32 event_count = 5;
-}
-
 message CPlayer_GetGameBadgeLevels_Response {
 	optional uint32 player_level = 1;
 	repeated .CPlayer_GetGameBadgeLevels_Response_Badge badges = 2;
@@ -369,6 +343,12 @@ message CPlayer_GetLastPlayedTimes_Response_Game {
 	optional uint32 last_linux_playtime = 14;
 }
 
+message CPlayer_GetTimeSSAAccepted_Response {
+	optional uint32 time_ssa_accepted = 1;
+	optional uint32 time_ssa_updated = 2;
+	optional uint32 time_chinassa_accepted = 3;
+}
+
 message CPlayer_AcceptSSA_Response {
 }
 
@@ -553,7 +533,6 @@ service Player {
 	rpc GetOwnedGames (.NotImplemented) returns (.CPlayer_GetOwnedGames_Response);
 	rpc GetPlayNext (.NotImplemented) returns (.CPlayer_GetPlayNext_Response);
 	rpc GetFriendsGameplayInfo (.NotImplemented) returns (.CPlayer_GetFriendsGameplayInfo_Response);
-	rpc GetFriendsAppsActivity (.NotImplemented) returns (.CPlayer_GetFriendsAppsActivity_Response);
 	rpc GetGameBadgeLevels (.NotImplemented) returns (.CPlayer_GetGameBadgeLevels_Response);
 	rpc GetProfileBackground (.NotImplemented) returns (.CPlayer_GetProfileBackground_Response);
 	rpc SetProfileBackground (.CPlayer_SetProfileBackground_Request) returns (.CPlayer_SetProfileBackground_Response);
@@ -580,6 +559,7 @@ service Player {
 	rpc GetPostedStatus (.NotImplemented) returns (.CPlayer_GetPostedStatus_Response);
 	rpc DeletePostedStatus (.NotImplemented) returns (.CPlayer_DeletePostedStatus_Response);
 	rpc ClientGetLastPlayedTimes (.CPlayer_GetLastPlayedTimes_Request) returns (.CPlayer_GetLastPlayedTimes_Response);
+	rpc GetTimeSSAAccepted (.NotImplemented) returns (.CPlayer_GetTimeSSAAccepted_Response);
 	rpc AcceptSSA (.NotImplemented) returns (.CPlayer_AcceptSSA_Response);
 	rpc GetNicknameList (.NotImplemented) returns (.CPlayer_GetNicknameList_Response);
 	rpc GetPerFriendPreferences (.CPlayer_GetPerFriendPreferences_Request) returns (.CPlayer_GetPerFriendPreferences_Response);
