@@ -9,7 +9,6 @@ enum ESteamDatagramMsgID {
 	k_ESteamDatagramMsg_RouterPingRequest = 1;
 	k_ESteamDatagramMsg_RouterPingReply = 2;
 	k_ESteamDatagramMsg_GameserverPingRequest = 3;
-	k_ESteamDatagramMsg_LegacyGameserverPingReply = 4;
 	k_ESteamDatagramMsg_GameserverSessionRequest = 5;
 	k_ESteamDatagramMsg_GameserverSessionEstablished = 6;
 	k_ESteamDatagramMsg_NoSession = 7;
@@ -38,6 +37,12 @@ enum ESteamDatagramMsgID {
 	k_ESteamDatagramMsg_GameserverRegistration = 30;
 	k_ESteamDatagramMsg_SetSecondaryAddressRequest = 31;
 	k_ESteamDatagramMsg_SetSecondaryAddressResult = 32;
+}
+
+message CMsgSteamDatagramSignedMessageGeneric {
+	optional .CMsgSteamDatagramCertificateSigned cert = 1;
+	optional bytes signed_data = 2;
+	optional bytes signature = 3;
 }
 
 message CMsgSteamDatagramRouterPingReply {
@@ -90,23 +95,12 @@ message CMsgSteamDatagramGameserverPingRequest {
 	optional fixed32 router_timestamp = 4;
 }
 
-message CMsgSteamDatagramLegacyGameserverPingReply {
+message CMsgSteamDatagramGameserverPingReplyData {
+	optional fixed32 challenge_time = 2;
+	optional fixed64 challenge = 3;
 	optional fixed32 router_timestamp = 4;
-	optional fixed64 dummy_pad = 99;
-}
-
-message CMsgSteamDatagramGameserverPingReply {
-	message SignedData {
-		optional fixed32 challenge_time = 2;
-		optional fixed64 challenge = 3;
-		optional fixed32 router_timestamp = 4;
-		optional fixed32 data_center_id = 5;
-		optional uint32 appid = 6;
-	}
-
-	optional .CMsgSteamDatagramCertificateSigned cert = 1;
-	optional bytes signed_data = 2;
-	optional bytes signature = 3;
+	optional fixed32 data_center_id = 5;
+	optional uint32 appid = 6;
 }
 
 message CMsgSteamDatagramNoSessionRelayToClient {
