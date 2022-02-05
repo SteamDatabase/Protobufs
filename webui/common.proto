@@ -290,12 +290,13 @@ message CMsgClientLogon {
 	optional int32 priority_reason = 104;
 	optional .CMsgClientSecret embedded_client_secret = 105;
 	optional bool disable_partner_autogrants = 106;
+	optional bool is_steam_deck = 107;
 }
 
 message CMsgClientLogonResponse {
 	optional int32 eresult = 1 [default = 2];
-	optional int32 out_of_game_heartbeat_seconds = 2;
-	optional int32 in_game_heartbeat_seconds = 3;
+	optional int32 legacy_out_of_game_heartbeat_seconds = 2;
+	optional int32 heartbeat_seconds = 3;
 	optional uint32 deprecated_public_ip = 4;
 	optional fixed32 rtime32_server_time = 5;
 	optional uint32 account_flags = 6;
@@ -687,6 +688,8 @@ message StoreItem_PurchaseOption {
 	optional int64 final_price_in_cents = 5;
 	optional int64 original_price_in_cents = 6;
 	optional int64 user_final_price_in_cents = 7;
+	optional string formatted_final_price = 8;
+	optional string formatted_original_price = 9;
 	optional int32 discount_pct = 10;
 	optional int32 user_discount_pct = 11;
 	optional int32 bundle_discount_pct = 12;

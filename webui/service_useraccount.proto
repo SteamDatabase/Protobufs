@@ -29,10 +29,6 @@ message CUserAccount_GetAccountLinkStatus_Response {
 	optional bool performed_age_verification = 3;
 }
 
-message CUserAccount_CancelLicenseForApp_Request {
-	optional uint32 appid = 1;
-}
-
 message CUserAccount_CancelLicenseForApp_Response {
 }
 
@@ -66,7 +62,7 @@ message CUserAccount_RegisterCompatTool_Response {
 service UserAccount {
 	rpc GetAvailableValveDiscountPromotions (.CUserAccount_GetAvailableValveDiscountPromotions_Request) returns (.CUserAccount_GetAvailableValveDiscountPromotions_Response);
 	rpc GetAccountLinkStatus (.NotImplemented) returns (.CUserAccount_GetAccountLinkStatus_Response);
-	rpc CancelLicenseForApp (.CUserAccount_CancelLicenseForApp_Request) returns (.CUserAccount_CancelLicenseForApp_Response);
+	rpc CancelLicenseForApp (.NotImplemented) returns (.CUserAccount_CancelLicenseForApp_Response);
 	rpc CreateFriendInviteToken (.NotImplemented) returns (.CUserAccount_CreateFriendInviteToken_Response);
 	rpc GetFriendInviteTokens (.NotImplemented) returns (.CUserAccount_GetFriendInviteTokens_Response);
 	rpc ViewFriendInviteToken (.NotImplemented) returns (.CUserAccount_ViewFriendInviteToken_Response);

@@ -1,0 +1,229 @@
+import "steammessages_unified_base.steamclient.proto";
+import "common.proto";
+
+message CCloud_GetUploadServerInfo_Response {
+	optional string server_url = 1;
+}
+
+message CCloud_BeginHTTPUpload_Response {
+	optional fixed64 ugcid = 1;
+	optional fixed32 timestamp = 2;
+	optional string url_host = 3;
+	optional string url_path = 4;
+	optional bool use_https = 5;
+	repeated .CCloud_BeginHTTPUpload_Response_HTTPHeaders request_headers = 6;
+}
+
+message CCloud_BeginHTTPUpload_Response_HTTPHeaders {
+	optional string name = 1;
+	optional string value = 2;
+}
+
+message CCloud_CommitHTTPUpload_Response {
+	optional bool file_committed = 1;
+}
+
+message CCloud_BeginUGCUpload_Response {
+	optional int32 storage_system = 1 [(description) = "enum"];
+	optional fixed64 ugcid = 2;
+	optional fixed32 timestamp = 3;
+	optional string url_host = 4;
+	optional string url_path = 5;
+	optional bool use_https = 6;
+	repeated .CCloud_BeginUGCUpload_Response_HTTPHeaders request_headers = 7;
+}
+
+message CCloud_BeginUGCUpload_Response_HTTPHeaders {
+	optional string name = 1;
+	optional string value = 2;
+}
+
+message CCloud_CommitUGCUpload_Response {
+	optional bool file_committed = 1;
+}
+
+message CCloud_GetFileDetails_Response {
+	optional .CCloud_UserFile details = 1;
+}
+
+message CCloud_UserFile {
+	optional uint32 appid = 1;
+	optional uint64 ugcid = 2;
+	optional string filename = 3;
+	optional uint64 timestamp = 4;
+	optional uint32 file_size = 5;
+	optional string url = 6;
+	optional fixed64 steamid_creator = 7;
+	optional uint32 flags = 8;
+	repeated string platforms_to_sync = 9;
+	optional string file_sha = 10;
+}
+
+message CCloud_EnumerateUserFiles_Response {
+	repeated .CCloud_UserFile files = 1;
+	optional uint32 total_files = 2;
+}
+
+message CCloud_Delete_Response {
+}
+
+message CCloud_GetClientEncryptionKey_Response {
+	optional bytes key = 1;
+	optional int32 crc = 2;
+}
+
+message CCloud_BeginAppUploadBatch_Response {
+	optional uint64 batch_id = 1;
+	optional uint64 app_change_number = 4;
+}
+
+message CCloud_CompleteAppUploadBatch_Response {
+}
+
+message CCloud_ClientBeginFileUpload_Response {
+	optional bool encrypt_file = 1;
+	repeated .ClientCloudFileUploadBlockDetails block_requests = 2;
+}
+
+message ClientCloudFileUploadBlockDetails {
+	optional string url_host = 1;
+	optional string url_path = 2;
+	optional bool use_https = 3;
+	optional int32 http_method = 4;
+	repeated .ClientCloudFileUploadBlockDetails_HTTPHeaders request_headers = 5;
+	optional uint64 block_offset = 6;
+	optional uint32 block_length = 7;
+	optional bytes explicit_body_data = 8;
+	optional bool may_parallelize = 9;
+}
+
+message ClientCloudFileUploadBlockDetails_HTTPHeaders {
+	optional string name = 1;
+	optional string value = 2;
+}
+
+message CCloud_ClientCommitFileUpload_Response {
+	optional bool file_committed = 1;
+}
+
+message CCloud_ClientFileDownload_Response {
+	optional uint32 appid = 1;
+	optional uint32 file_size = 2;
+	optional uint32 raw_file_size = 3;
+	optional bytes sha_file = 4;
+	optional uint64 time_stamp = 5;
+	optional bool is_explicit_delete = 6;
+	optional string url_host = 7;
+	optional string url_path = 8;
+	optional bool use_https = 9;
+	repeated .CCloud_ClientFileDownload_Response_HTTPHeaders request_headers = 10;
+	optional bool encrypted = 11;
+}
+
+message CCloud_ClientFileDownload_Response_HTTPHeaders {
+	optional string name = 1;
+	optional string value = 2;
+}
+
+message CCloud_ClientDeleteFile_Response {
+}
+
+message CCloud_EnumerateUserApps_Response {
+	repeated .CCloud_EnumerateUserApps_Response_Apps apps = 1;
+}
+
+message CCloud_EnumerateUserApps_Response_Apps {
+	optional uint32 appid = 1;
+	optional int32 totalcount = 2;
+	optional int64 totalsize = 3;
+}
+
+message CCloud_GetAppFileChangelist_Response {
+	optional uint64 current_change_number = 1;
+	repeated .CCloud_AppFileInfo files = 2;
+	optional bool is_only_delta = 3;
+	repeated string path_prefixes = 4;
+	repeated string machine_names = 5;
+	optional uint64 app_buildid_hwm = 6;
+}
+
+message CCloud_AppFileInfo {
+	optional string file_name = 1;
+	optional bytes sha_file = 2;
+	optional uint64 time_stamp = 3;
+	optional uint32 raw_file_size = 4;
+	optional int32 persist_state = 5 [(description) = "enum"];
+	optional uint32 platforms_to_sync = 6;
+	optional uint32 path_prefix_index = 7;
+	optional uint32 machine_name_index = 8;
+}
+
+message CCloud_AppSessionSuspend_Response {
+}
+
+message CCloud_AppSessionResume_Response {
+}
+
+message CCloud_AppLaunchIntent_Response {
+	repeated .CCloud_PendingRemoteOperation pending_remote_operations = 1;
+}
+
+message CCloud_PendingRemoteOperation {
+	optional int32 operation = 1 [(description) = "enum"];
+	optional string machine_name = 2;
+	optional uint64 client_id = 3;
+	optional uint32 time_last_updated = 4;
+}
+
+message CCloud_ClientGetAppQuotaUsage_Response {
+	optional uint32 existing_files = 1;
+	optional uint64 existing_bytes = 2;
+	optional uint32 max_num_files = 3;
+	optional uint64 max_num_bytes = 4;
+}
+
+message CCloud_AppCloudStateChange_Notification {
+	optional uint32 appid = 1;
+	optional uint64 app_change_number = 2;
+}
+
+message CCloud_ClientLogUploadRequest_Notification {
+	optional uint64 request_id = 1;
+}
+
+service Cloud {
+	rpc ClientLogUploadCheck (.NotImplemented) returns (.NoResponse);
+	rpc ClientLogUploadComplete (.NotImplemented) returns (.NoResponse);
+	rpc GetUploadServerInfo (.NotImplemented) returns (.CCloud_GetUploadServerInfo_Response);
+	rpc BeginHTTPUpload (.NotImplemented) returns (.CCloud_BeginHTTPUpload_Response);
+	rpc CommitHTTPUpload (.NotImplemented) returns (.CCloud_CommitHTTPUpload_Response);
+	rpc BeginUGCUpload (.NotImplemented) returns (.CCloud_BeginUGCUpload_Response);
+	rpc CommitUGCUpload (.NotImplemented) returns (.CCloud_CommitUGCUpload_Response);
+	rpc GetFileDetails (.NotImplemented) returns (.CCloud_GetFileDetails_Response);
+	rpc EnumerateUserFiles (.NotImplemented) returns (.CCloud_EnumerateUserFiles_Response);
+	rpc Delete (.NotImplemented) returns (.CCloud_Delete_Response);
+	rpc GetClientEncryptionKey (.NotImplemented) returns (.CCloud_GetClientEncryptionKey_Response);
+	rpc CDNReport (.NotImplemented) returns (.NoResponse);
+	rpc ExternalStorageTransferReport (.NotImplemented) returns (.NoResponse);
+	rpc BeginAppUploadBatch (.NotImplemented) returns (.CCloud_BeginAppUploadBatch_Response);
+	rpc CompleteAppUploadBatch (.NotImplemented) returns (.NoResponse);
+	rpc CompleteAppUploadBatchBlocking (.NotImplemented) returns (.CCloud_CompleteAppUploadBatch_Response);
+	rpc ClientBeginFileUpload (.NotImplemented) returns (.CCloud_ClientBeginFileUpload_Response);
+	rpc ClientCommitFileUpload (.NotImplemented) returns (.CCloud_ClientCommitFileUpload_Response);
+	rpc ClientFileDownload (.NotImplemented) returns (.CCloud_ClientFileDownload_Response);
+	rpc ClientDeleteFile (.NotImplemented) returns (.CCloud_ClientDeleteFile_Response);
+	rpc ClientConflictResolution (.NotImplemented) returns (.NoResponse);
+	rpc EnumerateUserApps (.NotImplemented) returns (.CCloud_EnumerateUserApps_Response);
+	rpc GetAppFileChangelist (.NotImplemented) returns (.CCloud_GetAppFileChangelist_Response);
+	rpc SuspendAppSession (.NotImplemented) returns (.CCloud_AppSessionSuspend_Response);
+	rpc ResumeAppSession (.NotImplemented) returns (.CCloud_AppSessionResume_Response);
+	rpc SignalAppLaunchIntent (.NotImplemented) returns (.CCloud_AppLaunchIntent_Response);
+	rpc SignalAppExitSyncDone (.NotImplemented) returns (.NoResponse);
+	rpc ClientGetAppQuotaUsage (.NotImplemented) returns (.CCloud_ClientGetAppQuotaUsage_Response);
+}
+
+service CloudClient {
+	rpc NotifyAppStateChange (.CCloud_AppCloudStateChange_Notification) returns (.NoResponse);
+	rpc ClientLogUploadRequest (.CCloud_ClientLogUploadRequest_Notification) returns (.NoResponse);
+}
+

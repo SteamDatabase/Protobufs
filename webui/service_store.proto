@@ -50,6 +50,33 @@ message CStore_GetLocalizedNameForTags_Response_Tag {
 	optional uint32 tagid = 1;
 	optional string english_name = 2;
 	optional string name = 3;
+	optional string normalized_name = 4;
+}
+
+message CStore_GetDiscoveryQueue_Response {
+	repeated uint32 appids = 1;
+	optional string country_code = 2;
+	optional .CStoreDiscoveryQueueSettings settings = 3;
+	optional int32 skipped = 4;
+	optional bool exhausted = 5;
+	optional uint32 experimental_cohort = 6;
+	optional string debug_solr_query = 7;
+}
+
+message CStoreDiscoveryQueueSettings {
+	optional bool os_win = 4;
+	optional bool os_mac = 5;
+	optional bool os_linux = 6;
+	optional bool full_controller_support = 7;
+	optional bool native_steam_controller = 8;
+	optional bool include_coming_soon = 9;
+	repeated uint32 excluded_tagids = 10;
+	optional bool exclude_early_access = 11;
+	optional bool exclude_videos = 12;
+	optional bool exclude_software = 13;
+	optional bool exclude_dlc = 14;
+	optional bool exclude_soundtracks = 15;
+	repeated uint32 featured_tagids = 16;
 }
 
 message CStore_GetStorePreferences_Request {
@@ -62,7 +89,7 @@ message CStore_GetStorePreferences_Response {
 }
 
 message CStore_UserPreferences {
-	optional uint32 primary_language = 1;
+	optional int32 primary_language = 1;
 	optional uint32 secondary_languages = 2;
 	optional bool platform_windows = 3;
 	optional bool platform_mac = 4;
@@ -94,6 +121,16 @@ message CStore_UserContentDescriptorPreferences_ContentDescriptor {
 	optional uint32 timestamp_added = 2;
 }
 
+message CStore_GetTrendingAppsAmongFriends_Response {
+	repeated .CStore_GetTrendingAppsAmongFriends_Response_TrendingAppData trending_apps = 1;
+}
+
+message CStore_GetTrendingAppsAmongFriends_Response_TrendingAppData {
+	optional uint32 appid = 1;
+	repeated uint64 steamids_top_friends = 2;
+	optional uint32 total_friends = 3;
+}
+
 message CStore_StorePreferencesChanged_Notification {
 	optional .CStore_UserPreferences preferences = 1;
 	optional .CStore_UserTagPreferences tag_preferences = 2;
@@ -104,7 +141,9 @@ service Store {
 	rpc RegisterCDKey (.NotImplemented) returns (.CStore_RegisterCDKey_Response);
 	rpc GetMostPopularTags (.NotImplemented) returns (.CStore_GetMostPopularTags_Response);
 	rpc GetLocalizedNameForTags (.NotImplemented) returns (.CStore_GetLocalizedNameForTags_Response);
+	rpc GetDiscoveryQueue (.NotImplemented) returns (.CStore_GetDiscoveryQueue_Response);
 	rpc GetStorePreferences (.CStore_GetStorePreferences_Request) returns (.CStore_GetStorePreferences_Response);
+	rpc GetTrendingAppsAmongFriends (.NotImplemented) returns (.CStore_GetTrendingAppsAmongFriends_Response);
 }
 
 service StoreClient {

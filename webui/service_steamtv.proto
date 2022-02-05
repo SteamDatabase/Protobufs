@@ -305,6 +305,7 @@ message CSteamTV_HomePageTemplate_Event {
 }
 
 message CSteamTV_AppCheer_Response {
+	optional uint32 aggregation_delay_ms = 1;
 }
 
 service SteamTV {
