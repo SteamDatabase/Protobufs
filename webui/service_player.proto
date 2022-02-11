@@ -489,6 +489,13 @@ message CPlayer_GetDurationControl_Response {
 	optional bool block_minors = 8;
 }
 
+message CPlayer_GetSteamDeckKeyboardSkin_Response {
+	optional .ProfileItem steam_deck_keyboard_skin = 1;
+}
+
+message CPlayer_SetSteamDeckKeyboardSkin_Response {
+}
+
 message CPlayer_LastPlayedTimes_Notification {
 	repeated .CPlayer_GetLastPlayedTimes_Response_Game games = 1;
 }
@@ -574,6 +581,8 @@ service Player {
 	rpc UpdateSteamAnnouncementLastRead (.NotImplemented) returns (.CPlayer_UpdateSteamAnnouncementLastRead_Response);
 	rpc GetPrivacySettings (.CPlayer_GetPrivacySettings_Request) returns (.CPlayer_GetPrivacySettings_Response);
 	rpc GetDurationControl (.NotImplemented) returns (.CPlayer_GetDurationControl_Response);
+	rpc GetSteamDeckKeyboardSkin (.NotImplemented) returns (.CPlayer_GetSteamDeckKeyboardSkin_Response);
+	rpc SetSteamDeckKeyboardSkin (.NotImplemented) returns (.CPlayer_SetSteamDeckKeyboardSkin_Response);
 }
 
 service PlayerClient {
