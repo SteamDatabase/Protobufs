@@ -62,6 +62,36 @@ message CChatRoomState {
 	optional uint32 accountid_last_message = 8;
 }
 
+message CGameNetworkingUI_ConnectionState {
+	optional string connection_key = 1;
+	optional uint32 appid = 2;
+	optional fixed32 connection_id_local = 3;
+	optional string identity_local = 4;
+	optional string identity_remote = 5;
+	optional uint32 connection_state = 10;
+	optional uint32 start_time = 12;
+	optional uint32 close_time = 13;
+	optional uint32 close_reason = 14;
+	optional string close_message = 15;
+	optional string status_loc_token = 16;
+	optional uint32 transport_kind = 20;
+	optional string sdrpopid_local = 21;
+	optional string sdrpopid_remote = 22;
+	optional string address_remote = 23;
+	optional .CMsgSteamDatagramP2PRoutingSummary p2p_routing = 24;
+	optional uint32 ping_interior = 25;
+	optional uint32 ping_remote_front = 26;
+	optional uint32 ping_default_internet_route = 27;
+	optional .CMsgSteamDatagramConnectionQuality e2e_quality_local = 30;
+	optional .CMsgSteamDatagramConnectionQuality e2e_quality_remote = 31;
+	optional uint64 e2e_quality_remote_instantaneous_time = 32;
+	optional uint64 e2e_quality_remote_lifetime_time = 33;
+	optional .CMsgSteamDatagramConnectionQuality front_quality_local = 40;
+	optional .CMsgSteamDatagramConnectionQuality front_quality_remote = 41;
+	optional uint64 front_quality_remote_instantaneous_time = 42;
+	optional uint64 front_quality_remote_lifetime_time = 43;
+}
+
 message CMsgAuthTicket {
 	optional uint32 estate = 1;
 	optional uint32 eresult = 2 [default = 2];
@@ -495,6 +525,140 @@ message CMsgProtoBufHeader {
 	optional uint32 cm_sysid = 28;
 	optional uint32 launcher_type = 31 [default = 0];
 	optional uint32 realm = 32 [default = 0];
+}
+
+message CMsgSteamDatagramConnectionQuality {
+	optional .CMsgSteamDatagramLinkInstantaneousStats instantaneous = 1;
+	optional .CMsgSteamDatagramLinkLifetimeStats lifetime = 2;
+}
+
+message CMsgSteamDatagramLinkInstantaneousStats {
+	optional uint32 out_packets_per_sec_x10 = 1;
+	optional uint32 out_bytes_per_sec = 2;
+	optional uint32 in_packets_per_sec_x10 = 3;
+	optional uint32 in_bytes_per_sec = 4;
+	optional uint32 ping_ms = 5;
+	optional uint32 packets_dropped_pct = 6;
+	optional uint32 packets_weird_sequence_pct = 7;
+	optional uint32 peak_jitter_usec = 8;
+}
+
+message CMsgSteamDatagramLinkLifetimeStats {
+	optional uint32 connected_seconds = 2;
+	optional uint64 packets_sent = 3;
+	optional uint64 kb_sent = 4;
+	optional uint64 packets_recv = 5;
+	optional uint64 kb_recv = 6;
+	optional uint64 packets_recv_sequenced = 7;
+	optional uint64 packets_recv_dropped = 8;
+	optional uint64 packets_recv_out_of_order = 9;
+	optional uint64 packets_recv_duplicate = 10;
+	optional uint64 packets_recv_lurch = 11;
+	repeated uint64 multipath_packets_recv_sequenced = 12;
+	repeated uint64 multipath_packets_recv_later = 13;
+	optional uint32 multipath_send_enabled = 14;
+	optional uint32 quality_histogram_100 = 21;
+	optional uint32 quality_histogram_99 = 22;
+	optional uint32 quality_histogram_97 = 23;
+	optional uint32 quality_histogram_95 = 24;
+	optional uint32 quality_histogram_90 = 25;
+	optional uint32 quality_histogram_75 = 26;
+	optional uint32 quality_histogram_50 = 27;
+	optional uint32 quality_histogram_1 = 28;
+	optional uint32 quality_histogram_dead = 29;
+	optional uint32 quality_ntile_2nd = 30;
+	optional uint32 quality_ntile_5th = 31;
+	optional uint32 quality_ntile_25th = 32;
+	optional uint32 quality_ntile_50th = 33;
+	optional uint32 ping_histogram_25 = 41;
+	optional uint32 ping_histogram_50 = 42;
+	optional uint32 ping_histogram_75 = 43;
+	optional uint32 ping_histogram_100 = 44;
+	optional uint32 ping_histogram_125 = 45;
+	optional uint32 ping_histogram_150 = 46;
+	optional uint32 ping_histogram_200 = 47;
+	optional uint32 ping_histogram_300 = 48;
+	optional uint32 ping_histogram_max = 49;
+	optional uint32 ping_ntile_5th = 50;
+	optional uint32 ping_ntile_50th = 51;
+	optional uint32 ping_ntile_75th = 52;
+	optional uint32 ping_ntile_95th = 53;
+	optional uint32 ping_ntile_98th = 54;
+	optional uint32 jitter_histogram_negligible = 61;
+	optional uint32 jitter_histogram_1 = 62;
+	optional uint32 jitter_histogram_2 = 63;
+	optional uint32 jitter_histogram_5 = 64;
+	optional uint32 jitter_histogram_10 = 65;
+	optional uint32 jitter_histogram_20 = 66;
+	optional uint32 txspeed_max = 67;
+	optional uint32 txspeed_histogram_16 = 68;
+	optional uint32 txspeed_histogram_32 = 69;
+	optional uint32 txspeed_histogram_64 = 70;
+	optional uint32 txspeed_histogram_128 = 71;
+	optional uint32 txspeed_histogram_256 = 72;
+	optional uint32 txspeed_histogram_512 = 73;
+	optional uint32 txspeed_histogram_1024 = 74;
+	optional uint32 txspeed_histogram_max = 75;
+	optional uint32 txspeed_ntile_5th = 76;
+	optional uint32 txspeed_ntile_50th = 77;
+	optional uint32 txspeed_ntile_75th = 78;
+	optional uint32 txspeed_ntile_95th = 79;
+	optional uint32 txspeed_ntile_98th = 80;
+	optional uint32 rxspeed_max = 81;
+	optional uint32 rxspeed_histogram_16 = 82;
+	optional uint32 rxspeed_histogram_32 = 83;
+	optional uint32 rxspeed_histogram_64 = 84;
+	optional uint32 rxspeed_histogram_128 = 85;
+	optional uint32 rxspeed_histogram_256 = 86;
+	optional uint32 rxspeed_histogram_512 = 87;
+	optional uint32 rxspeed_histogram_1024 = 88;
+	optional uint32 rxspeed_histogram_max = 89;
+	optional uint32 rxspeed_ntile_5th = 90;
+	optional uint32 rxspeed_ntile_50th = 91;
+	optional uint32 rxspeed_ntile_75th = 92;
+	optional uint32 rxspeed_ntile_95th = 93;
+	optional uint32 rxspeed_ntile_98th = 94;
+}
+
+message CMsgSteamDatagramP2PRoutingSummary {
+	optional .CMsgSteamNetworkingICESessionSummary ice = 2;
+	optional .CMsgSteamNetworkingP2PSDRRoutingSummary sdr = 3;
+}
+
+message CMsgSteamNetworkingICESessionSummary {
+	optional uint32 failure_reason_code = 7;
+	optional uint32 local_candidate_types = 1;
+	optional uint32 remote_candidate_types = 2;
+	optional uint32 initial_route_kind = 3;
+	optional uint32 initial_ping = 4;
+	optional uint32 initial_score = 6;
+	optional uint32 negotiation_ms = 5;
+	optional uint32 best_route_kind = 16;
+	optional uint32 best_ping = 17;
+	optional uint32 best_score = 18;
+	optional uint32 best_time = 19;
+	optional uint32 selected_seconds = 12;
+	optional uint32 user_settings = 13;
+	optional uint32 ice_enable_var = 14;
+	optional uint32 local_candidate_types_allowed = 15;
+}
+
+message CMsgSteamNetworkingP2PSDRRoutingSummary {
+	optional uint32 initial_ping = 1;
+	optional uint32 initial_ping_front_local = 2;
+	optional uint32 initial_ping_front_remote = 3;
+	optional uint32 initial_score = 4;
+	optional fixed32 initial_pop_local = 5;
+	optional fixed32 initial_pop_remote = 6;
+	optional uint32 best_ping = 11;
+	optional uint32 best_ping_front_local = 12;
+	optional uint32 best_ping_front_remote = 13;
+	optional uint32 best_score = 14;
+	optional fixed32 best_pop_local = 15;
+	optional fixed32 best_pop_remote = 16;
+	optional uint32 best_time = 17;
+	optional uint32 negotiation_ms = 7;
+	optional uint32 selected_seconds = 8;
 }
 
 message CProductImpressionsFromClient_Notification {

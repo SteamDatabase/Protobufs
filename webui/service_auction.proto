@@ -1,11 +1,25 @@
 import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
 
+message CAuction_PlaceBid_Request {
+	optional uint64 auctiondescriptionid = 1;
+	optional int64 amount_bid = 2;
+	optional int32 expected_amount_remaining = 3;
+}
+
 message CAuction_PlaceBid_Response {
+}
+
+message CAuction_CancelBid_Request {
+	optional uint64 auctiondescriptionid = 1;
 }
 
 message CAuction_CancelBid_Response {
 	optional int64 amount_returned = 1;
+}
+
+message CAuction_GetBidsForUser_Request {
+	optional fixed64 steamid = 1;
 }
 
 message CAuction_GetBidsForUser_Response {
@@ -45,6 +59,10 @@ message CAuction_Item {
 	optional int64 reserve_price = 13;
 }
 
+message CAuction_GetUserBidForItem_Request {
+	optional uint64 auctiondescriptionid = 1;
+}
+
 message CAuction_GetUserBidForItem_Response {
 	optional .CAuction_Bid bid = 1;
 }
@@ -53,17 +71,20 @@ message CAuction_GetItemDetails_Response {
 	optional .CAuction_Item item = 1;
 }
 
+message CAuction_GetAllItems_Request {
+}
+
 message CAuction_GetAllItems_Response {
 	repeated .CAuction_Item items = 1;
 }
 
 service Auction {
-	rpc PlaceBid (.NotImplemented) returns (.CAuction_PlaceBid_Response);
-	rpc CancelBid (.NotImplemented) returns (.CAuction_CancelBid_Response);
-	rpc GetBidsForUser (.NotImplemented) returns (.CAuction_GetBidsForUser_Response);
+	rpc PlaceBid (.CAuction_PlaceBid_Request) returns (.CAuction_PlaceBid_Response);
+	rpc CancelBid (.CAuction_CancelBid_Request) returns (.CAuction_CancelBid_Response);
+	rpc GetBidsForUser (.CAuction_GetBidsForUser_Request) returns (.CAuction_GetBidsForUser_Response);
 	rpc GetBidsForItem (.NotImplemented) returns (.CAuction_GetBidsForItem_Response);
-	rpc GetUserBidForItem (.NotImplemented) returns (.CAuction_GetUserBidForItem_Response);
+	rpc GetUserBidForItem (.CAuction_GetUserBidForItem_Request) returns (.CAuction_GetUserBidForItem_Response);
 	rpc GetItemDetails (.NotImplemented) returns (.CAuction_GetItemDetails_Response);
-	rpc GetAllItems (.NotImplemented) returns (.CAuction_GetAllItems_Response);
+	rpc GetAllItems (.CAuction_GetAllItems_Request) returns (.CAuction_GetAllItems_Response);
 }
 
