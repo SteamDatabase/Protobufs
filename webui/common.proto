@@ -793,6 +793,7 @@ message StoreItem {
 	repeated .StoreItem_PurchaseOption accessories = 42;
 	optional .StoreItem_Screenshots screenshots = 50;
 	optional .StoreItem_Trailers trailers = 51;
+	repeated .StoreItem_SupportedLanguage supported_languages = 52;
 }
 
 // Used by: StoreQuery,StoreBrowse
@@ -809,14 +810,21 @@ message StoreItem_Assets {
 	optional string library_capsule_2x = 10;
 	optional string library_hero = 11;
 	optional string library_hero_2x = 12;
+	optional string community_icon = 13;
 }
 
 // Used by: StoreQuery,StoreBrowse
 message StoreItem_BasicInfo {
 	optional string short_description = 1;
-	repeated string publishers = 2;
-	repeated string developers = 3;
-	repeated string franchises = 4;
+	repeated .StoreItem_BasicInfo_CreatorHomeLink publishers = 2;
+	repeated .StoreItem_BasicInfo_CreatorHomeLink developers = 3;
+	repeated .StoreItem_BasicInfo_CreatorHomeLink franchises = 4;
+}
+
+// Used by: StoreQuery,StoreBrowse
+message StoreItem_BasicInfo_CreatorHomeLink {
+	optional string name = 1;
+	optional uint32 creator_clan_account_id = 2;
 }
 
 // Used by: StoreQuery,StoreBrowse
@@ -832,6 +840,7 @@ message StoreItem_Platforms {
 	optional bool mac = 2;
 	optional bool linux = 3;
 	optional .StoreItem_Platforms_VRSupport vr_support = 10;
+	optional int32 steam_deck_compat_category = 11 [(description) = "enum"];
 }
 
 // Used by: StoreQuery,StoreBrowse
@@ -915,6 +924,14 @@ message StoreItem_Screenshots {
 message StoreItem_Screenshots_Screenshot {
 	optional string filename = 1;
 	optional int32 ordinal = 2;
+}
+
+// Used by: StoreQuery,StoreBrowse
+message StoreItem_SupportedLanguage {
+	optional int32 elanguage = 1;
+	optional bool supported = 2;
+	optional bool full_audio = 3;
+	optional bool subtitles = 4;
 }
 
 // Used by: StoreQuery,StoreBrowse

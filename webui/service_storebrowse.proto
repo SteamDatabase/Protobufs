@@ -25,6 +25,7 @@ message StoreBrowseItemDataRequest {
 	optional int32 include_tag_count = 8;
 	optional bool include_reviews = 9;
 	optional bool include_basic_info = 10;
+	optional bool include_supported_languages = 11;
 }
 
 message CStoreBrowse_GetItems_Response {

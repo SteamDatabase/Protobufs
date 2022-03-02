@@ -53,6 +53,7 @@ message CLoyaltyRewards_RedeemPointsForProfileCustomizationUpgrade_Response {
 }
 
 message CLoyaltyRewards_RegisterForSteamDeckRewards_Response {
+	optional bool granted_profile_modifier = 1;
 }
 
 message CLoyaltyRewards_AddReaction_Request {

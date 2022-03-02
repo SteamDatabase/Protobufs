@@ -135,6 +135,10 @@ message CPlayer_GetSteamDeckKeyboardSkin_Response {
 	optional .ProfileItem steam_deck_keyboard_skin = 1;
 }
 
+message CPlayer_SetSteamDeckKeyboardSkin_Request {
+	optional uint64 communityitemid = 1;
+}
+
 message CPlayer_SetSteamDeckKeyboardSkin_Response {
 }
 
@@ -552,7 +556,7 @@ service Player {
 	rpc GetAnimatedAvatar (.NotImplemented) returns (.CPlayer_GetAnimatedAvatar_Response);
 	rpc SetAnimatedAvatar (.CPlayer_SetAnimatedAvatar_Request) returns (.CPlayer_SetAnimatedAvatar_Response);
 	rpc GetSteamDeckKeyboardSkin (.NotImplemented) returns (.CPlayer_GetSteamDeckKeyboardSkin_Response);
-	rpc SetSteamDeckKeyboardSkin (.NotImplemented) returns (.CPlayer_SetSteamDeckKeyboardSkin_Response);
+	rpc SetSteamDeckKeyboardSkin (.CPlayer_SetSteamDeckKeyboardSkin_Request) returns (.CPlayer_SetSteamDeckKeyboardSkin_Response);
 	rpc GetProfileItemsOwned (.CPlayer_GetProfileItemsOwned_Request) returns (.CPlayer_GetProfileItemsOwned_Response);
 	rpc GetProfileItemsEquipped (.CPlayer_GetProfileItemsEquipped_Request) returns (.CPlayer_GetProfileItemsEquipped_Response);
 	rpc SetEquippedProfileItemFlags (.CPlayer_SetEquippedProfileItemFlags_Request) returns (.CPlayer_SetEquippedProfileItemFlags_Response);

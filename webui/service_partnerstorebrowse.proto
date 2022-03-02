@@ -1,0 +1,7 @@
+import "steammessages_unified_base.steamclient.proto";
+import "common.proto";
+
+service PartnerStoreBrowse {
+	rpc GetItems (.NotImplemented) returns (.NotImplemented);
+}
+
