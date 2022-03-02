@@ -1,12 +1,13 @@
 import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
 
-message CQuest_GetCommunityInventory_Request {
-	repeated uint32 filter_appids = 1;
+message CQuest_ActivateProfileModifierItem_Request {
+	optional uint32 appid = 1;
+	optional uint64 communityitemid = 2;
+	optional bool activate = 3;
 }
 
-message CQuest_GetCommunityInventory_Response {
-	repeated .CQuest_CommunityItem items = 1;
+message CQuest_ActivateProfileModifierItem_Response {
 }
 
 message CQuest_CommunityItem {
@@ -23,6 +24,14 @@ message CQuest_CommunityItem {
 message CQuest_CommunityItem_Attribute {
 	optional uint32 attributeid = 1;
 	optional uint64 value = 2;
+}
+
+message CQuest_GetCommunityInventory_Request {
+	repeated uint32 filter_appids = 1;
+}
+
+message CQuest_GetCommunityInventory_Response {
+	repeated .CQuest_CommunityItem items = 1;
 }
 
 message CQuest_GetCommunityItemDefinitions_Response {
@@ -53,18 +62,9 @@ message CQuest_GetCommunityItemDefinitions_Response_ItemDefinition {
 	optional string item_movie_mp4_small = 21;
 }
 
-message CQuest_ActivateProfileModifierItem_Request {
-	optional uint32 appid = 1;
-	optional uint64 communityitemid = 2;
-	optional bool activate = 3;
-}
-
-message CQuest_ActivateProfileModifierItem_Response {
-}
-
 service Quest {
+	rpc ActivateProfileModifierItem (.CQuest_ActivateProfileModifierItem_Request) returns (.CQuest_ActivateProfileModifierItem_Response);
 	rpc GetCommunityInventory (.CQuest_GetCommunityInventory_Request) returns (.CQuest_GetCommunityInventory_Response);
 	rpc GetCommunityItemDefinitions (.NotImplemented) returns (.CQuest_GetCommunityItemDefinitions_Response);
-	rpc ActivateProfileModifierItem (.CQuest_ActivateProfileModifierItem_Request) returns (.CQuest_ActivateProfileModifierItem_Response);
 }
 

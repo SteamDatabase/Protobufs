@@ -1,14 +1,6 @@
 import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
 
-message CEcon_GetTradeOfferAccessToken_Request {
-	optional bool generate_new_token = 1;
-}
-
-message CEcon_GetTradeOfferAccessToken_Response {
-	optional string trade_offer_access_token = 1;
-}
-
 message CEcon_ClientGetItemShopOverlayAuthURL_Response {
 	optional string url = 1;
 }
@@ -26,6 +18,19 @@ message CEcon_GetAssetClassInfo_Request_Class {
 
 message CEcon_GetAssetClassInfo_Response {
 	repeated .CEconItem_Description descriptions = 1;
+}
+
+message CEcon_GetTradeOfferAccessToken_Request {
+	optional bool generate_new_token = 1;
+}
+
+message CEcon_GetTradeOfferAccessToken_Response {
+	optional string trade_offer_access_token = 1;
+}
+
+message CEconItem_Action {
+	optional string link = 1;
+	optional string name = 2;
 }
 
 message CEconItem_Description {
@@ -68,11 +73,6 @@ message CEconItem_DescriptionLine {
 	optional string label = 4;
 }
 
-message CEconItem_Action {
-	optional string link = 1;
-	optional string name = 2;
-}
-
 message CEconItem_Tag {
 	optional uint32 appid = 1;
 	optional string category = 2;
@@ -83,8 +83,8 @@ message CEconItem_Tag {
 }
 
 service Econ {
-	rpc GetTradeOfferAccessToken (.CEcon_GetTradeOfferAccessToken_Request) returns (.CEcon_GetTradeOfferAccessToken_Response);
 	rpc ClientGetItemShopOverlayAuthURL (.NotImplemented) returns (.CEcon_ClientGetItemShopOverlayAuthURL_Response);
 	rpc GetAssetClassInfo (.CEcon_GetAssetClassInfo_Request) returns (.CEcon_GetAssetClassInfo_Response);
+	rpc GetTradeOfferAccessToken (.CEcon_GetTradeOfferAccessToken_Request) returns (.CEcon_GetTradeOfferAccessToken_Response);
 }
 

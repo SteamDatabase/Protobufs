@@ -6,8 +6,16 @@ message CVideo_ClientGetVideoURL_Response {
 	optional string video_url = 2;
 }
 
+message CVideo_GetVideoBookmarks_Response {
+	repeated .VideoBookmark bookmarks = 1;
+}
+
 message CVideo_SetVideoBookmark_Notification {
 	repeated .VideoBookmark bookmarks = 1;
+}
+
+message CVideo_UnlockedH264_Notification {
+	optional bytes encryption_key = 1;
 }
 
 message VideoBookmark {
@@ -21,18 +29,10 @@ message VideoBookmark {
 	optional bool hide_from_library = 8 [default = false];
 }
 
-message CVideo_GetVideoBookmarks_Response {
-	repeated .VideoBookmark bookmarks = 1;
-}
-
-message CVideo_UnlockedH264_Notification {
-	optional bytes encryption_key = 1;
-}
-
 service Video {
 	rpc ClientGetVideoURL (.NotImplemented) returns (.CVideo_ClientGetVideoURL_Response);
-	rpc SetVideoBookmark (.CVideo_SetVideoBookmark_Notification) returns (.NoResponse);
 	rpc GetVideoBookmarks (.NotImplemented) returns (.CVideo_GetVideoBookmarks_Response);
+	rpc SetVideoBookmark (.CVideo_SetVideoBookmark_Notification) returns (.NoResponse);
 }
 
 service VideoClient {

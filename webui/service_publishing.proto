@@ -1,10 +1,6 @@
 import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
 
-message CPublishing_GetSinglePartnerAppOptIns_Response {
-	repeated .CPartnerAppOptInData data = 1;
-}
-
 message CPartnerAppOptInData {
 	optional uint32 appid = 1;
 	optional bool opt_in = 2;
@@ -23,33 +19,6 @@ message CPartnerAppOptInData {
 	optional uint32 time_pruned = 15;
 }
 
-message CPublishing_GetPartnerOptInInvites_Response {
-	repeated .CPartnerAppOptInData data = 1;
-}
-
-message CPublishing_CreatePartnerAppOptInEmail_Response {
-	optional fixed64 email_def_id = 1;
-}
-
-message CPublishing_UpdatePartnerAppOptInEmail_Response {
-}
-
-message CPublishing_SendPartnerAppOptInEmailAndWait_Response {
-	optional .CPartnerAppOptInEmailStats results = 1;
-}
-
-message CPartnerAppOptInEmailStats {
-	optional uint32 accounts_examined = 1;
-	optional uint32 accounts_emailed = 2;
-	optional uint32 accounts_not_emailed_opted_out = 3;
-	optional uint32 accounts_email_failed = 4;
-	optional bool completed = 5;
-}
-
-message CPublishing_GetPartnerAppOptInEmailDefAndStats_Response {
-	repeated .CPartnerAppOptInEmailDef defs = 1;
-}
-
 message CPartnerAppOptInEmailDef {
 	optional string opt_in_name = 1;
 	optional fixed64 targeting_flag = 2;
@@ -64,21 +33,52 @@ message CPartnerAppOptInEmailDef {
 	optional fixed64 email_def_id = 11;
 }
 
+message CPartnerAppOptInEmailStats {
+	optional uint32 accounts_examined = 1;
+	optional uint32 accounts_emailed = 2;
+	optional uint32 accounts_not_emailed_opted_out = 3;
+	optional uint32 accounts_email_failed = 4;
+	optional bool completed = 5;
+}
+
+message CPublishing_CreatePartnerAppOptInEmail_Response {
+	optional fixed64 email_def_id = 1;
+}
+
 message CPublishing_GetEstimatePartnerAppOptInEmail_Response {
 	optional .CPartnerAppOptInEmailStats stats = 1;
+}
+
+message CPublishing_GetPartnerAppOptInEmailDefAndStats_Response {
+	repeated .CPartnerAppOptInEmailDef defs = 1;
+}
+
+message CPublishing_GetPartnerOptInInvites_Response {
+	repeated .CPartnerAppOptInData data = 1;
+}
+
+message CPublishing_GetSinglePartnerAppOptIns_Response {
+	repeated .CPartnerAppOptInData data = 1;
+}
+
+message CPublishing_SendPartnerAppOptInEmailAndWait_Response {
+	optional .CPartnerAppOptInEmailStats results = 1;
 }
 
 message CPublishing_TestFirePartnerAppOptInEmail_Response {
 }
 
+message CPublishing_UpdatePartnerAppOptInEmail_Response {
+}
+
 service Publishing {
-	rpc GetSinglePartnerAppOptIn (.NotImplemented) returns (.CPublishing_GetSinglePartnerAppOptIns_Response);
-	rpc GetPartnerOptInInvites (.NotImplemented) returns (.CPublishing_GetPartnerOptInInvites_Response);
 	rpc CreatePartnerAppOptInEmails (.NotImplemented) returns (.CPublishing_CreatePartnerAppOptInEmail_Response);
-	rpc UpdatePartnerAppOptInEmails (.NotImplemented) returns (.CPublishing_UpdatePartnerAppOptInEmail_Response);
-	rpc SendPartnerOptInEmailAndWait (.NotImplemented) returns (.CPublishing_SendPartnerAppOptInEmailAndWait_Response);
-	rpc GetPartnerAppOptInEmailDefAndStats (.NotImplemented) returns (.CPublishing_GetPartnerAppOptInEmailDefAndStats_Response);
 	rpc GetEstimatePartnerAppOptInEmail (.NotImplemented) returns (.CPublishing_GetEstimatePartnerAppOptInEmail_Response);
+	rpc GetPartnerAppOptInEmailDefAndStats (.NotImplemented) returns (.CPublishing_GetPartnerAppOptInEmailDefAndStats_Response);
+	rpc GetPartnerOptInInvites (.NotImplemented) returns (.CPublishing_GetPartnerOptInInvites_Response);
+	rpc GetSinglePartnerAppOptIn (.NotImplemented) returns (.CPublishing_GetSinglePartnerAppOptIns_Response);
+	rpc SendPartnerOptInEmailAndWait (.NotImplemented) returns (.CPublishing_SendPartnerAppOptInEmailAndWait_Response);
 	rpc TestFirePartnerAppOptInEmail (.NotImplemented) returns (.CPublishing_TestFirePartnerAppOptInEmail_Response);
+	rpc UpdatePartnerAppOptInEmails (.NotImplemented) returns (.CPublishing_UpdatePartnerAppOptInEmail_Response);
 }
 

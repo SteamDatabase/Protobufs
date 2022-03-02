@@ -15,13 +15,13 @@ message CClientMetrics_ReportClientError_Notification_Error {
 
 service ClientMetrics {
 	rpc ClientAppInterfaceStatsReport (.NotImplemented) returns (.NoResponse);
-	rpc ClientIPv6ConnectivityReport (.NotImplemented) returns (.NoResponse);
-	rpc SteamPipeWorkStatsReport (.NotImplemented) returns (.NoResponse);
-	rpc ReportClientError (.CClientMetrics_ReportClientError_Notification) returns (.NoResponse);
 	rpc ClientBootstrapReport (.NotImplemented) returns (.NoResponse);
-	rpc ClientDownloadRatesReport (.NotImplemented) returns (.NoResponse);
-	rpc ClientContentValidationReport (.NotImplemented) returns (.NoResponse);
 	rpc ClientCloudAppSyncStats (.NotImplemented) returns (.NoResponse);
+	rpc ClientContentValidationReport (.NotImplemented) returns (.NoResponse);
+	rpc ClientDownloadRatesReport (.NotImplemented) returns (.NoResponse);
 	rpc ClientDownloadResponseCodeCounts (.NotImplemented) returns (.NoResponse);
+	rpc ClientIPv6ConnectivityReport (.NotImplemented) returns (.NoResponse);
+	rpc ReportClientError (.CClientMetrics_ReportClientError_Notification) returns (.NoResponse);
+	rpc SteamPipeWorkStatsReport (.NotImplemented) returns (.NoResponse);
 }
 

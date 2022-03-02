@@ -1,10 +1,13 @@
 import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
 
-message CParental_EnableParentalSettings_Response {
+message CParental_DisableParentalSettings_Response {
 }
 
-message CParental_DisableParentalSettings_Response {
+message CParental_DisableWithRecoveryCode_Response {
+}
+
+message CParental_EnableParentalSettings_Response {
 }
 
 message CParental_GetParentalSettings_Request {
@@ -13,6 +16,58 @@ message CParental_GetParentalSettings_Request {
 
 message CParental_GetParentalSettings_Response {
 	optional .ParentalSettings settings = 1;
+}
+
+message CParental_GetSignedParentalSettings_Response {
+	optional bytes serialized_settings = 1;
+	optional bytes signature = 2;
+}
+
+message CParental_LockClient_Response {
+}
+
+message CParental_ParentalLock_Notification {
+	optional string sessionid = 1;
+}
+
+message CParental_ParentalSettingsChange_Notification {
+	optional bytes serialized_settings = 1;
+	optional bytes signature = 2;
+	optional string password = 3;
+	optional string sessionid = 4;
+}
+
+message CParental_ParentalUnlock_Notification {
+	optional string password = 1;
+	optional string sessionid = 2;
+}
+
+message CParental_RequestRecoveryCode_Response {
+}
+
+message CParental_SetParentalSettings_Response {
+}
+
+message CParental_ValidatePassword_Request {
+	optional string password = 1;
+	optional string session = 2;
+	optional bool send_unlock_on_success = 3;
+}
+
+message CParental_ValidatePassword_Response {
+	optional string token = 1;
+}
+
+message CParental_ValidateToken_Request {
+	optional string unlock_token = 1;
+}
+
+message CParental_ValidateToken_Response {
+}
+
+message ParentalApp {
+	optional uint32 appid = 1;
+	optional bool is_allowed = 2;
 }
 
 message ParentalSettings {
@@ -30,77 +85,22 @@ message ParentalSettings {
 	optional bool is_site_license_lock = 12;
 }
 
-message ParentalApp {
-	optional uint32 appid = 1;
-	optional bool is_allowed = 2;
-}
-
-message CParental_GetSignedParentalSettings_Response {
-	optional bytes serialized_settings = 1;
-	optional bytes signature = 2;
-}
-
-message CParental_SetParentalSettings_Response {
-}
-
-message CParental_ValidateToken_Request {
-	optional string unlock_token = 1;
-}
-
-message CParental_ValidateToken_Response {
-}
-
-message CParental_ValidatePassword_Request {
-	optional string password = 1;
-	optional string session = 2;
-	optional bool send_unlock_on_success = 3;
-}
-
-message CParental_ValidatePassword_Response {
-	optional string token = 1;
-}
-
-message CParental_LockClient_Response {
-}
-
-message CParental_RequestRecoveryCode_Response {
-}
-
-message CParental_DisableWithRecoveryCode_Response {
-}
-
-message CParental_ParentalSettingsChange_Notification {
-	optional bytes serialized_settings = 1;
-	optional bytes signature = 2;
-	optional string password = 3;
-	optional string sessionid = 4;
-}
-
-message CParental_ParentalUnlock_Notification {
-	optional string password = 1;
-	optional string sessionid = 2;
-}
-
-message CParental_ParentalLock_Notification {
-	optional string sessionid = 1;
-}
-
 service Parental {
-	rpc EnableParentalSettings (.NotImplemented) returns (.CParental_EnableParentalSettings_Response);
 	rpc DisableParentalSettings (.NotImplemented) returns (.CParental_DisableParentalSettings_Response);
+	rpc DisableWithRecoveryCode (.NotImplemented) returns (.CParental_DisableWithRecoveryCode_Response);
+	rpc EnableParentalSettings (.NotImplemented) returns (.CParental_EnableParentalSettings_Response);
 	rpc GetParentalSettings (.CParental_GetParentalSettings_Request) returns (.CParental_GetParentalSettings_Response);
 	rpc GetSignedParentalSettings (.NotImplemented) returns (.CParental_GetSignedParentalSettings_Response);
-	rpc SetParentalSettings (.NotImplemented) returns (.CParental_SetParentalSettings_Response);
-	rpc ValidateToken (.CParental_ValidateToken_Request) returns (.CParental_ValidateToken_Response);
-	rpc ValidatePassword (.CParental_ValidatePassword_Request) returns (.CParental_ValidatePassword_Response);
 	rpc LockClient (.NotImplemented) returns (.CParental_LockClient_Response);
 	rpc RequestRecoveryCode (.NotImplemented) returns (.CParental_RequestRecoveryCode_Response);
-	rpc DisableWithRecoveryCode (.NotImplemented) returns (.CParental_DisableWithRecoveryCode_Response);
+	rpc SetParentalSettings (.NotImplemented) returns (.CParental_SetParentalSettings_Response);
+	rpc ValidatePassword (.CParental_ValidatePassword_Request) returns (.CParental_ValidatePassword_Response);
+	rpc ValidateToken (.CParental_ValidateToken_Request) returns (.CParental_ValidateToken_Response);
 }
 
 service ParentalClient {
+	rpc NotifyLock (.CParental_ParentalLock_Notification) returns (.NoResponse);
 	rpc NotifySettingsChange (.CParental_ParentalSettingsChange_Notification) returns (.NoResponse);
 	rpc NotifyUnlock (.CParental_ParentalUnlock_Notification) returns (.NoResponse);
-	rpc NotifyLock (.CParental_ParentalLock_Notification) returns (.NoResponse);
 }
 

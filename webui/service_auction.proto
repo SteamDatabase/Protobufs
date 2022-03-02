@@ -1,31 +1,6 @@
 import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
 
-message CAuction_PlaceBid_Request {
-	optional uint64 auctiondescriptionid = 1;
-	optional int64 amount_bid = 2;
-	optional int32 expected_amount_remaining = 3;
-}
-
-message CAuction_PlaceBid_Response {
-}
-
-message CAuction_CancelBid_Request {
-	optional uint64 auctiondescriptionid = 1;
-}
-
-message CAuction_CancelBid_Response {
-	optional int64 amount_returned = 1;
-}
-
-message CAuction_GetBidsForUser_Request {
-	optional fixed64 steamid = 1;
-}
-
-message CAuction_GetBidsForUser_Response {
-	repeated .CAuction_Bid bids = 1;
-}
-
 message CAuction_Bid {
 	optional uint32 accountid = 1;
 	optional uint64 auctiondescriptionid = 2;
@@ -37,11 +12,46 @@ message CAuction_Bid {
 	optional int64 auctionbidid = 8;
 }
 
+message CAuction_CancelBid_Request {
+	optional uint64 auctiondescriptionid = 1;
+}
+
+message CAuction_CancelBid_Response {
+	optional int64 amount_returned = 1;
+}
+
+message CAuction_GetAllItems_Request {
+}
+
+message CAuction_GetAllItems_Response {
+	repeated .CAuction_Item items = 1;
+}
+
 message CAuction_GetBidsForItem_Response {
 	optional .CAuction_Item item = 1;
 	optional int32 count_total = 2;
 	optional int32 current_user_position = 3;
 	repeated .CAuction_Bid winning_bids = 4;
+}
+
+message CAuction_GetBidsForUser_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CAuction_GetBidsForUser_Response {
+	repeated .CAuction_Bid bids = 1;
+}
+
+message CAuction_GetItemDetails_Response {
+	optional .CAuction_Item item = 1;
+}
+
+message CAuction_GetUserBidForItem_Request {
+	optional uint64 auctiondescriptionid = 1;
+}
+
+message CAuction_GetUserBidForItem_Response {
+	optional .CAuction_Bid bid = 1;
 }
 
 message CAuction_Item {
@@ -59,32 +69,22 @@ message CAuction_Item {
 	optional int64 reserve_price = 13;
 }
 
-message CAuction_GetUserBidForItem_Request {
+message CAuction_PlaceBid_Request {
 	optional uint64 auctiondescriptionid = 1;
+	optional int64 amount_bid = 2;
+	optional int32 expected_amount_remaining = 3;
 }
 
-message CAuction_GetUserBidForItem_Response {
-	optional .CAuction_Bid bid = 1;
-}
-
-message CAuction_GetItemDetails_Response {
-	optional .CAuction_Item item = 1;
-}
-
-message CAuction_GetAllItems_Request {
-}
-
-message CAuction_GetAllItems_Response {
-	repeated .CAuction_Item items = 1;
+message CAuction_PlaceBid_Response {
 }
 
 service Auction {
-	rpc PlaceBid (.CAuction_PlaceBid_Request) returns (.CAuction_PlaceBid_Response);
 	rpc CancelBid (.CAuction_CancelBid_Request) returns (.CAuction_CancelBid_Response);
-	rpc GetBidsForUser (.CAuction_GetBidsForUser_Request) returns (.CAuction_GetBidsForUser_Response);
-	rpc GetBidsForItem (.NotImplemented) returns (.CAuction_GetBidsForItem_Response);
-	rpc GetUserBidForItem (.CAuction_GetUserBidForItem_Request) returns (.CAuction_GetUserBidForItem_Response);
-	rpc GetItemDetails (.NotImplemented) returns (.CAuction_GetItemDetails_Response);
 	rpc GetAllItems (.CAuction_GetAllItems_Request) returns (.CAuction_GetAllItems_Response);
+	rpc GetBidsForItem (.NotImplemented) returns (.CAuction_GetBidsForItem_Response);
+	rpc GetBidsForUser (.CAuction_GetBidsForUser_Request) returns (.CAuction_GetBidsForUser_Response);
+	rpc GetItemDetails (.NotImplemented) returns (.CAuction_GetItemDetails_Response);
+	rpc GetUserBidForItem (.CAuction_GetUserBidForItem_Request) returns (.CAuction_GetUserBidForItem_Response);
+	rpc PlaceBid (.CAuction_PlaceBid_Request) returns (.CAuction_PlaceBid_Response);
 }
 

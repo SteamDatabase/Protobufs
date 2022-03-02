@@ -1,6 +1,30 @@
 import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
 
+message CStoreAppSimilarity_IdentifyClustersFromPlaytime_Request {
+	optional fixed64 steamid = 1;
+	optional int32 sort = 2 [default = 1, (description) = "enum"];
+	optional int32 clusters_to_return = 3;
+	optional int32 cluster_index = 4;
+	optional UNKNOWN context = 10;
+	optional UNKNOWN data_request = 11;
+}
+
+message CStoreAppSimilarity_IdentifyClustersFromPlaytime_Response {
+	repeated .CStoreAppSimilarity_IdentifyClustersFromPlaytime_Response_Cluster clusters = 1;
+}
+
+message CStoreAppSimilarity_IdentifyClustersFromPlaytime_Response_Cluster {
+	optional int32 cluster_id = 1;
+	optional int32 playtime_forever = 2;
+	optional int32 playtime_2weeks = 3;
+	optional uint32 last_played = 4;
+	repeated int32 played_appids = 5;
+	repeated int32 similar_items_appids = 6;
+	repeated UNKNOWN similar_items = 7;
+	optional double similar_item_popularity_score = 8;
+}
+
 message CStoreAppSimilarity_PrioritizeAppsForUser_Response {
 	repeated .CStoreAppSimilarity_PrioritizeAppsForUser_Response_ResultItem items = 1;
 }
@@ -26,32 +50,8 @@ message CStoreAppSimilarity_PrioritizeAppsForUser_Response_ResultItem_Popularity
 	optional double weight_before_popularity = 3;
 }
 
-message CStoreAppSimilarity_IdentifyClustersFromPlaytime_Request {
-	optional fixed64 steamid = 1;
-	optional int32 sort = 2 [default = 1, (description) = "enum"];
-	optional int32 clusters_to_return = 3;
-	optional int32 cluster_index = 4;
-	optional UNKNOWN context = 10;
-	optional UNKNOWN data_request = 11;
-}
-
-message CStoreAppSimilarity_IdentifyClustersFromPlaytime_Response {
-	repeated .CStoreAppSimilarity_IdentifyClustersFromPlaytime_Response_Cluster clusters = 1;
-}
-
-message CStoreAppSimilarity_IdentifyClustersFromPlaytime_Response_Cluster {
-	optional int32 cluster_id = 1;
-	optional int32 playtime_forever = 2;
-	optional int32 playtime_2weeks = 3;
-	optional uint32 last_played = 4;
-	repeated int32 played_appids = 5;
-	repeated int32 similar_items_appids = 6;
-	repeated UNKNOWN similar_items = 7;
-	optional double similar_item_popularity_score = 8;
-}
-
 service StoreAppSimilarity {
-	rpc PrioritizeAppsForUser (.NotImplemented) returns (.CStoreAppSimilarity_PrioritizeAppsForUser_Response);
 	rpc IdentifyClustersFromPlaytime (.CStoreAppSimilarity_IdentifyClustersFromPlaytime_Request) returns (.CStoreAppSimilarity_IdentifyClustersFromPlaytime_Response);
+	rpc PrioritizeAppsForUser (.NotImplemented) returns (.CStoreAppSimilarity_PrioritizeAppsForUser_Response);
 }
 

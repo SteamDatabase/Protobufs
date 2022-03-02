@@ -7,16 +7,16 @@ message CStoreQuery_Query_Response {
 	repeated .StoreItem store_items = 3;
 }
 
-message CStoreQueryResultMetadata {
-	optional int32 total_matching_records = 1;
-	optional int32 start = 2;
-	optional int32 count = 3;
-}
-
 message CStoreQuery_SearchSuggestions_Response {
 	optional .CStoreQueryResultMetadata metadata = 1;
 	repeated .StoreItemID ids = 2;
 	repeated .StoreItem store_items = 3;
+}
+
+message CStoreQueryResultMetadata {
+	optional int32 total_matching_records = 1;
+	optional int32 start = 2;
+	optional int32 count = 3;
 }
 
 service StoreQuery {

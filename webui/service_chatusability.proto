@@ -11,6 +11,19 @@ message CChatUsability_ClientUsabilityMetrics_Notification {
 	optional .CChatUsability_ClientUsabilityMetrics_Notification_Metrics metrics = 13;
 }
 
+message CChatUsability_ClientUsabilityMetrics_Notification_Metrics {
+	optional int32 friends_count = 1;
+	optional int32 friends_category_count = 2;
+	optional int32 friends_categorized_count = 3;
+	optional int32 friends_online_count = 4;
+	optional int32 friends_in_game_count = 5;
+	optional int32 friends_in_game_singleton_count = 6;
+	optional int32 game_group_count = 7;
+	optional int32 friends_favorite_count = 8;
+	optional int32 group_chat_count = 9;
+	optional int32 group_chat_favorite_count = 10;
+}
+
 message CChatUsability_ClientUsabilityMetrics_Notification_Settings {
 	optional bool notifications_show_ingame = 1;
 	optional bool notifications_show_online = 2;
@@ -37,20 +50,6 @@ message CChatUsability_ClientUsabilityMetrics_Notification_Settings {
 	optional bool disable_embed_inlining = 23;
 	optional bool sign_into_friends = 24;
 	optional bool animated_avatars = 25;
-}
-
-message CChatUsability_ClientUsabilityMetrics_Notification_VoiceSettings {
-	optional float voice_input_gain = 1;
-	optional float voice_output_gain = 2;
-	optional int32 noise_gate_level = 3;
-	optional bool voice_use_echo_cancellation = 4;
-	optional bool voice_use_noise_cancellation = 5;
-	optional bool voice_use_auto_gain_control = 6;
-	optional bool selected_non_default_mic = 7;
-	optional bool selected_non_default_output = 8;
-	optional bool push_to_talk_enabled = 9;
-	optional bool push_to_mute_enabled = 10;
-	optional bool play_ptt_sounds = 11;
 }
 
 message CChatUsability_ClientUsabilityMetrics_Notification_UIState {
@@ -80,17 +79,18 @@ message CChatUsability_ClientUsabilityMetrics_Notification_UIState_CategoryColla
 	optional int32 categories_collapsed = 5;
 }
 
-message CChatUsability_ClientUsabilityMetrics_Notification_Metrics {
-	optional int32 friends_count = 1;
-	optional int32 friends_category_count = 2;
-	optional int32 friends_categorized_count = 3;
-	optional int32 friends_online_count = 4;
-	optional int32 friends_in_game_count = 5;
-	optional int32 friends_in_game_singleton_count = 6;
-	optional int32 game_group_count = 7;
-	optional int32 friends_favorite_count = 8;
-	optional int32 group_chat_count = 9;
-	optional int32 group_chat_favorite_count = 10;
+message CChatUsability_ClientUsabilityMetrics_Notification_VoiceSettings {
+	optional float voice_input_gain = 1;
+	optional float voice_output_gain = 2;
+	optional int32 noise_gate_level = 3;
+	optional bool voice_use_echo_cancellation = 4;
+	optional bool voice_use_noise_cancellation = 5;
+	optional bool voice_use_auto_gain_control = 6;
+	optional bool selected_non_default_mic = 7;
+	optional bool selected_non_default_output = 8;
+	optional bool push_to_talk_enabled = 9;
+	optional bool push_to_mute_enabled = 10;
+	optional bool play_ptt_sounds = 11;
 }
 
 message CChatUsability_RequestClientUsabilityMetrics_Notification {
