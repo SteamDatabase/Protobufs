@@ -1,5 +1,17 @@
 import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
+
+message CClan_GetPartnerEventsByBuildIDRange_Request {
+	repeated .CClan_GetPartnerEventsByBuildIDRange_Request_PatchNoteRange requests = 1;
+	optional string cursor = 2;
+	optional uint32 count = 3 [default = 100];
+}
+
+message CClan_GetPartnerEventsByBuildIDRange_Request_PatchNoteRange {
+	optional uint32 appid = 1;
+	optional uint32 start_build_id = 2;
+	optional uint32 end_build_id = 3;
+	optional string branch = 4;
+}
 
 message CClan_GetPartnerEventsByBuildIDRange_Response {
 	repeated .CClan_GetPartnerEventsByBuildIDRange_Response_PatchNotesDesc matches = 1;
@@ -24,7 +36,7 @@ message CClan_RespondToClanInvite_Response {
 }
 
 service Clan {
-	rpc GetPartnerEventsByBuildIDRange (.NotImplemented) returns (.CClan_GetPartnerEventsByBuildIDRange_Response);
+	rpc GetPartnerEventsByBuildIDRange (.CClan_GetPartnerEventsByBuildIDRange_Request) returns (.CClan_GetPartnerEventsByBuildIDRange_Response);
 	rpc RespondToClanInvite (.CClan_RespondToClanInvite_Request) returns (.CClan_RespondToClanInvite_Response);
 }
 

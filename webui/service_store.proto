@@ -1,6 +1,19 @@
 import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
 
+message CStore_GetDiscoveryQueue_Request {
+	optional int32 queue_type = 1 [(description) = "enum"];
+	optional string country_code = 2;
+	optional bool rebuild_queue = 3;
+	optional bool settings_changed = 4;
+	optional .CStoreDiscoveryQueueSettings settings = 5;
+	optional bool rebuild_queue_if_stale = 6;
+	optional bool ignore_user_preferences = 8;
+	optional bool no_experimental_results = 9;
+	optional uint32 experimental_cohort = 10;
+	optional bool debug_get_solr_query = 11;
+}
+
 message CStore_GetDiscoveryQueue_Response {
 	repeated uint32 appids = 1;
 	optional string country_code = 2;
@@ -9,6 +22,11 @@ message CStore_GetDiscoveryQueue_Response {
 	optional bool exhausted = 5;
 	optional uint32 experimental_cohort = 6;
 	optional string debug_solr_query = 7;
+}
+
+message CStore_GetLocalizedNameForTags_Request {
+	optional string language = 1;
+	repeated uint32 tagids = 2;
 }
 
 message CStore_GetLocalizedNameForTags_Response {
@@ -38,6 +56,11 @@ message CStore_GetStorePreferences_Response {
 	optional .CStore_UserPreferences preferences = 1;
 	optional .CStore_UserTagPreferences tag_preferences = 2;
 	optional .CStore_UserContentDescriptorPreferences content_descriptor_preferences = 3;
+}
+
+message CStore_GetTrendingAppsAmongFriends_Request {
+	optional uint32 num_apps = 1;
+	optional uint32 num_top_friends = 2;
 }
 
 message CStore_GetTrendingAppsAmongFriends_Response {
@@ -77,6 +100,12 @@ message CStore_PurchaseReceiptInfo_LineItem {
 	optional string line_item_description = 3;
 }
 
+message CStore_RegisterCDKey_Request {
+	optional string activation_code = 1;
+	optional int32 purchase_platform = 2;
+	optional bool is_request_from_client = 3;
+}
+
 message CStore_RegisterCDKey_Response {
 	optional int32 purchase_result_details = 1;
 	optional .CStore_PurchaseReceiptInfo purchase_receipt_info = 2;
@@ -99,6 +128,7 @@ message CStore_UserContentDescriptorPreferences_ContentDescriptor {
 
 message CStore_UserPreferences {
 	optional int32 primary_language = 1;
+	//optional uint32 primary_language = 1;
 	optional uint32 secondary_languages = 2;
 	optional bool platform_windows = 3;
 	optional bool platform_mac = 4;
@@ -138,12 +168,12 @@ message CStoreDiscoveryQueueSettings {
 }
 
 service Store {
-	rpc GetDiscoveryQueue (.NotImplemented) returns (.CStore_GetDiscoveryQueue_Response);
-	rpc GetLocalizedNameForTags (.NotImplemented) returns (.CStore_GetLocalizedNameForTags_Response);
+	rpc GetDiscoveryQueue (.CStore_GetDiscoveryQueue_Request) returns (.CStore_GetDiscoveryQueue_Response);
+	rpc GetLocalizedNameForTags (.CStore_GetLocalizedNameForTags_Request) returns (.CStore_GetLocalizedNameForTags_Response);
 	rpc GetMostPopularTags (.NotImplemented) returns (.CStore_GetMostPopularTags_Response);
 	rpc GetStorePreferences (.CStore_GetStorePreferences_Request) returns (.CStore_GetStorePreferences_Response);
-	rpc GetTrendingAppsAmongFriends (.NotImplemented) returns (.CStore_GetTrendingAppsAmongFriends_Response);
-	rpc RegisterCDKey (.NotImplemented) returns (.CStore_RegisterCDKey_Response);
+	rpc GetTrendingAppsAmongFriends (.CStore_GetTrendingAppsAmongFriends_Request) returns (.CStore_GetTrendingAppsAmongFriends_Response);
+	rpc RegisterCDKey (.CStore_RegisterCDKey_Request) returns (.CStore_RegisterCDKey_Response);
 }
 
 service StoreClient {

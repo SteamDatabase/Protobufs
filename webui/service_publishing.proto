@@ -41,12 +41,29 @@ message CPartnerAppOptInEmailStats {
 	optional bool completed = 5;
 }
 
+message CPublishing_CreatePartnerAppOptInEmail_Request {
+	optional string opt_in_name = 1;
+	optional fixed64 targeting_flag = 2;
+	optional fixed64 settings_flag = 3;
+	optional string email_templates = 4;
+	optional uint32 start_rtime = 5 [default = 0];
+	optional uint32 end_rtime = 6 [default = 0];
+}
+
 message CPublishing_CreatePartnerAppOptInEmail_Response {
+	optional fixed64 email_def_id = 1;
+}
+
+message CPublishing_GetEstimatePartnerAppOptInEmail_Request {
 	optional fixed64 email_def_id = 1;
 }
 
 message CPublishing_GetEstimatePartnerAppOptInEmail_Response {
 	optional .CPartnerAppOptInEmailStats stats = 1;
+}
+
+message CPublishing_GetPartnerAppOptInEmailDefAndStats_Request {
+	optional string opt_in_name = 1;
 }
 
 message CPublishing_GetPartnerAppOptInEmailDefAndStats_Response {
@@ -61,24 +78,43 @@ message CPublishing_GetSinglePartnerAppOptIns_Response {
 	repeated .CPartnerAppOptInData data = 1;
 }
 
+message CPublishing_SendPartnerAppOptInEmailAndWait_Request {
+	optional fixed64 email_def_id = 1;
+}
+
 message CPublishing_SendPartnerAppOptInEmailAndWait_Response {
 	optional .CPartnerAppOptInEmailStats results = 1;
 }
 
+message CPublishing_TestFirePartnerAppOptInEmail_Request {
+	optional fixed64 email_def_id = 1;
+	optional uint32 appid = 2;
+	optional uint32 partnerid = 3;
+}
+
 message CPublishing_TestFirePartnerAppOptInEmail_Response {
+}
+
+message CPublishing_UpdatePartnerAppOptInEmail_Request {
+	optional fixed64 email_def_id = 1;
+	optional fixed64 targeting_flag = 2;
+	optional fixed64 settings_flag = 3;
+	optional string email_templates = 4;
+	optional uint32 start_rtime = 5 [default = 0];
+	optional uint32 end_rtime = 6 [default = 0];
 }
 
 message CPublishing_UpdatePartnerAppOptInEmail_Response {
 }
 
 service Publishing {
-	rpc CreatePartnerAppOptInEmails (.NotImplemented) returns (.CPublishing_CreatePartnerAppOptInEmail_Response);
-	rpc GetEstimatePartnerAppOptInEmail (.NotImplemented) returns (.CPublishing_GetEstimatePartnerAppOptInEmail_Response);
-	rpc GetPartnerAppOptInEmailDefAndStats (.NotImplemented) returns (.CPublishing_GetPartnerAppOptInEmailDefAndStats_Response);
+	rpc CreatePartnerAppOptInEmails (.CPublishing_CreatePartnerAppOptInEmail_Request) returns (.CPublishing_CreatePartnerAppOptInEmail_Response);
+	rpc GetEstimatePartnerAppOptInEmail (.CPublishing_GetEstimatePartnerAppOptInEmail_Request) returns (.CPublishing_GetEstimatePartnerAppOptInEmail_Response);
+	rpc GetPartnerAppOptInEmailDefAndStats (.CPublishing_GetPartnerAppOptInEmailDefAndStats_Request) returns (.CPublishing_GetPartnerAppOptInEmailDefAndStats_Response);
 	rpc GetPartnerOptInInvites (.NotImplemented) returns (.CPublishing_GetPartnerOptInInvites_Response);
 	rpc GetSinglePartnerAppOptIn (.NotImplemented) returns (.CPublishing_GetSinglePartnerAppOptIns_Response);
-	rpc SendPartnerOptInEmailAndWait (.NotImplemented) returns (.CPublishing_SendPartnerAppOptInEmailAndWait_Response);
-	rpc TestFirePartnerAppOptInEmail (.NotImplemented) returns (.CPublishing_TestFirePartnerAppOptInEmail_Response);
-	rpc UpdatePartnerAppOptInEmails (.NotImplemented) returns (.CPublishing_UpdatePartnerAppOptInEmail_Response);
+	rpc SendPartnerOptInEmailAndWait (.CPublishing_SendPartnerAppOptInEmailAndWait_Request) returns (.CPublishing_SendPartnerAppOptInEmailAndWait_Response);
+	rpc TestFirePartnerAppOptInEmail (.CPublishing_TestFirePartnerAppOptInEmail_Request) returns (.CPublishing_TestFirePartnerAppOptInEmail_Response);
+	rpc UpdatePartnerAppOptInEmails (.CPublishing_UpdatePartnerAppOptInEmail_Request) returns (.CPublishing_UpdatePartnerAppOptInEmail_Response);
 }
 

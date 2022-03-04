@@ -1,0 +1,22 @@
+import "steammessages_unified_base.steamclient.proto";
+import "common.proto";
+
+message CCloudGaming_CreateNonce_Response {
+	optional string nonce = 1;
+	optional uint32 expiry = 2;
+}
+
+message CCloudGaming_GetTimeRemaining_Response {
+	repeated .CCloudGaming_TimeRemaining entries = 2;
+}
+
+message CCloudGaming_TimeRemaining {
+	optional uint32 appid = 1;
+	optional uint32 minutes_remaining = 2;
+}
+
+service CloudGaming {
+	rpc CreateNonce (.NotImplemented) returns (.CCloudGaming_CreateNonce_Response);
+	rpc GetTimeRemaining (.NotImplemented) returns (.CCloudGaming_GetTimeRemaining_Response);
+}
+

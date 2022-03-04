@@ -1,0 +1,99 @@
+import "steammessages_unified_base.steamclient.proto";
+import "common.proto";
+
+message CAuthentication_AllowedConfirmation {
+	optional int32 confirmation_type = 1 [(description) = "enum"];
+	optional string associated_message = 2;
+}
+
+message CAuthentication_BeginAuthSessionViaCredentials_Request {
+	optional string device_friendly_name = 1;
+	optional string account_name = 2;
+	optional string encrypted_password = 3;
+	optional uint64 encryption_timestamp = 4;
+	optional bool remember_login = 5;
+	optional int32 platform_type = 6 [(description) = "enum"];
+}
+
+message CAuthentication_BeginAuthSessionViaCredentials_Response {
+	optional uint64 client_id = 1;
+	optional bytes request_id = 2;
+	optional float interval = 3;
+	repeated .CAuthentication_AllowedConfirmation allowed_confirmations = 4;
+	optional uint64 steamid = 5;
+}
+
+message CAuthentication_BeginAuthSessionViaQR_Request {
+	optional string device_friendly_name = 1;
+	optional int32 platform_type = 2 [(description) = "enum"];
+}
+
+message CAuthentication_BeginAuthSessionViaQR_Response {
+	optional uint64 client_id = 1;
+	optional string challenge_url = 2;
+	optional bytes request_id = 3;
+	optional float interval = 4;
+	repeated .CAuthentication_AllowedConfirmation allowed_confirmations = 5;
+	optional int32 version = 6;
+}
+
+message CAuthentication_GetAuthSessionInfo_Response {
+	optional string ip = 1;
+	optional string geoloc = 2;
+	optional string city = 3;
+	optional string state = 4;
+	optional string country = 5;
+	optional int32 platform_type = 6 [(description) = "enum"];
+	optional string device_friendly_name = 7;
+}
+
+message CAuthentication_GetAuthSessionsForAccount_Response {
+	repeated uint64 client_ids = 1;
+}
+
+message CAuthentication_GetPasswordRSAPublicKey_Request {
+	optional string account_name = 1;
+}
+
+message CAuthentication_GetPasswordRSAPublicKey_Response {
+	optional string publickey_mod = 1;
+	optional string publickey_exp = 2;
+	optional uint64 timestamp = 3;
+}
+
+message CAuthentication_PollAuthSessionStatus_Request {
+	optional uint64 client_id = 1;
+	optional bytes request_id = 2;
+}
+
+message CAuthentication_PollAuthSessionStatus_Response {
+	optional uint64 new_client_id = 1;
+	optional string new_challenge_url = 2;
+	optional string refresh_token = 3;
+	optional string access_token = 4;
+}
+
+message CAuthentication_UpdateAuthSessionWithMobileConfirmation_Response {
+}
+
+message CAuthentication_UpdateAuthSessionWithSteamGuardCode_Request {
+	optional uint64 client_id = 1;
+	optional fixed64 steamid = 2;
+	optional string code = 3;
+	optional int32 code_type = 4 [(description) = "enum"];
+}
+
+message CAuthentication_UpdateAuthSessionWithSteamGuardCode_Response {
+}
+
+service Authentication {
+	rpc BeginAuthSessionViaCredentials (.CAuthentication_BeginAuthSessionViaCredentials_Request) returns (.CAuthentication_BeginAuthSessionViaCredentials_Response);
+	rpc BeginAuthSessionViaQR (.CAuthentication_BeginAuthSessionViaQR_Request) returns (.CAuthentication_BeginAuthSessionViaQR_Response);
+	rpc GetAuthSessionInfo (.NotImplemented) returns (.CAuthentication_GetAuthSessionInfo_Response);
+	rpc GetAuthSessionsForAccount (.NotImplemented) returns (.CAuthentication_GetAuthSessionsForAccount_Response);
+	rpc GetPasswordRSAPublicKey (.CAuthentication_GetPasswordRSAPublicKey_Request) returns (.CAuthentication_GetPasswordRSAPublicKey_Response);
+	rpc PollAuthSessionStatus (.CAuthentication_PollAuthSessionStatus_Request) returns (.CAuthentication_PollAuthSessionStatus_Response);
+	rpc UpdateAuthSessionWithMobileConfirmation (.NotImplemented) returns (.CAuthentication_UpdateAuthSessionWithMobileConfirmation_Response);
+	rpc UpdateAuthSessionWithSteamGuardCode (.CAuthentication_UpdateAuthSessionWithSteamGuardCode_Request) returns (.CAuthentication_UpdateAuthSessionWithSteamGuardCode_Response);
+}
+

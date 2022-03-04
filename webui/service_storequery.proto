@@ -7,10 +7,52 @@ message CStoreQuery_Query_Response {
 	repeated .StoreItem store_items = 3;
 }
 
+message CStoreQuery_SearchSuggestions_Request {
+	optional string query_name = 1;
+	optional .StoreBrowseContext context = 2;
+	optional string search_term = 3;
+	optional uint32 max_results = 4;
+	optional .CStoreQueryFilters filters = 5;
+	optional .StoreBrowseItemDataRequest data_request = 6;
+}
+
 message CStoreQuery_SearchSuggestions_Response {
 	optional .CStoreQueryResultMetadata metadata = 1;
 	repeated .StoreItemID ids = 2;
 	repeated .StoreItem store_items = 3;
+}
+
+message CStoreQueryFilters {
+	optional bool released_only = 1;
+	optional bool coming_soon_only = 2;
+	optional .CStoreQueryFilters_TypeFilters type_filters = 3;
+	repeated .CStoreQueryFilters_TagFilter tagids_must_match = 10;
+	repeated int32 tagids_exclude = 11;
+	repeated int32 content_descriptors_must_match = 15 [(description) = "enum"];
+	repeated int32 content_descriptors_excluded = 16 [(description) = "enum"];
+	optional int32 regional_top_n_sellers = 40;
+	optional int32 global_top_n_sellers = 41;
+	optional int32 regional_long_term_top_n_sellers = 42;
+	optional int32 global_long_term_top_n_sellers = 43;
+}
+
+message CStoreQueryFilters_TagFilter {
+	repeated int32 tagids = 1;
+}
+
+message CStoreQueryFilters_TypeFilters {
+	optional bool include_apps = 1;
+	optional bool include_packages = 2;
+	optional bool include_bundles = 3;
+	optional bool include_games = 10;
+	optional bool include_demos = 11;
+	optional bool include_mods = 12;
+	optional bool include_dlc = 13;
+	optional bool include_software = 14;
+	optional bool include_video = 15;
+	optional bool include_hardware = 16;
+	optional bool include_series = 17;
+	optional bool include_music = 18;
 }
 
 message CStoreQueryResultMetadata {
@@ -21,6 +63,6 @@ message CStoreQueryResultMetadata {
 
 service StoreQuery {
 	rpc Query (.NotImplemented) returns (.CStoreQuery_Query_Response);
-	rpc SearchSuggestions (.NotImplemented) returns (.CStoreQuery_SearchSuggestions_Response);
+	rpc SearchSuggestions (.CStoreQuery_SearchSuggestions_Request) returns (.CStoreQuery_SearchSuggestions_Response);
 }
 

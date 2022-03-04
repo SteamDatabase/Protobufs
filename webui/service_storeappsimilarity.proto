@@ -6,8 +6,8 @@ message CStoreAppSimilarity_IdentifyClustersFromPlaytime_Request {
 	optional int32 sort = 2 [default = 1, (description) = "enum"];
 	optional int32 clusters_to_return = 3;
 	optional int32 cluster_index = 4;
-	optional UNKNOWN context = 10;
-	optional UNKNOWN data_request = 11;
+	//optional UNKNOWN context = 10;
+	//optional UNKNOWN data_request = 11;
 }
 
 message CStoreAppSimilarity_IdentifyClustersFromPlaytime_Response {
@@ -21,7 +21,7 @@ message CStoreAppSimilarity_IdentifyClustersFromPlaytime_Response_Cluster {
 	optional uint32 last_played = 4;
 	repeated int32 played_appids = 5;
 	repeated int32 similar_items_appids = 6;
-	repeated UNKNOWN similar_items = 7;
+	//repeated UNKNOWN similar_items = 7;
 	optional double similar_item_popularity_score = 8;
 }
 
@@ -30,7 +30,7 @@ message CStoreAppSimilarity_PrioritizeAppsForUser_Response {
 }
 
 message CStoreAppSimilarity_PrioritizeAppsForUser_Response_ResultItem {
-	optional UNKNOWN id = 1;
+	//optional UNKNOWN id = 1;
 	optional bool already_owned = 2;
 	optional double weight = 3;
 	optional double weight_before_dedupe = 4;

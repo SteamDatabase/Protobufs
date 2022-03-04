@@ -53,7 +53,6 @@ message CEconItem_Description {
 	optional string market_name = 17;
 	optional string market_hash_name = 18;
 	optional string market_fee = 19;
-	optional int32 market_fee_app = 28;
 	optional .CEconItem_Description contained_item = 20;
 	repeated .CEconItem_Action market_actions = 21;
 	optional bool commodity = 22;
@@ -62,6 +61,7 @@ message CEconItem_Description {
 	optional bool marketable = 25;
 	repeated .CEconItem_Tag tags = 26;
 	optional string item_expiration = 27;
+	optional int32 market_fee_app = 28;
 	optional string market_buy_country_restriction = 30;
 	optional string market_sell_country_restriction = 31;
 }

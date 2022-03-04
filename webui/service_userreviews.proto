@@ -1,5 +1,23 @@
 import "steammessages_unified_base.steamclient.proto";
 
+message CUserReviews_GetIndividualRecommendations_Request {
+	repeated .CUserReviews_GetIndividualRecommendations_Request_RecommendationRequest requests = 1;
+}
+
+message CUserReviews_GetIndividualRecommendations_Request_RecommendationRequest {
+	optional uint64 steamid = 1;
+	optional uint32 appid = 2;
+}
+
+message CUserReviews_GetIndividualRecommendations_Response {
+	repeated .RecommendationDetails recommendations = 1;
+}
+
+message CUserReviews_Recommendation_LoyaltyReaction {
+	optional uint32 reaction_type = 1;
+	optional uint32 count = 2;
+}
+
 message CUserReviews_Update_Request {
 	optional uint64 recommendationid = 1;
 	optional string review_text = 2;
@@ -12,19 +30,6 @@ message CUserReviews_Update_Request {
 }
 
 message CUserReviews_Update_Response {
-}
-
-message CUserReviews_GetIndividualRecommendations_Request {
-	repeated .CUserReviews_GetIndividualRecommendations_Request_RecommendationRequest requests = 1;
-}
-
-message CUserReviews_GetIndividualRecommendations_Request_RecommendationRequest {
-	optional uint64 steamid = 1;
-	optional uint32 appid = 2;
-}
-
-message CUserReviews_GetIndividualRecommendations_Response {
-	repeated .RecommendationDetails recommendations = 1;
 }
 
 message RecommendationDetails {
@@ -71,13 +76,8 @@ message RecommendationDetails {
 	optional string ipaddress = 41;
 }
 
-message CUserReviews_Recommendation_LoyaltyReaction {
-	optional uint32 reaction_type = 1;
-	optional uint32 count = 2;
-}
-
 service UserReviews {
-	rpc Update (.CUserReviews_Update_Request) returns (.CUserReviews_Update_Response);
 	rpc GetIndividualRecommendations (.CUserReviews_GetIndividualRecommendations_Request) returns (.CUserReviews_GetIndividualRecommendations_Response);
+	rpc Update (.CUserReviews_Update_Request) returns (.CUserReviews_Update_Response);
 }
 

@@ -87,9 +87,13 @@ message CLoyaltyRewards_GetReactionsSummaryForUser_Response {
 	repeated .CLoyaltyRewards_GetReactionsSummaryForUser_Response_Breakdown ugc = 3;
 	repeated .CLoyaltyRewards_GetReactionsSummaryForUser_Response_Breakdown profile = 4;
 	repeated .CLoyaltyRewards_GetReactionsSummaryForUser_Response_Breakdown forum_topics = 5;
+	//optional uint32 total_given = 5;
 	repeated .CLoyaltyRewards_GetReactionsSummaryForUser_Response_Breakdown comments = 6;
-	optional uint32 total_given = 7;
-	optional uint32 total_received = 8;
+	//optional uint32 total_received = 6;
+	optional int64 total_points_given = 7;
+	//optional uint32 total_given = 7;
+	optional int64 total_points_received = 8;
+	//optional uint32 total_received = 8;
 	optional int64 total_points_given = 9;
 	optional int64 total_points_received = 10;
 }

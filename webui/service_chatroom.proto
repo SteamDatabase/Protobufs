@@ -602,13 +602,13 @@ message CChatRoomGroupHeaderState {
 	optional string chat_name = 2;
 	optional uint32 clanid = 13;
 	optional uint32 accountid_owner = 14;
-	optional uint32 appid = 21;
 	optional string tagline = 15;
 	optional bytes avatar_sha = 16;
 	optional uint64 default_role_id = 17;
 	repeated .CChatRole roles = 18;
 	repeated .CChatRoleActions role_actions = 19;
 	optional uint32 watching_broadcast_accountid = 20;
+	optional uint32 appid = 21;
 	repeated .CChatPartyBeacon party_beacons = 22;
 	optional uint64 watching_broadcast_channel_id = 23;
 	optional uint64 active_minigame_id = 24;
