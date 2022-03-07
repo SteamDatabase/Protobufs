@@ -333,6 +333,7 @@ message CPlayer_GetProfileItemsEquipped_Response {
 
 message CPlayer_GetProfileItemsOwned_Request {
 	optional string language = 1;
+	repeated int32 filters = 2 [(description) = "enum"];
 }
 
 message CPlayer_GetProfileItemsOwned_Response {
