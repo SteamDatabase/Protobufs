@@ -90,7 +90,7 @@ message CAppOverview_PerClientData {
 	optional int32 cloud_status = 13 [(description) = "enum"];
 }
 
-// Used by: ChatRoom,ClanChatRooms,ChatRoomClient
+// Used by: ChatRoom, ChatRoomClient, ClanChatRooms
 message CChatPartyBeacon {
 	optional uint32 app_id = 1;
 	optional fixed64 steamid_owner = 2;
@@ -98,7 +98,7 @@ message CChatPartyBeacon {
 	optional string game_metadata = 4;
 }
 
-// Used by: ChatRoom,ClanChatRooms,ChatRoomClient
+// Used by: ChatRoom, ChatRoomClient, ClanChatRooms
 message CChatRoleActions {
 	optional uint64 role_id = 1;
 	optional bool can_create_rename_delete_channel = 2;
@@ -114,7 +114,7 @@ message CChatRoleActions {
 	optional bool can_set_watching_broadcast = 12;
 }
 
-// Used by: ChatRoom,ClanChatRooms,ChatRoomClient
+// Used by: ChatRoom, ChatRoomClient, ClanChatRooms
 message CChatRoom_GetChatRoomGroupSummary_Response {
 	optional uint64 chat_group_id = 1;
 	optional string chat_group_name = 2;
@@ -140,7 +140,7 @@ message CChatRoom_GetChatRoomGroupSummary_Response {
 	optional bool disabled = 22;
 }
 
-// Used by: ChatRoom,ClanChatRooms,ChatRoomClient
+// Used by: ChatRoom, ChatRoomClient, ClanChatRooms
 message CChatRoomState {
 	optional uint64 chat_id = 1;
 	optional string chat_name = 2;
@@ -251,7 +251,7 @@ message CClientNotificationSystemUpdate {
 	optional int32 type = 1 [(description) = "enum"];
 }
 
-// Used by: Cloud,common.proto
+// Used by: Cloud, common.proto
 message CCloud_PendingRemoteOperation {
 	optional int32 operation = 1 [(description) = "enum"];
 	optional string machine_name = 2;
@@ -607,7 +607,7 @@ message CMsgClientPersonaState {
 	repeated .CMsgClientPersonaState_Friend friends = 2;
 }
 
-// Used by: ChatRoom,ChatRoomClient,common.proto
+// Used by: ChatRoom, ChatRoomClient, common.proto
 message CMsgClientPersonaState_Friend {
 	optional fixed64 friendid = 1;
 	optional uint32 persona_state = 2;
@@ -642,13 +642,13 @@ message CMsgClientPersonaState_Friend {
 	optional bool avatar_pending_review = 80;
 }
 
-// Used by: ChatRoom,ChatRoomClient,common.proto
+// Used by: ChatRoom, ChatRoomClient, common.proto
 message CMsgClientPersonaState_Friend_ClanData {
 	optional uint32 ogg_app_id = 1;
 	optional uint64 chat_group_id = 2;
 }
 
-// Used by: ChatRoom,ChatRoomClient,common.proto
+// Used by: ChatRoom, ChatRoomClient, common.proto
 message CMsgClientPersonaState_Friend_KV {
 	optional string key = 1;
 	optional string value = 2;
@@ -919,7 +919,7 @@ message CMsgGameActionSet {
 	repeated .CMsgControllerSources source_bindings = 6;
 }
 
-// Used by: Community,common.proto
+// Used by: Community, common.proto
 message CMsgIPAddress {
 	optional fixed32 v4 = 1;
 	optional bytes v6 = 2;
@@ -1430,14 +1430,14 @@ message CSteamDeckCompatTestResult {
 	optional string test_loc_token = 3;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse
+// Used by: PartnerStoreBrowse, StoreBrowse
 message CStoreBrowse_GetItems_Request {
 	repeated .StoreItemID ids = 1;
 	optional .StoreBrowseContext context = 2;
 	optional .StoreBrowseItemDataRequest data_request = 3;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse
+// Used by: PartnerStoreBrowse, StoreBrowse
 message CStoreBrowse_GetItems_Response {
 	repeated .StoreItem store_items = 1;
 }
@@ -1475,7 +1475,7 @@ message CStreamingServerConfig {
 	optional int32 host_play_audio = 9 [default = 0, (description) = "enum"];
 }
 
-// Used by: LoyaltyRewards,SaleItemRewards
+// Used by: LoyaltyRewards, SaleItemRewards
 message LoyaltyRewardDefinition {
 	optional uint32 appid = 1;
 	optional uint32 defid = 2;
@@ -1496,13 +1496,13 @@ message LoyaltyRewardDefinition {
 	optional uint32 bundle_discount = 17;
 }
 
-// Used by: LoyaltyRewards,SaleItemRewards
+// Used by: LoyaltyRewards, SaleItemRewards
 message LoyaltyRewardDefinition_BadgeData {
 	optional int32 level = 1;
 	optional string image = 2;
 }
 
-// Used by: LoyaltyRewards,SaleItemRewards
+// Used by: LoyaltyRewards, SaleItemRewards
 message LoyaltyRewardDefinition_CommunityItemData {
 	optional string item_name = 1;
 	optional string item_title = 2;
@@ -1521,7 +1521,7 @@ message LoyaltyRewardDefinition_CommunityItemData {
 message NotImplemented {
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreBrowseContext {
 	optional string language = 1;
 	optional int32 elanguage = 2;
@@ -1529,7 +1529,7 @@ message StoreBrowseContext {
 	optional int32 steam_realm = 4;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreBrowseItemDataRequest {
 	optional bool include_assets = 1;
 	optional bool include_release = 2;
@@ -1544,7 +1544,7 @@ message StoreBrowseItemDataRequest {
 	optional bool include_supported_languages = 11;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreGameRating {
 	optional string type = 1;
 	optional string rating = 2;
@@ -1556,7 +1556,7 @@ message StoreGameRating {
 	optional string image_target = 21;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem {
 	optional int32 item_type = 1 [(description) = "enum"];
 	optional uint32 id = 2;
@@ -1590,7 +1590,7 @@ message StoreItem {
 	repeated .StoreItem_SupportedLanguage supported_languages = 52;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Assets {
 	optional string asset_url_format = 1;
 	optional string main_capsule = 2;
@@ -1607,7 +1607,7 @@ message StoreItem_Assets {
 	optional string community_icon = 13;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_BasicInfo {
 	optional string short_description = 1;
 	repeated .StoreItem_BasicInfo_CreatorHomeLink publishers = 2;
@@ -1618,20 +1618,20 @@ message StoreItem_BasicInfo {
 	//repeated string franchises = 4;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_BasicInfo_CreatorHomeLink {
 	optional string name = 1;
 	optional uint32 creator_clan_account_id = 2;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Categories {
 	repeated uint32 supported_player_categoryids = 2;
 	repeated uint32 feature_categoryids = 3;
 	repeated uint32 controller_categoryids = 4;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Platforms {
 	optional bool windows = 1;
 	optional bool mac = 2;
@@ -1640,7 +1640,7 @@ message StoreItem_Platforms {
 	optional int32 steam_deck_compat_category = 11 [(description) = "enum"];
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Platforms_VRSupport {
 	optional bool vrhmd = 1;
 	optional bool vrhmd_only = 2;
@@ -1650,7 +1650,7 @@ message StoreItem_Platforms_VRSupport {
 	optional bool valve_index = 43;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_PurchaseOption {
 	optional int32 packageid = 1;
 	optional int32 bundleid = 2;
@@ -1671,19 +1671,19 @@ message StoreItem_PurchaseOption {
 	optional bool is_commercial_license = 40;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_PurchaseOption_Discount {
 	optional int64 discount_amount = 1;
 	optional string discount_description = 2;
 	optional uint32 discount_end_date = 3;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_RelatedItems {
 	optional uint32 parent_appid = 1;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_ReleaseInfo {
 	optional uint32 steam_release_date = 1;
 	optional uint32 original_release_date = 2;
@@ -1697,13 +1697,13 @@ message StoreItem_ReleaseInfo {
 	optional uint32 linux_release_date = 21;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Reviews {
 	optional .StoreItem_Reviews_StoreReviewSummary summary_filtered = 1;
 	optional .StoreItem_Reviews_StoreReviewSummary summary_unfiltered = 2;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Reviews_StoreReviewSummary {
 	optional uint32 review_count = 1;
 	optional int32 percent_positive = 2;
@@ -1711,19 +1711,19 @@ message StoreItem_Reviews_StoreReviewSummary {
 	optional string review_score_label = 4;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Screenshots {
 	repeated .StoreItem_Screenshots_Screenshot all_ages_screenshots = 2;
 	repeated .StoreItem_Screenshots_Screenshot mature_content_screenshots = 3;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Screenshots_Screenshot {
 	optional string filename = 1;
 	optional int32 ordinal = 2;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_SupportedLanguage {
 	optional int32 elanguage = 1;
 	optional bool supported = 2;
@@ -1731,19 +1731,19 @@ message StoreItem_SupportedLanguage {
 	optional bool subtitles = 4;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Tag {
 	optional uint32 tagid = 1;
 	optional uint32 weight = 2;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Trailers {
 	repeated .StoreItem_Trailers_Trailer highlights = 1;
 	repeated .StoreItem_Trailers_Trailer other_trailers = 2;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Trailers_Trailer {
 	optional string trailer_name = 1;
 	optional string trailer_url_format = 2;
@@ -1755,13 +1755,13 @@ message StoreItem_Trailers_Trailer {
 	optional int32 trailer_base_id = 12;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Trailers_VideoSource {
 	optional string filename = 1;
 	optional string type = 2;
 }
 
-// Used by: StoreBrowse,PartnerStoreBrowse,StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItemID {
 	optional uint32 appid = 1;
 	optional uint32 packageid = 2;
