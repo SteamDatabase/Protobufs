@@ -4,22 +4,28 @@ import "common.proto";
 message CStoreQuery_Query_Response {
 	optional .CStoreQueryResultMetadata metadata = 1;
 	repeated .StoreItemID ids = 2;
+	//repeated UNKNOWN ids = 2;
 	repeated .StoreItem store_items = 3;
+	//repeated UNKNOWN store_items = 3;
 }
 
 message CStoreQuery_SearchSuggestions_Request {
 	optional string query_name = 1;
 	optional .StoreBrowseContext context = 2;
+	//optional UNKNOWN context = 2;
 	optional string search_term = 3;
 	optional uint32 max_results = 4;
 	optional .CStoreQueryFilters filters = 5;
 	optional .StoreBrowseItemDataRequest data_request = 6;
+	//optional UNKNOWN data_request = 6;
 }
 
 message CStoreQuery_SearchSuggestions_Response {
 	optional .CStoreQueryResultMetadata metadata = 1;
 	repeated .StoreItemID ids = 2;
+	//repeated UNKNOWN ids = 2;
 	repeated .StoreItem store_items = 3;
+	//repeated UNKNOWN store_items = 3;
 }
 
 message CStoreQueryFilters {

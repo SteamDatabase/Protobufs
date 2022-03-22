@@ -58,6 +58,7 @@ message CCommunity_Comment {
 	optional bool hidden_by_user = 7;
 	optional bool deleted = 8;
 	optional .CMsgIPAddress ipaddress = 9;
+	//optional UNKNOWN ipaddress = 9;
 	optional int32 total_hidden = 10;
 	optional bool upvoted_by_user = 11;
 	repeated .CCommunity_Comment_Reaction reactions = 12;
@@ -108,6 +109,7 @@ message CCommunity_GetApps_Request {
 
 message CCommunity_GetApps_Response {
 	repeated .CCDDBAppDetailCommon apps = 1;
+	//repeated UNKNOWN apps = 1;
 }
 
 message CCommunity_GetAvatarHistory_Request {
@@ -184,6 +186,7 @@ message CCommunity_GetCommentThreadRatings_Response {
 
 message CCommunity_GetUserPartnerEventNews_Response {
 	repeated .CClanMatchEventByRange results = 1;
+	//repeated UNKNOWN results = 1;
 }
 
 message CCommunity_GetUserPartnerEventsAppPriorities_Request {

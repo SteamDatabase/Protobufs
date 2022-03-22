@@ -1,6 +1,13 @@
 import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
 
+message CSteamDeckCompatibility_SetFeedback_Response {
+}
+
+message CSteamDeckCompatibility_ShouldPrompt_Response {
+	optional bool prompt = 1;
+}
+
 message CStore_GetDiscoveryQueue_Request {
 	optional int32 queue_type = 1 [(description) = "enum"];
 	optional string country_code = 2;
@@ -139,6 +146,7 @@ message CStore_UserPreferences {
 	optional bool hide_store_broadcast = 9;
 	optional int32 review_score_preference = 10 [(description) = "enum"];
 	optional int32 timestamp_content_descriptor_preferences_updated = 11;
+	optional int32 provide_deck_feedback = 12 [(description) = "enum"];
 }
 
 message CStore_UserTagPreferences {
@@ -174,6 +182,8 @@ service Store {
 	rpc GetStorePreferences (.CStore_GetStorePreferences_Request) returns (.CStore_GetStorePreferences_Response);
 	rpc GetTrendingAppsAmongFriends (.CStore_GetTrendingAppsAmongFriends_Request) returns (.CStore_GetTrendingAppsAmongFriends_Response);
 	rpc RegisterCDKey (.CStore_RegisterCDKey_Request) returns (.CStore_RegisterCDKey_Response);
+	rpc SetCompatibilityFeedback (.NotImplemented) returns (.CSteamDeckCompatibility_SetFeedback_Response);
+	rpc ShouldPromptForCompatibilityFeedback (.NotImplemented) returns (.CSteamDeckCompatibility_ShouldPrompt_Response);
 }
 
 service StoreClient {

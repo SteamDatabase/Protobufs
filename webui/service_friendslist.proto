@@ -23,6 +23,7 @@ message CFriendsList_GetFriendsList_Request {
 
 message CFriendsList_GetFriendsList_Response {
 	optional .CMsgClientFriendsList friendslist = 1;
+	//optional UNKNOWN friendslist = 1;
 }
 
 message CFriendsList_SetFavorites_Request {

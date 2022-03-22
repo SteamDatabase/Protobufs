@@ -468,6 +468,7 @@ message CChatRoom_SearchMembers_Response {
 message CChatRoom_SearchMembers_Response_MemberMatch {
 	optional int32 accountid = 1;
 	optional .CMsgClientPersonaState_Friend persona = 2;
+	//optional UNKNOWN persona = 2;
 }
 
 message CChatRoom_SendChatMessage_Request {
@@ -589,12 +590,14 @@ message CChatRoomClient_MemberListViewUpdated_Notification {
 	optional uint32 status_flags = 5;
 	optional .CChatRoomMemberSummaryCounts member_summary = 6;
 	repeated .CMsgClientPersonaState_Friend subscribed_personas = 7;
+	//repeated UNKNOWN subscribed_personas = 7;
 }
 
 message CChatRoomClient_MemberListViewUpdated_Notification_MemberListViewEntry {
 	optional int32 rank = 1;
 	optional uint32 accountid = 2;
 	optional .CMsgClientPersonaState_Friend persona = 3;
+	//optional UNKNOWN persona = 3;
 }
 
 message CChatRoomGroupHeaderState {
