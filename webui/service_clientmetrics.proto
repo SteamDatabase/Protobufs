@@ -13,6 +13,17 @@ message CClientMetrics_ReportClientError_Notification_Error {
 	optional uint32 count = 3;
 }
 
+message CClientMetrics_ReportReactUsage_Notification {
+	optional string product = 1;
+	optional string version = 2;
+	repeated .CClientMetrics_ReportReactUsage_Notification_RouteData routes = 3;
+}
+
+message CClientMetrics_ReportReactUsage_Notification_RouteData {
+	optional string route = 1;
+	optional uint32 count = 2;
+}
+
 service ClientMetrics {
 	rpc ClientAppInterfaceStatsReport (.NotImplemented) returns (.NoResponse);
 	rpc ClientBootstrapReport (.NotImplemented) returns (.NoResponse);
@@ -22,6 +33,7 @@ service ClientMetrics {
 	rpc ClientDownloadResponseCodeCounts (.NotImplemented) returns (.NoResponse);
 	rpc ClientIPv6ConnectivityReport (.NotImplemented) returns (.NoResponse);
 	rpc ReportClientError (.CClientMetrics_ReportClientError_Notification) returns (.NoResponse);
+	rpc ReportReactUsage (.CClientMetrics_ReportReactUsage_Notification) returns (.NoResponse);
 	rpc SteamPipeWorkStatsReport (.NotImplemented) returns (.NoResponse);
 }
 

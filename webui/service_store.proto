@@ -1,7 +1,16 @@
 import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
 
+message CSteamDeckCompatibility_SetFeedback_Request {
+	optional uint32 appid = 1;
+	optional int32 feedback = 2 [(description) = "enum"];
+}
+
 message CSteamDeckCompatibility_SetFeedback_Response {
+}
+
+message CSteamDeckCompatibility_ShouldPrompt_Request {
+	optional uint32 appid = 1;
 }
 
 message CSteamDeckCompatibility_ShouldPrompt_Response {
@@ -182,8 +191,8 @@ service Store {
 	rpc GetStorePreferences (.CStore_GetStorePreferences_Request) returns (.CStore_GetStorePreferences_Response);
 	rpc GetTrendingAppsAmongFriends (.CStore_GetTrendingAppsAmongFriends_Request) returns (.CStore_GetTrendingAppsAmongFriends_Response);
 	rpc RegisterCDKey (.CStore_RegisterCDKey_Request) returns (.CStore_RegisterCDKey_Response);
-	rpc SetCompatibilityFeedback (.NotImplemented) returns (.CSteamDeckCompatibility_SetFeedback_Response);
-	rpc ShouldPromptForCompatibilityFeedback (.NotImplemented) returns (.CSteamDeckCompatibility_ShouldPrompt_Response);
+	rpc SetCompatibilityFeedback (.CSteamDeckCompatibility_SetFeedback_Request) returns (.CSteamDeckCompatibility_SetFeedback_Response);
+	rpc ShouldPromptForCompatibilityFeedback (.CSteamDeckCompatibility_ShouldPrompt_Request) returns (.CSteamDeckCompatibility_ShouldPrompt_Response);
 }
 
 service StoreClient {
