@@ -144,7 +144,6 @@ message CStore_UserContentDescriptorPreferences_ContentDescriptor {
 
 message CStore_UserPreferences {
 	optional int32 primary_language = 1;
-	//optional uint32 primary_language = 1;
 	optional uint32 secondary_languages = 2;
 	optional bool platform_windows = 3;
 	optional bool platform_mac = 4;
