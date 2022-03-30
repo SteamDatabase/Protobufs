@@ -1,0 +1,69 @@
+import "steammessages_unified_base.steamclient.proto";
+import "common.proto";
+
+message CMarketingMessageProto {
+	optional fixed64 gid = 1;
+	optional string title = 2;
+	optional int32 type = 3 [(description) = "enum"];
+	optional int32 visibility = 4 [(description) = "enum"];
+	optional uint32 priority = 5;
+	optional int32 association_type = 6 [(description) = "enum"];
+	optional uint32 associated_id = 7;
+	optional string associated_name = 8;
+	optional uint32 start_date = 9;
+	optional uint32 end_date = 10;
+	optional string country_allow = 11;
+	optional string country_deny = 12;
+	optional bool ownership_restrictions_overridden = 13;
+	optional uint32 must_own_appid = 14;
+	optional uint32 must_not_own_appid = 15;
+	optional uint32 must_own_packageid = 16;
+	optional uint32 must_not_own_packageid = 17;
+	optional uint32 must_have_launched_appid = 18;
+	optional string additional_restrictions = 19;
+	optional string template_type = 20;
+	optional string template_vars = 21;
+	optional uint32 flags = 22;
+	optional string creator_name = 23;
+}
+
+message CMarketingMessages_CreateMarketingMessage_Response {
+	optional fixed64 gid = 1;
+}
+
+message CMarketingMessages_DeleteMarketingMessage_Response {
+}
+
+message CMarketingMessages_FindMarketingMessages_Request {
+	optional int32 lookup_type = 1 [(description) = "enum"];
+	optional fixed64 gid = 2;
+	optional int32 message_type = 3 [(description) = "enum"];
+	repeated fixed64 gidlist = 4;
+	optional string title = 5;
+}
+
+message CMarketingMessages_FindMarketingMessages_Response {
+	repeated .CMarketingMessageProto messages = 1;
+}
+
+message CMarketingMessages_GetActiveMarketingMessages_Response {
+	repeated .CMarketingMessageProto messages = 1;
+	optional uint32 time_next_message_age = 2;
+}
+
+message CMarketingMessages_GetMarketingMessage_Response {
+	optional .CMarketingMessageProto message = 1;
+}
+
+message CMarketingMessages_UpdateMarketingMessage_Response {
+}
+
+service MarketingMessages {
+	rpc CreateMarketingMessage (.NotImplemented) returns (.CMarketingMessages_CreateMarketingMessage_Response);
+	rpc DeleteMarketingMessage (.NotImplemented) returns (.CMarketingMessages_DeleteMarketingMessage_Response);
+	rpc FindMarketingMessages (.CMarketingMessages_FindMarketingMessages_Request) returns (.CMarketingMessages_FindMarketingMessages_Response);
+	rpc GetActiveMarketingMessages (.NotImplemented) returns (.CMarketingMessages_GetActiveMarketingMessages_Response);
+	rpc GetMarketingMessage (.NotImplemented) returns (.CMarketingMessages_GetMarketingMessage_Response);
+	rpc UpdateMarketingMessage (.NotImplemented) returns (.CMarketingMessages_UpdateMarketingMessage_Response);
+}
+
