@@ -17,6 +17,18 @@ message CClientMetrics_ReportReactUsage_Notification {
 	optional string product = 1;
 	optional string version = 2;
 	repeated .CClientMetrics_ReportReactUsage_Notification_RouteData routes = 3;
+	repeated .CClientMetrics_ReportReactUsage_Notification_ComponentData components = 4;
+	repeated .CClientMetrics_ReportReactUsage_Notification_ActionData actions = 5;
+}
+
+message CClientMetrics_ReportReactUsage_Notification_ActionData {
+	optional string action = 1;
+	optional uint32 count = 2;
+}
+
+message CClientMetrics_ReportReactUsage_Notification_ComponentData {
+	optional string component = 1;
+	optional uint32 count = 2;
 }
 
 message CClientMetrics_ReportReactUsage_Notification_RouteData {
