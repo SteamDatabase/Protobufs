@@ -15,6 +15,8 @@ message CSteamDeckCompatibility_ShouldPrompt_Request {
 
 message CSteamDeckCompatibility_ShouldPrompt_Response {
 	optional bool prompt = 1;
+	optional bool feedback_eligible = 2;
+	optional int32 existing_feedback = 3 [(description) = "enum"];
 }
 
 message CStore_GetDiscoveryQueue_Request {
