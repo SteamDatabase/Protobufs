@@ -1,0 +1,73 @@
+import "steammessages_unified_base.steamclient.proto";
+import "common.proto";
+
+message CPromotionPlan {
+	optional fixed64 promotion_id = 1;
+	optional string admin_jsondata = 2;
+	optional string partner_jsondata = 3;
+	optional string input_jsondata = 4;
+	optional uint32 rtime32_start_time = 5;
+	optional uint32 rtime32_end_time = 6;
+	optional uint32 partner_id = 7;
+	optional string input_access_key = 8;
+}
+
+message CPromotionPlanning_CreatePlan_Request {
+	optional .CPromotionPlan plan = 1;
+}
+
+message CPromotionPlanning_CreatePlan_Response {
+	optional fixed64 promotion_id = 1;
+	optional string input_access_key = 2;
+}
+
+message CPromotionPlanning_DeletePlan_Request {
+	optional fixed64 promotion_id = 1;
+}
+
+message CPromotionPlanning_DeletePlan_Response {
+}
+
+message CPromotionPlanning_GetAllActivePlan_Request {
+}
+
+message CPromotionPlanning_GetAllActivePlan_Response {
+	repeated .CPromotionPlan plan = 1;
+}
+
+message CPromotionPlanning_GetPlan_Request {
+	optional fixed64 promotion_id = 1;
+}
+
+message CPromotionPlanning_GetPlan_Response {
+	optional .CPromotionPlan plan = 1;
+}
+
+message CPromotionPlanning_GetPlanByInputAccessKey_Response {
+	optional .CPromotionPlan plan = 1;
+}
+
+message CPromotionPlanning_SearchPlan_Response {
+	repeated .CPromotionPlan plan = 1;
+}
+
+message CPromotionPlanning_UpdatePlan_Request {
+	optional .CPromotionPlan plan = 1;
+}
+
+message CPromotionPlanning_UpdatePlan_Response {
+}
+
+service PromotionPlanning {
+	rpc CreatePlan (.CPromotionPlanning_CreatePlan_Request) returns (.CPromotionPlanning_CreatePlan_Response);
+	rpc CreateTentativePlan (.CPromotionPlanning_CreatePlan_Request) returns (.CPromotionPlanning_CreatePlan_Response);
+	rpc DeletePlan (.CPromotionPlanning_DeletePlan_Request) returns (.CPromotionPlanning_DeletePlan_Response);
+	rpc GetAllActivePlan (.CPromotionPlanning_GetAllActivePlan_Request) returns (.CPromotionPlanning_GetAllActivePlan_Response);
+	rpc GetPlan (.CPromotionPlanning_GetPlan_Request) returns (.CPromotionPlanning_GetPlan_Response);
+	rpc GetPlanByInputAccessKey (.NotImplemented) returns (.CPromotionPlanning_GetPlanByInputAccessKey_Response);
+	rpc SearchPlan (.NotImplemented) returns (.CPromotionPlanning_SearchPlan_Response);
+	rpc UpdatePlan (.CPromotionPlanning_UpdatePlan_Request) returns (.CPromotionPlanning_UpdatePlan_Response);
+	rpc UpdatePlanInputData (.CPromotionPlanning_UpdatePlan_Request) returns (.CPromotionPlanning_UpdatePlan_Response);
+	rpc UpdatePlanPartnerInfo (.CPromotionPlanning_UpdatePlan_Request) returns (.CPromotionPlanning_UpdatePlan_Response);
+}
+
