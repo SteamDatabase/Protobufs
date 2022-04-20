@@ -1055,6 +1055,7 @@ message CMsgProtoBufHeader {
 	optional bytes ip_v6 = 29;
 	optional uint32 launcher_type = 31 [default = 0];
 	optional uint32 realm = 32 [default = 0];
+	optional int32 timeout_ms = 33 [default = -1];
 }
 
 message CMsgSelectOSBranchParams {

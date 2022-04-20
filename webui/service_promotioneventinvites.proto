@@ -1,0 +1,51 @@
+import "steammessages_unified_base.steamclient.proto";
+import "common.proto";
+
+message CPromotionEventInvitation {
+	optional fixed64 inviteid = 1;
+	optional uint32 appid = 2;
+	optional uint32 invite_account = 3;
+	optional uint32 rtinvitetime = 4;
+	optional uint32 rtexpiretime = 5;
+	optional int32 type = 6 [(description) = "enum"];
+	optional uint32 accept_account = 7;
+	optional uint32 rtaccepttime = 8;
+	optional uint32 rtdatechosen = 9;
+	optional uint32 discount_eventid = 10;
+	optional uint32 packageid = 11;
+	optional uint32 bundleid = 12;
+	optional uint32 primary_partnerid = 13;
+	optional .CPromotionRequirements deadlines = 14;
+	optional bool notify_partner = 15;
+	repeated string additional_email = 16;
+	optional string promotion_id = 17;
+}
+
+message CPromotionEventInvites_GetAllActiveInvites_Response {
+	repeated .CPromotionEventInvitation invites = 1;
+}
+
+message CPromotionEventInvites_GetInvite_Response {
+	repeated .CPromotionEventInvitation invites = 1;
+}
+
+message CPromotionEventInvites_ResendEmailInvite_Response {
+}
+
+message CPromotionEventInvites_SetInvite_Response {
+	optional fixed64 inviteid = 1;
+}
+
+message CPromotionRequirements {
+	optional uint32 spotlight_due_date = 1;
+	optional uint32 marketing_message_due_date = 2;
+	optional uint32 discount_event_due_date = 3;
+}
+
+service PromotionEventInvites {
+	rpc GetAllActiveInvites (.NotImplemented) returns (.CPromotionEventInvites_GetAllActiveInvites_Response);
+	rpc GetInvite (.NotImplemented) returns (.CPromotionEventInvites_GetInvite_Response);
+	rpc ResendEmailInvite (.NotImplemented) returns (.CPromotionEventInvites_ResendEmailInvite_Response);
+	rpc SetInvite (.NotImplemented) returns (.CPromotionEventInvites_SetInvite_Response);
+}
+

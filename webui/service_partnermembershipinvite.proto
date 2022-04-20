@@ -1,0 +1,30 @@
+import "steammessages_unified_base.steamclient.proto";
+import "common.proto";
+
+message CPartnerMembershipInvite_GetInvites_Response {
+	repeated .MembershipInvite invites = 1;
+}
+
+message MembershipInvite {
+	optional uint64 inviteid = 1;
+	optional uint32 accountid_sender = 2;
+	optional string email = 3;
+	optional string real_name = 4;
+	optional string note = 5;
+	optional uint32 time_sent = 6;
+	optional int32 current_state = 7 [(description) = "enum"];
+	optional uint64 pub_rights = 8;
+	optional uint64 app_rights = 9;
+	optional uint32 time_receiver_responded = 10;
+	optional uint32 accountid = 11;
+	optional uint32 time_partner_responded = 12;
+	optional uint32 accountid_partner = 13;
+	optional uint32 partnerid = 14;
+	optional uint32 time_last_updated = 15;
+	optional string sender_ip = 16;
+}
+
+service PartnerMembershipInvite {
+	rpc GetInvites (.NotImplemented) returns (.CPartnerMembershipInvite_GetInvites_Response);
+}
+

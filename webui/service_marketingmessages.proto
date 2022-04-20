@@ -27,6 +27,10 @@ message CMarketingMessageProto {
 	optional string creator_name = 23;
 }
 
+message CMarketingMessages_CreateMarketingMessage_Request {
+	optional .CMarketingMessageProto message = 1;
+}
+
 message CMarketingMessages_CreateMarketingMessage_Response {
 	optional fixed64 gid = 1;
 }
@@ -59,7 +63,7 @@ message CMarketingMessages_UpdateMarketingMessage_Response {
 }
 
 service MarketingMessages {
-	rpc CreateMarketingMessage (.NotImplemented) returns (.CMarketingMessages_CreateMarketingMessage_Response);
+	rpc CreateMarketingMessage (.CMarketingMessages_CreateMarketingMessage_Request) returns (.CMarketingMessages_CreateMarketingMessage_Response);
 	rpc DeleteMarketingMessage (.NotImplemented) returns (.CMarketingMessages_DeleteMarketingMessage_Response);
 	rpc FindMarketingMessages (.CMarketingMessages_FindMarketingMessages_Request) returns (.CMarketingMessages_FindMarketingMessages_Response);
 	rpc GetActiveMarketingMessages (.NotImplemented) returns (.CMarketingMessages_GetActiveMarketingMessages_Response);
