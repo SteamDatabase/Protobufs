@@ -1,4 +1,5 @@
 import "steammessages_unified_base.steamclient.proto";
+import "common.proto";
 
 message CQuest_ActivateProfileModifierItem_Request {
 	optional uint32 appid = 1;
@@ -23,10 +24,6 @@ message CQuest_CommunityItem {
 message CQuest_CommunityItem_Attribute {
 	optional uint32 attributeid = 1;
 	optional uint64 value = 2;
-}
-
-message CQuest_GetCommunityInventory_Request {
-	repeated uint32 filter_appids = 1;
 }
 
 message CQuest_GetCommunityInventory_Response {
@@ -71,7 +68,7 @@ message CQuest_GetCommunityItemDefinitions_Response_ItemDefinition {
 
 service Quest {
 	rpc ActivateProfileModifierItem (.CQuest_ActivateProfileModifierItem_Request) returns (.CQuest_ActivateProfileModifierItem_Response);
-	rpc GetCommunityInventory (.CQuest_GetCommunityInventory_Request) returns (.CQuest_GetCommunityInventory_Response);
+	rpc GetCommunityInventory (.NotImplemented) returns (.CQuest_GetCommunityInventory_Response);
 	rpc GetCommunityItemDefinitions (.CQuest_GetCommunityItemDefinitions_Request) returns (.CQuest_GetCommunityItemDefinitions_Response);
 }
 
