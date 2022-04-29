@@ -42,6 +42,11 @@ message CStore_GetDiscoveryQueue_Response {
 	optional string debug_solr_query = 7;
 }
 
+message CStore_GetDiscoveryQueueSettings_Response {
+	optional string country_code = 1;
+	optional .CStoreDiscoveryQueueSettings settings = 2;
+}
+
 message CStore_GetLocalizedNameForTags_Request {
 	optional string language = 1;
 	repeated uint32 tagids = 2;
@@ -129,6 +134,9 @@ message CStore_RegisterCDKey_Response {
 	optional .CStore_PurchaseReceiptInfo purchase_receipt_info = 2;
 }
 
+message CStore_SkipDiscoveryQueueItem_Response {
+}
+
 message CStore_StorePreferencesChanged_Notification {
 	optional .CStore_UserPreferences preferences = 1;
 	optional .CStore_UserTagPreferences tag_preferences = 2;
@@ -187,6 +195,7 @@ message CStoreDiscoveryQueueSettings {
 
 service Store {
 	rpc GetDiscoveryQueue (.CStore_GetDiscoveryQueue_Request) returns (.CStore_GetDiscoveryQueue_Response);
+	rpc GetDiscoveryQueueSettings (.NotImplemented) returns (.CStore_GetDiscoveryQueueSettings_Response);
 	rpc GetLocalizedNameForTags (.CStore_GetLocalizedNameForTags_Request) returns (.CStore_GetLocalizedNameForTags_Response);
 	rpc GetMostPopularTags (.NotImplemented) returns (.CStore_GetMostPopularTags_Response);
 	rpc GetStorePreferences (.CStore_GetStorePreferences_Request) returns (.CStore_GetStorePreferences_Response);
@@ -194,6 +203,7 @@ service Store {
 	rpc RegisterCDKey (.CStore_RegisterCDKey_Request) returns (.CStore_RegisterCDKey_Response);
 	rpc SetCompatibilityFeedback (.CSteamDeckCompatibility_SetFeedback_Request) returns (.CSteamDeckCompatibility_SetFeedback_Response);
 	rpc ShouldPromptForCompatibilityFeedback (.CSteamDeckCompatibility_ShouldPrompt_Request) returns (.CSteamDeckCompatibility_ShouldPrompt_Response);
+	rpc SkipDiscoveryQueueItem (.NotImplemented) returns (.CStore_SkipDiscoveryQueueItem_Response);
 }
 
 service StoreClient {

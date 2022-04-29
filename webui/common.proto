@@ -218,6 +218,10 @@ message CClientNotificationFriendOnline {
 	optional fixed64 steamid = 1;
 }
 
+message CClientNotificationGiftReceived {
+	optional string sender_name = 1;
+}
+
 message CClientNotificationGroupChatMessage {
 	optional string tag = 1;
 	optional string steamid_sender = 2;
@@ -230,8 +234,17 @@ message CClientNotificationGroupChatMessage {
 	optional uint32 notificationid = 9;
 }
 
+message CClientNotificationInboxStats {
+	optional uint32 friend_invite_count = 1;
+	optional uint32 new_comment_count = 2;
+}
+
 message CClientNotificationIncomingVoiceChat {
 	optional fixed64 steamid = 1;
+}
+
+message CClientNotificationItemAnnouncement {
+	optional uint32 new_item_count = 1;
 }
 
 message CClientNotificationLowBattery {
