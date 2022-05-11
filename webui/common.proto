@@ -1609,6 +1609,7 @@ message StoreItem_BasicInfo {
 	//repeated string developers = 3;
 	repeated .StoreItem_BasicInfo_CreatorHomeLink franchises = 4;
 	//repeated string franchises = 4;
+	optional string capsule_headline = 5;
 }
 
 // Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
