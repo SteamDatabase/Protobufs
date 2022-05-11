@@ -134,6 +134,11 @@ message CStore_RegisterCDKey_Response {
 	optional .CStore_PurchaseReceiptInfo purchase_receipt_info = 2;
 }
 
+message CStore_SkipDiscoveryQueueItem_Request {
+	optional int32 queue_type = 1 [(description) = "enum"];
+	optional uint32 appid = 2;
+}
+
 message CStore_SkipDiscoveryQueueItem_Response {
 }
 
@@ -203,7 +208,7 @@ service Store {
 	rpc RegisterCDKey (.CStore_RegisterCDKey_Request) returns (.CStore_RegisterCDKey_Response);
 	rpc SetCompatibilityFeedback (.CSteamDeckCompatibility_SetFeedback_Request) returns (.CSteamDeckCompatibility_SetFeedback_Response);
 	rpc ShouldPromptForCompatibilityFeedback (.CSteamDeckCompatibility_ShouldPrompt_Request) returns (.CSteamDeckCompatibility_ShouldPrompt_Response);
-	rpc SkipDiscoveryQueueItem (.NotImplemented) returns (.CStore_SkipDiscoveryQueueItem_Response);
+	rpc SkipDiscoveryQueueItem (.CStore_SkipDiscoveryQueueItem_Request) returns (.CStore_SkipDiscoveryQueueItem_Response);
 }
 
 service StoreClient {
