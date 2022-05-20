@@ -1366,43 +1366,29 @@ message CMsgSystemPerfNetworkInterface {
 
 // Used by: common.proto
 message CMsgSystemPerfSettings {
-	optional float diagnostic_update_rate = 1;
-	optional int32 system_trace_service_state = 2 [(description) = "enum"];
+	optional .CMsgSystemPerfSettingsGlobal global = 1;
+	//optional float diagnostic_update_rate = 1;
+	optional .CMsgSystemPerfSettingsPerApp per_app = 2;
+	//optional int32 system_trace_service_state = 2 [(description) = "enum"];
 	optional int32 graphics_profiling_service_state = 3 [(description) = "enum"];
 	optional int32 perf_overlay_service_state = 4 [(description) = "enum"];
 	optional int32 perf_overlay_level = 5 [(description) = "enum"];
-	optional int32 gpu_performance_level = 6 [(description) = "enum"];
-	//repeated int32 gpu_performance_levels_available = 6 [(description) = "enum"];
+	repeated int32 gpu_performance_levels_available = 6 [(description) = "enum"];
 	optional int32 gpu_performance_level = 7 [(description) = "enum"];
-	//optional int32 gpu_performance_manual_mhz = 7;
-	optional int32 fps_limit = 8;
-	//optional int32 gpu_performance_manual_mhz = 8;
-	optional bool is_variable_resolution_enabled = 9;
-	//optional int32 gpu_performance_manual_min_mhz = 9;
-	optional bool is_dynamic_refresh_rate_enabled = 10;
-	//optional int32 gpu_performance_manual_max_mhz = 10;
+	optional int32 gpu_performance_manual_mhz = 8;
+	optional int32 gpu_performance_manual_min_mhz = 9;
+	optional int32 gpu_performance_manual_max_mhz = 10;
 	optional bool perf_overlay_is_standalone = 11;
-	//optional int32 tdp_limit = 11;
-	optional int32 cpu_governor = 12 [(description) = "enum"];
-	//optional int32 fps_limit = 12;
+	optional int32 fps_limit = 12;
 	optional bool is_variable_resolution_enabled = 13;
-	//optional int32 cpu_governor_manual_mhz = 13;
 	optional bool is_dynamic_refresh_rate_enabled = 14;
-	//optional int32 scaling_filter = 14;
-	optional int32 fsr_sharpness = 15;
-	//optional int32 tdp_limit = 15;
-	optional bool is_fps_limit_enabled = 16;
-	//optional int32 cpu_governor = 16 [(description) = "enum"];
-	optional bool is_tdp_limit_enabled = 17;
-	//optional int32 cpu_governor_manual_mhz = 17;
-	optional bool is_show_perf_overlay_over_steam_enabled = 18;
-	//optional int32 scaling_filter = 18;
-	optional bool is_low_latency_mode_enabled = 19;
-	//optional int32 fsr_sharpness = 19;
+	optional int32 tdp_limit = 15;
+	optional int32 cpu_governor = 16 [(description) = "enum"];
+	optional int32 cpu_governor_manual_mhz = 17;
+	optional int32 scaling_filter = 18;
+	optional int32 fsr_sharpness = 19;
 	optional int32 cpu_governor_manual_min_mhz = 20;
-	//optional int32 display_refresh_manual_hz = 20;
-	optional bool is_game_perf_profile_enabled = 21;
-	//optional int32 cpu_governor_manual_max_mhz = 21;
+	optional int32 cpu_governor_manual_max_mhz = 21;
 	optional int32 fsr_sharpness_min = 22;
 	optional int32 fsr_sharpness_max = 23;
 	optional bool is_fps_limit_enabled = 24;
@@ -1418,6 +1404,36 @@ message CMsgSystemPerfSettings {
 	repeated int32 fps_limit_options = 34;
 }
 
+// Used by: common.proto
+message CMsgSystemPerfSettingsGlobal {
+	optional float diagnostic_update_rate = 1;
+	optional int32 system_trace_service_state = 2 [(description) = "enum"];
+	optional int32 graphics_profiling_service_state = 3 [(description) = "enum"];
+	optional int32 perf_overlay_service_state = 4 [(description) = "enum"];
+	optional int32 perf_overlay_level = 5 [(description) = "enum"];
+	optional bool is_show_perf_overlay_over_steam_enabled = 6;
+	optional bool is_advanced_settings_enabled = 7;
+}
+
+// Used by: common.proto
+message CMsgSystemPerfSettingsPerApp {
+	optional int32 gpu_performance_manual_mhz = 1;
+	optional int32 fps_limit = 2;
+	optional bool is_variable_resolution_enabled = 3;
+	optional bool is_dynamic_refresh_rate_enabled = 4;
+	optional int32 tdp_limit = 5;
+	optional int32 cpu_governor = 6 [(description) = "enum"];
+	optional int32 cpu_governor_manual_mhz = 7;
+	optional int32 scaling_filter = 8;
+	optional int32 fsr_sharpness = 9;
+	optional bool is_fps_limit_enabled = 10;
+	optional bool is_tdp_limit_enabled = 11;
+	optional bool is_low_latency_mode_enabled = 12;
+	optional int32 display_refresh_manual_hz = 13;
+	optional bool is_game_perf_profile_enabled = 14;
+	optional int32 gpu_performance_level = 15 [(description) = "enum"];
+}
+
 message CMsgSystemPerfState {
 	optional .CMsgSystemPerfLimits limits = 1;
 	optional .CMsgSystemPerfSettings settings = 2;
@@ -1426,8 +1442,9 @@ message CMsgSystemPerfState {
 }
 
 message CMsgSystemPerfUpdateSettings {
-	optional .CMsgSystemPerfSettings settings_delta = 1;
-	optional uint64 gameid = 2;
+	optional uint64 gameid = 1;
+	optional bool reset_to_default = 2;
+	optional .CMsgSystemPerfSettings settings_delta = 3;
 }
 
 message CMsgSystemUpdateApplyParams {
@@ -1634,6 +1651,8 @@ message StoreItem {
 	optional .StoreItem_Screenshots screenshots = 50;
 	optional .StoreItem_Trailers trailers = 51;
 	repeated .StoreItem_SupportedLanguage supported_languages = 52;
+	optional string store_url_path_override = 53;
+	optional .StoreItem_FreeWeekend free_weekend = 54;
 }
 
 // Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
@@ -1679,6 +1698,13 @@ message StoreItem_Categories {
 }
 
 // Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
+message StoreItem_FreeWeekend {
+	optional uint32 start_time = 1;
+	optional uint32 end_time = 2;
+	optional string text = 3;
+}
+
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Platforms {
 	optional bool windows = 1;
 	optional bool mac = 2;
@@ -1716,6 +1742,7 @@ message StoreItem_PurchaseOption {
 	optional bool user_can_purchase = 30;
 	optional bool user_can_purchase_as_gift = 31;
 	optional bool is_commercial_license = 40;
+	optional bool should_suppress_discount_pct = 41;
 }
 
 // Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
