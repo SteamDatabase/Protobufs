@@ -48,6 +48,10 @@ message CUserAccount_GetFriendInviteTokens_Response {
 	repeated .CUserAccount_CreateFriendInviteToken_Response tokens = 1;
 }
 
+message CUserAccount_GetUserCountry_Response {
+	optional string country = 1;
+}
+
 message CUserAccount_RedeemFriendInviteToken_Response {
 }
 
@@ -69,6 +73,7 @@ service UserAccount {
 	rpc GetAccountLinkStatus (.NotImplemented) returns (.CUserAccount_GetAccountLinkStatus_Response);
 	rpc GetAvailableValveDiscountPromotions (.CUserAccount_GetAvailableValveDiscountPromotions_Request) returns (.CUserAccount_GetAvailableValveDiscountPromotions_Response);
 	rpc GetFriendInviteTokens (.NotImplemented) returns (.CUserAccount_GetFriendInviteTokens_Response);
+	rpc GetUserCountry (.NotImplemented) returns (.CUserAccount_GetUserCountry_Response);
 	rpc RedeemFriendInviteToken (.NotImplemented) returns (.CUserAccount_RedeemFriendInviteToken_Response);
 	rpc RegisterCompatTool (.NotImplemented) returns (.CUserAccount_RegisterCompatTool_Response);
 	rpc RevokeFriendInviteToken (.NotImplemented) returns (.CUserAccount_RevokeFriendInviteToken_Response);

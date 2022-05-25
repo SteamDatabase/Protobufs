@@ -50,6 +50,9 @@ message CAuthentication_GetAuthSessionInfo_Response {
 	optional int32 platform_type = 6 [(description) = "enum"];
 	optional string device_friendly_name = 7;
 	optional int32 version = 8;
+	optional int32 login_history = 9 [(description) = "enum"];
+	optional bool requestor_location_mismatch = 10;
+	optional bool high_usage_login = 11;
 }
 
 message CAuthentication_GetAuthSessionsForAccount_Response {
