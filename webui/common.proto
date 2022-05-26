@@ -255,6 +255,10 @@ message CClientNotificationLowBattery {
 	optional float pct_remaining = 1;
 }
 
+message CClientNotificationLowDiskSpace {
+	optional uint32 folder_index = 1;
+}
+
 message CClientNotificationScreenshot {
 	optional string screenshot_handle = 1;
 	optional string description = 2;
@@ -853,6 +857,8 @@ message CMsgControllerMode {
 	optional string description = 3;
 	repeated .CMsgControllerInput inputs = 4;
 	repeated .CMsgControllerSetting settings = 5;
+	optional string friendlyname = 6;
+	optional int32 source = 7 [(description) = "enum"];
 }
 
 // Used by: common.proto
@@ -1096,6 +1102,7 @@ message CMsgSetControllerInputActivator {
 	optional int32 activator_index = 6;
 	optional int32 new_activation = 7 [(description) = "enum"];
 	optional .CMsgControllerSetting new_setting = 8;
+	optional int32 modeid = 9;
 }
 
 message CMsgSetControllerInputActivatorEnabled {
@@ -1106,6 +1113,7 @@ message CMsgSetControllerInputActivatorEnabled {
 	optional int32 input_key = 5 [(description) = "enum"];
 	optional int32 activator_index = 6;
 	optional bool enabled = 7;
+	optional int32 modeid = 8;
 }
 
 message CMsgSetControllerInputBinding {
@@ -1118,6 +1126,7 @@ message CMsgSetControllerInputBinding {
 	optional int32 binding_index = 7;
 	optional .CMsgControllerInputBinding new_binding = 8;
 	optional int32 source_mode = 9 [(description) = "enum"];
+	optional int32 modeid = 10;
 }
 
 message CMsgSetControllerSourceMode {
@@ -1128,6 +1137,11 @@ message CMsgSetControllerSourceMode {
 	optional int32 new_mode = 5 [(description) = "enum"];
 	optional .CMsgControllerInputGameActionBinding new_game_action = 6;
 	optional .CMsgControllerSetting new_setting = 7;
+	optional string new_name = 8;
+	optional uint32 modeid = 9;
+	optional bool change_mode = 10;
+	optional bool new_virtual_menu = 11;
+	optional bool enable_virtual_menu_support = 12;
 }
 
 // Used by: common.proto
@@ -1322,6 +1336,8 @@ message CMsgSystemManagerSettings {
 	optional bool display_nightmode_reset = 18;
 	optional bool display_diagnostics_enabled = 19;
 	optional bool is_wifi_powersave_enabled = 20;
+	optional bool is_fan_control_available = 21;
+	optional int32 fan_control_mode = 22 [(description) = "enum"];
 }
 
 // Used by: common.proto
