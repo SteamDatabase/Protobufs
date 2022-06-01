@@ -74,10 +74,32 @@ message CQuest_GetNumTradingCardsEarned_Response {
 	optional uint32 num_trading_cards = 1;
 }
 
+message CQuest_VirtualItemRewardDefinition_Response {
+	repeated .CVirtualItemRewardDefinition rewards = 1;
+}
+
+message CVirtualItemRewardDefinition {
+	optional int32 eventid = 1 [(description) = "enum"];
+	optional uint32 item_bucket = 2;
+	optional uint32 appid = 3;
+	optional bool active = 4;
+	optional uint32 rarity = 5;
+	optional uint32 package_to_grant = 6;
+	optional fixed64 game_item_id = 7;
+	optional int32 community_item_class = 8;
+	optional uint32 community_item_type = 9;
+	optional uint32 loyalty_point_type = 10;
+	optional int64 amount = 11;
+	optional uint32 rtime_time_active = 12;
+	optional uint32 loyalty_reward_defid = 13;
+	optional uint32 user_badge_to_grant = 14;
+}
+
 service Quest {
 	rpc ActivateProfileModifierItem (.CQuest_ActivateProfileModifierItem_Request) returns (.CQuest_ActivateProfileModifierItem_Response);
 	rpc GetCommunityInventory (.CQuest_GetCommunityInventory_Request) returns (.CQuest_GetCommunityInventory_Response);
 	rpc GetCommunityItemDefinitions (.CQuest_GetCommunityItemDefinitions_Request) returns (.CQuest_GetCommunityItemDefinitions_Response);
 	rpc GetNumTradingCardsEarned (.NotImplemented) returns (.CQuest_GetNumTradingCardsEarned_Response);
+	rpc GetVirtualItemRewardDefinition (.NotImplemented) returns (.CQuest_VirtualItemRewardDefinition_Response);
 }
 
