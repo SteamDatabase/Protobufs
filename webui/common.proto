@@ -1368,6 +1368,9 @@ message CMsgSystemPerfLimits {
 	repeated int32 fps_limit_options = 13;
 	optional int32 tdp_limit_min = 14;
 	optional int32 tdp_limit_max = 15;
+	optional bool is_nis_supported = 16;
+	optional int32 nis_sharpness_min = 17;
+	optional int32 nis_sharpness_max = 18;
 }
 
 // Used by: common.proto
@@ -1448,6 +1451,7 @@ message CMsgSystemPerfSettingsPerApp {
 	optional int32 display_refresh_manual_hz = 13;
 	optional bool is_game_perf_profile_enabled = 14;
 	optional int32 gpu_performance_level = 15 [(description) = "enum"];
+	optional int32 nis_sharpness = 16;
 }
 
 message CMsgSystemPerfState {

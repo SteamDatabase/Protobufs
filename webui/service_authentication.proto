@@ -69,6 +69,11 @@ message CAuthentication_GetPasswordRSAPublicKey_Response {
 	optional uint64 timestamp = 3;
 }
 
+message CAuthentication_MigrateMobileSession_Response {
+	optional string refresh_token = 1;
+	optional string access_token = 2;
+}
+
 message CAuthentication_PollAuthSessionStatus_Request {
 	optional uint64 client_id = 1;
 	optional bytes request_id = 2;
@@ -101,6 +106,7 @@ service Authentication {
 	rpc GetAuthSessionInfo (.NotImplemented) returns (.CAuthentication_GetAuthSessionInfo_Response);
 	rpc GetAuthSessionsForAccount (.NotImplemented) returns (.CAuthentication_GetAuthSessionsForAccount_Response);
 	rpc GetPasswordRSAPublicKey (.CAuthentication_GetPasswordRSAPublicKey_Request) returns (.CAuthentication_GetPasswordRSAPublicKey_Response);
+	rpc MigrateMobileSession (.NotImplemented) returns (.CAuthentication_MigrateMobileSession_Response);
 	rpc PollAuthSessionStatus (.CAuthentication_PollAuthSessionStatus_Request) returns (.CAuthentication_PollAuthSessionStatus_Response);
 	rpc UpdateAuthSessionWithMobileConfirmation (.NotImplemented) returns (.CAuthentication_UpdateAuthSessionWithMobileConfirmation_Response);
 	rpc UpdateAuthSessionWithSteamGuardCode (.CAuthentication_UpdateAuthSessionWithSteamGuardCode_Request) returns (.CAuthentication_UpdateAuthSessionWithSteamGuardCode_Response);

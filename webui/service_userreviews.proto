@@ -1,4 +1,10 @@
 import "steammessages_unified_base.steamclient.proto";
+import "common.proto";
+
+message CUserReviews_GetFriendsRecommendedApp_Response {
+	repeated uint32 accountids_recommended = 1;
+	repeated uint32 accountids_not_recommended = 3;
+}
 
 message CUserReviews_GetIndividualRecommendations_Request {
 	repeated .CUserReviews_GetIndividualRecommendations_Request_RecommendationRequest requests = 1;
@@ -77,6 +83,7 @@ message RecommendationDetails {
 }
 
 service UserReviews {
+	rpc GetFriendsRecommendedApp (.NotImplemented) returns (.CUserReviews_GetFriendsRecommendedApp_Response);
 	rpc GetIndividualRecommendations (.CUserReviews_GetIndividualRecommendations_Request) returns (.CUserReviews_GetIndividualRecommendations_Response);
 	rpc Update (.CUserReviews_Update_Request) returns (.CUserReviews_Update_Response);
 }
