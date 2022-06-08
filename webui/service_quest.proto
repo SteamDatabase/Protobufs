@@ -93,6 +93,7 @@ message CVirtualItemRewardDefinition {
 	optional uint32 rtime_time_active = 12;
 	optional uint32 loyalty_reward_defid = 13;
 	optional uint32 user_badge_to_grant = 14;
+	optional uint32 user_badge_level = 15;
 }
 
 service Quest {
