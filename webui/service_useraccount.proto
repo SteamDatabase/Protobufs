@@ -52,6 +52,23 @@ message CUserAccount_GetUserCountry_Response {
 	optional string country = 1;
 }
 
+message CUserAccount_GetWalletDetails_Response {
+	optional bool has_wallet = 1;
+	optional string user_country_code = 2;
+	optional string wallet_country_code = 3;
+	optional string wallet_state = 4;
+	optional int64 balance = 5;
+	optional int64 delayed_balance = 6;
+	optional int32 currency_code = 7;
+	optional uint32 time_most_recent_txn = 8;
+	optional uint64 most_recent_txnid = 9;
+	optional int64 balance_in_usd = 10;
+	optional int64 delayed_balance_in_usd = 11;
+	optional bool has_wallet_in_other_regions = 12;
+	repeated int32 other_regions = 13;
+	optional string formatted_balance = 14;
+}
+
 message CUserAccount_RedeemFriendInviteToken_Response {
 }
 
@@ -72,6 +89,7 @@ service UserAccount {
 	rpc CreateFriendInviteToken (.NotImplemented) returns (.CUserAccount_CreateFriendInviteToken_Response);
 	rpc GetAccountLinkStatus (.NotImplemented) returns (.CUserAccount_GetAccountLinkStatus_Response);
 	rpc GetAvailableValveDiscountPromotions (.CUserAccount_GetAvailableValveDiscountPromotions_Request) returns (.CUserAccount_GetAvailableValveDiscountPromotions_Response);
+	rpc GetClientWalletDetails (.NotImplemented) returns (.CUserAccount_GetWalletDetails_Response);
 	rpc GetFriendInviteTokens (.NotImplemented) returns (.CUserAccount_GetFriendInviteTokens_Response);
 	rpc GetUserCountry (.NotImplemented) returns (.CUserAccount_GetUserCountry_Response);
 	rpc RedeemFriendInviteToken (.NotImplemented) returns (.CUserAccount_RedeemFriendInviteToken_Response);
