@@ -96,6 +96,29 @@ message CStore_GetTrendingAppsAmongFriends_Response_TrendingAppData {
 	optional uint32 total_friends = 3;
 }
 
+message CStore_GetUserGameInterestState_Response {
+	optional bool owned = 1;
+	optional bool wishlist = 2;
+	optional bool ignored = 3;
+	optional bool following = 4;
+	repeated int32 in_queues = 5 [(description) = "enum"];
+	repeated int32 queues_with_skip = 6 [(description) = "enum"];
+	repeated int32 queue_items_remaining = 7;
+	repeated uint32 queue_items_next_appid = 8;
+	optional bool temporarily_owned = 9;
+	repeated .CStore_GetUserGameInterestState_Response_InQueue queues = 10;
+	optional int32 ignored_reason = 11;
+	optional int32 beta_status = 12 [(description) = "enum"];
+}
+
+message CStore_GetUserGameInterestState_Response_InQueue {
+	optional int32 type = 1 [(description) = "enum"];
+	optional bool skipped = 2;
+	optional int32 items_remaining = 3;
+	optional uint32 next_appid = 4;
+	optional uint32 experimental_cohort = 5;
+}
+
 message CStore_PurchaseReceiptInfo {
 	optional uint64 transactionid = 1;
 	optional uint32 packageid = 2;
@@ -205,6 +228,7 @@ service Store {
 	rpc GetMostPopularTags (.NotImplemented) returns (.CStore_GetMostPopularTags_Response);
 	rpc GetStorePreferences (.CStore_GetStorePreferences_Request) returns (.CStore_GetStorePreferences_Response);
 	rpc GetTrendingAppsAmongFriends (.CStore_GetTrendingAppsAmongFriends_Request) returns (.CStore_GetTrendingAppsAmongFriends_Response);
+	rpc GetUserGameInterestState (.NotImplemented) returns (.CStore_GetUserGameInterestState_Response);
 	rpc RegisterCDKey (.CStore_RegisterCDKey_Request) returns (.CStore_RegisterCDKey_Response);
 	rpc SetCompatibilityFeedback (.CSteamDeckCompatibility_SetFeedback_Request) returns (.CSteamDeckCompatibility_SetFeedback_Response);
 	rpc ShouldPromptForCompatibilityFeedback (.CSteamDeckCompatibility_ShouldPrompt_Request) returns (.CSteamDeckCompatibility_ShouldPrompt_Response);

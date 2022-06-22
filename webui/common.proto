@@ -1604,7 +1604,7 @@ message LoyaltyRewardDefinition_CommunityItemData {
 message NotImplemented {
 }
 
-// Used by: PartnerStoreBrowse, StoreBrowse
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreBrowseContext {
 	optional string language = 1;
 	optional int32 elanguage = 2;
@@ -1612,7 +1612,7 @@ message StoreBrowseContext {
 	optional int32 steam_realm = 4;
 }
 
-// Used by: PartnerStoreBrowse, StoreBrowse
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreBrowseItemDataRequest {
 	optional bool include_assets = 1;
 	optional bool include_release = 2;

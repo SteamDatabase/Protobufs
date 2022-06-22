@@ -1,6 +1,14 @@
 import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
 
+message CStoreQuery_Query_Request {
+	optional string query_name = 1;
+	optional .CStoreQueryParams query = 2;
+	optional .StoreBrowseContext context = 3;
+	optional .StoreBrowseItemDataRequest data_request = 4;
+	optional string override_country_code = 5;
+}
+
 message CStoreQuery_Query_Response {
 	optional .CStoreQueryResultMetadata metadata = 1;
 	repeated .StoreItemID ids = 2;
@@ -55,6 +63,13 @@ message CStoreQueryFilters_TypeFilters {
 	optional bool include_music = 18;
 }
 
+message CStoreQueryParams {
+	optional int32 start = 1 [default = 0];
+	optional int32 count = 2 [default = 10];
+	optional int32 sort = 10 [default = 0, (description) = "enum"];
+	optional .CStoreQueryFilters filters = 20;
+}
+
 message CStoreQueryResultMetadata {
 	optional int32 total_matching_records = 1;
 	optional int32 start = 2;
@@ -62,7 +77,7 @@ message CStoreQueryResultMetadata {
 }
 
 service StoreQuery {
-	rpc Query (.NotImplemented) returns (.CStoreQuery_Query_Response);
+	rpc Query (.CStoreQuery_Query_Request) returns (.CStoreQuery_Query_Response);
 	rpc SearchSuggestions (.CStoreQuery_SearchSuggestions_Request) returns (.CStoreQuery_SearchSuggestions_Response);
 }
 
