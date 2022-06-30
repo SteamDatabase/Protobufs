@@ -70,6 +70,11 @@ message CQuest_GetCommunityItemDefinitions_Response_ItemDefinition {
 	optional string item_movie_mp4_small = 21;
 }
 
+message CQuest_GetNumTradingCardsEarned_Request {
+	optional uint32 timestamp_start = 1 [default = 0];
+	optional uint32 timestamp_end = 2 [default = 4294967295];
+}
+
 message CQuest_GetNumTradingCardsEarned_Response {
 	optional uint32 num_trading_cards = 1;
 }
@@ -100,7 +105,7 @@ service Quest {
 	rpc ActivateProfileModifierItem (.CQuest_ActivateProfileModifierItem_Request) returns (.CQuest_ActivateProfileModifierItem_Response);
 	rpc GetCommunityInventory (.CQuest_GetCommunityInventory_Request) returns (.CQuest_GetCommunityInventory_Response);
 	rpc GetCommunityItemDefinitions (.CQuest_GetCommunityItemDefinitions_Request) returns (.CQuest_GetCommunityItemDefinitions_Response);
-	rpc GetNumTradingCardsEarned (.NotImplemented) returns (.CQuest_GetNumTradingCardsEarned_Response);
+	rpc GetNumTradingCardsEarned (.CQuest_GetNumTradingCardsEarned_Request) returns (.CQuest_GetNumTradingCardsEarned_Response);
 	rpc GetVirtualItemRewardDefinition (.NotImplemented) returns (.CQuest_VirtualItemRewardDefinition_Response);
 }
 
