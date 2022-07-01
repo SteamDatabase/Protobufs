@@ -22,6 +22,7 @@ message CStoreQuery_SearchSuggestions_Request {
 	optional uint32 max_results = 4;
 	optional .CStoreQueryFilters filters = 5;
 	//optional UNKNOWN data_request = 6;
+	optional bool use_spellcheck = 7;
 }
 
 message CStoreQuery_SearchSuggestions_Response {
@@ -70,10 +71,16 @@ message CStoreQueryParams {
 	optional .CStoreQueryFilters filters = 20;
 }
 
+message CStoreQueryPerResultMetadata {
+	//optional UNKNOWN id = 1;
+	optional double score = 2;
+}
+
 message CStoreQueryResultMetadata {
 	optional int32 total_matching_records = 1;
 	optional int32 start = 2;
 	optional int32 count = 3;
+	repeated .CStoreQueryPerResultMetadata per_result_metadata = 4;
 }
 
 service StoreQuery {
