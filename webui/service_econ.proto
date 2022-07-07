@@ -1,6 +1,18 @@
 import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
 
+message CEcon_Asset {
+	optional uint32 appid = 1;
+	optional uint64 contextid = 2;
+	optional uint64 assetid = 3;
+	optional uint64 classid = 4;
+	optional uint64 instanceid = 5;
+	optional uint32 currencyid = 6;
+	optional int64 amount = 7;
+	optional bool missing = 8;
+	optional int64 est_usd = 9;
+}
+
 message CEcon_ClientGetItemShopOverlayAuthURL_Response {
 	optional string url = 1;
 }
@@ -18,6 +30,15 @@ message CEcon_GetAssetClassInfo_Request_Class {
 
 message CEcon_GetAssetClassInfo_Response {
 	repeated .CEconItem_Description descriptions = 1;
+}
+
+message CEcon_GetInventoryItemsWithDescriptions_Response {
+	repeated .CEcon_Asset assets = 1;
+	repeated .CEconItem_Description descriptions = 2;
+	repeated .CEcon_Asset missing_assets = 3;
+	optional bool more_items = 4;
+	optional uint64 last_assetid = 5;
+	optional uint32 total_inventory_count = 6;
 }
 
 message CEcon_GetTradeOfferAccessToken_Request {
@@ -85,6 +106,7 @@ message CEconItem_Tag {
 service Econ {
 	rpc ClientGetItemShopOverlayAuthURL (.NotImplemented) returns (.CEcon_ClientGetItemShopOverlayAuthURL_Response);
 	rpc GetAssetClassInfo (.CEcon_GetAssetClassInfo_Request) returns (.CEcon_GetAssetClassInfo_Response);
+	rpc GetInventoryItemsWithDescriptions (.NotImplemented) returns (.CEcon_GetInventoryItemsWithDescriptions_Response);
 	rpc GetTradeOfferAccessToken (.CEcon_GetTradeOfferAccessToken_Request) returns (.CEcon_GetTradeOfferAccessToken_Response);
 }
 

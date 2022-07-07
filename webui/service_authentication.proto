@@ -25,6 +25,7 @@ message CAuthentication_BeginAuthSessionViaCredentials_Response {
 	optional float interval = 3;
 	repeated .CAuthentication_AllowedConfirmation allowed_confirmations = 4;
 	optional uint64 steamid = 5;
+	optional string weak_token = 6;
 }
 
 message CAuthentication_BeginAuthSessionViaQR_Request {

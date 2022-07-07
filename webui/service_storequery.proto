@@ -72,7 +72,7 @@ message CStoreQueryParams {
 }
 
 message CStoreQueryPerResultMetadata {
-	//optional UNKNOWN id = 1;
+	optional .StoreItemID id = 1;
 	optional double score = 2;
 }
 
