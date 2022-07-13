@@ -17,6 +17,7 @@ message CAuthentication_BeginAuthSessionViaCredentials_Request {
 	optional uint64 encryption_timestamp = 4;
 	optional bool remember_login = 5;
 	optional int32 platform_type = 6 [(description) = "enum"];
+	optional int32 persistence = 7 [default = 1, (description) = "enum"];
 }
 
 message CAuthentication_BeginAuthSessionViaCredentials_Response {
