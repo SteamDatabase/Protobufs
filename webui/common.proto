@@ -41,9 +41,6 @@ message CAppOverview {
 	optional uint32 rt_custom_image_mtime = 47;
 	optional uint32 optional_parent_app_id = 48;
 	optional uint32 owner_account_id = 49;
-	optional bool compat_mapping_enabled = 50;
-	optional uint32 compat_mapping_priority = 51;
-	optional string compat_mapping_tool_name = 52;
 	optional uint32 review_score_with_bombs = 53;
 	optional uint32 review_percentage_with_bombs = 54;
 	optional uint32 review_score_without_bombs = 55;
@@ -325,10 +322,6 @@ message CMsgAuthTicket {
 message CMsgBadgeCraftedNotification {
 	optional uint32 appid = 1;
 	optional uint32 badge_level = 2;
-}
-
-message CMsgBluetoothSettings {
-	optional bool is_enabled = 1;
 }
 
 message CMsgClientAccountInfo {
@@ -1394,8 +1387,10 @@ message CMsgSystemManagerSettings {
 	//optional float display_nightmode_schedule_endtime = 19;
 	optional bool display_diagnostics_enabled = 20;
 	//optional bool is_wifi_powersave_enabled = 20;
-	optional float als_lux_latest = 21;
+	optional bool is_fan_control_available = 21;
+	//optional float als_lux_latest = 21;
 	optional float als_lux_median = 22;
+	//optional int32 fan_control_mode = 22 [(description) = "enum"];
 	optional float display_brightness_linear = 23;
 	optional float display_brightness_adaptivemin = 24;
 	optional float display_brightness_adaptivemax = 25;
@@ -1450,41 +1445,7 @@ message CMsgSystemPerfNetworkInterface {
 // Used by: common.proto
 message CMsgSystemPerfSettings {
 	optional .CMsgSystemPerfSettingsGlobal global = 1;
-	//optional float diagnostic_update_rate = 1;
 	optional .CMsgSystemPerfSettingsPerApp per_app = 2;
-	//optional int32 system_trace_service_state = 2 [(description) = "enum"];
-	optional int32 graphics_profiling_service_state = 3 [(description) = "enum"];
-	optional int32 perf_overlay_service_state = 4 [(description) = "enum"];
-	optional int32 perf_overlay_level = 5 [(description) = "enum"];
-	repeated int32 gpu_performance_levels_available = 6 [(description) = "enum"];
-	optional int32 gpu_performance_level = 7 [(description) = "enum"];
-	optional int32 gpu_performance_manual_mhz = 8;
-	optional int32 gpu_performance_manual_min_mhz = 9;
-	optional int32 gpu_performance_manual_max_mhz = 10;
-	optional bool perf_overlay_is_standalone = 11;
-	optional int32 fps_limit = 12;
-	optional bool is_variable_resolution_enabled = 13;
-	optional bool is_dynamic_refresh_rate_enabled = 14;
-	optional int32 tdp_limit = 15;
-	optional int32 cpu_governor = 16 [(description) = "enum"];
-	optional int32 cpu_governor_manual_mhz = 17;
-	optional int32 scaling_filter = 18;
-	optional int32 fsr_sharpness = 19;
-	optional int32 cpu_governor_manual_min_mhz = 20;
-	optional int32 cpu_governor_manual_max_mhz = 21;
-	optional int32 fsr_sharpness_min = 22;
-	optional int32 fsr_sharpness_max = 23;
-	optional bool is_fps_limit_enabled = 24;
-	optional bool is_tdp_limit_enabled = 25;
-	optional bool is_show_perf_overlay_over_steam_enabled = 26;
-	optional bool is_low_latency_mode_enabled = 27;
-	optional bool is_fps_limit_dynamic = 28;
-	optional bool is_dynamic_vrs_available = 29;
-	optional bool is_manual_display_refresh_rate_available = 30;
-	optional int32 display_refresh_manual_hz = 31;
-	optional int32 display_refresh_manual_hz_min = 32;
-	optional int32 display_refresh_manual_hz_max = 33;
-	repeated int32 fps_limit_options = 34;
 }
 
 // Used by: common.proto
