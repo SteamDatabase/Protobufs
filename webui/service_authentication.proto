@@ -86,6 +86,7 @@ message CAuthentication_PollAuthSessionStatus_Response {
 	optional string new_challenge_url = 2;
 	optional string refresh_token = 3;
 	optional string access_token = 4;
+	optional bool had_remote_interaction = 5;
 }
 
 message CAuthentication_UpdateAuthSessionWithMobileConfirmation_Response {

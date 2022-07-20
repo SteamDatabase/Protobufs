@@ -1,0 +1,109 @@
+import "steammessages_unified_base.steamclient.proto";
+import "common.proto";
+
+message CRemoveAuthenticatorViaChallengeContinue_Replacement_Token {
+	optional bytes shared_secret = 1;
+	optional fixed64 serial_number = 2;
+	optional string revocation_code = 3;
+	optional string uri = 4;
+	optional uint64 server_time = 5;
+	optional string account_name = 6;
+	optional string token_gid = 7;
+	optional bytes identity_secret = 8;
+	optional bytes secret_1 = 9;
+	optional int32 status = 10;
+	optional uint32 steamguard_scheme = 11;
+	optional fixed64 steamid = 12;
+}
+
+message CTwoFactor_AddAuthenticator_Response {
+	optional bytes shared_secret = 1;
+	optional fixed64 serial_number = 2;
+	optional string revocation_code = 3;
+	optional string uri = 4;
+	optional uint64 server_time = 5;
+	optional string account_name = 6;
+	optional string token_gid = 7;
+	optional bytes identity_secret = 8;
+	optional bytes secret_1 = 9;
+	optional int32 status = 10;
+	optional string phone_number_hint = 11;
+}
+
+message CTwoFactor_CreateEmergencyCodes_Response {
+	repeated string codes = 1;
+}
+
+message CTwoFactor_DestroyEmergencyCodes_Response {
+}
+
+message CTwoFactor_FinalizeAddAuthenticator_Response {
+	optional bool success = 1;
+	optional bool want_more = 2;
+	optional uint64 server_time = 3;
+	optional int32 status = 4;
+}
+
+message CTwoFactor_RemoveAuthenticator_Response {
+	optional bool success = 1;
+	optional uint64 server_time = 3;
+	optional uint32 revocation_attempts_remaining = 5;
+}
+
+message CTwoFactor_RemoveAuthenticatorViaChallengeContinue_Request {
+	optional string sms_code = 1;
+	optional bool generate_new_token = 2;
+}
+
+message CTwoFactor_RemoveAuthenticatorViaChallengeContinue_Response {
+	optional bool success = 1;
+	optional .CRemoveAuthenticatorViaChallengeContinue_Replacement_Token replacement_token = 2;
+}
+
+message CTwoFactor_RemoveAuthenticatorViaChallengeStart_Request {
+}
+
+message CTwoFactor_RemoveAuthenticatorViaChallengeStart_Response {
+	optional bool success = 1;
+}
+
+message CTwoFactor_SendEmail_Response {
+}
+
+message CTwoFactor_Status_Response {
+	optional uint32 state = 1;
+	optional uint32 inactivation_reason = 2;
+	optional uint32 authenticator_type = 3;
+	optional bool authenticator_allowed = 4;
+	optional uint32 steamguard_scheme = 5;
+	optional string token_gid = 6;
+	optional bool email_validated = 7;
+	optional string device_identifier = 8;
+	optional uint32 time_created = 9;
+	optional uint32 revocation_attempts_remaining = 10;
+	optional string classified_agent = 11;
+	optional bool allow_external_authenticator = 12;
+	optional uint32 time_transferred = 13;
+}
+
+message CTwoFactor_UpdateTokenVersion_Response {
+}
+
+message CTwoFactor_ValidateToken_Response {
+	optional bool valid = 1;
+}
+
+service TwoFactor {
+	rpc AddAuthenticator (.NotImplemented) returns (.CTwoFactor_AddAuthenticator_Response);
+	rpc CreateEmergencyCodes (.NotImplemented) returns (.CTwoFactor_CreateEmergencyCodes_Response);
+	rpc DestroyEmergencyCodes (.NotImplemented) returns (.CTwoFactor_DestroyEmergencyCodes_Response);
+	rpc FinalizeAddAuthenticator (.NotImplemented) returns (.CTwoFactor_FinalizeAddAuthenticator_Response);
+	rpc QueryStatus (.NotImplemented) returns (.CTwoFactor_Status_Response);
+	rpc RemoveAuthenticator (.NotImplemented) returns (.CTwoFactor_RemoveAuthenticator_Response);
+	rpc RemoveAuthenticatorViaChallengeContinue (.CTwoFactor_RemoveAuthenticatorViaChallengeContinue_Request) returns (.CTwoFactor_RemoveAuthenticatorViaChallengeContinue_Response);
+	rpc RemoveAuthenticatorViaChallengeStart (.CTwoFactor_RemoveAuthenticatorViaChallengeStart_Request) returns (.CTwoFactor_RemoveAuthenticatorViaChallengeStart_Response);
+	rpc SendEmail (.NotImplemented) returns (.CTwoFactor_SendEmail_Response);
+	rpc UpdateTokenVersion (.NotImplemented) returns (.CTwoFactor_UpdateTokenVersion_Response);
+	rpc ValidateToken (.NotImplemented) returns (.CTwoFactor_ValidateToken_Response);
+}
+
