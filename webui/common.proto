@@ -161,6 +161,11 @@ message CClientNotificationAchievement {
 	optional float global_achieved_pct = 11;
 }
 
+message CClientNotificationBatteryTemperature {
+	optional uint32 temperature = 1;
+	optional string notification_type = 2;
+}
+
 message CClientNotificationClaimSteamDeckRewards {
 }
 
@@ -1325,12 +1330,83 @@ message CMsgStorageDevicesData_Drive {
 	optional uint64 size_bytes = 6;
 }
 
+// Used by: common.proto
+message CMsgSystemAudioManagerDevice {
+	optional .CMsgSystemAudioManagerObject base = 1;
+	optional string name = 2;
+	optional string nick = 3;
+	optional string description = 4;
+	optional string api = 5;
+}
+
+// Used by: common.proto
+message CMsgSystemAudioManagerLink {
+	optional .CMsgSystemAudioManagerObject base = 1;
+	optional uint32 output_node_id = 2;
+	optional uint32 output_port_id = 3;
+	optional uint32 input_node_id = 4;
+	optional uint32 input_port_id = 5;
+}
+
+// Used by: common.proto
+message CMsgSystemAudioManagerNode {
+	optional .CMsgSystemAudioManagerObject base = 1;
+	optional uint32 device_id = 2;
+	optional string name = 3;
+	optional string nick = 4;
+	optional string description = 5;
+	optional int32 edirection = 6 [(description) = "enum"];
+	optional .CMsgSystemAudioVolume volume = 7;
+}
+
+// Used by: common.proto
+message CMsgSystemAudioManagerObject {
+	optional uint32 id = 1;
+	optional fixed32 rtime_last_update = 2;
+}
+
+// Used by: common.proto
+message CMsgSystemAudioManagerPort {
+	optional .CMsgSystemAudioManagerObject base = 1;
+	optional uint32 node_id = 3;
+	optional string name = 4;
+	optional string alias = 5;
+	optional int32 etype = 6 [(description) = "enum"];
+	optional int32 edirection = 7 [(description) = "enum"];
+	optional bool is_physical = 8;
+	optional bool is_terminal = 9;
+	optional bool is_control = 10;
+	optional bool is_monitor = 11;
+}
+
 message CMsgSystemAudioManagerState {
-	optional int32 counter = 1;
+	optional fixed32 rtime_filter = 1;
+	optional int32 counter = 2;
+	optional .CMsgSystemAudioManagerStateHW hw = 3;
+}
+
+// Used by: common.proto
+message CMsgSystemAudioManagerStateHW {
+	repeated .CMsgSystemAudioManagerDevice devices = 1;
+	repeated .CMsgSystemAudioManagerNode nodes = 2;
+	repeated .CMsgSystemAudioManagerPort ports = 3;
+	repeated .CMsgSystemAudioManagerLink links = 4;
 }
 
 message CMsgSystemAudioManagerUpdateSomething {
 	optional int32 counter = 1;
+}
+
+// Used by: common.proto
+message CMsgSystemAudioVolume {
+	repeated .CMsgSystemAudioVolume_ChannelEntry entries = 1;
+	optional bool is_muted = 2;
+}
+
+// Used by: common.proto
+message CMsgSystemAudioVolume_ChannelEntry {
+	optional int32 echannel = 1 [(description) = "enum"];
+	optional float volume = 2;
 }
 
 message CMsgSystemDockState {
@@ -1408,6 +1484,7 @@ message CMsgSystemPerfDiagnosticEntry {
 message CMsgSystemPerfDiagnosticInfo {
 	repeated .CMsgSystemPerfDiagnosticEntry entries = 1;
 	repeated .CMsgSystemPerfNetworkInterface interfaces = 2;
+	optional string sensors_json = 3;
 }
 
 // Used by: common.proto

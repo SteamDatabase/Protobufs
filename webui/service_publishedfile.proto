@@ -133,6 +133,17 @@ message CPublishedFile_GetItemInfo_Response_WorkshopItemInfo {
 	optional uint32 flags = 4;
 }
 
+message CPublishedFile_GetSubSectionData_Request {
+	optional uint64 publishedfileid = 1;
+	optional bool for_table_of_contents = 2;
+	optional uint64 specific_sectionid = 3;
+	optional int32 desired_revision = 4 [default = 0, (description) = "enum"];
+}
+
+message CPublishedFile_GetSubSectionData_Response {
+	repeated .PublishedFileSubSection sub_sections = 1;
+}
+
 message CPublishedFile_GetUserFiles_Request {
 	optional fixed64 steamid = 1;
 	optional uint32 appid = 2;
@@ -165,6 +176,7 @@ message CPublishedFile_GetUserFiles_Request {
 	optional int32 desired_revision = 33 [default = 0, (description) = "enum"];
 	repeated .CPublishedFile_GetUserFiles_Request_TagGroup taggroups = 34;
 	optional bool return_reactions = 35 [default = false];
+	optional bool return_apps = 36;
 }
 
 message CPublishedFile_GetUserFiles_Request_KVTag {
@@ -328,6 +340,9 @@ message CPublishedFile_Update_Request {
 message CPublishedFile_Update_Response {
 }
 
+message CPublishedFile_Vote_Response {
+}
+
 message PublishedFileDetails {
 	optional uint32 result = 1;
 	optional uint64 publishedfileid = 2;
@@ -453,6 +468,13 @@ message PublishedFileDetails_VoteData {
 	optional uint32 votes_down = 3;
 }
 
+message PublishedFileSubSection {
+	optional uint64 sectionid = 1;
+	optional string title = 2;
+	optional string description_text = 3;
+	optional uint32 sort_order = 4;
+}
+
 service PublishedFile {
 	rpc AddAppRelationship (.NotImplemented) returns (.CPublishedFile_AddAppRelationship_Response);
 	rpc AddChild (.NotImplemented) returns (.CPublishedFile_AddChild_Response);
@@ -465,6 +487,7 @@ service PublishedFile {
 	rpc GetDetails (.CPublishedFile_GetDetails_Request) returns (.CPublishedFile_GetDetails_Response);
 	rpc GetItemChanges (.NotImplemented) returns (.CPublishedFile_GetItemChanges_Response);
 	rpc GetItemInfo (.NotImplemented) returns (.CPublishedFile_GetItemInfo_Response);
+	rpc GetSubSectionData (.CPublishedFile_GetSubSectionData_Request) returns (.CPublishedFile_GetSubSectionData_Response);
 	rpc GetUserFiles (.CPublishedFile_GetUserFiles_Request) returns (.CPublishedFile_GetUserFiles_Response);
 	rpc GetUserVoteSummary (.CPublishedFile_GetUserVoteSummary_Request) returns (.CPublishedFile_GetUserVoteSummary_Response);
 	rpc Publish (.NotImplemented) returns (.CPublishedFile_Publish_Response);
@@ -479,6 +502,7 @@ service PublishedFile {
 	rpc Subscribe (.CPublishedFile_Subscribe_Request) returns (.CPublishedFile_Subscribe_Response);
 	rpc Unsubscribe (.CPublishedFile_Unsubscribe_Request) returns (.CPublishedFile_Unsubscribe_Response);
 	rpc Update (.CPublishedFile_Update_Request) returns (.CPublishedFile_Update_Response);
+	rpc Vote (.NotImplemented) returns (.CPublishedFile_Vote_Response);
 }
 
 service PublishedFileClient {
