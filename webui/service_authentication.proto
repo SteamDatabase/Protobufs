@@ -87,6 +87,7 @@ message CAuthentication_PollAuthSessionStatus_Response {
 	optional string refresh_token = 3;
 	optional string access_token = 4;
 	optional bool had_remote_interaction = 5;
+	optional string account_name = 6;
 }
 
 message CAuthentication_UpdateAuthSessionWithMobileConfirmation_Response {
