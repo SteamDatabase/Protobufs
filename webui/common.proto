@@ -314,6 +314,10 @@ message CLibraryBootstrapData {
 	repeated .CAppBootstrapData app_data = 1;
 }
 
+message CMsgAchievementChange {
+	optional uint32 appid = 1;
+}
+
 message CMsgAuthTicket {
 	optional uint32 estate = 1;
 	optional uint32 eresult = 2 [default = 2];
