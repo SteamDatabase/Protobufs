@@ -1,6 +1,17 @@
 import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
 
+message CDisplayMarketingMessage {
+	optional fixed64 gid = 1;
+	optional string title = 2;
+	optional int32 type = 3 [(description) = "enum"];
+	optional .StoreItemID associated_item_id = 4;
+	optional .StoreItem associated_item = 5;
+	optional string associated_name = 6;
+	optional string template_type = 10;
+	optional string template_vars_json = 11;
+}
+
 message CMarketingMessageProto {
 	optional fixed64 gid = 1;
 	optional string title = 2;
@@ -55,8 +66,21 @@ message CMarketingMessages_GetActiveMarketingMessages_Response {
 	optional uint32 time_next_message_age = 2;
 }
 
+message CMarketingMessages_GetDisplayMarketingMessage_Response {
+	optional .CDisplayMarketingMessage message = 1;
+}
+
 message CMarketingMessages_GetMarketingMessage_Response {
 	optional .CMarketingMessageProto message = 1;
+}
+
+message CMarketingMessages_GetMarketingMessagesForUser_Response {
+	repeated .CMarketingMessages_GetMarketingMessagesForUser_Response_MarketingMessageForUser messages = 1;
+}
+
+message CMarketingMessages_GetMarketingMessagesForUser_Response_MarketingMessageForUser {
+	optional bool already_seen = 1;
+	optional .CDisplayMarketingMessage message = 2;
 }
 
 message CMarketingMessages_UpdateMarketingMessage_Response {
@@ -67,7 +91,10 @@ service MarketingMessages {
 	rpc DeleteMarketingMessage (.NotImplemented) returns (.CMarketingMessages_DeleteMarketingMessage_Response);
 	rpc FindMarketingMessages (.CMarketingMessages_FindMarketingMessages_Request) returns (.CMarketingMessages_FindMarketingMessages_Response);
 	rpc GetActiveMarketingMessages (.NotImplemented) returns (.CMarketingMessages_GetActiveMarketingMessages_Response);
+	rpc GetDisplayMarketingMessage (.NotImplemented) returns (.CMarketingMessages_GetDisplayMarketingMessage_Response);
 	rpc GetMarketingMessage (.NotImplemented) returns (.CMarketingMessages_GetMarketingMessage_Response);
+	rpc GetMarketingMessagesForUser (.NotImplemented) returns (.CMarketingMessages_GetMarketingMessagesForUser_Response);
+	rpc MarkMessageSeen (.NotImplemented) returns (.NoResponse);
 	rpc UpdateMarketingMessage (.NotImplemented) returns (.CMarketingMessages_UpdateMarketingMessage_Response);
 }
 

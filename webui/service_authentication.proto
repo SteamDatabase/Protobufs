@@ -55,6 +55,7 @@ message CAuthentication_GetAuthSessionInfo_Response {
 	optional int32 login_history = 9 [(description) = "enum"];
 	optional bool requestor_location_mismatch = 10;
 	optional bool high_usage_login = 11;
+	optional int32 requested_persistence = 12 [(description) = "enum"];
 }
 
 message CAuthentication_GetAuthSessionsForAccount_Response {
