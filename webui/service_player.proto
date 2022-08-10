@@ -260,6 +260,9 @@ message CPlayer_GetOwnedGames_Response_Game {
 	optional int32 playtime_windows_forever = 8;
 	optional int32 playtime_mac_forever = 9;
 	optional int32 playtime_linux_forever = 10;
+	optional uint32 rtime_last_played = 11;
+	optional string capsule_filename = 12;
+	optional string sort_as = 13;
 }
 
 message CPlayer_GetPerFriendPreferences_Request {
