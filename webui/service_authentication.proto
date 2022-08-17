@@ -55,6 +55,7 @@ message CAuthentication_GetAuthSessionInfo_Response {
 	optional int32 login_history = 9 [(description) = "enum"];
 	optional bool requestor_location_mismatch = 10;
 	optional bool high_usage_login = 11;
+	optional int32 requested_persistence = 12 [(description) = "enum"];
 }
 
 message CAuthentication_GetAuthSessionsForAccount_Response {
@@ -79,6 +80,7 @@ message CAuthentication_MigrateMobileSession_Response {
 message CAuthentication_PollAuthSessionStatus_Request {
 	optional uint64 client_id = 1;
 	optional bytes request_id = 2;
+	optional fixed64 token_to_revoke = 3;
 }
 
 message CAuthentication_PollAuthSessionStatus_Response {
@@ -87,6 +89,7 @@ message CAuthentication_PollAuthSessionStatus_Response {
 	optional string refresh_token = 3;
 	optional string access_token = 4;
 	optional bool had_remote_interaction = 5;
+	optional string account_name = 6;
 }
 
 message CAuthentication_UpdateAuthSessionWithMobileConfirmation_Response {
