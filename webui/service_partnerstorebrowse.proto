@@ -1,7 +1,12 @@
 import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
 
+message CPartnerStoreBrowse_GetItems_Request {
+	optional .CStoreBrowse_GetItems_Request request = 1;
+	optional bool include_unpublished = 2;
+}
+
 service PartnerStoreBrowse {
-	rpc GetItems (.CStoreBrowse_GetItems_Request) returns (.CStoreBrowse_GetItems_Response);
+	rpc GetItems (.CPartnerStoreBrowse_GetItems_Request) returns (.CStoreBrowse_GetItems_Response);
 }
 

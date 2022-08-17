@@ -1472,6 +1472,7 @@ message CMsgSystemPerfDiagnosticInfo {
 	repeated .CMsgSystemPerfDiagnosticEntry entries = 1;
 	repeated .CMsgSystemPerfNetworkInterface interfaces = 2;
 	optional float battery_temp_c = 3;
+	//optional string sensors_json = 3;
 }
 
 // Used by: common.proto
@@ -1591,11 +1592,6 @@ message CMsgSystemUpdateState {
 	repeated .CMsgSystemUpdateApplyResult update_apply_results = 4;
 }
 
-message CPartnerStoreBrowse_GetItems_Request {
-	optional .CStoreBrowse_GetItems_Request request = 1;
-	optional bool include_unpublished = 2;
-}
-
 message CProductImpressionsFromClient_Notification {
 	repeated .CProductImpressionsFromClient_Notification_Impression impressions = 1;
 }
@@ -1607,7 +1603,7 @@ message CProductImpressionsFromClient_Notification_Impression {
 	optional uint32 num_impressions = 3;
 }
 
-// Used by: PartnerStoreBrowse, StoreBrowse, common.proto
+// Used by: PartnerStoreBrowse, StoreBrowse
 message CStoreBrowse_GetItems_Request {
 	repeated .StoreItemID ids = 1;
 	optional .StoreBrowseContext context = 2;
@@ -1714,7 +1710,7 @@ message LoyaltyRewardDefinition_CommunityItemData {
 message NotImplemented {
 }
 
-// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery, common.proto
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreBrowseContext {
 	optional string language = 1;
 	optional int32 elanguage = 2;
@@ -1722,7 +1718,7 @@ message StoreBrowseContext {
 	optional int32 steam_realm = 4;
 }
 
-// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery, common.proto
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreBrowseItemDataRequest {
 	optional bool include_assets = 1;
 	optional bool include_release = 2;
@@ -1965,7 +1961,7 @@ message StoreItem_Trailers_VideoSource {
 	optional string type = 2;
 }
 
-// Used by: MarketingMessages, PartnerStoreBrowse, StoreBrowse, StoreQuery, common.proto
+// Used by: MarketingMessages, PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItemID {
 	optional uint32 appid = 1;
 	optional uint32 packageid = 2;

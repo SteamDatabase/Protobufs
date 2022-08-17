@@ -1,0 +1,51 @@
+import "steammessages_unified_base.steamclient.proto";
+
+message CGamePlaytimeStats {
+	optional uint32 appid = 1;
+	optional .CPlaytimeStats stats = 2;
+	optional uint32 longest_consecutive_days = 3;
+}
+
+message CPlaytimeStats {
+	optional uint32 total_playtime_seconds = 1;
+	optional uint32 vr_playtime_seconds = 2;
+	optional uint32 deck_playtime_seconds = 3;
+	optional uint32 controller_playtime_seconds = 4;
+	optional uint32 linux_playtime_seconds = 5;
+	optional uint32 macos_playtime_seconds = 6;
+	optional uint32 windows_playtime_seconds = 7;
+	optional uint32 total_sessions = 20;
+	optional uint32 vr_sessions = 21;
+	optional uint32 deck_sessions = 22;
+	optional uint32 controller_sessions = 23;
+	optional uint32 linux_sessions = 24;
+	optional uint32 macos_sessions = 25;
+	optional uint32 windows_sessions = 26;
+}
+
+message CSaleFeature_GetUserYearInReview_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 year = 2;
+	optional bool force_regenerate = 3;
+}
+
+message CSaleFeature_GetUserYearInReview_Response {
+	optional .CUserYearInReviewStats stats = 1;
+}
+
+message CUserPlaytimeStats {
+	optional .CPlaytimeStats total_stats = 1;
+	repeated .CGamePlaytimeStats games = 2;
+	optional uint32 longest_consecutive_days = 3;
+}
+
+message CUserYearInReviewStats {
+	optional uint32 account_id = 1;
+	optional uint32 year = 2;
+	optional .CUserPlaytimeStats playtime_stats = 3;
+}
+
+service SaleFeature {
+	rpc GetUserYearInReview (.CSaleFeature_GetUserYearInReview_Request) returns (.CSaleFeature_GetUserYearInReview_Response);
+}
+

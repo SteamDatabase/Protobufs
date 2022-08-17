@@ -1,5 +1,4 @@
 import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
 
 message CQuest_ActivateProfileModifierItem_Request {
 	optional uint32 appid = 1;
@@ -79,6 +78,11 @@ message CQuest_GetNumTradingCardsEarned_Response {
 	optional uint32 num_trading_cards = 1;
 }
 
+message CQuest_VirtualItemRewardDefinition_Request {
+	optional int32 eventid = 1 [(description) = "enum"];
+	optional bool include_inactive = 2;
+}
+
 message CQuest_VirtualItemRewardDefinition_Response {
 	repeated .CVirtualItemRewardDefinition rewards = 1;
 }
@@ -106,6 +110,6 @@ service Quest {
 	rpc GetCommunityInventory (.CQuest_GetCommunityInventory_Request) returns (.CQuest_GetCommunityInventory_Response);
 	rpc GetCommunityItemDefinitions (.CQuest_GetCommunityItemDefinitions_Request) returns (.CQuest_GetCommunityItemDefinitions_Response);
 	rpc GetNumTradingCardsEarned (.CQuest_GetNumTradingCardsEarned_Request) returns (.CQuest_GetNumTradingCardsEarned_Response);
-	rpc GetVirtualItemRewardDefinition (.NotImplemented) returns (.CQuest_VirtualItemRewardDefinition_Response);
+	rpc GetVirtualItemRewardDefinition (.CQuest_VirtualItemRewardDefinition_Request) returns (.CQuest_VirtualItemRewardDefinition_Response);
 }
 
