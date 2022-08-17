@@ -54,6 +54,7 @@ message CAppOverview {
 	optional int32 steam_deck_compat_category = 64 [(description) = "enum"];
 	optional uint32 rt_last_time_locally_played = 65;
 	optional uint32 rt_purchased_time = 66;
+	optional string header_filename = 67;
 }
 
 // Used by: common.proto
@@ -1306,6 +1307,7 @@ message CMsgSteamNetworkingP2PSDRRoutingSummary {
 message CMsgStorageDevicesData {
 	repeated .CMsgStorageDevicesData_Drive drives = 1;
 	repeated .CMsgStorageDevicesData_BlockDevice block_devices = 2;
+	optional bool is_unmount_supported = 3;
 }
 
 // Used by: common.proto

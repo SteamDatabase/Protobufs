@@ -488,6 +488,7 @@ service PublishedFile {
 	rpc GetItemChanges (.NotImplemented) returns (.CPublishedFile_GetItemChanges_Response);
 	rpc GetItemInfo (.NotImplemented) returns (.CPublishedFile_GetItemInfo_Response);
 	rpc GetSubSectionData (.CPublishedFile_GetSubSectionData_Request) returns (.CPublishedFile_GetSubSectionData_Response);
+	rpc GetUserFileCount (.CPublishedFile_GetUserFiles_Request) returns (.CPublishedFile_GetUserFiles_Response);
 	rpc GetUserFiles (.CPublishedFile_GetUserFiles_Request) returns (.CPublishedFile_GetUserFiles_Response);
 	rpc GetUserVoteSummary (.CPublishedFile_GetUserVoteSummary_Request) returns (.CPublishedFile_GetUserVoteSummary_Response);
 	rpc Publish (.NotImplemented) returns (.CPublishedFile_Publish_Response);
