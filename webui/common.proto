@@ -1489,7 +1489,6 @@ message CMsgSystemPerfDiagnosticInfo {
 	repeated .CMsgSystemPerfDiagnosticEntry entries = 1;
 	repeated .CMsgSystemPerfNetworkInterface interfaces = 2;
 	optional float battery_temp_c = 3;
-	//optional string sensors_json = 3;
 }
 
 // Used by: common.proto
