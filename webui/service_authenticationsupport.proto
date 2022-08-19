@@ -1,0 +1,25 @@
+import "steammessages_unified_base.steamclient.proto";
+import "common.proto";
+
+message CAuthenticationSupport_QueryRefreshTokensByAccount_Response {
+	repeated .CSupportRefreshTokenDescription refresh_tokens = 1;
+}
+
+message CAuthenticationSupportByAccount_QueryRefreshTokenByID_Response {
+	repeated .CSupportRefreshTokenDescription refresh_tokens = 1;
+}
+
+message CSupportRefreshTokenDescription {
+	optional fixed64 token_id = 1;
+	optional string token_description = 2;
+	optional uint32 time_updated = 3;
+	optional int32 platform_type = 4 [(description) = "enum"];
+	optional int32 token_state = 5 [(description) = "enum"];
+	optional fixed64 owner_steamid = 6;
+}
+
+service AuthenticationSupport {
+	rpc QueryRefreshTokenByID (.NotImplemented) returns (.CAuthenticationSupportByAccount_QueryRefreshTokenByID_Response);
+	rpc QueryRefreshTokensByAccount (.NotImplemented) returns (.CAuthenticationSupport_QueryRefreshTokensByAccount_Response);
+}
+

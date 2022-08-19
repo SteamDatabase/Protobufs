@@ -1,6 +1,11 @@
 import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
 
+message CStoreBrowse_GetStoreCategories_Request {
+	optional string language = 1;
+	optional int32 elanguage = 2 [default = -1];
+}
+
 message CStoreBrowse_GetStoreCategories_Response {
 	repeated .CStoreBrowse_GetStoreCategories_Response_Category categories = 1;
 }
@@ -16,6 +21,6 @@ message CStoreBrowse_GetStoreCategories_Response_Category {
 
 service StoreBrowse {
 	rpc GetItems (.CStoreBrowse_GetItems_Request) returns (.CStoreBrowse_GetItems_Response);
-	rpc GetStoreCategories (.NotImplemented) returns (.CStoreBrowse_GetStoreCategories_Response);
+	rpc GetStoreCategories (.CStoreBrowse_GetStoreCategories_Request) returns (.CStoreBrowse_GetStoreCategories_Response);
 }
 

@@ -1336,6 +1336,21 @@ message CMsgStorageDevicesData_Drive {
 	optional uint64 size_bytes = 6;
 }
 
+message CMsgSwapModeInputBindings {
+	optional string action_set_key = 1;
+	optional string action_set_layer_key = 2;
+	optional int32 source_binding_key = 3 [(description) = "enum"];
+	optional bool mode_shift = 4;
+	optional int32 modeid = 5;
+	repeated .CMsgSwapModeInputBindings_CModeInputSwap swaps = 6;
+}
+
+// Used by: common.proto
+message CMsgSwapModeInputBindings_CModeInputSwap {
+	optional int32 old_key = 1 [(description) = "enum"];
+	optional int32 new_key = 2 [(description) = "enum"];
+}
+
 // Used by: common.proto
 message CMsgSystemAudioManagerDevice {
 	optional .CMsgSystemAudioManagerObject base = 1;
