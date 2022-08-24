@@ -1,6 +1,11 @@
 import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
 
+message CAppPriority {
+	optional uint32 priority = 1;
+	repeated uint32 appid = 2;
+}
+
 message CCDDBAppDetailCommon {
 	optional uint32 appid = 1;
 	optional string name = 2;
@@ -41,6 +46,9 @@ message CCommunity_ClearSinglePartnerEventsAppPriority_Request {
 }
 
 message CCommunity_ClearSinglePartnerEventsAppPriority_Response {
+}
+
+message CCommunity_ClearUserPartnerEventsAppPriorities_Request {
 }
 
 message CCommunity_ClearUserPartnerEventsAppPriorities_Response {
@@ -123,6 +131,12 @@ message CCommunity_GetAvatarHistory_Response_AvatarData {
 	optional uint32 timestamp = 3;
 }
 
+message CCommunity_GetBestEventsForUser_Request {
+	optional bool include_steam_blog = 1;
+	optional uint32 filter_to_played_within_days = 2;
+	optional bool include_only_game_updates = 3;
+}
+
 message CCommunity_GetBestEventsForUser_Response {
 	repeated .CCommunity_PartnerEventResult results = 1;
 }
@@ -172,12 +186,34 @@ message CCommunity_GetCommentThread_Response {
 	optional fixed64 gidfeature2 = 18;
 }
 
+message CCommunity_GetCommentThreadRatings_Request {
+	optional string commentthreadtype = 1;
+	optional uint64 steamid = 2;
+	optional uint64 gidfeature = 3;
+	optional uint64 gidfeature2 = 4;
+	optional uint64 gidcomment = 5;
+	optional uint32 max_results = 6;
+}
+
 message CCommunity_GetCommentThreadRatings_Response {
 	optional uint64 commentthreadid = 1;
 	optional uint64 gidcomment = 2;
 	optional uint32 upvotes = 3;
 	optional bool has_upvoted = 4;
 	repeated uint32 upvoter_accountids = 5;
+}
+
+message CCommunity_GetUserPartnerEventNews_Request {
+	optional uint32 count = 1;
+	optional uint32 offset = 2;
+	optional uint32 rtime32_start_time = 3;
+	optional uint32 rtime32_end_time = 4;
+	repeated uint32 language_preference = 5;
+	repeated int32 filter_event_type = 6 [(description) = "enum"];
+	optional bool filter_to_appid = 7;
+	repeated .CAppPriority app_list = 8;
+	optional uint32 count_after = 9 [default = 0];
+	optional uint32 count_before = 10 [default = 0];
 }
 
 message CCommunity_GetUserPartnerEventNews_Response {
@@ -189,6 +225,11 @@ message CCommunity_GetUserPartnerEventsAppPriorities_Request {
 
 message CCommunity_GetUserPartnerEventsAppPriorities_Response {
 	repeated .CCommunity_PartnerEventsAppPriority priorities = 1;
+}
+
+message CCommunity_GetUserPartnerEventViewStatus_Request {
+	repeated fixed64 event_gids = 1;
+	optional bool include_read_events_only = 2;
 }
 
 message CCommunity_GetUserPartnerEventViewStatus_Response {
@@ -294,18 +335,18 @@ message CCommunity_RateCommentThread_Response {
 
 service Community {
 	rpc ClearSinglePartnerEventsAppPriority (.CCommunity_ClearSinglePartnerEventsAppPriority_Request) returns (.CCommunity_ClearSinglePartnerEventsAppPriority_Response);
-	rpc ClearUserPartnerEventsAppPriorities (.NotImplemented) returns (.CCommunity_ClearUserPartnerEventsAppPriorities_Response);
+	rpc ClearUserPartnerEventsAppPriorities (.CCommunity_ClearUserPartnerEventsAppPriorities_Request) returns (.CCommunity_ClearUserPartnerEventsAppPriorities_Response);
 	rpc DeleteCommentFromThread (.CCommunity_DeleteCommentFromThread_Request) returns (.CCommunity_DeleteCommentFromThread_Response);
 	rpc GetAppRichPresenceLocalization (.CCommunity_GetAppRichPresenceLocalization_Request) returns (.CCommunity_GetAppRichPresenceLocalization_Response);
 	rpc GetApps (.CCommunity_GetApps_Request) returns (.CCommunity_GetApps_Response);
 	rpc GetAvatarHistory (.CCommunity_GetAvatarHistory_Request) returns (.CCommunity_GetAvatarHistory_Response);
-	rpc GetBestEventsForUser (.NotImplemented) returns (.CCommunity_GetBestEventsForUser_Response);
+	rpc GetBestEventsForUser (.CCommunity_GetBestEventsForUser_Request) returns (.CCommunity_GetBestEventsForUser_Response);
 	rpc GetClanAnnouncementVoteForUser (.CCommunity_GetClanAnnouncementVoteForUser_Request) returns (.CCommunity_GetClanAnnouncementVoteForUser_Response);
 	rpc GetCommentThread (.CCommunity_GetCommentThread_Request) returns (.CCommunity_GetCommentThread_Response);
-	rpc GetCommentThreadRatings (.NotImplemented) returns (.CCommunity_GetCommentThreadRatings_Response);
-	rpc GetUserPartnerEventNews (.NotImplemented) returns (.CCommunity_GetUserPartnerEventNews_Response);
+	rpc GetCommentThreadRatings (.CCommunity_GetCommentThreadRatings_Request) returns (.CCommunity_GetCommentThreadRatings_Response);
+	rpc GetUserPartnerEventNews (.CCommunity_GetUserPartnerEventNews_Request) returns (.CCommunity_GetUserPartnerEventNews_Response);
 	rpc GetUserPartnerEventsAppPriorities (.CCommunity_GetUserPartnerEventsAppPriorities_Request) returns (.CCommunity_GetUserPartnerEventsAppPriorities_Response);
-	rpc GetUserPartnerEventViewStatus (.NotImplemented) returns (.CCommunity_GetUserPartnerEventViewStatus_Response);
+	rpc GetUserPartnerEventViewStatus (.CCommunity_GetUserPartnerEventViewStatus_Request) returns (.CCommunity_GetUserPartnerEventViewStatus_Response);
 	rpc MarkPartnerEventsForUser (.CCommunity_MarkPartnerEventsForUser_Request) returns (.CCommunity_MarkPartnerEventsForUser_Response);
 	rpc PartnerEventsShowLessForApp (.CCommunity_PartnerEventsShowLessForApp_Request) returns (.CCommunity_PartnerEventsShowLessForApp_Response);
 	rpc PartnerEventsShowMoreForApp (.CCommunity_PartnerEventsShowMoreForApp_Request) returns (.CCommunity_PartnerEventsShowMoreForApp_Response);

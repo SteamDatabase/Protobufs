@@ -53,6 +53,7 @@ message CTwoFactor_RemoveAuthenticator_Response {
 message CTwoFactor_RemoveAuthenticatorViaChallengeContinue_Request {
 	optional string sms_code = 1;
 	optional bool generate_new_token = 2;
+	optional uint32 version = 3 [default = 1];
 }
 
 message CTwoFactor_RemoveAuthenticatorViaChallengeContinue_Response {

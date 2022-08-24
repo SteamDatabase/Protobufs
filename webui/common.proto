@@ -86,6 +86,23 @@ message CAppOverview_PerClientData {
 	optional int32 cloud_status = 13 [(description) = "enum"];
 }
 
+message CAuthenticationSupport_QueryRefreshTokenByID_Response {
+	repeated .CSupportRefreshTokenDescription refresh_tokens = 1;
+}
+
+message CBilling_Address {
+	optional string first_name = 1;
+	optional string last_name = 2;
+	optional string address1 = 3;
+	optional string address2 = 4;
+	optional string city = 5;
+	optional string us_state = 6;
+	optional string country_code = 7;
+	optional string postcode = 8;
+	optional int32 zip_plus4 = 9;
+	optional string phone = 10;
+}
+
 // Used by: ChatRoom, ChatRoomClient, ClanChatRooms
 message CChatPartyBeacon {
 	optional uint32 app_id = 1;
@@ -146,6 +163,39 @@ message CChatRoomState {
 	optional uint32 sort_order = 6;
 	optional string last_message = 7;
 	optional uint32 accountid_last_message = 8;
+}
+
+message CClanEventData {
+	optional fixed64 gid = 1;
+	optional fixed64 clan_steamid = 2;
+	optional string event_name = 3;
+	optional int32 event_type = 4 [(description) = "enum"];
+	optional uint32 appid = 5;
+	optional string server_address = 6;
+	optional string server_password = 7;
+	optional uint32 rtime32_start_time = 8;
+	optional uint32 rtime32_end_time = 9;
+	optional int32 comment_count = 10;
+	optional fixed64 creator_steamid = 11;
+	optional fixed64 last_update_steamid = 12;
+	optional string event_notes = 13;
+	optional string jsondata = 14;
+	optional .CCommunity_ClanAnnouncementInfo announcement_body = 15;
+	optional bool published = 16;
+	optional bool hidden = 17;
+	optional uint32 rtime32_visibility_start = 18;
+	optional uint32 rtime32_visibility_end = 19;
+	optional uint32 broadcaster_accountid = 20;
+	optional uint32 follower_count = 21;
+	optional uint32 ignore_count = 22;
+	optional fixed64 forum_topic_id = 23;
+	optional uint32 rtime32_last_modified = 24;
+	optional fixed64 news_post_gid = 25;
+	optional uint32 rtime_mod_reviewed = 26;
+	optional uint32 featured_app_tagid = 27;
+	repeated uint32 referenced_appids = 28;
+	optional uint32 build_id = 29;
+	optional string build_branch = 30;
 }
 
 message CClientNotificationAchievement {
@@ -281,6 +331,43 @@ message CCloud_PendingRemoteOperation {
 	optional uint32 time_last_updated = 4;
 }
 
+// Used by: common.proto
+message CCommunity_ClanAnnouncementInfo {
+	optional uint64 gid = 1;
+	optional uint64 clanid = 2;
+	optional uint64 posterid = 3;
+	optional string headline = 4;
+	optional uint32 posttime = 5;
+	optional uint32 updatetime = 6;
+	optional string body = 7;
+	optional int32 commentcount = 8;
+	repeated string tags = 9;
+	optional int32 language = 10;
+	optional bool hidden = 11;
+	optional fixed64 forum_topic_id = 12;
+	optional fixed64 event_gid = 13;
+	optional int32 voteupcount = 14;
+	optional int32 votedowncount = 15;
+	optional int32 ban_check_result = 16 [(description) = "enum"];
+}
+
+message CCuratorPreferences {
+	optional uint32 supported_languages = 1;
+	optional bool platform_windows = 2;
+	optional bool platform_mac = 3;
+	optional bool platform_linux = 4;
+	optional bool vr_content = 5;
+	optional bool adult_content_violence = 6;
+	optional bool adult_content_sex = 7;
+	optional uint32 timestamp_updated = 8;
+	repeated uint32 tagids_curated = 9;
+	repeated uint32 tagids_filtered = 10;
+	optional string website_title = 11;
+	optional string website_url = 12;
+	optional string discussion_url = 13;
+	optional bool show_broadcast = 14;
+}
+
 message CGameNetworkingUI_ConnectionState {
 	optional string connection_key = 1;
 	optional uint32 appid = 2;
@@ -315,8 +402,33 @@ message CLibraryBootstrapData {
 	repeated .CAppBootstrapData app_data = 1;
 }
 
+message CLocalizationToken {
+	optional uint32 language = 1;
+	optional string localized_string = 2;
+}
+
 message CMsgAchievementChange {
 	optional uint32 appid = 1;
+}
+
+message CMsgAppRights {
+	optional bool edit_info = 1;
+	optional bool publish = 2;
+	optional bool view_error_data = 3;
+	optional bool download = 4;
+	optional bool upload_cdkeys = 5;
+	optional bool generate_cdkeys = 6;
+	optional bool view_financials = 7;
+	optional bool manage_ceg = 8;
+	optional bool manage_signing = 9;
+	optional bool manage_cdkeys = 10;
+	optional bool edit_marketing = 11;
+	optional bool economy_support = 12;
+	optional bool economy_support_supervisor = 13;
+	optional bool manage_pricing = 14;
+	optional bool broadcast_live = 15;
+	optional bool view_marketing_traffic = 16;
+	optional bool edit_store_display_content = 17;
 }
 
 message CMsgAuthTicket {
@@ -958,10 +1070,20 @@ message CMsgGameActionSet {
 	repeated .CMsgControllerSources source_bindings = 6;
 }
 
-// Used by: Community, common.proto
+// Used by: AuthenticationSupport, Community, common.proto
 message CMsgIPAddress {
 	optional fixed32 v4 = 1;
 	optional bytes v6 = 2;
+}
+
+message CMsgIPAddressBucket {
+	optional .CMsgIPAddress original_ip_address = 1;
+	optional fixed64 bucket = 2;
+}
+
+message CMsgKeyValuePair {
+	optional string name = 1;
+	optional string value = 2;
 }
 
 message CMsgMulti {
@@ -1100,6 +1222,10 @@ message CMsgProtoBufHeader {
 	optional uint32 realm = 32 [default = 0];
 	optional int32 timeout_ms = 33 [default = -1];
 	optional string debug_source = 34;
+}
+
+message CMsgProtobufWrapped {
+	optional bytes message_body = 1;
 }
 
 message CMsgSelectOSBranchParams {
@@ -1608,6 +1734,17 @@ message CMsgSystemUpdateState {
 	repeated .CMsgSystemUpdateApplyResult update_apply_results = 4;
 }
 
+message CPackageReservationStatus {
+	optional uint32 packageid = 1;
+	optional int32 reservation_state = 2;
+	optional int32 queue_position = 3;
+	optional int32 total_queue_size = 4;
+	optional string reservation_country_code = 5;
+	optional bool expired = 6;
+	optional uint32 time_expires = 7;
+	optional uint32 time_reserved = 8;
+}
+
 message CProductImpressionsFromClient_Notification {
 	repeated .CProductImpressionsFromClient_Notification_Impression impressions = 1;
 }
@@ -1662,6 +1799,16 @@ message CStreamingServerConfig {
 	optional int32 software_encoding_threads = 7;
 	optional bool enable_traffic_priority = 8;
 	optional int32 host_play_audio = 9 [default = 0, (description) = "enum"];
+}
+
+// Used by: AuthenticationSupport, common.proto
+message CSupportRefreshTokenDescription {
+	optional fixed64 token_id = 1;
+	optional string token_description = 2;
+	optional uint32 time_updated = 3;
+	optional int32 platform_type = 4 [(description) = "enum"];
+	optional int32 token_state = 5 [(description) = "enum"];
+	optional fixed64 owner_steamid = 6;
 }
 
 // Used by: common.proto
