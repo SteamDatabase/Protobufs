@@ -81,6 +81,10 @@ message CPublishing_GetEstimatePartnerAppOptInEmail_Response {
 	optional .CPartnerAppOptInEmailStats stats = 1;
 }
 
+message CPublishing_GetOptInEmailTracking_Request {
+	optional fixed64 email_def_id = 1;
+}
+
 message CPublishing_GetOptInEmailTracking_Response {
 	optional fixed64 email_def_id = 1;
 	repeated .CPartnerOptInEmailTracking results = 2;
@@ -126,6 +130,7 @@ message CPublishing_UpdatePartnerAppOptInEmail_Request {
 	optional string email_templates = 4;
 	optional uint32 start_rtime = 5 [default = 0];
 	optional uint32 end_rtime = 6 [default = 0];
+	optional bool reviewed = 7 [default = false];
 }
 
 message CPublishing_UpdatePartnerAppOptInEmail_Response {
@@ -134,7 +139,7 @@ message CPublishing_UpdatePartnerAppOptInEmail_Response {
 service Publishing {
 	rpc CreatePartnerAppOptInEmails (.CPublishing_CreatePartnerAppOptInEmail_Request) returns (.CPublishing_CreatePartnerAppOptInEmail_Response);
 	rpc GetEstimatePartnerAppOptInEmail (.CPublishing_GetEstimatePartnerAppOptInEmail_Request) returns (.CPublishing_GetEstimatePartnerAppOptInEmail_Response);
-	rpc GetOptInEmailTracking (.NotImplemented) returns (.CPublishing_GetOptInEmailTracking_Response);
+	rpc GetOptInEmailTracking (.CPublishing_GetOptInEmailTracking_Request) returns (.CPublishing_GetOptInEmailTracking_Response);
 	rpc GetPartnerAppOptInEmailDefAndStats (.CPublishing_GetPartnerAppOptInEmailDefAndStats_Request) returns (.CPublishing_GetPartnerAppOptInEmailDefAndStats_Response);
 	rpc GetPartnerOptInInvites (.NotImplemented) returns (.CPublishing_GetPartnerOptInInvites_Response);
 	rpc GetSinglePartnerAppOptIn (.NotImplemented) returns (.CPublishing_GetSinglePartnerAppOptIns_Response);
