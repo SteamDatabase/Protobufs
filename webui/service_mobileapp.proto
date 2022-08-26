@@ -1,0 +1,19 @@
+import "steammessages_unified_base.steamclient.proto";
+
+message CMobileApp_GetMobileSummary_Request {
+	optional fixed64 authenticator_gid = 1;
+}
+
+message CMobileApp_GetMobileSummary_Response {
+	optional uint32 stale_time_seconds = 1;
+	optional bool is_authenticator_valid = 2;
+	optional uint32 owned_games = 3;
+	optional uint32 friend_count = 4;
+	optional string wallet_balance = 5;
+	optional string language = 6;
+}
+
+service MobileApp {
+	rpc GetMobileSummary (.CMobileApp_GetMobileSummary_Request) returns (.CMobileApp_GetMobileSummary_Response);
+}
+

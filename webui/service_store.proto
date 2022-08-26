@@ -63,6 +63,10 @@ message CStore_GetLocalizedNameForTags_Response_Tag {
 	optional string normalized_name = 4;
 }
 
+message CStore_GetMostPopularTags_Request {
+	optional string language = 1;
+}
+
 message CStore_GetMostPopularTags_Response {
 	repeated .CStore_GetMostPopularTags_Response_Tag tags = 1;
 }
@@ -182,6 +186,7 @@ message CStore_UserContentDescriptorPreferences_ContentDescriptor {
 
 message CStore_UserPreferences {
 	optional int32 primary_language = 1;
+	//optional uint32 primary_language = 1;
 	optional uint32 secondary_languages = 2;
 	optional bool platform_windows = 3;
 	optional bool platform_mac = 4;
@@ -225,7 +230,7 @@ service Store {
 	rpc GetDiscoveryQueue (.CStore_GetDiscoveryQueue_Request) returns (.CStore_GetDiscoveryQueue_Response);
 	rpc GetDiscoveryQueueSettings (.NotImplemented) returns (.CStore_GetDiscoveryQueueSettings_Response);
 	rpc GetLocalizedNameForTags (.CStore_GetLocalizedNameForTags_Request) returns (.CStore_GetLocalizedNameForTags_Response);
-	rpc GetMostPopularTags (.NotImplemented) returns (.CStore_GetMostPopularTags_Response);
+	rpc GetMostPopularTags (.CStore_GetMostPopularTags_Request) returns (.CStore_GetMostPopularTags_Response);
 	rpc GetStorePreferences (.CStore_GetStorePreferences_Request) returns (.CStore_GetStorePreferences_Response);
 	rpc GetTrendingAppsAmongFriends (.CStore_GetTrendingAppsAmongFriends_Request) returns (.CStore_GetTrendingAppsAmongFriends_Response);
 	rpc GetUserGameInterestState (.NotImplemented) returns (.CStore_GetUserGameInterestState_Response);

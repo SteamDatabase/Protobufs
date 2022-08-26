@@ -1,5 +1,4 @@
 import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
 
 message CEcon_Asset {
 	optional uint32 appid = 1;
@@ -11,6 +10,10 @@ message CEcon_Asset {
 	optional int64 amount = 7;
 	optional bool missing = 8;
 	optional int64 est_usd = 9;
+}
+
+message CEcon_ClientGetItemShopOverlayAuthURL_Request {
+	optional string return_url = 1;
 }
 
 message CEcon_ClientGetItemShopOverlayAuthURL_Response {
@@ -30,6 +33,25 @@ message CEcon_GetAssetClassInfo_Request_Class {
 
 message CEcon_GetAssetClassInfo_Response {
 	repeated .CEconItem_Description descriptions = 1;
+}
+
+message CEcon_GetInventoryItemsWithDescriptions_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 appid = 2;
+	optional uint64 contextid = 3;
+	optional bool get_descriptions = 4;
+	optional string language = 5;
+	optional .CEcon_GetInventoryItemsWithDescriptions_Request_FilterOptions filters = 6;
+	optional uint64 start_assetid = 8;
+	optional int32 count = 9;
+	optional bool for_trade_offer_verification = 10;
+}
+
+message CEcon_GetInventoryItemsWithDescriptions_Request_FilterOptions {
+	repeated uint64 assetids = 1;
+	repeated uint32 currencyids = 2;
+	optional bool tradable_only = 3;
+	optional bool marketable_only = 4;
 }
 
 message CEcon_GetInventoryItemsWithDescriptions_Response {
@@ -104,9 +126,9 @@ message CEconItem_Tag {
 }
 
 service Econ {
-	rpc ClientGetItemShopOverlayAuthURL (.NotImplemented) returns (.CEcon_ClientGetItemShopOverlayAuthURL_Response);
+	rpc ClientGetItemShopOverlayAuthURL (.CEcon_ClientGetItemShopOverlayAuthURL_Request) returns (.CEcon_ClientGetItemShopOverlayAuthURL_Response);
 	rpc GetAssetClassInfo (.CEcon_GetAssetClassInfo_Request) returns (.CEcon_GetAssetClassInfo_Response);
-	rpc GetInventoryItemsWithDescriptions (.NotImplemented) returns (.CEcon_GetInventoryItemsWithDescriptions_Response);
+	rpc GetInventoryItemsWithDescriptions (.CEcon_GetInventoryItemsWithDescriptions_Request) returns (.CEcon_GetInventoryItemsWithDescriptions_Response);
 	rpc GetTradeOfferAccessToken (.CEcon_GetTradeOfferAccessToken_Request) returns (.CEcon_GetTradeOfferAccessToken_Response);
 }
 

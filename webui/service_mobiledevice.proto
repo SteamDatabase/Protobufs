@@ -1,0 +1,26 @@
+import "steammessages_unified_base.steamclient.proto";
+
+message CMobileDevice_DeregisterMobileDevice_Notification {
+	optional string deviceid = 1;
+}
+
+message CMobileDevice_RegisterMobileDevice_Request {
+	optional string deviceid = 1;
+	optional string language = 2;
+	optional bool push_enabled = 3;
+	optional string app_version = 4;
+	optional string os_version = 5;
+	optional string device_model = 6;
+	optional string twofactor_device_identifier = 7;
+	optional int32 mobile_app = 8 [(description) = "enum"];
+}
+
+message CMobileDevice_RegisterMobileDevice_Response {
+	optional uint32 unique_deviceid = 2;
+}
+
+service MobileDevice {
+	rpc DeregisterMobileDevice (.CMobileDevice_DeregisterMobileDevice_Notification) returns (.NoResponse);
+	rpc RegisterMobileDevice (.CMobileDevice_RegisterMobileDevice_Request) returns (.CMobileDevice_RegisterMobileDevice_Response);
+}
+

@@ -1,10 +1,27 @@
 import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
+
+message CParental_DisableParentalSettings_Request {
+	optional string password = 1;
+	optional fixed64 steamid = 10;
+}
 
 message CParental_DisableParentalSettings_Response {
 }
 
+message CParental_DisableWithRecoveryCode_Request {
+	optional uint32 recovery_code = 1;
+	optional fixed64 steamid = 10;
+}
+
 message CParental_DisableWithRecoveryCode_Response {
+}
+
+message CParental_EnableParentalSettings_Request {
+	optional string password = 1;
+	optional .ParentalSettings settings = 2;
+	optional string sessionid = 3;
+	optional uint32 enablecode = 4;
+	optional fixed64 steamid = 10;
 }
 
 message CParental_EnableParentalSettings_Response {
@@ -18,9 +35,17 @@ message CParental_GetParentalSettings_Response {
 	optional .ParentalSettings settings = 1;
 }
 
+message CParental_GetSignedParentalSettings_Request {
+	optional uint32 priority = 1;
+}
+
 message CParental_GetSignedParentalSettings_Response {
 	optional bytes serialized_settings = 1;
 	optional bytes signature = 2;
+}
+
+message CParental_LockClient_Request {
+	optional string session = 1;
 }
 
 message CParental_LockClient_Response {
@@ -42,7 +67,18 @@ message CParental_ParentalUnlock_Notification {
 	optional string sessionid = 2;
 }
 
+message CParental_RequestRecoveryCode_Request {
+}
+
 message CParental_RequestRecoveryCode_Response {
+}
+
+message CParental_SetParentalSettings_Request {
+	optional string password = 1;
+	optional .ParentalSettings settings = 2;
+	optional string new_password = 3;
+	optional string sessionid = 4;
+	optional fixed64 steamid = 10;
 }
 
 message CParental_SetParentalSettings_Response {
@@ -86,14 +122,14 @@ message ParentalSettings {
 }
 
 service Parental {
-	rpc DisableParentalSettings (.NotImplemented) returns (.CParental_DisableParentalSettings_Response);
-	rpc DisableWithRecoveryCode (.NotImplemented) returns (.CParental_DisableWithRecoveryCode_Response);
-	rpc EnableParentalSettings (.NotImplemented) returns (.CParental_EnableParentalSettings_Response);
+	rpc DisableParentalSettings (.CParental_DisableParentalSettings_Request) returns (.CParental_DisableParentalSettings_Response);
+	rpc DisableWithRecoveryCode (.CParental_DisableWithRecoveryCode_Request) returns (.CParental_DisableWithRecoveryCode_Response);
+	rpc EnableParentalSettings (.CParental_EnableParentalSettings_Request) returns (.CParental_EnableParentalSettings_Response);
 	rpc GetParentalSettings (.CParental_GetParentalSettings_Request) returns (.CParental_GetParentalSettings_Response);
-	rpc GetSignedParentalSettings (.NotImplemented) returns (.CParental_GetSignedParentalSettings_Response);
-	rpc LockClient (.NotImplemented) returns (.CParental_LockClient_Response);
-	rpc RequestRecoveryCode (.NotImplemented) returns (.CParental_RequestRecoveryCode_Response);
-	rpc SetParentalSettings (.NotImplemented) returns (.CParental_SetParentalSettings_Response);
+	rpc GetSignedParentalSettings (.CParental_GetSignedParentalSettings_Request) returns (.CParental_GetSignedParentalSettings_Response);
+	rpc LockClient (.CParental_LockClient_Request) returns (.CParental_LockClient_Response);
+	rpc RequestRecoveryCode (.CParental_RequestRecoveryCode_Request) returns (.CParental_RequestRecoveryCode_Response);
+	rpc SetParentalSettings (.CParental_SetParentalSettings_Request) returns (.CParental_SetParentalSettings_Response);
 	rpc ValidatePassword (.CParental_ValidatePassword_Request) returns (.CParental_ValidatePassword_Response);
 	rpc ValidateToken (.CParental_ValidateToken_Request) returns (.CParental_ValidateToken_Response);
 }

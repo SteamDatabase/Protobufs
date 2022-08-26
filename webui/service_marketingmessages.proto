@@ -46,6 +46,10 @@ message CMarketingMessages_CreateMarketingMessage_Response {
 	optional fixed64 gid = 1;
 }
 
+message CMarketingMessages_DeleteMarketingMessage_Request {
+	optional fixed64 gid = 1;
+}
+
 message CMarketingMessages_DeleteMarketingMessage_Response {
 }
 
@@ -61,13 +65,27 @@ message CMarketingMessages_FindMarketingMessages_Response {
 	repeated .CMarketingMessageProto messages = 1;
 }
 
+message CMarketingMessages_GetActiveMarketingMessages_Request {
+	optional string country = 1;
+}
+
 message CMarketingMessages_GetActiveMarketingMessages_Response {
 	repeated .CMarketingMessageProto messages = 1;
 	optional uint32 time_next_message_age = 2;
 }
 
+message CMarketingMessages_GetDisplayMarketingMessage_Request {
+	optional fixed64 gid = 1;
+	optional .StoreBrowseContext context = 2;
+	optional .StoreBrowseItemDataRequest data_request = 3;
+}
+
 message CMarketingMessages_GetDisplayMarketingMessage_Response {
 	optional .CDisplayMarketingMessage message = 1;
+}
+
+message CMarketingMessages_GetMarketingMessage_Request {
+	optional fixed64 gid = 1;
 }
 
 message CMarketingMessages_GetMarketingMessage_Response {
@@ -80,8 +98,8 @@ message CMarketingMessages_GetMarketingMessagesForUser_Request {
 	optional int32 elanguage = 3;
 	optional int32 operating_system = 4;
 	optional int32 client_package_version = 5;
-	//optional UNKNOWN context = 6;
-	//optional UNKNOWN data_request = 7;
+	optional .StoreBrowseContext context = 6;
+	optional .StoreBrowseItemDataRequest data_request = 7;
 }
 
 message CMarketingMessages_GetMarketingMessagesForUser_Response {
@@ -93,18 +111,27 @@ message CMarketingMessages_GetMarketingMessagesForUser_Response_MarketingMessage
 	optional .CDisplayMarketingMessage message = 2;
 }
 
+message CMarketingMessages_MarkMessageSeen_Notification {
+	optional fixed64 gid = 1;
+}
+
+message CMarketingMessages_UpdateMarketingMessage_Request {
+	optional fixed64 gid = 1;
+	optional .CMarketingMessageProto message = 2;
+}
+
 message CMarketingMessages_UpdateMarketingMessage_Response {
 }
 
 service MarketingMessages {
 	rpc CreateMarketingMessage (.CMarketingMessages_CreateMarketingMessage_Request) returns (.CMarketingMessages_CreateMarketingMessage_Response);
-	rpc DeleteMarketingMessage (.NotImplemented) returns (.CMarketingMessages_DeleteMarketingMessage_Response);
+	rpc DeleteMarketingMessage (.CMarketingMessages_DeleteMarketingMessage_Request) returns (.CMarketingMessages_DeleteMarketingMessage_Response);
 	rpc FindMarketingMessages (.CMarketingMessages_FindMarketingMessages_Request) returns (.CMarketingMessages_FindMarketingMessages_Response);
-	rpc GetActiveMarketingMessages (.NotImplemented) returns (.CMarketingMessages_GetActiveMarketingMessages_Response);
-	rpc GetDisplayMarketingMessage (.NotImplemented) returns (.CMarketingMessages_GetDisplayMarketingMessage_Response);
-	rpc GetMarketingMessage (.NotImplemented) returns (.CMarketingMessages_GetMarketingMessage_Response);
+	rpc GetActiveMarketingMessages (.CMarketingMessages_GetActiveMarketingMessages_Request) returns (.CMarketingMessages_GetActiveMarketingMessages_Response);
+	rpc GetDisplayMarketingMessage (.CMarketingMessages_GetDisplayMarketingMessage_Request) returns (.CMarketingMessages_GetDisplayMarketingMessage_Response);
+	rpc GetMarketingMessage (.CMarketingMessages_GetMarketingMessage_Request) returns (.CMarketingMessages_GetMarketingMessage_Response);
 	rpc GetMarketingMessagesForUser (.CMarketingMessages_GetMarketingMessagesForUser_Request) returns (.CMarketingMessages_GetMarketingMessagesForUser_Response);
-	rpc MarkMessageSeen (.NotImplemented) returns (.NoResponse);
-	rpc UpdateMarketingMessage (.NotImplemented) returns (.CMarketingMessages_UpdateMarketingMessage_Response);
+	rpc MarkMessageSeen (.CMarketingMessages_MarkMessageSeen_Notification) returns (.NoResponse);
+	rpc UpdateMarketingMessage (.CMarketingMessages_UpdateMarketingMessage_Request) returns (.CMarketingMessages_UpdateMarketingMessage_Response);
 }
 

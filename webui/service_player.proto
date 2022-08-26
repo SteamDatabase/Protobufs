@@ -1,5 +1,4 @@
 import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
 
 message CPlayer_AcceptSSA_Request {
 	optional int32 agreement_type = 1 [(description) = "enum"];
@@ -69,8 +68,18 @@ message CPlayer_GetAchievementsProgress_Response_AchievementProgress {
 	optional uint32 cache_time = 6;
 }
 
+message CPlayer_GetAnimatedAvatar_Request {
+	optional fixed64 steamid = 1;
+	optional string language = 2;
+}
+
 message CPlayer_GetAnimatedAvatar_Response {
 	optional .ProfileItem avatar = 1;
+}
+
+message CPlayer_GetAvatarFrame_Request {
+	optional fixed64 steamid = 1;
+	optional string language = 2;
 }
 
 message CPlayer_GetAvatarFrame_Response {
@@ -84,6 +93,10 @@ message CPlayer_GetCommunityPreferences_Response {
 	optional .CPlayer_CommunityPreferences preferences = 1;
 }
 
+message CPlayer_GetDurationControl_Request {
+	optional uint32 appid = 1;
+}
+
 message CPlayer_GetDurationControl_Response {
 	optional bool is_enabled = 1;
 	optional int32 seconds = 2;
@@ -93,6 +106,9 @@ message CPlayer_GetDurationControl_Response {
 	optional uint32 seconds_allowed_today = 6;
 	optional bool age_verification_pending = 7;
 	optional bool block_minors = 8;
+}
+
+message CPlayer_GetEmoticonList_Request {
 }
 
 message CPlayer_GetEmoticonList_Response {
@@ -108,6 +124,10 @@ message CPlayer_GetEmoticonList_Response_Emoticon {
 	optional uint32 appid = 6;
 }
 
+message CPlayer_GetFavoriteBadge_Request {
+	optional uint64 steamid = 1;
+}
+
 message CPlayer_GetFavoriteBadge_Response {
 	optional bool has_favorite_badge = 1;
 	optional uint32 badgeid = 2;
@@ -116,6 +136,11 @@ message CPlayer_GetFavoriteBadge_Response {
 	optional uint32 border_color = 5;
 	optional uint32 appid = 6;
 	optional uint32 level = 7;
+}
+
+message CPlayer_GetFriendsAppsActivity_Request {
+	optional string news_language = 1;
+	optional uint32 request_flags = 2;
 }
 
 message CPlayer_GetFriendsAppsActivity_Response {
@@ -171,6 +196,10 @@ message CPlayer_GetFriendsGameplayInfo_Response_OwnGameplayInfo {
 	optional bool owned = 5;
 }
 
+message CPlayer_GetGameBadgeLevels_Request {
+	optional uint32 appid = 1;
+}
+
 message CPlayer_GetGameBadgeLevels_Response {
 	optional uint32 player_level = 1;
 	repeated .CPlayer_GetGameBadgeLevels_Response_Badge badges = 2;
@@ -207,6 +236,11 @@ message CPlayer_GetLastPlayedTimes_Response_Game {
 	optional uint32 last_linux_playtime = 14;
 }
 
+message CPlayer_GetMiniProfileBackground_Request {
+	optional fixed64 steamid = 1;
+	optional string language = 2;
+}
+
 message CPlayer_GetMiniProfileBackground_Response {
 	optional .ProfileItem profile_background = 1;
 }
@@ -218,12 +252,19 @@ message CPlayer_GetMutualFriendsForIncomingInvites_Response {
 	repeated .CPlayer_IncomingInviteMutualFriendList incoming_invite_mutual_friends_lists = 1;
 }
 
+message CPlayer_GetNewSteamAnnouncementState_Request {
+	optional int32 language = 1;
+}
+
 message CPlayer_GetNewSteamAnnouncementState_Response {
 	optional int32 state = 1;
 	optional string announcement_headline = 2;
 	optional string announcement_url = 3;
 	optional uint32 time_posted = 4;
 	optional uint64 announcement_gid = 5;
+}
+
+message CPlayer_GetNicknameList_Request {
 }
 
 message CPlayer_GetNicknameList_Response {
@@ -242,6 +283,8 @@ message CPlayer_GetOwnedGames_Request {
 	repeated uint32 appids_filter = 4;
 	optional bool include_free_sub = 5;
 	optional bool skip_unvetted_apps = 6 [default = true];
+	optional string language = 7;
+	optional bool include_extended_appinfo = 8;
 }
 
 message CPlayer_GetOwnedGames_Response {
@@ -305,8 +348,19 @@ message CPlayer_GetPrivacySettings_Response {
 	optional .CPrivacySettings privacy_settings = 1;
 }
 
+message CPlayer_GetProfileBackground_Request {
+	optional fixed64 steamid = 1;
+	optional string language = 2;
+}
+
 message CPlayer_GetProfileBackground_Response {
 	optional .ProfileItem profile_background = 1;
+}
+
+message CPlayer_GetProfileCustomization_Request {
+	optional fixed64 steamid = 1;
+	optional bool include_inactive_customizations = 2;
+	optional bool include_purchased_customizations = 3;
 }
 
 message CPlayer_GetProfileCustomization_Response {
@@ -351,6 +405,9 @@ message CPlayer_GetProfileItemsOwned_Response {
 	repeated .ProfileItem steam_deck_keyboard_skins = 6;
 }
 
+message CPlayer_GetProfileThemesAvailable_Request {
+}
+
 message CPlayer_GetProfileThemesAvailable_Response {
 	repeated .ProfileTheme profile_themes = 1;
 }
@@ -374,6 +431,10 @@ message CPlayer_GetPurchasedAndUpgradedProfileCustomizations_Response_UpgradedCu
 	optional uint32 level = 2;
 }
 
+message CPlayer_GetPurchasedProfileCustomizations_Request {
+	optional fixed64 steamid = 1;
+}
+
 message CPlayer_GetPurchasedProfileCustomizations_Response {
 	repeated .CPlayer_GetPurchasedProfileCustomizations_Response_PurchasedCustomization purchased_customizations = 1;
 }
@@ -381,6 +442,11 @@ message CPlayer_GetPurchasedProfileCustomizations_Response {
 message CPlayer_GetPurchasedProfileCustomizations_Response_PurchasedCustomization {
 	optional uint64 purchaseid = 1;
 	optional int32 customization_type = 2 [(description) = "enum"];
+}
+
+message CPlayer_GetSteamDeckKeyboardSkin_Request {
+	optional fixed64 steamid = 1;
+	optional string language = 2;
 }
 
 message CPlayer_GetSteamDeckKeyboardSkin_Response {
@@ -512,6 +578,10 @@ message CPlayer_SetProfileBackground_Request {
 message CPlayer_SetProfileBackground_Response {
 }
 
+message CPlayer_SetProfilePreferences_Request {
+	optional .ProfilePreferences profile_preferences = 1;
+}
+
 message CPlayer_SetProfilePreferences_Response {
 }
 
@@ -537,6 +607,11 @@ message CPlayer_TextFilterWords {
 
 message CPlayer_TextFilterWordsChanged_Notification {
 	optional .CPlayer_TextFilterWords words = 1;
+}
+
+message CPlayer_UpdateSteamAnnouncementLastRead_Request {
+	optional uint64 announcement_gid = 1;
+	optional uint32 time_posted = 2;
 }
 
 message CPlayer_UpdateSteamAnnouncementLastRead_Response {
@@ -621,32 +696,32 @@ service Player {
 	rpc ClientGetLastPlayedTimes (.CPlayer_GetLastPlayedTimes_Request) returns (.CPlayer_GetLastPlayedTimes_Response);
 	rpc DeletePostedStatus (.CPlayer_DeletePostedStatus_Request) returns (.CPlayer_DeletePostedStatus_Response);
 	rpc GetAchievementsProgress (.CPlayer_GetAchievementsProgress_Request) returns (.CPlayer_GetAchievementsProgress_Response);
-	rpc GetAnimatedAvatar (.NotImplemented) returns (.CPlayer_GetAnimatedAvatar_Response);
-	rpc GetAvatarFrame (.NotImplemented) returns (.CPlayer_GetAvatarFrame_Response);
+	rpc GetAnimatedAvatar (.CPlayer_GetAnimatedAvatar_Request) returns (.CPlayer_GetAnimatedAvatar_Response);
+	rpc GetAvatarFrame (.CPlayer_GetAvatarFrame_Request) returns (.CPlayer_GetAvatarFrame_Response);
 	rpc GetCommunityPreferences (.CPlayer_GetCommunityPreferences_Request) returns (.CPlayer_GetCommunityPreferences_Response);
-	rpc GetDurationControl (.NotImplemented) returns (.CPlayer_GetDurationControl_Response);
-	rpc GetEmoticonList (.NotImplemented) returns (.CPlayer_GetEmoticonList_Response);
-	rpc GetFavoriteBadge (.NotImplemented) returns (.CPlayer_GetFavoriteBadge_Response);
-	rpc GetFriendsAppsActivity (.NotImplemented) returns (.CPlayer_GetFriendsAppsActivity_Response);
+	rpc GetDurationControl (.CPlayer_GetDurationControl_Request) returns (.CPlayer_GetDurationControl_Response);
+	rpc GetEmoticonList (.CPlayer_GetEmoticonList_Request) returns (.CPlayer_GetEmoticonList_Response);
+	rpc GetFavoriteBadge (.CPlayer_GetFavoriteBadge_Request) returns (.CPlayer_GetFavoriteBadge_Response);
+	rpc GetFriendsAppsActivity (.CPlayer_GetFriendsAppsActivity_Request) returns (.CPlayer_GetFriendsAppsActivity_Response);
 	rpc GetFriendsGameplayInfo (.CPlayer_GetFriendsGameplayInfo_Request) returns (.CPlayer_GetFriendsGameplayInfo_Response);
-	rpc GetGameBadgeLevels (.NotImplemented) returns (.CPlayer_GetGameBadgeLevels_Response);
-	rpc GetMiniProfileBackground (.NotImplemented) returns (.CPlayer_GetMiniProfileBackground_Response);
+	rpc GetGameBadgeLevels (.CPlayer_GetGameBadgeLevels_Request) returns (.CPlayer_GetGameBadgeLevels_Response);
+	rpc GetMiniProfileBackground (.CPlayer_GetMiniProfileBackground_Request) returns (.CPlayer_GetMiniProfileBackground_Response);
 	rpc GetMutualFriendsForIncomingInvites (.CPlayer_GetMutualFriendsForIncomingInvites_Request) returns (.CPlayer_GetMutualFriendsForIncomingInvites_Response);
-	rpc GetNewSteamAnnouncementState (.NotImplemented) returns (.CPlayer_GetNewSteamAnnouncementState_Response);
-	rpc GetNicknameList (.NotImplemented) returns (.CPlayer_GetNicknameList_Response);
+	rpc GetNewSteamAnnouncementState (.CPlayer_GetNewSteamAnnouncementState_Request) returns (.CPlayer_GetNewSteamAnnouncementState_Response);
+	rpc GetNicknameList (.CPlayer_GetNicknameList_Request) returns (.CPlayer_GetNicknameList_Response);
 	rpc GetOwnedGames (.CPlayer_GetOwnedGames_Request) returns (.CPlayer_GetOwnedGames_Response);
 	rpc GetPerFriendPreferences (.CPlayer_GetPerFriendPreferences_Request) returns (.CPlayer_GetPerFriendPreferences_Response);
 	rpc GetPlayNext (.CPlayer_GetPlayNext_Request) returns (.CPlayer_GetPlayNext_Response);
 	rpc GetPostedStatus (.CPlayer_GetPostedStatus_Request) returns (.CPlayer_GetPostedStatus_Response);
 	rpc GetPrivacySettings (.CPlayer_GetPrivacySettings_Request) returns (.CPlayer_GetPrivacySettings_Response);
-	rpc GetProfileBackground (.NotImplemented) returns (.CPlayer_GetProfileBackground_Response);
-	rpc GetProfileCustomization (.NotImplemented) returns (.CPlayer_GetProfileCustomization_Response);
+	rpc GetProfileBackground (.CPlayer_GetProfileBackground_Request) returns (.CPlayer_GetProfileBackground_Response);
+	rpc GetProfileCustomization (.CPlayer_GetProfileCustomization_Request) returns (.CPlayer_GetProfileCustomization_Response);
 	rpc GetProfileItemsEquipped (.CPlayer_GetProfileItemsEquipped_Request) returns (.CPlayer_GetProfileItemsEquipped_Response);
 	rpc GetProfileItemsOwned (.CPlayer_GetProfileItemsOwned_Request) returns (.CPlayer_GetProfileItemsOwned_Response);
-	rpc GetProfileThemesAvailable (.NotImplemented) returns (.CPlayer_GetProfileThemesAvailable_Response);
+	rpc GetProfileThemesAvailable (.CPlayer_GetProfileThemesAvailable_Request) returns (.CPlayer_GetProfileThemesAvailable_Response);
 	rpc GetPurchasedAndUpgradedProfileCustomizations (.CPlayer_GetPurchasedAndUpgradedProfileCustomizations_Request) returns (.CPlayer_GetPurchasedAndUpgradedProfileCustomizations_Response);
-	rpc GetPurchasedProfileCustomizations (.NotImplemented) returns (.CPlayer_GetPurchasedProfileCustomizations_Response);
-	rpc GetSteamDeckKeyboardSkin (.NotImplemented) returns (.CPlayer_GetSteamDeckKeyboardSkin_Response);
+	rpc GetPurchasedProfileCustomizations (.CPlayer_GetPurchasedProfileCustomizations_Request) returns (.CPlayer_GetPurchasedProfileCustomizations_Response);
+	rpc GetSteamDeckKeyboardSkin (.CPlayer_GetSteamDeckKeyboardSkin_Request) returns (.CPlayer_GetSteamDeckKeyboardSkin_Response);
 	rpc GetTextFilterWords (.CPlayer_GetTextFilterWords_Request) returns (.CPlayer_GetTextFilterWords_Response);
 	rpc GetTimeSSAAccepted (.CPlayer_GetTimeSSAAccepted_Request) returns (.CPlayer_GetTimeSSAAccepted_Response);
 	rpc IgnoreFriend (.CPlayer_IgnoreFriend_Request) returns (.CPlayer_IgnoreFriend_Response);
@@ -660,10 +735,10 @@ service Player {
 	rpc SetMiniProfileBackground (.CPlayer_SetMiniProfileBackground_Request) returns (.CPlayer_SetMiniProfileBackground_Response);
 	rpc SetPerFriendPreferences (.CPlayer_SetPerFriendPreferences_Request) returns (.CPlayer_SetPerFriendPreferences_Response);
 	rpc SetProfileBackground (.CPlayer_SetProfileBackground_Request) returns (.CPlayer_SetProfileBackground_Response);
-	rpc SetProfilePreferences (.NotImplemented) returns (.CPlayer_SetProfilePreferences_Response);
+	rpc SetProfilePreferences (.CPlayer_SetProfilePreferences_Request) returns (.CPlayer_SetProfilePreferences_Response);
 	rpc SetProfileTheme (.CPlayer_SetProfileTheme_Request) returns (.CPlayer_SetProfileTheme_Response);
 	rpc SetSteamDeckKeyboardSkin (.CPlayer_SetSteamDeckKeyboardSkin_Request) returns (.CPlayer_SetSteamDeckKeyboardSkin_Response);
-	rpc UpdateSteamAnnouncementLastRead (.NotImplemented) returns (.CPlayer_UpdateSteamAnnouncementLastRead_Response);
+	rpc UpdateSteamAnnouncementLastRead (.CPlayer_UpdateSteamAnnouncementLastRead_Request) returns (.CPlayer_UpdateSteamAnnouncementLastRead_Response);
 }
 
 service PlayerClient {

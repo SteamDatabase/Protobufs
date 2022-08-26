@@ -1,0 +1,32 @@
+import "steammessages_unified_base.steamclient.proto";
+
+message CMobilePerAccount_GetSettings_Request {
+}
+
+message CMobilePerAccount_GetSettings_Response {
+	optional bool allow_sale_push = 2;
+	optional bool allow_wishlist_push = 3;
+	optional bool has_settings = 4;
+	optional uint32 chat_notification_level = 5;
+	optional bool notify_direct_chat = 6;
+	optional bool notify_group_chat = 7;
+	optional bool allow_event_push = 8 [default = true];
+}
+
+message CMobilePerAccount_SetSettings_Request {
+	optional bool allow_sale_push = 2;
+	optional bool allow_wishlist_push = 3;
+	optional uint32 chat_notification_level = 4;
+	optional bool notify_direct_chat = 5;
+	optional bool notify_group_chat = 6;
+	optional bool allow_event_push = 7 [default = true];
+}
+
+message CMobilePerAccount_SetSettings_Response {
+}
+
+service MobilePerAccount {
+	rpc GetSettings (.CMobilePerAccount_GetSettings_Request) returns (.CMobilePerAccount_GetSettings_Response);
+	rpc SetSettings (.CMobilePerAccount_SetSettings_Request) returns (.CMobilePerAccount_SetSettings_Response);
+}
+

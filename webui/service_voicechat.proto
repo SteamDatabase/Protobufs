@@ -1,5 +1,4 @@
 import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
 
 message CVoiceChat_AllMembersStatus_Notification {
 	optional fixed64 voice_chatid = 1;
@@ -28,6 +27,10 @@ message CVoiceChat_LeaveOneOnOneChat_Request {
 }
 
 message CVoiceChat_LeaveOneOnOneChat_Response {
+}
+
+message CVoiceChat_LeaveVoiceChat_Request {
+	optional fixed64 voice_chatid = 1;
 }
 
 message CVoiceChat_LeaveVoiceChat_Response {
@@ -116,7 +119,7 @@ service VoiceChat {
 	rpc AnswerOneOnOneChat (.CVoiceChat_AnswerOneOnOneChat_Request) returns (.CVoiceChat_AnswerOneOnOneChat_Response);
 	rpc EndOneOnOneChat (.CVoiceChat_EndOneOnOneChat_Request) returns (.CVoiceChat_EndOneOnOneChat_Response);
 	rpc LeaveOneOnOneChat (.CVoiceChat_LeaveOneOnOneChat_Request) returns (.CVoiceChat_LeaveOneOnOneChat_Response);
-	rpc LeaveVoiceChat (.NotImplemented) returns (.CVoiceChat_LeaveVoiceChat_Response);
+	rpc LeaveVoiceChat (.CVoiceChat_LeaveVoiceChat_Request) returns (.CVoiceChat_LeaveVoiceChat_Response);
 	rpc NotifyUserVoiceStatus (.CVoiceChat_UserVoiceStatus_Notification) returns (.NoResponse);
 	rpc RequestOneOnOneChat (.CVoiceChat_RequestOneOnOneChat_Request) returns (.CVoiceChat_RequestOneOnOneChat_Response);
 	rpc UpdateVoiceChatWebRTCData (.CVoiceChat_UpdateVoiceChatWebRTCData_Request) returns (.CVoiceChat_UpdateVoiceChatWebRTCData_Response);

@@ -1,0 +1,52 @@
+import "steammessages_unified_base.steamclient.proto";
+
+message CSteamNotification_GetPreferences_Request {
+}
+
+message CSteamNotification_GetPreferences_Response {
+	repeated .SteamNotificationPreference preferences = 1;
+}
+
+message CSteamNotification_GetSteamNotifications_Request {
+}
+
+message CSteamNotification_GetSteamNotifications_Response {
+	repeated .SteamNotificationData notifications = 1;
+	optional int32 confirmation_count = 2;
+}
+
+message CSteamNotification_MarkNotificationsRead_Notification {
+	optional uint32 timestamp = 1;
+	optional int32 notification_type = 2 [(description) = "enum"];
+	repeated uint64 notification_ids = 3;
+	optional bool mark_all_read = 4;
+}
+
+message CSteamNotification_SetPreferences_Request {
+	repeated .SteamNotificationPreference preferences = 1;
+}
+
+message CSteamNotification_SetPreferences_Response {
+}
+
+message SteamNotificationData {
+	optional uint64 notification_id = 1;
+	optional uint32 notification_targets = 2;
+	optional int32 notification_type = 3 [(description) = "enum"];
+	optional string body_data = 4;
+	optional bool read = 7;
+	optional uint32 timestamp = 8;
+}
+
+message SteamNotificationPreference {
+	optional int32 notification_type = 1 [(description) = "enum"];
+	optional uint32 notification_targets = 2;
+}
+
+service SteamNotification {
+	rpc GetPreferences (.CSteamNotification_GetPreferences_Request) returns (.CSteamNotification_GetPreferences_Response);
+	rpc GetSteamNotifications (.CSteamNotification_GetSteamNotifications_Request) returns (.CSteamNotification_GetSteamNotifications_Response);
+	rpc MarkNotificationsRead (.CSteamNotification_MarkNotificationsRead_Notification) returns (.NoResponse);
+	rpc SetPreferences (.CSteamNotification_SetPreferences_Request) returns (.CSteamNotification_SetPreferences_Response);
+}
+

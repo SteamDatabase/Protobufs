@@ -1,7 +1,17 @@
 import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
+
+message CPublishedFile_AddAppRelationship_Request {
+	optional uint64 publishedfileid = 1;
+	optional uint32 appid = 2;
+	optional uint32 relationship = 3;
+}
 
 message CPublishedFile_AddAppRelationship_Response {
+}
+
+message CPublishedFile_AddChild_Request {
+	optional uint64 publishedfileid = 1;
+	optional uint64 child_publishedfileid = 2;
 }
 
 message CPublishedFile_AddChild_Response {
@@ -22,6 +32,10 @@ message CPublishedFile_AreFilesInSubscriptionList_Response {
 message CPublishedFile_AreFilesInSubscriptionList_Response_InList {
 	optional fixed64 publishedfileid = 1;
 	optional bool inlist = 2;
+}
+
+message CPublishedFile_CanSubscribe_Request {
+	optional uint64 publishedfileid = 1;
 }
 
 message CPublishedFile_CanSubscribe_Response {
@@ -62,6 +76,10 @@ message CPublishedFile_FileUnsubscribed_Notification {
 	optional uint32 app_id = 2;
 }
 
+message CPublishedFile_GetAppRelationships_Request {
+	optional uint64 publishedfileid = 1;
+}
+
 message CPublishedFile_GetAppRelationships_Response {
 	repeated .CPublishedFile_GetAppRelationships_Response_AppRelationship app_relationships = 3;
 }
@@ -69,6 +87,14 @@ message CPublishedFile_GetAppRelationships_Response {
 message CPublishedFile_GetAppRelationships_Response_AppRelationship {
 	optional uint32 appid = 1;
 	optional uint32 relationship = 2;
+}
+
+message CPublishedFile_GetChangeHistory_Request {
+	optional fixed64 publishedfileid = 1;
+	optional bool total_only = 2;
+	optional uint32 startindex = 3;
+	optional uint32 count = 4;
+	optional int32 language = 5 [default = 0];
 }
 
 message CPublishedFile_GetChangeHistory_Response {
@@ -79,6 +105,12 @@ message CPublishedFile_GetChangeHistory_Response {
 message CPublishedFile_GetChangeHistory_Response_ChangeLog {
 	optional uint32 timestamp = 1;
 	optional string change_description = 2;
+	optional int32 language = 3;
+}
+
+message CPublishedFile_GetChangeHistoryEntry_Request {
+	optional fixed64 publishedfileid = 1;
+	optional uint32 timestamp = 2;
 	optional int32 language = 3;
 }
 
@@ -109,6 +141,12 @@ message CPublishedFile_GetDetails_Response {
 	repeated .PublishedFileDetails publishedfiledetails = 1;
 }
 
+message CPublishedFile_GetItemChanges_Request {
+	optional uint32 appid = 1;
+	optional uint32 last_time_updated = 2;
+	optional uint32 num_items_max = 3;
+}
+
 message CPublishedFile_GetItemChanges_Response {
 	optional uint32 update_time = 1;
 	repeated .CPublishedFile_GetItemChanges_Response_WorkshopItemInfo workshop_items = 2;
@@ -118,6 +156,18 @@ message CPublishedFile_GetItemChanges_Response_WorkshopItemInfo {
 	optional fixed64 published_file_id = 1;
 	optional uint32 time_updated = 2;
 	optional fixed64 manifest_id = 3;
+}
+
+message CPublishedFile_GetItemInfo_Request {
+	optional uint32 appid = 1;
+	optional uint32 last_time_updated = 2;
+	repeated .CPublishedFile_GetItemInfo_Request_WorkshopItem workshop_items = 3;
+}
+
+message CPublishedFile_GetItemInfo_Request_WorkshopItem {
+	optional fixed64 published_file_id = 1;
+	optional uint32 time_updated = 2;
+	optional int32 desired_revision = 3 [(description) = "enum"];
 }
 
 message CPublishedFile_GetItemInfo_Response {
@@ -217,6 +267,25 @@ message CPublishedFile_GetUserVoteSummary_Response_VoteSummary {
 	optional bool reported = 4;
 }
 
+message CPublishedFile_Publish_Request {
+	optional uint32 appid = 1;
+	optional uint32 consumer_appid = 2;
+	optional string cloudfilename = 3;
+	optional string preview_cloudfilename = 4;
+	optional string title = 5;
+	optional string file_description = 6;
+	optional uint32 file_type = 7;
+	optional string consumer_shortcut_name = 8;
+	optional string youtube_username = 9;
+	optional string youtube_videoid = 10;
+	optional uint32 visibility = 11;
+	optional string redirect_uri = 12;
+	repeated string tags = 13;
+	optional string collection_type = 14;
+	optional string game_type = 15;
+	optional string url = 16;
+}
+
 message CPublishedFile_Publish_Response {
 	optional uint64 publishedfileid = 1;
 	optional string redirect_uri = 2;
@@ -282,22 +351,67 @@ message CPublishedFile_QueryFiles_Response {
 	optional string next_cursor = 3;
 }
 
+message CPublishedFile_RefreshVotingQueue_Request {
+	optional uint32 appid = 1;
+	optional uint32 matching_file_type = 2;
+	repeated string tags = 3;
+	optional bool match_all_tags = 4 [default = true];
+	repeated string excluded_tags = 5;
+	optional uint32 desired_queue_size = 6;
+	optional int32 desired_revision = 8 [(description) = "enum"];
+}
+
 message CPublishedFile_RefreshVotingQueue_Response {
+}
+
+message CPublishedFile_RemoveAppRelationship_Request {
+	optional uint64 publishedfileid = 1;
+	optional uint32 appid = 2;
+	optional uint32 relationship = 3;
 }
 
 message CPublishedFile_RemoveAppRelationship_Response {
 }
 
+message CPublishedFile_RemoveChild_Request {
+	optional uint64 publishedfileid = 1;
+	optional uint64 child_publishedfileid = 2;
+}
+
 message CPublishedFile_RemoveChild_Response {
+}
+
+message CPublishedFile_SetPlaytimeForControllerConfigs_Request {
+	optional uint32 appid = 1;
+	repeated .CPublishedFile_SetPlaytimeForControllerConfigs_Request_ControllerConfigUsage controller_config_usage = 2;
+}
+
+message CPublishedFile_SetPlaytimeForControllerConfigs_Request_ControllerConfigUsage {
+	optional uint64 publishedfileid = 1;
+	optional float seconds_active = 2;
 }
 
 message CPublishedFile_SetPlaytimeForControllerConfigs_Response {
 }
 
+message CPublishedFile_StartPlaytimeTracking_Request {
+	optional uint32 appid = 1;
+	repeated uint64 publishedfileids = 2;
+}
+
 message CPublishedFile_StartPlaytimeTracking_Response {
 }
 
+message CPublishedFile_StopPlaytimeTracking_Request {
+	optional uint32 appid = 1;
+	repeated uint64 publishedfileids = 2;
+}
+
 message CPublishedFile_StopPlaytimeTracking_Response {
+}
+
+message CPublishedFile_StopPlaytimeTrackingForAllAppItems_Request {
+	optional uint32 appid = 1;
 }
 
 message CPublishedFile_StopPlaytimeTrackingForAllAppItems_Response {
@@ -338,6 +452,11 @@ message CPublishedFile_Update_Request {
 }
 
 message CPublishedFile_Update_Response {
+}
+
+message CPublishedFile_Vote_Request {
+	optional uint64 publishedfileid = 1;
+	optional bool vote_up = 2;
 }
 
 message CPublishedFile_Vote_Response {
@@ -476,34 +595,34 @@ message PublishedFileSubSection {
 }
 
 service PublishedFile {
-	rpc AddAppRelationship (.NotImplemented) returns (.CPublishedFile_AddAppRelationship_Response);
-	rpc AddChild (.NotImplemented) returns (.CPublishedFile_AddChild_Response);
+	rpc AddAppRelationship (.CPublishedFile_AddAppRelationship_Request) returns (.CPublishedFile_AddAppRelationship_Response);
+	rpc AddChild (.CPublishedFile_AddChild_Request) returns (.CPublishedFile_AddChild_Response);
 	rpc AreFilesInSubscriptionList (.CPublishedFile_AreFilesInSubscriptionList_Request) returns (.CPublishedFile_AreFilesInSubscriptionList_Response);
-	rpc CanSubscribe (.NotImplemented) returns (.CPublishedFile_CanSubscribe_Response);
+	rpc CanSubscribe (.CPublishedFile_CanSubscribe_Request) returns (.CPublishedFile_CanSubscribe_Response);
 	rpc Delete (.CPublishedFile_Delete_Request) returns (.CPublishedFile_Delete_Response);
-	rpc GetAppRelationships (.NotImplemented) returns (.CPublishedFile_GetAppRelationships_Response);
-	rpc GetChangeHistory (.NotImplemented) returns (.CPublishedFile_GetChangeHistory_Response);
-	rpc GetChangeHistoryEntry (.NotImplemented) returns (.CPublishedFile_GetChangeHistoryEntry_Response);
+	rpc GetAppRelationships (.CPublishedFile_GetAppRelationships_Request) returns (.CPublishedFile_GetAppRelationships_Response);
+	rpc GetChangeHistory (.CPublishedFile_GetChangeHistory_Request) returns (.CPublishedFile_GetChangeHistory_Response);
+	rpc GetChangeHistoryEntry (.CPublishedFile_GetChangeHistoryEntry_Request) returns (.CPublishedFile_GetChangeHistoryEntry_Response);
 	rpc GetDetails (.CPublishedFile_GetDetails_Request) returns (.CPublishedFile_GetDetails_Response);
-	rpc GetItemChanges (.NotImplemented) returns (.CPublishedFile_GetItemChanges_Response);
-	rpc GetItemInfo (.NotImplemented) returns (.CPublishedFile_GetItemInfo_Response);
+	rpc GetItemChanges (.CPublishedFile_GetItemChanges_Request) returns (.CPublishedFile_GetItemChanges_Response);
+	rpc GetItemInfo (.CPublishedFile_GetItemInfo_Request) returns (.CPublishedFile_GetItemInfo_Response);
 	rpc GetSubSectionData (.CPublishedFile_GetSubSectionData_Request) returns (.CPublishedFile_GetSubSectionData_Response);
 	rpc GetUserFileCount (.CPublishedFile_GetUserFiles_Request) returns (.CPublishedFile_GetUserFiles_Response);
 	rpc GetUserFiles (.CPublishedFile_GetUserFiles_Request) returns (.CPublishedFile_GetUserFiles_Response);
 	rpc GetUserVoteSummary (.CPublishedFile_GetUserVoteSummary_Request) returns (.CPublishedFile_GetUserVoteSummary_Response);
-	rpc Publish (.NotImplemented) returns (.CPublishedFile_Publish_Response);
+	rpc Publish (.CPublishedFile_Publish_Request) returns (.CPublishedFile_Publish_Response);
 	rpc QueryFiles (.CPublishedFile_QueryFiles_Request) returns (.CPublishedFile_QueryFiles_Response);
-	rpc RefreshVotingQueue (.NotImplemented) returns (.CPublishedFile_RefreshVotingQueue_Response);
-	rpc RemoveAppRelationship (.NotImplemented) returns (.CPublishedFile_RemoveAppRelationship_Response);
-	rpc RemoveChild (.NotImplemented) returns (.CPublishedFile_RemoveChild_Response);
-	rpc SetPlaytimeForControllerConfigs (.NotImplemented) returns (.CPublishedFile_SetPlaytimeForControllerConfigs_Response);
-	rpc StartPlaytimeTracking (.NotImplemented) returns (.CPublishedFile_StartPlaytimeTracking_Response);
-	rpc StopPlaytimeTracking (.NotImplemented) returns (.CPublishedFile_StopPlaytimeTracking_Response);
-	rpc StopPlaytimeTrackingForAllAppItems (.NotImplemented) returns (.CPublishedFile_StopPlaytimeTrackingForAllAppItems_Response);
+	rpc RefreshVotingQueue (.CPublishedFile_RefreshVotingQueue_Request) returns (.CPublishedFile_RefreshVotingQueue_Response);
+	rpc RemoveAppRelationship (.CPublishedFile_RemoveAppRelationship_Request) returns (.CPublishedFile_RemoveAppRelationship_Response);
+	rpc RemoveChild (.CPublishedFile_RemoveChild_Request) returns (.CPublishedFile_RemoveChild_Response);
+	rpc SetPlaytimeForControllerConfigs (.CPublishedFile_SetPlaytimeForControllerConfigs_Request) returns (.CPublishedFile_SetPlaytimeForControllerConfigs_Response);
+	rpc StartPlaytimeTracking (.CPublishedFile_StartPlaytimeTracking_Request) returns (.CPublishedFile_StartPlaytimeTracking_Response);
+	rpc StopPlaytimeTracking (.CPublishedFile_StopPlaytimeTracking_Request) returns (.CPublishedFile_StopPlaytimeTracking_Response);
+	rpc StopPlaytimeTrackingForAllAppItems (.CPublishedFile_StopPlaytimeTrackingForAllAppItems_Request) returns (.CPublishedFile_StopPlaytimeTrackingForAllAppItems_Response);
 	rpc Subscribe (.CPublishedFile_Subscribe_Request) returns (.CPublishedFile_Subscribe_Response);
 	rpc Unsubscribe (.CPublishedFile_Unsubscribe_Request) returns (.CPublishedFile_Unsubscribe_Response);
 	rpc Update (.CPublishedFile_Update_Request) returns (.CPublishedFile_Update_Response);
-	rpc Vote (.NotImplemented) returns (.CPublishedFile_Vote_Response);
+	rpc Vote (.CPublishedFile_Vote_Request) returns (.CPublishedFile_Vote_Response);
 }
 
 service PublishedFileClient {

@@ -1,0 +1,27 @@
+import "steammessages_unified_base.steamclient.proto";
+
+message CHelpRequestLogs_GetApplicationLogDemand_Request {
+	optional uint32 appid = 1;
+}
+
+message CHelpRequestLogs_GetApplicationLogDemand_Response {
+	optional uint64 request_id = 1;
+}
+
+message CHelpRequestLogs_UploadUserApplicationLog_Request {
+	optional uint32 appid = 1;
+	optional string log_type = 2;
+	optional string version_string = 3;
+	optional string log_contents = 4;
+	optional uint64 request_id = 5;
+}
+
+message CHelpRequestLogs_UploadUserApplicationLog_Response {
+	optional uint64 id = 1;
+}
+
+service HelpRequestLogs {
+	rpc GetApplicationLogDemand (.CHelpRequestLogs_GetApplicationLogDemand_Request) returns (.CHelpRequestLogs_GetApplicationLogDemand_Response);
+	rpc UploadUserApplicationLog (.CHelpRequestLogs_UploadUserApplicationLog_Request) returns (.CHelpRequestLogs_UploadUserApplicationLog_Response);
+}
+

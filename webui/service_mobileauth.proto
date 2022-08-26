@@ -1,0 +1,17 @@
+import "steammessages_unified_base.steamclient.proto";
+
+message CMobileAuth_MigrateMobileSession_Request {
+	optional fixed64 steamid = 1;
+	optional string token = 2;
+	optional bytes signature = 3;
+}
+
+message CMobileAuth_MigrateMobileSession_Response {
+	optional string refresh_token = 1;
+	optional string access_token = 2;
+}
+
+service MobileAuth {
+	rpc MigrateMobileSession (.CMobileAuth_MigrateMobileSession_Request) returns (.CMobileAuth_MigrateMobileSession_Response);
+}
+

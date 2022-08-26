@@ -142,6 +142,12 @@ message CChatRoom_DeleteRoleFromUser_Request {
 message CChatRoom_DeleteRoleFromUser_Response {
 }
 
+message CChatRoom_EndMiniGameForChatRoomGroup_Request {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_id = 2;
+	optional uint64 minigame_id = 3;
+}
+
 message CChatRoom_EndMiniGameForChatRoomGroup_Response {
 }
 
@@ -160,8 +166,16 @@ message CChatRoom_GetBanList_Response_BanInfo {
 	optional string ban_reason = 4;
 }
 
+message CChatRoom_GetChatRoomGroupState_Request {
+	optional uint64 chat_group_id = 1;
+}
+
 message CChatRoom_GetChatRoomGroupState_Response {
 	optional .CChatRoomGroupState state = 1;
+}
+
+message CChatRoom_GetChatRoomGroupSummary_Request {
+	optional uint64 chat_group_id = 1;
 }
 
 message CChatRoom_GetInviteInfo_Request {
@@ -267,12 +281,26 @@ message CChatRoom_GetMyChatRoomGroups_Response {
 	repeated .CChatRoomSummaryPair chat_room_groups = 1;
 }
 
+message CChatRoom_GetRoleActions_Request {
+	optional uint64 chat_group_id = 1;
+	optional uint64 role_id = 2;
+}
+
 message CChatRoom_GetRoleActions_Response {
 	repeated .CChatRoleActions actions = 1;
 }
 
+message CChatRoom_GetRoles_Request {
+	optional uint64 chat_group_id = 1;
+}
+
 message CChatRoom_GetRoles_Response {
 	repeated .CChatRole roles = 1;
+}
+
+message CChatRoom_GetRolesForUser_Request {
+	optional uint64 chat_group_id = 1;
+	optional fixed64 steamid = 3;
 }
 
 message CChatRoom_GetRolesForUser_Response {
@@ -313,6 +341,11 @@ message CChatRoom_JoinChatRoomGroup_Response {
 	optional .CUserChatRoomGroupState user_chat_state = 3;
 	optional uint64 join_chat_id = 4;
 	optional uint32 time_expire = 5;
+}
+
+message CChatRoom_JoinMiniGameForChatRoomGroup_Request {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_id = 2;
 }
 
 message CChatRoom_JoinMiniGameForChatRoomGroup_Response {
@@ -484,9 +517,19 @@ message CChatRoom_SendChatMessage_Response {
 	optional string message_without_bb_code = 4;
 }
 
+message CChatRoom_SetAppChatRoomGroupForceActive_Request {
+	optional uint64 chat_group_id = 1;
+	optional uint32 requesting_app_id = 2;
+}
+
 message CChatRoom_SetAppChatRoomGroupForceActive_Response {
 	optional uint32 result = 1;
 	repeated uint32 accounts_in_channel = 2;
+}
+
+message CChatRoom_SetAppChatRoomGroupStopForceActive_Notification {
+	optional uint64 chat_group_id = 1;
+	optional uint32 requesting_app_id = 2;
 }
 
 message CChatRoom_SetChatRoomGroupAvatar_Request {
@@ -707,10 +750,10 @@ service ChatRoom {
 	rpc DeleteInviteLink (.CChatRoom_DeleteInviteLink_Request) returns (.CChatRoom_DeleteInviteLink_Response);
 	rpc DeleteRole (.CChatRoom_DeleteRole_Request) returns (.CChatRoom_DeleteRole_Response);
 	rpc DeleteRoleFromUser (.CChatRoom_DeleteRoleFromUser_Request) returns (.CChatRoom_DeleteRoleFromUser_Response);
-	rpc EndMiniGameForChatRoomGroup (.NotImplemented) returns (.CChatRoom_EndMiniGameForChatRoomGroup_Response);
+	rpc EndMiniGameForChatRoomGroup (.CChatRoom_EndMiniGameForChatRoomGroup_Request) returns (.CChatRoom_EndMiniGameForChatRoomGroup_Response);
 	rpc GetBanList (.CChatRoom_GetBanList_Request) returns (.CChatRoom_GetBanList_Response);
-	rpc GetChatRoomGroupState (.NotImplemented) returns (.CChatRoom_GetChatRoomGroupState_Response);
-	rpc GetChatRoomGroupSummary (.NotImplemented) returns (.CChatRoom_GetChatRoomGroupSummary_Response);
+	rpc GetChatRoomGroupState (.CChatRoom_GetChatRoomGroupState_Request) returns (.CChatRoom_GetChatRoomGroupState_Response);
+	rpc GetChatRoomGroupSummary (.CChatRoom_GetChatRoomGroupSummary_Request) returns (.CChatRoom_GetChatRoomGroupSummary_Response);
 	rpc GetInviteInfo (.CChatRoom_GetInviteInfo_Request) returns (.CChatRoom_GetInviteInfo_Response);
 	rpc GetInviteLinkInfo (.CChatRoom_GetInviteLinkInfo_Request) returns (.CChatRoom_GetInviteLinkInfo_Response);
 	rpc GetInviteLinksForGroup (.CChatRoom_GetInviteLinksForGroup_Request) returns (.CChatRoom_GetInviteLinksForGroup_Response);
@@ -718,12 +761,12 @@ service ChatRoom {
 	rpc GetMessageHistory (.CChatRoom_GetMessageHistory_Request) returns (.CChatRoom_GetMessageHistory_Response);
 	rpc GetMessageReactionReactors (.CChatRoom_GetMessageReactionReactors_Request) returns (.CChatRoom_GetMessageReactionReactors_Response);
 	rpc GetMyChatRoomGroups (.CChatRoom_GetMyChatRoomGroups_Request) returns (.CChatRoom_GetMyChatRoomGroups_Response);
-	rpc GetRoleActions (.NotImplemented) returns (.CChatRoom_GetRoleActions_Response);
-	rpc GetRoles (.NotImplemented) returns (.CChatRoom_GetRoles_Response);
-	rpc GetRolesForUser (.NotImplemented) returns (.CChatRoom_GetRolesForUser_Response);
+	rpc GetRoleActions (.CChatRoom_GetRoleActions_Request) returns (.CChatRoom_GetRoleActions_Response);
+	rpc GetRoles (.CChatRoom_GetRoles_Request) returns (.CChatRoom_GetRoles_Response);
+	rpc GetRolesForUser (.CChatRoom_GetRolesForUser_Request) returns (.CChatRoom_GetRolesForUser_Response);
 	rpc InviteFriendToChatRoomGroup (.CChatRoom_InviteFriendToChatRoomGroup_Request) returns (.CChatRoom_InviteFriendToChatRoomGroup_Response);
 	rpc JoinChatRoomGroup (.CChatRoom_JoinChatRoomGroup_Request) returns (.CChatRoom_JoinChatRoomGroup_Response);
-	rpc JoinMiniGameForChatRoomGroup (.NotImplemented) returns (.CChatRoom_JoinMiniGameForChatRoomGroup_Response);
+	rpc JoinMiniGameForChatRoomGroup (.CChatRoom_JoinMiniGameForChatRoomGroup_Request) returns (.CChatRoom_JoinMiniGameForChatRoomGroup_Response);
 	rpc JoinVoiceChat (.CChatRoom_JoinVoiceChat_Request) returns (.CChatRoom_JoinVoiceChat_Response);
 	rpc KickUserFromGroup (.CChatRoom_KickUser_Request) returns (.CChatRoom_KickUser_Response);
 	rpc LeaveChatRoomGroup (.CChatRoom_LeaveChatRoomGroup_Request) returns (.CChatRoom_LeaveChatRoomGroup_Response);
@@ -739,8 +782,8 @@ service ChatRoom {
 	rpc SaveChatRoomGroup (.CChatRoom_SaveChatRoomGroup_Request) returns (.CChatRoom_SaveChatRoomGroup_Response);
 	rpc SearchMembers (.CChatRoom_SearchMembers_Request) returns (.CChatRoom_SearchMembers_Response);
 	rpc SendChatMessage (.CChatRoom_SendChatMessage_Request) returns (.CChatRoom_SendChatMessage_Response);
-	rpc SetAppChatRoomGroupForceActive (.NotImplemented) returns (.CChatRoom_SetAppChatRoomGroupForceActive_Response);
-	rpc SetAppChatRoomGroupStopForceActive (.NotImplemented) returns (.NoResponse);
+	rpc SetAppChatRoomGroupForceActive (.CChatRoom_SetAppChatRoomGroupForceActive_Request) returns (.CChatRoom_SetAppChatRoomGroupForceActive_Response);
+	rpc SetAppChatRoomGroupStopForceActive (.CChatRoom_SetAppChatRoomGroupStopForceActive_Notification) returns (.NoResponse);
 	rpc SetChatRoomGroupAvatar (.CChatRoom_SetChatRoomGroupAvatar_Request) returns (.CChatRoom_SetChatRoomGroupAvatar_Response);
 	rpc SetChatRoomGroupTagline (.CChatRoom_SetChatRoomGroupTagline_Request) returns (.CChatRoom_SetChatRoomGroupTagline_Response);
 	rpc SetChatRoomGroupWatchingBroadcast (.CChatRoom_SetChatRoomGroupWatchingBroadcast_Request) returns (.CChatRoom_SetChatRoomGroupWatchingBroadcast_Response);
