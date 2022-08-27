@@ -1,4 +1,3 @@
-import "steammessages_unified_base.steamclient.proto";
 
 message CMobilePerAccount_GetSettings_Request {
 }

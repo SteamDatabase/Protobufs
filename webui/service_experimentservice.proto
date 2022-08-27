@@ -1,5 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
+import "common_base.proto";
 
 service ExperimentService {
 	rpc ReportProductImpressionsFromClient (.NotImplemented) returns (.NoResponse);

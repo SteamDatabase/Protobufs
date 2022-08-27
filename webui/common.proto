@@ -1,4 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
+import "common_base.proto";
 
 // Used by: common.proto
 message CAppBootstrapData {
@@ -13,7 +13,7 @@ message CAppOverview {
 	optional string display_name = 2;
 	optional bool visible_in_game_list = 4;
 	optional string sort_as = 6;
-	optional int32 app_type = 7 [(description) = "enum"];
+	optional int32 app_type = 7 [(.description) = "enum"];
 	optional uint32 mru_index = 13;
 	optional uint32 rt_recent_activity_time = 14 [default = 0];
 	optional uint32 minutes_playtime_forever = 16 [default = 0];
@@ -26,7 +26,7 @@ message CAppOverview {
 	optional uint32 rt_steam_release_date = 26 [default = 0];
 	optional string icon_hash = 27;
 	optional string logo_hash = 30;
-	optional int32 controller_support = 31 [(description) = "enum"];
+	optional int32 controller_support = 31 [(.description) = "enum"];
 	optional bool vr_supported = 32;
 	optional uint32 metacritic_score = 36;
 	optional uint64 size_on_disk = 37;
@@ -56,7 +56,7 @@ message CAppOverview {
 	optional uint32 compat_allowlist_setting = 61 [default = 0];
 	optional string site_license_site_name = 62;
 	optional uint32 shortcut_override_appid = 63;
-	optional int32 steam_deck_compat_category = 64 [(description) = "enum"];
+	optional int32 steam_deck_compat_category = 64 [(.description) = "enum"];
 	optional uint32 rt_last_time_locally_played = 65;
 	optional uint32 rt_purchased_time = 66;
 	optional string header_filename = 67;
@@ -64,7 +64,7 @@ message CAppOverview {
 
 // Used by: common.proto
 message CAppOverview_AppAssociation {
-	optional int32 type = 1 [(description) = "enum"];
+	optional int32 type = 1 [(.description) = "enum"];
 	optional string name = 2;
 }
 
@@ -78,7 +78,7 @@ message CAppOverview_Change {
 message CAppOverview_PerClientData {
 	optional uint64 clientid = 1;
 	optional string client_name = 2;
-	optional int32 display_status = 3 [(description) = "enum"];
+	optional int32 display_status = 3 [(.description) = "enum"];
 	optional uint32 status_percentage = 4 [default = 0];
 	optional string active_beta = 5;
 	optional bool installed = 6;
@@ -88,7 +88,7 @@ message CAppOverview_PerClientData {
 	optional bool is_available_on_current_platform = 10;
 	optional bool is_invalid_os_type = 11;
 	optional uint32 playtime_left = 12;
-	optional int32 cloud_status = 13 [(description) = "enum"];
+	optional int32 cloud_status = 13 [(.description) = "enum"];
 }
 
 message CAuthenticationSupport_QueryRefreshTokenByID_Response {
@@ -154,7 +154,7 @@ message CChatRoom_GetChatRoomGroupSummary_Response {
 	optional uint32 accountid_owner = 9;
 	repeated uint32 top_members = 10;
 	optional bytes chat_group_avatar_sha = 11;
-	optional int32 rank = 12 [(description) = "enum"];
+	optional int32 rank = 12 [(.description) = "enum"];
 	optional uint64 default_role_id = 13;
 	repeated uint64 role_ids = 14;
 	repeated .CChatRoleActions role_actions = 15;
@@ -183,7 +183,7 @@ message CClanEventData {
 	optional fixed64 gid = 1;
 	optional fixed64 clan_steamid = 2;
 	optional string event_name = 3;
-	optional int32 event_type = 4 [(description) = "enum"];
+	optional int32 event_type = 4 [(.description) = "enum"];
 	optional uint32 appid = 5;
 	optional string server_address = 6;
 	optional string server_password = 7;
@@ -358,14 +358,14 @@ message CClientMetrics_IPv6Connectivity_Result {
 message CClientMetrics_SteamPipeWorkStats_Notification {
 	optional uint32 appid = 1;
 	optional uint32 depotid = 2;
-	optional int32 work_type = 3 [(description) = "enum"];
+	optional int32 work_type = 3 [(.description) = "enum"];
 	repeated .CClientMetrics_SteamPipeWorkStats_Operation operations = 4;
 	optional uint32 hardware_type = 5;
 }
 
 // Used by: common.proto
 message CClientMetrics_SteamPipeWorkStats_Operation {
-	optional int32 type = 1 [(description) = "enum"];
+	optional int32 type = 1 [(.description) = "enum"];
 	optional uint32 num_ops = 2;
 	optional uint64 num_bytes = 3;
 	optional uint64 busy_time_ms = 4;
@@ -496,12 +496,12 @@ message CClientNotificationScreenshot {
 }
 
 message CClientNotificationSystemUpdate {
-	optional int32 type = 1 [(description) = "enum"];
+	optional int32 type = 1 [(.description) = "enum"];
 }
 
 // Used by: Cloud, common.proto
 message CCloud_PendingRemoteOperation {
-	optional int32 operation = 1 [(description) = "enum"];
+	optional int32 operation = 1 [(.description) = "enum"];
 	optional string machine_name = 2;
 	optional uint64 client_id = 3;
 	optional uint32 time_last_updated = 4;
@@ -524,7 +524,7 @@ message CCommunity_ClanAnnouncementInfo {
 	optional fixed64 event_gid = 13;
 	optional int32 voteupcount = 14;
 	optional int32 votedowncount = 15;
-	optional int32 ban_check_result = 16 [(description) = "enum"];
+	optional int32 ban_check_result = 16 [(.description) = "enum"];
 }
 
 message CCuratorPreferences {
@@ -1671,7 +1671,7 @@ message CMsgClientMMSGetLobbyStatus {
 message CMsgClientMMSGetLobbyStatusResponse {
 	optional uint32 app_id = 1;
 	optional fixed64 steam_id_lobby = 2;
-	optional int32 lobby_status = 3 [(description) = "enum"];
+	optional int32 lobby_status = 3 [(.description) = "enum"];
 }
 
 message CMsgClientMMSInviteToLobby {
@@ -3139,7 +3139,7 @@ message CMsgControllerConfiguration {
 
 // Used by: common.proto
 message CMsgControllerInput {
-	optional int32 key = 1 [(description) = "enum"];
+	optional int32 key = 1 [(.description) = "enum"];
 	repeated .CMsgControllerInputActivator activators = 2;
 	repeated .CMsgControllerInputActivator disabled_activators = 3;
 	optional bool inherited_from_parentset = 4;
@@ -3147,7 +3147,7 @@ message CMsgControllerInput {
 
 // Used by: common.proto
 message CMsgControllerInputActivator {
-	optional int32 activation = 1 [(description) = "enum"];
+	optional int32 activation = 1 [(.description) = "enum"];
 	repeated .CMsgControllerInputBinding bindings = 2;
 	repeated .CMsgControllerSetting settings = 3;
 }
@@ -3182,7 +3182,7 @@ message CMsgControllerInputBinding_KeyBindingData {
 
 // Used by: common.proto
 message CMsgControllerInputControllerActionBinding {
-	optional int32 action = 1 [(description) = "enum"];
+	optional int32 action = 1 [(.description) = "enum"];
 	optional .CMsgControllerInputControllerActionMouseBinding mouse = 2;
 	optional .CMsgControllerInputControllerActionGameActionSetBinding action_set = 3;
 	optional .CMsgControllerInputControllerActionLEDColorBinding led_color = 4;
@@ -3196,7 +3196,7 @@ message CMsgControllerInputControllerActionChangePlayerNumberBinding {
 
 // Used by: common.proto
 message CMsgControllerInputControllerActionGameActionSetBinding {
-	optional int32 preset_type = 1 [(description) = "enum"];
+	optional int32 preset_type = 1 [(.description) = "enum"];
 	optional string action_set_key = 2;
 	optional bool display = 3;
 	optional bool beep = 4;
@@ -3204,7 +3204,7 @@ message CMsgControllerInputControllerActionGameActionSetBinding {
 
 // Used by: common.proto
 message CMsgControllerInputControllerActionLEDColorBinding {
-	optional int32 setting = 1 [(description) = "enum"];
+	optional int32 setting = 1 [(.description) = "enum"];
 	optional int32 brightness = 2;
 	optional int32 saturation = 3;
 	optional int32 color_r = 4;
@@ -3227,44 +3227,44 @@ message CMsgControllerInputGameActionBinding {
 
 // Used by: common.proto
 message CMsgControllerInputGamepadButtonBinding {
-	optional int32 button = 1 [(description) = "enum"];
+	optional int32 button = 1 [(.description) = "enum"];
 }
 
 // Used by: common.proto
 message CMsgControllerInputKeyBinding {
-	optional int32 key = 1 [(description) = "enum"];
+	optional int32 key = 1 [(.description) = "enum"];
 }
 
 // Used by: common.proto
 message CMsgControllerInputModeShiftBinding {
-	optional int32 source = 1 [(description) = "enum"];
+	optional int32 source = 1 [(.description) = "enum"];
 }
 
 // Used by: common.proto
 message CMsgControllerInputMouseButtonBinding {
-	optional int32 button = 1 [(description) = "enum"];
+	optional int32 button = 1 [(.description) = "enum"];
 }
 
 // Used by: common.proto
 message CMsgControllerInputMouseWheelBinding {
-	optional int32 button = 1 [(description) = "enum"];
+	optional int32 button = 1 [(.description) = "enum"];
 }
 
 // Used by: common.proto
 message CMsgControllerMode {
-	optional int32 mode = 1 [(description) = "enum"];
+	optional int32 mode = 1 [(.description) = "enum"];
 	optional uint32 modeid = 2;
 	optional string description = 3;
 	repeated .CMsgControllerInput inputs = 4;
 	repeated .CMsgControllerSetting settings = 5;
 	optional string friendlyname = 6;
-	optional int32 source = 7 [(description) = "enum"];
+	optional int32 source = 7 [(.description) = "enum"];
 	optional .CMsgControllerVirtualMenuPreviewInfo virtual_menu_info = 8;
 }
 
 // Used by: common.proto
 message CMsgControllerSetting {
-	optional int32 key = 1 [(description) = "enum"];
+	optional int32 key = 1 [(.description) = "enum"];
 	optional sint32 int_value = 2;
 	optional sint32 int_min = 3;
 	optional sint32 int_max = 4;
@@ -3274,7 +3274,7 @@ message CMsgControllerSetting {
 
 // Used by: common.proto
 message CMsgControllerSourceGroup {
-	optional int32 mode = 1 [(description) = "enum"];
+	optional int32 mode = 1 [(.description) = "enum"];
 	optional .CMsgControllerInputGameActionBinding game_action = 2;
 	repeated .CMsgControllerInput inputs = 3;
 	repeated .CMsgControllerSetting settings = 4;
@@ -3284,13 +3284,13 @@ message CMsgControllerSourceGroup {
 
 // Used by: common.proto
 message CMsgControllerSources {
-	optional int32 key = 1 [(description) = "enum"];
+	optional int32 key = 1 [(.description) = "enum"];
 	optional .CMsgControllerSourceGroup active_group = 2;
 }
 
 // Used by: common.proto
 message CMsgControllerVirtualMenuPreviewInfo {
-	optional int32 source = 1 [(description) = "enum"];
+	optional int32 source = 1 [(.description) = "enum"];
 	optional float x_pos = 2;
 	optional float y_pos = 3;
 	optional float opacity = 4;
@@ -3446,12 +3446,12 @@ message CMsgFSGetIsFollowingResponse {
 message CMsgGameAction {
 	optional string key = 1;
 	optional string display_name = 2;
-	repeated int32 modes = 3 [(description) = "enum"];
+	repeated int32 modes = 3 [(.description) = "enum"];
 }
 
 // Used by: common.proto
 message CMsgGameActionBindingType {
-	optional int32 key = 1 [(description) = "enum"];
+	optional int32 key = 1 [(.description) = "enum"];
 	repeated .CMsgGameAction actions = 2;
 }
 
@@ -3801,7 +3801,7 @@ message CMsgProtobufWrapped {
 }
 
 message CMsgSelectOSBranchParams {
-	optional int32 branch = 1 [(description) = "enum"];
+	optional int32 branch = 1 [(.description) = "enum"];
 }
 
 message CMsgSetControllerActionSet {
@@ -3814,11 +3814,11 @@ message CMsgSetControllerActionSet {
 message CMsgSetControllerInputActivator {
 	optional string action_set_key = 1;
 	optional string action_set_layer_key = 2;
-	optional int32 source_binding_key = 3 [(description) = "enum"];
+	optional int32 source_binding_key = 3 [(.description) = "enum"];
 	optional bool mode_shift = 4;
-	optional int32 input_key = 5 [(description) = "enum"];
+	optional int32 input_key = 5 [(.description) = "enum"];
 	optional int32 activator_index = 6;
-	optional int32 new_activation = 7 [(description) = "enum"];
+	optional int32 new_activation = 7 [(.description) = "enum"];
 	optional .CMsgControllerSetting new_setting = 8;
 	optional int32 modeid = 9;
 }
@@ -3826,9 +3826,9 @@ message CMsgSetControllerInputActivator {
 message CMsgSetControllerInputActivatorEnabled {
 	optional string action_set_key = 1;
 	optional string action_set_layer_key = 2;
-	optional int32 source_binding_key = 3 [(description) = "enum"];
+	optional int32 source_binding_key = 3 [(.description) = "enum"];
 	optional bool mode_shift = 4;
-	optional int32 input_key = 5 [(description) = "enum"];
+	optional int32 input_key = 5 [(.description) = "enum"];
 	optional int32 activator_index = 6;
 	optional bool enabled = 7;
 	optional int32 modeid = 8;
@@ -3837,22 +3837,22 @@ message CMsgSetControllerInputActivatorEnabled {
 message CMsgSetControllerInputBinding {
 	optional string action_set_key = 1;
 	optional string action_set_layer_key = 2;
-	optional int32 source_binding_key = 3 [(description) = "enum"];
+	optional int32 source_binding_key = 3 [(.description) = "enum"];
 	optional bool mode_shift = 4;
-	optional int32 input_key = 5 [(description) = "enum"];
+	optional int32 input_key = 5 [(.description) = "enum"];
 	optional int32 activator_index = 6;
 	optional int32 binding_index = 7;
 	optional .CMsgControllerInputBinding new_binding = 8;
-	optional int32 source_mode = 9 [(description) = "enum"];
+	optional int32 source_mode = 9 [(.description) = "enum"];
 	optional int32 modeid = 10;
 }
 
 message CMsgSetControllerSourceMode {
 	optional string action_set_key = 1;
 	optional string action_set_layer_key = 2;
-	optional int32 source_binding_key = 3 [(description) = "enum"];
+	optional int32 source_binding_key = 3 [(.description) = "enum"];
 	optional bool mode_shift = 4;
-	optional int32 new_mode = 5 [(description) = "enum"];
+	optional int32 new_mode = 5 [(.description) = "enum"];
 	optional .CMsgControllerInputGameActionBinding new_game_action = 6;
 	optional .CMsgControllerSetting new_setting = 7;
 	optional string new_name = 8;
@@ -4019,8 +4019,8 @@ message CMsgStorageDevicesData_BlockDevice {
 	optional bool is_formattable = 7;
 	optional bool is_read_only = 8;
 	optional bool is_root_device = 9;
-	optional int32 content_type = 10 [(description) = "enum"];
-	optional int32 filesystem_type = 11 [(description) = "enum"];
+	optional int32 content_type = 10 [(.description) = "enum"];
+	optional int32 filesystem_type = 11 [(.description) = "enum"];
 	optional string mount_path = 12;
 }
 
@@ -4037,7 +4037,7 @@ message CMsgStorageDevicesData_Drive {
 message CMsgSwapModeInputBindings {
 	optional string action_set_key = 1;
 	optional string action_set_layer_key = 2;
-	optional int32 source_binding_key = 3 [(description) = "enum"];
+	optional int32 source_binding_key = 3 [(.description) = "enum"];
 	optional bool mode_shift = 4;
 	optional int32 modeid = 5;
 	repeated .CMsgSwapModeInputBindings_CModeInputSwap swaps = 6;
@@ -4045,8 +4045,8 @@ message CMsgSwapModeInputBindings {
 
 // Used by: common.proto
 message CMsgSwapModeInputBindings_CModeInputSwap {
-	optional int32 old_key = 1 [(description) = "enum"];
-	optional int32 new_key = 2 [(description) = "enum"];
+	optional int32 old_key = 1 [(.description) = "enum"];
+	optional int32 new_key = 2 [(.description) = "enum"];
 }
 
 // Used by: common.proto
@@ -4074,7 +4074,7 @@ message CMsgSystemAudioManagerNode {
 	optional string name = 3;
 	optional string nick = 4;
 	optional string description = 5;
-	optional int32 edirection = 6 [(description) = "enum"];
+	optional int32 edirection = 6 [(.description) = "enum"];
 	optional .CMsgSystemAudioVolume volume = 7;
 }
 
@@ -4090,8 +4090,8 @@ message CMsgSystemAudioManagerPort {
 	optional uint32 node_id = 3;
 	optional string name = 4;
 	optional string alias = 5;
-	optional int32 etype = 6 [(description) = "enum"];
-	optional int32 edirection = 7 [(description) = "enum"];
+	optional int32 etype = 6 [(.description) = "enum"];
+	optional int32 edirection = 7 [(.description) = "enum"];
 	optional bool is_physical = 8;
 	optional bool is_terminal = 9;
 	optional bool is_control = 10;
@@ -4124,7 +4124,7 @@ message CMsgSystemAudioVolume {
 
 // Used by: common.proto
 message CMsgSystemAudioVolume_ChannelEntry {
-	optional int32 echannel = 1 [(description) = "enum"];
+	optional int32 echannel = 1 [(.description) = "enum"];
 	optional float volume = 2;
 }
 
@@ -4138,7 +4138,7 @@ message CMsgSystemDockUpdateFirmware {
 
 // Used by: common.proto
 message CMsgSystemDockUpdateState {
-	optional int32 state = 1 [(description) = "enum"];
+	optional int32 state = 1 [(.description) = "enum"];
 	optional fixed32 rtime_last_checked = 2;
 	optional string version_current = 3;
 	optional string version_available = 4;
@@ -4155,7 +4155,7 @@ message CMsgSystemManagerSettings {
 	optional bool is_adaptive_brightness_available = 6;
 	optional bool display_adaptive_brightness_enabled = 7;
 	optional bool is_display_colorprofile_available = 8;
-	optional int32 display_colorprofile = 9 [(description) = "enum"];
+	optional int32 display_colorprofile = 9 [(.description) = "enum"];
 	optional bool display_nightmode_enabled = 10;
 	optional float display_nightmode_tintstrength = 11;
 	optional float display_nightmode_maxhue = 12;
@@ -4174,7 +4174,7 @@ message CMsgSystemManagerSettings {
 	optional float display_brightness_adaptivemax = 25;
 	optional bool is_wifi_powersave_enabled = 26;
 	optional bool is_fan_control_available = 27;
-	optional int32 fan_control_mode = 28 [(description) = "enum"];
+	optional int32 fan_control_mode = 28 [(.description) = "enum"];
 }
 
 // Used by: common.proto
@@ -4200,7 +4200,7 @@ message CMsgSystemPerfLimits {
 	optional bool perf_overlay_is_standalone = 7;
 	optional bool is_dynamic_vrs_available = 8;
 	optional bool is_manual_display_refresh_rate_available = 9;
-	repeated int32 gpu_performance_levels_available = 10 [(description) = "enum"];
+	repeated int32 gpu_performance_levels_available = 10 [(.description) = "enum"];
 	optional int32 display_refresh_manual_hz_min = 11;
 	optional int32 display_refresh_manual_hz_max = 12;
 	repeated int32 fps_limit_options = 13;
@@ -4230,10 +4230,10 @@ message CMsgSystemPerfSettings {
 // Used by: common.proto
 message CMsgSystemPerfSettingsGlobal {
 	optional float diagnostic_update_rate = 1;
-	optional int32 system_trace_service_state = 2 [(description) = "enum"];
-	optional int32 graphics_profiling_service_state = 3 [(description) = "enum"];
-	optional int32 perf_overlay_service_state = 4 [(description) = "enum"];
-	optional int32 perf_overlay_level = 5 [(description) = "enum"];
+	optional int32 system_trace_service_state = 2 [(.description) = "enum"];
+	optional int32 graphics_profiling_service_state = 3 [(.description) = "enum"];
+	optional int32 perf_overlay_service_state = 4 [(.description) = "enum"];
+	optional int32 perf_overlay_level = 5 [(.description) = "enum"];
 	optional bool is_show_perf_overlay_over_steam_enabled = 6;
 	optional bool is_advanced_settings_enabled = 7;
 }
@@ -4245,7 +4245,7 @@ message CMsgSystemPerfSettingsPerApp {
 	optional bool is_variable_resolution_enabled = 3;
 	optional bool is_dynamic_refresh_rate_enabled = 4;
 	optional int32 tdp_limit = 5;
-	optional int32 cpu_governor = 6 [(description) = "enum"];
+	optional int32 cpu_governor = 6 [(.description) = "enum"];
 	optional int32 cpu_governor_manual_mhz = 7;
 	optional int32 scaling_filter = 8;
 	optional int32 fsr_sharpness = 9;
@@ -4254,7 +4254,7 @@ message CMsgSystemPerfSettingsPerApp {
 	optional bool is_low_latency_mode_enabled = 12;
 	optional int32 display_refresh_manual_hz = 13;
 	optional bool is_game_perf_profile_enabled = 14;
-	optional int32 gpu_performance_level = 15 [(description) = "enum"];
+	optional int32 gpu_performance_level = 15 [(.description) = "enum"];
 	optional int32 nis_sharpness = 16;
 }
 
@@ -4272,12 +4272,12 @@ message CMsgSystemPerfUpdateSettings {
 }
 
 message CMsgSystemUpdateApplyParams {
-	repeated int32 apply_types = 1 [(description) = "enum"];
+	repeated int32 apply_types = 1 [(.description) = "enum"];
 }
 
 // Used by: common.proto
 message CMsgSystemUpdateApplyResult {
-	optional int32 type = 1 [(description) = "enum"];
+	optional int32 type = 1 [(.description) = "enum"];
 	optional uint32 eresult = 2 [default = 2];
 	optional bool requires_client_restart = 3 [default = false];
 	optional bool requires_system_restart = 4 [default = false];
@@ -4285,7 +4285,7 @@ message CMsgSystemUpdateApplyResult {
 
 // Used by: common.proto
 message CMsgSystemUpdateCheckResult {
-	optional int32 type = 1 [(description) = "enum"];
+	optional int32 type = 1 [(.description) = "enum"];
 	optional uint32 eresult = 2 [default = 2];
 	optional fixed32 rtime_checked = 3;
 	optional bool available = 4;
@@ -4300,7 +4300,7 @@ message CMsgSystemUpdateProgress {
 }
 
 message CMsgSystemUpdateState {
-	optional int32 state = 1 [(description) = "enum"];
+	optional int32 state = 1 [(.description) = "enum"];
 	optional .CMsgSystemUpdateProgress progress = 2;
 	repeated .CMsgSystemUpdateCheckResult update_check_results = 3;
 	repeated .CMsgSystemUpdateApplyResult update_apply_results = 4;
@@ -4349,7 +4349,7 @@ message CProductImpressionsFromClient_Notification {
 
 // Used by: common.proto
 message CProductImpressionsFromClient_Notification_Impression {
-	optional int32 type = 1 [(description) = "enum"];
+	optional int32 type = 1 [(.description) = "enum"];
 	optional uint32 appid = 2;
 	optional uint32 num_impressions = 3;
 }
@@ -4367,7 +4367,7 @@ message CStoreBrowse_GetItems_Response {
 }
 
 message CStreamingClientConfig {
-	optional int32 quality = 1 [default = 2, (description) = "enum"];
+	optional int32 quality = 1 [default = 2, (.description) = "enum"];
 	optional uint32 maximum_resolution_x = 2;
 	optional uint32 maximum_resolution_y = 3;
 	optional uint32 maximum_framerate_numerator = 4;
@@ -4384,7 +4384,7 @@ message CStreamingClientConfig {
 	optional bool enable_microphone_streaming = 15 [default = false];
 	optional string controller_overlay_hotkey = 16;
 	optional bool enable_touch_controller = 17 [default = false];
-	optional int32 p2p_scope = 19 [default = 0, (description) = "enum"];
+	optional int32 p2p_scope = 19 [default = 0, (.description) = "enum"];
 }
 
 message CStreamingServerConfig {
@@ -4396,7 +4396,7 @@ message CStreamingServerConfig {
 	optional bool enable_hardware_encoding_intel = 6;
 	optional int32 software_encoding_threads = 7;
 	optional bool enable_traffic_priority = 8;
-	optional int32 host_play_audio = 9 [default = 0, (description) = "enum"];
+	optional int32 host_play_audio = 9 [default = 0, (.description) = "enum"];
 }
 
 // Used by: AuthenticationSupport, common.proto
@@ -4404,8 +4404,8 @@ message CSupportRefreshTokenDescription {
 	optional fixed64 token_id = 1;
 	optional string token_description = 2;
 	optional uint32 time_updated = 3;
-	optional int32 platform_type = 4 [(description) = "enum"];
-	optional int32 token_state = 5 [(description) = "enum"];
+	optional int32 platform_type = 4 [(.description) = "enum"];
+	optional int32 token_state = 5 [(.description) = "enum"];
 	optional fixed64 owner_steamid = 6;
 }
 
@@ -4438,7 +4438,7 @@ message EncryptedAppTicket {
 message LoyaltyRewardDefinition {
 	optional uint32 appid = 1;
 	optional uint32 defid = 2;
-	optional int32 type = 3 [(description) = "enum"];
+	optional int32 type = 3 [(.description) = "enum"];
 	optional int32 community_item_class = 4;
 	optional uint32 community_item_type = 5;
 	optional int64 point_cost = 6;
@@ -4475,9 +4475,6 @@ message LoyaltyRewardDefinition_CommunityItemData {
 	optional string item_movie_webm_small = 10;
 	optional string item_movie_mp4_small = 11;
 	optional string profile_theme_id = 12;
-}
-
-message NotImplemented {
 }
 
 // Used by: MarketingMessages, PartnerStoreBrowse, StoreBrowse, StoreQuery
@@ -4517,7 +4514,7 @@ message StoreGameRating {
 
 // Used by: MarketingMessages, PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem {
-	optional int32 item_type = 1 [(description) = "enum"];
+	optional int32 item_type = 1 [(.description) = "enum"];
 	optional uint32 id = 2;
 	optional uint32 success = 3;
 	optional bool visible = 4;
@@ -4525,13 +4522,13 @@ message StoreItem {
 	optional string name = 6;
 	optional string store_url_path = 7;
 	optional uint32 appid = 9;
-	optional int32 type = 10 [(description) = "enum"];
-	repeated int32 included_types = 11 [(description) = "enum"];
+	optional int32 type = 10 [(.description) = "enum"];
+	repeated int32 included_types = 11 [(.description) = "enum"];
 	repeated uint32 included_appids = 12;
 	optional bool is_free = 13;
 	optional bool is_early_access = 14;
 	optional .StoreItem_RelatedItems related_items = 15;
-	repeated int32 content_descriptorids = 20 [(description) = "enum"];
+	repeated int32 content_descriptorids = 20 [(.description) = "enum"];
 	repeated uint32 tagids = 21;
 	optional .StoreItem_Categories categories = 22;
 	optional .StoreItem_Reviews reviews = 23;
@@ -4606,7 +4603,7 @@ message StoreItem_Platforms {
 	optional bool mac = 2;
 	optional bool linux = 3;
 	optional .StoreItem_Platforms_VRSupport vr_support = 10;
-	optional int32 steam_deck_compat_category = 11 [(description) = "enum"];
+	optional int32 steam_deck_compat_category = 11 [(.description) = "enum"];
 }
 
 // Used by: MarketingMessages, PartnerStoreBrowse, StoreBrowse, StoreQuery
@@ -4678,7 +4675,7 @@ message StoreItem_Reviews {
 message StoreItem_Reviews_StoreReviewSummary {
 	optional uint32 review_count = 1;
 	optional int32 percent_positive = 2;
-	optional int32 review_score = 3 [(description) = "enum"];
+	optional int32 review_score = 3 [(.description) = "enum"];
 	optional string review_score_label = 4;
 }
 

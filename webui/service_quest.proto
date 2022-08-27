@@ -1,4 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
+import "common_base.proto";
 
 message CQuest_ActivateProfileModifierItem_Request {
 	optional uint32 appid = 1;
@@ -79,7 +79,7 @@ message CQuest_GetNumTradingCardsEarned_Response {
 }
 
 message CQuest_VirtualItemRewardDefinition_Request {
-	optional int32 eventid = 1 [(description) = "enum"];
+	optional int32 eventid = 1 [(.description) = "enum"];
 	optional bool include_inactive = 2;
 }
 
@@ -88,7 +88,7 @@ message CQuest_VirtualItemRewardDefinition_Response {
 }
 
 message CVirtualItemRewardDefinition {
-	optional int32 eventid = 1 [(description) = "enum"];
+	optional int32 eventid = 1 [(.description) = "enum"];
 	optional uint32 item_bucket = 2;
 	optional uint32 appid = 3;
 	optional bool active = 4;

@@ -1,5 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
+import "common_base.proto";
 
 message CVideo_ClientGetVideoURL_Response {
 	optional uint64 video_id = 1;

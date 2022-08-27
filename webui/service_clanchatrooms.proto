@@ -1,4 +1,3 @@
-import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
 
 message CClanChatRooms_GetClanChatRoomInfo_Request {

@@ -1,5 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
+import "common_base.proto";
 
 message CSteamAwards_GetUserNominations_Response {
 	repeated .CSteamAwardsNomination nominations = 1;

@@ -1,4 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
+import "common_base.proto";
 
 message CFriendsList_FavoritesChanged_Notification {
 	repeated .CFriendsListFavoriteEntry favorites = 1;

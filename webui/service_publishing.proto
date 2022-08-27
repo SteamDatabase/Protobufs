@@ -1,12 +1,11 @@
-import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
+import "common_base.proto";
 
 message CPartnerAppOptInData {
 	optional uint32 appid = 1;
 	optional bool opt_in = 2;
 	optional string opt_in_name = 3;
 	optional string jsondata = 4;
-	optional int32 type = 5 [(description) = "enum"];
+	optional int32 type = 5 [(.description) = "enum"];
 	optional uint32 accountid_add = 6;
 	optional uint32 time_opted_in = 7;
 	optional uint32 time_updated = 8;

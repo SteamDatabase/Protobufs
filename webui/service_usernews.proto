@@ -1,4 +1,3 @@
-import "steammessages_unified_base.steamclient.proto";
 
 message CUserNews_Event {
 	optional uint32 eventtype = 1;

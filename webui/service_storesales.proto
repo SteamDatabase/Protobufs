@@ -1,5 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
+import "common_base.proto";
 
 message CStore_GetVoteDefinitionsForEvents_Response {
 	repeated .CStore_GetVoteDefinitionsForEvents_Response_Vote_Defintion definitions = 1;

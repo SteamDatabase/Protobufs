@@ -1,4 +1,3 @@
-import "steammessages_unified_base.steamclient.proto";
 
 message CPhone_AddPhoneToAccount_Response {
 	optional bool success = 1;

@@ -1,4 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
+import "common_base.proto";
 import "common.proto";
 
 message CAppPriority {
@@ -211,7 +211,7 @@ message CCommunity_GetUserPartnerEventNews_Request {
 	optional uint32 rtime32_start_time = 3;
 	optional uint32 rtime32_end_time = 4;
 	repeated uint32 language_preference = 5;
-	repeated int32 filter_event_type = 6 [(description) = "enum"];
+	repeated int32 filter_event_type = 6 [(.description) = "enum"];
 	optional bool filter_to_appid = 7;
 	repeated .CAppPriority app_list = 8;
 	optional uint32 count_after = 9 [default = 0];
@@ -252,7 +252,7 @@ message CCommunity_MarkPartnerEventsForUser_Request {
 message CCommunity_MarkPartnerEventsForUser_Request_PartnerEventMarking {
 	optional uint32 clanid = 1;
 	optional fixed64 event_gid = 2;
-	optional int32 display_location = 3 [(description) = "enum"];
+	optional int32 display_location = 3 [(.description) = "enum"];
 	optional bool mark_shown = 4;
 	optional bool mark_read = 5;
 }

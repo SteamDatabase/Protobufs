@@ -1,5 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
+import "common_base.proto";
 
 message CPartnerMembershipInvite_GetInvites_Response {
 	repeated .MembershipInvite invites = 1;
@@ -12,7 +11,7 @@ message MembershipInvite {
 	optional string real_name = 4;
 	optional string note = 5;
 	optional uint32 time_sent = 6;
-	optional int32 current_state = 7 [(description) = "enum"];
+	optional int32 current_state = 7 [(.description) = "enum"];
 	optional uint64 pub_rights = 8;
 	optional uint64 app_rights = 9;
 	optional uint32 time_receiver_responded = 10;

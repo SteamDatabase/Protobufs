@@ -1,4 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
+import "common_base.proto";
 
 message CSteamNotification_GetPreferences_Request {
 }
@@ -17,7 +17,7 @@ message CSteamNotification_GetSteamNotifications_Response {
 
 message CSteamNotification_MarkNotificationsRead_Notification {
 	optional uint32 timestamp = 1;
-	optional int32 notification_type = 2 [(description) = "enum"];
+	optional int32 notification_type = 2 [(.description) = "enum"];
 	repeated uint64 notification_ids = 3;
 	optional bool mark_all_read = 4;
 }
@@ -32,14 +32,14 @@ message CSteamNotification_SetPreferences_Response {
 message SteamNotificationData {
 	optional uint64 notification_id = 1;
 	optional uint32 notification_targets = 2;
-	optional int32 notification_type = 3 [(description) = "enum"];
+	optional int32 notification_type = 3 [(.description) = "enum"];
 	optional string body_data = 4;
 	optional bool read = 7;
 	optional uint32 timestamp = 8;
 }
 
 message SteamNotificationPreference {
-	optional int32 notification_type = 1 [(description) = "enum"];
+	optional int32 notification_type = 1 [(.description) = "enum"];
 	optional uint32 notification_targets = 2;
 }
 

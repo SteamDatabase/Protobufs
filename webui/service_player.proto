@@ -1,7 +1,7 @@
-import "steammessages_unified_base.steamclient.proto";
+import "common_base.proto";
 
 message CPlayer_AcceptSSA_Request {
-	optional int32 agreement_type = 1 [(description) = "enum"];
+	optional int32 agreement_type = 1 [(.description) = "enum"];
 	optional uint32 time_signed_utc = 2;
 }
 
@@ -23,7 +23,7 @@ message CPlayer_CommunityPreferences {
 	optional bool hide_adult_content_sex = 2 [default = true];
 	optional uint32 timestamp_updated = 3;
 	optional bool parenthesize_nicknames = 4 [default = false];
-	optional int32 text_filter_setting = 5 [(description) = "enum"];
+	optional int32 text_filter_setting = 5 [(.description) = "enum"];
 	optional bool text_filter_ignore_friends = 6 [default = true];
 	optional uint32 text_filter_words_revision = 7;
 }
@@ -373,7 +373,7 @@ message CPlayer_GetProfileCustomization_Response {
 
 message CPlayer_GetProfileCustomization_Response_PurchasedCustomization {
 	optional uint64 purchaseid = 1;
-	optional int32 customization_type = 2 [(description) = "enum"];
+	optional int32 customization_type = 2 [(.description) = "enum"];
 	optional uint32 level = 3;
 }
 
@@ -393,7 +393,7 @@ message CPlayer_GetProfileItemsEquipped_Response {
 
 message CPlayer_GetProfileItemsOwned_Request {
 	optional string language = 1;
-	repeated int32 filters = 2 [(description) = "enum"];
+	repeated int32 filters = 2 [(.description) = "enum"];
 }
 
 message CPlayer_GetProfileItemsOwned_Response {
@@ -422,12 +422,12 @@ message CPlayer_GetPurchasedAndUpgradedProfileCustomizations_Response {
 }
 
 message CPlayer_GetPurchasedAndUpgradedProfileCustomizations_Response_PurchasedCustomization {
-	optional int32 customization_type = 1 [(description) = "enum"];
+	optional int32 customization_type = 1 [(.description) = "enum"];
 	optional uint32 count = 2;
 }
 
 message CPlayer_GetPurchasedAndUpgradedProfileCustomizations_Response_UpgradedCustomization {
-	optional int32 customization_type = 1 [(description) = "enum"];
+	optional int32 customization_type = 1 [(.description) = "enum"];
 	optional uint32 level = 2;
 }
 
@@ -441,7 +441,7 @@ message CPlayer_GetPurchasedProfileCustomizations_Response {
 
 message CPlayer_GetPurchasedProfileCustomizations_Response_PurchasedCustomization {
 	optional uint64 purchaseid = 1;
-	optional int32 customization_type = 2 [(description) = "enum"];
+	optional int32 customization_type = 2 [(.description) = "enum"];
 }
 
 message CPlayer_GetSteamDeckKeyboardSkin_Request {
@@ -629,21 +629,21 @@ message CPrivacySettings {
 message PerFriendPreferences {
 	optional fixed32 accountid = 1;
 	optional string nickname = 2;
-	optional int32 notifications_showingame = 3 [(description) = "enum"];
-	optional int32 notifications_showonline = 4 [(description) = "enum"];
-	optional int32 notifications_showmessages = 5 [(description) = "enum"];
-	optional int32 sounds_showingame = 6 [(description) = "enum"];
-	optional int32 sounds_showonline = 7 [(description) = "enum"];
-	optional int32 sounds_showmessages = 8 [(description) = "enum"];
-	optional int32 notifications_sendmobile = 9 [(description) = "enum"];
+	optional int32 notifications_showingame = 3 [(.description) = "enum"];
+	optional int32 notifications_showonline = 4 [(.description) = "enum"];
+	optional int32 notifications_showmessages = 5 [(.description) = "enum"];
+	optional int32 sounds_showingame = 6 [(.description) = "enum"];
+	optional int32 sounds_showonline = 7 [(.description) = "enum"];
+	optional int32 sounds_showmessages = 8 [(.description) = "enum"];
+	optional int32 notifications_sendmobile = 9 [(.description) = "enum"];
 }
 
 message ProfileCustomization {
-	optional int32 customization_type = 1 [(description) = "enum"];
+	optional int32 customization_type = 1 [(.description) = "enum"];
 	optional bool large = 2;
 	repeated .ProfileCustomizationSlot slots = 3;
 	optional bool active = 4;
-	optional int32 customization_style = 5 [(description) = "enum"];
+	optional int32 customization_style = 5 [(.description) = "enum"];
 	optional uint64 purchaseid = 6;
 	optional uint32 level = 7;
 }
@@ -661,7 +661,7 @@ message ProfileCustomizationSlot {
 	optional uint32 border_color = 10;
 	optional uint64 item_classid = 11;
 	optional uint64 item_instanceid = 12;
-	optional int32 ban_check_result = 13 [(description) = "enum"];
+	optional int32 ban_check_result = 13 [(.description) = "enum"];
 }
 
 message ProfileItem {

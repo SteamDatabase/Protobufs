@@ -1,4 +1,3 @@
-import "steammessages_unified_base.steamclient.proto";
 
 message CClan_GetPartnerEventsByBuildIDRange_Request {
 	repeated .CClan_GetPartnerEventsByBuildIDRange_Request_PatchNoteRange requests = 1;

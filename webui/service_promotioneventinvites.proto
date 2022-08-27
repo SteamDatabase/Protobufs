@@ -1,5 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
+import "common_base.proto";
 
 message CPromotionEventInvitation {
 	optional fixed64 inviteid = 1;
@@ -7,7 +6,7 @@ message CPromotionEventInvitation {
 	optional uint32 invite_account = 3;
 	optional uint32 rtinvitetime = 4;
 	optional uint32 rtexpiretime = 5;
-	optional int32 type = 6 [(description) = "enum"];
+	optional int32 type = 6 [(.description) = "enum"];
 	optional uint32 accept_account = 7;
 	optional uint32 rtaccepttime = 8;
 	optional uint32 rtdatechosen = 9;

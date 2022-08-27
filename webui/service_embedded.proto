@@ -1,4 +1,3 @@
-import "steammessages_unified_base.steamclient.proto";
 
 message CEmbeddedClient_AuthorizeCurrentDevice_Request {
 	optional fixed64 steamid = 1;

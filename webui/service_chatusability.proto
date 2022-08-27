@@ -1,4 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
+import "common_base.proto";
 
 message CChatUsability_ClientUsabilityMetrics_Notification {
 	optional uint32 metrics_run_id = 1;

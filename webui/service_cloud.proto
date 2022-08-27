@@ -1,4 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
+import "common_base.proto";
 import "common.proto";
 
 message CCloud_AppCloudStateChange_Notification {
@@ -11,7 +11,7 @@ message CCloud_AppFileInfo {
 	optional bytes sha_file = 2;
 	optional uint64 time_stamp = 3;
 	optional uint32 raw_file_size = 4;
-	optional int32 persist_state = 5 [(description) = "enum"];
+	optional int32 persist_state = 5 [(.description) = "enum"];
 	optional uint32 platforms_to_sync = 6;
 	optional uint32 path_prefix_index = 7;
 	optional uint32 machine_name_index = 8;
@@ -47,7 +47,7 @@ message CCloud_BeginHTTPUpload_Response_HTTPHeaders {
 }
 
 message CCloud_BeginUGCUpload_Response {
-	optional int32 storage_system = 1 [(description) = "enum"];
+	optional int32 storage_system = 1 [(.description) = "enum"];
 	optional fixed64 ugcid = 2;
 	optional fixed32 timestamp = 3;
 	optional string url_host = 4;

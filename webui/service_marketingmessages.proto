@@ -1,10 +1,10 @@
-import "steammessages_unified_base.steamclient.proto";
+import "common_base.proto";
 import "common.proto";
 
 message CDisplayMarketingMessage {
 	optional fixed64 gid = 1;
 	optional string title = 2;
-	optional int32 type = 3 [(description) = "enum"];
+	optional int32 type = 3 [(.description) = "enum"];
 	optional .StoreItemID associated_item_id = 4;
 	optional .StoreItem associated_item = 5;
 	optional string associated_name = 6;
@@ -15,10 +15,10 @@ message CDisplayMarketingMessage {
 message CMarketingMessageProto {
 	optional fixed64 gid = 1;
 	optional string title = 2;
-	optional int32 type = 3 [(description) = "enum"];
-	optional int32 visibility = 4 [(description) = "enum"];
+	optional int32 type = 3 [(.description) = "enum"];
+	optional int32 visibility = 4 [(.description) = "enum"];
 	optional uint32 priority = 5;
-	optional int32 association_type = 6 [(description) = "enum"];
+	optional int32 association_type = 6 [(.description) = "enum"];
 	optional uint32 associated_id = 7;
 	optional string associated_name = 8;
 	optional uint32 start_date = 9;
@@ -54,9 +54,9 @@ message CMarketingMessages_DeleteMarketingMessage_Response {
 }
 
 message CMarketingMessages_FindMarketingMessages_Request {
-	optional int32 lookup_type = 1 [(description) = "enum"];
+	optional int32 lookup_type = 1 [(.description) = "enum"];
 	optional fixed64 gid = 2;
-	optional int32 message_type = 3 [(description) = "enum"];
+	optional int32 message_type = 3 [(.description) = "enum"];
 	repeated fixed64 gidlist = 4;
 	optional string title = 5;
 }

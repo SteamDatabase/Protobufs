@@ -1,9 +1,8 @@
-import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
+import "common_base.proto";
 
 message CSteamDeckCompatibility_SetFeedback_Request {
 	optional uint32 appid = 1;
-	optional int32 feedback = 2 [(description) = "enum"];
+	optional int32 feedback = 2 [(.description) = "enum"];
 }
 
 message CSteamDeckCompatibility_SetFeedback_Response {
@@ -16,11 +15,11 @@ message CSteamDeckCompatibility_ShouldPrompt_Request {
 message CSteamDeckCompatibility_ShouldPrompt_Response {
 	optional bool prompt = 1;
 	optional bool feedback_eligible = 2;
-	optional int32 existing_feedback = 3 [(description) = "enum"];
+	optional int32 existing_feedback = 3 [(.description) = "enum"];
 }
 
 message CStore_GetDiscoveryQueue_Request {
-	optional int32 queue_type = 1 [(description) = "enum"];
+	optional int32 queue_type = 1 [(.description) = "enum"];
 	optional string country_code = 2;
 	optional bool rebuild_queue = 3;
 	optional bool settings_changed = 4;
@@ -105,18 +104,18 @@ message CStore_GetUserGameInterestState_Response {
 	optional bool wishlist = 2;
 	optional bool ignored = 3;
 	optional bool following = 4;
-	repeated int32 in_queues = 5 [(description) = "enum"];
-	repeated int32 queues_with_skip = 6 [(description) = "enum"];
+	repeated int32 in_queues = 5 [(.description) = "enum"];
+	repeated int32 queues_with_skip = 6 [(.description) = "enum"];
 	repeated int32 queue_items_remaining = 7;
 	repeated uint32 queue_items_next_appid = 8;
 	optional bool temporarily_owned = 9;
 	repeated .CStore_GetUserGameInterestState_Response_InQueue queues = 10;
 	optional int32 ignored_reason = 11;
-	optional int32 beta_status = 12 [(description) = "enum"];
+	optional int32 beta_status = 12 [(.description) = "enum"];
 }
 
 message CStore_GetUserGameInterestState_Response_InQueue {
-	optional int32 type = 1 [(description) = "enum"];
+	optional int32 type = 1 [(.description) = "enum"];
 	optional bool skipped = 2;
 	optional int32 items_remaining = 3;
 	optional uint32 next_appid = 4;
@@ -162,7 +161,7 @@ message CStore_RegisterCDKey_Response {
 }
 
 message CStore_SkipDiscoveryQueueItem_Request {
-	optional int32 queue_type = 1 [(description) = "enum"];
+	optional int32 queue_type = 1 [(.description) = "enum"];
 	optional uint32 appid = 2;
 }
 
@@ -195,9 +194,9 @@ message CStore_UserPreferences {
 	optional bool hide_adult_content_sex = 7;
 	optional uint32 timestamp_updated = 8;
 	optional bool hide_store_broadcast = 9;
-	optional int32 review_score_preference = 10 [(description) = "enum"];
+	optional int32 review_score_preference = 10 [(.description) = "enum"];
 	optional int32 timestamp_content_descriptor_preferences_updated = 11;
-	optional int32 provide_deck_feedback = 12 [(description) = "enum"];
+	optional int32 provide_deck_feedback = 12 [(.description) = "enum"];
 }
 
 message CStore_UserTagPreferences {

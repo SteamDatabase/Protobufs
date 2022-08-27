@@ -1,5 +1,5 @@
-import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
+import "common_base.proto";
 
 message CStoreBrowse_GetStoreCategories_Request {
 	optional string language = 1;
@@ -12,7 +12,7 @@ message CStoreBrowse_GetStoreCategories_Response {
 
 message CStoreBrowse_GetStoreCategories_Response_Category {
 	optional uint32 categoryid = 1;
-	optional int32 type = 2 [(description) = "enum"];
+	optional int32 type = 2 [(.description) = "enum"];
 	optional string internal_name = 3;
 	optional string display_name = 4;
 	optional string image_url = 5;

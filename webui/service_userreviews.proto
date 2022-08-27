@@ -1,4 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
+import "common_base.proto";
 
 message CUserReviews_GetFriendsRecommendedApp_Request {
 	optional uint32 appid = 1;
@@ -56,7 +56,7 @@ message RecommendationDetails {
 	optional bool voted_up = 12;
 	optional bool is_public = 13;
 	optional bool moderator_hidden = 14;
-	optional int32 flagged_by_developer = 15 [(description) = "enum"];
+	optional int32 flagged_by_developer = 15 [(.description) = "enum"];
 	optional uint32 report_score = 16;
 	optional uint64 steamid_moderator = 17;
 	optional uint64 steamid_developer = 18;
@@ -68,7 +68,7 @@ message RecommendationDetails {
 	optional uint32 votes_funny = 24;
 	optional bool received_compensation = 25;
 	optional bool unverified_purchase = 26;
-	optional int32 review_quality = 27 [(description) = "enum"];
+	optional int32 review_quality = 27 [(.description) = "enum"];
 	optional float weighted_vote_score = 28;
 	optional string moderation_note = 29;
 	optional int32 payment_method = 30;
@@ -78,7 +78,7 @@ message RecommendationDetails {
 	optional bool comments_disabled = 34;
 	optional int32 playtime_at_review = 35;
 	optional bool approved_for_china = 36;
-	optional int32 ban_check_result = 37 [(description) = "enum"];
+	optional int32 ban_check_result = 37 [(.description) = "enum"];
 	optional bool refunded = 38;
 	optional int32 account_score_spend = 39;
 	repeated .CUserReviews_Recommendation_LoyaltyReaction reactions = 40;

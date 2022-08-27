@@ -1,4 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
+import "common_base.proto";
 
 message CVoiceChat_AllMembersStatus_Notification {
 	optional fixed64 voice_chatid = 1;

@@ -1,4 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
+import "common_base.proto";
 
 message CMobileDevice_DeregisterMobileDevice_Notification {
 	optional string deviceid = 1;
@@ -12,7 +12,7 @@ message CMobileDevice_RegisterMobileDevice_Request {
 	optional string os_version = 5;
 	optional string device_model = 6;
 	optional string twofactor_device_identifier = 7;
-	optional int32 mobile_app = 8 [(description) = "enum"];
+	optional int32 mobile_app = 8 [(.description) = "enum"];
 }
 
 message CMobileDevice_RegisterMobileDevice_Response {

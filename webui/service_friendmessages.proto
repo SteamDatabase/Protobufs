@@ -1,4 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
+import "common_base.proto";
 
 message CFriendMessages_AckMessage_Notification {
 	optional fixed64 steamid_partner = 1;
@@ -31,7 +31,7 @@ message CFriendMessages_GetRecentMessages_Response_FriendMessage {
 }
 
 message CFriendMessages_GetRecentMessages_Response_FriendMessage_MessageReaction {
-	optional int32 reaction_type = 1 [(description) = "enum"];
+	optional int32 reaction_type = 1 [(.description) = "enum"];
 	optional string reaction = 2;
 	repeated uint32 reactors = 3;
 }
@@ -62,7 +62,7 @@ message CFriendMessages_MessageReaction_Notification {
 	optional uint32 server_timestamp = 2;
 	optional uint32 ordinal = 3;
 	optional fixed64 reactor = 4;
-	optional int32 reaction_type = 5 [(description) = "enum"];
+	optional int32 reaction_type = 5 [(.description) = "enum"];
 	optional string reaction = 6;
 	optional bool is_add = 7;
 }
@@ -90,7 +90,7 @@ message CFriendMessages_UpdateMessageReaction_Request {
 	optional fixed64 steamid = 1;
 	optional uint32 server_timestamp = 2;
 	optional uint32 ordinal = 3;
-	optional int32 reaction_type = 4 [(description) = "enum"];
+	optional int32 reaction_type = 4 [(.description) = "enum"];
 	optional string reaction = 5;
 	optional bool is_add = 6;
 }

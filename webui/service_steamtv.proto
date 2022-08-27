@@ -1,5 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
+import "common_base.proto";
 
 message CSteamTV_AddChatBan_Request {
 	optional fixed64 broadcast_channel_id = 1;
@@ -98,7 +97,7 @@ message CSteamTV_GetBroadcastChannelImages_Response {
 }
 
 message CSteamTV_GetBroadcastChannelImages_Response_Images {
-	optional int32 image_type = 1 [(description) = "enum"];
+	optional int32 image_type = 1 [(.description) = "enum"];
 	optional string image_path = 2;
 	optional uint32 image_index = 3;
 }
@@ -195,7 +194,7 @@ message CSteamTV_GetWordBans_Response {
 }
 
 message CSteamTV_HomePageContentRow {
-	optional int32 template_type = 1 [(description) = "enum"];
+	optional int32 template_type = 1 [(.description) = "enum"];
 	optional .CSteamTV_HomePageTemplate_Takeover takeover = 2;
 	optional .CSteamTV_HomePageTemplate_SingleGame single_game = 3;
 	optional .CSteamTV_HomePageTemplate_GameList game_list = 4;

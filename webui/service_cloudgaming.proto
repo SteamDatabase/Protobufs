@@ -1,4 +1,3 @@
-import "steammessages_unified_base.steamclient.proto";
 
 message CCloudGaming_CreateNonce_Request {
 	optional string platform = 1;

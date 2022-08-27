@@ -1,5 +1,5 @@
-import "steammessages_unified_base.steamclient.proto";
 import "common.proto";
+import "common_base.proto";
 
 message CChatMentions {
 	optional bool mention_all = 1;
@@ -254,7 +254,7 @@ message CChatRoom_GetMessageHistory_Response_ChatMessage {
 }
 
 message CChatRoom_GetMessageHistory_Response_ChatMessage_MessageReaction {
-	optional int32 reaction_type = 1 [(description) = "enum"];
+	optional int32 reaction_type = 1 [(.description) = "enum"];
 	optional string reaction = 2;
 	optional uint32 num_reactors = 3;
 	optional bool has_user_reacted = 4;
@@ -265,7 +265,7 @@ message CChatRoom_GetMessageReactionReactors_Request {
 	optional uint64 chat_id = 2;
 	optional uint32 server_timestamp = 3;
 	optional uint32 ordinal = 4;
-	optional int32 reaction_type = 5 [(description) = "enum"];
+	optional int32 reaction_type = 5 [(.description) = "enum"];
 	optional string reaction = 6;
 	optional uint32 limit = 7;
 }
@@ -388,7 +388,7 @@ message CChatRoom_LeaveVoiceChat_Response {
 message CChatRoom_MemberStateChange_Notification {
 	optional uint64 chat_group_id = 1;
 	optional .CChatRoomMember member = 2;
-	optional int32 change = 3 [(description) = "enum"];
+	optional int32 change = 3 [(.description) = "enum"];
 }
 
 message CChatRoom_MessageReaction_Notification {
@@ -397,7 +397,7 @@ message CChatRoom_MessageReaction_Notification {
 	optional uint32 server_timestamp = 3;
 	optional uint32 ordinal = 4;
 	optional fixed64 reactor = 5;
-	optional int32 reaction_type = 6 [(description) = "enum"];
+	optional int32 reaction_type = 6 [(.description) = "enum"];
 	optional string reaction = 7;
 	optional bool is_add = 8;
 }
@@ -584,15 +584,15 @@ message CChatRoom_SetUserChatGroupPreferences_Request {
 }
 
 message CChatRoom_SetUserChatGroupPreferences_Request_ChatGroupPreferences {
-	optional int32 desktop_notification_level = 1 [(description) = "enum"];
-	optional int32 mobile_notification_level = 2 [(description) = "enum"];
+	optional int32 desktop_notification_level = 1 [(.description) = "enum"];
+	optional int32 mobile_notification_level = 2 [(.description) = "enum"];
 	optional bool unread_indicator_muted = 3;
 }
 
 message CChatRoom_SetUserChatGroupPreferences_Request_ChatRoomPreferences {
 	optional uint64 chat_id = 1;
-	optional int32 desktop_notification_level = 2 [(description) = "enum"];
-	optional int32 mobile_notification_level = 3 [(description) = "enum"];
+	optional int32 desktop_notification_level = 2 [(.description) = "enum"];
+	optional int32 mobile_notification_level = 3 [(.description) = "enum"];
 	optional bool unread_indicator_muted = 4;
 }
 
@@ -615,7 +615,7 @@ message CChatRoom_UpdateMessageReaction_Request {
 	optional uint64 chat_id = 2;
 	optional uint32 server_timestamp = 3;
 	optional uint32 ordinal = 4;
-	optional int32 reaction_type = 5 [(description) = "enum"];
+	optional int32 reaction_type = 5 [(.description) = "enum"];
 	optional string reaction = 6;
 	optional bool is_add = 7;
 }
@@ -675,8 +675,8 @@ message CChatRoomGroupState {
 
 message CChatRoomMember {
 	optional uint32 accountid = 1;
-	optional int32 state = 3 [(description) = "enum"];
-	optional int32 rank = 4 [(description) = "enum"];
+	optional int32 state = 3 [(.description) = "enum"];
+	optional int32 rank = 4 [(.description) = "enum"];
 	optional uint32 time_kick_expire = 6;
 	repeated uint64 role_ids = 7;
 }
@@ -704,7 +704,7 @@ message ChatRoomClient_NotifyChatGroupUserStateChanged_Notification {
 	optional uint64 chat_group_id = 1;
 	optional .CUserChatRoomGroupState user_chat_group_state = 2;
 	optional .CChatRoom_GetChatRoomGroupSummary_Response group_summary = 3;
-	optional int32 user_action = 4 [(description) = "enum"];
+	optional int32 user_action = 4 [(.description) = "enum"];
 }
 
 message ChatRoomClient_NotifyChatRoomDisconnect_Notification {
@@ -715,8 +715,8 @@ message CUserChatRoomGroupState {
 	optional uint64 chat_group_id = 1;
 	optional uint32 time_joined = 2;
 	repeated .CUserChatRoomState user_chat_room_state = 3;
-	optional int32 desktop_notification_level = 4 [default = 0, (description) = "enum"];
-	optional int32 mobile_notification_level = 5 [default = 0, (description) = "enum"];
+	optional int32 desktop_notification_level = 4 [default = 0, (.description) = "enum"];
+	optional int32 mobile_notification_level = 5 [default = 0, (.description) = "enum"];
 	optional uint32 time_last_group_ack = 6;
 	optional bool unread_indicator_muted = 7 [default = false];
 }
@@ -725,15 +725,15 @@ message CUserChatRoomState {
 	optional uint64 chat_id = 1;
 	optional uint32 time_joined = 2;
 	optional uint32 time_last_ack = 3;
-	optional int32 desktop_notification_level = 4 [default = 0, (description) = "enum"];
-	optional int32 mobile_notification_level = 5 [default = 0, (description) = "enum"];
+	optional int32 desktop_notification_level = 4 [default = 0, (.description) = "enum"];
+	optional int32 mobile_notification_level = 5 [default = 0, (.description) = "enum"];
 	optional uint32 time_last_mention = 6;
 	optional bool unread_indicator_muted = 7 [default = false];
 	optional uint32 time_first_unread = 8;
 }
 
 message ServerMessage {
-	optional int32 message = 1 [(description) = "enum"];
+	optional int32 message = 1 [(.description) = "enum"];
 	optional string string_param = 2;
 	optional uint32 accountid_param = 3;
 }

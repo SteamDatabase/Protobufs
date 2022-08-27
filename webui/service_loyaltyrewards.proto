@@ -1,8 +1,8 @@
-import "steammessages_unified_base.steamclient.proto";
+import "common_base.proto";
 import "common.proto";
 
 message CLoyaltyRewards_AddReaction_Request {
-	optional int32 target_type = 1 [(description) = "enum"];
+	optional int32 target_type = 1 [(.description) = "enum"];
 	optional uint64 targetid = 2;
 	optional uint32 reactionid = 3;
 }
@@ -59,8 +59,8 @@ message CLoyaltyRewards_GetProfileCustomizationsConfig_Request {
 message CLoyaltyRewards_GetProfileCustomizationsConfig_Response {
 	optional uint32 points_cost = 1;
 	optional uint32 upgrade_points_cost = 2;
-	repeated int32 purchasable_customization_types = 3 [(description) = "enum"];
-	repeated int32 upgradable_customization_types = 4 [(description) = "enum"];
+	repeated int32 purchasable_customization_types = 3 [(.description) = "enum"];
+	repeated int32 upgradable_customization_types = 4 [(.description) = "enum"];
 	optional uint32 max_slots_per_type = 5;
 	optional uint32 max_upgradable_level = 6;
 }
@@ -73,15 +73,15 @@ message CLoyaltyRewards_GetReactionConfig_Response {
 }
 
 message CLoyaltyRewards_GetReactionConfig_Response_ReactionConfig {
-	optional int32 reactionid = 1 [(description) = "enum"];
+	optional int32 reactionid = 1 [(.description) = "enum"];
 	optional uint32 points_cost = 2;
 	optional uint32 points_transferred = 3;
-	repeated int32 valid_target_types = 4 [(description) = "enum"];
+	repeated int32 valid_target_types = 4 [(.description) = "enum"];
 	repeated uint32 valid_ugc_types = 5;
 }
 
 message CLoyaltyRewards_GetReactions_Request {
-	optional int32 target_type = 1 [(description) = "enum"];
+	optional int32 target_type = 1 [(.description) = "enum"];
 	optional uint64 targetid = 2;
 }
 
@@ -111,7 +111,7 @@ message CLoyaltyRewards_GetReactionsSummaryForUser_Response {
 }
 
 message CLoyaltyRewards_GetReactionsSummaryForUser_Response_Breakdown {
-	optional int32 reactionid = 1 [(description) = "enum"];
+	optional int32 reactionid = 1 [(.description) = "enum"];
 	optional uint32 given = 2;
 	optional uint32 received = 3;
 	optional int64 points_given = 4;
@@ -141,12 +141,12 @@ message CLoyaltyRewards_QueryRewardItems_Request {
 	optional string language = 4;
 	optional int32 count = 5;
 	optional string cursor = 6;
-	optional int32 sort = 7 [default = 1, (description) = "enum"];
+	optional int32 sort = 7 [default = 1, (.description) = "enum"];
 	optional bool sort_descending = 8 [default = true];
-	repeated int32 reward_types = 9 [(description) = "enum"];
+	repeated int32 reward_types = 9 [(.description) = "enum"];
 	repeated int32 excluded_community_item_classes = 10;
 	repeated uint32 definitionids = 11;
-	repeated int32 filters = 12 [(description) = "enum"];
+	repeated int32 filters = 12 [(.description) = "enum"];
 	repeated string filter_match_all_category_tags = 13;
 	repeated string filter_match_any_category_tags = 14;
 	repeated uint32 contains_definitionids = 15;
@@ -178,7 +178,7 @@ message CLoyaltyRewards_RedeemPointsForBadgeLevel_Request {
 }
 
 message CLoyaltyRewards_RedeemPointsForProfileCustomization_Request {
-	optional int32 customization_type = 1 [(description) = "enum"];
+	optional int32 customization_type = 1 [(.description) = "enum"];
 }
 
 message CLoyaltyRewards_RedeemPointsForProfileCustomization_Response {
@@ -186,7 +186,7 @@ message CLoyaltyRewards_RedeemPointsForProfileCustomization_Response {
 }
 
 message CLoyaltyRewards_RedeemPointsForProfileCustomizationUpgrade_Request {
-	optional int32 customization_type = 1 [(description) = "enum"];
+	optional int32 customization_type = 1 [(.description) = "enum"];
 	optional uint32 new_level = 2;
 }
 

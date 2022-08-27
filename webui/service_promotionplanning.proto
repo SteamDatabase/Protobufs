@@ -1,5 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
+import "common_base.proto";
 
 message CPromotionPlan {
 	optional fixed64 promotion_id = 1;

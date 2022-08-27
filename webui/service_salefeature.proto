@@ -1,4 +1,3 @@
-import "steammessages_unified_base.steamclient.proto";
 
 message CGamePlaytimeStats {
 	optional uint32 appid = 1;

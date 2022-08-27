@@ -1,4 +1,3 @@
-import "steammessages_unified_base.steamclient.proto";
 
 message CMobileApp_GetMobileSummary_Request {
 	optional fixed64 authenticator_gid = 1;

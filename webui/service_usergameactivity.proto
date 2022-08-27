@@ -1,8 +1,8 @@
-import "steammessages_unified_base.steamclient.proto";
+import "common_base.proto";
 
 message CUserGameActivity_Event {
 	optional uint32 timestamp = 2;
-	optional int32 event_type = 3 [(description) = "enum"];
+	optional int32 event_type = 3 [(.description) = "enum"];
 	optional uint32 event_sub_type = 4;
 	optional int64 data1 = 5;
 	optional int64 data2 = 6;

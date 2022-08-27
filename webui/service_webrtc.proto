@@ -1,4 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
+import "common_base.proto";
 
 message CWebRTC_WebRTCSessionConnected_Notification {
 	optional uint32 ssrc = 1;

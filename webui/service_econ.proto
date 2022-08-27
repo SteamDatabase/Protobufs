@@ -1,4 +1,3 @@
-import "steammessages_unified_base.steamclient.proto";
 
 message CEcon_Asset {
 	optional uint32 appid = 1;

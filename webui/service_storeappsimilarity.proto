@@ -1,9 +1,8 @@
-import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
+import "common_base.proto";
 
 message CStoreAppSimilarity_IdentifyClustersFromPlaytime_Request {
 	optional fixed64 steamid = 1;
-	optional int32 sort = 2 [default = 1, (description) = "enum"];
+	optional int32 sort = 2 [default = 1, (.description) = "enum"];
 	optional int32 clusters_to_return = 3;
 	optional int32 cluster_index = 4;
 	//optional UNKNOWN context = 10;

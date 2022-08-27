@@ -1,5 +1,4 @@
-import "steammessages_unified_base.steamclient.proto";
-import "common.proto";
+import "common_base.proto";
 
 message CBroadcast_BeginBroadcastSession_Request {
 	optional int32 permission = 1;
@@ -45,7 +44,7 @@ message CBroadcast_BroadcastUploadStarted_Notification {
 
 message CBroadcast_BroadcastViewerState_Notification {
 	optional fixed64 steamid = 1;
-	optional int32 state = 2 [(description) = "enum"];
+	optional int32 state = 2 [(.description) = "enum"];
 }
 
 message CBroadcast_EndBroadcastSession_Request {
@@ -207,7 +206,7 @@ message CBroadcast_GetRTMPInfo_Response {
 	optional int32 broadcast_delay = 4;
 	optional uint32 app_id = 5;
 	optional uint32 required_app_id = 6;
-	optional int32 broadcast_chat_permission = 7 [(description) = "enum"];
+	optional int32 broadcast_chat_permission = 7 [(.description) = "enum"];
 	optional int32 broadcast_buffer = 8;
 	optional fixed64 steamid = 9;
 	optional uint32 chat_rate_limit = 10;
@@ -301,7 +300,7 @@ message CBroadcast_SetRTMPInfo_Request {
 	optional int32 broadcast_delay = 3;
 	optional uint32 app_id = 4;
 	optional uint32 required_app_id = 5;
-	optional int32 broadcast_chat_permission = 6 [(description) = "enum"];
+	optional int32 broadcast_chat_permission = 6 [(.description) = "enum"];
 	optional int32 broadcast_buffer = 7;
 	optional fixed64 steamid = 8;
 	optional uint32 chat_rate_limit = 9;
@@ -380,12 +379,12 @@ message CBroadcast_WatchBroadcast_Request {
 	optional fixed64 viewer_token = 3;
 	optional uint32 client_ip = 4;
 	optional uint32 client_cell = 5;
-	optional int32 watch_location = 6 [(description) = "enum"];
+	optional int32 watch_location = 6 [(.description) = "enum"];
 	optional bool is_webrtc = 7;
 }
 
 message CBroadcast_WatchBroadcast_Response {
-	optional int32 response = 1 [(description) = "enum"];
+	optional int32 response = 1 [(.description) = "enum"];
 	optional string mpd_url = 2;
 	optional fixed64 broadcast_id = 3;
 	optional uint64 gameid = 4;

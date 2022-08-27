@@ -1,4 +1,3 @@
-import "steammessages_unified_base.steamclient.proto";
 
 message CRemoveAuthenticatorViaChallengeContinue_Replacement_Token {
 	optional bytes shared_secret = 1;
