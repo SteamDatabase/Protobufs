@@ -4662,6 +4662,7 @@ message StoreItem_ReleaseInfo {
 	optional bool is_preload = 5;
 	optional string custom_release_date_message = 6;
 	optional bool is_abridged_release_date = 7;
+	optional string coming_soon_display = 8;
 	optional bool is_early_access = 10;
 	optional uint32 mac_release_date = 20;
 	optional uint32 linux_release_date = 21;

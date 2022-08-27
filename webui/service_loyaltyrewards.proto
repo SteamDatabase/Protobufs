@@ -106,8 +106,8 @@ message CLoyaltyRewards_GetReactionsSummaryForUser_Response {
 	//optional uint32 total_given = 7;
 	optional int64 total_points_received = 8;
 	//optional uint32 total_received = 8;
-	optional int64 total_points_given = 9;
-	optional int64 total_points_received = 10;
+	optional int64 total_points_given__field_9 = 9;
+	optional int64 total_points_received__field_10 = 10;
 }
 
 message CLoyaltyRewards_GetReactionsSummaryForUser_Response_Breakdown {
