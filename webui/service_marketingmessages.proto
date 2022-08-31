@@ -53,6 +53,13 @@ message CMarketingMessages_DeleteMarketingMessage_Request {
 message CMarketingMessages_DeleteMarketingMessage_Response {
 }
 
+message CMarketingMessages_DoesUserHavePendingMarketingMessages_Request {
+	optional string country_code = 2;
+	optional int32 elanguage = 3;
+	optional int32 operating_system = 4;
+	optional int32 client_package_version = 5;
+}
+
 message CMarketingMessages_DoesUserHavePendingMarketingMessages_Response {
 	optional bool has_pending_messages = 1;
 	optional int32 pending_message_count = 2;
@@ -131,7 +138,7 @@ message CMarketingMessages_UpdateMarketingMessage_Response {
 service MarketingMessages {
 	rpc CreateMarketingMessage (.CMarketingMessages_CreateMarketingMessage_Request) returns (.CMarketingMessages_CreateMarketingMessage_Response);
 	rpc DeleteMarketingMessage (.CMarketingMessages_DeleteMarketingMessage_Request) returns (.CMarketingMessages_DeleteMarketingMessage_Response);
-	rpc DoesUserHavePendingMarketingMessages (.NotImplemented) returns (.CMarketingMessages_DoesUserHavePendingMarketingMessages_Response);
+	rpc DoesUserHavePendingMarketingMessages (.CMarketingMessages_DoesUserHavePendingMarketingMessages_Request) returns (.CMarketingMessages_DoesUserHavePendingMarketingMessages_Response);
 	rpc FindMarketingMessages (.CMarketingMessages_FindMarketingMessages_Request) returns (.CMarketingMessages_FindMarketingMessages_Response);
 	rpc GetActiveMarketingMessages (.CMarketingMessages_GetActiveMarketingMessages_Request) returns (.CMarketingMessages_GetActiveMarketingMessages_Response);
 	rpc GetDisplayMarketingMessage (.CMarketingMessages_GetDisplayMarketingMessage_Request) returns (.CMarketingMessages_GetDisplayMarketingMessage_Response);
