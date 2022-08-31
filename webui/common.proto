@@ -4602,6 +4602,7 @@ message StoreItem_Platforms {
 	optional bool windows = 1;
 	optional bool mac = 2;
 	optional bool linux = 3;
+	//optional bool steamos_linux = 3;
 	optional .StoreItem_Platforms_VRSupport vr_support = 10;
 	optional int32 steam_deck_compat_category = 11 [(.description) = "enum"];
 }

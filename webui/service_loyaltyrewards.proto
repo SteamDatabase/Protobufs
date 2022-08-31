@@ -44,6 +44,17 @@ message CLoyaltyRewards_GetEligibleApps_Response_EligibleApp {
 	optional string hero_carousel_image = 4;
 }
 
+message CLoyaltyRewards_GetEquippedProfileItems_Request {
+	optional fixed64 steamid = 1;
+	optional string language = 2;
+}
+
+message CLoyaltyRewards_GetEquippedProfileItems_Response {
+	repeated .LoyaltyRewardDefinition active_definitions = 1;
+	repeated .LoyaltyRewardDefinition inactive_definitions = 2;
+	repeated .LoyaltyRewardDefinition bundle_definitions = 3;
+}
+
 message CLoyaltyRewards_GetPointsForSpend_Request {
 	optional int64 amount = 1;
 	optional uint32 ecurrency = 2;
@@ -222,6 +233,7 @@ service LoyaltyRewards {
 	rpc BatchedQueryRewardItems (.CLoyaltyRewards_BatchedQueryRewardItems_Request) returns (.CLoyaltyRewards_BatchedQueryRewardItems_Response);
 	rpc GetActivePurchaseBonuses (.CLoyaltyRewards_GetActivePurchaseBonuses_Request) returns (.CLoyaltyRewards_GetActivePurchaseBonuses_Response);
 	rpc GetEligibleApps (.CLoyaltyRewards_GetEligibleApps_Request) returns (.CLoyaltyRewards_GetEligibleApps_Response);
+	rpc GetEquippedProfileItems (.CLoyaltyRewards_GetEquippedProfileItems_Request) returns (.CLoyaltyRewards_GetEquippedProfileItems_Response);
 	rpc GetPointsForSpend (.CLoyaltyRewards_GetPointsForSpend_Request) returns (.CLoyaltyRewards_GetPointsForSpend_Response);
 	rpc GetProfileCustomizationsConfig (.CLoyaltyRewards_GetProfileCustomizationsConfig_Request) returns (.CLoyaltyRewards_GetProfileCustomizationsConfig_Response);
 	rpc GetReactionConfig (.CLoyaltyRewards_GetReactionConfig_Request) returns (.CLoyaltyRewards_GetReactionConfig_Response);

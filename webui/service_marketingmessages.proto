@@ -53,6 +53,11 @@ message CMarketingMessages_DeleteMarketingMessage_Request {
 message CMarketingMessages_DeleteMarketingMessage_Response {
 }
 
+message CMarketingMessages_DoesUserHavePendingMarketingMessages_Response {
+	optional bool has_pending_messages = 1;
+	optional int32 pending_message_count = 2;
+}
+
 message CMarketingMessages_FindMarketingMessages_Request {
 	optional int32 lookup_type = 1 [(.description) = "enum"];
 	optional fixed64 gid = 2;
@@ -126,6 +131,7 @@ message CMarketingMessages_UpdateMarketingMessage_Response {
 service MarketingMessages {
 	rpc CreateMarketingMessage (.CMarketingMessages_CreateMarketingMessage_Request) returns (.CMarketingMessages_CreateMarketingMessage_Response);
 	rpc DeleteMarketingMessage (.CMarketingMessages_DeleteMarketingMessage_Request) returns (.CMarketingMessages_DeleteMarketingMessage_Response);
+	rpc DoesUserHavePendingMarketingMessages (.NotImplemented) returns (.CMarketingMessages_DoesUserHavePendingMarketingMessages_Response);
 	rpc FindMarketingMessages (.CMarketingMessages_FindMarketingMessages_Request) returns (.CMarketingMessages_FindMarketingMessages_Response);
 	rpc GetActiveMarketingMessages (.CMarketingMessages_GetActiveMarketingMessages_Request) returns (.CMarketingMessages_GetActiveMarketingMessages_Response);
 	rpc GetDisplayMarketingMessage (.CMarketingMessages_GetDisplayMarketingMessage_Request) returns (.CMarketingMessages_GetDisplayMarketingMessage_Response);
