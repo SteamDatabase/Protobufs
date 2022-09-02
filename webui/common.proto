@@ -3281,6 +3281,8 @@ message CMsgControllerSourceGroup {
 	repeated .CMsgControllerSetting settings = 4;
 	optional uint32 modeid = 5;
 	optional .CMsgControllerSourceGroup mode_shift_source_group = 6;
+	//optional bool mode_shift = 6;
+	optional .CMsgControllerSourceGroup mode_shift_source_group__field_7 = 7;
 }
 
 // Used by: common.proto
