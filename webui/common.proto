@@ -91,7 +91,7 @@ message CAppOverview_PerClientData {
 	optional int32 cloud_status = 13 [(.description) = "enum"];
 }
 
-message CAuthenticationSupport_QueryRefreshTokenByID_Response {
+message CAuthenticationSupportByAccount_QueryRefreshTokenByID_Response {
 	repeated .CSupportRefreshTokenDescription refresh_tokens = 1;
 }
 
@@ -3260,6 +3260,7 @@ message CMsgControllerMode {
 	optional string friendlyname = 6;
 	optional int32 source = 7 [(.description) = "enum"];
 	optional .CMsgControllerVirtualMenuPreviewInfo virtual_menu_info = 8;
+	optional bool mode_shift = 9;
 }
 
 // Used by: common.proto
@@ -3860,6 +3861,14 @@ message CMsgSetControllerSourceMode {
 	optional bool change_mode = 10;
 	optional bool new_virtual_menu = 11;
 	optional bool enable_virtual_menu_support = 12;
+}
+
+message CMsgSetModeShiftButton {
+	optional string action_set_key = 1;
+	optional string action_set_layer_key = 2;
+	optional int32 modeid = 3;
+	optional int32 source = 4 [(.description) = "enum"];
+	optional int32 digital_io = 5 [(.description) = "enum"];
 }
 
 // Used by: common.proto
