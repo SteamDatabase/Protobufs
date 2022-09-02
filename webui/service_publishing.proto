@@ -19,6 +19,7 @@ message CPartnerAppOptInData {
 	optional bool additional_featuring = 16;
 	optional uint32 feature_day = 17;
 	optional uint32 accountid_invited = 18;
+	optional bool no_planned_discount = 19;
 }
 
 message CPartnerAppOptInEmailDef {
