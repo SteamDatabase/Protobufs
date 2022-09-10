@@ -110,6 +110,32 @@ message CAuthentication_PollAuthSessionStatus_Response {
 	optional string account_name = 6;
 }
 
+message CAuthentication_RefreshToken_Enumerate_Request {
+}
+
+message CAuthentication_RefreshToken_Enumerate_Response {
+	repeated .CAuthentication_RefreshToken_Enumerate_Response_RefreshTokenDescription refresh_tokens = 1;
+	optional fixed64 requesting_token = 2;
+}
+
+message CAuthentication_RefreshToken_Enumerate_Response_RefreshTokenDescription {
+	optional fixed64 token_id = 1;
+	optional string token_description = 2;
+	optional uint32 time_updated = 3;
+	optional int32 platform_type = 4 [(.description) = "enum"];
+	optional bool logged_in = 5;
+}
+
+message CAuthentication_RefreshToken_Revoke_Request {
+	optional fixed64 token_id = 1;
+	optional fixed64 steamid = 2;
+	optional int32 revoke_action = 3 [(.description) = "enum"];
+	optional bytes signature = 4;
+}
+
+message CAuthentication_RefreshToken_Revoke_Response {
+}
+
 message CAuthentication_UpdateAuthSessionWithMobileConfirmation_Request {
 	optional int32 version = 1;
 	optional uint64 client_id = 2;
@@ -135,12 +161,14 @@ message CAuthentication_UpdateAuthSessionWithSteamGuardCode_Response {
 service Authentication {
 	rpc BeginAuthSessionViaCredentials (.CAuthentication_BeginAuthSessionViaCredentials_Request) returns (.CAuthentication_BeginAuthSessionViaCredentials_Response);
 	rpc BeginAuthSessionViaQR (.CAuthentication_BeginAuthSessionViaQR_Request) returns (.CAuthentication_BeginAuthSessionViaQR_Response);
+	rpc EnumerateTokens (.CAuthentication_RefreshToken_Enumerate_Request) returns (.CAuthentication_RefreshToken_Enumerate_Response);
 	rpc GenerateAccessTokenForApp (.CAuthentication_AccessToken_GenerateForApp_Request) returns (.CAuthentication_AccessToken_GenerateForApp_Response);
 	rpc GetAuthSessionInfo (.CAuthentication_GetAuthSessionInfo_Request) returns (.CAuthentication_GetAuthSessionInfo_Response);
 	rpc GetAuthSessionsForAccount (.CAuthentication_GetAuthSessionsForAccount_Request) returns (.CAuthentication_GetAuthSessionsForAccount_Response);
 	rpc GetPasswordRSAPublicKey (.CAuthentication_GetPasswordRSAPublicKey_Request) returns (.CAuthentication_GetPasswordRSAPublicKey_Response);
 	rpc MigrateMobileSession (.CAuthentication_MigrateMobileSession_Request) returns (.CAuthentication_MigrateMobileSession_Response);
 	rpc PollAuthSessionStatus (.CAuthentication_PollAuthSessionStatus_Request) returns (.CAuthentication_PollAuthSessionStatus_Response);
+	rpc RevokeRefreshToken (.CAuthentication_RefreshToken_Revoke_Request) returns (.CAuthentication_RefreshToken_Revoke_Response);
 	rpc UpdateAuthSessionWithMobileConfirmation (.CAuthentication_UpdateAuthSessionWithMobileConfirmation_Request) returns (.CAuthentication_UpdateAuthSessionWithMobileConfirmation_Response);
 	rpc UpdateAuthSessionWithSteamGuardCode (.CAuthentication_UpdateAuthSessionWithSteamGuardCode_Request) returns (.CAuthentication_UpdateAuthSessionWithSteamGuardCode_Response);
 }
