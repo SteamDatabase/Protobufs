@@ -24,6 +24,15 @@ message CPromotionEventInvites_GetAllActiveInvites_Response {
 	repeated .CPromotionEventInvitation invites = 1;
 }
 
+message CPromotionEventInvites_GetInvite_Request {
+	optional fixed64 inviteid = 1;
+	optional uint32 appid = 2;
+	optional uint32 packageid = 3;
+	optional uint32 bundleid = 4;
+	optional uint32 partnerid = 5;
+	optional string promotion_id = 6;
+}
+
 message CPromotionEventInvites_GetInvite_Response {
 	repeated .CPromotionEventInvitation invites = 1;
 }
@@ -43,7 +52,7 @@ message CPromotionRequirements {
 
 service PromotionEventInvites {
 	rpc GetAllActiveInvites (.NotImplemented) returns (.CPromotionEventInvites_GetAllActiveInvites_Response);
-	rpc GetInvite (.NotImplemented) returns (.CPromotionEventInvites_GetInvite_Response);
+	rpc GetInvite (.CPromotionEventInvites_GetInvite_Request) returns (.CPromotionEventInvites_GetInvite_Response);
 	rpc ResendEmailInvite (.NotImplemented) returns (.CPromotionEventInvites_ResendEmailInvite_Response);
 	rpc SetInvite (.NotImplemented) returns (.CPromotionEventInvites_SetInvite_Response);
 }

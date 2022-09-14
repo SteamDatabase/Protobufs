@@ -3622,7 +3622,7 @@ message CMsgGSUserPlaying {
 	optional .CMsgIPAddress public_ip = 4;
 }
 
-// Used by: AuthenticationSupport, Community, common.proto
+// Used by: Authentication, AuthenticationSupport, Community, common.proto
 message CMsgIPAddress {
 	optional fixed32 v4 = 1;
 	optional bytes v6 = 2;
