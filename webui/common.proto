@@ -3534,6 +3534,12 @@ message CMsgGCClient {
 	optional uint32 ip = 6;
 }
 
+// Used by: common.proto
+message CMsgGCRoutingProtoBufHeader {
+	optional uint64 dst_gcid_queue = 1;
+	optional uint32 dst_gc_dir_index = 2;
+}
+
 message CMsgGMSClientServerQueryResponse {
 	repeated .CMsgGMSClientServerQueryResponse_Server servers = 1;
 	optional string error = 2;
@@ -3797,6 +3803,9 @@ message CMsgProtoBufHeader {
 	optional uint32 realm = 32 [default = 0];
 	optional int32 timeout_ms = 33 [default = -1];
 	optional string debug_source = 34;
+	optional uint32 debug_source_string_index = 35;
+	optional uint64 token_id = 36;
+	optional .CMsgGCRoutingProtoBufHeader routing_gc = 37;
 }
 
 message CMsgProtobufWrapped {

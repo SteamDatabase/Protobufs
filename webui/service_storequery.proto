@@ -74,6 +74,7 @@ message CStoreQueryParams {
 message CStoreQueryPerResultMetadata {
 	optional .StoreItemID id = 1;
 	optional double score = 2;
+	optional bool spellcheck_generated_result = 3;
 }
 
 message CStoreQueryResultMetadata {
@@ -81,6 +82,7 @@ message CStoreQueryResultMetadata {
 	optional int32 start = 2;
 	optional int32 count = 3;
 	repeated .CStoreQueryPerResultMetadata per_result_metadata = 4;
+	repeated string spellcheck_suggestions = 5;
 }
 
 service StoreQuery {

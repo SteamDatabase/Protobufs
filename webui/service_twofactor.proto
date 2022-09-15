@@ -128,6 +128,7 @@ message CTwoFactor_Status_Response {
 	optional string classified_agent = 11;
 	optional bool allow_external_authenticator = 12;
 	optional uint32 time_transferred = 13;
+	optional uint32 version = 14;
 }
 
 message CTwoFactor_UpdateTokenVersion_Request {
