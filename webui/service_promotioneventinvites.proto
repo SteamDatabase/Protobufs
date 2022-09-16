@@ -57,6 +57,11 @@ message CPromotionEventInvites_GetInvite_Response {
 message CPromotionEventInvites_ResendEmailInvite_Response {
 }
 
+message CPromotionEventInvites_SetInvite_Request {
+	optional .CPromotionEventInvitation invite = 1;
+	optional bool queue_email_to_send = 2;
+}
+
 message CPromotionEventInvites_SetInvite_Response {
 	optional fixed64 inviteid = 1;
 }
@@ -72,6 +77,6 @@ service PromotionEventInvites {
 	rpc GetEmailTargets (.CPromotionEventInvites_GetEmailTargets_Request) returns (.CPromotionEventInvites_GetEmailTargets_Response);
 	rpc GetInvite (.CPromotionEventInvites_GetInvite_Request) returns (.CPromotionEventInvites_GetInvite_Response);
 	rpc ResendEmailInvite (.NotImplemented) returns (.CPromotionEventInvites_ResendEmailInvite_Response);
-	rpc SetInvite (.NotImplemented) returns (.CPromotionEventInvites_SetInvite_Response);
+	rpc SetInvite (.CPromotionEventInvites_SetInvite_Request) returns (.CPromotionEventInvites_SetInvite_Response);
 }
 
