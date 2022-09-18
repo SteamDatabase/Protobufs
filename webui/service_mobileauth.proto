@@ -3,6 +3,14 @@ message CMobileAuth_MigrateMobileSession_Request {
 	optional fixed64 steamid = 1;
 	optional string token = 2;
 	optional bytes signature = 3;
+	optional .CMobileAuth_MigrateMobileSession_Request_DeviceDetails device_details = 4;
+}
+
+message CMobileAuth_MigrateMobileSession_Request_DeviceDetails {
+	optional string device_friendly_name = 1;
+	optional uint32 platform_type = 2;
+	optional int32 os_type = 3;
+	optional uint32 gaming_device_type = 4;
 }
 
 message CMobileAuth_MigrateMobileSession_Response {

@@ -1,0 +1,145 @@
+
+message CClientComm_ClientData {
+	optional uint32 package_version = 1;
+	optional string os = 2;
+	optional string machine_name = 3;
+	optional string ip_public = 4;
+	optional string ip_private = 5;
+	optional uint64 bytes_available = 6;
+	repeated .CClientComm_ClientData_RunningGames running_games = 7;
+	optional uint32 protocol_version = 8;
+	optional uint32 clientcomm_version = 9;
+}
+
+message CClientComm_ClientData_RunningGames {
+	optional uint32 appid = 1;
+	optional string extra_info = 2;
+	optional uint32 time_running_sec = 3;
+}
+
+message CClientComm_EnableOrDisableDownloads_Request {
+	optional uint64 client_instanceid = 1;
+	optional bool enable = 2;
+}
+
+message CClientComm_EnableOrDisableDownloads_Response {
+}
+
+message CClientComm_GetAllClientLogonInfo_Request {
+}
+
+message CClientComm_GetAllClientLogonInfo_Response {
+	repeated .CClientComm_GetAllClientLogonInfo_Response_Session sessions = 1;
+}
+
+message CClientComm_GetAllClientLogonInfo_Response_Session {
+	optional uint64 client_instanceid = 1;
+	optional uint32 protocol_version = 2;
+	optional string os_name = 3;
+	optional string machine_name = 4;
+	optional int32 os_type = 5;
+	optional int32 device_type = 6;
+	optional int32 realm = 7;
+}
+
+message CClientComm_GetClientAppList_Request {
+	optional string fields = 1;
+	optional string filters = 2;
+	optional uint64 client_instanceid = 3;
+	optional bool include_client_info = 4;
+	optional string language = 5;
+}
+
+message CClientComm_GetClientAppList_Response {
+	optional uint64 bytes_available = 1;
+	repeated .CClientComm_GetClientAppList_Response_AppData apps = 2;
+	optional .CClientComm_ClientData client_info = 3;
+}
+
+message CClientComm_GetClientAppList_Response_AppData {
+	optional uint32 appid = 1;
+	optional string app = 2;
+	optional string category = 3;
+	optional string app_type = 4;
+	optional uint32 num_downloading = 8;
+	optional uint32 num_paused = 10;
+	optional uint32 bytes_download_rate = 11;
+	optional uint64 bytes_downloaded = 12;
+	optional uint64 bytes_to_download = 13;
+	repeated .CClientComm_GetClientAppList_Response_AppData_DLCData dlcs = 17;
+	optional bool favorite = 18;
+	optional bool auto_update = 19;
+	optional bool installed = 20;
+	optional bool download_paused = 21;
+	optional bool changing = 22;
+	optional bool available_on_platform = 23;
+	optional uint64 bytes_staged = 24;
+	optional uint64 bytes_to_stage = 25;
+	optional uint64 bytes_required = 26;
+	optional uint32 source_buildid = 27;
+	optional uint32 target_buildid = 28;
+	optional uint32 estimated_seconds_remaining = 29;
+	optional int32 queue_position = 30 [default = -1];
+	optional bool uninstalling = 31;
+}
+
+message CClientComm_GetClientAppList_Response_AppData_DLCData {
+	optional uint32 appid = 1;
+	optional string app = 2;
+	optional uint32 installed = 3;
+}
+
+message CClientComm_GetClientInfo_Request {
+	optional uint64 client_instanceid = 1;
+}
+
+message CClientComm_GetClientInfo_Response {
+	optional .CClientComm_ClientData client_info = 1;
+}
+
+message CClientComm_GetClientLogonInfo_Request {
+	optional uint64 client_instanceid = 1;
+}
+
+message CClientComm_GetClientLogonInfo_Response {
+	optional uint32 protocol_version = 1;
+	optional string os = 2;
+	optional string machine_name = 3;
+}
+
+message CClientComm_InstallClientApp_Request {
+	optional uint32 appid = 1;
+	optional uint64 client_instanceid = 2;
+}
+
+message CClientComm_InstallClientApp_Response {
+}
+
+message CClientComm_SetClientAppUpdateState_Request {
+	optional uint32 appid = 1;
+	optional uint32 action = 2;
+	optional uint64 client_instanceid = 3;
+}
+
+message CClientComm_SetClientAppUpdateState_Response {
+}
+
+message CClientComm_UninstallClientApp_Request {
+	optional uint32 appid = 1;
+	optional uint64 client_instanceid = 2;
+}
+
+message CClientComm_UninstallClientApp_Response {
+}
+
+service ClientComm {
+	rpc EnableOrDisableDownloads (.CClientComm_EnableOrDisableDownloads_Request) returns (.CClientComm_EnableOrDisableDownloads_Response);
+	rpc GetAllClientLogonInfo (.CClientComm_GetAllClientLogonInfo_Request) returns (.CClientComm_GetAllClientLogonInfo_Response);
+	rpc GetClientAppList (.CClientComm_GetClientAppList_Request) returns (.CClientComm_GetClientAppList_Response);
+	rpc GetClientInfo (.CClientComm_GetClientInfo_Request) returns (.CClientComm_GetClientInfo_Response);
+	rpc GetClientLogonInfo (.CClientComm_GetClientLogonInfo_Request) returns (.CClientComm_GetClientLogonInfo_Response);
+	rpc InstallClientApp (.CClientComm_InstallClientApp_Request) returns (.CClientComm_InstallClientApp_Response);
+	rpc SetClientAppUpdateState (.CClientComm_SetClientAppUpdateState_Request) returns (.CClientComm_SetClientAppUpdateState_Response);
+	rpc UninstallClientApp (.CClientComm_UninstallClientApp_Request) returns (.CClientComm_UninstallClientApp_Response);
+}
+
