@@ -1,4 +1,5 @@
 import "common.proto";
+import "common_base.proto";
 
 message CAuthenticationSupport_GetTokenHistory_Request {
 	optional fixed64 token_id = 1;
@@ -37,6 +38,15 @@ message CSupportRefreshTokenAudit {
 	optional uint32 time = 2;
 	optional .CMsgIPAddress ip = 3;
 	optional fixed64 actor = 4;
+}
+
+message CSupportRefreshTokenDescription {
+	optional fixed64 token_id = 1;
+	optional string token_description = 2;
+	optional uint32 time_updated = 3;
+	optional int32 platform_type = 4 [(.description) = "enum"];
+	optional int32 token_state = 5 [(.description) = "enum"];
+	optional fixed64 owner_steamid = 6;
 }
 
 service AuthenticationSupport {
