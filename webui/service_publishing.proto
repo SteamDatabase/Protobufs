@@ -20,6 +20,7 @@ message CPartnerAppOptInData {
 	optional uint32 feature_day = 17;
 	optional uint32 accountid_invited = 18;
 	optional bool no_planned_discount = 19;
+	optional uint32 pending_review = 20;
 }
 
 message CPartnerAppOptInEmailDef {
@@ -114,6 +115,16 @@ message CPublishing_SendPartnerAppOptInEmailAndWait_Response {
 	optional .CPartnerAppOptInEmailStats results = 1;
 }
 
+message CPublishing_SetFeaturingOnPartnerAppOptIn_Request {
+	repeated uint32 appids = 1;
+	optional bool additional_featuring = 2 [default = true];
+	optional string opt_in_name = 3;
+}
+
+message CPublishing_SetFeaturingOnPartnerAppOptIn_Response {
+	repeated uint32 appids = 1;
+}
+
 message CPublishing_TestFirePartnerAppOptInEmail_Request {
 	optional fixed64 email_def_id = 1;
 	optional uint32 appid = 2;
@@ -144,6 +155,7 @@ service Publishing {
 	rpc GetPartnerOptInInvites (.NotImplemented) returns (.CPublishing_GetPartnerOptInInvites_Response);
 	rpc GetSinglePartnerAppOptIn (.NotImplemented) returns (.CPublishing_GetSinglePartnerAppOptIns_Response);
 	rpc SendPartnerOptInEmailAndWait (.CPublishing_SendPartnerAppOptInEmailAndWait_Request) returns (.CPublishing_SendPartnerAppOptInEmailAndWait_Response);
+	rpc SetFeaturingOnPartnerAppOptIn (.CPublishing_SetFeaturingOnPartnerAppOptIn_Request) returns (.CPublishing_SetFeaturingOnPartnerAppOptIn_Response);
 	rpc TestFirePartnerAppOptInEmail (.CPublishing_TestFirePartnerAppOptInEmail_Request) returns (.CPublishing_TestFirePartnerAppOptInEmail_Response);
 	rpc UpdatePartnerAppOptInEmails (.CPublishing_UpdatePartnerAppOptInEmail_Request) returns (.CPublishing_UpdatePartnerAppOptInEmail_Response);
 }
