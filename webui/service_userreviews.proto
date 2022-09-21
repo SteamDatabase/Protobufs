@@ -83,6 +83,8 @@ message RecommendationDetails {
 	optional int32 account_score_spend = 39;
 	repeated .CUserReviews_Recommendation_LoyaltyReaction reactions = 40;
 	optional string ipaddress = 41;
+	optional bool hidden_in_steam_china = 42;
+	optional string steam_china_location = 43;
 }
 
 service UserReviews {
