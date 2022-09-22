@@ -1,0 +1,42 @@
+
+message CStoreTopSellers_GetCountryList_Request {
+	optional string language = 1;
+}
+
+message CStoreTopSellers_GetCountryList_Response {
+	repeated .CStoreTopSellers_GetCountryList_Response_Country countries = 1;
+}
+
+message CStoreTopSellers_GetCountryList_Response_Country {
+	optional string country_code = 1;
+	optional string name = 2;
+}
+
+message CStoreTopSellers_GetWeeklyTopSellers_Request {
+	optional string country_code = 1;
+	//optional UNKNOWN context = 2;
+	//optional UNKNOWN data_request = 3;
+	optional uint32 start_date = 4;
+	optional int32 page_start = 5;
+	optional int32 page_count = 6 [default = 20];
+}
+
+message CStoreTopSellers_GetWeeklyTopSellers_Response {
+	optional uint32 start_date = 1;
+	repeated .CStoreTopSellers_GetWeeklyTopSellers_Response_TopSellersRank ranks = 2;
+	optional int32 next_page_start = 3;
+}
+
+message CStoreTopSellers_GetWeeklyTopSellers_Response_TopSellersRank {
+	optional int32 rank = 1;
+	optional int32 appid = 2;
+	//optional UNKNOWN item = 3;
+	optional int32 last_week_rank = 4;
+	optional int32 consecutive_weeks = 5;
+}
+
+service StoreTopSellers {
+	rpc GetCountryList (.CStoreTopSellers_GetCountryList_Request) returns (.CStoreTopSellers_GetCountryList_Response);
+	rpc GetWeeklyTopSellers (.CStoreTopSellers_GetWeeklyTopSellers_Request) returns (.CStoreTopSellers_GetWeeklyTopSellers_Response);
+}
+
