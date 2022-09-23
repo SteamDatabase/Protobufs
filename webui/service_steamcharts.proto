@@ -1,4 +1,5 @@
 import "common_base.proto";
+import "common.proto";
 
 message CSteamCharts_GetGamesByConcurrentPlayers_Response {
 	optional uint32 last_update = 1;
@@ -8,14 +9,14 @@ message CSteamCharts_GetGamesByConcurrentPlayers_Response {
 message CSteamCharts_GetGamesByConcurrentPlayers_Response_MostPlayedRank {
 	optional int32 rank = 1;
 	optional uint32 appid = 2;
-	//optional UNKNOWN item = 3;
+	optional .StoreItem item = 3;
 	optional uint32 concurrent_in_game = 4;
 	optional uint32 peak_in_game = 5;
 }
 
 message CSteamCharts_GetMostPlayedGames_Request {
-	//optional UNKNOWN context = 1;
-	//optional UNKNOWN data_request = 2;
+	optional .StoreBrowseContext context = 1;
+	optional .StoreBrowseItemDataRequest data_request = 2;
 }
 
 message CSteamCharts_GetMostPlayedGames_Response {
@@ -26,7 +27,7 @@ message CSteamCharts_GetMostPlayedGames_Response {
 message CSteamCharts_GetMostPlayedGames_Response_MostPlayedRank {
 	optional int32 rank = 1;
 	optional uint32 appid = 2;
-	//optional UNKNOWN item = 3;
+	optional .StoreItem item = 3;
 	optional int32 last_week_rank = 4;
 	optional uint32 peak_in_game = 5;
 	optional uint32 daily_active_players = 6;
@@ -43,7 +44,7 @@ message CSteamCharts_GetTopReleasesPages_Response_TopReleasesPage {
 	optional string name = 1;
 	optional uint32 start_of_month = 2;
 	optional string url_path = 3;
-	//repeated UNKNOWN item_ids = 4;
+	repeated .StoreItemID item_ids = 4;
 }
 
 service SteamCharts {
