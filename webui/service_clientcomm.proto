@@ -30,6 +30,7 @@ message CClientComm_GetAllClientLogonInfo_Request {
 
 message CClientComm_GetAllClientLogonInfo_Response {
 	repeated .CClientComm_GetAllClientLogonInfo_Response_Session sessions = 1;
+	optional uint32 refetch_interval_sec = 2;
 }
 
 message CClientComm_GetAllClientLogonInfo_Response_Session {
@@ -54,6 +55,9 @@ message CClientComm_GetClientAppList_Response {
 	optional uint64 bytes_available = 1;
 	repeated .CClientComm_GetClientAppList_Response_AppData apps = 2;
 	optional .CClientComm_ClientData client_info = 3;
+	optional uint32 refetch_interval_sec_full = 4;
+	optional uint32 refetch_interval_sec_changing = 5;
+	optional uint32 refetch_interval_sec_updating = 6;
 }
 
 message CClientComm_GetClientAppList_Response_AppData {
@@ -81,6 +85,7 @@ message CClientComm_GetClientAppList_Response_AppData {
 	optional uint32 estimated_seconds_remaining = 29;
 	optional int32 queue_position = 30 [default = -1];
 	optional bool uninstalling = 31;
+	optional uint32 rt_time_scheduled = 32;
 }
 
 message CClientComm_GetClientAppList_Response_AppData_DLCData {

@@ -8,11 +8,16 @@ message CSteamNotification_GetPreferences_Response {
 }
 
 message CSteamNotification_GetSteamNotifications_Request {
+	optional bool include_hidden = 1 [default = false];
 }
 
 message CSteamNotification_GetSteamNotifications_Response {
 	repeated .SteamNotificationData notifications = 1;
 	optional int32 confirmation_count = 2;
+}
+
+message CSteamNotification_HideNotification_Notification {
+	repeated uint64 notification_ids = 1;
 }
 
 message CSteamNotification_MarkNotificationsRead_Notification {
@@ -36,6 +41,7 @@ message SteamNotificationData {
 	optional string body_data = 4;
 	optional bool read = 7;
 	optional uint32 timestamp = 8;
+	optional bool hidden = 9;
 }
 
 message SteamNotificationPreference {
@@ -46,6 +52,7 @@ message SteamNotificationPreference {
 service SteamNotification {
 	rpc GetPreferences (.CSteamNotification_GetPreferences_Request) returns (.CSteamNotification_GetPreferences_Response);
 	rpc GetSteamNotifications (.CSteamNotification_GetSteamNotifications_Request) returns (.CSteamNotification_GetSteamNotifications_Response);
+	rpc HideNotification (.CSteamNotification_HideNotification_Notification) returns (.NoResponse);
 	rpc MarkNotificationsRead (.CSteamNotification_MarkNotificationsRead_Notification) returns (.NoResponse);
 	rpc SetPreferences (.CSteamNotification_SetPreferences_Request) returns (.CSteamNotification_SetPreferences_Response);
 }
