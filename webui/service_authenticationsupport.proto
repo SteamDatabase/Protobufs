@@ -47,6 +47,20 @@ message CSupportRefreshTokenDescription {
 	optional int32 platform_type = 4 [(.description) = "enum"];
 	optional int32 token_state = 5 [(.description) = "enum"];
 	optional fixed64 owner_steamid = 6;
+	optional uint32 os_platform = 7;
+	optional int32 os_type = 8;
+	optional uint32 auth_type = 9;
+	optional uint32 gaming_device_type = 10;
+	optional .CSupportRefreshTokenDescription_TokenUsageEvent first_seen = 11;
+	optional .CSupportRefreshTokenDescription_TokenUsageEvent last_seen = 12;
+}
+
+message CSupportRefreshTokenDescription_TokenUsageEvent {
+	optional uint32 time = 1;
+	optional .CMsgIPAddress ip = 2;
+	optional string country = 3;
+	optional string state = 4;
+	optional string city = 5;
 }
 
 service AuthenticationSupport {

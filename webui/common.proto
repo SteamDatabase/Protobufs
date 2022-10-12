@@ -400,6 +400,9 @@ message CClientNotificationCloudSyncFailure {
 	optional uint32 appid = 1;
 }
 
+message CClientNotificationDockUnsupportedFirmware {
+}
+
 message CClientNotificationDownloadCompleted {
 	optional uint32 appid = 1;
 }
@@ -4158,10 +4161,13 @@ message CMsgSystemDisplay {
 	optional bool is_primary = 4;
 	optional bool is_enabled = 5;
 	optional bool is_internal = 6;
-	optional int32 width_mm = 7;
-	optional int32 height_mm = 8;
-	optional int32 current_mode_id = 9;
-	repeated .CMsgSystemDisplayMode modes = 10;
+	optional bool has_mode_override = 7;
+	optional int32 width_mm = 8;
+	optional int32 height_mm = 9;
+	optional int32 current_mode_id = 10;
+	repeated .CMsgSystemDisplayMode modes = 11;
+	optional int32 refresh_rate_min = 12;
+	optional int32 refresh_rate_max = 13;
 }
 
 message CMsgSystemDisplayManagerSetMode {
@@ -4198,6 +4204,7 @@ message CMsgSystemDockUpdateState {
 	optional string version_available = 4;
 	optional float stage_progress = 5;
 	optional fixed32 rtime_estimated_completion = 6;
+	optional int32 old_fw_workaround = 7;
 }
 
 message CMsgSystemManagerSettings {
@@ -4263,6 +4270,9 @@ message CMsgSystemPerfLimits {
 	optional bool is_nis_supported = 16;
 	optional int32 nis_sharpness_min = 17;
 	optional int32 nis_sharpness_max = 18;
+	optional int32 display_external_refresh_manual_hz_min = 19;
+	optional int32 display_external_refresh_manual_hz_max = 20;
+	repeated int32 fps_limit_options_external = 21;
 }
 
 // Used by: common.proto
@@ -4290,6 +4300,7 @@ message CMsgSystemPerfSettingsGlobal {
 	optional int32 perf_overlay_level = 5 [(.description) = "enum"];
 	optional bool is_show_perf_overlay_over_steam_enabled = 6;
 	optional bool is_advanced_settings_enabled = 7;
+	optional bool allow_external_display_refresh_control = 8;
 }
 
 // Used by: common.proto
@@ -4310,6 +4321,8 @@ message CMsgSystemPerfSettingsPerApp {
 	optional bool is_game_perf_profile_enabled = 14;
 	optional int32 gpu_performance_level = 15 [(.description) = "enum"];
 	optional int32 nis_sharpness = 16;
+	optional int32 display_external_refresh_manual_hz = 17;
+	optional int32 fps_limit_external = 18;
 }
 
 message CMsgSystemPerfState {
@@ -4418,6 +4431,40 @@ message CStoreBrowse_GetItems_Request {
 // Used by: PartnerStoreBrowse, StoreBrowse
 message CStoreBrowse_GetItems_Response {
 	repeated .StoreItem store_items = 1;
+}
+
+// Used by: Store, StoreQuery
+message CStorePageFilter {
+	optional .CStorePageFilter_SalePageFilter sale_filter = 1;
+	optional .CStorePageFilter_ContentHubFilter content_hub_filter = 2;
+	repeated .CStorePageFilter_StoreFilter store_filters = 3;
+}
+
+// Used by: Store, StoreQuery
+message CStorePageFilter_ContentHubFilter {
+	optional string hub_type = 1;
+	optional string hub_category = 2;
+	optional uint32 hub_tagid = 3;
+	optional int32 discount_filter = 4 [(.description) = "enum"];
+	optional .CStorePageFilter_ContentHubFilter_OptInInfo optin = 5;
+}
+
+// Used by: Store, StoreQuery
+message CStorePageFilter_ContentHubFilter_OptInInfo {
+	optional string name = 1;
+	optional uint32 optin_tagid = 2;
+	optional uint32 prune_tagid = 3;
+}
+
+// Used by: Store, StoreQuery
+message CStorePageFilter_SalePageFilter {
+	optional uint32 sale_tagid = 1;
+}
+
+// Used by: Store, StoreQuery
+message CStorePageFilter_StoreFilter {
+	optional string filter_json = 1;
+	optional string cache_key = 2;
 }
 
 message CStreamingClientConfig {

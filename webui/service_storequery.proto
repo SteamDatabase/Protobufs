@@ -1,5 +1,5 @@
-import "common_base.proto";
 import "common.proto";
+import "common_base.proto";
 
 message CStoreQuery_Query_Request {
 	optional string query_name = 1;
@@ -43,6 +43,8 @@ message CStoreQueryFilters {
 	optional int32 global_top_n_sellers = 41;
 	optional int32 regional_long_term_top_n_sellers = 42;
 	optional int32 global_long_term_top_n_sellers = 43;
+	optional .CStorePageFilter store_page_filter = 44;
+	repeated uint32 parent_appids = 45;
 }
 
 message CStoreQueryFilters_TagFilter {

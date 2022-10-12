@@ -403,6 +403,7 @@ message CPlayer_GetProfileItemsOwned_Response {
 	repeated .ProfileItem animated_avatars = 4;
 	repeated .ProfileItem profile_modifiers = 5;
 	repeated .ProfileItem steam_deck_keyboard_skins = 6;
+	repeated .ProfileItem steam_deck_startup_movies = 7;
 }
 
 message CPlayer_GetProfileThemesAvailable_Request {
@@ -679,6 +680,12 @@ message ProfileItem {
 	optional uint32 equipped_flags = 12;
 	optional string movie_webm_small = 13;
 	optional string movie_mp4_small = 14;
+	repeated .ProfileItem_ProfileColor profile_colors = 15;
+}
+
+message ProfileItem_ProfileColor {
+	optional string style_name = 1;
+	optional string color = 2;
 }
 
 message ProfilePreferences {

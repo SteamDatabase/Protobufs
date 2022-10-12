@@ -34,6 +34,7 @@ message CStoreTopSellers_GetWeeklyTopSellers_Response_TopSellersRank {
 	optional .StoreItem item = 3;
 	optional int32 last_week_rank = 4;
 	optional int32 consecutive_weeks = 5;
+	optional bool first_top100 = 6;
 }
 
 service StoreTopSellers {

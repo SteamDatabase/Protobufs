@@ -1,4 +1,5 @@
 import "common_base.proto";
+import "common.proto";
 
 message CSteamDeckCompatibility_SetFeedback_Request {
 	optional uint32 appid = 1;
@@ -29,6 +30,7 @@ message CStore_GetDiscoveryQueue_Request {
 	optional bool no_experimental_results = 9;
 	optional uint32 experimental_cohort = 10;
 	optional bool debug_get_solr_query = 11;
+	optional .CStorePageFilter store_page_filter = 12;
 }
 
 message CStore_GetDiscoveryQueue_Response {
@@ -44,6 +46,16 @@ message CStore_GetDiscoveryQueue_Response {
 message CStore_GetDiscoveryQueueSettings_Response {
 	optional string country_code = 1;
 	optional .CStoreDiscoveryQueueSettings settings = 2;
+}
+
+message CStore_GetDiscoveryQueueSkippedApps_Request {
+	optional fixed64 steamid = 1;
+	optional int32 queue_type = 2 [(.description) = "enum"];
+	optional .CStorePageFilter store_page_filter = 3;
+}
+
+message CStore_GetDiscoveryQueueSkippedApps_Response {
+	repeated uint32 appids = 1;
 }
 
 message CStore_GetLocalizedNameForTags_Request {
@@ -163,6 +175,7 @@ message CStore_RegisterCDKey_Response {
 message CStore_SkipDiscoveryQueueItem_Request {
 	optional int32 queue_type = 1 [(.description) = "enum"];
 	optional uint32 appid = 2;
+	optional .CStorePageFilter store_page_filter = 3;
 }
 
 message CStore_SkipDiscoveryQueueItem_Response {
@@ -197,6 +210,7 @@ message CStore_UserPreferences {
 	optional int32 review_score_preference = 10 [(.description) = "enum"];
 	optional int32 timestamp_content_descriptor_preferences_updated = 11;
 	optional int32 provide_deck_feedback = 12 [(.description) = "enum"];
+	optional string additional_languages = 13;
 }
 
 message CStore_UserTagPreferences {
@@ -228,6 +242,7 @@ message CStoreDiscoveryQueueSettings {
 service Store {
 	rpc GetDiscoveryQueue (.CStore_GetDiscoveryQueue_Request) returns (.CStore_GetDiscoveryQueue_Response);
 	rpc GetDiscoveryQueueSettings (.NotImplemented) returns (.CStore_GetDiscoveryQueueSettings_Response);
+	rpc GetDiscoveryQueueSkippedApps (.CStore_GetDiscoveryQueueSkippedApps_Request) returns (.CStore_GetDiscoveryQueueSkippedApps_Response);
 	rpc GetLocalizedNameForTags (.CStore_GetLocalizedNameForTags_Request) returns (.CStore_GetLocalizedNameForTags_Response);
 	rpc GetMostPopularTags (.CStore_GetMostPopularTags_Request) returns (.CStore_GetMostPopularTags_Response);
 	rpc GetStorePreferences (.CStore_GetStorePreferences_Request) returns (.CStore_GetStorePreferences_Response);
