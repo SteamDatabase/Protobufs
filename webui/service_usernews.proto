@@ -17,6 +17,7 @@ message CUserNews_Event {
 
 message CUserNews_GetAppDetailsSpotlight_Request {
 	optional uint32 appid = 1;
+	optional bool include_already_seen = 2;
 }
 
 message CUserNews_GetAppDetailsSpotlight_Response {
