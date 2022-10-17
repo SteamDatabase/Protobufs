@@ -78,6 +78,15 @@ message CQuest_GetNumTradingCardsEarned_Response {
 	optional uint32 num_trading_cards = 1;
 }
 
+message CQuest_SetVirtualItemRewardDefinition_Request {
+	optional int32 eventid = 1 [(.description) = "enum"];
+	repeated .CVirtualItemRewardDefinition itemsdefs = 2;
+	optional int32 action = 3 [(.description) = "enum"];
+}
+
+message CQuest_SetVirtualItemRewardDefinition_Response {
+}
+
 message CQuest_VirtualItemRewardDefinition_Request {
 	optional int32 eventid = 1 [(.description) = "enum"];
 	optional bool include_inactive = 2;
@@ -103,6 +112,7 @@ message CVirtualItemRewardDefinition {
 	optional uint32 loyalty_reward_defid = 13;
 	optional uint32 user_badge_to_grant = 14;
 	optional uint32 user_badge_level = 15;
+	optional uint32 virtual_item_def_id = 16;
 }
 
 service Quest {
@@ -111,5 +121,6 @@ service Quest {
 	rpc GetCommunityItemDefinitions (.CQuest_GetCommunityItemDefinitions_Request) returns (.CQuest_GetCommunityItemDefinitions_Response);
 	rpc GetNumTradingCardsEarned (.CQuest_GetNumTradingCardsEarned_Request) returns (.CQuest_GetNumTradingCardsEarned_Response);
 	rpc GetVirtualItemRewardDefinition (.CQuest_VirtualItemRewardDefinition_Request) returns (.CQuest_VirtualItemRewardDefinition_Response);
+	rpc SetVirtualItemRewardDefinition (.CQuest_SetVirtualItemRewardDefinition_Request) returns (.CQuest_SetVirtualItemRewardDefinition_Response);
 }
 
