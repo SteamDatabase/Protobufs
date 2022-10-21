@@ -3287,9 +3287,8 @@ message CMsgControllerSourceGroup {
 	repeated .CMsgControllerInput inputs = 3;
 	repeated .CMsgControllerSetting settings = 4;
 	optional uint32 modeid = 5;
-	optional .CMsgControllerSourceGroup mode_shift_source_group = 6;
-	//optional bool mode_shift = 6;
-	optional .CMsgControllerSourceGroup mode_shift_source_group__field_7 = 7;
+	optional bool mode_shift = 6;
+	optional .CMsgControllerSourceGroup mode_shift_source_group = 7;
 }
 
 // Used by: common.proto
@@ -4520,14 +4519,10 @@ message CVirtualMenuKey {
 	optional string description = 7;
 	optional string label = 8;
 	optional string glyph_path = 9;
-	//optional string icon_filename = 9;
-	optional string color_foreground = 10;
-	//optional string icon_filename = 10;
-	optional string color_background = 11;
-	//optional string color_foreground = 11;
-	optional string color_background__field_12 = 12;
-	//optional uint32 quadrants = 12;
-	optional uint32 quadrants__field_13 = 13;
+	optional string icon_filename = 10;
+	optional string color_foreground = 11;
+	optional string color_background = 12;
+	optional uint32 quadrants = 13;
 	optional uint32 binding_type = 14;
 }
 
