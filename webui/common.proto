@@ -4413,6 +4413,11 @@ message CPackageReservationStatus {
 	optional uint32 time_reserved = 8;
 }
 
+message CPartnerStoreBrowse_GetItems_Request {
+	optional .CStoreBrowse_GetItems_Request request = 1;
+	optional bool include_unpublished = 2;
+}
+
 message CProductImpressionsFromClient_Notification {
 	repeated .CProductImpressionsFromClient_Notification_Impression impressions = 1;
 }
@@ -4424,7 +4429,7 @@ message CProductImpressionsFromClient_Notification_Impression {
 	optional uint32 num_impressions = 3;
 }
 
-// Used by: PartnerStoreBrowse, StoreBrowse
+// Used by: PartnerStoreBrowse, StoreBrowse, common.proto
 message CStoreBrowse_GetItems_Request {
 	repeated .StoreItemID ids = 1;
 	optional .StoreBrowseContext context = 2;
@@ -4577,7 +4582,7 @@ message LoyaltyRewardDefinition_CommunityItemData {
 	optional string profile_theme_id = 12;
 }
 
-// Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers
+// Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers, common.proto
 message StoreBrowseContext {
 	optional string language = 1;
 	optional int32 elanguage = 2;
@@ -4585,7 +4590,7 @@ message StoreBrowseContext {
 	optional int32 steam_realm = 4;
 }
 
-// Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers
+// Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers, common.proto
 message StoreBrowseItemDataRequest {
 	optional bool include_assets = 1;
 	optional bool include_release = 2;
@@ -4830,7 +4835,7 @@ message StoreItem_Trailers_VideoSource {
 	optional string type = 2;
 }
 
-// Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery
+// Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, common.proto
 message StoreItemID {
 	optional uint32 appid = 1;
 	optional uint32 packageid = 2;

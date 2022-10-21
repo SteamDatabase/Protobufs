@@ -36,6 +36,7 @@ message CUserReviews_Update_Request {
 	optional bool is_in_early_access = 6;
 	optional bool received_compensation = 7;
 	optional bool comments_disabled = 8;
+	optional bool hide_in_steam_china = 9;
 }
 
 message CUserReviews_Update_Response {
