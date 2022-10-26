@@ -1,0 +1,300 @@
+import "common_base.proto";
+
+message CMsgSteamLearn_BatchOperation_Response {
+	repeated .CMsgSteamLearn_CacheData_Response update_data_responses = 1;
+	repeated .CMsgSteamLearn_SnapshotProject_Response snapshot_responses = 2;
+	repeated .CMsgSteamLearn_Inference_Response inference_responses = 3;
+}
+
+message CMsgSteamLearn_CacheData_Response {
+	optional int32 cache_data_result = 1 [(.description) = "enum"];
+}
+
+message CMsgSteamLearn_CreateProject_Request {
+	optional string project_name = 1;
+	optional string project_description = 2;
+}
+
+message CMsgSteamLearn_CreateProject_Response {
+	optional int32 result = 1 [(.description) = "enum"];
+	optional .CMsgSteamLearnProject project = 2;
+}
+
+message CMsgSteamLearn_EditProject_Request {
+	optional .CMsgSteamLearnProject project = 1;
+	optional uint32 published_version = 2;
+}
+
+message CMsgSteamLearn_EditProject_Response {
+	optional int32 result = 1 [(.description) = "enum"];
+}
+
+message CMsgSteamLearn_GetDataSource_Request {
+	optional uint32 data_source_id = 1;
+}
+
+message CMsgSteamLearn_GetDataSource_Response {
+	optional .CMsgSteamLearnDataSource data_source = 1;
+}
+
+message CMsgSteamLearn_GetProject_Request {
+	optional uint32 project_id = 1;
+}
+
+message CMsgSteamLearn_GetProject_Response {
+	optional .CMsgSteamLearnProject project = 1;
+}
+
+message CMsgSteamLearn_Inference_Response {
+	optional int32 inference_result = 1 [(.description) = "enum"];
+	repeated float values = 2;
+}
+
+message CMsgSteamLearn_ListDataSources_Request {
+}
+
+message CMsgSteamLearn_ListDataSources_Response {
+	repeated .CMsgSteamLearnDataSource data_sources = 1;
+}
+
+message CMsgSteamLearn_ListProjects_Request {
+	optional uint32 appid = 1;
+}
+
+message CMsgSteamLearn_ListProjects_Response {
+	repeated .CMsgSteamLearnProject projects = 1;
+}
+
+message CMsgSteamLearn_PublishProject_Request {
+	optional uint32 project_id = 1;
+}
+
+message CMsgSteamLearn_PublishProject_Response {
+	optional int32 result = 1 [(.description) = "enum"];
+	optional .CMsgSteamLearnProject project = 2;
+}
+
+message CMsgSteamLearn_RegisterDataSource_Response {
+	optional int32 result = 1 [(.description) = "enum"];
+	optional .CMsgSteamLearnDataSource data_source = 2;
+}
+
+message CMsgSteamLearn_SnapshotProject_Response {
+	optional int32 snapshot_result = 1 [(.description) = "enum"];
+}
+
+message CMsgSteamLearnDataSource {
+	optional uint32 id = 1;
+	optional string name = 2;
+	optional uint32 version = 3;
+	optional string source_description = 4;
+	optional .CMsgSteamLearnDataSourceDescObject structure = 5;
+	optional uint32 structure_crc = 6;
+	optional uint32 cache_duration_seconds = 7;
+}
+
+message CMsgSteamLearnDataSourceDescElement {
+	optional string name = 1;
+	optional int32 data_type = 2 [(.description) = "enum"];
+	optional .CMsgSteamLearnDataSourceDescObject object = 3;
+	optional uint32 count = 4;
+}
+
+message CMsgSteamLearnDataSourceDescObject {
+	repeated .CMsgSteamLearnDataSourceDescElement elements = 1;
+}
+
+message CMsgSteamLearnDataSourceElementUsage {
+	optional uint32 data_source_id = 1;
+	optional string data_element_path = 2;
+	optional bool is_string = 3;
+	optional uint32 input = 4;
+	optional uint32 sql_column = 5;
+	optional int32 preprocessing_type = 6 [(.description) = "enum"];
+	optional float min_range = 7;
+	optional float max_range = 8;
+	optional float std_dev = 9;
+	optional string compact_table = 10;
+}
+
+message CMsgSteamLearnModelNodeConcatenate {
+}
+
+message CMsgSteamLearnModelNodeConditionalExtract {
+	optional int32 extract_type = 1 [(.description) = "enum"];
+	optional uint32 appid_release_recency_months = 2;
+	optional bool appid_use_release_recency_bias = 3;
+}
+
+message CMsgSteamLearnModelNodeConditionalSwap {
+}
+
+message CMsgSteamLearnModelNodeDense {
+	optional int32 activation = 1 [(.description) = "enum"];
+	optional uint32 width = 2;
+}
+
+message CMsgSteamLearnModelNodeDenseStack {
+	optional int32 activation = 1 [(.description) = "enum"];
+	repeated uint32 width = 2;
+	optional uint32 dropout_pct = 3;
+}
+
+message CMsgSteamLearnModelNodeDropout {
+	optional uint32 dropout_pct = 1;
+}
+
+message CMsgSteamLearnModelNodeEmbedding {
+	optional uint32 max_value = 1;
+	optional string compact_table = 2;
+	optional uint32 embedding_width = 3;
+	optional bool flatten = 4;
+}
+
+message CMsgSteamLearnModelNodeExplode {
+}
+
+message CMsgSteamLearnModelNodeInput {
+	optional uint32 input_num = 1;
+}
+
+message CMsgSteamLearnModelNodeOnehot {
+	optional uint32 width = 1;
+	optional string compact_table = 2;
+}
+
+message CMsgSteamLearnModelNodeShuffle {
+	optional bool exclude_zeroes = 1;
+}
+
+message CMsgSteamLearnModelNodeSyncedShuffle {
+	optional bool exclude_zeroes = 1;
+}
+
+message CMsgSteamLearnModelNodeTrain {
+	optional uint32 input_count = 1;
+	optional int32 activation = 2 [(.description) = "enum"];
+	optional uint32 width = 3;
+	optional string compact_table = 4;
+	optional int32 optimizer = 5 [(.description) = "enum"];
+	optional int32 loss = 6 [(.description) = "enum"];
+	optional uint32 epoch_count = 7;
+	optional float no_loss_improvement_limit = 8;
+	optional uint32 batch_size = 9;
+}
+
+message CMsgSteamLearnModelTrain {
+	optional uint32 train_id = 1;
+	repeated float train_accuracy = 2;
+	repeated float train_loss = 3;
+}
+
+message CMsgSteamLearnModelTrainConfig {
+	optional uint32 frequency_seconds = 1;
+	optional bool clear_snapshots_on_completion = 2;
+}
+
+message CMsgSteamLearnProject {
+	optional uint32 project_id = 1;
+	optional string project_name = 2;
+	optional string project_description = 3;
+	optional uint32 creator_account_id = 4;
+	optional uint32 create_time = 5;
+	optional .CMsgSteamLearnProjectConfig unpublished_config = 6;
+	repeated .CMsgSteamLearnProjectConfig published_configs = 7;
+	repeated .CMsgSteamLearnModelTrain trains = 8;
+}
+
+message CMsgSteamLearnProjectConfig {
+	optional uint32 project_id = 1;
+	optional uint32 publish_time = 2;
+	optional uint32 published_version = 3;
+	repeated uint32 data_source_ids = 4;
+	repeated .CMsgSteamLearnDataSourceElementUsage data_source_element_usages = 5;
+	repeated .CMsgSteamLearnProjectNode project_nodes = 6;
+	optional .CMsgSteamLearnProjectSnapshotConfig snapshot_config = 7;
+	optional .CMsgSteamLearnModelTrainConfig train_config = 8;
+	optional string fetch_script = 9;
+	optional string train_script = 10;
+	optional .CMsgSteamLearnProjectSnapshotFilter snapshot_filter = 11;
+}
+
+message CMsgSteamLearnProjectNode {
+	optional uint32 node_id = 1;
+	optional int32 location_x = 2;
+	optional int32 location_y = 3;
+	optional string comment = 4;
+	optional int32 type = 5 [(.description) = "enum"];
+	repeated .CMsgSteamLearnProjectNodeConnector connectors = 6;
+	optional .CMsgSteamLearnModelNodeInput input = 10;
+	optional .CMsgSteamLearnModelNodeDense dense = 11;
+	optional .CMsgSteamLearnModelNodeDenseStack dense_stack = 12;
+	optional .CMsgSteamLearnModelNodeDropout dropout = 13;
+	optional .CMsgSteamLearnModelNodeEmbedding embedding = 14;
+	optional .CMsgSteamLearnModelNodeTrain train = 15;
+	optional .CMsgSteamLearnModelNodeConditionalExtract conditional_extract = 16;
+	optional .CMsgSteamLearnModelNodeConcatenate concatenate = 17;
+	optional .CMsgSteamLearnModelNodeShuffle shuffle = 18;
+	optional .CMsgSteamLearnModelNodeSyncedShuffle synced_shuffle = 19;
+	optional .CMsgSteamLearnModelNodeOnehot onehot = 20;
+	optional .CMsgSteamLearnModelNodeExplode explode = 21;
+	optional .CMsgSteamLearnModelNodeConditionalSwap conditional_swap = 22;
+}
+
+message CMsgSteamLearnProjectNodeConnector {
+	optional uint32 connector_id = 1;
+	repeated uint32 linked_connector_ids = 2;
+	optional bool is_input_connector = 3;
+}
+
+message CMsgSteamLearnProjectSnapshotConfig {
+	optional int32 snapshot_type = 1 [(.description) = "enum"];
+	optional .CMsgSteamLearnProjectSnapshotConfigAccountIDs config_account_ids = 2;
+	optional .CMsgSteamLearnProjectSnapshotConfigAppIDs config_app_ids = 3;
+}
+
+message CMsgSteamLearnProjectSnapshotConfigAccountIDs {
+	optional uint32 percent = 1;
+	optional uint32 activity_recency_days = 2;
+}
+
+message CMsgSteamLearnProjectSnapshotConfigAppIDs {
+	optional uint32 percent = 1;
+	optional uint32 release_recency_days = 2;
+}
+
+message CMsgSteamLearnProjectSnapshotFilter {
+	optional uint32 sample_reduce_percent = 1;
+	optional .CMsgSteamLearnProjectSnapshotFilterHistogram histogram = 2;
+	repeated .CMsgSteamLearnProjectSnapshotFilterComparison comparisons = 3;
+}
+
+message CMsgSteamLearnProjectSnapshotFilterComparison {
+	optional string data_element_path = 1;
+	optional int32 comparator = 2 [(.description) = "enum"];
+	optional float value = 3;
+	optional bool exclusion = 4;
+}
+
+message CMsgSteamLearnProjectSnapshotFilterHistogram {
+	optional string data_element_path = 1;
+	optional float min_value = 2;
+	optional float max_value = 3;
+	optional uint32 num_buckets = 4;
+}
+
+service SteamLearn {
+	rpc BatchOperation (.NotImplemented) returns (.CMsgSteamLearn_BatchOperation_Response);
+	rpc CacheData (.NotImplemented) returns (.CMsgSteamLearn_CacheData_Response);
+	rpc CreateProject (.CMsgSteamLearn_CreateProject_Request) returns (.CMsgSteamLearn_CreateProject_Response);
+	rpc EditProject (.CMsgSteamLearn_EditProject_Request) returns (.CMsgSteamLearn_EditProject_Response);
+	rpc GetDataSource (.CMsgSteamLearn_GetDataSource_Request) returns (.CMsgSteamLearn_GetDataSource_Response);
+	rpc GetProject (.CMsgSteamLearn_GetProject_Request) returns (.CMsgSteamLearn_GetProject_Response);
+	rpc Inference (.NotImplemented) returns (.CMsgSteamLearn_Inference_Response);
+	rpc ListDataSources (.CMsgSteamLearn_ListDataSources_Request) returns (.CMsgSteamLearn_ListDataSources_Response);
+	rpc ListProjects (.CMsgSteamLearn_ListProjects_Request) returns (.CMsgSteamLearn_ListProjects_Response);
+	rpc PublishProject (.CMsgSteamLearn_PublishProject_Request) returns (.CMsgSteamLearn_PublishProject_Response);
+	rpc RegisterDataSource (.NotImplemented) returns (.CMsgSteamLearn_RegisterDataSource_Response);
+	rpc SnapshotProject (.NotImplemented) returns (.CMsgSteamLearn_SnapshotProject_Response);
+}
+
