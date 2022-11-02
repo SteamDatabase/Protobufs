@@ -164,6 +164,7 @@ message CLoyaltyRewards_QueryRewardItems_Request {
 	optional bool include_direct_purchase_disabled = 16;
 	repeated uint32 excluded_content_descriptors = 17;
 	repeated uint32 excluded_appids = 18;
+	optional string search_term = 19;
 }
 
 message CLoyaltyRewards_QueryRewardItems_Response {
