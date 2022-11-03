@@ -28,6 +28,7 @@ message CAuthenticationSupport_QueryRefreshTokensByAccount_Response {
 
 message CAuthenticationSupport_RevokeToken_Request {
 	optional fixed64 token_id = 1;
+	optional fixed64 steamid = 2;
 }
 
 message CAuthenticationSupport_RevokeToken_Response {
