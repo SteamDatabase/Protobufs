@@ -183,15 +183,10 @@ message CMsgSteamLearnModelNodeTrain {
 	optional uint32 batch_size = 9;
 }
 
-message CMsgSteamLearnModelTrain {
-	optional uint32 train_id = 1;
-	repeated float train_accuracy = 2;
-	repeated float train_loss = 3;
-}
-
 message CMsgSteamLearnModelTrainConfig {
 	optional uint32 frequency_seconds = 1;
 	optional bool clear_snapshots_on_completion = 2;
+	optional uint32 retained_fetch_count = 3;
 }
 
 message CMsgSteamLearnProject {
@@ -202,7 +197,8 @@ message CMsgSteamLearnProject {
 	optional uint32 create_time = 5;
 	optional .CMsgSteamLearnProjectConfig unpublished_config = 6;
 	repeated .CMsgSteamLearnProjectConfig published_configs = 7;
-	repeated .CMsgSteamLearnModelTrain trains = 8;
+	repeated .CMsgSteamLearnProjectFetch fetches = 8;
+	repeated .CMsgSteamLearnProjectTrain trains = 9;
 }
 
 message CMsgSteamLearnProjectConfig {
@@ -217,6 +213,20 @@ message CMsgSteamLearnProjectConfig {
 	optional string fetch_script = 9;
 	optional string train_script = 10;
 	optional .CMsgSteamLearnProjectSnapshotFilter snapshot_filter = 11;
+}
+
+message CMsgSteamLearnProjectFetch {
+	optional uint32 fetch_id = 1;
+	optional uint64 fetch_data_crc = 2;
+	optional uint32 published_version = 3;
+	optional uint32 timestamp = 4;
+	optional int32 status = 5 [(.description) = "enum"];
+	optional .CMsgSteamLearnProjectFetchStats stats = 6;
+}
+
+message CMsgSteamLearnProjectFetchStats {
+	optional uint32 duration = 1;
+	optional uint32 rows_fetched = 2;
 }
 
 message CMsgSteamLearnProjectNode {
@@ -281,6 +291,28 @@ message CMsgSteamLearnProjectSnapshotFilterHistogram {
 	optional float min_value = 2;
 	optional float max_value = 3;
 	optional uint32 num_buckets = 4;
+}
+
+message CMsgSteamLearnProjectTrain {
+	optional uint32 train_id = 1;
+	optional uint32 used_fetch_id = 2;
+	optional uint32 published_version = 3;
+	optional uint32 timestamp = 4;
+	optional int32 status = 5 [(.description) = "enum"];
+	optional .CMsgSteamLearnProjectTrainStats stats = 6;
+}
+
+message CMsgSteamLearnProjectTrainStats {
+	optional uint32 duration = 1;
+	repeated .CMsgSteamLearnProjectTrainStatsEpoch epoch = 2;
+}
+
+message CMsgSteamLearnProjectTrainStatsEpoch {
+	optional uint32 duration = 1;
+	optional float train_loss = 2;
+	optional float train_accuracy = 3;
+	optional float test_loss = 4;
+	optional float test_accuracy = 5;
 }
 
 service SteamLearn {
