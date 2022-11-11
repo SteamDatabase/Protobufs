@@ -4033,6 +4033,8 @@ message CMsgStorageDevicesData {
 	repeated .CMsgStorageDevicesData_Drive drives = 1;
 	repeated .CMsgStorageDevicesData_BlockDevice block_devices = 2;
 	optional bool is_unmount_supported = 3;
+	optional bool is_trim_supported = 4;
+	optional bool is_trim_running = 5;
 }
 
 // Used by: common.proto
