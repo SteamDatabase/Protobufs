@@ -1,9 +1,8 @@
 import "common_base.proto";
 
 message CMsgSteamLearn_BatchOperation_Response {
-	repeated .CMsgSteamLearn_CacheData_Response update_data_responses = 1;
+	repeated .CMsgSteamLearn_CacheData_Response cache_data_responses = 1;
 	repeated .CMsgSteamLearn_SnapshotProject_Response snapshot_responses = 2;
-	repeated .CMsgSteamLearn_Inference_Response inference_responses = 3;
 }
 
 message CMsgSteamLearn_CacheData_Response {
@@ -55,6 +54,8 @@ message CMsgSteamLearn_ListDataSources_Request {
 
 message CMsgSteamLearn_ListDataSources_Response {
 	repeated .CMsgSteamLearnDataSource data_sources = 1;
+	repeated string cache_data_hmac_keys = 2;
+	optional string register_data_source_hmac_key = 3;
 }
 
 message CMsgSteamLearn_ListProjects_Request {
@@ -63,6 +64,7 @@ message CMsgSteamLearn_ListProjects_Request {
 
 message CMsgSteamLearn_ListProjects_Response {
 	repeated .CMsgSteamLearnProject projects = 1;
+	repeated string snapshot_hmac_keys = 2;
 }
 
 message CMsgSteamLearn_PublishProject_Request {
@@ -71,7 +73,6 @@ message CMsgSteamLearn_PublishProject_Request {
 
 message CMsgSteamLearn_PublishProject_Response {
 	optional int32 result = 1 [(.description) = "enum"];
-	optional .CMsgSteamLearnProject project = 2;
 }
 
 message CMsgSteamLearn_RegisterDataSource_Response {

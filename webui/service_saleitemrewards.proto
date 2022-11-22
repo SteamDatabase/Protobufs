@@ -1,3 +1,4 @@
+import "common_base.proto";
 import "common.proto";
 
 message CSaleItemRewards_CanClaimItem_Request {
@@ -20,8 +21,34 @@ message CSaleItemRewards_ClaimItem_Response {
 	optional .LoyaltyRewardDefinition reward_item = 3;
 }
 
+message CSaleItemRewards_GetRewardDefinitions_Request {
+	optional uint32 virtual_item_reward_event_id = 1;
+}
+
+message CSaleItemRewards_GetRewardDefinitions_Response {
+	repeated .CSteamItemRewardDefinition definitions = 1;
+}
+
+message CSaleItemRewards_SetRewardDefinitions_Request {
+	repeated .CSteamItemRewardDefinition definitions = 1;
+	optional int32 action = 2 [(.description) = "enum"];
+}
+
+message CSaleItemRewards_SetRewardDefinitions_Response {
+}
+
+message CSteamItemRewardDefinition {
+	optional uint32 sale_reward_def_id = 1;
+	optional uint32 appid = 2;
+	optional uint32 virtual_item_reward_event_id = 3;
+	optional uint32 rtime_start_time = 4;
+	optional uint32 rtime_end_time = 5;
+}
+
 service SaleItemRewards {
 	rpc CanClaimItem (.CSaleItemRewards_CanClaimItem_Request) returns (.CSaleItemRewards_CanClaimItem_Response);
 	rpc ClaimItem (.CSaleItemRewards_ClaimItem_Request) returns (.CSaleItemRewards_ClaimItem_Response);
+	rpc GetRewardDefinitions (.CSaleItemRewards_GetRewardDefinitions_Request) returns (.CSaleItemRewards_GetRewardDefinitions_Response);
+	rpc SetRewardDefinitions (.CSaleItemRewards_SetRewardDefinitions_Request) returns (.CSaleItemRewards_SetRewardDefinitions_Response);
 }
 
