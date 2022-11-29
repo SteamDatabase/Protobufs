@@ -35,6 +35,7 @@ message CAuthentication_BeginAuthSessionViaCredentials_Response {
 	repeated .CAuthentication_AllowedConfirmation allowed_confirmations = 4;
 	optional uint64 steamid = 5;
 	optional string weak_token = 6;
+	optional string agreement_session_url = 7;
 }
 
 message CAuthentication_BeginAuthSessionViaQR_Request {
@@ -184,6 +185,7 @@ message CAuthentication_UpdateAuthSessionWithSteamGuardCode_Request {
 }
 
 message CAuthentication_UpdateAuthSessionWithSteamGuardCode_Response {
+	optional string agreement_session_url = 7;
 }
 
 service Authentication {
