@@ -26,6 +26,7 @@ message CAuthentication_BeginAuthSessionViaCredentials_Request {
 	optional string website_id = 8 [default = "Unknown"];
 	optional .CAuthentication_DeviceDetails device_details = 9;
 	optional string guard_data = 10;
+	optional uint32 language = 11;
 }
 
 message CAuthentication_BeginAuthSessionViaCredentials_Response {
@@ -36,6 +37,7 @@ message CAuthentication_BeginAuthSessionViaCredentials_Response {
 	optional uint64 steamid = 5;
 	optional string weak_token = 6;
 	optional string agreement_session_url = 7;
+	optional string extended_error_message = 8;
 }
 
 message CAuthentication_BeginAuthSessionViaQR_Request {
