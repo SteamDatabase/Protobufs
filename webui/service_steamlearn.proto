@@ -214,6 +214,13 @@ message CMsgSteamLearnProjectConfig {
 	optional string fetch_script = 9;
 	optional string train_script = 10;
 	optional .CMsgSteamLearnProjectSnapshotFilter snapshot_filter = 11;
+	repeated .CMsgSteamLearnProjectConfig_MapDataElementSqlColumnEntry map_data_element_sql_column = 12;
+	optional uint32 total_sql_columns = 13;
+}
+
+message CMsgSteamLearnProjectConfig_MapDataElementSqlColumnEntry {
+	optional string key = 1;
+	optional int32 value = 2;
 }
 
 message CMsgSteamLearnProjectFetch {
