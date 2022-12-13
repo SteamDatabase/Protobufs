@@ -3669,6 +3669,17 @@ message CMsgMobileChatFriendMessage {
 	optional string client_message_id = 9;
 }
 
+message CMsgMonitorInfo {
+	optional string selected_display_name = 1;
+	repeated .CMsgMonitorInfo_MonitorInfo monitors = 2;
+}
+
+// Used by: common.proto
+message CMsgMonitorInfo_MonitorInfo {
+	optional string monitor_device_name = 1;
+	optional string monitor_display_name = 2;
+}
+
 message CMsgMulti {
 	optional uint32 size_unzipped = 1;
 	optional bytes message_body = 2;
