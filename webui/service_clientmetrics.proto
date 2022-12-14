@@ -43,6 +43,7 @@ service ClientMetrics {
 	rpc ClientDownloadRatesReport (.NotImplemented) returns (.NoResponse);
 	rpc ClientDownloadResponseCodeCounts (.NotImplemented) returns (.NoResponse);
 	rpc ClientIPv6ConnectivityReport (.NotImplemented) returns (.NoResponse);
+	rpc ReportClientArgs (.NotImplemented) returns (.NoResponse);
 	rpc ReportClientError (.CClientMetrics_ReportClientError_Notification) returns (.NoResponse);
 	rpc ReportReactUsage (.CClientMetrics_ReportReactUsage_Notification) returns (.NoResponse);
 	rpc SteamPipeWorkStatsReport (.NotImplemented) returns (.NoResponse);

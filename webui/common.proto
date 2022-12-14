@@ -4493,6 +4493,7 @@ message CStorePageFilter_ContentHubFilter_OptInInfo {
 	optional string name = 1;
 	optional uint32 optin_tagid = 2;
 	optional uint32 prune_tagid = 3;
+	optional bool optin_only = 4;
 }
 
 // Used by: Store, StoreQuery

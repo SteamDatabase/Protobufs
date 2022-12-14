@@ -212,6 +212,7 @@ message CBroadcast_GetRTMPInfo_Response {
 	optional uint32 chat_rate_limit = 10;
 	optional bool enable_replay = 11;
 	optional bool is_partner_chat_only = 12;
+	optional string wordban_list = 13;
 }
 
 message CBroadcast_HeartbeatBroadcast_Notification {

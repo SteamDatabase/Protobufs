@@ -21,6 +21,8 @@ message CCDDBAppDetailCommon {
 	optional bool has_adult_content = 12;
 	optional bool is_visible_in_steam_china = 13;
 	optional uint32 app_type = 14;
+	optional bool has_adult_content_sex = 15;
+	optional bool has_adult_content_violence = 16;
 }
 
 message CClanEventUserNewsTuple {
