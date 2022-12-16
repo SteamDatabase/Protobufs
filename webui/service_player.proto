@@ -324,6 +324,7 @@ message CPlayer_GetOwnedGames_Response_Game {
 	optional bool has_market = 15;
 	optional bool has_dlc = 16;
 	optional bool has_leaderboards = 17;
+	repeated uint32 content_descriptorids = 18;
 }
 
 message CPlayer_GetPerFriendPreferences_Request {
