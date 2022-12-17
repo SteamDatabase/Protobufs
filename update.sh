@@ -6,7 +6,6 @@ rsync -arhv --delete ../steamtrack/Protobufs/ ./steam/
 rsync -arhv --delete ../backend/files/csgo/Protobufs/ ./csgo/
 rsync -arhv --delete ../backend/files/dota/Protobufs/ ./dota2/
 rsync -arhv --delete ../backend/files/tf/Protobufs/ ./tf2/
-rsync -arhv --delete ../backend/files/underlords/Protobufs/ ./underlords/
 cp -r ./steam/google ./
 
 git add -A
