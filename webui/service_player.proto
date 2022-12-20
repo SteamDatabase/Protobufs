@@ -486,6 +486,13 @@ message CPlayer_GetTimeSSAAccepted_Response {
 	optional uint32 time_chinassa_accepted = 3;
 }
 
+message CPlayer_GetTopAchievementsForGames_Request {
+	optional uint64 steamid = 1;
+	optional string language = 2;
+	optional uint32 max_achievements = 3;
+	repeated uint32 appids = 4;
+}
+
 message CPlayer_GetTopAchievementsForGames_Response {
 	repeated .CPlayer_GetTopAchievementsForGames_Response_Game games = 1;
 }
@@ -769,7 +776,7 @@ service Player {
 	rpc GetSteamDeckKeyboardSkin (.CPlayer_GetSteamDeckKeyboardSkin_Request) returns (.CPlayer_GetSteamDeckKeyboardSkin_Response);
 	rpc GetTextFilterWords (.CPlayer_GetTextFilterWords_Request) returns (.CPlayer_GetTextFilterWords_Response);
 	rpc GetTimeSSAAccepted (.CPlayer_GetTimeSSAAccepted_Request) returns (.CPlayer_GetTimeSSAAccepted_Response);
-	rpc GetTopAchievementsForGames (.NotImplemented) returns (.CPlayer_GetTopAchievementsForGames_Response);
+	rpc GetTopAchievementsForGames (.CPlayer_GetTopAchievementsForGames_Request) returns (.CPlayer_GetTopAchievementsForGames_Response);
 	rpc IgnoreFriend (.CPlayer_IgnoreFriend_Request) returns (.CPlayer_IgnoreFriend_Response);
 	rpc PostStatusToFriends (.CPlayer_PostStatusToFriends_Request) returns (.CPlayer_PostStatusToFriends_Response);
 	rpc RemoveFriend (.CPlayer_RemoveFriend_Request) returns (.CPlayer_RemoveFriend_Response);

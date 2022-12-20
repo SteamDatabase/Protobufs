@@ -64,6 +64,7 @@ message CVoiceChat_UpdateVoiceChatWebRTCData_Request {
 	optional uint32 ssrc_my_sending_stream = 6;
 	optional string user_agent = 7;
 	optional bool has_audio_worklets_support = 8;
+	optional bool has_webrtc_data_channel = 9;
 }
 
 message CVoiceChat_UpdateVoiceChatWebRTCData_Response {
