@@ -196,6 +196,11 @@ message CPlayer_GetFriendsGameplayInfo_Response_OwnGameplayInfo {
 	optional bool owned = 5;
 }
 
+message CPlayer_GetGameAchievements_Request {
+	optional uint32 appid = 1;
+	optional string language = 2;
+}
+
 message CPlayer_GetGameAchievements_Response {
 	repeated .CPlayer_GetGameAchievements_Response_Achievement achievements = 1;
 }
@@ -755,7 +760,7 @@ service Player {
 	rpc GetFavoriteBadge (.CPlayer_GetFavoriteBadge_Request) returns (.CPlayer_GetFavoriteBadge_Response);
 	rpc GetFriendsAppsActivity (.CPlayer_GetFriendsAppsActivity_Request) returns (.CPlayer_GetFriendsAppsActivity_Response);
 	rpc GetFriendsGameplayInfo (.CPlayer_GetFriendsGameplayInfo_Request) returns (.CPlayer_GetFriendsGameplayInfo_Response);
-	rpc GetGameAchievements (.NotImplemented) returns (.CPlayer_GetGameAchievements_Response);
+	rpc GetGameAchievements (.CPlayer_GetGameAchievements_Request) returns (.CPlayer_GetGameAchievements_Response);
 	rpc GetGameBadgeLevels (.CPlayer_GetGameBadgeLevels_Request) returns (.CPlayer_GetGameBadgeLevels_Response);
 	rpc GetMiniProfileBackground (.CPlayer_GetMiniProfileBackground_Request) returns (.CPlayer_GetMiniProfileBackground_Response);
 	rpc GetMutualFriendsForIncomingInvites (.CPlayer_GetMutualFriendsForIncomingInvites_Request) returns (.CPlayer_GetMutualFriendsForIncomingInvites_Response);

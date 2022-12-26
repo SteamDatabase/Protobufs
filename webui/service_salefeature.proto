@@ -1,18 +1,104 @@
+import "common_base.proto";
+
+message CAchievementDetails {
+	optional uint32 statid = 1;
+	optional uint32 fieldid = 2;
+	optional string achievement_name_internal = 3;
+	optional uint32 rtime_unlocked = 4;
+}
+
+message CFriendSharedYearInView {
+	optional fixed64 steamid = 1;
+	optional int32 privacy_state = 3 [(.description) = "enum"];
+	optional uint32 rt_privacy_updated = 4;
+}
+
+message CGameAchievements {
+	optional uint32 appid = 1;
+	repeated .CAchievementDetails achievements = 2;
+	optional uint32 all_time_unlocked_achievements = 3;
+	optional bool unlocked_more_in_future = 4;
+}
 
 message CGamePlaytimeStats {
 	optional uint32 appid = 1;
 	optional .CPlaytimeStats stats = 2;
-	optional uint32 longest_consecutive_days = 3;
+	optional .CPlaytimeStreak playtime_streak = 3;
+	optional .CPlaytimeRanks playtime_ranks = 4;
+	optional uint32 rtime_first_played = 5;
+	optional .CPlaytimeStats relative_game_stats = 6;
+}
+
+message CGameRank {
+	optional uint32 appid = 1;
+	optional uint32 rank = 2;
+}
+
+message CGameRankings {
+	optional .CRankingCategory overall_ranking = 1;
+	optional .CRankingCategory vr_ranking = 2;
+	optional .CRankingCategory deck_ranking = 3;
+	optional .CRankingCategory controller_ranking = 4;
+	optional .CRankingCategory linux_ranking = 5;
+	optional .CRankingCategory mac_ranking = 6;
+	optional .CRankingCategory windows_ranking = 7;
+}
+
+message CGameSummary {
+	optional uint32 appid = 1;
+	optional bool new_this_year = 2;
+	optional uint32 rtime_first_played_lifetime = 3;
+	optional bool demo = 4;
+	optional bool playtest = 5;
+	optional bool played_during_early_access = 6;
+	optional bool played_vr = 7;
+	optional bool played_deck = 8;
+	optional bool played_controller = 9;
+	optional bool played_linux = 10;
+	optional bool played_mac = 11;
+	optional bool played_windows = 12;
+	optional uint32 total_playtime_percentagex100 = 13;
+	optional uint32 total_sessions = 14;
+	optional uint32 rtime_release_date = 15;
+}
+
+message CMonthlyPlaytimeStats {
+	optional uint32 rtime_month = 1;
+	optional .CPlaytimeStats stats = 2;
+	optional .CPlaytimeStreak playtime_streak = 3;
+	repeated .CGamePlaytimeStats appid = 4;
+	optional .CPlaytimeStats relative_monthly_stats = 5;
+	repeated .CSimpleGameSummary game_summary = 6;
+}
+
+message CPlaytimeByNumbers {
+	optional uint32 screenshots_shared = 1;
+	optional uint32 gifts_sent = 2;
+	optional uint32 loyalty_reactions = 3;
+	optional uint32 written_reviews = 4;
+	optional uint32 guides_submitted = 5;
+	optional uint32 workshop_contributions = 6;
+	optional uint32 badges_earned = 7;
+	optional uint32 friends_added = 8;
+	optional uint32 forum_posts = 9;
+	optional uint32 workshop_subscriptions = 10;
+	optional uint32 games_played_pct = 11;
+	optional uint32 achievements_pct = 12;
+	optional uint32 game_streak_pct = 13;
+}
+
+message CPlaytimeRanks {
+	optional uint32 overall_rank = 1;
+	optional uint32 vr_rank = 2;
+	optional uint32 deck_rank = 3;
+	optional uint32 controller_rank = 4;
+	optional uint32 linux_rank = 5;
+	optional uint32 mac_rank = 6;
+	optional uint32 windows_rank = 7;
 }
 
 message CPlaytimeStats {
 	optional uint32 total_playtime_seconds = 1;
-	optional uint32 vr_playtime_seconds = 2;
-	optional uint32 deck_playtime_seconds = 3;
-	optional uint32 controller_playtime_seconds = 4;
-	optional uint32 linux_playtime_seconds = 5;
-	optional uint32 macos_playtime_seconds = 6;
-	optional uint32 windows_playtime_seconds = 7;
 	optional uint32 total_sessions = 20;
 	optional uint32 vr_sessions = 21;
 	optional uint32 deck_sessions = 22;
@@ -20,31 +106,192 @@ message CPlaytimeStats {
 	optional uint32 linux_sessions = 24;
 	optional uint32 macos_sessions = 25;
 	optional uint32 windows_sessions = 26;
+	optional uint32 total_playtime_percentagex100 = 27;
+	optional uint32 vr_playtime_percentagex100 = 28;
+	optional uint32 deck_playtime_percentagex100 = 29;
+	optional uint32 controller_playtime_percentagex100 = 30;
+	optional uint32 linux_playtime_percentagex100 = 31;
+	optional uint32 macos_playtime_percentagex100 = 32;
+	optional uint32 windows_playtime_percentagex100 = 33;
+}
+
+message CPlaytimeStreak {
+	optional uint32 longest_consecutive_days = 1;
+	optional uint32 rtime_start = 2;
+	repeated .CPlaytimeStreakGame streak_games = 3;
+}
+
+message CPlaytimeStreakGame {
+	optional uint32 appid = 1;
+}
+
+message CRankingCategory {
+	optional string category = 1;
+	repeated .CGameRank rankings = 2;
+}
+
+message CSaleFeature_GetFriendsSharedYearInReview_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 year = 2;
+	optional bool return_private = 3;
+}
+
+message CSaleFeature_GetFriendsSharedYearInReview_Response {
+	repeated .CFriendSharedYearInView friend_shares = 1;
+	optional uint32 year = 2;
+}
+
+message CSaleFeature_GetUserActionData_Response {
+	optional string jsondata = 1;
+}
+
+message CSaleFeature_GetUserSharingPermissions_Response {
+	optional int32 privacy_state = 1 [(.description) = "enum"];
+	optional bool generated_value = 2;
+	optional fixed64 steamid = 3;
+	optional uint32 rt_privacy_updated = 4;
+}
+
+message CSaleFeature_GetUserYearAchievements_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 year = 2;
+	repeated uint32 appids = 3;
+	optional bool total_only = 4;
+}
+
+message CSaleFeature_GetUserYearAchievements_Response {
+	repeated .CGameAchievements game_achievements = 1;
+	optional uint32 total_achievements = 2;
+	optional uint32 total_rare_achievements = 3;
+	optional uint32 total_games_with_achievements = 4;
 }
 
 message CSaleFeature_GetUserYearInReview_Request {
 	optional fixed64 steamid = 1;
 	optional uint32 year = 2;
 	optional bool force_regenerate = 3;
+	optional int32 access_source = 4;
 }
 
 message CSaleFeature_GetUserYearInReview_Response {
 	optional .CUserYearInReviewStats stats = 1;
+	optional .CYearInReviewPerformanceStats performance_stats = 2;
+}
+
+message CSaleFeature_GetUserYearInReviewShareImage_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 year = 2;
+	optional string language = 3;
+}
+
+message CSaleFeature_GetUserYearInReviewShareImage_Response {
+	repeated .CSaleFeature_GetUserYearInReviewShareImage_Response_Image images = 1;
+}
+
+message CSaleFeature_GetUserYearInReviewShareImage_Response_Image {
+	optional string name = 1;
+	optional string url_path = 2;
+}
+
+message CSaleFeature_GetUserYearScreenshots_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 year = 2;
+	repeated uint32 appids = 3;
+}
+
+message CSaleFeature_GetUserYearScreenshots_Response {
+	repeated .CSaleFeature_GetUserYearScreenshots_Response_ScreenshotsByApp apps = 1;
+}
+
+message CSaleFeature_GetUserYearScreenshots_Response_Screenshot {
+	optional string image_url = 1;
+	optional string preview_url = 2;
+	optional uint32 image_width = 3;
+	optional uint32 image_height = 4;
+	optional bool maybe_inappropriate_sex = 5;
+	optional bool maybe_inappropriate_violence = 6;
+}
+
+message CSaleFeature_GetUserYearScreenshots_Response_ScreenshotsByApp {
+	optional uint32 appid = 1;
+	repeated .CSaleFeature_GetUserYearScreenshots_Response_Screenshot screenshots = 2;
+}
+
+message CSaleFeature_SetUserActionData_Response {
+}
+
+message CSaleFeature_SetUserSharingPermissions_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 year = 2;
+	optional int32 privacy_state = 3 [(.description) = "enum"];
+}
+
+message CSaleFeature_SetUserSharingPermissions_Response {
+	optional int32 privacy_state = 1 [(.description) = "enum"];
+}
+
+message CSimpleGameSummary {
+	optional uint32 appid = 1;
+	optional uint32 total_playtime_percentagex100 = 2;
+	optional uint32 relative_playtime_percentagex100 = 3;
 }
 
 message CUserPlaytimeStats {
 	optional .CPlaytimeStats total_stats = 1;
 	repeated .CGamePlaytimeStats games = 2;
-	optional uint32 longest_consecutive_days = 3;
+	optional .CPlaytimeStreak playtime_streak = 3;
+	repeated .CMonthlyPlaytimeStats months = 5;
+	repeated .CGameSummary game_summary = 6;
+	optional uint32 demos_played = 7;
+	optional .CGameRankings game_rankings = 8;
+	optional uint32 playtests_played = 9;
+	optional .CUserPlaytimeSummaryStats summary_stats = 10;
+	optional bool substantial = 11 [default = true];
+	optional .CUserTagStats tag_stats = 12;
+	optional .CPlaytimeByNumbers by_numbers = 13;
+}
+
+message CUserPlaytimeSummaryStats {
+	optional uint32 total_achievements = 2;
+	optional uint32 total_games_with_achievements = 3;
+	optional uint32 total_rare_achievements = 4;
+}
+
+message CUserTagStats {
+	repeated .CUserTagStats_Tag stats = 1;
+}
+
+message CUserTagStats_Tag {
+	optional uint32 tag_id = 1;
+	optional float tag_weight = 2;
+	optional float tag_weight_pre_selection = 3;
 }
 
 message CUserYearInReviewStats {
 	optional uint32 account_id = 1;
 	optional uint32 year = 2;
 	optional .CUserPlaytimeStats playtime_stats = 3;
+	optional int32 privacy_state = 4 [(.description) = "enum"];
+}
+
+message CYearInReviewPerformanceStats {
+	optional bool from_dbo = 1;
+	optional uint64 overall_time_ms = 2;
+	optional uint64 dbo_load_ms = 3;
+	optional uint64 query_execution_ms = 4;
+	optional uint64 message_population_ms = 5;
+	optional uint64 dbo_lock_load_ms = 6;
 }
 
 service SaleFeature {
+	rpc GetFriendsSharedYearInReview (.CSaleFeature_GetFriendsSharedYearInReview_Request) returns (.CSaleFeature_GetFriendsSharedYearInReview_Response);
+	rpc GetUserActionData (.NotImplemented) returns (.CSaleFeature_GetUserActionData_Response);
+	rpc GetUserSharingPermissions (.NotImplemented) returns (.CSaleFeature_GetUserSharingPermissions_Response);
+	rpc GetUserYearAchievements (.CSaleFeature_GetUserYearAchievements_Request) returns (.CSaleFeature_GetUserYearAchievements_Response);
 	rpc GetUserYearInReview (.CSaleFeature_GetUserYearInReview_Request) returns (.CSaleFeature_GetUserYearInReview_Response);
+	rpc GetUserYearInReviewShareImage (.CSaleFeature_GetUserYearInReviewShareImage_Request) returns (.CSaleFeature_GetUserYearInReviewShareImage_Response);
+	rpc GetUserYearScreenshots (.CSaleFeature_GetUserYearScreenshots_Request) returns (.CSaleFeature_GetUserYearScreenshots_Response);
+	rpc SetUserActionData (.NotImplemented) returns (.CSaleFeature_SetUserActionData_Response);
+	rpc SetUserSharingPermissions (.CSaleFeature_SetUserSharingPermissions_Request) returns (.CSaleFeature_SetUserSharingPermissions_Response);
 }
 
