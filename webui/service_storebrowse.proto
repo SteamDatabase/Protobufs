@@ -1,13 +1,6 @@
 import "common.proto";
 import "common_base.proto";
 
-message CStoreBrowse_GetDLCForApps_Request {
-	optional .StoreBrowseContext context = 1;
-	optional .CStorePageFilter store_page_filter = 2;
-	repeated .StoreItemID appids = 3;
-	optional uint64 steamid = 4;
-}
-
 message CStoreBrowse_GetDLCForApps_Response {
 	repeated .CStoreBrowse_GetDLCForApps_Response_DLCData dlc_data = 1;
 	repeated .CStoreBrowse_GetDLCForApps_Response_PlaytimeForApp playtime = 2;
@@ -29,6 +22,15 @@ message CStoreBrowse_GetDLCForApps_Response_PlaytimeForApp {
 	optional uint32 last_played = 3;
 }
 
+message CStoreBrowse_GetDLCForAppsSolr_Response {
+	repeated .CStoreBrowse_GetDLCForAppsSolr_Response_DLCList dlc_lists = 1;
+}
+
+message CStoreBrowse_GetDLCForAppsSolr_Response_DLCList {
+	optional uint32 parent_appid = 1;
+	repeated uint32 dlc_appids = 2;
+}
+
 message CStoreBrowse_GetStoreCategories_Request {
 	optional string language = 1;
 	optional int32 elanguage = 2 [default = -1];
@@ -48,7 +50,8 @@ message CStoreBrowse_GetStoreCategories_Response_Category {
 }
 
 service StoreBrowse {
-	rpc GetDLCForApps (.CStoreBrowse_GetDLCForApps_Request) returns (.CStoreBrowse_GetDLCForApps_Response);
+	rpc GetDLCForApps (.NotImplemented) returns (.CStoreBrowse_GetDLCForApps_Response);
+	rpc GetDLCForAppsSolr (.NotImplemented) returns (.CStoreBrowse_GetDLCForAppsSolr_Response);
 	rpc GetItems (.CStoreBrowse_GetItems_Request) returns (.CStoreBrowse_GetItems_Response);
 	rpc GetStoreCategories (.CStoreBrowse_GetStoreCategories_Request) returns (.CStoreBrowse_GetStoreCategories_Response);
 }
