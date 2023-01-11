@@ -1,0 +1,40 @@
+import "common_base.proto";
+
+message CSteamVR_Header {
+	optional int32 type = 1 [(.description) = "enum"];
+	optional uint32 id = 2;
+}
+
+message CSteamVR_WebRTC_DataChannel_Close_Notification {
+	optional uint32 channel_id = 1;
+}
+
+message CSteamVR_WebRTC_DataChannel_Error_Notification {
+	optional uint32 channel_id = 1;
+	optional string reason = 2;
+}
+
+message CSteamVR_WebRTC_DataChannel_Message_Notification {
+	optional uint32 channel_id = 1;
+	optional bytes data = 2;
+}
+
+message CSteamVR_WebRTC_DataChannel_Open_Notification {
+	optional uint32 channel_id = 1;
+}
+
+message CSteamVR_WebRTC_OnDataChannel_Notification {
+	optional fixed64 source_steamid = 1;
+	optional uint32 channel_id = 2;
+	optional string label = 3;
+}
+
+service SteamVRWebRTC {
+	rpc Header (.CSteamVR_Header) returns (.NoResponse);
+	rpc Notify_DataChannelClose (.CSteamVR_WebRTC_DataChannel_Close_Notification) returns (.NoResponse);
+	rpc Notify_DataChannelError (.CSteamVR_WebRTC_DataChannel_Error_Notification) returns (.NoResponse);
+	rpc Notify_DataChannelMessage (.CSteamVR_WebRTC_DataChannel_Message_Notification) returns (.NoResponse);
+	rpc Notify_DataChannelOpen (.CSteamVR_WebRTC_DataChannel_Open_Notification) returns (.NoResponse);
+	rpc Notify_OnDataChannel (.CSteamVR_WebRTC_OnDataChannel_Notification) returns (.NoResponse);
+}
+

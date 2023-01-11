@@ -36,10 +36,13 @@ message CMarketingMessageProto {
 	optional string template_vars = 21;
 	optional uint32 flags = 22;
 	optional string creator_name = 23;
+	optional string template_vars_json = 24;
+	optional string additional_restrictions_json = 25;
 }
 
 message CMarketingMessages_CreateMarketingMessage_Request {
 	optional .CMarketingMessageProto message = 1;
+	optional bool from_json = 2;
 }
 
 message CMarketingMessages_CreateMarketingMessage_Response {
@@ -130,6 +133,7 @@ message CMarketingMessages_MarkMessageSeen_Notification {
 message CMarketingMessages_UpdateMarketingMessage_Request {
 	optional fixed64 gid = 1;
 	optional .CMarketingMessageProto message = 2;
+	optional bool from_json = 3;
 }
 
 message CMarketingMessages_UpdateMarketingMessage_Response {

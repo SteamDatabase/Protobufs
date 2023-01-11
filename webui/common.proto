@@ -4460,6 +4460,24 @@ message CProductImpressionsFromClient_Notification_Impression {
 	optional uint32 num_impressions = 3;
 }
 
+message CSteamVR_WebRTC_CloseDataChannel_Request {
+	optional uint32 channel_id = 1;
+}
+
+message CSteamVR_WebRTC_CloseDataChannel_Response {
+}
+
+message CSteamVR_WebRTC_CreateDataChannel_Request {
+	optional string label = 1;
+	optional bool ordered = 2;
+	optional uint32 max_retransmits = 3;
+	optional uint32 max_packet_life_time = 4;
+}
+
+message CSteamVR_WebRTC_CreateDataChannel_Response {
+	optional uint32 channel_id = 1;
+}
+
 // Used by: PartnerStoreBrowse, StoreBrowse, common.proto
 message CStoreBrowse_GetItems_Request {
 	repeated .StoreItemID ids = 1;
@@ -4472,14 +4490,14 @@ message CStoreBrowse_GetItems_Response {
 	repeated .StoreItem store_items = 1;
 }
 
-// Used by: Store, StoreQuery
+// Used by: Store, StoreBrowse, StoreQuery
 message CStorePageFilter {
 	optional .CStorePageFilter_SalePageFilter sale_filter = 1;
 	optional .CStorePageFilter_ContentHubFilter content_hub_filter = 2;
 	repeated .CStorePageFilter_StoreFilter store_filters = 3;
 }
 
-// Used by: Store, StoreQuery
+// Used by: Store, StoreBrowse, StoreQuery
 message CStorePageFilter_ContentHubFilter {
 	optional string hub_type = 1;
 	optional string hub_category = 2;
@@ -4488,7 +4506,7 @@ message CStorePageFilter_ContentHubFilter {
 	optional .CStorePageFilter_ContentHubFilter_OptInInfo optin = 5;
 }
 
-// Used by: Store, StoreQuery
+// Used by: Store, StoreBrowse, StoreQuery
 message CStorePageFilter_ContentHubFilter_OptInInfo {
 	optional string name = 1;
 	optional uint32 optin_tagid = 2;
@@ -4496,12 +4514,12 @@ message CStorePageFilter_ContentHubFilter_OptInInfo {
 	optional bool optin_only = 4;
 }
 
-// Used by: Store, StoreQuery
+// Used by: Store, StoreBrowse, StoreQuery
 message CStorePageFilter_SalePageFilter {
 	optional uint32 sale_tagid = 1;
 }
 
-// Used by: Store, StoreQuery
+// Used by: Store, StoreBrowse, StoreQuery
 message CStorePageFilter_StoreFilter {
 	optional string filter_json = 1;
 	optional string cache_key = 2;

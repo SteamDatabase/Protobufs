@@ -84,6 +84,10 @@ message CMsgSteamLearn_SnapshotProject_Response {
 	optional int32 snapshot_result = 1 [(.description) = "enum"];
 }
 
+message CMsgSteamLearn_Train_Response {
+	optional int32 result = 1 [(.description) = "enum"];
+}
+
 message CMsgSteamLearnDataSource {
 	optional uint32 id = 1;
 	optional string name = 2;
@@ -211,8 +215,6 @@ message CMsgSteamLearnProjectConfig {
 	repeated .CMsgSteamLearnProjectNode project_nodes = 6;
 	optional .CMsgSteamLearnProjectSnapshotConfig snapshot_config = 7;
 	optional .CMsgSteamLearnModelTrainConfig train_config = 8;
-	optional string fetch_script = 9;
-	optional string train_script = 10;
 	optional .CMsgSteamLearnProjectSnapshotFilter snapshot_filter = 11;
 	repeated .CMsgSteamLearnProjectConfig_MapDataElementSqlColumnEntry map_data_element_sql_column = 12;
 	optional uint32 total_sql_columns = 13;
@@ -336,5 +338,6 @@ service SteamLearn {
 	rpc PublishProject (.CMsgSteamLearn_PublishProject_Request) returns (.CMsgSteamLearn_PublishProject_Response);
 	rpc RegisterDataSource (.NotImplemented) returns (.CMsgSteamLearn_RegisterDataSource_Response);
 	rpc SnapshotProject (.NotImplemented) returns (.CMsgSteamLearn_SnapshotProject_Response);
+	rpc Train (.NotImplemented) returns (.CMsgSteamLearn_Train_Response);
 }
 

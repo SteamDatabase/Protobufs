@@ -1,6 +1,17 @@
 import "common_base.proto";
 import "common.proto";
 
+message CSteamCharts_GetBestOfYearPages_Response {
+	repeated .CSteamCharts_GetBestOfYearPages_Response_BestOfYearPage pages = 1;
+}
+
+message CSteamCharts_GetBestOfYearPages_Response_BestOfYearPage {
+	optional string name = 1;
+	optional string url_path = 2;
+	repeated string banner_url = 3;
+	repeated string banner_url_mobile = 4;
+}
+
 message CSteamCharts_GetGamesByConcurrentPlayers_Response {
 	optional uint32 last_update = 1;
 	repeated .CSteamCharts_GetGamesByConcurrentPlayers_Response_MostPlayedRank ranks = 2;
@@ -48,6 +59,7 @@ message CSteamCharts_GetTopReleasesPages_Response_TopReleasesPage {
 }
 
 service SteamCharts {
+	rpc GetBestOfYearPages (.NotImplemented) returns (.CSteamCharts_GetBestOfYearPages_Response);
 	rpc GetGamesByConcurrentPlayers (.NotImplemented) returns (.CSteamCharts_GetGamesByConcurrentPlayers_Response);
 	rpc GetMostPlayedGames (.CSteamCharts_GetMostPlayedGames_Request) returns (.CSteamCharts_GetMostPlayedGames_Response);
 	rpc GetTopReleasesPages (.CSteamCharts_GetTopReleasesPages_Request) returns (.CSteamCharts_GetTopReleasesPages_Response);
