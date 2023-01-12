@@ -470,6 +470,7 @@ message CClientNotificationHardwareSurveyPending {
 message CClientNotificationInboxStats {
 	optional uint32 friend_invite_count = 1;
 	optional uint32 new_comment_count = 2;
+	optional uint32 new_gift_count = 3;
 }
 
 message CClientNotificationIncomingVoiceChat {
@@ -3135,15 +3136,17 @@ message CMsgControllerActionSetMiscSettings {
 }
 
 message CMsgControllerConfiguration {
-	optional string display_name = 1;
-	optional string description = 2;
-	optional string creator = 3;
-	optional int32 controller_type = 4;
-	repeated .CMsgGameActionSet sets = 5;
-	repeated .CMsgControllerMode modes = 6;
-	optional string error_msg = 7;
-	optional string action_block_path = 8;
-	optional .CMsgControllerActionSetMiscSettings misc_action_set_settings = 9;
+	optional uint32 binding_handle = 1;
+	optional string display_name = 2;
+	optional string description = 3;
+	optional string creator = 4;
+	optional int32 controller_type = 5;
+	repeated .CMsgGameActionSet sets = 6;
+	repeated .CMsgControllerMode modes = 7;
+	optional string error_msg = 8;
+	optional string action_block_path = 9;
+	optional .CMsgControllerActionSetMiscSettings misc_action_set_settings = 10;
+	optional string url = 11;
 }
 
 // Used by: common.proto
@@ -4405,6 +4408,7 @@ message CMsgSystemUpdateState {
 	optional .CMsgSystemUpdateProgress progress = 2;
 	repeated .CMsgSystemUpdateCheckResult update_check_results = 3;
 	repeated .CMsgSystemUpdateApplyResult update_apply_results = 4;
+	optional bool supports_os_updates = 5;
 }
 
 message CMsgTrading_CancelTradeRequest {
