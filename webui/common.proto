@@ -389,6 +389,10 @@ message CClientNotificationBatteryTemperature {
 	optional string notification_type = 2;
 }
 
+message CClientNotificationCannotReadControllerGuideButton {
+	optional int32 controller_index = 1;
+}
+
 message CClientNotificationClaimSteamDeckRewards {
 }
 
