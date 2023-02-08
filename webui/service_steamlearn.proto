@@ -111,6 +111,7 @@ message CMsgSteamLearn_TrainStatus_Response_FetchStatus {
 	optional uint32 total_rows_written = 4;
 	optional uint32 total_rows = 5;
 	optional uint32 start_time = 6;
+	optional uint32 end_time = 7;
 }
 
 message CMsgSteamLearn_TrainStatus_Response_FetchStatus_Worker {
@@ -131,6 +132,7 @@ message CMsgSteamLearn_TrainStatus_Response_TrainStatus {
 	repeated float test_accuracy = 10;
 	optional uint32 total_epochs = 11;
 	optional uint32 start_time = 12;
+	optional uint32 end_time = 13;
 }
 
 message CMsgSteamLearn_TrainStatus_Response_TrainStatus_Batch {
@@ -147,6 +149,7 @@ message CMsgSteamLearn_TrainStatus_Response_TrainStatus_Epoch {
 	repeated .CMsgSteamLearn_TrainStatus_Response_TrainStatus_Batch train_batches = 6;
 	repeated .CMsgSteamLearn_TrainStatus_Response_TrainStatus_Batch validate_batches = 7;
 	optional uint32 start_time = 18;
+	optional uint32 end_time = 19;
 }
 
 message CMsgSteamLearnDataRetentionConfig {
