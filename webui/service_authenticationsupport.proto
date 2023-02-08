@@ -24,6 +24,7 @@ message CAuthenticationSupport_QueryRefreshTokensByAccount_Request {
 
 message CAuthenticationSupport_QueryRefreshTokensByAccount_Response {
 	repeated .CSupportRefreshTokenDescription refresh_tokens = 1;
+	optional int32 last_token_reset = 2;
 }
 
 message CAuthenticationSupport_RevokeToken_Request {
