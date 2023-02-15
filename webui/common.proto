@@ -4464,6 +4464,22 @@ message CProductImpressionsFromClient_Notification_Impression {
 	optional uint32 num_impressions = 3;
 }
 
+message CSteamVR_VoiceChat_ExitRoomChat_Request {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_room_id = 2;
+}
+
+message CSteamVR_VoiceChat_ExitRoomChat_Response {
+}
+
+message CSteamVR_VoiceChat_InitiateRoomChat_Request {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_room_id = 2;
+}
+
+message CSteamVR_VoiceChat_InitiateRoomChat_Response {
+}
+
 message CSteamVR_WebRTC_CloseDataChannel_Request {
 	optional uint32 channel_id = 1;
 }
