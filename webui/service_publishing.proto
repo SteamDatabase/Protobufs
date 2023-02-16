@@ -109,6 +109,7 @@ message CPublishing_GetSinglePartnerAppOptIns_Response {
 
 message CPublishing_SendPartnerAppOptInEmailAndWait_Request {
 	optional fixed64 email_def_id = 1;
+	optional bool force_resend = 2;
 }
 
 message CPublishing_SendPartnerAppOptInEmailAndWait_Response {
