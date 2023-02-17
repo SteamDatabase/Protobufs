@@ -4191,6 +4191,8 @@ message CMsgSystemDisplay {
 	optional int32 refresh_rate_max = 13;
 	optional bool is_vrr_capable = 14;
 	optional bool is_vrr_enabled = 15;
+	optional bool is_hdr_capable = 16;
+	optional bool is_hdr_enabled = 17;
 }
 
 message CMsgSystemDisplayManagerSetMode {
@@ -4303,6 +4305,7 @@ message CMsgSystemPerfLimits {
 	optional bool is_split_scaling_and_filtering_supported = 25;
 	repeated int32 split_scaling_filters_available = 26 [(.description) = "enum"];
 	repeated int32 split_scaling_scalers_available = 27 [(.description) = "enum"];
+	optional bool is_hdr_supported = 28;
 }
 
 // Used by: common.proto
@@ -4331,6 +4334,12 @@ message CMsgSystemPerfSettingsGlobal {
 	optional bool is_show_perf_overlay_over_steam_enabled = 6;
 	optional bool is_advanced_settings_enabled = 7;
 	optional bool allow_external_display_refresh_control = 8;
+	optional bool is_hdr_enabled = 9;
+	optional bool force_hdr_wide_gammut_for_sdr = 10;
+	optional bool force_hdr_10pq_output_debug = 11;
+	optional int32 hdr_on_sdr_tonemap_operator = 12 [(.description) = "enum"];
+	optional bool is_hdr_debug_heatmap_enabled = 13;
+	optional bool debug_force_hdr_support = 14;
 }
 
 // Used by: common.proto
