@@ -21,6 +21,8 @@ message CPartnerAppOptInData {
 	optional uint32 accountid_invited = 18;
 	optional bool no_planned_discount = 19;
 	optional uint32 pending_review = 20;
+	optional int32 appeal_state = 21 [(.description) = "enum"];
+	optional uint32 accountid_appeal = 22;
 }
 
 message CPartnerAppOptInEmailDef {

@@ -8,6 +8,7 @@ message CClanFAQContent {
 	optional string title = 5;
 	optional fixed32 timestamp = 6;
 	optional uint64 author_account_id = 7;
+	optional string url_code = 8;
 }
 
 message CClanFAQS_CheckFAQPermissions_Response {

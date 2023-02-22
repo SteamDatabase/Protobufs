@@ -562,6 +562,9 @@ message CPlayer_PrivacySettingsChanged_Notification {
 	optional .CPrivacySettings privacy_settings = 1;
 }
 
+message CPlayer_RecordDisconnectedPlaytime_Response {
+}
+
 message CPlayer_RemoveFriend_Request {
 	optional fixed64 steamid = 1;
 }
@@ -712,6 +715,7 @@ message ProfileCustomizationSlot {
 	optional uint64 item_classid = 11;
 	optional uint64 item_instanceid = 12;
 	optional int32 ban_check_result = 13 [(.description) = "enum"];
+	optional uint32 replay_year = 14;
 }
 
 message ProfileItem {
@@ -784,6 +788,7 @@ service Player {
 	rpc GetTopAchievementsForGames (.CPlayer_GetTopAchievementsForGames_Request) returns (.CPlayer_GetTopAchievementsForGames_Response);
 	rpc IgnoreFriend (.CPlayer_IgnoreFriend_Request) returns (.CPlayer_IgnoreFriend_Response);
 	rpc PostStatusToFriends (.CPlayer_PostStatusToFriends_Request) returns (.CPlayer_PostStatusToFriends_Response);
+	rpc RecordDisconnectedPlaytime (.NotImplemented) returns (.CPlayer_RecordDisconnectedPlaytime_Response);
 	rpc RemoveFriend (.CPlayer_RemoveFriend_Request) returns (.CPlayer_RemoveFriend_Response);
 	rpc SetAnimatedAvatar (.CPlayer_SetAnimatedAvatar_Request) returns (.CPlayer_SetAnimatedAvatar_Response);
 	rpc SetAvatarFrame (.CPlayer_SetAvatarFrame_Request) returns (.CPlayer_SetAvatarFrame_Response);

@@ -89,6 +89,21 @@ message CPublishedFile_GetAppRelationships_Response_AppRelationship {
 	optional uint32 relationship = 2;
 }
 
+message CPublishedFile_GetAppRelationshipsBatched_Response {
+	repeated .CPublishedFile_GetAppRelationshipsBatched_Response_PublishedFileAppRelationship relationships = 1;
+}
+
+message CPublishedFile_GetAppRelationshipsBatched_Response_AppRelationship {
+	optional uint32 appid = 1;
+	optional uint32 relationship = 2;
+}
+
+message CPublishedFile_GetAppRelationshipsBatched_Response_PublishedFileAppRelationship {
+	optional uint64 publishedfileid = 1;
+	optional uint32 result = 2;
+	repeated .CPublishedFile_GetAppRelationshipsBatched_Response_AppRelationship app_relationships = 3;
+}
+
 message CPublishedFile_GetChangeHistory_Request {
 	optional fixed64 publishedfileid = 1;
 	optional bool total_only = 2;
@@ -601,6 +616,7 @@ service PublishedFile {
 	rpc CanSubscribe (.CPublishedFile_CanSubscribe_Request) returns (.CPublishedFile_CanSubscribe_Response);
 	rpc Delete (.CPublishedFile_Delete_Request) returns (.CPublishedFile_Delete_Response);
 	rpc GetAppRelationships (.CPublishedFile_GetAppRelationships_Request) returns (.CPublishedFile_GetAppRelationships_Response);
+	rpc GetAppRelationshipsBatched (.NotImplemented) returns (.CPublishedFile_GetAppRelationshipsBatched_Response);
 	rpc GetChangeHistory (.CPublishedFile_GetChangeHistory_Request) returns (.CPublishedFile_GetChangeHistory_Response);
 	rpc GetChangeHistoryEntry (.CPublishedFile_GetChangeHistoryEntry_Request) returns (.CPublishedFile_GetChangeHistoryEntry_Response);
 	rpc GetDetails (.CPublishedFile_GetDetails_Request) returns (.CPublishedFile_GetDetails_Response);

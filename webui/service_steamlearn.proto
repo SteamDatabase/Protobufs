@@ -36,12 +36,70 @@ message CMsgSteamLearn_GetDataSource_Response {
 	optional .CMsgSteamLearnDataSource data_source = 1;
 }
 
+message CMsgSteamLearn_GetFetchStatus_Response {
+	optional int32 result = 1 [(.description) = "enum"];
+	optional uint32 fetch_id = 2;
+	optional int32 status = 3 [(.description) = "enum"];
+	repeated .CMsgSteamLearn_GetFetchStatus_Response_Worker workers = 4;
+	optional uint32 total_rows_written = 5;
+	optional uint32 total_rows = 6;
+	optional uint32 start_time = 7;
+	optional uint32 end_time = 8;
+}
+
+message CMsgSteamLearn_GetFetchStatus_Response_Worker {
+	optional uint32 rows_written = 1;
+	optional bool complete = 2;
+}
+
+message CMsgSteamLearn_GetFetchStatusVersions_Response {
+	repeated uint32 versions = 1;
+}
+
 message CMsgSteamLearn_GetProject_Request {
 	optional uint32 project_id = 1;
 }
 
 message CMsgSteamLearn_GetProject_Response {
 	optional .CMsgSteamLearnProject project = 1;
+}
+
+message CMsgSteamLearn_GetTrainStatus_Response {
+	optional int32 result = 1 [(.description) = "enum"];
+	optional uint32 train_id = 2;
+	optional uint32 fetch_id = 3;
+	optional int32 status = 4 [(.description) = "enum"];
+	repeated .CMsgSteamLearn_GetTrainStatus_Response_Epoch epochs = 5;
+	optional uint32 total_epochs = 6;
+	optional uint32 train_batch_count = 7;
+	optional uint32 validate_batch_count = 8;
+	optional uint32 test_batch_count = 9;
+	repeated .CMsgSteamLearn_GetTrainStatus_Response_Batch test_batches = 10;
+	optional float test_loss = 11;
+	repeated float test_accuracy = 12;
+	optional uint32 start_time = 13;
+	optional uint32 end_time = 14;
+}
+
+message CMsgSteamLearn_GetTrainStatus_Response_Batch {
+	optional float loss = 1;
+	repeated float accuracy = 2;
+}
+
+message CMsgSteamLearn_GetTrainStatus_Response_Epoch {
+	optional uint32 epoch_number = 1;
+	optional float epoch_train_loss = 2;
+	repeated float epoch_train_accuracy = 3;
+	optional float epoch_validate_loss = 4;
+	repeated float epoch_validate_accuracy = 5;
+	repeated .CMsgSteamLearn_GetTrainStatus_Response_Batch train_batches = 6;
+	repeated .CMsgSteamLearn_GetTrainStatus_Response_Batch validate_batches = 7;
+	optional uint32 start_time = 8;
+	optional uint32 end_time = 9;
+}
+
+message CMsgSteamLearn_GetTrainStatusVersions_Response {
+	repeated uint32 versions = 1;
 }
 
 message CMsgSteamLearn_Inference_Response {
@@ -51,6 +109,38 @@ message CMsgSteamLearn_Inference_Response {
 
 message CMsgSteamLearn_Inference_Response_ReponseValues {
 	repeated float values = 1;
+}
+
+message CMsgSteamLearn_InferenceBackend_Request {
+	optional uint32 project_id = 1;
+	optional uint32 fetch_id = 2;
+	optional uint32 train_id = 3;
+	repeated .CMsgSteamLearnRawDataElement data = 4;
+	repeated uint32 additional_data = 5;
+}
+
+message CMsgSteamLearn_InferenceBackend_Response {
+	repeated .CMsgSteamLearn_InferenceBackend_Response_Output outputs = 1;
+}
+
+message CMsgSteamLearn_InferenceBackend_Response_BinaryCrossEntropyOutput {
+	optional float value = 1;
+}
+
+message CMsgSteamLearn_InferenceBackend_Response_CategoricalCrossEntropyOutput {
+	repeated float weight = 1;
+	repeated float value = 2;
+}
+
+message CMsgSteamLearn_InferenceBackend_Response_MutliBinaryCrossEntropyOutput {
+	repeated float weight = 1;
+	repeated float value = 2;
+}
+
+message CMsgSteamLearn_InferenceBackend_Response_Output {
+	optional .CMsgSteamLearn_InferenceBackend_Response_BinaryCrossEntropyOutput binary_crossentropy = 1;
+	optional .CMsgSteamLearn_InferenceBackend_Response_CategoricalCrossEntropyOutput categorical_crossentropy = 2;
+	optional .CMsgSteamLearn_InferenceBackend_Response_MutliBinaryCrossEntropyOutput multi_binary_crossentropy = 3;
 }
 
 message CMsgSteamLearn_ListDataSources_Request {
@@ -92,66 +182,6 @@ message CMsgSteamLearn_Train_Response {
 	optional int32 result = 1 [(.description) = "enum"];
 }
 
-message CMsgSteamLearn_TrainStatus_Request {
-	optional uint32 project_id = 1;
-	optional int32 fetch_id = 2;
-	optional int32 train_id = 3;
-}
-
-message CMsgSteamLearn_TrainStatus_Response {
-	optional int32 result = 1 [(.description) = "enum"];
-	repeated .CMsgSteamLearn_TrainStatus_Response_FetchStatus fetch_statuses = 2;
-	repeated .CMsgSteamLearn_TrainStatus_Response_TrainStatus train_statuses = 3;
-}
-
-message CMsgSteamLearn_TrainStatus_Response_FetchStatus {
-	optional uint32 fetch_id = 1;
-	optional int32 status = 2 [(.description) = "enum"];
-	repeated .CMsgSteamLearn_TrainStatus_Response_FetchStatus_Worker workers = 3;
-	optional uint32 total_rows_written = 4;
-	optional uint32 total_rows = 5;
-	optional uint32 start_time = 6;
-	optional uint32 end_time = 7;
-}
-
-message CMsgSteamLearn_TrainStatus_Response_FetchStatus_Worker {
-	optional uint32 rows_written = 1;
-	optional bool complete = 2;
-}
-
-message CMsgSteamLearn_TrainStatus_Response_TrainStatus {
-	optional uint32 train_id = 1;
-	optional uint32 fetch_id = 2;
-	optional int32 status = 3 [(.description) = "enum"];
-	repeated .CMsgSteamLearn_TrainStatus_Response_TrainStatus_Epoch epochs = 4;
-	optional uint32 train_batch_count = 5;
-	optional uint32 validate_batch_count = 6;
-	optional uint32 test_batch_count = 7;
-	repeated .CMsgSteamLearn_TrainStatus_Response_TrainStatus_Batch test_batches = 8;
-	optional float test_loss = 9;
-	repeated float test_accuracy = 10;
-	optional uint32 total_epochs = 11;
-	optional uint32 start_time = 12;
-	optional uint32 end_time = 13;
-}
-
-message CMsgSteamLearn_TrainStatus_Response_TrainStatus_Batch {
-	optional float loss = 1;
-	repeated float accuracy = 2;
-}
-
-message CMsgSteamLearn_TrainStatus_Response_TrainStatus_Epoch {
-	optional uint32 epoch_number = 1;
-	optional float epoch_train_loss = 2;
-	repeated float epoch_train_accuracy = 3;
-	optional float epoch_validate_loss = 4;
-	repeated float epoch_validate_accuracy = 5;
-	repeated .CMsgSteamLearn_TrainStatus_Response_TrainStatus_Batch train_batches = 6;
-	repeated .CMsgSteamLearn_TrainStatus_Response_TrainStatus_Batch validate_batches = 7;
-	optional uint32 start_time = 18;
-	optional uint32 end_time = 19;
-}
-
 message CMsgSteamLearnDataRetentionConfig {
 	optional uint32 snapshot_keep_duration_days = 1;
 	optional uint32 fetch_keep_count = 2;
@@ -189,6 +219,10 @@ message CMsgSteamLearnDataSourceElementUsage {
 	optional float max_range = 8;
 	optional float std_dev = 9;
 	optional string compact_table = 10;
+}
+
+message CMsgSteamLearnFetchInfo {
+	optional uint32 fetch_id = 1;
 }
 
 message CMsgSteamLearnInferenceConfig {
@@ -284,6 +318,8 @@ message CMsgSteamLearnProjectConfig {
 	optional .CMsgSteamLearnDataRetentionConfig data_retention_config = 14;
 	optional .CMsgSteamLearnInferenceConfig inference_config = 15;
 	optional .CMsgSteamLearnScheduledTrainConfig scheduled_train_config = 16;
+	repeated .CMsgSteamLearnFetchInfo fetch_infos = 17;
+	repeated .CMsgSteamLearnTrainInfo train_infos = 18;
 }
 
 message CMsgSteamLearnProjectConfig_MapDataElementSqlColumnEntry {
@@ -339,6 +375,7 @@ message CMsgSteamLearnProjectSnapshotFilter {
 	optional uint32 sample_reduce_percent = 1;
 	optional .CMsgSteamLearnProjectSnapshotFilterHistogram histogram = 2;
 	repeated .CMsgSteamLearnProjectSnapshotFilterComparison comparisons = 3;
+	optional string raw_exclusion_filter = 4;
 }
 
 message CMsgSteamLearnProjectSnapshotFilterComparison {
@@ -355,6 +392,11 @@ message CMsgSteamLearnProjectSnapshotFilterHistogram {
 	optional uint32 num_buckets = 4;
 }
 
+message CMsgSteamLearnRawDataElement {
+	optional float float_value = 1;
+	optional string string_value = 2;
+}
+
 message CMsgSteamLearnScheduledTrainConfig {
 	optional uint32 frequency_seconds = 1;
 }
@@ -368,20 +410,29 @@ message CMsgSteamLearnTrainConfig {
 	optional uint32 train_no_loss_improvement_epoch_limit = 6;
 }
 
+message CMsgSteamLearnTrainInfo {
+	optional uint32 fetch_id = 1;
+	optional uint32 train_id = 2;
+}
+
 service SteamLearn {
 	rpc BatchOperation (.NotImplemented) returns (.CMsgSteamLearn_BatchOperation_Response);
 	rpc CacheData (.NotImplemented) returns (.CMsgSteamLearn_CacheData_Response);
 	rpc CreateProject (.CMsgSteamLearn_CreateProject_Request) returns (.CMsgSteamLearn_CreateProject_Response);
 	rpc EditProject (.CMsgSteamLearn_EditProject_Request) returns (.CMsgSteamLearn_EditProject_Response);
 	rpc GetDataSource (.CMsgSteamLearn_GetDataSource_Request) returns (.CMsgSteamLearn_GetDataSource_Response);
+	rpc GetFetchStatus (.NotImplemented) returns (.CMsgSteamLearn_GetFetchStatus_Response);
+	rpc GetFetchStatusVersions (.NotImplemented) returns (.CMsgSteamLearn_GetFetchStatusVersions_Response);
 	rpc GetProject (.CMsgSteamLearn_GetProject_Request) returns (.CMsgSteamLearn_GetProject_Response);
+	rpc GetTrainStatus (.NotImplemented) returns (.CMsgSteamLearn_GetTrainStatus_Response);
+	rpc GetTrainStatusVersions (.NotImplemented) returns (.CMsgSteamLearn_GetTrainStatusVersions_Response);
 	rpc Inference (.NotImplemented) returns (.CMsgSteamLearn_Inference_Response);
+	rpc InferenceBackend (.CMsgSteamLearn_InferenceBackend_Request) returns (.CMsgSteamLearn_InferenceBackend_Response);
 	rpc ListDataSources (.CMsgSteamLearn_ListDataSources_Request) returns (.CMsgSteamLearn_ListDataSources_Response);
 	rpc ListProjects (.CMsgSteamLearn_ListProjects_Request) returns (.CMsgSteamLearn_ListProjects_Response);
 	rpc PublishProject (.CMsgSteamLearn_PublishProject_Request) returns (.CMsgSteamLearn_PublishProject_Response);
 	rpc RegisterDataSource (.NotImplemented) returns (.CMsgSteamLearn_RegisterDataSource_Response);
 	rpc SnapshotProject (.NotImplemented) returns (.CMsgSteamLearn_SnapshotProject_Response);
 	rpc Train (.NotImplemented) returns (.CMsgSteamLearn_Train_Response);
-	rpc TrainStatus (.CMsgSteamLearn_TrainStatus_Request) returns (.CMsgSteamLearn_TrainStatus_Response);
 }
 

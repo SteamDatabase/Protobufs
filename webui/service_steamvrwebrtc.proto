@@ -5,6 +5,9 @@ message CSteamVR_Header {
 	optional uint32 id = 2;
 }
 
+message CSteamVR_WebRTC_Active_Notification {
+}
+
 message CSteamVR_WebRTC_DataChannel_Close_Notification {
 	optional uint32 channel_id = 1;
 }
@@ -23,6 +26,9 @@ message CSteamVR_WebRTC_DataChannel_Open_Notification {
 	optional uint32 channel_id = 1;
 }
 
+message CSteamVR_WebRTC_Inactive_Notification {
+}
+
 message CSteamVR_WebRTC_OnDataChannel_Notification {
 	optional fixed64 source_steamid = 1;
 	optional uint32 channel_id = 2;
@@ -30,7 +36,9 @@ message CSteamVR_WebRTC_OnDataChannel_Notification {
 }
 
 service SteamVRWebRTC {
+	rpc Active (.CSteamVR_WebRTC_Active_Notification) returns (.NoResponse);
 	rpc Header (.CSteamVR_Header) returns (.NoResponse);
+	rpc Inactive (.CSteamVR_WebRTC_Inactive_Notification) returns (.NoResponse);
 	rpc Notify_DataChannelClose (.CSteamVR_WebRTC_DataChannel_Close_Notification) returns (.NoResponse);
 	rpc Notify_DataChannelError (.CSteamVR_WebRTC_DataChannel_Error_Notification) returns (.NoResponse);
 	rpc Notify_DataChannelMessage (.CSteamVR_WebRTC_DataChannel_Message_Notification) returns (.NoResponse);

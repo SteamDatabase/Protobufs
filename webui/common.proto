@@ -4726,6 +4726,8 @@ message StoreItem {
 	repeated .StoreItem_SupportedLanguage supported_languages = 52;
 	optional string store_url_path_override = 53;
 	optional .StoreItem_FreeWeekend free_weekend = 54;
+	optional bool unlisted = 55;
+	optional uint32 game_count = 56;
 }
 
 // Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers
@@ -4743,6 +4745,7 @@ message StoreItem_Assets {
 	optional string library_hero = 11;
 	optional string library_hero_2x = 12;
 	optional string community_icon = 13;
+	optional string clan_avatar = 14;
 }
 
 // Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers
@@ -4915,5 +4918,7 @@ message StoreItemID {
 	optional uint32 appid = 1;
 	optional uint32 packageid = 2;
 	optional uint32 bundleid = 3;
+	optional uint32 tagid = 4;
+	optional uint32 creatorid = 5;
 }
 
