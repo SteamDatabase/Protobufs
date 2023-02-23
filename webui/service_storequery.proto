@@ -23,6 +23,8 @@ message CStoreQuery_SearchSuggestions_Request {
 	optional .CStoreQueryFilters filters = 5;
 	optional .StoreBrowseItemDataRequest data_request = 6;
 	optional bool use_spellcheck = 7;
+	optional bool search_tags = 8;
+	optional bool search_creators = 9;
 }
 
 message CStoreQuery_SearchSuggestions_Response {

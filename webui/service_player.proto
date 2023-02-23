@@ -562,6 +562,17 @@ message CPlayer_PrivacySettingsChanged_Notification {
 	optional .CPrivacySettings privacy_settings = 1;
 }
 
+message CPlayer_RecordDisconnectedPlaytime_Request {
+	repeated .CPlayer_RecordDisconnectedPlaytime_Request_PlayHistory play_sessions = 3;
+}
+
+message CPlayer_RecordDisconnectedPlaytime_Request_PlayHistory {
+	optional uint32 appid = 1;
+	optional uint32 session_time_start = 2;
+	optional uint32 seconds = 3;
+	optional bool offline = 4;
+}
+
 message CPlayer_RecordDisconnectedPlaytime_Response {
 }
 
@@ -788,7 +799,7 @@ service Player {
 	rpc GetTopAchievementsForGames (.CPlayer_GetTopAchievementsForGames_Request) returns (.CPlayer_GetTopAchievementsForGames_Response);
 	rpc IgnoreFriend (.CPlayer_IgnoreFriend_Request) returns (.CPlayer_IgnoreFriend_Response);
 	rpc PostStatusToFriends (.CPlayer_PostStatusToFriends_Request) returns (.CPlayer_PostStatusToFriends_Response);
-	rpc RecordDisconnectedPlaytime (.NotImplemented) returns (.CPlayer_RecordDisconnectedPlaytime_Response);
+	rpc RecordDisconnectedPlaytime (.CPlayer_RecordDisconnectedPlaytime_Request) returns (.CPlayer_RecordDisconnectedPlaytime_Response);
 	rpc RemoveFriend (.CPlayer_RemoveFriend_Request) returns (.CPlayer_RemoveFriend_Response);
 	rpc SetAnimatedAvatar (.CPlayer_SetAnimatedAvatar_Request) returns (.CPlayer_SetAnimatedAvatar_Response);
 	rpc SetAvatarFrame (.CPlayer_SetAvatarFrame_Request) returns (.CPlayer_SetAvatarFrame_Response);
