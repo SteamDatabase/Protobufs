@@ -1,6 +1,13 @@
 import "common.proto";
 import "common_base.proto";
 
+message CStoreBrowse_GetDLCForApps_Request {
+	optional .StoreBrowseContext context = 1;
+	optional .CStorePageFilter store_page_filter = 2;
+	repeated .StoreItemID appids = 3;
+	optional uint64 steamid = 4;
+}
+
 message CStoreBrowse_GetDLCForApps_Response {
 	repeated .CStoreBrowse_GetDLCForApps_Response_DLCData dlc_data = 1;
 	repeated .CStoreBrowse_GetDLCForApps_Response_PlaytimeForApp playtime = 2;
@@ -58,7 +65,7 @@ message CStoreBrowse_GetStoreCategories_Response_Category {
 }
 
 service StoreBrowse {
-	rpc GetDLCForApps (.NotImplemented) returns (.CStoreBrowse_GetDLCForApps_Response);
+	rpc GetDLCForApps (.CStoreBrowse_GetDLCForApps_Request) returns (.CStoreBrowse_GetDLCForApps_Response);
 	rpc GetDLCForAppsSolr (.CStoreBrowse_GetDLCForAppsSolr_Request) returns (.CStoreBrowse_GetDLCForAppsSolr_Response);
 	rpc GetItems (.CStoreBrowse_GetItems_Request) returns (.CStoreBrowse_GetItems_Response);
 	rpc GetStoreCategories (.CStoreBrowse_GetStoreCategories_Request) returns (.CStoreBrowse_GetStoreCategories_Response);

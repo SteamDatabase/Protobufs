@@ -71,8 +71,7 @@ message CAppOverview_AppAssociation {
 message CAppOverview_Change {
 	repeated .CAppOverview app_overview = 1;
 	repeated uint32 removed_appid = 2;
-	optional bool complete_update = 3;
-	//optional bool full_update = 3;
+	optional bool full_update = 3;
 	optional bool update_complete = 4;
 }
 
@@ -360,6 +359,11 @@ message CClientMetrics_DownloadRates_Notification_StatsInfo {
 	optional uint64 microseconds = 5;
 	optional bool used_ipv6 = 6;
 	optional bool proxied = 7;
+	optional bool used_http2 = 8;
+	optional uint32 cache_hits = 9;
+	optional uint32 cache_misses = 10;
+	optional uint64 hit_bytes = 11;
+	optional uint64 miss_bytes = 12;
 }
 
 message CClientMetrics_IPv6Connectivity_Notification {
@@ -547,6 +551,7 @@ message CCommunity_ClanAnnouncementInfo {
 	optional int32 voteupcount = 14;
 	optional int32 votedowncount = 15;
 	optional int32 ban_check_result = 16 [(.description) = "enum"];
+	optional bool banned = 17;
 }
 
 message CCuratorPreferences {

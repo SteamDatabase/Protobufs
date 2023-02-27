@@ -1,5 +1,17 @@
 import "common_base.proto";
 
+message CClientMetrics_ReportClientArgs_Notification {
+	repeated string client_args = 1;
+	optional bool gpu_webview_regkey_disabled = 2;
+	optional bool suppress_gpu_chrome = 3;
+	optional bool browser_not_supported = 4;
+	optional bool hw_accel_video_regkey_disabled = 5;
+	optional bool mini_mode_enabled = 6;
+	optional bool fps_counter_enabled = 7;
+	optional bool library_low_bandwidth_mode_enabled = 8;
+	optional bool library_low_perf_mode_enabled = 9;
+}
+
 message CClientMetrics_ReportClientError_Notification {
 	optional string product = 1;
 	optional string version = 2;
@@ -43,7 +55,7 @@ service ClientMetrics {
 	rpc ClientDownloadRatesReport (.NotImplemented) returns (.NoResponse);
 	rpc ClientDownloadResponseCodeCounts (.NotImplemented) returns (.NoResponse);
 	rpc ClientIPv6ConnectivityReport (.NotImplemented) returns (.NoResponse);
-	rpc ReportClientArgs (.NotImplemented) returns (.NoResponse);
+	rpc ReportClientArgs (.CClientMetrics_ReportClientArgs_Notification) returns (.NoResponse);
 	rpc ReportClientError (.CClientMetrics_ReportClientError_Notification) returns (.NoResponse);
 	rpc ReportReactUsage (.CClientMetrics_ReportReactUsage_Notification) returns (.NoResponse);
 	rpc SteamPipeWorkStatsReport (.NotImplemented) returns (.NoResponse);
