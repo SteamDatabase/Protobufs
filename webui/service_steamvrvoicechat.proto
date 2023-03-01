@@ -1,0 +1,15 @@
+import "common_base.proto";
+
+message CSteamVR_VoiceChat_NewGroupChatMsgAdded_Notification {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_room_id = 2;
+	optional uint32 sender_accountid = 3;
+	optional uint32 timestamp = 4;
+	optional uint32 ordinal = 5;
+	optional string message = 6;
+}
+
+service SteamVRVoiceChat {
+	rpc NewGroupChatMsgAdded (.CSteamVR_VoiceChat_NewGroupChatMsgAdded_Notification) returns (.NoResponse);
+}
+

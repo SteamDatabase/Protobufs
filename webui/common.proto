@@ -5188,12 +5188,28 @@ message CSteamVR_VoiceChat_ExitRoomChat_Request {
 message CSteamVR_VoiceChat_ExitRoomChat_Response {
 }
 
+message CSteamVR_VoiceChat_GetAvatarUrl_Request {
+	optional fixed64 profile_steamid = 1;
+	optional int32 avatar_type = 2 [(.description) = "enum"];
+}
+
+message CSteamVR_VoiceChat_GetAvatarUrl_Response {
+	optional string profile_avatar_url = 1;
+}
+
 message CSteamVR_VoiceChat_InitiateRoomChat_Request {
 	optional uint64 chat_group_id = 1;
 	optional uint64 chat_room_id = 2;
 }
 
 message CSteamVR_VoiceChat_InitiateRoomChat_Response {
+}
+
+message CSteamVR_VoiceChat_SendGroupChatMessage_Request {
+	optional string message_with_bbcode = 1;
+}
+
+message CSteamVR_VoiceChat_SendGroupChatMessage_Response {
 }
 
 message CSteamVR_WebRTC_CloseDataChannel_Request {
