@@ -1,5 +1,11 @@
 import "common_base.proto";
 
+message CSteamVR_VoiceChat_Active_Notification {
+}
+
+message CSteamVR_VoiceChat_Inactive_Notification {
+}
+
 message CSteamVR_VoiceChat_NewGroupChatMsgAdded_Notification {
 	optional uint64 chat_group_id = 1;
 	optional uint64 chat_room_id = 2;
@@ -10,6 +16,8 @@ message CSteamVR_VoiceChat_NewGroupChatMsgAdded_Notification {
 }
 
 service SteamVRVoiceChat {
+	rpc Active (.CSteamVR_VoiceChat_Active_Notification) returns (.NoResponse);
+	rpc Inactive (.CSteamVR_VoiceChat_Inactive_Notification) returns (.NoResponse);
 	rpc NewGroupChatMsgAdded (.CSteamVR_VoiceChat_NewGroupChatMsgAdded_Notification) returns (.NoResponse);
 }
 

@@ -307,6 +307,11 @@ message CMsgSteamLearnModelNodeInput {
 	optional uint32 input_num = 1;
 }
 
+message CMsgSteamLearnModelNodeKMeansCluster {
+	optional uint32 num_clusters = 1;
+	optional string name = 2;
+}
+
 message CMsgSteamLearnModelNodeOnehot {
 	optional uint32 width = 1;
 	optional string compact_table = 2;
@@ -383,6 +388,7 @@ message CMsgSteamLearnProjectNode {
 	optional .CMsgSteamLearnModelNodeOnehot onehot = 20;
 	optional .CMsgSteamLearnModelNodeExplode explode = 21;
 	optional .CMsgSteamLearnModelNodeConditionalSwap conditional_swap = 22;
+	optional .CMsgSteamLearnModelNodeKMeansCluster kmeans = 23;
 }
 
 message CMsgSteamLearnProjectNodeConnector {
