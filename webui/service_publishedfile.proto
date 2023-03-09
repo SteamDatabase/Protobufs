@@ -356,6 +356,7 @@ message CPublishedFile_QueryFiles_Request {
 	optional bool return_reactions = 43 [default = false];
 	optional .CPublishedFile_QueryFiles_Request_DateRange date_range_created = 44;
 	optional .CPublishedFile_QueryFiles_Request_DateRange date_range_updated = 45;
+	repeated int32 excluded_content_descriptors = 46 [(.description) = "enum"];
 }
 
 message CPublishedFile_QueryFiles_Request_DateRange {

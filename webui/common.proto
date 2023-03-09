@@ -2719,6 +2719,9 @@ message CMsgClientSettings {
 	optional int32 controller_power_off_timeout = 14008;
 	optional bool turn_off_controller_on_exit = 14009;
 	optional bool controller_combine_nintendo_joycons = 14010;
+	optional uint64 startup_movie_id = 16000;
+	optional string startup_movie_local_path = 16001;
+	optional bool startup_movie_shuffle = 16002;
 }
 
 message CMsgClientSharedLibraryLockStatus {
@@ -4832,6 +4835,8 @@ message CMsgSystemPerfSettingsGlobal {
 	optional bool is_hdr_debug_heatmap_enabled = 13;
 	optional bool debug_force_hdr_support = 14;
 	optional bool force_hdr_wide_gammut_for_sdr = 15 [default = true];
+	optional bool allow_experimental_hdr = 16;
+	optional float sdr_to_hdr_brightness = 17;
 }
 
 // Used by: common.proto
@@ -4895,6 +4900,7 @@ message CMsgSystemUpdateCheckResult {
 	optional fixed32 rtime_checked = 3;
 	optional bool available = 4;
 	optional string version = 5;
+	optional string auto_message = 6;
 }
 
 // Used by: common.proto
