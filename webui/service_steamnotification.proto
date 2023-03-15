@@ -15,6 +15,8 @@ message CSteamNotification_GetSteamNotifications_Request {
 message CSteamNotification_GetSteamNotifications_Response {
 	repeated .SteamNotificationData notifications = 1;
 	optional int32 confirmation_count = 2;
+	optional uint32 pending_gift_count = 3;
+	optional uint32 unread_count = 4;
 }
 
 message CSteamNotification_HideNotification_Notification {
@@ -46,6 +48,7 @@ message SteamNotificationData {
 	optional bool read = 7;
 	optional uint32 timestamp = 8;
 	optional bool hidden = 9;
+	optional uint32 expiry = 10;
 }
 
 message SteamNotificationPreference {
