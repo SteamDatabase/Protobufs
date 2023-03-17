@@ -2722,6 +2722,7 @@ message CMsgClientSettings {
 	optional uint64 startup_movie_id = 16000;
 	optional string startup_movie_local_path = 16001;
 	optional bool startup_movie_shuffle = 16002;
+	optional bool startup_movie_used_for_resume = 16003;
 }
 
 message CMsgClientSharedLibraryLockStatus {
