@@ -32,6 +32,8 @@ message CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Response {
 
 message CWebRTCClient_InitiateWebRTCConnection_Request {
 	optional string sdp = 1;
+	optional string browser_name = 2;
+	optional string browser_version = 3;
 }
 
 message CWebRTCClient_InitiateWebRTCConnection_Response {

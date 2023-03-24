@@ -16,7 +16,8 @@ message CSteamNotification_GetSteamNotifications_Response {
 	repeated .SteamNotificationData notifications = 1;
 	optional int32 confirmation_count = 2;
 	optional uint32 pending_gift_count = 3;
-	optional uint32 unread_count = 4;
+	optional uint32 pending_friend_count = 5;
+	optional uint32 unread_count = 6;
 }
 
 message CSteamNotification_HideNotification_Notification {
