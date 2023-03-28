@@ -515,6 +515,9 @@ message CClientNotificationLowDiskSpace {
 	optional uint32 folder_index = 1;
 }
 
+message CClientNotificationOverlaySplashScreen {
+}
+
 message CClientNotificationScreenshot {
 	optional string screenshot_handle = 1;
 	optional string description = 2;
@@ -2647,6 +2650,7 @@ message CMsgClientSettings {
 	optional bool small_mode = 16;
 	optional bool disable_all_toasts = 17;
 	optional bool disable_toasts_in_game = 18;
+	optional bool skip_steamvr_install_dialog = 19;
 	optional bool show_family_sharing_notifications = 3000;
 	optional int32 overlay_fps_counter_corner = 4000;
 	optional bool overlay_fps_counter_high_contrast = 4001;
@@ -2662,6 +2666,11 @@ message CMsgClientSettings {
 	optional int32 server_ping_rate = 4011;
 	optional int32 steam_networking_share_ip = 4012;
 	optional string web_browser_home = 4013;
+	optional string voice_mic_device_name = 4014;
+	optional float voice_mic_input_gain = 4015;
+	optional float voice_speaker_output_gain = 4016;
+	optional int32 voice_push_to_talk_setting = 4017;
+	optional .CMsgHotkey voice_push_to_talk_key = 4018;
 	optional bool smooth_scroll_webviews = 5000;
 	optional bool enable_gpu_accelerated_webviews = 5001;
 	optional bool enable_hardware_video_decoding = 5003;

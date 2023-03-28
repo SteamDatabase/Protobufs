@@ -10,6 +10,10 @@ message CSteamNotification_GetPreferences_Response {
 message CSteamNotification_GetSteamNotifications_Request {
 	optional bool include_hidden = 1 [default = false];
 	optional int32 language = 2 [default = 0];
+	optional bool include_confirmation_count = 3 [default = true];
+	optional bool include_pinned_counts = 4 [default = false];
+	optional bool include_read = 5 [default = true];
+	optional bool count_only = 6 [default = false];
 }
 
 message CSteamNotification_GetSteamNotifications_Response {
