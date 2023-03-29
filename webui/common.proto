@@ -5206,6 +5206,14 @@ message CStartVideoDataMsg {
 	optional uint32 height = 5;
 }
 
+message CSteamVR_VoiceChat_ConfigureVideo_Request {
+	optional bool send = 1;
+	optional bool receive = 2;
+}
+
+message CSteamVR_VoiceChat_ConfigureVideo_Response {
+}
+
 message CSteamVR_VoiceChat_ExitRoomChat_Request {
 	optional uint64 chat_group_id = 1;
 	optional uint64 chat_room_id = 2;

@@ -124,11 +124,7 @@ message CMsgSteamLearn_GetTrainStatusVersions_Response {
 
 message CMsgSteamLearn_Inference_Response {
 	optional int32 inference_result = 1 [(.description) = "enum"];
-	repeated .CMsgSteamLearn_Inference_Response_ReponseValues response_values = 2;
-}
-
-message CMsgSteamLearn_Inference_Response_ReponseValues {
-	repeated float values = 1;
+	optional .CMsgSteamLearn_InferenceBackend_Response backend_response = 2;
 }
 
 message CMsgSteamLearn_InferenceBackend_Request {
@@ -266,6 +262,9 @@ message CMsgSteamLearnInferenceConfig {
 	optional uint32 live_train_id = 2;
 }
 
+message CMsgSteamLearnModelNodeCombine {
+}
+
 message CMsgSteamLearnModelNodeConcatenate {
 }
 
@@ -310,6 +309,7 @@ message CMsgSteamLearnModelNodeInput {
 message CMsgSteamLearnModelNodeKMeansCluster {
 	optional uint32 num_clusters = 1;
 	optional string name = 2;
+	optional bool generate_clusters = 3;
 }
 
 message CMsgSteamLearnModelNodeOnehot {
@@ -389,6 +389,7 @@ message CMsgSteamLearnProjectNode {
 	optional .CMsgSteamLearnModelNodeExplode explode = 21;
 	optional .CMsgSteamLearnModelNodeConditionalSwap conditional_swap = 22;
 	optional .CMsgSteamLearnModelNodeKMeansCluster kmeans = 23;
+	optional .CMsgSteamLearnModelNodeCombine combine = 24;
 }
 
 message CMsgSteamLearnProjectNodeConnector {
