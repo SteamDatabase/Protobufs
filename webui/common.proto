@@ -416,6 +416,10 @@ message CClientNotificationBatteryTemperature {
 	optional string notification_type = 2;
 }
 
+message CClientNotificationBroadcastAvailableToWatch {
+	optional int32 broadcast_permission = 1;
+}
+
 message CClientNotificationCannotReadControllerGuideButton {
 	optional int32 controller_index = 1;
 }
@@ -2707,11 +2711,11 @@ message CMsgClientSettings {
 	optional bool music_pause_on_voice_chat = 11002;
 	optional bool music_download_high_quality = 11003;
 	optional bool music_playlist_notification = 11004;
-	optional int32 broadcast_permissions = 12000;
+	optional int32 broadcast_permissions = 12000 [(.description) = "enum"];
 	optional int32 broadcast_output_width = 12001;
 	optional int32 broadcast_output_height = 12002;
 	optional int32 broadcast_bitrate = 12003;
-	optional int32 broadcast_encoding_option = 12004;
+	optional int32 broadcast_encoding_option = 12004 [(.description) = "enum"];
 	optional bool broadcast_record_all_video = 12005;
 	optional bool broadcast_record_all_audio = 12006;
 	optional bool broadcast_record_microphone = 12007;
