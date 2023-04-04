@@ -15,9 +15,15 @@ message CSteamVR_VoiceChat_NewGroupChatMsgAdded_Notification {
 	optional string message = 6;
 }
 
+message CSteamVR_VoiceChat_SetDefaultSession_Notification {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_room_id = 2;
+}
+
 service SteamVRVoiceChat {
 	rpc Active (.CSteamVR_VoiceChat_Active_Notification) returns (.NoResponse);
 	rpc Inactive (.CSteamVR_VoiceChat_Inactive_Notification) returns (.NoResponse);
 	rpc NewGroupChatMsgAdded (.CSteamVR_VoiceChat_NewGroupChatMsgAdded_Notification) returns (.NoResponse);
+	rpc SetDefaultSession (.CSteamVR_VoiceChat_SetDefaultSession_Notification) returns (.NoResponse);
 }
 
