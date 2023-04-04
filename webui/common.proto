@@ -511,6 +511,9 @@ message CClientNotificationItemAnnouncement {
 	optional bool new_backpack_items = 2;
 }
 
+message CClientNotificationLoginRefresh {
+}
+
 message CClientNotificationLowBattery {
 	optional float pct_remaining = 1;
 }
@@ -530,6 +533,14 @@ message CClientNotificationScreenshot {
 
 message CClientNotificationSystemUpdate {
 	optional int32 type = 1 [(.description) = "enum"];
+}
+
+message CClientNotificationTimedTrialRemaining {
+	optional uint32 appid = 1;
+	optional string icon = 2;
+	optional bool offline = 3;
+	optional uint32 allowed_seconds = 4;
+	optional uint32 played_seconds = 5;
 }
 
 // Used by: Cloud, common.proto
@@ -2655,6 +2666,7 @@ message CMsgClientSettings {
 	optional bool disable_all_toasts = 17;
 	optional bool disable_toasts_in_game = 18;
 	optional bool skip_steamvr_install_dialog = 19;
+	optional bool always_show_user_chooser = 20;
 	optional bool show_family_sharing_notifications = 3000;
 	optional int32 overlay_fps_counter_corner = 4000;
 	optional bool overlay_fps_counter_high_contrast = 4001;
@@ -4750,8 +4762,6 @@ message CMsgSystemManagerSettings {
 	optional bool idle_suspend_supressed = 5;
 	optional bool is_adaptive_brightness_available = 6;
 	optional bool display_adaptive_brightness_enabled = 7;
-	optional bool is_display_colorprofile_available = 8;
-	optional int32 display_colorprofile = 9 [(.description) = "enum"];
 	optional bool display_nightmode_enabled = 10;
 	optional float display_nightmode_tintstrength = 11;
 	optional float display_nightmode_maxhue = 12;
@@ -4771,6 +4781,10 @@ message CMsgSystemManagerSettings {
 	optional bool is_wifi_powersave_enabled = 26;
 	optional bool is_fan_control_available = 27;
 	optional int32 fan_control_mode = 28 [(.description) = "enum"];
+	optional bool is_display_brightness_available = 29;
+	optional bool is_display_nightmode_blend_available = 30;
+	optional bool is_display_colorgamut_available = 31;
+	optional float display_colorgamut = 32;
 }
 
 // Used by: common.proto
@@ -5635,6 +5649,7 @@ message StoreItem {
 	optional .StoreItem_FreeWeekend free_weekend = 54;
 	optional bool unlisted = 55;
 	optional uint32 game_count = 56;
+	optional string internal_name = 57;
 }
 
 // Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers
@@ -5727,6 +5742,7 @@ message StoreItem_PurchaseOption {
 	optional bool user_can_purchase_as_gift = 31;
 	optional bool is_commercial_license = 40;
 	optional bool should_suppress_discount_pct = 41;
+	optional bool hide_discount_pct_for_compliance = 42 [default = false];
 }
 
 // Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers
@@ -5827,5 +5843,6 @@ message StoreItemID {
 	optional uint32 bundleid = 3;
 	optional uint32 tagid = 4;
 	optional uint32 creatorid = 5;
+	optional uint32 hubcategoryid = 6;
 }
 
