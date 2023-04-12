@@ -101,6 +101,21 @@ message CStore_GetStorePreferences_Response {
 	optional .CStore_UserContentDescriptorPreferences content_descriptor_preferences = 3;
 }
 
+message CStore_GetTagList_Request {
+	optional string language = 1;
+	optional string have_version_hash = 2;
+}
+
+message CStore_GetTagList_Response {
+	optional string version_hash = 1;
+	repeated .CStore_GetTagList_Response_Tag tags = 2;
+}
+
+message CStore_GetTagList_Response_Tag {
+	optional uint32 tagid = 1;
+	optional string name = 2;
+}
+
 message CStore_GetTrendingAppsAmongFriends_Request {
 	optional uint32 num_apps = 1;
 	optional uint32 num_top_friends = 2;
@@ -257,6 +272,7 @@ service Store {
 	rpc GetLocalizedNameForTags (.CStore_GetLocalizedNameForTags_Request) returns (.CStore_GetLocalizedNameForTags_Response);
 	rpc GetMostPopularTags (.CStore_GetMostPopularTags_Request) returns (.CStore_GetMostPopularTags_Response);
 	rpc GetStorePreferences (.CStore_GetStorePreferences_Request) returns (.CStore_GetStorePreferences_Response);
+	rpc GetTagList (.CStore_GetTagList_Request) returns (.CStore_GetTagList_Response);
 	rpc GetTrendingAppsAmongFriends (.CStore_GetTrendingAppsAmongFriends_Request) returns (.CStore_GetTrendingAppsAmongFriends_Response);
 	rpc GetUserGameInterestState (.CStore_GetUserGameInterestState_Request) returns (.CStore_GetUserGameInterestState_Response);
 	rpc RegisterCDKey (.CStore_RegisterCDKey_Request) returns (.CStore_RegisterCDKey_Response);
