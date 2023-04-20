@@ -50,11 +50,13 @@ message CMsgSteamLearn_GetFetchStatus_Response {
 	optional uint32 total_rows = 6;
 	optional uint32 start_time = 7;
 	optional uint32 end_time = 8;
+	optional uint32 total_rows_processed = 9;
 }
 
 message CMsgSteamLearn_GetFetchStatus_Response_Worker {
 	optional uint32 rows_written = 1;
 	optional bool complete = 2;
+	optional uint32 rows_processed = 3;
 }
 
 message CMsgSteamLearn_GetFetchStatusVersions_Request {
@@ -157,6 +159,23 @@ message CMsgSteamLearn_InferenceBackend_Response_Output {
 	optional .CMsgSteamLearn_InferenceBackend_Response_BinaryCrossEntropyOutput binary_crossentropy = 1;
 	optional .CMsgSteamLearn_InferenceBackend_Response_CategoricalCrossEntropyOutput categorical_crossentropy = 2;
 	optional .CMsgSteamLearn_InferenceBackend_Response_MutliBinaryCrossEntropyOutput multi_binary_crossentropy = 3;
+}
+
+message CMsgSteamLearn_InferenceMetadata_Response {
+	optional int32 inference_metadata_result = 1 [(.description) = "enum"];
+	repeated .CMsgSteamLearn_InferenceMetadata_Response_KMeans kmeans = 2;
+}
+
+message CMsgSteamLearn_InferenceMetadata_Response_KMeans {
+	optional string name = 1;
+	repeated .CMsgSteamLearn_InferenceMetadata_Response_KMeans_Cluster clusters = 2;
+}
+
+message CMsgSteamLearn_InferenceMetadata_Response_KMeans_Cluster {
+	optional float x = 1;
+	optional float y = 2;
+	optional float radius = 3;
+	optional float radius_80pct = 4;
 }
 
 message CMsgSteamLearn_ListDataSources_Request {
@@ -462,6 +481,7 @@ service SteamLearn {
 	rpc GetTrainStatusVersions (.CMsgSteamLearn_GetTrainStatusVersions_Request) returns (.CMsgSteamLearn_GetTrainStatusVersions_Response);
 	rpc Inference (.NotImplemented) returns (.CMsgSteamLearn_Inference_Response);
 	rpc InferenceBackend (.CMsgSteamLearn_InferenceBackend_Request) returns (.CMsgSteamLearn_InferenceBackend_Response);
+	rpc InferenceMetadata (.NotImplemented) returns (.CMsgSteamLearn_InferenceMetadata_Response);
 	rpc ListDataSources (.CMsgSteamLearn_ListDataSources_Request) returns (.CMsgSteamLearn_ListDataSources_Response);
 	rpc ListProjects (.CMsgSteamLearn_ListProjects_Request) returns (.CMsgSteamLearn_ListProjects_Response);
 	rpc PublishProject (.CMsgSteamLearn_PublishProject_Request) returns (.CMsgSteamLearn_PublishProject_Response);
