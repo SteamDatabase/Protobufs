@@ -8,6 +8,7 @@ message CAuthentication_AccessToken_GenerateForApp_Request {
 
 message CAuthentication_AccessToken_GenerateForApp_Response {
 	optional string access_token = 1;
+	optional string refresh_token = 2;
 }
 
 message CAuthentication_AllowedConfirmation {
@@ -27,6 +28,7 @@ message CAuthentication_BeginAuthSessionViaCredentials_Request {
 	optional .CAuthentication_DeviceDetails device_details = 9;
 	optional string guard_data = 10;
 	optional uint32 language = 11;
+	optional int32 qos_level = 12 [default = 2];
 }
 
 message CAuthentication_BeginAuthSessionViaCredentials_Response {
@@ -168,6 +170,9 @@ message CAuthentication_RefreshToken_Revoke_Request {
 message CAuthentication_RefreshToken_Revoke_Response {
 }
 
+message CAuthentication_Token_Revoke_Response {
+}
+
 message CAuthentication_UpdateAuthSessionWithMobileConfirmation_Request {
 	optional int32 version = 1;
 	optional uint64 client_id = 2;
@@ -202,6 +207,7 @@ service Authentication {
 	rpc MigrateMobileSession (.CAuthentication_MigrateMobileSession_Request) returns (.CAuthentication_MigrateMobileSession_Response);
 	rpc PollAuthSessionStatus (.CAuthentication_PollAuthSessionStatus_Request) returns (.CAuthentication_PollAuthSessionStatus_Response);
 	rpc RevokeRefreshToken (.CAuthentication_RefreshToken_Revoke_Request) returns (.CAuthentication_RefreshToken_Revoke_Response);
+	rpc RevokeToken (.NotImplemented) returns (.CAuthentication_Token_Revoke_Response);
 	rpc UpdateAuthSessionWithMobileConfirmation (.CAuthentication_UpdateAuthSessionWithMobileConfirmation_Request) returns (.CAuthentication_UpdateAuthSessionWithMobileConfirmation_Response);
 	rpc UpdateAuthSessionWithSteamGuardCode (.CAuthentication_UpdateAuthSessionWithSteamGuardCode_Request) returns (.CAuthentication_UpdateAuthSessionWithSteamGuardCode_Response);
 }

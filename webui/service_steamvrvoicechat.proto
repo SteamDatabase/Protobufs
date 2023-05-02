@@ -1,5 +1,11 @@
 import "common_base.proto";
 
+message CSteamVR_Vector3 {
+	optional float x = 1;
+	optional float y = 2;
+	optional float z = 3;
+}
+
 message CSteamVR_VoiceChat_Active_Notification {
 }
 
@@ -20,10 +26,23 @@ message CSteamVR_VoiceChat_SetDefaultSession_Notification {
 	optional uint64 chat_room_id = 2;
 }
 
+message CSteamVR_VoiceChat_SetSpatialAudioListener_Notification {
+	optional .CSteamVR_Vector3 position = 1;
+	optional .CSteamVR_Vector3 forward = 2;
+	optional .CSteamVR_Vector3 up = 3;
+}
+
+message CSteamVR_VoiceChat_SetSpatialAudioSource_Notification {
+	optional fixed64 steamid = 1;
+	optional .CSteamVR_Vector3 position = 2;
+}
+
 service SteamVRVoiceChat {
 	rpc Active (.CSteamVR_VoiceChat_Active_Notification) returns (.NoResponse);
 	rpc Inactive (.CSteamVR_VoiceChat_Inactive_Notification) returns (.NoResponse);
 	rpc NewGroupChatMsgAdded (.CSteamVR_VoiceChat_NewGroupChatMsgAdded_Notification) returns (.NoResponse);
 	rpc SetDefaultSession (.CSteamVR_VoiceChat_SetDefaultSession_Notification) returns (.NoResponse);
+	rpc SetSpatialAudioListener (.CSteamVR_VoiceChat_SetSpatialAudioListener_Notification) returns (.NoResponse);
+	rpc SetSpatialAudioSource (.CSteamVR_VoiceChat_SetSpatialAudioSource_Notification) returns (.NoResponse);
 }
 
