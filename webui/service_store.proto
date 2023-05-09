@@ -99,6 +99,7 @@ message CStore_GetStorePreferences_Response {
 	optional .CStore_UserPreferences preferences = 1;
 	optional .CStore_UserTagPreferences tag_preferences = 2;
 	optional .CStore_UserContentDescriptorPreferences content_descriptor_preferences = 3;
+	//optional .UserContentDescriptorPreferences content_descriptor_preferences = 3;
 }
 
 message CStore_GetTagList_Request {
@@ -211,6 +212,7 @@ message CStore_StorePreferencesChanged_Notification {
 	optional .CStore_UserPreferences preferences = 1;
 	optional .CStore_UserTagPreferences tag_preferences = 2;
 	optional .CStore_UserContentDescriptorPreferences content_descriptor_preferences = 3;
+	//optional .UserContentDescriptorPreferences content_descriptor_preferences = 3;
 }
 
 message CStore_UserContentDescriptorPreferences {

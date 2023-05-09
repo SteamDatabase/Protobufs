@@ -92,6 +92,7 @@ message CClanFAQS_SearchFAQs_Response_CFAQSearchResult {
 	optional string content = 3;
 	optional uint32 clan_accountid = 4;
 	optional string url_code = 5;
+	repeated string localized_names = 6;
 }
 
 message CClanFAQS_SetVisibility_Request {

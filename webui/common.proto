@@ -857,6 +857,7 @@ message CMsgAuthTicket {
 	optional uint32 ticket_crc = 6;
 	optional bytes ticket = 7;
 	optional bytes server_secret = 8;
+	optional uint32 ticket_type = 9;
 }
 
 message CMsgBadgeCraftedNotification {
@@ -994,6 +995,7 @@ message CMsgClientAuthList {
 	repeated .CMsgAuthTicket tickets = 4;
 	repeated uint32 app_ids = 5;
 	optional uint32 message_sequence = 6;
+	optional bool filtered = 7;
 }
 
 message CMsgClientAuthListAck {
@@ -1563,6 +1565,17 @@ message CMsgClientGetDepotDecryptionKeyResponse {
 }
 
 message CMsgClientGetEmoticonList {
+}
+
+message CMsgClientGetPeerContentInfo {
+	optional fixed64 steamid = 1;
+	optional fixed64 client_remote_id = 2;
+	optional bool owned_games_visible = 3;
+}
+
+message CMsgClientGetPeerContentInfoResponse {
+	optional uint32 result = 1;
+	repeated uint32 apps = 2;
 }
 
 message CMsgClientGetUserStats {
@@ -2688,6 +2701,7 @@ message CMsgClientSettings {
 	optional int32 voice_push_to_talk_setting = 4017;
 	optional .CMsgHotkey voice_push_to_talk_key = 4018;
 	optional bool overlay_toolbar_list_view = 4019;
+	optional bool always_use_gamepadui_overlay = 4020;
 	optional bool smooth_scroll_webviews = 5000;
 	optional bool enable_gpu_accelerated_webviews = 5001;
 	optional bool enable_hardware_video_decoding = 5003;
@@ -2749,6 +2763,7 @@ message CMsgClientSettings {
 	optional string startup_movie_local_path = 16001;
 	optional bool startup_movie_shuffle = 16002;
 	optional bool startup_movie_used_for_resume = 16003;
+	optional bool game_notes_enable_spellcheck = 17001;
 }
 
 message CMsgClientSharedLibraryLockStatus {
@@ -2783,6 +2798,7 @@ message CMsgClientStartPeerContentServer {
 message CMsgClientStartPeerContentServerResponse {
 	optional uint32 result = 1;
 	optional uint32 server_port = 2;
+	repeated uint32 installed_depots = 3;
 }
 
 message CMsgClientStat2 {
@@ -4203,6 +4219,8 @@ message CMsgProtoBufHeader {
 	optional uint32 debug_source_string_index = 35;
 	optional uint64 token_id = 36;
 	optional .CMsgGCRoutingProtoBufHeader routing_gc = 37;
+	optional int32 session_disposition = 38 [default = 0, (.description) = "enum"];
+	optional string wg_token__field_39 = 39;
 }
 
 message CMsgProtobufWrapped {
@@ -4460,6 +4478,7 @@ message CMsgSteamDatagramLinkLifetimeStats {
 	repeated uint64 multipath_packets_recv_sequenced = 12;
 	repeated uint64 multipath_packets_recv_later = 13;
 	optional uint32 multipath_send_enabled = 14;
+	optional uint64 packets_recv_out_of_order_corrected = 15;
 	optional uint32 quality_histogram_100 = 21;
 	optional uint32 quality_histogram_99 = 22;
 	optional uint32 quality_histogram_97 = 23;
@@ -5602,6 +5621,7 @@ message StoreBrowseItemDataRequest {
 	optional bool include_reviews = 9;
 	optional bool include_basic_info = 10;
 	optional bool include_supported_languages = 11;
+	optional bool include_full_description = 12;
 }
 
 // Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers
@@ -5653,6 +5673,7 @@ message StoreItem {
 	optional bool unlisted = 55;
 	optional uint32 game_count = 56;
 	optional string internal_name = 57;
+	optional string full_description = 58;
 }
 
 // Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers
@@ -5746,6 +5767,8 @@ message StoreItem_PurchaseOption {
 	optional bool is_commercial_license = 40;
 	optional bool should_suppress_discount_pct = 41;
 	optional bool hide_discount_pct_for_compliance = 42 [default = false];
+	optional int32 included_game_count = 43;
+	optional int64 lowest_recent_price_in_cents = 44;
 }
 
 // Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers
@@ -5847,5 +5870,16 @@ message StoreItemID {
 	optional uint32 tagid = 4;
 	optional uint32 creatorid = 5;
 	optional uint32 hubcategoryid = 6;
+}
+
+// Used by: Player, PlayerClient, Store, StoreClient
+message UserContentDescriptorPreferences {
+	repeated .UserContentDescriptorPreferences_ContentDescriptor content_descriptors_to_exclude = 1;
+}
+
+// Used by: Player, PlayerClient, Store, StoreClient
+message UserContentDescriptorPreferences_ContentDescriptor {
+	optional uint32 content_descriptorid = 1;
+	optional uint32 timestamp_added = 2;
 }
 

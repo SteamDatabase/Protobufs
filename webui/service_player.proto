@@ -1,4 +1,5 @@
 import "common_base.proto";
+import "common.proto";
 
 message CPlayer_AcceptSSA_Request {
 	optional int32 agreement_type = 1 [(.description) = "enum"];
@@ -30,6 +31,7 @@ message CPlayer_CommunityPreferences {
 
 message CPlayer_CommunityPreferencesChanged_Notification {
 	optional .CPlayer_CommunityPreferences preferences = 1;
+	optional .UserContentDescriptorPreferences content_descriptor_preferences = 2;
 }
 
 message CPlayer_DeletePostedStatus_Request {
@@ -91,6 +93,7 @@ message CPlayer_GetCommunityPreferences_Request {
 
 message CPlayer_GetCommunityPreferences_Response {
 	optional .CPlayer_CommunityPreferences preferences = 1;
+	optional .UserContentDescriptorPreferences content_descriptor_preferences = 2;
 }
 
 message CPlayer_GetDurationControl_Request {
