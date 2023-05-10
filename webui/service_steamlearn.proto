@@ -163,7 +163,34 @@ message CMsgSteamLearn_InferenceBackend_Response_Output {
 
 message CMsgSteamLearn_InferenceMetadata_Response {
 	optional int32 inference_metadata_result = 1 [(.description) = "enum"];
-	repeated .CMsgSteamLearn_InferenceMetadata_Response_KMeans kmeans = 2;
+	optional .CMsgSteamLearn_InferenceMetadata_Response_RowRange row_range = 2;
+	repeated .CMsgSteamLearn_InferenceMetadata_Response_Range ranges = 3;
+	repeated .CMsgSteamLearn_InferenceMetadata_Response_StdDev std_devs = 4;
+	repeated .CMsgSteamLearn_InferenceMetadata_Response_CompactTable compact_tables = 5;
+	repeated .CMsgSteamLearn_InferenceMetadata_Response_KMeans kmeans = 6;
+	optional .CMsgSteamLearn_InferenceMetadata_Response_SnapshotHistogram snapshot_histogram = 7;
+}
+
+message CMsgSteamLearn_InferenceMetadata_Response_CompactTable {
+	optional string name = 1;
+	repeated .CMsgSteamLearn_InferenceMetadata_Response_CompactTable_MapValuesEntry map_values = 2;
+	repeated .CMsgSteamLearn_InferenceMetadata_Response_CompactTable_MapMappingsEntry map_mappings = 3;
+}
+
+message CMsgSteamLearn_InferenceMetadata_Response_CompactTable_Entry {
+	optional uint32 value = 1;
+	optional uint32 mapping = 2;
+	optional uint64 count = 3;
+}
+
+message CMsgSteamLearn_InferenceMetadata_Response_CompactTable_MapMappingsEntry {
+	optional uint32 key = 1;
+	optional .CMsgSteamLearn_InferenceMetadata_Response_CompactTable_Entry value = 2;
+}
+
+message CMsgSteamLearn_InferenceMetadata_Response_CompactTable_MapValuesEntry {
+	optional uint32 key = 1;
+	optional .CMsgSteamLearn_InferenceMetadata_Response_CompactTable_Entry value = 2;
 }
 
 message CMsgSteamLearn_InferenceMetadata_Response_KMeans {
@@ -176,6 +203,30 @@ message CMsgSteamLearn_InferenceMetadata_Response_KMeans_Cluster {
 	optional float y = 2;
 	optional float radius = 3;
 	optional float radius_80pct = 4;
+}
+
+message CMsgSteamLearn_InferenceMetadata_Response_Range {
+	optional string data_element_path = 1;
+	optional int32 min_value = 2;
+	optional int32 max_values = 3;
+}
+
+message CMsgSteamLearn_InferenceMetadata_Response_RowRange {
+	optional uint64 min = 1;
+	optional uint64 max = 2;
+}
+
+message CMsgSteamLearn_InferenceMetadata_Response_SnapshotHistogram {
+	optional float min_value = 1;
+	optional float max_value = 2;
+	optional uint32 num_buckets = 3;
+	repeated uint32 bucket_counts = 4;
+}
+
+message CMsgSteamLearn_InferenceMetadata_Response_StdDev {
+	optional string data_element_path = 1;
+	optional int32 mean = 2;
+	optional uint32 std_dev = 3;
 }
 
 message CMsgSteamLearn_ListDataSources_Request {
