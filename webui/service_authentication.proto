@@ -63,6 +63,8 @@ message CAuthentication_DeviceDetails {
 	optional int32 platform_type = 2 [(.description) = "enum"];
 	optional int32 os_type = 3;
 	optional uint32 gaming_device_type = 4;
+	optional uint32 client_count = 5;
+	optional bytes machine_id = 6;
 }
 
 message CAuthentication_GetAuthSessionInfo_Request {
