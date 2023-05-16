@@ -223,6 +223,7 @@ message CPublishedFile_GetSubSectionData_Response {
 message CPublishedFile_GetUserFiles_Request {
 	optional fixed64 steamid = 1;
 	optional uint32 appid = 2;
+	optional uint32 shortcutid = 3;
 	optional uint32 page = 4 [default = 1];
 	optional uint32 numperpage = 5 [default = 1];
 	optional string type = 6 [default = "myfiles"];
