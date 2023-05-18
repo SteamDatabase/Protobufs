@@ -3932,6 +3932,10 @@ message CMsgGCRoutingProtoBufHeader {
 	optional uint32 dst_gc_dir_index = 2;
 }
 
+message CMsgGenerateSystemReportReply {
+	optional string report_id = 1;
+}
+
 message CMsgGMSClientServerQueryResponse {
 	repeated .CMsgGMSClientServerQueryResponse_Server servers = 1;
 	optional string error = 2;
