@@ -1,0 +1,6 @@
+import "common.proto";
+
+service Test_TransportError {
+	rpc InvalidService (.CTransportValidation_AppendToString_Request) returns (.CTransportValidation_AppendToString_Response);
+}
+

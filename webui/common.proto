@@ -461,10 +461,6 @@ message CClientNotificationFriendInGame {
 	optional string game_name = 2;
 }
 
-message CClientNotificationFriendInvite {
-	optional fixed64 steamid = 1;
-}
-
 message CClientNotificationFriendInviteRollup {
 	optional uint32 new_invite_count = 1;
 }
@@ -481,10 +477,6 @@ message CClientNotificationFriendMessage {
 
 message CClientNotificationFriendOnline {
 	optional fixed64 steamid = 1;
-}
-
-message CClientNotificationGiftReceived {
-	optional string sender_name = 1;
 }
 
 message CClientNotificationGroupChatMessage {
@@ -543,7 +535,10 @@ message CClientNotificationTimedTrialRemaining {
 	optional uint32 played_seconds = 5;
 }
 
-// Used by: Cloud, common.proto
+message CClientNotificationTimerExpired {
+}
+
+// Used by: common.proto
 message CCloud_PendingRemoteOperation {
 	optional int32 operation = 1 [(.description) = "enum"];
 	optional string machine_name = 2;
@@ -650,6 +645,14 @@ message CFrameStatsListMsg {
 	optional int32 latest_frame_id = 4;
 }
 
+message CGameNetworkingUI_AppSummary {
+	optional uint32 appid = 1;
+	optional bool ip_was_shared_with_friend = 10;
+	optional bool ip_was_shared_with_nonfriend = 11;
+	optional uint32 active_connections = 20;
+	optional .CGameNetworkingUI_ConnectionSummary main_cxn = 30;
+}
+
 message CGameNetworkingUI_ConnectionState {
 	optional string connection_key = 1;
 	optional uint32 appid = 2;
@@ -678,6 +681,17 @@ message CGameNetworkingUI_ConnectionState {
 	optional .CMsgSteamDatagramConnectionQuality front_quality_remote = 41;
 	optional uint64 front_quality_remote_instantaneous_time = 42;
 	optional uint64 front_quality_remote_lifetime_time = 43;
+}
+
+// Used by: common.proto
+message CGameNetworkingUI_ConnectionSummary {
+	optional uint32 transport_kind = 1;
+	optional string sdrpop_local = 2;
+	optional string sdrpop_remote = 3;
+	optional uint32 ping_ms = 4;
+	optional float packet_loss = 5;
+	optional uint32 ping_default_internet_route = 6;
+	optional bool ip_was_shared = 7;
 }
 
 message CGetCursorImageMsg {
@@ -2702,6 +2716,7 @@ message CMsgClientSettings {
 	optional .CMsgHotkey voice_push_to_talk_key = 4018;
 	optional bool overlay_toolbar_list_view = 4019;
 	optional bool always_use_gamepadui_overlay = 4020;
+	optional string overlay_tabs = 4021;
 	optional bool smooth_scroll_webviews = 5000;
 	optional bool enable_gpu_accelerated_webviews = 5001;
 	optional bool enable_hardware_video_decoding = 5003;
@@ -4225,6 +4240,7 @@ message CMsgProtoBufHeader {
 	optional .CMsgGCRoutingProtoBufHeader routing_gc = 37;
 	optional int32 session_disposition = 38 [default = 0, (.description) = "enum"];
 	optional string wg_token__field_39 = 39;
+	optional string webui_auth_key = 40;
 }
 
 message CMsgProtobufWrapped {
@@ -4890,6 +4906,7 @@ message CMsgSystemPerfSettingsGlobal {
 	optional bool debug_force_hdr_support = 18;
 	optional bool force_hdr_10pq_output_debug = 19;
 	optional bool is_display_oc_enabled = 20;
+	optional bool is_color_management_enabled = 21;
 }
 
 // Used by: common.proto
@@ -5290,6 +5307,14 @@ message CSteamVR_VoiceChat_SendGroupChatMessage_Request {
 message CSteamVR_VoiceChat_SendGroupChatMessage_Response {
 }
 
+message CSteamVR_VoiceChat_SetPerUserMuting_Request {
+	optional uint32 accountid = 1;
+	optional bool muted = 2;
+}
+
+message CSteamVR_VoiceChat_SetPerUserMuting_Response {
+}
+
 message CSteamVR_WebRTC_CloseDataChannel_Request {
 	optional uint32 channel_id = 1;
 }
@@ -5505,6 +5530,16 @@ message CTransportSignalMsg_WebRTCMessage_Candidate {
 	optional string sdp_mid = 1;
 	optional int32 sdp_mline_index = 2;
 	optional string candidate = 3;
+}
+
+// Used by: Test_TransportError, TransportValidation
+message CTransportValidation_AppendToString_Request {
+	repeated string append_strings = 1;
+}
+
+// Used by: Test_TransportError, TransportValidation
+message CTransportValidation_AppendToString_Response {
+	optional string combined_text = 1;
 }
 
 message CVideoDecoderInfoMsg {

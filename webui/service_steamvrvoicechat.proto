@@ -21,6 +21,18 @@ message CSteamVR_VoiceChat_NewGroupChatMsgAdded_Notification {
 	optional string message = 6;
 }
 
+message CSteamVR_VoiceChat_PerUserGainValue_Notification {
+	optional uint32 accountid = 1;
+	optional bool muted = 2;
+	optional float gain = 3;
+}
+
+message CSteamVR_VoiceChat_PerUserVoiceStatus_Notification {
+	optional uint32 accountid = 1;
+	optional bool mic_muted_locally = 2;
+	optional bool output_muted_locally = 3;
+}
+
 message CSteamVR_VoiceChat_SetDefaultSession_Notification {
 	optional uint64 chat_group_id = 1;
 	optional uint64 chat_room_id = 2;
@@ -41,6 +53,8 @@ service SteamVRVoiceChat {
 	rpc Active (.CSteamVR_VoiceChat_Active_Notification) returns (.NoResponse);
 	rpc Inactive (.CSteamVR_VoiceChat_Inactive_Notification) returns (.NoResponse);
 	rpc NewGroupChatMsgAdded (.CSteamVR_VoiceChat_NewGroupChatMsgAdded_Notification) returns (.NoResponse);
+	rpc PerUserGainValue (.CSteamVR_VoiceChat_PerUserGainValue_Notification) returns (.NoResponse);
+	rpc PerUserVoiceStatus (.CSteamVR_VoiceChat_PerUserVoiceStatus_Notification) returns (.NoResponse);
 	rpc SetDefaultSession (.CSteamVR_VoiceChat_SetDefaultSession_Notification) returns (.NoResponse);
 	rpc SetSpatialAudioListener (.CSteamVR_VoiceChat_SetSpatialAudioListener_Notification) returns (.NoResponse);
 	rpc SetSpatialAudioSource (.CSteamVR_VoiceChat_SetSpatialAudioSource_Notification) returns (.NoResponse);

@@ -1,0 +1,12 @@
+
+message CTransportAuth_Authenticate_Request {
+	optional string auth_key = 1;
+}
+
+message CTransportAuth_Authenticate_Response {
+}
+
+service TransportAuth {
+	rpc Authenticate (.CTransportAuth_Authenticate_Request) returns (.CTransportAuth_Authenticate_Response);
+}
+
