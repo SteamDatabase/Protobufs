@@ -2733,6 +2733,7 @@ message CMsgClientSettings {
 	optional bool library_low_perf_mode = 7005;
 	optional bool library_disable_community_content = 7006;
 	optional bool library_display_icon_in_game_list = 7007;
+	optional bool ready_to_play_includes_streaming = 7008;
 	optional bool enable_shader_precache = 8000;
 	optional bool enable_shader_background_processing = 8001;
 	optional uint64 shader_precached_size = 8002;
