@@ -101,6 +101,8 @@ message CMsgSteamLearn_GetTrainStatus_Response {
 	repeated float test_accuracy = 12;
 	optional uint32 start_time = 13;
 	optional uint32 end_time = 14;
+	optional bool scheduled_train = 15;
+	optional bool live = 16;
 }
 
 message CMsgSteamLearn_GetTrainStatus_Response_Batch {
@@ -305,6 +307,16 @@ message CMsgSteamLearn_RegisterDataSource_Response {
 	optional .CMsgSteamLearnDataSource data_source = 2;
 }
 
+message CMsgSteamLearn_SetTrainLive_Request {
+	optional uint32 project_id = 1;
+	optional uint32 published_version = 2;
+	optional uint32 train_id = 3;
+}
+
+message CMsgSteamLearn_SetTrainLive_Response {
+	optional int32 result = 1 [(.description) = "enum"];
+}
+
 message CMsgSteamLearn_SnapshotProject_Response {
 	optional int32 snapshot_result = 1 [(.description) = "enum"];
 }
@@ -323,6 +335,7 @@ message CMsgSteamLearn_Train_Request_Fetch {
 message CMsgSteamLearn_Train_Request_Train {
 	optional uint32 train_id = 1;
 	optional bool request_cancel = 2;
+	optional bool scheduled_train = 3;
 }
 
 message CMsgSteamLearn_Train_Response {
@@ -370,11 +383,6 @@ message CMsgSteamLearnDataSourceElementUsage {
 
 message CMsgSteamLearnFetchInfo {
 	optional uint32 fetch_id = 1;
-}
-
-message CMsgSteamLearnInferenceConfig {
-	optional uint32 inference_process_count = 1;
-	optional uint32 live_train_id = 2;
 }
 
 message CMsgSteamLearnModelNodeCombine {
@@ -472,7 +480,6 @@ message CMsgSteamLearnProjectConfig {
 	repeated .CMsgSteamLearnProjectConfig_MapDataElementSqlColumnEntry map_data_element_sql_column = 12;
 	optional uint32 total_sql_columns = 13;
 	optional .CMsgSteamLearnDataRetentionConfig data_retention_config = 14;
-	optional .CMsgSteamLearnInferenceConfig inference_config = 15;
 	optional .CMsgSteamLearnScheduledTrainConfig scheduled_train_config = 16;
 	repeated .CMsgSteamLearnFetchInfo fetch_infos = 17;
 	repeated .CMsgSteamLearnTrainInfo train_infos = 18;
@@ -517,6 +524,7 @@ message CMsgSteamLearnProjectSnapshotConfig {
 	optional int32 snapshot_type = 1 [(.description) = "enum"];
 	optional .CMsgSteamLearnProjectSnapshotConfigAccountIDs config_account_ids = 2;
 	optional .CMsgSteamLearnProjectSnapshotConfigAppIDs config_app_ids = 3;
+	optional .CMsgSteamLearnProjectSnapshotConfigOtherProject config_other_project = 4;
 }
 
 message CMsgSteamLearnProjectSnapshotConfigAccountIDs {
@@ -527,6 +535,11 @@ message CMsgSteamLearnProjectSnapshotConfigAccountIDs {
 message CMsgSteamLearnProjectSnapshotConfigAppIDs {
 	optional uint32 percent = 1;
 	optional uint32 release_recency_days = 2;
+}
+
+message CMsgSteamLearnProjectSnapshotConfigOtherProject {
+	optional uint32 project_id = 1;
+	optional uint32 published_version = 2;
 }
 
 message CMsgSteamLearnProjectSnapshotFilter {
@@ -567,6 +580,7 @@ message CMsgSteamLearnTrainConfig {
 message CMsgSteamLearnTrainInfo {
 	optional uint32 fetch_id = 1;
 	optional uint32 train_id = 2;
+	optional bool scheduled_train = 3;
 }
 
 service SteamLearn {
@@ -588,6 +602,7 @@ service SteamLearn {
 	rpc ListProjects (.CMsgSteamLearn_ListProjects_Request) returns (.CMsgSteamLearn_ListProjects_Response);
 	rpc PublishProject (.CMsgSteamLearn_PublishProject_Request) returns (.CMsgSteamLearn_PublishProject_Response);
 	rpc RegisterDataSource (.NotImplemented) returns (.CMsgSteamLearn_RegisterDataSource_Response);
+	rpc SetTrainLive (.CMsgSteamLearn_SetTrainLive_Request) returns (.CMsgSteamLearn_SetTrainLive_Response);
 	rpc SnapshotProject (.NotImplemented) returns (.CMsgSteamLearn_SnapshotProject_Response);
 	rpc Train (.CMsgSteamLearn_Train_Request) returns (.CMsgSteamLearn_Train_Response);
 }
