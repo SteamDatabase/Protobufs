@@ -92,23 +92,6 @@ message CAppOverview_PerClientData {
 	optional int32 cloud_status = 13 [(.description) = "enum"];
 }
 
-message CAudioFormat {
-	optional int32 format = 1 [(.description) = "enum"];
-	optional uint32 frequency = 2;
-	optional uint32 channels = 3;
-}
-
-message CAuthenticationRequestMsg {
-	optional bytes token = 1;
-	optional int32 version = 2 [(.description) = "enum"];
-	optional uint64 steamid = 3;
-}
-
-message CAuthenticationResponseMsg {
-	optional int32 result = 1 [(.description) = "enum"];
-	optional int32 version = 2 [(.description) = "enum"];
-}
-
 message CBilling_Address {
 	optional string first_name = 1;
 	optional string last_name = 2;
@@ -224,10 +207,6 @@ message CClanEventData {
 	repeated uint32 referenced_appids = 28;
 	optional uint32 build_id = 29;
 	optional string build_branch = 30;
-}
-
-message CClientHandshakeMsg {
-	optional .CStreamingClientHandshakeInfo info = 1;
 }
 
 // Used by: common.proto
@@ -584,67 +563,6 @@ message CCuratorPreferences {
 	optional bool show_broadcast = 14;
 }
 
-message CDebugDumpMsg {
-	optional bytes screenshot = 1;
-}
-
-message CDeleteCursorMsg {
-	optional uint64 cursor_id = 1;
-}
-
-message CDisableHighResCaptureMsg {
-}
-
-message CDiscoveryPingRequest {
-	optional uint32 sequence = 1;
-	optional uint32 packet_size_requested = 2;
-}
-
-message CDiscoveryPingResponse {
-	optional uint32 sequence = 1;
-	optional uint32 packet_size_received = 2;
-}
-
-message CEnableHighResCaptureMsg {
-}
-
-// Used by: common.proto
-message CFrameEvent {
-	optional int32 event_id = 1 [(.description) = "enum"];
-	optional uint32 timestamp = 2;
-}
-
-// Used by: common.proto
-message CFrameStatAccumulatedValue {
-	optional int32 stat_type = 1 [(.description) = "enum"];
-	optional int32 count = 2;
-	optional float average = 3;
-	optional float stddev = 4;
-}
-
-// Used by: common.proto
-message CFrameStats {
-	optional uint32 frame_id = 1;
-	optional uint32 input_mark = 2;
-	repeated .CFrameEvent events = 3;
-	optional int32 result = 4 [(.description) = "enum"];
-	optional float frame_start_delta = 5;
-	optional float frame_display_delta = 6;
-	optional float ping_time = 7;
-	optional float server_bitrate = 8;
-	optional float client_bitrate = 9;
-	optional float link_bandwidth = 10;
-	optional float packet_loss = 11;
-	optional uint32 frame_size = 12;
-}
-
-message CFrameStatsListMsg {
-	optional int32 data_type = 1 [(.description) = "enum"];
-	repeated .CFrameStats stats = 2;
-	repeated .CFrameStatAccumulatedValue accumulated_stats = 3;
-	optional int32 latest_frame_id = 4;
-}
-
 message CGameNetworkingUI_AppSummary {
 	optional uint32 appid = 1;
 	optional bool ip_was_shared_with_friend = 10;
@@ -694,99 +612,6 @@ message CGameNetworkingUI_ConnectionSummary {
 	optional bool ip_was_shared = 7;
 }
 
-message CGetCursorImageMsg {
-	optional uint64 cursor_id = 1;
-}
-
-message CGetTouchConfigDataMsg {
-	optional uint32 appid = 1;
-}
-
-message CGetTouchIconDataMsg {
-	optional uint32 appid = 1;
-	optional string icon = 2;
-}
-
-message CHideCursorMsg {
-}
-
-// Used by: common.proto
-message CInputKeyDownMsg {
-	optional uint32 input_mark = 1;
-	optional uint32 scancode = 2;
-}
-
-// Used by: common.proto
-message CInputKeyUpMsg {
-	optional uint32 input_mark = 1;
-	optional uint32 scancode = 2;
-}
-
-message CInputLatencyTestMsg {
-	optional uint32 input_mark = 1;
-	optional uint32 color = 2;
-}
-
-// Used by: common.proto
-message CInputMouseDownMsg {
-	optional uint32 input_mark = 1;
-	optional int32 button = 2 [(.description) = "enum"];
-}
-
-// Used by: common.proto
-message CInputMouseMotionMsg {
-	optional uint32 input_mark = 1;
-	optional float x_normalized = 2;
-	optional float y_normalized = 3;
-	optional int32 dx = 4;
-	optional int32 dy = 5;
-}
-
-// Used by: common.proto
-message CInputMouseUpMsg {
-	optional uint32 input_mark = 1;
-	optional int32 button = 2 [(.description) = "enum"];
-}
-
-// Used by: common.proto
-message CInputMouseWheelMsg {
-	optional uint32 input_mark = 1;
-	optional int32 direction = 2 [(.description) = "enum"];
-}
-
-// Used by: common.proto
-message CInputTextMsg {
-	optional uint32 input_mark = 1;
-	optional string text_utf8 = 2;
-}
-
-// Used by: common.proto
-message CInputTouchFingerDownMsg {
-	optional uint32 input_mark = 1;
-	optional uint64 fingerid = 2;
-	optional float x_normalized = 3;
-	optional float y_normalized = 4;
-}
-
-// Used by: common.proto
-message CInputTouchFingerMotionMsg {
-	optional uint32 input_mark = 1;
-	optional uint64 fingerid = 2;
-	optional float x_normalized = 3;
-	optional float y_normalized = 4;
-}
-
-// Used by: common.proto
-message CInputTouchFingerUpMsg {
-	optional uint32 input_mark = 1;
-	optional uint64 fingerid = 2;
-	optional float x_normalized = 3;
-	optional float y_normalized = 4;
-}
-
-message CKeepAliveMsg {
-}
-
 message CLibraryBootstrapData {
 	repeated .CAppBootstrapData app_data = 1;
 }
@@ -794,16 +619,6 @@ message CLibraryBootstrapData {
 message CLocalizationToken {
 	optional uint32 language = 1;
 	optional string localized_string = 2;
-}
-
-message CLogMsg {
-	optional int32 type = 1;
-	optional string message = 2;
-}
-
-message CLogUploadMsg {
-	optional int32 type = 1 [(.description) = "enum"];
-	optional bytes data = 3;
 }
 
 message CLoyaltyRewards_RedeemPointsToUpgradeItem_Request {
@@ -4248,153 +4063,6 @@ message CMsgProtobufWrapped {
 	optional bytes message_body = 1;
 }
 
-message CMsgRemoteClientBroadcastClientIDDeconflict {
-	repeated uint64 client_ids = 2;
-}
-
-message CMsgRemoteClientBroadcastDiscovery {
-	optional uint32 seq_num = 1;
-	repeated uint64 client_ids = 2;
-}
-
-message CMsgRemoteClientBroadcastHeader {
-	optional uint64 client_id = 1;
-	optional int32 msg_type = 2 [(.description) = "enum"];
-	optional uint64 instance_id = 3;
-	optional uint64 device_id = 4;
-	optional bytes device_token = 5;
-}
-
-message CMsgRemoteClientBroadcastStatus {
-	optional int32 version = 1;
-	optional int32 min_version = 2;
-	optional uint32 connect_port = 3;
-	optional string hostname = 4;
-	optional uint32 enabled_services = 6;
-	optional int32 ostype = 7 [default = 0];
-	optional bool is64bit = 8;
-	repeated .CMsgRemoteClientBroadcastStatus_User users = 9;
-	optional int32 euniverse = 11;
-	optional uint32 timestamp = 12;
-	optional bool screen_locked = 13;
-	optional bool games_running = 14;
-	repeated string mac_addresses = 15;
-	optional uint32 download_lan_peer_group = 16;
-	optional bool broadcasting_active = 17;
-	optional bool vr_active = 18;
-	optional uint32 content_cache_port = 19;
-	repeated string ip_addresses = 20;
-	optional string public_ip_address = 21;
-	optional bool remoteplay_active = 22;
-	optional uint32 supported_services = 23;
-	optional bool steam_deck = 24;
-	optional uint64 steam_version = 25;
-}
-
-// Used by: common.proto
-message CMsgRemoteClientBroadcastStatus_User {
-	optional fixed64 steamid = 1;
-	optional uint32 auth_key_id = 2;
-}
-
-message CMsgRemoteDeviceAuthorizationCancelRequest {
-}
-
-message CMsgRemoteDeviceAuthorizationConfirmed {
-	optional int32 result = 1 [(.description) = "enum"];
-}
-
-message CMsgRemoteDeviceAuthorizationRequest {
-	optional bytes device_token = 1;
-	optional string device_name = 2;
-	optional bytes encrypted_request = 3;
-	optional bytes auth_key = 4;
-}
-
-message CMsgRemoteDeviceAuthorizationRequest_CKeyEscrow_Ticket {
-	optional bytes password = 1;
-	optional uint64 identifier = 2;
-	optional bytes payload = 3;
-	optional uint32 timestamp = 4;
-	optional int32 usage = 5 [(.description) = "enum"];
-	optional string device_name = 6;
-	optional string device_model = 7;
-	optional string device_serial = 8;
-	optional uint32 device_provisioning_id = 9;
-}
-
-message CMsgRemoteDeviceAuthorizationResponse {
-	optional int32 result = 1 [(.description) = "enum"];
-	optional fixed64 steamid = 2;
-	optional bytes auth_key = 3;
-	optional bytes device_token = 4;
-}
-
-message CMsgRemoteDeviceProofRequest {
-	optional bytes challenge = 1;
-	optional uint32 request_id = 2;
-	optional bool update_secret = 3;
-}
-
-message CMsgRemoteDeviceProofResponse {
-	optional bytes response = 1;
-	optional uint32 request_id = 2;
-	optional bool updated_secret = 3;
-}
-
-message CMsgRemoteDeviceStreamingCancelRequest {
-	optional uint32 request_id = 1;
-}
-
-message CMsgRemoteDeviceStreamingProgress {
-	optional uint32 request_id = 1;
-	optional float progress = 2;
-}
-
-message CMsgRemoteDeviceStreamingRequest {
-	optional uint32 request_id = 1;
-	optional int32 maximum_resolution_x = 2;
-	optional int32 maximum_resolution_y = 3;
-	optional int32 audio_channel_count = 4 [default = 2];
-	optional string device_version = 5;
-	optional bool stream_desktop = 6;
-	optional bytes device_token = 7;
-	optional bytes pin = 8;
-	optional bool enable_video_streaming = 9 [default = true];
-	optional bool enable_audio_streaming = 10 [default = true];
-	optional bool enable_input_streaming = 11 [default = true];
-	optional bool network_test = 12;
-	optional uint64 client_id = 13;
-	repeated int32 supported_transport = 14 [(.description) = "enum"];
-	optional bool restricted = 15;
-	optional int32 form_factor = 16 [(.description) = "enum"];
-	optional int32 gamepad_count = 17;
-	repeated .CMsgRemoteDeviceStreamingRequest_ReservedGamepad gamepads = 18;
-	optional uint64 gameid = 19;
-	optional int32 stream_interface = 20 [(.description) = "enum"];
-}
-
-// Used by: common.proto
-message CMsgRemoteDeviceStreamingRequest_ReservedGamepad {
-	optional uint32 controller_type = 1;
-	optional uint32 controller_subtype = 2;
-}
-
-message CMsgRemoteDeviceStreamingResponse {
-	optional uint32 request_id = 1;
-	optional int32 result = 2 [(.description) = "enum"];
-	optional uint32 port = 3;
-	optional bytes encrypted_session_key = 4;
-	optional int32 transport = 6 [default = 1, (.description) = "enum"];
-	optional string relay_server = 7;
-	optional string cert = 8;
-}
-
-message CMsgRemoteDeviceStreamTransportSignal {
-	optional bytes token = 1;
-	optional bytes payload = 2;
-}
-
 message CMsgSelectOSBranchParams {
 	optional int32 branch = 1 [(.description) = "enum"];
 	optional string custom_branch = 2;
@@ -5016,37 +4684,6 @@ message CMsgTrading_StartSession {
 	optional uint64 other_steamid = 1;
 }
 
-// Used by: common.proto
-message CNegotiatedConfig {
-	optional bool reliable_data = 1;
-	optional int32 selected_audio_codec = 2 [(.description) = "enum"];
-	optional int32 selected_video_codec = 3 [(.description) = "enum"];
-	repeated .CStreamVideoMode available_video_modes = 4;
-	optional bool enable_remote_hid = 5;
-	optional bool enable_touch_input = 6;
-}
-
-message CNegotiationCompleteMsg {
-}
-
-message CNegotiationInitMsg {
-	optional bool reliable_data = 1;
-	repeated int32 supported_audio_codecs = 2 [(.description) = "enum"];
-	repeated int32 supported_video_codecs = 3 [(.description) = "enum"];
-	optional bool supports_remote_hid = 4;
-	optional bool supports_touch_input = 5;
-}
-
-message CNegotiationSetConfigMsg {
-	optional .CNegotiatedConfig config = 1;
-	optional .CStreamingClientConfig streaming_client_config = 2;
-	optional .CStreamingClientCaps streaming_client_caps = 3;
-}
-
-message COverlayEnabledMsg {
-	optional bool enabled = 1;
-}
-
 message CPackageReservationStatus {
 	optional uint32 packageid = 1;
 	optional int32 reservation_state = 2;
@@ -5063,9 +4700,6 @@ message CPartnerStoreBrowse_GetItems_Request {
 	optional bool include_unpublished = 2;
 }
 
-message CPauseMsg {
-}
-
 message CProductImpressionsFromClient_Notification {
 	repeated .CProductImpressionsFromClient_Notification_Impression impressions = 1;
 }
@@ -5075,197 +4709,6 @@ message CProductImpressionsFromClient_Notification_Impression {
 	optional int32 type = 1 [(.description) = "enum"];
 	optional uint32 appid = 2;
 	optional uint32 num_impressions = 3;
-}
-
-message CQuitRequest {
-}
-
-// Used by: common.proto
-message CRecordedInput {
-	optional int32 type = 1 [(.description) = "enum"];
-	optional uint32 timestamp = 2;
-	optional .CInputTouchFingerDownMsg finger_down = 3;
-	optional .CInputTouchFingerMotionMsg finger_motion = 4;
-	optional .CInputTouchFingerUpMsg finger_up = 5;
-	optional .CInputMouseMotionMsg mouse_motion = 6;
-	optional .CInputMouseWheelMsg mouse_wheel = 7;
-	optional .CInputMouseDownMsg mouse_down = 8;
-	optional .CInputMouseUpMsg mouse_up = 9;
-	optional .CInputKeyDownMsg key_down = 10;
-	optional .CInputKeyUpMsg key_up = 11;
-	optional .CInputTextMsg text = 12;
-	optional .CRemoteHIDMsg hid = 13;
-}
-
-message CRecordedInputStream {
-	repeated .CRecordedInput entries = 1;
-}
-
-// Used by: common.proto
-message CRemoteHIDMsg {
-	optional bytes data = 1;
-}
-
-message CRemotePlayTogetherGroupUpdateMsg {
-	repeated .CRemotePlayTogetherGroupUpdateMsg_Player players = 1;
-	optional int32 player_index = 2;
-	optional string miniprofile_location = 3;
-	optional string game_name = 4;
-	optional string avatar_location = 5;
-}
-
-// Used by: common.proto
-message CRemotePlayTogetherGroupUpdateMsg_Player {
-	optional uint32 accountid = 1;
-	optional uint32 guestid = 2;
-	optional bool keyboard_enabled = 3;
-	optional bool mouse_enabled = 4;
-	optional bool controller_enabled = 5;
-	repeated uint32 controller_slots = 6;
-	optional bytes avatar_hash = 7;
-}
-
-message CResumeMsg {
-}
-
-message CSaveTouchConfigLayoutMsg {
-	optional uint32 appid = 1;
-	optional bytes layout = 4;
-}
-
-message CServerHandshakeMsg {
-	optional .CStreamingServerHandshakeInfo info = 1;
-}
-
-message CSetActivityMsg {
-	optional int32 activity = 1 [(.description) = "enum"];
-	optional uint32 appid = 2;
-	optional uint64 gameid = 3;
-	optional string game_name = 4;
-}
-
-message CSetBitrateOverrideMsg {
-	optional int32 value = 1;
-}
-
-message CSetCapslockMsg {
-	optional bool pressed = 1;
-}
-
-message CSetCaptureSizeMsg {
-	optional int32 width = 1;
-	optional int32 height = 2;
-}
-
-message CSetCursorImageMsg {
-	optional uint64 cursor_id = 1;
-	optional int32 width = 2;
-	optional int32 height = 3;
-	optional int32 hot_x = 4;
-	optional int32 hot_y = 5;
-	optional bytes image = 6;
-}
-
-message CSetCursorMsg {
-	optional uint64 cursor_id = 1;
-}
-
-message CSetFlashStateMsg {
-	optional uint32 flags = 1;
-	optional uint32 count = 2;
-	optional uint32 timeout_ms = 3;
-}
-
-message CSetGammaRampMsg {
-	optional bytes gamma_ramp = 1;
-}
-
-message CSetIconMsg {
-	optional int32 width = 1;
-	optional int32 height = 2;
-	optional bytes image = 3;
-}
-
-message CSetInputTemporarilyDisabledMsg {
-	optional bool disabled = 1;
-}
-
-message CSetKeymapMsg {
-	optional .CStreamingKeymap keymap = 1;
-}
-
-message CSetQoSMsg {
-	optional bool use_qos = 1;
-}
-
-message CSetQualityOverrideMsg {
-	optional int32 value = 1;
-}
-
-message CSetSpectatorModeMsg {
-	optional bool enabled = 1;
-}
-
-message CSetStreamingClientConfig {
-	optional .CStreamingClientConfig config = 1;
-}
-
-message CSetTargetBitrateMsg {
-	optional int32 bitrate = 1;
-}
-
-message CSetTargetFramerateMsg {
-	optional uint32 framerate = 1;
-	optional uint32 reasons = 2;
-	optional uint32 framerate_numerator = 3;
-	optional uint32 framerate_denominator = 4;
-}
-
-message CSetTitleMsg {
-	optional string text = 1;
-}
-
-message CSetTouchConfigDataMsg {
-	optional uint32 appid = 1;
-	optional uint32 revision = 2;
-	optional bytes data = 3;
-	optional bytes layout = 4;
-	optional uint64 creator = 5;
-}
-
-message CSetTouchIconDataMsg {
-	optional uint32 appid = 1;
-	optional string icon = 2;
-	optional bytes data = 3;
-}
-
-message CShowCursorMsg {
-	optional float x_normalized = 1;
-	optional float y_normalized = 2;
-}
-
-message CStartAudioDataMsg {
-	optional uint32 channel = 2;
-	optional int32 codec = 3 [(.description) = "enum"];
-	optional bytes codec_data = 4;
-	optional uint32 frequency = 5;
-	optional uint32 channels = 6;
-}
-
-message CStartNetworkTestMsg {
-	optional uint32 frames = 1;
-	optional uint32 framerate = 2;
-	optional uint32 bitrate_kbps = 3;
-	optional uint32 burst_bitrate_kbps = 4;
-	optional bool bandwidth_test = 5;
-}
-
-message CStartVideoDataMsg {
-	optional uint32 channel = 1;
-	optional int32 codec = 2 [(.description) = "enum"];
-	optional bytes codec_data = 3;
-	optional uint32 width = 4;
-	optional uint32 height = 5;
 }
 
 message CSteamVR_VoiceChat_ConfigureVideo_Request {
@@ -5334,15 +4777,6 @@ message CSteamVR_WebRTC_CreateDataChannel_Response {
 	optional uint32 channel_id = 1;
 }
 
-message CStopAudioDataMsg {
-}
-
-message CStopRequest {
-}
-
-message CStopVideoDataMsg {
-}
-
 // Used by: PartnerStoreBrowse, StoreBrowse, common.proto
 message CStoreBrowse_GetItems_Request {
 	repeated .StoreItemID ids = 1;
@@ -5390,26 +4824,6 @@ message CStorePageFilter_StoreFilter {
 	optional string cache_key = 2;
 }
 
-message CStreamDataLostMsg {
-	repeated uint32 packets = 1;
-}
-
-// Used by: common.proto
-message CStreamingClientCaps {
-	optional string system_info = 1;
-	optional bool system_can_suspend = 2;
-	optional int32 maximum_decode_bitrate_kbps = 3;
-	optional int32 maximum_burst_bitrate_kbps = 4;
-	optional bool supports_video_hevc = 5;
-	optional bool disable_steam_store = 6;
-	optional bool disable_client_cursor = 7;
-	optional bool disable_intel_hardware_encoding = 8;
-	optional bool disable_amd_hardware_encoding = 9;
-	optional bool disable_nvidia_hardware_encoding = 10;
-	optional int32 form_factor = 11;
-}
-
-// Used by: common.proto
 message CStreamingClientConfig {
 	optional int32 quality = 1 [default = 2, (.description) = "enum"];
 	optional uint32 maximum_resolution_x = 2;
@@ -5431,29 +4845,6 @@ message CStreamingClientConfig {
 	optional int32 p2p_scope = 19 [default = 0, (.description) = "enum"];
 }
 
-// Used by: common.proto
-message CStreamingClientHandshakeInfo {
-	optional int32 network_test = 2;
-}
-
-// Used by: common.proto
-message CStreamingKeymap {
-	repeated .CStreamingKeymapEntry entries = 1;
-}
-
-// Used by: common.proto
-message CStreamingKeymapEntry {
-	optional int32 scancode = 1;
-	optional int32 normal_keycode = 2;
-	optional int32 shift_keycode = 3;
-	optional int32 capslock_keycode = 4;
-	optional int32 shift_capslock_keycode = 5;
-	optional int32 altgr_keycode = 6;
-	optional int32 altgr_shift_keycode = 7;
-	optional int32 altgr_capslock_keycode = 8;
-	optional int32 altgr_shift_capslock_keycode = 9;
-}
-
 message CStreamingServerConfig {
 	optional bool change_desktop_resolution = 1;
 	optional bool dynamically_adjust_resolution = 2;
@@ -5466,73 +4857,6 @@ message CStreamingServerConfig {
 	optional int32 host_play_audio = 9 [default = 0, (.description) = "enum"];
 }
 
-// Used by: common.proto
-message CStreamingServerHandshakeInfo {
-	optional int32 mtu = 1;
-}
-
-message CStreamingSessionStats {
-	optional float frame_loss_percentage = 1;
-	optional float average_network_time_ms = 2;
-	optional float stddev_network_time_ms = 3;
-}
-
-// Used by: common.proto
-message CStreamVideoMode {
-	optional uint32 width = 1;
-	optional uint32 height = 2;
-	optional uint32 refresh_rate = 3;
-	optional uint32 refresh_rate_numerator = 4;
-	optional uint32 refresh_rate_denominator = 5;
-}
-
-message CSystemSuspendMsg {
-}
-
-message CToggleMagnificationMsg {
-}
-
-message CTouchActionSetActiveMsg {
-	optional uint32 appid = 1;
-	optional int32 actionset_id = 2;
-}
-
-message CTouchActionSetLayerAddedMsg {
-	optional uint32 appid = 1;
-	optional int32 actionset_id = 2;
-}
-
-message CTouchActionSetLayerRemovedMsg {
-	optional uint32 appid = 1;
-	optional int32 actionset_id = 2;
-}
-
-message CTouchConfigActiveMsg {
-	optional uint32 appid = 1;
-	optional uint32 revision = 2;
-	optional uint64 creator = 3;
-}
-
-message CTransportSignalMsg {
-	optional .CTransportSignalMsg_WebRTCMessage webrtc = 1;
-	repeated bytes sdr = 2;
-}
-
-// Used by: common.proto
-message CTransportSignalMsg_WebRTCMessage {
-	optional bool greeting = 1;
-	optional string offer = 2;
-	optional string answer = 3;
-	optional .CTransportSignalMsg_WebRTCMessage_Candidate candidate = 4;
-}
-
-// Used by: common.proto
-message CTransportSignalMsg_WebRTCMessage_Candidate {
-	optional string sdp_mid = 1;
-	optional int32 sdp_mline_index = 2;
-	optional string candidate = 3;
-}
-
 // Used by: Test_TransportError, TransportValidation
 message CTransportValidation_AppendToString_Request {
 	repeated string append_strings = 1;
@@ -5541,33 +4865,6 @@ message CTransportValidation_AppendToString_Request {
 // Used by: Test_TransportError, TransportValidation
 message CTransportValidation_AppendToString_Response {
 	optional string combined_text = 1;
-}
-
-message CVideoDecoderInfoMsg {
-	optional string info = 1;
-	optional int32 threads = 2;
-}
-
-message CVideoEncoderInfoMsg {
-	optional string info = 1;
-}
-
-message CVideoFormat {
-	optional int32 format = 1 [(.description) = "enum"];
-	optional uint32 width = 2;
-	optional uint32 height = 3;
-}
-
-message CVirtualHereReadyMsg {
-	optional uint32 licensed_device_count = 1;
-}
-
-message CVirtualHereRequestMsg {
-	optional string hostname = 1;
-}
-
-message CVirtualHereShareDeviceMsg {
-	optional string device_address = 1;
 }
 
 // Used by: common.proto
