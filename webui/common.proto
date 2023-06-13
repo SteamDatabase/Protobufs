@@ -610,6 +610,7 @@ message CGameNetworkingUI_ConnectionSummary {
 	optional float packet_loss = 5;
 	optional uint32 ping_default_internet_route = 6;
 	optional bool ip_was_shared = 7;
+	optional uint32 connection_state = 8;
 }
 
 message CLibraryBootstrapData {
