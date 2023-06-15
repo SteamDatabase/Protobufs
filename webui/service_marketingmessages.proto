@@ -133,8 +133,17 @@ message CMarketingMessages_GetMarketingMessagesForUser_Response_MarketingMessage
 	optional .CDisplayMarketingMessage message = 2;
 }
 
+message CMarketingMessages_GetMarketingMessagesViewerRangeStats_Request {
+	optional uint32 rt_start_time = 1;
+	optional uint32 rt_end_time = 2;
+}
+
 message CMarketingMessages_GetMarketingMessagesViewerRangeStats_Response {
 	repeated .CMarketingMessageHourlyStats stats = 1;
+}
+
+message CMarketingMessages_GetMarketingMessageViewerStats_Request {
+	optional fixed64 gid = 1;
 }
 
 message CMarketingMessages_GetMarketingMessageViewerStats_Response {
@@ -166,8 +175,8 @@ service MarketingMessages {
 	rpc GetDisplayMarketingMessageAdmin (.CMarketingMessages_GetDisplayMarketingMessage_Request) returns (.CMarketingMessages_GetDisplayMarketingMessage_Response);
 	rpc GetMarketingMessage (.CMarketingMessages_GetMarketingMessage_Request) returns (.CMarketingMessages_GetMarketingMessage_Response);
 	rpc GetMarketingMessagesForUser (.CMarketingMessages_GetMarketingMessagesForUser_Request) returns (.CMarketingMessages_GetMarketingMessagesForUser_Response);
-	rpc GetMarketingMessagesViewerRangeStats (.NotImplemented) returns (.CMarketingMessages_GetMarketingMessagesViewerRangeStats_Response);
-	rpc GetMarketingMessageViewerStats (.NotImplemented) returns (.CMarketingMessages_GetMarketingMessageViewerStats_Response);
+	rpc GetMarketingMessagesViewerRangeStats (.CMarketingMessages_GetMarketingMessagesViewerRangeStats_Request) returns (.CMarketingMessages_GetMarketingMessagesViewerRangeStats_Response);
+	rpc GetMarketingMessageViewerStats (.CMarketingMessages_GetMarketingMessageViewerStats_Request) returns (.CMarketingMessages_GetMarketingMessageViewerStats_Response);
 	rpc MarkMessageSeen (.CMarketingMessages_MarkMessageSeen_Notification) returns (.NoResponse);
 	rpc UpdateMarketingMessage (.CMarketingMessages_UpdateMarketingMessage_Request) returns (.CMarketingMessages_UpdateMarketingMessage_Response);
 }
