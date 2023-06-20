@@ -1,0 +1,108 @@
+import "common_base.proto";
+
+message CShoppingCart_AddBundle_Response {
+	optional .CShoppingCart_Contents contents = 1;
+	repeated uint32 result_details = 2;
+}
+
+message CShoppingCart_AddPackages_Response {
+	optional uint64 gidshoppingcart = 1;
+	optional .CShoppingCart_Contents contents = 2;
+	repeated uint32 result_details = 3;
+}
+
+message CShoppingCart_Amount {
+	optional int64 amount = 1;
+	optional uint32 currencycode = 2;
+}
+
+message CShoppingCart_AvailableCoupon {
+	optional uint32 couponid = 1;
+	optional uint64 gidcoupon = 2;
+	optional uint64 gidlineitem = 3;
+}
+
+message CShoppingCart_BundleItem {
+	optional uint32 bundleid = 1;
+	optional uint32 quantity = 2;
+}
+
+message CShoppingCart_Contents {
+	repeated .CShoppingCart_Item lineitems = 1;
+	repeated .CShoppingCart_RelationShip treeview = 2;
+	optional .CShoppingCart_Potentials potentials = 3;
+}
+
+message CShoppingCart_CouponItem {
+	optional uint32 couponid = 1;
+	optional uint64 gidcoupontarget = 2;
+	optional uint32 packageid = 3;
+}
+
+message CShoppingCart_CreateNew_Response {
+	optional uint64 gidshoppingcart = 1;
+}
+
+message CShoppingCart_GetContents_Request {
+	optional uint64 gidshoppingcart = 1;
+}
+
+message CShoppingCart_GetContents_Response {
+	optional uint64 gidshoppingcart = 1;
+	optional .CShoppingCart_Contents contents = 2;
+	optional uint32 time_created = 3;
+}
+
+message CShoppingCart_Item {
+	optional uint64 gidlineitem = 1;
+	optional .CShoppingCart_PackageItem package_item = 2;
+	optional .CShoppingCart_WalletCreditItem wallet_credit_item = 3;
+	optional .CShoppingCart_CouponItem coupon_item = 4;
+	optional .CShoppingCart_MicroTxnAsset micro_item = 5;
+	optional .CShoppingCart_BundleItem bundle_item = 7;
+	optional .CShoppingCart_LoyaltyRewardItem loyalty_item = 8;
+}
+
+message CShoppingCart_LoyaltyRewardItem {
+	optional int32 reward_id = 1;
+}
+
+message CShoppingCart_MicroTxnAsset {
+	optional uint32 microtxnappid = 1;
+	optional uint64 microtxnassetclassid = 2;
+}
+
+message CShoppingCart_PackageItem {
+	optional uint32 packageid = 1;
+	optional .CShoppingCart_Amount costwhenadded = 2;
+	optional bool is_gift = 3;
+	optional uint64 gidbundle = 4;
+	optional uint32 quantity = 5;
+}
+
+message CShoppingCart_Potentials {
+	repeated .CShoppingCart_AvailableCoupon coupons = 1;
+}
+
+message CShoppingCart_RelationShip {
+	optional uint64 gidparent = 1;
+	repeated .CShoppingCart_RelationShip children = 2;
+}
+
+message CShoppingCart_RemoveLineItems_Response {
+	optional .CShoppingCart_Contents contents = 1;
+	repeated uint32 result_details = 2;
+}
+
+message CShoppingCart_WalletCreditItem {
+	optional .CShoppingCart_Amount walletcredit = 1;
+}
+
+service ShoppingCart {
+	rpc AddBundle (.NotImplemented) returns (.CShoppingCart_AddBundle_Response);
+	rpc AddPackages (.NotImplemented) returns (.CShoppingCart_AddPackages_Response);
+	rpc CreateNewShoppingCart (.NotImplemented) returns (.CShoppingCart_CreateNew_Response);
+	rpc GetShoppingCartContents (.CShoppingCart_GetContents_Request) returns (.CShoppingCart_GetContents_Response);
+	rpc RemoveLineItems (.NotImplemented) returns (.CShoppingCart_RemoveLineItems_Response);
+}
+

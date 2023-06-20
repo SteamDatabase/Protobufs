@@ -9,6 +9,10 @@ message CSteamVR_Vector3 {
 message CSteamVR_VoiceChat_Active_Notification {
 }
 
+message CSteamVR_VoiceChat_GroupName_Notification {
+	optional string name = 1;
+}
+
 message CSteamVR_VoiceChat_Inactive_Notification {
 }
 
@@ -51,6 +55,7 @@ message CSteamVR_VoiceChat_SetSpatialAudioSource_Notification {
 
 service SteamVRVoiceChat {
 	rpc Active (.CSteamVR_VoiceChat_Active_Notification) returns (.NoResponse);
+	rpc GroupName (.CSteamVR_VoiceChat_GroupName_Notification) returns (.NoResponse);
 	rpc Inactive (.CSteamVR_VoiceChat_Inactive_Notification) returns (.NoResponse);
 	rpc NewGroupChatMsgAdded (.CSteamVR_VoiceChat_NewGroupChatMsgAdded_Notification) returns (.NoResponse);
 	rpc PerUserGainValue (.CSteamVR_VoiceChat_PerUserGainValue_Notification) returns (.NoResponse);
