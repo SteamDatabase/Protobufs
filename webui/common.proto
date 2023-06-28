@@ -502,6 +502,11 @@ message CClientNotificationScreenshot {
 	optional string local_url = 3;
 }
 
+message CClientNotificationSteamInputActionSetChanged {
+	optional uint32 controller_index = 1;
+	optional string action_set_name = 2;
+}
+
 message CClientNotificationSystemUpdate {
 	optional int32 type = 1 [(.description) = "enum"];
 }
