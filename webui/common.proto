@@ -2511,8 +2511,6 @@ message CMsgClientSettings {
 	optional float auto_scale_factor = 14;
 	optional bool enable_test_updaters = 15;
 	optional bool small_mode = 16;
-	optional bool disable_all_toasts = 17;
-	optional bool disable_toasts_in_game = 18;
 	optional bool skip_steamvr_install_dialog = 19;
 	optional bool always_show_user_chooser = 20;
 	optional bool show_family_sharing_notifications = 3000;
@@ -2546,6 +2544,9 @@ message CMsgClientSettings {
 	optional bool enable_marketing_messages = 5006;
 	optional bool start_in_big_picture_mode = 5007;
 	optional uint32 jumplist_flags = 5008;
+	optional bool disable_all_toasts = 6000;
+	optional bool disable_toasts_in_game = 6001;
+	optional bool play_sound_on_toast = 6002;
 	optional int32 library_display_size = 7000;
 	optional bool library_whats_new_show_only_product_updates = 7001;
 	optional bool show_store_content_on_home = 7002;
