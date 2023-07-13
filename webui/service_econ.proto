@@ -23,6 +23,7 @@ message CEcon_GetAssetClassInfo_Request {
 	optional string language = 1;
 	optional uint32 appid = 2;
 	repeated .CEcon_GetAssetClassInfo_Request_Class classes = 3;
+	optional bool high_pri = 4;
 }
 
 message CEcon_GetAssetClassInfo_Request_Class {

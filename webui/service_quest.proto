@@ -67,6 +67,7 @@ message CQuest_GetCommunityItemDefinitions_Response_ItemDefinition {
 	optional string item_movie_mp4 = 19;
 	optional string item_movie_webm_small = 20;
 	optional string item_movie_mp4_small = 21;
+	optional string item_internal_name = 22;
 }
 
 message CQuest_GetNumTradingCardsEarned_Request {

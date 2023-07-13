@@ -1,8 +1,38 @@
 import "common_base.proto";
 
+message CVideo_BeginGameClipSegmentsUpload_Response {
+	repeated .CVideo_GameClipSegmentUploadInfo segments_needed = 1;
+	optional bool call_again = 2;
+}
+
 message CVideo_ClientGetVideoURL_Response {
 	optional uint64 video_id = 1;
 	optional string video_url = 2;
+}
+
+message CVideo_CommitGameClipSegmentsUpload_Response {
+}
+
+message CVideo_CreateGameClip_Response {
+	optional uint64 clip_id = 1;
+}
+
+message CVideo_GameClipSegmentInfo {
+	optional uint32 segment_number = 4;
+	optional uint64 segment_size_bytes = 5;
+}
+
+message CVideo_GameClipSegmentUploadInfo {
+	optional .CVideo_GameClipSegmentInfo segment_info = 1;
+	optional string url_host = 2;
+	optional string url_path = 3;
+	optional bool use_https = 4;
+	repeated .CVideo_GameClipSegmentUploadInfo_HTTPHeaders request_headers = 5;
+}
+
+message CVideo_GameClipSegmentUploadInfo_HTTPHeaders {
+	optional string name = 1;
+	optional string value = 2;
 }
 
 message CVideo_GetVideoBookmarks_Response {
@@ -29,7 +59,10 @@ message VideoBookmark {
 }
 
 service Video {
+	rpc BeginGameClipSegmentsUpload (.NotImplemented) returns (.CVideo_BeginGameClipSegmentsUpload_Response);
 	rpc ClientGetVideoURL (.NotImplemented) returns (.CVideo_ClientGetVideoURL_Response);
+	rpc CommitGameClipSegmentsUpload (.NotImplemented) returns (.CVideo_CommitGameClipSegmentsUpload_Response);
+	rpc CreateGameClip (.NotImplemented) returns (.CVideo_CreateGameClip_Response);
 	rpc GetVideoBookmarks (.NotImplemented) returns (.CVideo_GetVideoBookmarks_Response);
 	rpc SetVideoBookmark (.CVideo_SetVideoBookmark_Notification) returns (.NoResponse);
 }
