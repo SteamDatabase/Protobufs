@@ -68,6 +68,11 @@ message CMsgSteamLearn_GetFetchStatusVersions_Response {
 	repeated uint32 versions = 1;
 }
 
+message CMsgSteamLearn_GetLogEvents_Request {
+	optional uint32 look_behind_days = 1;
+	optional uint32 look_ahead_days = 2;
+}
+
 message CMsgSteamLearn_GetLogEvents_Response {
 	optional int32 result = 1 [(.description) = "enum"];
 	repeated .CMsgSteamLearn_LogEvent event_list = 2;
@@ -275,8 +280,8 @@ message CMsgSteamLearn_LogEvent_TrainEnded {
 	optional uint32 project_id = 1;
 	optional uint32 fetch_id = 2;
 	optional uint32 train_id = 3;
-	repeated float epoch_loss = 4;
-	repeated float epoch_accuracy = 5;
+	optional float loss = 4;
+	optional float accuracy = 5;
 }
 
 message CMsgSteamLearn_LogEvent_TrainSetLive {
@@ -311,6 +316,7 @@ message CMsgSteamLearn_SetTrainLive_Request {
 	optional uint32 project_id = 1;
 	optional uint32 published_version = 2;
 	optional uint32 train_id = 3;
+	optional bool from_scheduled = 4;
 }
 
 message CMsgSteamLearn_SetTrainLive_Response {
@@ -591,7 +597,7 @@ service SteamLearn {
 	rpc GetDataSource (.CMsgSteamLearn_GetDataSource_Request) returns (.CMsgSteamLearn_GetDataSource_Response);
 	rpc GetFetchStatus (.CMsgSteamLearn_GetFetchStatus_Request) returns (.CMsgSteamLearn_GetFetchStatus_Response);
 	rpc GetFetchStatusVersions (.CMsgSteamLearn_GetFetchStatusVersions_Request) returns (.CMsgSteamLearn_GetFetchStatusVersions_Response);
-	rpc GetLogEvents (.NotImplemented) returns (.CMsgSteamLearn_GetLogEvents_Response);
+	rpc GetLogEvents (.CMsgSteamLearn_GetLogEvents_Request) returns (.CMsgSteamLearn_GetLogEvents_Response);
 	rpc GetProject (.CMsgSteamLearn_GetProject_Request) returns (.CMsgSteamLearn_GetProject_Response);
 	rpc GetTrainStatus (.CMsgSteamLearn_GetTrainStatus_Request) returns (.CMsgSteamLearn_GetTrainStatus_Response);
 	rpc GetTrainStatusVersions (.CMsgSteamLearn_GetTrainStatusVersions_Request) returns (.CMsgSteamLearn_GetTrainStatusVersions_Response);
