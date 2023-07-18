@@ -401,6 +401,9 @@ message CMsgSteamLearnModelNodeConditionalExtract {
 	optional int32 extract_type = 1 [(.description) = "enum"];
 	optional uint32 appid_release_recency_months = 2;
 	optional bool appid_use_release_recency_bias = 3;
+	optional float appid_recency_bias_factor = 4;
+	optional string appid_compact_table = 5;
+	optional string appid_extracted_compact_table = 6;
 }
 
 message CMsgSteamLearnModelNodeConditionalSwap {

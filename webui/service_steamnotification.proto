@@ -39,6 +39,9 @@ message CSteamNotification_MarkNotificationsViewed_Notification {
 }
 
 message CSteamNotification_NotificationsReceived_Notification {
+	repeated .SteamNotificationData notifications = 1;
+	optional uint32 pending_gift_count = 2;
+	optional uint32 pending_friend_count = 3;
 }
 
 message CSteamNotification_PreferencesUpdated_Notification {
