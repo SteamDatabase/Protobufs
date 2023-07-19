@@ -1,0 +1,15 @@
+
+message CGameNotes_UploadImage_Request {
+	optional string file_prefix = 1;
+	optional string mime_type = 2;
+	optional bytes data = 3;
+}
+
+message CGameNotes_UploadImage_Response {
+	optional string filename = 1;
+}
+
+service GameNotes {
+	rpc UploadImage (.CGameNotes_UploadImage_Request) returns (.CGameNotes_UploadImage_Response);
+}
+

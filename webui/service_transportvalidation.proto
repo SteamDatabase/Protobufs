@@ -9,6 +9,14 @@ message CTransportValidation_AddNumbers_Response {
 	optional int32 accumulated = 1;
 }
 
+message CTransportValidation_CountOrderedBytes_Request {
+	optional bytes ordered_bytes = 1;
+}
+
+message CTransportValidation_CountOrderedBytes_Response {
+	optional int32 byte_count = 1;
+}
+
 message CTransportValidation_GetLastNotifyNumber_Request {
 }
 
@@ -47,6 +55,7 @@ service TransportValidation {
 	rpc AddNumbers (.CTransportValidation_AddNumbers_Request) returns (.CTransportValidation_AddNumbers_Response);
 	rpc AddNumbersStatic (.CTransportValidation_AddNumbers_Request) returns (.CTransportValidation_AddNumbers_Response);
 	rpc AppendToString (.CTransportValidation_AppendToString_Request) returns (.CTransportValidation_AppendToString_Response);
+	rpc CountOrderedBytes (.CTransportValidation_CountOrderedBytes_Request) returns (.CTransportValidation_CountOrderedBytes_Response);
 	rpc GetLastNotifyNumber (.CTransportValidation_GetLastNotifyNumber_Request) returns (.CTransportValidation_GetLastNotifyNumber_Response);
 	rpc NotifyNumber (.CTransportValidation_NotifyNumber_Notification) returns (.NoResponse);
 	rpc NotifySyntheticEvent (.CTransportValidation_NotifySyntheticEvent_Notification) returns (.NoResponse);
