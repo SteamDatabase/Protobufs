@@ -1,4 +1,3 @@
-import "common_base.proto";
 
 message CRemoveAuthenticatorViaChallengeContinue_Replacement_Token {
 	optional bytes shared_secret = 1;
@@ -132,6 +131,10 @@ message CTwoFactor_Status_Response {
 	optional uint32 version = 14;
 }
 
+message CTwoFactor_Time_Request {
+	optional uint64 sender_time = 1;
+}
+
 message CTwoFactor_Time_Response {
 	optional uint64 server_time = 1;
 	optional uint64 skew_tolerance_seconds = 2;
@@ -167,7 +170,7 @@ service TwoFactor {
 	rpc DestroyEmergencyCodes (.CTwoFactor_DestroyEmergencyCodes_Request) returns (.CTwoFactor_DestroyEmergencyCodes_Response);
 	rpc FinalizeAddAuthenticator (.CTwoFactor_FinalizeAddAuthenticator_Request) returns (.CTwoFactor_FinalizeAddAuthenticator_Response);
 	rpc QueryStatus (.CTwoFactor_Status_Request) returns (.CTwoFactor_Status_Response);
-	rpc QueryTime (.NotImplemented) returns (.CTwoFactor_Time_Response);
+	rpc QueryTime (.CTwoFactor_Time_Request) returns (.CTwoFactor_Time_Response);
 	rpc RemoveAuthenticator (.CTwoFactor_RemoveAuthenticator_Request) returns (.CTwoFactor_RemoveAuthenticator_Response);
 	rpc RemoveAuthenticatorViaChallengeContinue (.CTwoFactor_RemoveAuthenticatorViaChallengeContinue_Request) returns (.CTwoFactor_RemoveAuthenticatorViaChallengeContinue_Response);
 	rpc RemoveAuthenticatorViaChallengeStart (.CTwoFactor_RemoveAuthenticatorViaChallengeStart_Request) returns (.CTwoFactor_RemoveAuthenticatorViaChallengeStart_Response);

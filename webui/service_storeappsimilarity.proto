@@ -25,6 +25,14 @@ message CStoreAppSimilarity_IdentifyClustersFromPlaytime_Response_Cluster {
 	optional double similar_item_popularity_score = 8;
 }
 
+message CStoreAppSimilarity_PrioritizeAppsForUser_Request {
+	optional fixed64 steamid = 1;
+	optional string country_code = 2;
+	repeated .StoreItemID ids = 3;
+	optional .StoreAppSimilarityPriorityOptions options = 4;
+	optional bool debug = 5;
+}
+
 message CStoreAppSimilarity_PrioritizeAppsForUser_Response {
 	repeated .CStoreAppSimilarity_PrioritizeAppsForUser_Response_ResultItem items = 1;
 }
@@ -50,8 +58,18 @@ message CStoreAppSimilarity_PrioritizeAppsForUser_Response_ResultItem_Popularity
 	optional double weight_before_popularity = 3;
 }
 
+message StoreAppSimilarityPriorityOptions {
+	optional double tag_score_factor = 1 [default = 1];
+	optional int32 playtime_max_seconds = 10 [default = 360000];
+	optional int32 playtime_max_games = 11 [default = 3];
+	optional double playtime_score_factor = 12 [default = 0.9];
+	optional int32 popularity_factor = 20 [default = 5, (.description) = "enum"];
+	optional int32 popularity_reciprocal = 21 [default = 10000];
+	optional int64 popularity_base_score = 22 [default = 5000000];
+}
+
 service StoreAppSimilarity {
 	rpc IdentifyClustersFromPlaytime (.CStoreAppSimilarity_IdentifyClustersFromPlaytime_Request) returns (.CStoreAppSimilarity_IdentifyClustersFromPlaytime_Response);
-	rpc PrioritizeAppsForUser (.NotImplemented) returns (.CStoreAppSimilarity_PrioritizeAppsForUser_Response);
+	rpc PrioritizeAppsForUser (.CStoreAppSimilarity_PrioritizeAppsForUser_Request) returns (.CStoreAppSimilarity_PrioritizeAppsForUser_Response);
 }
 

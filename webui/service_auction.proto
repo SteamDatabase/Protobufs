@@ -26,6 +26,10 @@ message CAuction_GetAllItems_Response {
 	repeated .CAuction_Item items = 1;
 }
 
+message CAuction_GetBidsForItem_Request {
+	optional uint64 auctiondescriptionid = 1;
+}
+
 message CAuction_GetBidsForItem_Response {
 	optional .CAuction_Item item = 1;
 	optional int32 count_total = 2;
@@ -39,6 +43,10 @@ message CAuction_GetBidsForUser_Request {
 
 message CAuction_GetBidsForUser_Response {
 	repeated .CAuction_Bid bids = 1;
+}
+
+message CAuction_GetItemDetails_Request {
+	optional uint64 auctiondescriptionid = 1;
 }
 
 message CAuction_GetItemDetails_Response {
@@ -80,9 +88,9 @@ message CAuction_PlaceBid_Response {
 service Auction {
 	rpc CancelBid (.CAuction_CancelBid_Request) returns (.CAuction_CancelBid_Response);
 	rpc GetAllItems (.CAuction_GetAllItems_Request) returns (.CAuction_GetAllItems_Response);
-	rpc GetBidsForItem (.NotImplemented) returns (.CAuction_GetBidsForItem_Response);
+	rpc GetBidsForItem (.CAuction_GetBidsForItem_Request) returns (.CAuction_GetBidsForItem_Response);
 	rpc GetBidsForUser (.CAuction_GetBidsForUser_Request) returns (.CAuction_GetBidsForUser_Response);
-	rpc GetItemDetails (.NotImplemented) returns (.CAuction_GetItemDetails_Response);
+	rpc GetItemDetails (.CAuction_GetItemDetails_Request) returns (.CAuction_GetItemDetails_Response);
 	rpc GetUserBidForItem (.CAuction_GetUserBidForItem_Request) returns (.CAuction_GetUserBidForItem_Response);
 	rpc PlaceBid (.CAuction_PlaceBid_Request) returns (.CAuction_PlaceBid_Response);
 }

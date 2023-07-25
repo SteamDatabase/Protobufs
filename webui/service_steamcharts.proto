@@ -1,4 +1,3 @@
-import "common_base.proto";
 import "common.proto";
 
 message CSteamCharts_GetBestOfYearPages_Request {
@@ -14,6 +13,11 @@ message CSteamCharts_GetBestOfYearPages_Response_BestOfYearPage {
 	repeated string banner_url = 3;
 	repeated string banner_url_mobile = 4;
 	optional uint32 start_date = 5;
+}
+
+message CSteamCharts_GetGamesByConcurrentPlayers_Request {
+	optional .StoreBrowseContext context = 1;
+	optional .StoreBrowseItemDataRequest data_request = 2;
 }
 
 message CSteamCharts_GetGamesByConcurrentPlayers_Response {
@@ -64,7 +68,7 @@ message CSteamCharts_GetTopReleasesPages_Response_TopReleasesPage {
 
 service SteamCharts {
 	rpc GetBestOfYearPages (.CSteamCharts_GetBestOfYearPages_Request) returns (.CSteamCharts_GetBestOfYearPages_Response);
-	rpc GetGamesByConcurrentPlayers (.NotImplemented) returns (.CSteamCharts_GetGamesByConcurrentPlayers_Response);
+	rpc GetGamesByConcurrentPlayers (.CSteamCharts_GetGamesByConcurrentPlayers_Request) returns (.CSteamCharts_GetGamesByConcurrentPlayers_Response);
 	rpc GetMostPlayedGames (.CSteamCharts_GetMostPlayedGames_Request) returns (.CSteamCharts_GetMostPlayedGames_Response);
 	rpc GetTopReleasesPages (.CSteamCharts_GetTopReleasesPages_Request) returns (.CSteamCharts_GetTopReleasesPages_Response);
 }

@@ -1,8 +1,25 @@
 import "common_base.proto";
 
+message CMsgSteamLearn_AccessData {
+	optional uint32 publisher_id = 1;
+	optional uint32 timestamp = 2;
+	optional uint64 random_value = 3;
+}
+
+message CMsgSteamLearn_BatchOperation_Request {
+	repeated .CMsgSteamLearn_CacheData_Request cache_data_requests = 1;
+	repeated .CMsgSteamLearn_SnapshotProject_Request snapshot_requests = 2;
+}
+
 message CMsgSteamLearn_BatchOperation_Response {
 	repeated .CMsgSteamLearn_CacheData_Response cache_data_responses = 1;
 	repeated .CMsgSteamLearn_SnapshotProject_Response snapshot_responses = 2;
+}
+
+message CMsgSteamLearn_CacheData_Request {
+	optional string access_token = 1;
+	optional .CMsgSteamLearn_AccessData access_data = 2;
+	optional .CMsgSteamLearnData data = 3;
 }
 
 message CMsgSteamLearn_CacheData_Response {
@@ -136,6 +153,16 @@ message CMsgSteamLearn_GetTrainStatusVersions_Response {
 	repeated uint32 versions = 1;
 }
 
+message CMsgSteamLearn_Inference_Request {
+	optional string access_token = 1;
+	optional .CMsgSteamLearn_AccessData access_data = 2;
+	optional uint32 project_id = 3;
+	optional uint32 published_version = 4;
+	optional uint32 override_train_id = 5;
+	optional .CMsgSteamLearnDataList data = 6;
+	repeated float additional_data = 7;
+}
+
 message CMsgSteamLearn_Inference_Response {
 	optional int32 inference_result = 1 [(.description) = "enum"];
 	optional .CMsgSteamLearn_InferenceBackend_Response backend_response = 2;
@@ -171,6 +198,14 @@ message CMsgSteamLearn_InferenceBackend_Response_Output {
 	optional .CMsgSteamLearn_InferenceBackend_Response_BinaryCrossEntropyOutput binary_crossentropy = 1;
 	optional .CMsgSteamLearn_InferenceBackend_Response_CategoricalCrossEntropyOutput categorical_crossentropy = 2;
 	optional .CMsgSteamLearn_InferenceBackend_Response_MutliBinaryCrossEntropyOutput multi_binary_crossentropy = 3;
+}
+
+message CMsgSteamLearn_InferenceMetadata_Request {
+	optional string access_token = 1;
+	optional .CMsgSteamLearn_AccessData access_data = 2;
+	optional uint32 project_id = 3;
+	optional uint32 published_version = 4;
+	optional uint32 override_train_id = 5;
 }
 
 message CMsgSteamLearn_InferenceMetadata_Response {
@@ -307,6 +342,12 @@ message CMsgSteamLearn_PublishProject_Response {
 	optional int32 result = 1 [(.description) = "enum"];
 }
 
+message CMsgSteamLearn_RegisterDataSource_Request {
+	optional string access_token = 1;
+	optional .CMsgSteamLearn_AccessData access_data = 2;
+	optional .CMsgSteamLearnDataSource data_source = 3;
+}
+
 message CMsgSteamLearn_RegisterDataSource_Response {
 	optional int32 result = 1 [(.description) = "enum"];
 	optional .CMsgSteamLearnDataSource data_source = 2;
@@ -321,6 +362,16 @@ message CMsgSteamLearn_SetTrainLive_Request {
 
 message CMsgSteamLearn_SetTrainLive_Response {
 	optional int32 result = 1 [(.description) = "enum"];
+}
+
+message CMsgSteamLearn_SnapshotProject_Request {
+	optional string access_token = 1;
+	optional .CMsgSteamLearn_AccessData access_data = 2;
+	optional uint32 project_id = 3;
+	repeated uint64 keys = 4;
+	repeated .CMsgSteamLearnData data = 5;
+	optional uint32 pending_data_limit_seconds = 6;
+	optional uint32 published_version = 7;
 }
 
 message CMsgSteamLearn_SnapshotProject_Response {
@@ -346,6 +397,29 @@ message CMsgSteamLearn_Train_Request_Train {
 
 message CMsgSteamLearn_Train_Response {
 	optional int32 result = 1 [(.description) = "enum"];
+}
+
+message CMsgSteamLearnData {
+	optional uint32 data_source_id = 1;
+	repeated uint64 keys = 2;
+	optional .CMsgSteamLearnDataObject data_object = 3;
+}
+
+message CMsgSteamLearnDataElement {
+	optional string name = 1;
+	repeated int32 data_int32s = 20;
+	repeated float data_floats = 21;
+	repeated bool data_bools = 22;
+	repeated string data_strings = 23;
+	repeated .CMsgSteamLearnDataObject data_objects = 24;
+}
+
+message CMsgSteamLearnDataList {
+	repeated .CMsgSteamLearnData data = 1;
+}
+
+message CMsgSteamLearnDataObject {
+	repeated .CMsgSteamLearnDataElement elements = 1;
 }
 
 message CMsgSteamLearnDataRetentionConfig {
@@ -534,6 +608,9 @@ message CMsgSteamLearnProjectSnapshotConfig {
 	optional .CMsgSteamLearnProjectSnapshotConfigAccountIDs config_account_ids = 2;
 	optional .CMsgSteamLearnProjectSnapshotConfigAppIDs config_app_ids = 3;
 	optional .CMsgSteamLearnProjectSnapshotConfigOtherProject config_other_project = 4;
+	optional int32 snapshot_schedule_type = 5 [(.description) = "enum"];
+	optional uint32 snapshot_schedule_day_of_week = 6;
+	optional uint32 snapshot_schedule_day_of_month = 7;
 }
 
 message CMsgSteamLearnProjectSnapshotConfigAccountIDs {
@@ -593,8 +670,8 @@ message CMsgSteamLearnTrainInfo {
 }
 
 service SteamLearn {
-	rpc BatchOperation (.NotImplemented) returns (.CMsgSteamLearn_BatchOperation_Response);
-	rpc CacheData (.NotImplemented) returns (.CMsgSteamLearn_CacheData_Response);
+	rpc BatchOperation (.CMsgSteamLearn_BatchOperation_Request) returns (.CMsgSteamLearn_BatchOperation_Response);
+	rpc CacheData (.CMsgSteamLearn_CacheData_Request) returns (.CMsgSteamLearn_CacheData_Response);
 	rpc CreateProject (.CMsgSteamLearn_CreateProject_Request) returns (.CMsgSteamLearn_CreateProject_Response);
 	rpc EditProject (.CMsgSteamLearn_EditProject_Request) returns (.CMsgSteamLearn_EditProject_Response);
 	rpc GetDataSource (.CMsgSteamLearn_GetDataSource_Request) returns (.CMsgSteamLearn_GetDataSource_Response);
@@ -604,15 +681,15 @@ service SteamLearn {
 	rpc GetProject (.CMsgSteamLearn_GetProject_Request) returns (.CMsgSteamLearn_GetProject_Response);
 	rpc GetTrainStatus (.CMsgSteamLearn_GetTrainStatus_Request) returns (.CMsgSteamLearn_GetTrainStatus_Response);
 	rpc GetTrainStatusVersions (.CMsgSteamLearn_GetTrainStatusVersions_Request) returns (.CMsgSteamLearn_GetTrainStatusVersions_Response);
-	rpc Inference (.NotImplemented) returns (.CMsgSteamLearn_Inference_Response);
+	rpc Inference (.CMsgSteamLearn_Inference_Request) returns (.CMsgSteamLearn_Inference_Response);
 	rpc InferenceBackend (.CMsgSteamLearn_InferenceBackend_Request) returns (.CMsgSteamLearn_InferenceBackend_Response);
-	rpc InferenceMetadata (.NotImplemented) returns (.CMsgSteamLearn_InferenceMetadata_Response);
+	rpc InferenceMetadata (.CMsgSteamLearn_InferenceMetadata_Request) returns (.CMsgSteamLearn_InferenceMetadata_Response);
 	rpc ListDataSources (.CMsgSteamLearn_ListDataSources_Request) returns (.CMsgSteamLearn_ListDataSources_Response);
 	rpc ListProjects (.CMsgSteamLearn_ListProjects_Request) returns (.CMsgSteamLearn_ListProjects_Response);
 	rpc PublishProject (.CMsgSteamLearn_PublishProject_Request) returns (.CMsgSteamLearn_PublishProject_Response);
-	rpc RegisterDataSource (.NotImplemented) returns (.CMsgSteamLearn_RegisterDataSource_Response);
+	rpc RegisterDataSource (.CMsgSteamLearn_RegisterDataSource_Request) returns (.CMsgSteamLearn_RegisterDataSource_Response);
 	rpc SetTrainLive (.CMsgSteamLearn_SetTrainLive_Request) returns (.CMsgSteamLearn_SetTrainLive_Response);
-	rpc SnapshotProject (.NotImplemented) returns (.CMsgSteamLearn_SnapshotProject_Response);
+	rpc SnapshotProject (.CMsgSteamLearn_SnapshotProject_Request) returns (.CMsgSteamLearn_SnapshotProject_Response);
 	rpc Train (.CMsgSteamLearn_Train_Request) returns (.CMsgSteamLearn_Train_Response);
 }
 

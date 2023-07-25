@@ -141,8 +141,19 @@ message CSaleFeature_GetFriendsSharedYearInReview_Response {
 	optional uint32 year = 2;
 }
 
+message CSaleFeature_GetUserActionData_Request {
+	optional fixed64 steamid = 1;
+	optional fixed64 gid = 2;
+	optional int32 type = 3 [(.description) = "enum"];
+}
+
 message CSaleFeature_GetUserActionData_Response {
 	optional string jsondata = 1;
+}
+
+message CSaleFeature_GetUserSharingPermissions_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 year = 2;
 }
 
 message CSaleFeature_GetUserSharingPermissions_Response {
@@ -217,6 +228,13 @@ message CSaleFeature_GetUserYearScreenshots_Response_ScreenshotsByApp {
 	repeated .CSaleFeature_GetUserYearScreenshots_Response_Screenshot screenshots = 2;
 }
 
+message CSaleFeature_SetUserActionData_Request {
+	optional fixed64 steamid = 1;
+	optional fixed64 gid = 2;
+	optional int32 type = 3 [(.description) = "enum"];
+	optional string jsondata = 4;
+}
+
 message CSaleFeature_SetUserActionData_Response {
 }
 
@@ -285,13 +303,13 @@ message CYearInReviewPerformanceStats {
 
 service SaleFeature {
 	rpc GetFriendsSharedYearInReview (.CSaleFeature_GetFriendsSharedYearInReview_Request) returns (.CSaleFeature_GetFriendsSharedYearInReview_Response);
-	rpc GetUserActionData (.NotImplemented) returns (.CSaleFeature_GetUserActionData_Response);
-	rpc GetUserSharingPermissions (.NotImplemented) returns (.CSaleFeature_GetUserSharingPermissions_Response);
+	rpc GetUserActionData (.CSaleFeature_GetUserActionData_Request) returns (.CSaleFeature_GetUserActionData_Response);
+	rpc GetUserSharingPermissions (.CSaleFeature_GetUserSharingPermissions_Request) returns (.CSaleFeature_GetUserSharingPermissions_Response);
 	rpc GetUserYearAchievements (.CSaleFeature_GetUserYearAchievements_Request) returns (.CSaleFeature_GetUserYearAchievements_Response);
 	rpc GetUserYearInReview (.CSaleFeature_GetUserYearInReview_Request) returns (.CSaleFeature_GetUserYearInReview_Response);
 	rpc GetUserYearInReviewShareImage (.CSaleFeature_GetUserYearInReviewShareImage_Request) returns (.CSaleFeature_GetUserYearInReviewShareImage_Response);
 	rpc GetUserYearScreenshots (.CSaleFeature_GetUserYearScreenshots_Request) returns (.CSaleFeature_GetUserYearScreenshots_Response);
-	rpc SetUserActionData (.NotImplemented) returns (.CSaleFeature_SetUserActionData_Response);
+	rpc SetUserActionData (.CSaleFeature_SetUserActionData_Request) returns (.CSaleFeature_SetUserActionData_Response);
 	rpc SetUserSharingPermissions (.CSaleFeature_SetUserSharingPermissions_Request) returns (.CSaleFeature_SetUserSharingPermissions_Response);
 }
 

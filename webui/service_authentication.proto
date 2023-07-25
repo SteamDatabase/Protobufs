@@ -4,6 +4,7 @@ import "common.proto";
 message CAuthentication_AccessToken_GenerateForApp_Request {
 	optional string refresh_token = 1;
 	optional fixed64 steamid = 2;
+	optional int32 renewal_type = 3 [(.description) = "enum"];
 }
 
 message CAuthentication_AccessToken_GenerateForApp_Response {
@@ -172,6 +173,11 @@ message CAuthentication_RefreshToken_Revoke_Request {
 message CAuthentication_RefreshToken_Revoke_Response {
 }
 
+message CAuthentication_Token_Revoke_Request {
+	optional string token = 1;
+	optional int32 revoke_action = 2 [default = 1, (.description) = "enum"];
+}
+
 message CAuthentication_Token_Revoke_Response {
 }
 
@@ -209,7 +215,7 @@ service Authentication {
 	rpc MigrateMobileSession (.CAuthentication_MigrateMobileSession_Request) returns (.CAuthentication_MigrateMobileSession_Response);
 	rpc PollAuthSessionStatus (.CAuthentication_PollAuthSessionStatus_Request) returns (.CAuthentication_PollAuthSessionStatus_Response);
 	rpc RevokeRefreshToken (.CAuthentication_RefreshToken_Revoke_Request) returns (.CAuthentication_RefreshToken_Revoke_Response);
-	rpc RevokeToken (.NotImplemented) returns (.CAuthentication_Token_Revoke_Response);
+	rpc RevokeToken (.CAuthentication_Token_Revoke_Request) returns (.CAuthentication_Token_Revoke_Response);
 	rpc UpdateAuthSessionWithMobileConfirmation (.CAuthentication_UpdateAuthSessionWithMobileConfirmation_Request) returns (.CAuthentication_UpdateAuthSessionWithMobileConfirmation_Response);
 	rpc UpdateAuthSessionWithSteamGuardCode (.CAuthentication_UpdateAuthSessionWithSteamGuardCode_Request) returns (.CAuthentication_UpdateAuthSessionWithSteamGuardCode_Response);
 }

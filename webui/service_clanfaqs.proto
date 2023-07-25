@@ -1,4 +1,3 @@
-import "common_base.proto";
 
 message CClanFAQContent {
 	optional uint64 faq_id = 1;
@@ -9,6 +8,10 @@ message CClanFAQContent {
 	optional fixed32 timestamp = 6;
 	optional uint64 author_account_id = 7;
 	optional string url_code = 8;
+}
+
+message CClanFAQS_CheckFAQPermissions_Request {
+	optional fixed64 steamid = 1;
 }
 
 message CClanFAQS_CheckFAQPermissions_Response {
@@ -42,12 +45,26 @@ message CClanFAQS_GetAllDrafts_Response {
 	repeated .CClanFAQContent draft = 2;
 }
 
+message CClanFAQS_GetAllFAQsForClan_Request {
+	optional uint64 steamid = 1;
+}
+
 message CClanFAQS_GetAllFAQsForClan_Response {
 	repeated .CClanFAQSummary faq = 1;
 }
 
+message CClanFAQS_GetAllLatestVersionPublishedFAQS_Request {
+	optional uint64 steamid = 1;
+	optional uint64 faq_id = 2;
+}
+
 message CClanFAQS_GetAllLatestVersionPublishedFAQS_Response {
 	repeated .CClanFAQContent faqs = 1;
+}
+
+message CClanFAQS_GetFAQ_Request {
+	optional uint64 faq_id = 2;
+	optional uint32 language = 3;
 }
 
 message CClanFAQS_GetFAQ_Response {
@@ -66,6 +83,12 @@ message CClanFAQS_GetFAQVersion_Response {
 	optional .CClanFAQContent faq = 1;
 }
 
+message CClanFAQS_PreviewDraft_Request {
+	optional uint64 steamid = 1;
+	optional uint64 faq_id = 2;
+	optional uint32 language = 3;
+}
+
 message CClanFAQS_PreviewDraft_Response {
 	optional .CClanFAQContent faq = 1;
 }
@@ -78,6 +101,14 @@ message CClanFAQS_PublishDraft_Request {
 
 message CClanFAQS_PublishDraft_Response {
 	optional fixed32 last_publish_timestamp = 1;
+}
+
+message CClanFAQS_SearchFAQs_Request {
+	optional string search_text = 1;
+	repeated int32 elanguages = 2;
+	optional int32 count = 3;
+	optional string cursor = 4;
+	repeated uint32 filter_clanids = 5;
 }
 
 message CClanFAQS_SearchFAQs_Response {
@@ -152,17 +183,17 @@ message CClanFAQSummary_CLanguageInfo {
 }
 
 service ClanFAQS {
-	rpc CheckFAQPermissions (.NotImplemented) returns (.CClanFAQS_CheckFAQPermissions_Response);
+	rpc CheckFAQPermissions (.CClanFAQS_CheckFAQPermissions_Request) returns (.CClanFAQS_CheckFAQPermissions_Response);
 	rpc Create (.CClanFAQS_Create_Request) returns (.CClanFAQS_Create_Response);
 	rpc Delete (.CClanFAQS_Delete_Request) returns (.CClanFAQS_Delete_Response);
 	rpc GetAllDrafts (.CClanFAQS_GetAllDrafts_Request) returns (.CClanFAQS_GetAllDrafts_Response);
-	rpc GetAllFAQsForClan (.NotImplemented) returns (.CClanFAQS_GetAllFAQsForClan_Response);
-	rpc GetAllLatestVersionPublishedFAQS (.NotImplemented) returns (.CClanFAQS_GetAllLatestVersionPublishedFAQS_Response);
-	rpc GetFAQ (.NotImplemented) returns (.CClanFAQS_GetFAQ_Response);
+	rpc GetAllFAQsForClan (.CClanFAQS_GetAllFAQsForClan_Request) returns (.CClanFAQS_GetAllFAQsForClan_Response);
+	rpc GetAllLatestVersionPublishedFAQS (.CClanFAQS_GetAllLatestVersionPublishedFAQS_Request) returns (.CClanFAQS_GetAllLatestVersionPublishedFAQS_Response);
+	rpc GetFAQ (.CClanFAQS_GetFAQ_Request) returns (.CClanFAQS_GetFAQ_Response);
 	rpc GetFAQVersion (.CClanFAQS_GetFAQVersion_Request) returns (.CClanFAQS_GetFAQVersion_Response);
-	rpc PreviewDraft (.NotImplemented) returns (.CClanFAQS_PreviewDraft_Response);
+	rpc PreviewDraft (.CClanFAQS_PreviewDraft_Request) returns (.CClanFAQS_PreviewDraft_Response);
 	rpc PublishDraft (.CClanFAQS_PublishDraft_Request) returns (.CClanFAQS_PublishDraft_Response);
-	rpc SearchFAQs (.NotImplemented) returns (.CClanFAQS_SearchFAQs_Response);
+	rpc SearchFAQs (.CClanFAQS_SearchFAQs_Request) returns (.CClanFAQS_SearchFAQs_Response);
 	rpc SetVisibility (.CClanFAQS_SetVisibility_Request) returns (.CClanFAQS_SetVisibility_Response);
 	rpc UpdateDraft (.CClanFAQS_UpdateDraft_Request) returns (.CClanFAQS_UpdateDraft_Response);
 	rpc UpdateInternalName (.CClanFAQS_UpdateInternalName_Request) returns (.CClanFAQS_UpdateInternalName_Response);

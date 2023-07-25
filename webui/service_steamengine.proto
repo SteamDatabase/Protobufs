@@ -1,0 +1,27 @@
+import "common_base.proto";
+
+message CSteamEngine_GetTextFilterDictionary_Request {
+	optional string language = 1;
+	optional string type = 2;
+}
+
+message CSteamEngine_GetTextFilterDictionary_Response {
+	optional string dictionary = 1;
+}
+
+message CSteamEngine_TextFilterDictionaryChanged_Notification {
+	optional string language = 1;
+	optional string type = 2;
+}
+
+message CSteamEngine_UpdateTextFilterDictionary_Notification {
+	optional string language = 1;
+	optional string type = 2;
+}
+
+service SteamEngine {
+	rpc GetTextFilterDictionary (.CSteamEngine_GetTextFilterDictionary_Request) returns (.CSteamEngine_GetTextFilterDictionary_Response);
+	rpc NotifyTextFilterDictionaryChanged (.CSteamEngine_TextFilterDictionaryChanged_Notification) returns (.NoResponse);
+	rpc UpdateTextFilterDictionary (.CSteamEngine_UpdateTextFilterDictionary_Notification) returns (.NoResponse);
+}
+

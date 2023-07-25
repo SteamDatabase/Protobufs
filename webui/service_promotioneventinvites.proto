@@ -26,6 +26,10 @@ message CPromotionEventInviteReceive {
 	optional string email_address = 3;
 }
 
+message CPromotionEventInvites_GetAllActiveInvites_Request {
+	optional uint32 partnerid = 1;
+}
+
 message CPromotionEventInvites_GetAllActiveInvites_Response {
 	repeated .CPromotionEventInvitation invites = 1;
 }
@@ -54,6 +58,11 @@ message CPromotionEventInvites_GetInvite_Response {
 	repeated .CPromotionEventInvitation invites = 1;
 }
 
+message CPromotionEventInvites_ResendEmailInvite_Request {
+	optional fixed64 inviteid = 1;
+	optional bool only_notify_additional_email = 2;
+}
+
 message CPromotionEventInvites_ResendEmailInvite_Response {
 }
 
@@ -73,10 +82,10 @@ message CPromotionRequirements {
 }
 
 service PromotionEventInvites {
-	rpc GetAllActiveInvites (.NotImplemented) returns (.CPromotionEventInvites_GetAllActiveInvites_Response);
+	rpc GetAllActiveInvites (.CPromotionEventInvites_GetAllActiveInvites_Request) returns (.CPromotionEventInvites_GetAllActiveInvites_Response);
 	rpc GetEmailTargets (.CPromotionEventInvites_GetEmailTargets_Request) returns (.CPromotionEventInvites_GetEmailTargets_Response);
 	rpc GetInvite (.CPromotionEventInvites_GetInvite_Request) returns (.CPromotionEventInvites_GetInvite_Response);
-	rpc ResendEmailInvite (.NotImplemented) returns (.CPromotionEventInvites_ResendEmailInvite_Response);
+	rpc ResendEmailInvite (.CPromotionEventInvites_ResendEmailInvite_Request) returns (.CPromotionEventInvites_ResendEmailInvite_Response);
 	rpc SetInvite (.CPromotionEventInvites_SetInvite_Request) returns (.CPromotionEventInvites_SetInvite_Response);
 }
 

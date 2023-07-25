@@ -89,6 +89,7 @@ message CMarketingMessages_FindMarketingMessages_Response {
 
 message CMarketingMessages_GetActiveMarketingMessages_Request {
 	optional string country = 1;
+	optional bool anonymous_user = 2;
 }
 
 message CMarketingMessages_GetActiveMarketingMessages_Response {
