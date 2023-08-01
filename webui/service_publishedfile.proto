@@ -89,6 +89,11 @@ message CPublishedFile_GetAppRelationships_Response_AppRelationship {
 	optional uint32 relationship = 2;
 }
 
+message CPublishedFile_GetAppRelationshipsBatched_Request {
+	repeated uint64 publishedfileids = 1;
+	optional uint32 filter_relationship = 2;
+}
+
 message CPublishedFile_GetAppRelationshipsBatched_Response {
 	repeated .CPublishedFile_GetAppRelationshipsBatched_Response_PublishedFileAppRelationship relationships = 1;
 }
@@ -132,6 +137,10 @@ message CPublishedFile_GetChangeHistoryEntry_Request {
 message CPublishedFile_GetChangeHistoryEntry_Response {
 	optional string change_description = 1;
 	optional int32 language = 2;
+}
+
+message CPublishedFile_GetContentDescriptors_Request {
+	optional fixed64 publishedfileid = 1;
 }
 
 message CPublishedFile_GetContentDescriptors_Response {
@@ -483,7 +492,14 @@ message CPublishedFile_Update_Request {
 message CPublishedFile_Update_Response {
 }
 
+message CPublishedFile_UpdateContentDescriptors_Request {
+	optional fixed64 publishedfileid = 1;
+	repeated int32 descriptors_to_add = 2 [(.description) = "enum"];
+	repeated int32 descriptors_to_remove = 3 [(.description) = "enum"];
+}
+
 message CPublishedFile_UpdateContentDescriptors_Response {
+	optional uint32 timestamp_updated = 1;
 }
 
 message CPublishedFile_Vote_Request {
@@ -565,6 +581,7 @@ message PublishedFileDetails {
 	repeated .PublishedFileDetails_Reaction reactions = 70;
 	optional int32 ban_text_check_result = 71 [(.description) = "enum"];
 	repeated int32 content_descriptorids = 72 [(.description) = "enum"];
+	optional float search_score = 73;
 }
 
 message PublishedFileDetails_Child {
@@ -634,10 +651,10 @@ service PublishedFile {
 	rpc CanSubscribe (.CPublishedFile_CanSubscribe_Request) returns (.CPublishedFile_CanSubscribe_Response);
 	rpc Delete (.CPublishedFile_Delete_Request) returns (.CPublishedFile_Delete_Response);
 	rpc GetAppRelationships (.CPublishedFile_GetAppRelationships_Request) returns (.CPublishedFile_GetAppRelationships_Response);
-	rpc GetAppRelationshipsBatched (.NotImplemented) returns (.CPublishedFile_GetAppRelationshipsBatched_Response);
+	rpc GetAppRelationshipsBatched (.CPublishedFile_GetAppRelationshipsBatched_Request) returns (.CPublishedFile_GetAppRelationshipsBatched_Response);
 	rpc GetChangeHistory (.CPublishedFile_GetChangeHistory_Request) returns (.CPublishedFile_GetChangeHistory_Response);
 	rpc GetChangeHistoryEntry (.CPublishedFile_GetChangeHistoryEntry_Request) returns (.CPublishedFile_GetChangeHistoryEntry_Response);
-	rpc GetContentDescriptors (.NotImplemented) returns (.CPublishedFile_GetContentDescriptors_Response);
+	rpc GetContentDescriptors (.CPublishedFile_GetContentDescriptors_Request) returns (.CPublishedFile_GetContentDescriptors_Response);
 	rpc GetDetails (.CPublishedFile_GetDetails_Request) returns (.CPublishedFile_GetDetails_Response);
 	rpc GetItemChanges (.CPublishedFile_GetItemChanges_Request) returns (.CPublishedFile_GetItemChanges_Response);
 	rpc GetItemInfo (.CPublishedFile_GetItemInfo_Request) returns (.CPublishedFile_GetItemInfo_Response);
@@ -657,7 +674,7 @@ service PublishedFile {
 	rpc Subscribe (.CPublishedFile_Subscribe_Request) returns (.CPublishedFile_Subscribe_Response);
 	rpc Unsubscribe (.CPublishedFile_Unsubscribe_Request) returns (.CPublishedFile_Unsubscribe_Response);
 	rpc Update (.CPublishedFile_Update_Request) returns (.CPublishedFile_Update_Response);
-	rpc UpdateContentDescriptors (.NotImplemented) returns (.CPublishedFile_UpdateContentDescriptors_Response);
+	rpc UpdateContentDescriptors (.CPublishedFile_UpdateContentDescriptors_Request) returns (.CPublishedFile_UpdateContentDescriptors_Response);
 	rpc Vote (.CPublishedFile_Vote_Request) returns (.CPublishedFile_Vote_Response);
 }
 

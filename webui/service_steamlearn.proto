@@ -667,6 +667,7 @@ message CMsgSteamLearnTrainInfo {
 	optional uint32 fetch_id = 1;
 	optional uint32 train_id = 2;
 	optional bool scheduled_train = 3;
+	optional bool auto_snapshot_pending = 4;
 }
 
 service SteamLearn {
