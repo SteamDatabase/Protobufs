@@ -205,6 +205,11 @@ message CLoyaltyRewards_RedeemPointsForProfileCustomizationUpgrade_Request {
 message CLoyaltyRewards_RedeemPointsForProfileCustomizationUpgrade_Response {
 }
 
+message CLoyaltyRewards_RedeemPointsToUpgradeItem_Request {
+	optional uint32 defid = 1;
+	optional uint64 communityitemid = 2;
+}
+
 message CLoyaltyRewards_RegisterForSteamDeckRewards_Request {
 	optional string serial_number = 1;
 	optional string controller_code = 2;
@@ -241,7 +246,7 @@ service LoyaltyRewards {
 	rpc RedeemPointsForBadgeLevel (.CLoyaltyRewards_RedeemPointsForBadgeLevel_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
 	rpc RedeemPointsForProfileCustomization (.CLoyaltyRewards_RedeemPointsForProfileCustomization_Request) returns (.CLoyaltyRewards_RedeemPointsForProfileCustomization_Response);
 	rpc RedeemPointsForProfileCustomizationUpgrade (.CLoyaltyRewards_RedeemPointsForProfileCustomizationUpgrade_Request) returns (.CLoyaltyRewards_RedeemPointsForProfileCustomizationUpgrade_Response);
-	rpc RedeemPointsToUpgradeItem (.CLoyaltyRewards_RedeemPoints_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
+	rpc RedeemPointsToUpgradeItem (.CLoyaltyRewards_RedeemPointsToUpgradeItem_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
 	rpc RegisterForSteamDeckRewards (.CLoyaltyRewards_RegisterForSteamDeckRewards_Request) returns (.CLoyaltyRewards_RegisterForSteamDeckRewards_Response);
 }
 

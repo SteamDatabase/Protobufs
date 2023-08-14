@@ -202,7 +202,7 @@ message CPublishedFile_GetItemInfo_Request {
 message CPublishedFile_GetItemInfo_Request_WorkshopItem {
 	optional fixed64 published_file_id = 1;
 	optional uint32 time_updated = 2;
-	optional int32 desired_revision = 3 [(.description) = "enum"];
+	optional int32 desired_revision = 3 [default = 0, (.description) = "enum"];
 }
 
 message CPublishedFile_GetItemInfo_Response {
@@ -396,7 +396,7 @@ message CPublishedFile_RefreshVotingQueue_Request {
 	optional bool match_all_tags = 4 [default = true];
 	repeated string excluded_tags = 5;
 	optional uint32 desired_queue_size = 6;
-	optional int32 desired_revision = 8 [(.description) = "enum"];
+	optional int32 desired_revision = 8 [default = 0, (.description) = "enum"];
 }
 
 message CPublishedFile_RefreshVotingQueue_Response {

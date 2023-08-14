@@ -35,9 +35,6 @@ message CSteamNotification_MarkNotificationsRead_Notification {
 	optional bool mark_all_read = 4;
 }
 
-message CSteamNotification_MarkNotificationsViewed_Notification {
-}
-
 message CSteamNotification_NotificationsReceived_Notification {
 	repeated .SteamNotificationData notifications = 1;
 	optional uint32 pending_gift_count = 2;
@@ -77,7 +74,6 @@ service SteamNotification {
 	rpc GetSteamNotifications (.CSteamNotification_GetSteamNotifications_Request) returns (.CSteamNotification_GetSteamNotifications_Response);
 	rpc HideNotification (.CSteamNotification_HideNotification_Notification) returns (.NoResponse);
 	rpc MarkNotificationsRead (.CSteamNotification_MarkNotificationsRead_Notification) returns (.NoResponse);
-	rpc MarkNotificationsViewed (.CSteamNotification_MarkNotificationsViewed_Notification) returns (.NoResponse);
 	rpc SetPreferences (.CSteamNotification_SetPreferences_Request) returns (.CSteamNotification_SetPreferences_Response);
 }
 

@@ -76,13 +76,6 @@ message CTransportValidationClient_AddNumbers_Response {
 	optional int32 accumulated = 1;
 }
 
-message CTransportAuth_Authenticate_Request {
-	optional string auth_key = 1;
-}
-
-message CTransportAuth_Authenticate_Response {
-}
-
 service TransportValidation {
 	option (webui_service_execution_site) = k_EClientExecutionSiteSteamUI;
 
@@ -101,10 +94,4 @@ service TransportValidationClient {
 	option (webui_service_execution_site) = k_EClientExecutionSiteClientdll;
 
 	rpc AddNumbers (.CTransportValidationClient_AddNumbers_Request) returns (.CTransportValidationClient_AddNumbers_Response);
-}
-
-service TransportAuth {
-	option (webui_service_execution_site) = k_EClientExecutionSiteAny;
-
-	rpc Authenticate (.CTransportAuth_Authenticate_Request) returns (.CTransportAuth_Authenticate_Response);
 }
