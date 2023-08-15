@@ -161,6 +161,7 @@ message CMsgSteamLearn_Inference_Request {
 	optional uint32 override_train_id = 5;
 	optional .CMsgSteamLearnDataList data = 6;
 	repeated float additional_data = 7;
+	repeated uint64 keys = 8;
 }
 
 message CMsgSteamLearn_Inference_Response {
@@ -222,6 +223,7 @@ message CMsgSteamLearn_InferenceMetadata_Response_CompactTable {
 	optional string name = 1;
 	repeated .CMsgSteamLearn_InferenceMetadata_Response_CompactTable_MapValuesEntry map_values = 2;
 	repeated .CMsgSteamLearn_InferenceMetadata_Response_CompactTable_MapMappingsEntry map_mappings = 3;
+	optional uint64 total_count = 4;
 }
 
 message CMsgSteamLearn_InferenceMetadata_Response_CompactTable_Entry {
@@ -478,6 +480,9 @@ message CMsgSteamLearnModelNodeConditionalExtract {
 	optional float appid_recency_bias_factor = 4;
 	optional string appid_compact_table = 5;
 	optional string appid_extracted_compact_table = 6;
+	optional uint32 appid_publisher_id = 7;
+	optional uint32 appid_featured_tag_id = 8;
+	optional uint32 appid_theme_tag_id = 9;
 }
 
 message CMsgSteamLearnModelNodeConditionalSwap {
