@@ -268,6 +268,8 @@ message CMsgDOTASubmitPlayerReportV2 {
 	repeated uint32 report_reason = 2;
 	optional uint64 lobby_id = 3;
 	optional float game_time = 4;
+	optional uint32 debug_slot = 5;
+	optional fixed64 debug_match_id = 6;
 }
 
 message CMsgDOTASubmitPlayerReportResponseV2 {
