@@ -1,5 +1,16 @@
 import "common_base.proto";
 
+message CParental_ApproveFeatureAccess_Request {
+	optional bool approve = 1;
+	optional fixed64 requestid = 2;
+	optional uint32 features = 3;
+	optional uint32 duration = 4;
+	optional fixed64 steamid = 10;
+}
+
+message CParental_ApproveFeatureAccess_Response {
+}
+
 message CParental_DisableParentalSettings_Request {
 	optional string password = 1;
 	optional fixed64 steamid = 10;
@@ -67,6 +78,15 @@ message CParental_ParentalUnlock_Notification {
 	optional string sessionid = 2;
 }
 
+message CParental_RequestFeatureAccess_Request {
+	optional uint32 features = 1;
+	optional fixed64 steamid = 10;
+}
+
+message CParental_RequestFeatureAccess_Response {
+	optional fixed64 requestid = 1;
+}
+
 message CParental_RequestRecoveryCode_Request {
 }
 
@@ -124,12 +144,14 @@ message ParentalSettings {
 }
 
 service Parental {
+	rpc ApproveFeatureAccess (.CParental_ApproveFeatureAccess_Request) returns (.CParental_ApproveFeatureAccess_Response);
 	rpc DisableParentalSettings (.CParental_DisableParentalSettings_Request) returns (.CParental_DisableParentalSettings_Response);
 	rpc DisableWithRecoveryCode (.CParental_DisableWithRecoveryCode_Request) returns (.CParental_DisableWithRecoveryCode_Response);
 	rpc EnableParentalSettings (.CParental_EnableParentalSettings_Request) returns (.CParental_EnableParentalSettings_Response);
 	rpc GetParentalSettings (.CParental_GetParentalSettings_Request) returns (.CParental_GetParentalSettings_Response);
 	rpc GetSignedParentalSettings (.CParental_GetSignedParentalSettings_Request) returns (.CParental_GetSignedParentalSettings_Response);
 	rpc LockClient (.CParental_LockClient_Request) returns (.CParental_LockClient_Response);
+	rpc RequestFeatureAccess (.CParental_RequestFeatureAccess_Request) returns (.CParental_RequestFeatureAccess_Response);
 	rpc RequestRecoveryCode (.CParental_RequestRecoveryCode_Request) returns (.CParental_RequestRecoveryCode_Response);
 	rpc SetParentalSettings (.CParental_SetParentalSettings_Request) returns (.CParental_SetParentalSettings_Response);
 	rpc ValidatePassword (.CParental_ValidatePassword_Request) returns (.CParental_ValidatePassword_Response);
