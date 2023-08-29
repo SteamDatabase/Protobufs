@@ -344,6 +344,56 @@ message CPlayer_GetPerFriendPreferences_Response {
 	repeated .PerFriendPreferences preferences = 1;
 }
 
+message CPlayer_GetPlayerLinkDetails_Request {
+	repeated uint64 steamids = 1;
+}
+
+message CPlayer_GetPlayerLinkDetails_Response {
+	repeated .CPlayer_GetPlayerLinkDetails_Response_PlayerLinkDetails accounts = 1;
+}
+
+message CPlayer_GetPlayerLinkDetails_Response_PlayerLinkDetails {
+	optional .CPlayer_GetPlayerLinkDetails_Response_PlayerLinkDetails_AccountPublicData public_data = 1;
+	optional .CPlayer_GetPlayerLinkDetails_Response_PlayerLinkDetails_AccountPrivateData private_data = 2;
+}
+
+message CPlayer_GetPlayerLinkDetails_Response_PlayerLinkDetails_AccountPrivateData {
+	optional int32 persona_state = 1;
+	optional uint32 persona_state_flags = 2;
+	optional uint32 time_created = 3;
+	optional fixed64 game_id = 4;
+	optional fixed64 game_server_steam_id = 5;
+	optional uint32 game_server_ip_address = 6;
+	optional uint32 game_server_port = 7;
+	optional string game_extra_info = 8;
+	optional string account_name = 9;
+	optional fixed64 lobby_steam_id = 10;
+	optional string rich_presence_kv = 11;
+	optional fixed64 broadcast_session_id = 12;
+	optional uint32 watching_broadcast_accountid = 13;
+	optional uint32 watching_broadcast_appid = 14;
+	optional uint32 watching_broadcast_viewers = 15;
+	optional string watching_broadcast_title = 16;
+	optional uint32 last_logoff_time = 17;
+	optional uint32 last_seen_online = 18;
+	optional int32 game_os_type = 19;
+	optional int32 game_device_type = 20;
+	optional string game_device_name = 21;
+}
+
+message CPlayer_GetPlayerLinkDetails_Response_PlayerLinkDetails_AccountPublicData {
+	optional fixed64 steamid = 1;
+	optional int32 visibility_state = 2;
+	optional int32 privacy_state = 3;
+	optional int32 profile_state = 4;
+	optional uint32 ban_expires_time = 7;
+	optional uint32 account_flags = 8;
+	optional bytes sha_digest_avatar = 9;
+	optional string persona_name = 10;
+	optional string profile_url = 11;
+	optional bool content_country_restricted = 12;
+}
+
 message CPlayer_GetPlayNext_Request {
 	optional uint32 max_age_seconds = 1;
 	repeated uint32 ignore_appids = 2;
@@ -788,6 +838,7 @@ service Player {
 	rpc GetNicknameList (.CPlayer_GetNicknameList_Request) returns (.CPlayer_GetNicknameList_Response);
 	rpc GetOwnedGames (.CPlayer_GetOwnedGames_Request) returns (.CPlayer_GetOwnedGames_Response);
 	rpc GetPerFriendPreferences (.CPlayer_GetPerFriendPreferences_Request) returns (.CPlayer_GetPerFriendPreferences_Response);
+	rpc GetPlayerLinkDetails (.CPlayer_GetPlayerLinkDetails_Request) returns (.CPlayer_GetPlayerLinkDetails_Response);
 	rpc GetPlayNext (.CPlayer_GetPlayNext_Request) returns (.CPlayer_GetPlayNext_Response);
 	rpc GetPostedStatus (.CPlayer_GetPostedStatus_Request) returns (.CPlayer_GetPostedStatus_Response);
 	rpc GetPrivacySettings (.CPlayer_GetPrivacySettings_Request) returns (.CPlayer_GetPrivacySettings_Response);
