@@ -217,6 +217,22 @@ message CMsgSteamLearn_InferenceMetadata_Response {
 	repeated .CMsgSteamLearn_InferenceMetadata_Response_CompactTable compact_tables = 5;
 	repeated .CMsgSteamLearn_InferenceMetadata_Response_KMeans kmeans = 6;
 	optional .CMsgSteamLearn_InferenceMetadata_Response_SnapshotHistogram snapshot_histogram = 7;
+	repeated .CMsgSteamLearn_InferenceMetadata_Response_AppInfoEntry app_info = 8;
+}
+
+message CMsgSteamLearn_InferenceMetadata_Response_AppInfo {
+	optional string country_allow = 1;
+	optional string country_deny = 2;
+	optional bool platform_win = 3;
+	optional bool platform_mac = 4;
+	optional bool platform_linux = 5;
+	optional bool adult_violence = 6;
+	optional bool adult_sex = 7;
+}
+
+message CMsgSteamLearn_InferenceMetadata_Response_AppInfoEntry {
+	optional uint32 key = 1;
+	optional .CMsgSteamLearn_InferenceMetadata_Response_AppInfo value = 2;
 }
 
 message CMsgSteamLearn_InferenceMetadata_Response_CompactTable {

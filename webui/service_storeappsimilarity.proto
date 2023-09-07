@@ -31,6 +31,7 @@ message CStoreAppSimilarity_PrioritizeAppsForUser_Request {
 	repeated .StoreItemID ids = 3;
 	optional .StoreAppSimilarityPriorityOptions options = 4;
 	optional bool debug = 5;
+	optional bool include_owned_games = 6;
 }
 
 message CStoreAppSimilarity_PrioritizeAppsForUser_Response {
