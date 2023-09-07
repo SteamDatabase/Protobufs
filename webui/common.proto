@@ -4311,41 +4311,6 @@ message CMsgSteamNetworkingP2PSDRRoutingSummary {
 	optional uint32 best_time = 17;
 }
 
-message CMsgStorageDevicesData {
-	repeated .CMsgStorageDevicesData_Drive drives = 1;
-	repeated .CMsgStorageDevicesData_BlockDevice block_devices = 2;
-	optional bool is_unmount_supported = 3;
-	optional bool is_trim_supported = 4;
-	optional bool is_trim_running = 5;
-}
-
-// Used by: common.proto
-message CMsgStorageDevicesData_BlockDevice {
-	optional uint32 id = 1 [default = 0];
-	optional uint32 drive_id = 2 [default = 0];
-	optional string path = 3;
-	optional string friendly_path = 4;
-	optional string label = 5;
-	optional uint64 size_bytes = 6;
-	optional bool is_formattable = 7;
-	optional bool is_read_only = 8;
-	optional bool is_root_device = 9;
-	optional int32 content_type = 10 [(.description) = "enum"];
-	optional int32 filesystem_type = 11 [(.description) = "enum"];
-	optional string mount_path = 12;
-}
-
-// Used by: common.proto
-message CMsgStorageDevicesData_Drive {
-	optional uint32 id = 1 [default = 0];
-	optional string model = 2;
-	optional string vendor = 3;
-	optional string serial = 4;
-	optional bool is_ejectable = 5;
-	optional uint64 size_bytes = 6;
-	optional int32 media_type = 7 [(.description) = "enum"];
-}
-
 message CMsgSwapModeInputBindings {
 	optional string action_set_key = 1;
 	optional string action_set_layer_key = 2;
@@ -4533,6 +4498,8 @@ message CMsgSystemManagerSettings {
 	optional bool is_display_colortemp_available = 34;
 	optional float display_colortemp = 35;
 	optional float display_colortemp_default = 36;
+	optional bool display_colortemp_enabled = 37;
+	optional int32 display_colorgamut_labelset = 38 [(.description) = "enum"];
 }
 
 // Used by: common.proto
