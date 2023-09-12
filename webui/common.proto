@@ -4997,6 +4997,8 @@ message StoreBrowseItemDataRequest {
 	optional bool include_basic_info = 10;
 	optional bool include_supported_languages = 11;
 	optional bool include_full_description = 12;
+	optional bool include_included_items = 13;
+	optional .StoreBrowseItemDataRequest included_item_data_request = 14;
 }
 
 // Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers
@@ -5027,6 +5029,7 @@ message StoreItem {
 	optional bool is_free = 13;
 	optional bool is_early_access = 14;
 	optional .StoreItem_RelatedItems related_items = 15;
+	optional .StoreItem_IncludedItems included_items = 16;
 	repeated int32 content_descriptorids = 20 [(.description) = "enum"];
 	repeated uint32 tagids = 21;
 	optional .StoreItem_Categories categories = 22;
@@ -5099,6 +5102,12 @@ message StoreItem_FreeWeekend {
 	optional uint32 start_time = 1;
 	optional uint32 end_time = 2;
 	optional string text = 3;
+}
+
+// Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers
+message StoreItem_IncludedItems {
+	repeated .StoreItem included_apps = 1;
+	repeated .StoreItem included_packages = 2;
 }
 
 // Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers
