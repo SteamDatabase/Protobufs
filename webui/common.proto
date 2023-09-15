@@ -1165,11 +1165,6 @@ message CMsgClientEmoticonList_Sticker {
 	optional uint32 use_count = 6;
 }
 
-message CMsgClientFeatureGroupInfo {
-	optional uint64 groupid = 1;
-	repeated uint32 members = 2;
-}
-
 message CMsgClientFriendMsg {
 	optional fixed64 steamid = 1;
 	optional int32 chat_entry_type = 2;
@@ -2627,6 +2622,9 @@ message CMsgClientSettings {
 	optional string g_background_path = 18201;
 	optional string g_background_max_keep = 18202;
 	optional int32 g_background_time_resolution = 18203;
+	optional int32 g_marker_before_seconds = 18204;
+	optional int32 g_marker_after_seconds = 18205;
+	optional bool g_background_devmode = 18206;
 	optional bool show_timestamps_in_console = 20000;
 	optional bool force_oobe = 20001;
 	optional int32 override_browser_composer_mode = 20002;
@@ -4721,6 +4719,21 @@ message CProductImpressionsFromClient_Notification_Impression {
 message CSteamNotification_MarkNotificationsViewed_Notification {
 }
 
+message CSteamVR_Header {
+	optional int32 type = 1 [(.description) = "enum"];
+	optional uint32 id = 2;
+}
+
+// Used by: common.proto
+message CSteamVR_Vector3 {
+	optional float x = 1;
+	optional float y = 2;
+	optional float z = 3;
+}
+
+message CSteamVR_VoiceChat_Active_Notification {
+}
+
 message CSteamVR_VoiceChat_ConfigureVideo_Request {
 	optional bool send = 1;
 	optional bool receive = 2;
@@ -4746,12 +4759,40 @@ message CSteamVR_VoiceChat_GetAvatarUrl_Response {
 	optional string profile_avatar_url = 1;
 }
 
+message CSteamVR_VoiceChat_GroupName_Notification {
+	optional string name = 1;
+}
+
+message CSteamVR_VoiceChat_Inactive_Notification {
+}
+
 message CSteamVR_VoiceChat_InitiateRoomChat_Request {
 	optional uint64 chat_group_id = 1;
 	optional uint64 chat_room_id = 2;
 }
 
 message CSteamVR_VoiceChat_InitiateRoomChat_Response {
+}
+
+message CSteamVR_VoiceChat_NewGroupChatMsgAdded_Notification {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_room_id = 2;
+	optional uint32 sender_accountid = 3;
+	optional uint32 timestamp = 4;
+	optional uint32 ordinal = 5;
+	optional string message = 6;
+}
+
+message CSteamVR_VoiceChat_PerUserGainValue_Notification {
+	optional uint32 accountid = 1;
+	optional bool muted = 2;
+	optional float gain = 3;
+}
+
+message CSteamVR_VoiceChat_PerUserVoiceStatus_Notification {
+	optional uint32 accountid = 1;
+	optional bool mic_muted_locally = 2;
+	optional bool output_muted_locally = 3;
 }
 
 message CSteamVR_VoiceChat_SendGroupChatMessage_Request {
@@ -4761,12 +4802,36 @@ message CSteamVR_VoiceChat_SendGroupChatMessage_Request {
 message CSteamVR_VoiceChat_SendGroupChatMessage_Response {
 }
 
+message CSteamVR_VoiceChat_SetDefaultSession_Notification {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_room_id = 2;
+}
+
 message CSteamVR_VoiceChat_SetPerUserMuting_Request {
 	optional uint32 accountid = 1;
 	optional bool muted = 2;
 }
 
 message CSteamVR_VoiceChat_SetPerUserMuting_Response {
+}
+
+message CSteamVR_VoiceChat_SetSpatialAudioListener_Notification {
+	optional .CSteamVR_Vector3 position = 1;
+	optional .CSteamVR_Vector3 forward = 2;
+	optional .CSteamVR_Vector3 up = 3;
+}
+
+message CSteamVR_VoiceChat_SetSpatialAudioSource_Notification {
+	optional fixed64 steamid = 1;
+	optional .CSteamVR_Vector3 position = 2;
+}
+
+message CSteamVR_VRGamepadUI_Message {
+	optional bytes header = 1;
+	optional bytes payload = 2;
+}
+
+message CSteamVR_WebRTC_Active_Notification {
 }
 
 message CSteamVR_WebRTC_CloseDataChannel_Request {
@@ -4785,6 +4850,33 @@ message CSteamVR_WebRTC_CreateDataChannel_Request {
 
 message CSteamVR_WebRTC_CreateDataChannel_Response {
 	optional uint32 channel_id = 1;
+}
+
+message CSteamVR_WebRTC_DataChannel_Close_Notification {
+	optional uint32 channel_id = 1;
+}
+
+message CSteamVR_WebRTC_DataChannel_Error_Notification {
+	optional uint32 channel_id = 1;
+	optional string reason = 2;
+}
+
+message CSteamVR_WebRTC_DataChannel_Message_Notification {
+	optional uint32 channel_id = 1;
+	optional bytes data = 2;
+}
+
+message CSteamVR_WebRTC_DataChannel_Open_Notification {
+	optional uint32 channel_id = 1;
+}
+
+message CSteamVR_WebRTC_Inactive_Notification {
+}
+
+message CSteamVR_WebRTC_OnDataChannel_Notification {
+	optional fixed64 source_steamid = 1;
+	optional uint32 channel_id = 2;
+	optional string label = 3;
 }
 
 message CStore_MigratePartnerLinkTracking_Notification {
@@ -4864,6 +4956,7 @@ message CStreamingClientConfig {
 	optional .CStreamVideoLimit quality_limit = 22;
 	optional .CStreamVideoLimit runtime_limit = 23;
 	repeated .CStreamVideoLimit decoder_limit = 24;
+	optional bool enable_unreliable_fec = 25 [default = false];
 }
 
 message CStreamingServerConfig {
@@ -4921,6 +5014,124 @@ message CVirtualMenuKey {
 	optional string color_background = 12;
 	optional uint32 quadrants = 13;
 	optional uint32 binding_type = 14;
+}
+
+message CVRGamepadUI_Message_DashboardActionInvoked_Request {
+	optional uint32 action_id = 1;
+	optional bool toggle_value = 2;
+}
+
+message CVRGamepadUI_Message_DashboardActionInvoked_Response {
+}
+
+message CVRGamepadUI_Message_DashboardTabClicked_Request {
+	optional uint32 tab_id = 1;
+}
+
+message CVRGamepadUI_Message_DashboardTabClicked_Response {
+}
+
+message CVRGamepadUI_Message_Error_Response {
+	optional int32 error = 1 [(.description) = "enum"];
+	optional string description = 2;
+	optional int32 origin = 3 [(.description) = "enum"];
+}
+
+message CVRGamepadUI_Message_Header {
+	optional string name = 1;
+	optional uint32 message_id = 2;
+	optional uint32 response_to_message_id = 3;
+	optional bool is_error_response = 4;
+}
+
+message CVRGamepadUI_Message_HideDashboardPopup_Request {
+	optional uint32 dashboard_popup_request_id = 1;
+}
+
+message CVRGamepadUI_Message_HideDashboardPopup_Response {
+}
+
+message CVRGamepadUI_Message_ShowDashboardPopup_Request {
+	optional uint32 dashboard_popup_request_id = 1;
+	optional string popup_overlay_key = 2;
+	optional string parent_overlay_key = 3;
+	optional .CVRGamepadUI_Message_ShowDashboardPopup_Request_NormalizedPosition origin_on_parent = 4;
+	optional .CVRGamepadUI_Message_ShowDashboardPopup_Request_NormalizedPosition origin_on_popup = 5;
+	optional .CVRGamepadUI_Message_ShowDashboardPopup_Request_Position offset = 6;
+	optional .CVRGamepadUI_Message_ShowDashboardPopup_Request_Rotation rotation = 7;
+	optional bool inherit_parent_pitch = 8;
+	optional bool inherit_parent_curvature = 9;
+	optional .CVRGamepadUI_Message_ShowDashboardPopup_Request_Rect clip_rect = 10;
+	optional bool interactive = 11;
+}
+
+// Used by: common.proto
+message CVRGamepadUI_Message_ShowDashboardPopup_Request_NormalizedPosition {
+	optional float x = 1;
+	optional float y = 2;
+}
+
+// Used by: common.proto
+message CVRGamepadUI_Message_ShowDashboardPopup_Request_Position {
+	optional float x_pixels = 1;
+	optional float y_pixels = 2;
+	optional float z_pixels = 3;
+}
+
+// Used by: common.proto
+message CVRGamepadUI_Message_ShowDashboardPopup_Request_Rect {
+	optional float u_min = 1;
+	optional float v_min = 2;
+	optional float u_max = 3;
+	optional float v_max = 4;
+}
+
+// Used by: common.proto
+message CVRGamepadUI_Message_ShowDashboardPopup_Request_Rotation {
+	optional float pitch_degrees = 1;
+	optional float yaw_degrees = 2;
+}
+
+message CVRGamepadUI_Message_ShowDashboardPopup_Response {
+}
+
+// Used by: common.proto
+message CVRGamepadUIShared_DashboardAction {
+	optional uint32 action_id = 1;
+	optional bool visible_in_dashboard_bar = 2;
+	optional bool enabled = 3;
+	optional string display_name = 4;
+	optional .CVRGamepadUIShared_DashboardActionIcon icon = 5;
+	optional .CVRGamepadUIShared_DashboardActionIcon icon_active = 6;
+	optional int32 invocation = 7 [default = 1, (.description) = "enum"];
+	optional bool active = 8;
+}
+
+// Used by: common.proto
+message CVRGamepadUIShared_DashboardActionIcon {
+	optional int32 enum = 1 [(.description) = "enum"];
+}
+
+// Used by: common.proto
+message CVRGamepadUIShared_DashboardTabIcon {
+	optional int32 enum = 1 [(.description) = "enum"];
+}
+
+message CVRGamepadUIShared_PathProperty_DashboardActions {
+	repeated .CVRGamepadUIShared_DashboardAction actions = 1;
+}
+
+message CVRGamepadUIShared_PathProperty_DashboardTabs {
+	repeated .CVRGamepadUIShared_PathProperty_DashboardTabs_Tab tabs = 1;
+	optional uint32 selected_tab_id = 2;
+}
+
+// Used by: common.proto
+message CVRGamepadUIShared_PathProperty_DashboardTabs_Tab {
+	optional uint32 tab_id = 1;
+	optional bool visible = 2;
+	optional string display_name = 3;
+	optional .CVRGamepadUIShared_DashboardTabIcon icon = 4;
 }
 
 // Used by: common.proto

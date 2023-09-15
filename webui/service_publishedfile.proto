@@ -44,6 +44,7 @@ message CPublishedFile_CanSubscribe_Response {
 
 message CPublishedFile_Delete_Request {
 	optional fixed64 publishedfileid = 1;
+	optional uint32 appid = 5;
 }
 
 message CPublishedFile_Delete_Response {

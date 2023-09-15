@@ -126,6 +126,17 @@ message ParentalApp {
 	optional bool is_allowed = 2;
 }
 
+message ParentalPlaytimeDay {
+	optional uint64 allowed_time_windows = 1;
+	optional uint32 allowed_daily_minutes = 2;
+}
+
+message ParentalPlaytimeRestrictions {
+	optional int32 tz_offset = 1;
+	optional bool apply_playtime_restrictions = 2;
+	repeated .ParentalPlaytimeDay playtime_days = 15;
+}
+
 message ParentalSettings {
 	optional fixed64 steamid = 1;
 	optional uint32 applist_base_id = 2;
@@ -141,6 +152,7 @@ message ParentalSettings {
 	optional bool is_site_license_lock = 12;
 	optional uint32 temporary_enabled_features = 13;
 	optional uint32 rtime_temporary_feature_expiration = 14;
+	optional .ParentalPlaytimeRestrictions playtime_restrictions = 15;
 }
 
 service Parental {
