@@ -5115,6 +5115,8 @@ message CVRGamepadUIShared_DashboardActionIcon {
 // Used by: common.proto
 message CVRGamepadUIShared_DashboardTabIcon {
 	optional int32 enum = 1 [(.description) = "enum"];
+	optional uint32 appid = 2;
+	optional string overlay = 3;
 }
 
 message CVRGamepadUIShared_PathProperty_DashboardActions {
@@ -5124,6 +5126,7 @@ message CVRGamepadUIShared_PathProperty_DashboardActions {
 message CVRGamepadUIShared_PathProperty_DashboardTabs {
 	repeated .CVRGamepadUIShared_PathProperty_DashboardTabs_Tab tabs = 1;
 	optional uint32 selected_tab_id = 2;
+	optional uint32 vr_settings_tab_id = 3;
 }
 
 // Used by: common.proto
