@@ -4719,6 +4719,31 @@ message CProductImpressionsFromClient_Notification_Impression {
 message CSteamNotification_MarkNotificationsViewed_Notification {
 }
 
+message CSteamVR_AudioSettings_ChangeSettings_Request {
+	optional .CSteamVR_AudioSettings_Settings settings = 1;
+}
+
+message CSteamVR_AudioSettings_RegisterForSettings_Request {
+}
+
+// Used by: common.proto
+message CSteamVR_AudioSettings_Settings {
+	optional .CSteamVR_AudioSettings_Settings_Channel main = 1;
+	optional .CSteamVR_AudioSettings_Settings_Channel audio_mirror = 2;
+	optional .CSteamVR_AudioSettings_Settings_Channel microphone = 3;
+}
+
+// Used by: common.proto
+message CSteamVR_AudioSettings_Settings_Channel {
+	optional bool available = 1;
+	optional bool muted = 2;
+	optional float volume = 3;
+}
+
+message CSteamVR_AudioSettings_SettingsChanged_Notification {
+	optional .CSteamVR_AudioSettings_Settings settings = 1;
+}
+
 message CSteamVR_Header {
 	optional int32 type = 1 [(.description) = "enum"];
 	optional uint32 id = 2;

@@ -78,6 +78,8 @@ message CStorageDeviceManagerDrive {
 	optional int32 media_type = 7 [(.description) = "enum"];
 	optional bool is_unformatted = 8;
 	optional int32 adopt_stage = 9 [(.description) = "enum"];
+	optional bool is_formattable = 10;
+	optional bool is_media_available = 11;
 }
 
 message CStorageDeviceManagerState {
