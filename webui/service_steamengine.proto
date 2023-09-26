@@ -1,5 +1,13 @@
 import "common_base.proto";
 
+message CSteamEngine_GetGameIDForPID_Request {
+	optional uint32 pid = 1;
+}
+
+message CSteamEngine_GetGameIDForPID_Response {
+	optional uint64 gameid = 1;
+}
+
 message CSteamEngine_GetTextFilterDictionary_Request {
 	optional string language = 1;
 	optional string type = 2;
@@ -20,6 +28,7 @@ message CSteamEngine_UpdateTextFilterDictionary_Notification {
 }
 
 service SteamEngine {
+	rpc GetGameIDForPID (.CSteamEngine_GetGameIDForPID_Request) returns (.CSteamEngine_GetGameIDForPID_Response);
 	rpc GetTextFilterDictionary (.CSteamEngine_GetTextFilterDictionary_Request) returns (.CSteamEngine_GetTextFilterDictionary_Response);
 	rpc NotifyTextFilterDictionaryChanged (.CSteamEngine_TextFilterDictionaryChanged_Notification) returns (.NoResponse);
 	rpc UpdateTextFilterDictionary (.CSteamEngine_UpdateTextFilterDictionary_Notification) returns (.NoResponse);

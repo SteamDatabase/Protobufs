@@ -16,13 +16,6 @@ message CPartnerAppOptInData {
 	optional bool pruned = 13;
 	optional uint32 accountid_prune = 14;
 	optional uint32 time_pruned = 15;
-	optional bool additional_featuring = 16;
-	optional uint32 feature_day = 17;
-	optional uint32 accountid_invited = 18;
-	optional bool no_planned_discount = 19;
-	optional uint32 pending_review = 20;
-	optional int32 appeal_state = 21 [(.description) = "enum"];
-	optional uint32 accountid_appeal = 22;
 }
 
 message CPartnerAppOptInEmailDef {
@@ -37,10 +30,6 @@ message CPartnerAppOptInEmailDef {
 	optional uint32 create_time = 9;
 	optional uint32 last_update_time = 10;
 	optional fixed64 email_def_id = 11;
-	optional bool completed = 12;
-	optional bool aborted = 13;
-	optional bool deleted = 14;
-	optional bool reviewed = 15;
 }
 
 message CPartnerAppOptInEmailStats {
@@ -49,18 +38,6 @@ message CPartnerAppOptInEmailStats {
 	optional uint32 accounts_not_emailed_opted_out = 3;
 	optional uint32 accounts_email_failed = 4;
 	optional bool completed = 5;
-	optional uint32 rt_last_updated = 6;
-}
-
-message CPartnerOptInEmailTracking {
-	optional uint32 accountid = 1;
-	optional uint32 appid = 2;
-	optional uint32 partnerid = 3;
-	optional uint32 rtime_notified = 4;
-	optional bool ignored_unverified_email = 5;
-	optional bool ignored_email_optout = 6;
-	optional uint32 status = 7;
-	optional uint32 send_rtime = 8;
 }
 
 message CPublishing_CreatePartnerAppOptInEmail_Request {
@@ -84,15 +61,6 @@ message CPublishing_GetEstimatePartnerAppOptInEmail_Response {
 	optional .CPartnerAppOptInEmailStats stats = 1;
 }
 
-message CPublishing_GetOptInEmailTracking_Request {
-	optional fixed64 email_def_id = 1;
-}
-
-message CPublishing_GetOptInEmailTracking_Response {
-	optional fixed64 email_def_id = 1;
-	repeated .CPartnerOptInEmailTracking results = 2;
-}
-
 message CPublishing_GetPartnerAppOptInEmailDefAndStats_Request {
 	optional string opt_in_name = 1;
 }
@@ -105,31 +73,16 @@ message CPublishing_GetPartnerOptInInvites_Response {
 	repeated .CPartnerAppOptInData data = 1;
 }
 
-message CPublishing_GetSinglePartnerAppOptIns_Request {
-	optional uint32 appid = 1;
-}
-
 message CPublishing_GetSinglePartnerAppOptIns_Response {
 	repeated .CPartnerAppOptInData data = 1;
 }
 
 message CPublishing_SendPartnerAppOptInEmailAndWait_Request {
 	optional fixed64 email_def_id = 1;
-	optional bool force_resend = 2;
 }
 
 message CPublishing_SendPartnerAppOptInEmailAndWait_Response {
 	optional .CPartnerAppOptInEmailStats results = 1;
-}
-
-message CPublishing_SetFeaturingOnPartnerAppOptIn_Request {
-	repeated uint32 appids = 1;
-	optional bool additional_featuring = 2 [default = true];
-	optional string opt_in_name = 3;
-}
-
-message CPublishing_SetFeaturingOnPartnerAppOptIn_Response {
-	repeated uint32 appids = 1;
 }
 
 message CPublishing_TestFirePartnerAppOptInEmail_Request {
@@ -148,7 +101,6 @@ message CPublishing_UpdatePartnerAppOptInEmail_Request {
 	optional string email_templates = 4;
 	optional uint32 start_rtime = 5 [default = 0];
 	optional uint32 end_rtime = 6 [default = 0];
-	optional bool reviewed = 7 [default = false];
 }
 
 message CPublishing_UpdatePartnerAppOptInEmail_Response {
@@ -157,12 +109,10 @@ message CPublishing_UpdatePartnerAppOptInEmail_Response {
 service Publishing {
 	rpc CreatePartnerAppOptInEmails (.CPublishing_CreatePartnerAppOptInEmail_Request) returns (.CPublishing_CreatePartnerAppOptInEmail_Response);
 	rpc GetEstimatePartnerAppOptInEmail (.CPublishing_GetEstimatePartnerAppOptInEmail_Request) returns (.CPublishing_GetEstimatePartnerAppOptInEmail_Response);
-	rpc GetOptInEmailTracking (.CPublishing_GetOptInEmailTracking_Request) returns (.CPublishing_GetOptInEmailTracking_Response);
 	rpc GetPartnerAppOptInEmailDefAndStats (.CPublishing_GetPartnerAppOptInEmailDefAndStats_Request) returns (.CPublishing_GetPartnerAppOptInEmailDefAndStats_Response);
 	rpc GetPartnerOptInInvites (.NotImplemented) returns (.CPublishing_GetPartnerOptInInvites_Response);
-	rpc GetSinglePartnerAppOptIn (.CPublishing_GetSinglePartnerAppOptIns_Request) returns (.CPublishing_GetSinglePartnerAppOptIns_Response);
+	rpc GetSinglePartnerAppOptIn (.NotImplemented) returns (.CPublishing_GetSinglePartnerAppOptIns_Response);
 	rpc SendPartnerOptInEmailAndWait (.CPublishing_SendPartnerAppOptInEmailAndWait_Request) returns (.CPublishing_SendPartnerAppOptInEmailAndWait_Response);
-	rpc SetFeaturingOnPartnerAppOptIn (.CPublishing_SetFeaturingOnPartnerAppOptIn_Request) returns (.CPublishing_SetFeaturingOnPartnerAppOptIn_Response);
 	rpc TestFirePartnerAppOptInEmail (.CPublishing_TestFirePartnerAppOptInEmail_Request) returns (.CPublishing_TestFirePartnerAppOptInEmail_Response);
 	rpc UpdatePartnerAppOptInEmails (.CPublishing_UpdatePartnerAppOptInEmail_Request) returns (.CPublishing_UpdatePartnerAppOptInEmail_Response);
 }
