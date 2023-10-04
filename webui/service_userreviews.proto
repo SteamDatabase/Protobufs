@@ -9,15 +9,6 @@ message CUserReviews_GetFriendsRecommendedApp_Response {
 	repeated uint32 accountids_not_recommended = 3;
 }
 
-message CUserReviews_GetIndividualRecommendations_Request {
-	repeated .CUserReviews_GetIndividualRecommendations_Request_RecommendationRequest requests = 1;
-}
-
-message CUserReviews_GetIndividualRecommendations_Request_RecommendationRequest {
-	optional uint64 steamid = 1;
-	optional uint32 appid = 2;
-}
-
 message CUserReviews_GetIndividualRecommendations_Response {
 	repeated .RecommendationDetails recommendations = 1;
 }
@@ -25,18 +16,6 @@ message CUserReviews_GetIndividualRecommendations_Response {
 message CUserReviews_Recommendation_LoyaltyReaction {
 	optional uint32 reaction_type = 1;
 	optional uint32 count = 2;
-}
-
-message CUserReviews_Update_Request {
-	optional uint64 recommendationid = 1;
-	optional string review_text = 2;
-	optional bool voted_up = 3;
-	optional bool is_public = 4;
-	optional string language = 5;
-	optional bool is_in_early_access = 6;
-	optional bool received_compensation = 7;
-	optional bool comments_disabled = 8;
-	optional bool hide_in_steam_china = 9;
 }
 
 message CUserReviews_Update_Response {
@@ -84,13 +63,11 @@ message RecommendationDetails {
 	optional int32 account_score_spend = 39;
 	repeated .CUserReviews_Recommendation_LoyaltyReaction reactions = 40;
 	optional string ipaddress = 41;
-	optional bool hidden_in_steam_china = 42;
-	optional string steam_china_location = 43;
 }
 
 service UserReviews {
 	rpc GetFriendsRecommendedApp (.CUserReviews_GetFriendsRecommendedApp_Request) returns (.CUserReviews_GetFriendsRecommendedApp_Response);
-	rpc GetIndividualRecommendations (.CUserReviews_GetIndividualRecommendations_Request) returns (.CUserReviews_GetIndividualRecommendations_Response);
-	rpc Update (.CUserReviews_Update_Request) returns (.CUserReviews_Update_Response);
+	rpc GetIndividualRecommendations (.NotImplemented) returns (.CUserReviews_GetIndividualRecommendations_Response);
+	rpc Update (.NotImplemented) returns (.CUserReviews_Update_Response);
 }
 

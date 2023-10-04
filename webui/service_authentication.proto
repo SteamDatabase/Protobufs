@@ -24,7 +24,7 @@ message CAuthentication_BeginAuthSessionViaCredentials_Request {
 	optional uint64 encryption_timestamp = 4;
 	optional bool remember_login = 5;
 	optional int32 platform_type = 6 [(.description) = "enum"];
-	optional int32 persistence = 7 [default = 1, (.description) = "enum"];
+	optional int32 persistence = 7 [(.description) = "enum"];
 	optional string website_id = 8 [default = "Unknown"];
 	optional .CAuthentication_DeviceDetails device_details = 9;
 	optional string guard_data = 10;
@@ -166,7 +166,7 @@ message CAuthentication_RefreshToken_Enumerate_Response_TokenUsageEvent {
 message CAuthentication_RefreshToken_Revoke_Request {
 	optional fixed64 token_id = 1;
 	optional fixed64 steamid = 2;
-	optional int32 revoke_action = 3 [default = 1, (.description) = "enum"];
+	optional int32 revoke_action = 3 [(.description) = "enum"];
 	optional bytes signature = 4;
 }
 
@@ -175,7 +175,7 @@ message CAuthentication_RefreshToken_Revoke_Response {
 
 message CAuthentication_Token_Revoke_Request {
 	optional string token = 1;
-	optional int32 revoke_action = 2 [default = 1, (.description) = "enum"];
+	optional int32 revoke_action = 2 [(.description) = "enum"];
 }
 
 message CAuthentication_Token_Revoke_Response {
@@ -187,7 +187,7 @@ message CAuthentication_UpdateAuthSessionWithMobileConfirmation_Request {
 	optional fixed64 steamid = 3;
 	optional bytes signature = 4;
 	optional bool confirm = 5 [default = false];
-	optional int32 persistence = 6 [default = 1, (.description) = "enum"];
+	optional int32 persistence = 6 [(.description) = "enum"];
 }
 
 message CAuthentication_UpdateAuthSessionWithMobileConfirmation_Response {

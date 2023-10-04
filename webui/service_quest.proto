@@ -1,11 +1,5 @@
 import "common_base.proto";
 
-message CQuest_ActivateProfileModifierItem_Request {
-	optional uint32 appid = 1;
-	optional uint64 communityitemid = 2;
-	optional bool activate = 3;
-}
-
 message CQuest_ActivateProfileModifierItem_Response {
 }
 
@@ -31,14 +25,6 @@ message CQuest_GetCommunityInventory_Request {
 
 message CQuest_GetCommunityInventory_Response {
 	repeated .CQuest_CommunityItem items = 1;
-}
-
-message CQuest_GetCommunityItemDefinitions_Request {
-	optional uint32 appid = 1;
-	optional uint32 item_type = 3;
-	optional string language = 4;
-	optional uint64 broadcast_channel_id = 5;
-	optional bool keyvalues_as_json = 6;
 }
 
 message CQuest_GetCommunityItemDefinitions_Response {
@@ -67,7 +53,6 @@ message CQuest_GetCommunityItemDefinitions_Response_ItemDefinition {
 	optional string item_movie_mp4 = 19;
 	optional string item_movie_webm_small = 20;
 	optional string item_movie_mp4_small = 21;
-	optional string item_internal_name = 22;
 }
 
 message CQuest_GetNumTradingCardsEarned_Request {
@@ -77,20 +62,6 @@ message CQuest_GetNumTradingCardsEarned_Request {
 
 message CQuest_GetNumTradingCardsEarned_Response {
 	optional uint32 num_trading_cards = 1;
-}
-
-message CQuest_SetVirtualItemRewardDefinition_Request {
-	optional int32 eventid = 1 [(.description) = "enum"];
-	repeated .CVirtualItemRewardDefinition itemsdefs = 2;
-	optional int32 action = 3 [(.description) = "enum"];
-}
-
-message CQuest_SetVirtualItemRewardDefinition_Response {
-}
-
-message CQuest_VirtualItemRewardDefinition_Request {
-	optional int32 eventid = 1 [(.description) = "enum"];
-	optional bool include_inactive = 2;
 }
 
 message CQuest_VirtualItemRewardDefinition_Response {
@@ -113,15 +84,13 @@ message CVirtualItemRewardDefinition {
 	optional uint32 loyalty_reward_defid = 13;
 	optional uint32 user_badge_to_grant = 14;
 	optional uint32 user_badge_level = 15;
-	optional uint32 virtual_item_def_id = 16;
 }
 
 service Quest {
-	rpc ActivateProfileModifierItem (.CQuest_ActivateProfileModifierItem_Request) returns (.CQuest_ActivateProfileModifierItem_Response);
+	rpc ActivateProfileModifierItem (.NotImplemented) returns (.CQuest_ActivateProfileModifierItem_Response);
 	rpc GetCommunityInventory (.CQuest_GetCommunityInventory_Request) returns (.CQuest_GetCommunityInventory_Response);
-	rpc GetCommunityItemDefinitions (.CQuest_GetCommunityItemDefinitions_Request) returns (.CQuest_GetCommunityItemDefinitions_Response);
+	rpc GetCommunityItemDefinitions (.NotImplemented) returns (.CQuest_GetCommunityItemDefinitions_Response);
 	rpc GetNumTradingCardsEarned (.CQuest_GetNumTradingCardsEarned_Request) returns (.CQuest_GetNumTradingCardsEarned_Response);
-	rpc GetVirtualItemRewardDefinition (.CQuest_VirtualItemRewardDefinition_Request) returns (.CQuest_VirtualItemRewardDefinition_Response);
-	rpc SetVirtualItemRewardDefinition (.CQuest_SetVirtualItemRewardDefinition_Request) returns (.CQuest_SetVirtualItemRewardDefinition_Response);
+	rpc GetVirtualItemRewardDefinition (.NotImplemented) returns (.CQuest_VirtualItemRewardDefinition_Response);
 }
 
