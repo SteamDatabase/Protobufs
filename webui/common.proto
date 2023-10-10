@@ -3739,6 +3739,7 @@ message StoreItem {
 	optional uint32 game_count = 56;
 	optional string internal_name = 57;
 	optional string full_description = 58;
+	optional bool is_free_temporarily = 59;
 }
 
 // Used by: MarketingMessages, PartnerStoreBrowse, StoreBrowse, StoreQuery

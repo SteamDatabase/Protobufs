@@ -38,6 +38,15 @@ message CParental_EnableParentalSettings_Request {
 message CParental_EnableParentalSettings_Response {
 }
 
+message CParental_GetFeatureRequests_Request {
+	optional bool include_completed = 1;
+	optional fixed64 steamid = 10;
+}
+
+message CParental_GetFeatureRequests_Response {
+	repeated .ParentalFeatureRequest requests = 1;
+}
+
 message CParental_GetParentalSettings_Request {
 	optional fixed64 steamid = 10;
 }
@@ -76,6 +85,20 @@ message CParental_ParentalSettingsChange_Notification {
 message CParental_ParentalUnlock_Notification {
 	optional string password = 1;
 	optional string sessionid = 2;
+}
+
+message CParental_PlaytimeUsed_Notification {
+	optional uint32 day_of_week = 1;
+	optional uint32 minutes_used = 2;
+}
+
+message CParental_ReportPlaytimeAndNotify_Request {
+	optional uint32 day_of_week = 1;
+	optional uint32 minutes_used = 2;
+	optional fixed64 steamid = 10;
+}
+
+message CParental_ReportPlaytimeAndNotify_Response {
 }
 
 message CParental_RequestFeatureAccess_Request {
@@ -126,13 +149,20 @@ message ParentalApp {
 	optional bool is_allowed = 2;
 }
 
+message ParentalFeatureRequest {
+	optional fixed64 requestid = 1;
+	optional uint32 time_requested = 2;
+	optional bool approved = 3;
+	optional uint32 time_responded = 4;
+	optional uint32 features = 5;
+}
+
 message ParentalPlaytimeDay {
 	optional uint64 allowed_time_windows = 1;
 	optional uint32 allowed_daily_minutes = 2;
 }
 
 message ParentalPlaytimeRestrictions {
-	optional int32 tz_offset = 1;
 	optional bool apply_playtime_restrictions = 2;
 	repeated .ParentalPlaytimeDay playtime_days = 15;
 }
@@ -160,9 +190,11 @@ service Parental {
 	rpc DisableParentalSettings (.CParental_DisableParentalSettings_Request) returns (.CParental_DisableParentalSettings_Response);
 	rpc DisableWithRecoveryCode (.CParental_DisableWithRecoveryCode_Request) returns (.CParental_DisableWithRecoveryCode_Response);
 	rpc EnableParentalSettings (.CParental_EnableParentalSettings_Request) returns (.CParental_EnableParentalSettings_Response);
+	rpc GetFeatureRequests (.CParental_GetFeatureRequests_Request) returns (.CParental_GetFeatureRequests_Response);
 	rpc GetParentalSettings (.CParental_GetParentalSettings_Request) returns (.CParental_GetParentalSettings_Response);
 	rpc GetSignedParentalSettings (.CParental_GetSignedParentalSettings_Request) returns (.CParental_GetSignedParentalSettings_Response);
 	rpc LockClient (.CParental_LockClient_Request) returns (.CParental_LockClient_Response);
+	rpc ReportPlaytimeAndNotify (.CParental_ReportPlaytimeAndNotify_Request) returns (.CParental_ReportPlaytimeAndNotify_Response);
 	rpc RequestFeatureAccess (.CParental_RequestFeatureAccess_Request) returns (.CParental_RequestFeatureAccess_Response);
 	rpc RequestRecoveryCode (.CParental_RequestRecoveryCode_Request) returns (.CParental_RequestRecoveryCode_Response);
 	rpc SetParentalSettings (.CParental_SetParentalSettings_Request) returns (.CParental_SetParentalSettings_Response);
@@ -172,6 +204,7 @@ service Parental {
 
 service ParentalClient {
 	rpc NotifyLock (.CParental_ParentalLock_Notification) returns (.NoResponse);
+	rpc NotifyPlaytimeUsed (.CParental_PlaytimeUsed_Notification) returns (.NoResponse);
 	rpc NotifySettingsChange (.CParental_ParentalSettingsChange_Notification) returns (.NoResponse);
 	rpc NotifyUnlock (.CParental_ParentalUnlock_Notification) returns (.NoResponse);
 }
