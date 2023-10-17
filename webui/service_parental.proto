@@ -39,7 +39,7 @@ message CParental_EnableParentalSettings_Response {
 }
 
 message CParental_GetFeatureRequests_Request {
-	optional bool include_completed = 1;
+	optional uint32 rt_include_completed_since = 1;
 	optional fixed64 steamid = 10;
 }
 
@@ -151,10 +151,13 @@ message ParentalApp {
 
 message ParentalFeatureRequest {
 	optional fixed64 requestid = 1;
-	optional uint32 time_requested = 2;
-	optional bool approved = 3;
-	optional uint32 time_responded = 4;
-	optional uint32 features = 5;
+	optional fixed64 family_groupid = 2;
+	optional fixed64 steamid = 3;
+	optional uint32 features = 4;
+	optional uint32 time_requested = 5;
+	optional bool approved = 6;
+	optional fixed64 steamid_responder = 7;
+	optional uint32 time_responded = 8;
 }
 
 message ParentalPlaytimeDay {
