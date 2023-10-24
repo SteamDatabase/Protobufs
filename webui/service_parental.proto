@@ -11,6 +11,16 @@ message CParental_ApproveFeatureAccess_Request {
 message CParental_ApproveFeatureAccess_Response {
 }
 
+message CParental_ApprovePlaytime_Request {
+	optional bool approve = 1;
+	optional fixed64 requestid = 2;
+	optional .ParentalTemporaryPlaytimeRestrictions restrictions_approved = 3;
+	optional fixed64 steamid = 10;
+}
+
+message CParental_ApprovePlaytime_Response {
+}
+
 message CParental_DisableParentalSettings_Request {
 	optional string password = 1;
 	optional fixed64 steamid = 10;
@@ -38,21 +48,22 @@ message CParental_EnableParentalSettings_Request {
 message CParental_EnableParentalSettings_Response {
 }
 
-message CParental_GetFeatureRequests_Request {
-	optional uint32 rt_include_completed_since = 1;
-	optional fixed64 steamid = 10;
-}
-
-message CParental_GetFeatureRequests_Response {
-	repeated .ParentalFeatureRequest requests = 1;
-}
-
 message CParental_GetParentalSettings_Request {
 	optional fixed64 steamid = 10;
 }
 
 message CParental_GetParentalSettings_Response {
 	optional .ParentalSettings settings = 1;
+}
+
+message CParental_GetRequests_Request {
+	optional uint32 rt_include_completed_since = 1;
+	optional fixed64 steamid = 10;
+}
+
+message CParental_GetRequests_Response {
+	repeated .ParentalFeatureRequest feature_requests = 1;
+	repeated .ParentalPlaytimeRequest playtime_requests = 2;
 }
 
 message CParental_GetSignedParentalSettings_Request {
@@ -107,6 +118,16 @@ message CParental_RequestFeatureAccess_Request {
 }
 
 message CParental_RequestFeatureAccess_Response {
+	optional fixed64 requestid = 1;
+}
+
+message CParental_RequestPlaytime_Request {
+	optional uint32 time_expires = 1;
+	optional .ParentalPlaytimeDay current_playtime_restrictions = 2;
+	optional fixed64 steamid = 10;
+}
+
+message CParental_RequestPlaytime_Response {
 	optional fixed64 requestid = 1;
 }
 
@@ -165,6 +186,19 @@ message ParentalPlaytimeDay {
 	optional uint32 allowed_daily_minutes = 2;
 }
 
+message ParentalPlaytimeRequest {
+	optional fixed64 requestid = 1;
+	optional fixed64 family_groupid = 2;
+	optional fixed64 steamid = 3;
+	optional .ParentalPlaytimeDay current_playtime_restrictions = 4;
+	optional uint32 time_expires = 5;
+	optional uint32 time_requested = 6;
+	optional bool approved = 7;
+	optional fixed64 steamid_responder = 8;
+	optional uint32 time_responded = 9;
+	optional .ParentalTemporaryPlaytimeRestrictions restrictions_approved = 10;
+}
+
 message ParentalPlaytimeRestrictions {
 	optional bool apply_playtime_restrictions = 2;
 	repeated .ParentalPlaytimeDay playtime_days = 15;
@@ -186,19 +220,27 @@ message ParentalSettings {
 	optional uint32 temporary_enabled_features = 13;
 	optional uint32 rtime_temporary_feature_expiration = 14;
 	optional .ParentalPlaytimeRestrictions playtime_restrictions = 15;
+	optional .ParentalTemporaryPlaytimeRestrictions temporary_playtime_restrictions = 16;
+}
+
+message ParentalTemporaryPlaytimeRestrictions {
+	optional .ParentalPlaytimeDay restrictions = 1;
+	optional uint32 rtime_expires = 2;
 }
 
 service Parental {
 	rpc ApproveFeatureAccess (.CParental_ApproveFeatureAccess_Request) returns (.CParental_ApproveFeatureAccess_Response);
+	rpc ApprovePlaytime (.CParental_ApprovePlaytime_Request) returns (.CParental_ApprovePlaytime_Response);
 	rpc DisableParentalSettings (.CParental_DisableParentalSettings_Request) returns (.CParental_DisableParentalSettings_Response);
 	rpc DisableWithRecoveryCode (.CParental_DisableWithRecoveryCode_Request) returns (.CParental_DisableWithRecoveryCode_Response);
 	rpc EnableParentalSettings (.CParental_EnableParentalSettings_Request) returns (.CParental_EnableParentalSettings_Response);
-	rpc GetFeatureRequests (.CParental_GetFeatureRequests_Request) returns (.CParental_GetFeatureRequests_Response);
 	rpc GetParentalSettings (.CParental_GetParentalSettings_Request) returns (.CParental_GetParentalSettings_Response);
+	rpc GetRequests (.CParental_GetRequests_Request) returns (.CParental_GetRequests_Response);
 	rpc GetSignedParentalSettings (.CParental_GetSignedParentalSettings_Request) returns (.CParental_GetSignedParentalSettings_Response);
 	rpc LockClient (.CParental_LockClient_Request) returns (.CParental_LockClient_Response);
 	rpc ReportPlaytimeAndNotify (.CParental_ReportPlaytimeAndNotify_Request) returns (.CParental_ReportPlaytimeAndNotify_Response);
 	rpc RequestFeatureAccess (.CParental_RequestFeatureAccess_Request) returns (.CParental_RequestFeatureAccess_Response);
+	rpc RequestPlaytime (.CParental_RequestPlaytime_Request) returns (.CParental_RequestPlaytime_Response);
 	rpc RequestRecoveryCode (.CParental_RequestRecoveryCode_Request) returns (.CParental_RequestRecoveryCode_Response);
 	rpc SetParentalSettings (.CParental_SetParentalSettings_Request) returns (.CParental_SetParentalSettings_Response);
 	rpc ValidatePassword (.CParental_ValidatePassword_Request) returns (.CParental_ValidatePassword_Response);
