@@ -71,6 +71,17 @@ message CMonthlyPlaytimeStats {
 	repeated .CSimpleGameSummary game_summary = 6;
 }
 
+message CMonthlyProgress {
+	optional uint32 year = 1;
+	optional uint32 month = 2;
+	optional uint32 rt_processing_start = 3;
+	optional uint32 rt_queue_complete = 4;
+	optional uint32 rt_queue_emptied = 5;
+	optional uint32 rt_platform_summary = 6;
+	optional uint32 accounts_queued = 7;
+	optional uint32 largest_account_id = 8;
+}
+
 message CPlaytimeByNumbers {
 	optional uint32 screenshots_shared = 1;
 	optional uint32 gifts_sent = 2;
@@ -139,6 +150,14 @@ message CSaleFeature_GetFriendsSharedYearInReview_Request {
 message CSaleFeature_GetFriendsSharedYearInReview_Response {
 	repeated .CFriendSharedYearInView friend_shares = 1;
 	optional uint32 year = 2;
+}
+
+message CSaleFeature_GetUpdateProcessingProgress_Request {
+	optional uint32 year = 1;
+}
+
+message CSaleFeature_GetUpdateProcessingProgress_Response {
+	repeated .CMonthlyProgress results = 1;
 }
 
 message CSaleFeature_GetUserActionData_Request {
@@ -303,6 +322,7 @@ message CYearInReviewPerformanceStats {
 
 service SaleFeature {
 	rpc GetFriendsSharedYearInReview (.CSaleFeature_GetFriendsSharedYearInReview_Request) returns (.CSaleFeature_GetFriendsSharedYearInReview_Response);
+	rpc GetUpdateProcessingProgress (.CSaleFeature_GetUpdateProcessingProgress_Request) returns (.CSaleFeature_GetUpdateProcessingProgress_Response);
 	rpc GetUserActionData (.CSaleFeature_GetUserActionData_Request) returns (.CSaleFeature_GetUserActionData_Response);
 	rpc GetUserSharingPermissions (.CSaleFeature_GetUserSharingPermissions_Request) returns (.CSaleFeature_GetUserSharingPermissions_Response);
 	rpc GetUserYearAchievements (.CSaleFeature_GetUserYearAchievements_Request) returns (.CSaleFeature_GetUserYearAchievements_Response);

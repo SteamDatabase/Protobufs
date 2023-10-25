@@ -1,4 +1,6 @@
-import "common_base.proto";
+
+message CSteamAwards_GetUserNominations_Request {
+}
 
 message CSteamAwards_GetUserNominations_Response {
 	repeated .CSteamAwardsNomination nominations = 1;
@@ -14,6 +16,6 @@ message CSteamAwardsNomination {
 }
 
 service SteamAwards {
-	rpc GetUserNominations (.NotImplemented) returns (.CSteamAwards_GetUserNominations_Response);
+	rpc GetUserNominations (.CSteamAwards_GetUserNominations_Request) returns (.CSteamAwards_GetUserNominations_Response);
 }
 

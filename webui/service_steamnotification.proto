@@ -10,11 +10,19 @@ message CSteamNotification_GetPreferences_Response {
 message CSteamNotification_GetSteamNotifications_Request {
 	optional bool include_hidden = 1 [default = false];
 	optional int32 language = 2 [default = 0];
+	optional bool include_confirmation_count = 3 [default = true];
+	optional bool include_pinned_counts = 4 [default = false];
+	optional bool include_read = 5 [default = true];
+	optional bool count_only = 6 [default = false];
 }
 
 message CSteamNotification_GetSteamNotifications_Response {
 	repeated .SteamNotificationData notifications = 1;
 	optional int32 confirmation_count = 2;
+	optional uint32 pending_gift_count = 3;
+	optional uint32 pending_friend_count = 5;
+	optional uint32 unread_count = 6;
+	optional uint32 pending_fi_count = 7;
 }
 
 message CSteamNotification_HideNotification_Notification {
@@ -26,6 +34,17 @@ message CSteamNotification_MarkNotificationsRead_Notification {
 	optional int32 notification_type = 2 [(.description) = "enum"];
 	repeated uint64 notification_ids = 3;
 	optional bool mark_all_read = 4;
+}
+
+message CSteamNotification_NotificationsReceived_Notification {
+	repeated .SteamNotificationData notifications = 1;
+	optional uint32 pending_gift_count = 2;
+	optional uint32 pending_friend_count = 3;
+	optional uint32 pending_fi_count = 4;
+}
+
+message CSteamNotification_PreferencesUpdated_Notification {
+	repeated .SteamNotificationPreference preferences = 1;
 }
 
 message CSteamNotification_SetPreferences_Request {
@@ -43,6 +62,8 @@ message SteamNotificationData {
 	optional bool read = 7;
 	optional uint32 timestamp = 8;
 	optional bool hidden = 9;
+	optional uint32 expiry = 10;
+	optional uint32 viewed = 11;
 }
 
 message SteamNotificationPreference {
@@ -56,5 +77,10 @@ service SteamNotification {
 	rpc HideNotification (.CSteamNotification_HideNotification_Notification) returns (.NoResponse);
 	rpc MarkNotificationsRead (.CSteamNotification_MarkNotificationsRead_Notification) returns (.NoResponse);
 	rpc SetPreferences (.CSteamNotification_SetPreferences_Request) returns (.CSteamNotification_SetPreferences_Response);
+}
+
+service SteamNotificationClient {
+	rpc NotificationsReceived (.CSteamNotification_NotificationsReceived_Notification) returns (.NoResponse);
+	rpc PreferencesUpdated (.CSteamNotification_PreferencesUpdated_Notification) returns (.NoResponse);
 }
 

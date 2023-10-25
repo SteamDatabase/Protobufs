@@ -1,5 +1,15 @@
 import "common_base.proto";
 
+message CPromotionNotificationResults {
+	optional fixed64 notification_id = 1;
+	optional fixed64 tracking_id = 2;
+	optional string email_address = 3;
+	optional uint32 accountid = 4;
+	optional uint32 status = 5;
+	optional int32 type = 6 [(.description) = "enum"];
+	optional uint32 rt_send_time = 7;
+}
+
 message CPromotionPlan {
 	optional fixed64 promotion_id = 1;
 	optional string admin_jsondata = 2;
@@ -42,16 +52,60 @@ message CPromotionPlanning_GetPlan_Response {
 	optional .CPromotionPlan plan = 1;
 }
 
+message CPromotionPlanning_GetPlanByInputAccessKey_Request {
+	optional string input_access_key = 1;
+}
+
 message CPromotionPlanning_GetPlanByInputAccessKey_Response {
 	optional .CPromotionPlan plan = 1;
+}
+
+message CPromotionPlanning_GetSentNotification_Request {
+	optional fixed64 promotion_id = 1;
+	optional fixed64 notification_id = 2;
+}
+
+message CPromotionPlanning_GetSentNotification_Response {
+	repeated .CPromotionNotificationResults results = 1;
+}
+
+message CPromotionPlanning_ResendNotification_Request {
+	optional fixed64 promotion_id = 1;
+	optional fixed64 notification_id = 2;
+}
+
+message CPromotionPlanning_ResendNotification_Response {
+}
+
+message CPromotionPlanning_SearchPlan_Request {
+	optional string token = 1;
 }
 
 message CPromotionPlanning_SearchPlan_Response {
 	repeated .CPromotionPlan plan = 1;
 }
 
+message CPromotionPlanning_SendNotification_Request {
+	optional fixed64 promotion_id = 1;
+	optional int32 notification_type = 2 [(.description) = "enum"];
+	optional bool only_explicit_email_addresses = 3;
+}
+
+message CPromotionPlanning_SendNotification_Response {
+}
+
+message CPromotionPlanning_SetPromotionEmailTarget_Request {
+	optional fixed64 promotion_id = 1;
+	optional bool add = 2;
+	optional string email_address = 3;
+}
+
+message CPromotionPlanning_SetPromotionEmailTarget_Response {
+}
+
 message CPromotionPlanning_UpdatePlan_Request {
 	optional .CPromotionPlan plan = 1;
+	optional fixed64 promotion_id = 2;
 }
 
 message CPromotionPlanning_UpdatePlan_Response {
@@ -63,8 +117,12 @@ service PromotionPlanning {
 	rpc DeletePlan (.CPromotionPlanning_DeletePlan_Request) returns (.CPromotionPlanning_DeletePlan_Response);
 	rpc GetAllActivePlan (.CPromotionPlanning_GetAllActivePlan_Request) returns (.CPromotionPlanning_GetAllActivePlan_Response);
 	rpc GetPlan (.CPromotionPlanning_GetPlan_Request) returns (.CPromotionPlanning_GetPlan_Response);
-	rpc GetPlanByInputAccessKey (.NotImplemented) returns (.CPromotionPlanning_GetPlanByInputAccessKey_Response);
-	rpc SearchPlan (.NotImplemented) returns (.CPromotionPlanning_SearchPlan_Response);
+	rpc GetPlanByInputAccessKey (.CPromotionPlanning_GetPlanByInputAccessKey_Request) returns (.CPromotionPlanning_GetPlanByInputAccessKey_Response);
+	rpc GetSentNotification (.CPromotionPlanning_GetSentNotification_Request) returns (.CPromotionPlanning_GetSentNotification_Response);
+	rpc ResendNotification (.CPromotionPlanning_ResendNotification_Request) returns (.CPromotionPlanning_ResendNotification_Response);
+	rpc SearchPlan (.CPromotionPlanning_SearchPlan_Request) returns (.CPromotionPlanning_SearchPlan_Response);
+	rpc SendNotification (.CPromotionPlanning_SendNotification_Request) returns (.CPromotionPlanning_SendNotification_Response);
+	rpc SetPromotionEmailTarget (.CPromotionPlanning_SetPromotionEmailTarget_Request) returns (.CPromotionPlanning_SetPromotionEmailTarget_Response);
 	rpc UpdatePlan (.CPromotionPlanning_UpdatePlan_Request) returns (.CPromotionPlanning_UpdatePlan_Response);
 	rpc UpdatePlanInputData (.CPromotionPlanning_UpdatePlan_Request) returns (.CPromotionPlanning_UpdatePlan_Response);
 	rpc UpdatePlanPartnerInfo (.CPromotionPlanning_UpdatePlan_Request) returns (.CPromotionPlanning_UpdatePlan_Response);
