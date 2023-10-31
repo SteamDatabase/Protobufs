@@ -199,6 +199,15 @@ message CStore_RegisterCDKey_Response {
 	optional .CStore_PurchaseReceiptInfo purchase_receipt_info = 2;
 }
 
+message CStore_ReportApp_Request {
+	optional uint32 appid = 1;
+	optional int32 report_type = 2 [(.description) = "enum"];
+	optional string report = 3;
+}
+
+message CStore_ReportApp_Response {
+}
+
 message CStore_SkipDiscoveryQueueItem_Request {
 	optional int32 queue_type = 1 [(.description) = "enum"];
 	optional uint32 appid = 2;
@@ -278,6 +287,7 @@ service Store {
 	rpc GetTrendingAppsAmongFriends (.CStore_GetTrendingAppsAmongFriends_Request) returns (.CStore_GetTrendingAppsAmongFriends_Response);
 	rpc GetUserGameInterestState (.CStore_GetUserGameInterestState_Request) returns (.CStore_GetUserGameInterestState_Response);
 	rpc RegisterCDKey (.CStore_RegisterCDKey_Request) returns (.CStore_RegisterCDKey_Response);
+	rpc ReportApp (.CStore_ReportApp_Request) returns (.CStore_ReportApp_Response);
 	rpc SetCompatibilityFeedback (.CSteamDeckCompatibility_SetFeedback_Request) returns (.CSteamDeckCompatibility_SetFeedback_Response);
 	rpc ShouldPromptForCompatibilityFeedback (.CSteamDeckCompatibility_ShouldPrompt_Request) returns (.CSteamDeckCompatibility_ShouldPrompt_Response);
 	rpc SkipDiscoveryQueueItem (.CStore_SkipDiscoveryQueueItem_Request) returns (.CStore_SkipDiscoveryQueueItem_Response);

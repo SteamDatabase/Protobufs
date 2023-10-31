@@ -1,8 +1,43 @@
+import "common_base.proto";
+
+message CSteamAwards_GetNominationRecommendations_Request {
+	optional uint32 category_id = 1;
+}
+
+message CSteamAwards_GetNominationRecommendations_Response {
+	repeated uint32 appids = 1;
+}
+
+message CSteamAwards_GetNominationShareLink_Request {
+	optional bool generate_new = 1;
+}
+
+message CSteamAwards_GetNominationShareLink_Response {
+	optional fixed64 code = 1;
+}
+
+message CSteamAwards_GetOtherUserNominations_Request {
+	optional fixed64 steamid = 1;
+	optional fixed64 code = 2;
+}
 
 message CSteamAwards_GetUserNominations_Request {
 }
 
 message CSteamAwards_GetUserNominations_Response {
+	repeated .CSteamAwardsNomination nominations = 1;
+}
+
+message CSteamAwards_Nominate_Request {
+	optional uint32 category_id = 1;
+	optional uint32 nominated_id = 2;
+	optional string write_in_name = 3;
+	optional uint32 store_appid = 4;
+	optional bool rescind_nomination = 5;
+	optional int32 source = 6 [(.description) = "enum"];
+}
+
+message CSteamAwards_Nominate_Response {
 	repeated .CSteamAwardsNomination nominations = 1;
 }
 
@@ -16,6 +51,10 @@ message CSteamAwardsNomination {
 }
 
 service SteamAwards {
+	rpc GetNominationRecommendations (.CSteamAwards_GetNominationRecommendations_Request) returns (.CSteamAwards_GetNominationRecommendations_Response);
+	rpc GetNominationShareLink (.CSteamAwards_GetNominationShareLink_Request) returns (.CSteamAwards_GetNominationShareLink_Response);
+	rpc GetOtherUserNominations (.CSteamAwards_GetOtherUserNominations_Request) returns (.CSteamAwards_GetUserNominations_Response);
 	rpc GetUserNominations (.CSteamAwards_GetUserNominations_Request) returns (.CSteamAwards_GetUserNominations_Response);
+	rpc Nominate (.CSteamAwards_Nominate_Request) returns (.CSteamAwards_Nominate_Response);
 }
 

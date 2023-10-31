@@ -1,22 +1,7 @@
 import "common_base.proto";
 
-message CDailyDeal {
-	optional fixed64 gid = 1;
-	optional int32 store_item_type = 2 [(.description) = "enum"];
-	optional uint32 store_item_id = 3;
-	optional string store_item_name = 4;
-	optional uint32 discount_event_id = 5;
-	optional uint32 creator_id = 6;
-	optional uint32 rtime32_start_time = 7;
-	optional uint32 last_update_time = 8;
-	optional string template_json = 9;
-	optional string partner_jsondata = 10;
-	optional string internal_json = 11;
-	optional bool deleted = 12;
-}
-
 message CDailyDeal_CreateDailyDeal_Request {
-	optional .CDailyDeal daily_deal = 1;
+	optional .CDailyDealDetails daily_deal = 1;
 	optional uint32 appid = 2;
 }
 
@@ -41,15 +26,30 @@ message CDailyDeal_GetDailyDeals_Request {
 }
 
 message CDailyDeal_GetDailyDeals_Response {
-	repeated .CDailyDeal daily_deals = 1;
+	repeated .CDailyDealDetails daily_deals = 1;
 }
 
 message CDailyDeal_UpdateDailyDeal_Request {
-	optional .CDailyDeal daily_deal = 1;
+	optional .CDailyDealDetails daily_deal = 1;
 	optional fixed64 gid = 2;
 }
 
 message CDailyDeal_UpdateDailyDeal_Response {
+}
+
+message CDailyDealDetails {
+	optional fixed64 gid = 1;
+	optional int32 store_item_type = 2 [(.description) = "enum"];
+	optional uint32 store_item_id = 3;
+	optional string store_item_name = 4;
+	optional uint32 discount_event_id = 5;
+	optional uint32 creator_id = 6;
+	optional uint32 rtime32_start_time = 7;
+	optional uint32 last_update_time = 8;
+	optional string template_json = 9;
+	optional string partner_jsondata = 10;
+	optional string internal_json = 11;
+	optional bool deleted = 12;
 }
 
 service DailyDeal {

@@ -37,6 +37,7 @@ message CTwoFactor_AddAuthenticator_Response {
 	optional bytes secret_1 = 9;
 	optional int32 status = 10;
 	optional string phone_number_hint = 11;
+	optional int32 confirm_type = 12;
 }
 
 message CTwoFactor_CreateEmergencyCodes_Request {

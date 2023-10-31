@@ -1,0 +1,224 @@
+import "common_base.proto";
+
+message CFamilyGroups_CancelFamilyGroupInvite_Request {
+	optional uint64 family_groupid = 1;
+	optional fixed64 steamid_to_cancel = 2;
+}
+
+message CFamilyGroups_CancelFamilyGroupInvite_Response {
+}
+
+message CFamilyGroups_CreateFamilyGroup_Request {
+	optional string name = 1;
+}
+
+message CFamilyGroups_CreateFamilyGroup_Response {
+	optional uint64 family_groupid = 1;
+}
+
+message CFamilyGroups_DeleteFamilyGroup_Request {
+	optional uint64 family_groupid = 1;
+}
+
+message CFamilyGroups_DeleteFamilyGroup_Response {
+}
+
+message CFamilyGroups_GetChangeLog_Request {
+	optional uint64 family_groupid = 1;
+}
+
+message CFamilyGroups_GetChangeLog_Response {
+	repeated .CFamilyGroups_GetChangeLog_Response_Change changes = 1;
+}
+
+message CFamilyGroups_GetChangeLog_Response_Change {
+	optional fixed64 timestamp = 1;
+	optional fixed64 actor_steamid = 2;
+	optional int32 type = 3 [(.description) = "enum"];
+	optional string body = 4;
+}
+
+message CFamilyGroups_GetFamilyGroup_Request {
+	optional uint64 family_groupid = 1;
+}
+
+message CFamilyGroups_GetFamilyGroup_Response {
+	optional string name = 1;
+	repeated .FamilyGroupMember members = 2;
+	repeated .FamilyGroupPendingInvite pending_invites = 3;
+	optional uint32 free_spots = 4;
+	optional string country = 5;
+	optional uint32 slot_cooldown_remaining_seconds = 6;
+	repeated .FamilyGroupFormerMember former_members = 7;
+	optional uint32 slot_cooldown_overrides = 8;
+}
+
+message CFamilyGroups_GetFamilyGroupForUser_Request {
+	optional uint64 steamid = 1;
+}
+
+message CFamilyGroups_GetFamilyGroupForUser_Response {
+	optional uint64 family_groupid = 1;
+	optional bool is_not_member_of_any_group = 2;
+	optional uint32 latest_time_joined = 3;
+	optional uint64 latest_joined_family_groupid = 4;
+	repeated .FamilyGroupPendingInviteForUser pending_group_invites = 5;
+	optional uint32 role = 6;
+}
+
+message CFamilyGroups_GetPlaytimeSummary_Request {
+	optional fixed64 family_groupid = 1;
+}
+
+message CFamilyGroups_GetPlaytimeSummary_Response {
+	repeated .CFamilyGroups_PlaytimeEntry entries = 1;
+}
+
+message CFamilyGroups_GetPurchaseRequests_Request {
+	optional uint64 family_groupid = 1;
+}
+
+message CFamilyGroups_GetPurchaseRequests_Response {
+	repeated .PurchaseRequest pending_requests = 1;
+}
+
+message CFamilyGroups_GetUsersSharingDevice_Request {
+	optional uint64 family_groupid = 1;
+}
+
+message CFamilyGroups_GetUsersSharingDevice_Response {
+	repeated fixed64 users = 1;
+}
+
+message CFamilyGroups_InviteToFamilyGroup_Request {
+	optional uint64 family_groupid = 1;
+	optional fixed64 receiver_steamid = 2;
+	optional int32 receiver_role = 3 [(.description) = "enum"];
+}
+
+message CFamilyGroups_InviteToFamilyGroup_Response {
+}
+
+message CFamilyGroups_JoinFamilyGroup_Request {
+	optional uint64 family_groupid = 1;
+}
+
+message CFamilyGroups_JoinFamilyGroup_Response {
+}
+
+message CFamilyGroups_ModifyFamilyGroupDetails_Request {
+	optional uint64 family_groupid = 1;
+	optional string name = 2;
+}
+
+message CFamilyGroups_ModifyFamilyGroupDetails_Response {
+}
+
+message CFamilyGroups_PlaytimeEntry {
+	optional fixed64 steamid = 1;
+	optional uint32 appid = 2;
+	optional uint32 first_played = 3;
+	optional uint32 latest_played = 4;
+	optional uint32 seconds_played = 5;
+}
+
+message CFamilyGroups_RemoveFromFamilyGroup_Request {
+	optional uint64 family_groupid = 1;
+	optional fixed64 steamid_to_remove = 2;
+}
+
+message CFamilyGroups_RemoveFromFamilyGroup_Response {
+}
+
+message CFamilyGroups_RequestPurchase_Request {
+	optional uint64 family_groupid = 1;
+	optional uint64 gidshoppingcart = 2;
+	optional string store_country_code = 3;
+}
+
+message CFamilyGroups_RequestPurchase_Response {
+	optional uint64 gidshoppingcart = 1;
+}
+
+message CFamilyGroups_RespondToRequestedPurchase_Request {
+	optional uint64 family_groupid = 1;
+	optional fixed64 purchase_requester_steamid = 2;
+	optional int32 action = 3 [(.description) = "enum"];
+}
+
+message CFamilyGroups_RespondToRequestedPurchase_Response {
+}
+
+message CFamilyGroups_SetFamilyCooldownOverrides_Request {
+	optional uint64 family_groupid = 1;
+	optional uint32 cooldown_count = 2;
+}
+
+message CFamilyGroups_SetFamilyCooldownOverrides_Response {
+}
+
+message CFamilyGroupsClient_GroupStatus_Notification {
+	optional uint64 family_groupid = 1;
+	repeated .CFamilyGroupsClient_GroupStatus_Notification_RunningApp running_apps = 2;
+}
+
+message CFamilyGroupsClient_GroupStatus_Notification_PlayingMember {
+	optional fixed64 member_steamid = 1;
+	optional fixed64 owner_steamid = 2;
+}
+
+message CFamilyGroupsClient_GroupStatus_Notification_RunningApp {
+	optional uint32 appid = 1;
+	optional bool is_locked = 2;
+	repeated .CFamilyGroupsClient_GroupStatus_Notification_PlayingMember playing_members = 3;
+}
+
+message FamilyGroupFormerMember {
+	optional fixed64 steamid = 1;
+}
+
+message FamilyGroupMember {
+	optional fixed64 steamid = 1;
+	optional int32 role = 2 [(.description) = "enum"];
+}
+
+message FamilyGroupPendingInvite {
+	optional fixed64 steamid = 1;
+	optional int32 role = 2 [(.description) = "enum"];
+}
+
+message FamilyGroupPendingInviteForUser {
+	optional uint64 family_groupid = 1;
+	optional int32 role = 2 [(.description) = "enum"];
+	optional fixed64 inviter_steamid = 3;
+}
+
+message PurchaseRequest {
+	optional fixed64 requester_steamid = 1;
+	optional uint64 gidshoppingcart = 2;
+	optional uint32 time_requested = 3;
+}
+
+service FamilyGroups {
+	rpc CancelFamilyGroupInvite (.CFamilyGroups_CancelFamilyGroupInvite_Request) returns (.CFamilyGroups_CancelFamilyGroupInvite_Response);
+	rpc CreateFamilyGroup (.CFamilyGroups_CreateFamilyGroup_Request) returns (.CFamilyGroups_CreateFamilyGroup_Response);
+	rpc DeleteFamilyGroup (.CFamilyGroups_DeleteFamilyGroup_Request) returns (.CFamilyGroups_DeleteFamilyGroup_Response);
+	rpc GetChangeLog (.CFamilyGroups_GetChangeLog_Request) returns (.CFamilyGroups_GetChangeLog_Response);
+	rpc GetFamilyGroup (.CFamilyGroups_GetFamilyGroup_Request) returns (.CFamilyGroups_GetFamilyGroup_Response);
+	rpc GetFamilyGroupForUser (.CFamilyGroups_GetFamilyGroupForUser_Request) returns (.CFamilyGroups_GetFamilyGroupForUser_Response);
+	rpc GetPlaytimeSummary (.CFamilyGroups_GetPlaytimeSummary_Request) returns (.CFamilyGroups_GetPlaytimeSummary_Response);
+	rpc GetPurchaseRequests (.CFamilyGroups_GetPurchaseRequests_Request) returns (.CFamilyGroups_GetPurchaseRequests_Response);
+	rpc GetUsersSharingDevice (.CFamilyGroups_GetUsersSharingDevice_Request) returns (.CFamilyGroups_GetUsersSharingDevice_Response);
+	rpc InviteToFamilyGroup (.CFamilyGroups_InviteToFamilyGroup_Request) returns (.CFamilyGroups_InviteToFamilyGroup_Response);
+	rpc JoinFamilyGroup (.CFamilyGroups_JoinFamilyGroup_Request) returns (.CFamilyGroups_JoinFamilyGroup_Response);
+	rpc ModifyFamilyGroupDetails (.CFamilyGroups_ModifyFamilyGroupDetails_Request) returns (.CFamilyGroups_ModifyFamilyGroupDetails_Response);
+	rpc RemoveFromFamilyGroup (.CFamilyGroups_RemoveFromFamilyGroup_Request) returns (.CFamilyGroups_RemoveFromFamilyGroup_Response);
+	rpc RequestPurchase (.CFamilyGroups_RequestPurchase_Request) returns (.CFamilyGroups_RequestPurchase_Response);
+	rpc RespondToRequestedPurchase (.CFamilyGroups_RespondToRequestedPurchase_Request) returns (.CFamilyGroups_RespondToRequestedPurchase_Response);
+	rpc SetFamilyCooldownOverrides (.CFamilyGroups_SetFamilyCooldownOverrides_Request) returns (.CFamilyGroups_SetFamilyCooldownOverrides_Response);
+}
+
+service FamilyGroupsClient {
+	rpc NotifyGroupStatus (.CFamilyGroupsClient_GroupStatus_Notification) returns (.NoResponse);
+}
+
