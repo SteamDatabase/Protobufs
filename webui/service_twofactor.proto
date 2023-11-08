@@ -1,3 +1,4 @@
+import "common_base.proto";
 
 message CRemoveAuthenticatorViaChallengeContinue_Replacement_Token {
 	optional bytes shared_secret = 1;
@@ -40,16 +41,8 @@ message CTwoFactor_AddAuthenticator_Response {
 	optional int32 confirm_type = 12;
 }
 
-message CTwoFactor_CreateEmergencyCodes_Request {
-	optional string code = 1;
-}
-
 message CTwoFactor_CreateEmergencyCodes_Response {
 	repeated string codes = 1;
-}
-
-message CTwoFactor_DestroyEmergencyCodes_Request {
-	optional fixed64 steamid = 1;
 }
 
 message CTwoFactor_DestroyEmergencyCodes_Response {
@@ -157,18 +150,14 @@ message CTwoFactor_UpdateTokenVersion_Request {
 message CTwoFactor_UpdateTokenVersion_Response {
 }
 
-message CTwoFactor_ValidateToken_Request {
-	optional string code = 1;
-}
-
 message CTwoFactor_ValidateToken_Response {
 	optional bool valid = 1;
 }
 
 service TwoFactor {
 	rpc AddAuthenticator (.CTwoFactor_AddAuthenticator_Request) returns (.CTwoFactor_AddAuthenticator_Response);
-	rpc CreateEmergencyCodes (.CTwoFactor_CreateEmergencyCodes_Request) returns (.CTwoFactor_CreateEmergencyCodes_Response);
-	rpc DestroyEmergencyCodes (.CTwoFactor_DestroyEmergencyCodes_Request) returns (.CTwoFactor_DestroyEmergencyCodes_Response);
+	rpc CreateEmergencyCodes (.NotImplemented) returns (.CTwoFactor_CreateEmergencyCodes_Response);
+	rpc DestroyEmergencyCodes (.NotImplemented) returns (.CTwoFactor_DestroyEmergencyCodes_Response);
 	rpc FinalizeAddAuthenticator (.CTwoFactor_FinalizeAddAuthenticator_Request) returns (.CTwoFactor_FinalizeAddAuthenticator_Response);
 	rpc QueryStatus (.CTwoFactor_Status_Request) returns (.CTwoFactor_Status_Response);
 	rpc QueryTime (.CTwoFactor_Time_Request) returns (.CTwoFactor_Time_Response);
@@ -177,6 +166,6 @@ service TwoFactor {
 	rpc RemoveAuthenticatorViaChallengeStart (.CTwoFactor_RemoveAuthenticatorViaChallengeStart_Request) returns (.CTwoFactor_RemoveAuthenticatorViaChallengeStart_Response);
 	rpc SendEmail (.CTwoFactor_SendEmail_Request) returns (.CTwoFactor_SendEmail_Response);
 	rpc UpdateTokenVersion (.CTwoFactor_UpdateTokenVersion_Request) returns (.CTwoFactor_UpdateTokenVersion_Response);
-	rpc ValidateToken (.CTwoFactor_ValidateToken_Request) returns (.CTwoFactor_ValidateToken_Response);
+	rpc ValidateToken (.NotImplemented) returns (.CTwoFactor_ValidateToken_Response);
 }
 

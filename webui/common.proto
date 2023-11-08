@@ -55,11 +55,6 @@ message CAppOverview {
 	optional string mastersub_includedwith_logo = 60;
 	optional uint32 compat_allowlist_setting = 61 [default = 0];
 	optional string site_license_site_name = 62;
-	optional uint32 shortcut_override_appid = 63;
-	optional int32 steam_deck_compat_category = 64 [(.description) = "enum"];
-	optional uint32 rt_last_time_locally_played = 65;
-	optional uint32 rt_purchased_time = 66;
-	optional string header_filename = 67;
 }
 
 // Used by: common.proto
@@ -71,8 +66,6 @@ message CAppOverview_AppAssociation {
 message CAppOverview_Change {
 	repeated .CAppOverview app_overview = 1;
 	repeated uint32 removed_appid = 2;
-	optional bool full_update = 3;
-	optional bool update_complete = 4;
 }
 
 // Used by: common.proto
@@ -89,7 +82,6 @@ message CAppOverview_PerClientData {
 	optional bool is_available_on_current_platform = 10;
 	optional bool is_invalid_os_type = 11;
 	optional uint32 playtime_left = 12;
-	optional int32 cloud_status = 13 [(.description) = "enum"];
 }
 
 message CBilling_Address {
@@ -205,8 +197,6 @@ message CClanEventData {
 	optional uint32 rtime_mod_reviewed = 26;
 	optional uint32 featured_app_tagid = 27;
 	repeated uint32 referenced_appids = 28;
-	optional uint32 build_id = 29;
-	optional string build_branch = 30;
 }
 
 // Used by: common.proto
@@ -357,6 +347,44 @@ message CClientMetrics_IPv6Connectivity_Result {
 	optional uint32 connectivity_state = 2;
 }
 
+message CClientMetrics_ReportClientArgs_Notification {
+	repeated string client_args = 1;
+	optional bool gpu_webview_regkey_disabled = 2;
+	optional bool suppress_gpu_chrome = 3;
+	optional bool browser_not_supported = 4;
+	optional bool hw_accel_video_regkey_disabled = 5;
+	optional bool mini_mode_enabled = 6;
+	optional bool fps_counter_enabled = 7;
+	optional bool library_low_bandwidth_mode_enabled = 8;
+	optional bool library_low_perf_mode_enabled = 9;
+}
+
+message CClientMetrics_ReportReactUsage_Notification {
+	optional string product = 1;
+	optional string version = 2;
+	repeated .CClientMetrics_ReportReactUsage_Notification_RouteData routes = 3;
+	repeated .CClientMetrics_ReportReactUsage_Notification_ComponentData components = 4;
+	repeated .CClientMetrics_ReportReactUsage_Notification_ActionData actions = 5;
+}
+
+// Used by: common.proto
+message CClientMetrics_ReportReactUsage_Notification_ActionData {
+	optional string action = 1;
+	optional uint32 count = 2;
+}
+
+// Used by: common.proto
+message CClientMetrics_ReportReactUsage_Notification_ComponentData {
+	optional string component = 1;
+	optional uint32 count = 2;
+}
+
+// Used by: common.proto
+message CClientMetrics_ReportReactUsage_Notification_RouteData {
+	optional string route = 1;
+	optional uint32 count = 2;
+}
+
 message CClientMetrics_SteamPipeWorkStats_Notification {
 	optional uint32 appid = 1;
 	optional uint32 depotid = 2;
@@ -393,8 +421,6 @@ message CCommunity_ClanAnnouncementInfo {
 	optional fixed64 event_gid = 13;
 	optional int32 voteupcount = 14;
 	optional int32 votedowncount = 15;
-	optional int32 ban_check_result = 16 [(.description) = "enum"];
-	optional bool banned = 17;
 }
 
 message CCuratorPreferences {
@@ -421,6 +447,12 @@ message CLibraryBootstrapData {
 message CLocalizationToken {
 	optional uint32 language = 1;
 	optional string localized_string = 2;
+}
+
+message CMarketingMessages_MarkMessageSeen_Notification {
+	optional fixed64 gid = 1;
+	optional uint32 display_index = 2 [default = 0];
+	optional int32 template_type = 3 [default = 0, (.description) = "enum"];
 }
 
 message CMsgAMUnlockHEVC {
@@ -455,7 +487,6 @@ message CMsgAppRights {
 	optional bool manage_pricing = 14;
 	optional bool broadcast_live = 15;
 	optional bool view_marketing_traffic = 16;
-	optional bool edit_store_display_content = 17;
 }
 
 // Used by: common.proto
@@ -467,7 +498,6 @@ message CMsgAuthTicket {
 	optional uint32 h_steam_pipe = 5;
 	optional uint32 ticket_crc = 6;
 	optional bytes ticket = 7;
-	optional bytes server_secret = 8;
 }
 
 message CMsgBadgeCraftedNotification {
@@ -3268,16 +3298,6 @@ message CMsgIPAddressBucket {
 	optional fixed64 bucket = 2;
 }
 
-// Used by: common.proto
-message CMsgKeyValuePair {
-	optional string name = 1;
-	optional string value = 2;
-}
-
-message CMsgKeyValueSet {
-	repeated .CMsgKeyValuePair pairs = 1;
-}
-
 message CMsgMobileChatFriendMessage {
 	optional fixed64 steamid_friend = 1;
 	optional bool local_echo = 2;
@@ -3388,6 +3408,17 @@ message CProductImpressionsFromClient_Notification_Impression {
 	optional int32 type = 1 [(.description) = "enum"];
 	optional uint32 appid = 2;
 	optional uint32 num_impressions = 3;
+}
+
+message CSteamNotification_HideNotification_Notification {
+	repeated uint64 notification_ids = 1;
+}
+
+message CSteamNotification_MarkNotificationsRead_Notification {
+	optional uint32 timestamp = 1;
+	optional int32 notification_type = 2 [(.description) = "enum"];
+	repeated uint64 notification_ids = 3;
+	optional bool mark_all_read = 4;
 }
 
 message CSteamNotification_MarkNotificationsViewed_Notification {

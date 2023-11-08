@@ -169,7 +169,7 @@ message CPublishedFile_GetDetails_Request {
 	optional uint32 return_playtime_stats = 13;
 	optional uint32 appid = 14;
 	optional bool strip_description_bbcode = 15;
-	optional int32 desired_revision = 16 [(.description) = "enum"];
+	optional int32 desired_revision = 16 [default = 0, (.description) = "enum"];
 	optional bool includereactions = 17 [default = false];
 }
 
@@ -203,7 +203,7 @@ message CPublishedFile_GetItemInfo_Request {
 message CPublishedFile_GetItemInfo_Request_WorkshopItem {
 	optional fixed64 published_file_id = 1;
 	optional uint32 time_updated = 2;
-	optional int32 desired_revision = 3 [(.description) = "enum"];
+	optional int32 desired_revision = 3 [default = 0, (.description) = "enum"];
 }
 
 message CPublishedFile_GetItemInfo_Response {
@@ -223,7 +223,7 @@ message CPublishedFile_GetSubSectionData_Request {
 	optional uint64 publishedfileid = 1;
 	optional bool for_table_of_contents = 2;
 	optional uint64 specific_sectionid = 3;
-	optional int32 desired_revision = 4 [(.description) = "enum"];
+	optional int32 desired_revision = 4 [default = 0, (.description) = "enum"];
 }
 
 message CPublishedFile_GetSubSectionData_Response {
@@ -260,7 +260,7 @@ message CPublishedFile_GetUserFiles_Request {
 	repeated .CPublishedFile_GetUserFiles_Request_KVTag required_kv_tags = 30;
 	optional uint32 return_playtime_stats = 31;
 	optional bool strip_description_bbcode = 32;
-	optional int32 desired_revision = 33 [(.description) = "enum"];
+	optional int32 desired_revision = 33 [default = 0, (.description) = "enum"];
 	repeated .CPublishedFile_GetUserFiles_Request_TagGroup taggroups = 34;
 	optional bool return_reactions = 35 [default = false];
 	optional bool return_apps = 36;
@@ -362,7 +362,7 @@ message CPublishedFile_QueryFiles_Request {
 	optional bool return_details = 37;
 	optional bool strip_description_bbcode = 38;
 	optional string cursor = 39;
-	optional int32 desired_revision = 40 [(.description) = "enum"];
+	optional int32 desired_revision = 40 [default = 0, (.description) = "enum"];
 	repeated .CPublishedFile_QueryFiles_Request_TagGroup taggroups = 42;
 	optional bool return_reactions = 43 [default = false];
 	optional .CPublishedFile_QueryFiles_Request_DateRange date_range_created = 44;
@@ -397,7 +397,7 @@ message CPublishedFile_RefreshVotingQueue_Request {
 	optional bool match_all_tags = 4 [default = true];
 	repeated string excluded_tags = 5;
 	optional uint32 desired_queue_size = 6;
-	optional int32 desired_revision = 8 [(.description) = "enum"];
+	optional int32 desired_revision = 8 [default = 0, (.description) = "enum"];
 }
 
 message CPublishedFile_RefreshVotingQueue_Response {

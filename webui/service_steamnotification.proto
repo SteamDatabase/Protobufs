@@ -25,17 +25,6 @@ message CSteamNotification_GetSteamNotifications_Response {
 	optional uint32 pending_fi_count = 7;
 }
 
-message CSteamNotification_HideNotification_Notification {
-	repeated uint64 notification_ids = 1;
-}
-
-message CSteamNotification_MarkNotificationsRead_Notification {
-	optional uint32 timestamp = 1;
-	optional int32 notification_type = 2 [(.description) = "enum"];
-	repeated uint64 notification_ids = 3;
-	optional bool mark_all_read = 4;
-}
-
 message CSteamNotification_NotificationsReceived_Notification {
 	repeated .SteamNotificationData notifications = 1;
 	optional uint32 pending_gift_count = 2;
@@ -74,8 +63,6 @@ message SteamNotificationPreference {
 service SteamNotification {
 	rpc GetPreferences (.CSteamNotification_GetPreferences_Request) returns (.CSteamNotification_GetPreferences_Response);
 	rpc GetSteamNotifications (.CSteamNotification_GetSteamNotifications_Request) returns (.CSteamNotification_GetSteamNotifications_Response);
-	rpc HideNotification (.CSteamNotification_HideNotification_Notification) returns (.NoResponse);
-	rpc MarkNotificationsRead (.CSteamNotification_MarkNotificationsRead_Notification) returns (.NoResponse);
 	rpc SetPreferences (.CSteamNotification_SetPreferences_Request) returns (.CSteamNotification_SetPreferences_Response);
 }
 

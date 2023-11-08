@@ -72,7 +72,7 @@ message CStoreQueryFilters_TypeFilters {
 message CStoreQueryParams {
 	optional int32 start = 1 [default = 0];
 	optional int32 count = 2 [default = 10];
-	optional int32 sort = 10 [(.description) = "enum"];
+	optional int32 sort = 10 [default = 0, (.description) = "enum"];
 	optional .CStoreQueryFilters filters = 20;
 }
 
