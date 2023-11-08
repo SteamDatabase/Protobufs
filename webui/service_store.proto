@@ -1,6 +1,16 @@
 import "common_base.proto";
 import "common.proto";
 
+message CReservationPositionMessage {
+	optional uint32 edistributor = 1;
+	optional string product_identifier = 2;
+	optional uint32 start_queue_position = 3;
+	optional uint32 rtime_estimated_notification = 4;
+	optional string localization_token = 5;
+	optional uint32 accountid = 6;
+	optional uint32 rtime_created = 7;
+}
+
 message CSteamDeckCompatibility_SetFeedback_Request {
 	optional uint32 appid = 1;
 	optional int32 feedback = 2 [(.description) = "enum"];
@@ -17,6 +27,22 @@ message CSteamDeckCompatibility_ShouldPrompt_Response {
 	optional bool prompt = 1;
 	optional bool feedback_eligible = 2;
 	optional int32 existing_feedback = 3 [(.description) = "enum"];
+}
+
+message CStore_DeleteReservationPositionMessage_Request {
+	optional uint32 edistributor = 1;
+	optional string product_identifier = 2;
+	optional uint32 start_queue_position = 3;
+}
+
+message CStore_DeleteReservationPositionMessage_Response {
+}
+
+message CStore_GetAllReservationPositionMessages_Request {
+}
+
+message CStore_GetAllReservationPositionMessages_Response {
+	repeated .CReservationPositionMessage settings = 1;
 }
 
 message CStore_GetDiscoveryQueue_Request {
@@ -208,6 +234,13 @@ message CStore_ReportApp_Request {
 message CStore_ReportApp_Response {
 }
 
+message CStore_SetReservationPositionMessage_Request {
+	repeated .CReservationPositionMessage settings = 1;
+}
+
+message CStore_SetReservationPositionMessage_Response {
+}
+
 message CStore_SkipDiscoveryQueueItem_Request {
 	optional int32 queue_type = 1 [(.description) = "enum"];
 	optional uint32 appid = 2;
@@ -277,6 +310,8 @@ message CStoreDiscoveryQueueSettings {
 }
 
 service Store {
+	rpc DeleteReservationPositionMessage (.CStore_DeleteReservationPositionMessage_Request) returns (.CStore_DeleteReservationPositionMessage_Response);
+	rpc GetAllReservationPositionMessages (.CStore_GetAllReservationPositionMessages_Request) returns (.CStore_GetAllReservationPositionMessages_Response);
 	rpc GetDiscoveryQueue (.CStore_GetDiscoveryQueue_Request) returns (.CStore_GetDiscoveryQueue_Response);
 	rpc GetDiscoveryQueueSettings (.CStore_GetDiscoveryQueueSettings_Request) returns (.CStore_GetDiscoveryQueueSettings_Response);
 	rpc GetDiscoveryQueueSkippedApps (.CStore_GetDiscoveryQueueSkippedApps_Request) returns (.CStore_GetDiscoveryQueueSkippedApps_Response);
@@ -289,6 +324,7 @@ service Store {
 	rpc RegisterCDKey (.CStore_RegisterCDKey_Request) returns (.CStore_RegisterCDKey_Response);
 	rpc ReportApp (.CStore_ReportApp_Request) returns (.CStore_ReportApp_Response);
 	rpc SetCompatibilityFeedback (.CSteamDeckCompatibility_SetFeedback_Request) returns (.CSteamDeckCompatibility_SetFeedback_Response);
+	rpc SetReservationPositionMessage (.CStore_SetReservationPositionMessage_Request) returns (.CStore_SetReservationPositionMessage_Response);
 	rpc ShouldPromptForCompatibilityFeedback (.CSteamDeckCompatibility_ShouldPrompt_Request) returns (.CSteamDeckCompatibility_ShouldPrompt_Response);
 	rpc SkipDiscoveryQueueItem (.CStore_SkipDiscoveryQueueItem_Request) returns (.CStore_SkipDiscoveryQueueItem_Response);
 }

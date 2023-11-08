@@ -105,6 +105,19 @@ message CPublishing_GetPartnerOptInInvites_Response {
 	repeated .CPartnerAppOptInData data = 1;
 }
 
+message CPublishing_GetPartnerPaidGivenPackageList_Request {
+	repeated uint32 packageids = 1;
+}
+
+message CPublishing_GetPartnerPaidGivenPackageList_Response {
+	repeated .CPublishing_GetPartnerPaidGivenPackageList_Response_CPackageAndPartnerPair paid = 1;
+}
+
+message CPublishing_GetPartnerPaidGivenPackageList_Response_CPackageAndPartnerPair {
+	optional uint32 partnerid = 1;
+	optional uint32 packageid = 2;
+}
+
 message CPublishing_GetSinglePartnerAppOptIns_Request {
 	optional uint32 appid = 1;
 }
@@ -160,6 +173,7 @@ service Publishing {
 	rpc GetOptInEmailTracking (.CPublishing_GetOptInEmailTracking_Request) returns (.CPublishing_GetOptInEmailTracking_Response);
 	rpc GetPartnerAppOptInEmailDefAndStats (.CPublishing_GetPartnerAppOptInEmailDefAndStats_Request) returns (.CPublishing_GetPartnerAppOptInEmailDefAndStats_Response);
 	rpc GetPartnerOptInInvites (.NotImplemented) returns (.CPublishing_GetPartnerOptInInvites_Response);
+	rpc GetPartnerPaidGivenPackageList (.CPublishing_GetPartnerPaidGivenPackageList_Request) returns (.CPublishing_GetPartnerPaidGivenPackageList_Response);
 	rpc GetSinglePartnerAppOptIn (.CPublishing_GetSinglePartnerAppOptIns_Request) returns (.CPublishing_GetSinglePartnerAppOptIns_Response);
 	rpc SendPartnerOptInEmailAndWait (.CPublishing_SendPartnerAppOptInEmailAndWait_Request) returns (.CPublishing_SendPartnerAppOptInEmailAndWait_Response);
 	rpc SetFeaturingOnPartnerAppOptIn (.CPublishing_SetFeaturingOnPartnerAppOptIn_Request) returns (.CPublishing_SetFeaturingOnPartnerAppOptIn_Response);

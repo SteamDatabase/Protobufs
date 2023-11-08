@@ -3335,6 +3335,7 @@ message CMsgProtoBufHeader {
 	optional int32 session_disposition = 38 [(.description) = "enum"];
 	optional string wg_token__field_39 = 39;
 	optional string webui_auth_key = 40;
+	repeated int32 exclude_client_sessionids = 41;
 }
 
 message CMsgProtobufWrapped {
@@ -3533,6 +3534,9 @@ message CStore_MigratePartnerLinkTracking_Notification {
 	optional uint32 accountid = 1;
 	optional uint64 browserid = 2;
 	optional int32 backfill_source = 3 [(.description) = "enum"];
+}
+
+message CStore_ReloadAllReservationPositionMessages_Notification {
 }
 
 // Used by: PartnerStoreBrowse, StoreBrowse

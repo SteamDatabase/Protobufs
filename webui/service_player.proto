@@ -88,6 +88,20 @@ message CPlayer_GetAvatarFrame_Response {
 	optional .ProfileItem avatar_frame = 1;
 }
 
+message CPlayer_GetCommunityBadgeProgress_Request {
+	optional uint64 steamid = 1;
+	optional int32 badgeid = 2;
+}
+
+message CPlayer_GetCommunityBadgeProgress_Response {
+	repeated .CPlayer_GetCommunityBadgeProgress_Response_Quest quests = 1;
+}
+
+message CPlayer_GetCommunityBadgeProgress_Response_Quest {
+	optional uint32 questid = 1;
+	optional bool completed = 2;
+}
+
 message CPlayer_GetCommunityPreferences_Request {
 }
 
@@ -825,6 +839,7 @@ service Player {
 	rpc GetAchievementsProgress (.CPlayer_GetAchievementsProgress_Request) returns (.CPlayer_GetAchievementsProgress_Response);
 	rpc GetAnimatedAvatar (.CPlayer_GetAnimatedAvatar_Request) returns (.CPlayer_GetAnimatedAvatar_Response);
 	rpc GetAvatarFrame (.CPlayer_GetAvatarFrame_Request) returns (.CPlayer_GetAvatarFrame_Response);
+	rpc GetCommunityBadgeProgress (.CPlayer_GetCommunityBadgeProgress_Request) returns (.CPlayer_GetCommunityBadgeProgress_Response);
 	rpc GetCommunityPreferences (.CPlayer_GetCommunityPreferences_Request) returns (.CPlayer_GetCommunityPreferences_Response);
 	rpc GetDurationControl (.CPlayer_GetDurationControl_Request) returns (.CPlayer_GetDurationControl_Response);
 	rpc GetEmoticonList (.CPlayer_GetEmoticonList_Request) returns (.CPlayer_GetEmoticonList_Response);

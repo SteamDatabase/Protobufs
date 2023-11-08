@@ -1,6 +1,22 @@
 import "common.proto";
 import "common_base.proto";
 
+message CHardwarePackageDetails {
+	optional uint32 packageid = 1;
+	optional bool inventory_available = 3;
+	optional bool high_pending_orders = 4;
+	optional bool account_restricted_from_purchasing = 5;
+	optional bool requires_reservation = 6;
+	optional string rtime_estimated_notification = 7;
+	optional string notificaton_token = 8;
+	optional int32 reservation_state = 9;
+	optional bool expired = 10;
+	optional uint32 time_expires = 11;
+	optional uint32 time_reserved = 12;
+	optional bool allow_quantity_purchase = 13;
+	optional int32 max_quantity_per_purchase = 14;
+}
+
 message CStoreBrowse_GetDLCForApps_Request {
 	optional .StoreBrowseContext context = 1;
 	optional .CStorePageFilter store_page_filter = 2;
@@ -46,6 +62,15 @@ message CStoreBrowse_GetDLCForAppsSolr_Response_DLCList {
 	repeated uint32 dlc_appids = 2;
 }
 
+message CStoreBrowse_GetHardwareItems_Request {
+	repeated uint32 packageid = 1;
+	optional .StoreBrowseContext context = 2;
+}
+
+message CStoreBrowse_GetHardwareItems_Response {
+	repeated .CHardwarePackageDetails details = 1;
+}
+
 message CStoreBrowse_GetStoreCategories_Request {
 	optional string language = 1;
 	optional int32 elanguage = 2 [default = -1];
@@ -67,6 +92,7 @@ message CStoreBrowse_GetStoreCategories_Response_Category {
 service StoreBrowse {
 	rpc GetDLCForApps (.CStoreBrowse_GetDLCForApps_Request) returns (.CStoreBrowse_GetDLCForApps_Response);
 	rpc GetDLCForAppsSolr (.CStoreBrowse_GetDLCForAppsSolr_Request) returns (.CStoreBrowse_GetDLCForAppsSolr_Response);
+	rpc GetHardwareItems (.CStoreBrowse_GetHardwareItems_Request) returns (.CStoreBrowse_GetHardwareItems_Response);
 	rpc GetItems (.CStoreBrowse_GetItems_Request) returns (.CStoreBrowse_GetItems_Response);
 	rpc GetStoreCategories (.CStoreBrowse_GetStoreCategories_Request) returns (.CStoreBrowse_GetStoreCategories_Response);
 }

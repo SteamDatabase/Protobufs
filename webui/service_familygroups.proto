@@ -36,6 +36,7 @@ message CFamilyGroups_GetChangeLog_Response_Change {
 	optional fixed64 actor_steamid = 2;
 	optional int32 type = 3 [(.description) = "enum"];
 	optional string body = 4;
+	optional bool by_support = 5;
 }
 
 message CFamilyGroups_GetFamilyGroup_Request {

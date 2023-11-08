@@ -175,7 +175,7 @@ message CAuthentication_RefreshToken_Revoke_Response {
 
 message CAuthentication_Token_Revoke_Request {
 	optional string token = 1;
-	optional int32 revoke_action = 2 [(.description) = "enum"];
+	optional int32 revoke_action = 2 [default = 1, (.description) = "enum"];
 }
 
 message CAuthentication_Token_Revoke_Response {

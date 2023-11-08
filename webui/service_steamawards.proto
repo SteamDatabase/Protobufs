@@ -5,7 +5,12 @@ message CSteamAwards_GetNominationRecommendations_Request {
 }
 
 message CSteamAwards_GetNominationRecommendations_Response {
-	repeated uint32 appids = 1;
+	repeated .CSteamAwards_GetNominationRecommendations_Response_PlayedApps played_app = 1;
+}
+
+message CSteamAwards_GetNominationRecommendations_Response_PlayedApps {
+	optional uint32 appid = 1;
+	optional int32 playtime = 2;
 }
 
 message CSteamAwards_GetNominationShareLink_Request {
@@ -31,10 +36,7 @@ message CSteamAwards_GetUserNominations_Response {
 message CSteamAwards_Nominate_Request {
 	optional uint32 category_id = 1;
 	optional uint32 nominated_id = 2;
-	optional string write_in_name = 3;
-	optional uint32 store_appid = 4;
-	optional bool rescind_nomination = 5;
-	optional int32 source = 6 [(.description) = "enum"];
+	optional int32 source = 3 [(.description) = "enum"];
 }
 
 message CSteamAwards_Nominate_Response {
@@ -44,7 +46,9 @@ message CSteamAwards_Nominate_Response {
 message CSteamAwardsNomination {
 	optional uint32 category_id = 1;
 	optional string category_name = 2;
-	optional uint32 appid = 3;
+	//optional uint32 appid = 2;
+	optional uint32 appid__field_3 = 3;
+	//optional uint32 last_updated = 3;
 	optional string write_in_name = 4;
 	optional uint32 store_appid = 5;
 	optional uint32 developer_id = 6;

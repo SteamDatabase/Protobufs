@@ -1,8 +1,24 @@
-import "common_base.proto";
+
+message CShoppingCart_AddBundle_Request {
+	optional uint64 gidshoppingcart = 1;
+	optional uint32 bundleid = 2;
+	optional uint64 browserid = 3;
+	optional string store_country = 5;
+	optional uint32 quantity = 6;
+	optional bool beta_mode = 7 [default = false];
+}
 
 message CShoppingCart_AddBundle_Response {
 	optional .CShoppingCart_Contents contents = 1;
 	repeated uint32 result_details = 2;
+}
+
+message CShoppingCart_AddPackages_Request {
+	optional uint64 gidshoppingcart = 1;
+	optional uint64 browserid = 2;
+	repeated .CShoppingCart_PackageItem cart_items = 4;
+	optional string store_country_code = 5;
+	optional bool beta_mode = 6 [default = false];
 }
 
 message CShoppingCart_AddPackages_Response {
@@ -37,6 +53,10 @@ message CShoppingCart_CouponItem {
 	optional uint32 couponid = 1;
 	optional uint64 gidcoupontarget = 2;
 	optional uint32 packageid = 3;
+	optional uint64 gidcoupon = 4;
+}
+
+message CShoppingCart_CreateNew_Request {
 }
 
 message CShoppingCart_CreateNew_Response {
@@ -51,6 +71,7 @@ message CShoppingCart_GetContents_Response {
 	optional uint64 gidshoppingcart = 1;
 	optional .CShoppingCart_Contents contents = 2;
 	optional uint32 time_created = 3;
+	optional bool merged_into_account_cart = 4;
 }
 
 message CShoppingCart_Item {
@@ -89,9 +110,27 @@ message CShoppingCart_RelationShip {
 	repeated .CShoppingCart_RelationShip children = 2;
 }
 
+message CShoppingCart_RemoveLineItems_Request {
+	optional uint64 gidshoppingcart = 1;
+	repeated uint64 gidlineitems = 2;
+	optional uint64 browserid = 3;
+}
+
 message CShoppingCart_RemoveLineItems_Response {
 	optional .CShoppingCart_Contents contents = 1;
 	repeated uint32 result_details = 2;
+}
+
+message CShoppingCart_UpdatePackageQuantity_Request {
+	optional uint64 gidshoppingcart = 1;
+	optional uint64 gidlineitem = 2;
+	optional uint32 quantity = 3;
+}
+
+message CShoppingCart_UpdatePackageQuantity_Response {
+	optional uint64 gidshoppingcart = 1;
+	optional .CShoppingCart_Contents contents = 2;
+	repeated uint32 result_details = 3;
 }
 
 message CShoppingCart_WalletCreditItem {
@@ -99,10 +138,11 @@ message CShoppingCart_WalletCreditItem {
 }
 
 service ShoppingCart {
-	rpc AddBundle (.NotImplemented) returns (.CShoppingCart_AddBundle_Response);
-	rpc AddPackages (.NotImplemented) returns (.CShoppingCart_AddPackages_Response);
-	rpc CreateNewShoppingCart (.NotImplemented) returns (.CShoppingCart_CreateNew_Response);
+	rpc AddBundle (.CShoppingCart_AddBundle_Request) returns (.CShoppingCart_AddBundle_Response);
+	rpc AddPackages (.CShoppingCart_AddPackages_Request) returns (.CShoppingCart_AddPackages_Response);
+	rpc CreateNewShoppingCart (.CShoppingCart_CreateNew_Request) returns (.CShoppingCart_CreateNew_Response);
 	rpc GetShoppingCartContents (.CShoppingCart_GetContents_Request) returns (.CShoppingCart_GetContents_Response);
-	rpc RemoveLineItems (.NotImplemented) returns (.CShoppingCart_RemoveLineItems_Response);
+	rpc RemoveLineItems (.CShoppingCart_RemoveLineItems_Request) returns (.CShoppingCart_RemoveLineItems_Response);
+	rpc UpdatePackageQuantity (.CShoppingCart_UpdatePackageQuantity_Request) returns (.CShoppingCart_UpdatePackageQuantity_Response);
 }
 
