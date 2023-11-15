@@ -6,11 +6,23 @@ message CSteamAwards_GetNominationRecommendations_Request {
 
 message CSteamAwards_GetNominationRecommendations_Response {
 	repeated .CSteamAwards_GetNominationRecommendations_Response_PlayedApps played_app = 1;
+	repeated .CSteamAwards_GetNominationRecommendations_Response_SuggestedEvent suggested_events = 2;
+	repeated .CSteamAwards_GetNominationRecommendations_Response_SuggestedApp suggested_apps = 3;
 }
 
 message CSteamAwards_GetNominationRecommendations_Response_PlayedApps {
 	optional uint32 appid = 1;
 	optional int32 playtime = 2;
+}
+
+message CSteamAwards_GetNominationRecommendations_Response_SuggestedApp {
+	optional uint32 appid = 1;
+}
+
+message CSteamAwards_GetNominationRecommendations_Response_SuggestedEvent {
+	optional uint32 clanid = 1;
+	optional uint64 event_gid = 2;
+	optional uint32 appid = 3;
 }
 
 message CSteamAwards_GetNominationShareLink_Request {

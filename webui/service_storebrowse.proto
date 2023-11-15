@@ -7,7 +7,7 @@ message CHardwarePackageDetails {
 	optional bool high_pending_orders = 4;
 	optional bool account_restricted_from_purchasing = 5;
 	optional bool requires_reservation = 6;
-	optional string rtime_estimated_notification = 7;
+	optional uint32 rtime_estimated_notification = 7;
 	optional string notificaton_token = 8;
 	optional int32 reservation_state = 9;
 	optional bool expired = 10;
@@ -15,6 +15,7 @@ message CHardwarePackageDetails {
 	optional uint32 time_reserved = 12;
 	optional bool allow_quantity_purchase = 13;
 	optional int32 max_quantity_per_purchase = 14;
+	optional bool allow_purchase_in_country = 15;
 }
 
 message CStoreBrowse_GetDLCForApps_Request {

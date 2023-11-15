@@ -1,6 +1,19 @@
 import "common_base.proto";
 import "common.proto";
 
+message CPackageReservationStatus {
+	optional uint32 packageid = 1;
+	optional int32 reservation_state = 2;
+	optional int32 queue_position = 3;
+	optional int32 total_queue_size = 4;
+	optional string reservation_country_code = 5;
+	optional bool expired = 6;
+	optional uint32 time_expires = 7;
+	optional uint32 time_reserved = 8;
+	optional uint32 rtime_estimated_notification = 9;
+	optional string notificaton_token = 10;
+}
+
 message CReservationPositionMessage {
 	optional uint32 edistributor = 1;
 	optional string product_identifier = 2;
@@ -257,6 +270,16 @@ message CStore_StorePreferencesChanged_Notification {
 	//optional .UserContentDescriptorPreferences content_descriptor_preferences = 3;
 }
 
+message CStore_UpdatePackageReservations_Request {
+	repeated uint32 packages_to_reserve = 1;
+	repeated uint32 packages_to_unreserve = 2;
+	optional string country_code = 3;
+}
+
+message CStore_UpdatePackageReservations_Response {
+	repeated .CPackageReservationStatus reservation_status = 1;
+}
+
 message CStore_UserContentDescriptorPreferences {
 	repeated .CStore_UserContentDescriptorPreferences_ContentDescriptor content_descriptors_to_exclude = 1;
 }
@@ -327,6 +350,7 @@ service Store {
 	rpc SetReservationPositionMessage (.CStore_SetReservationPositionMessage_Request) returns (.CStore_SetReservationPositionMessage_Response);
 	rpc ShouldPromptForCompatibilityFeedback (.CSteamDeckCompatibility_ShouldPrompt_Request) returns (.CSteamDeckCompatibility_ShouldPrompt_Response);
 	rpc SkipDiscoveryQueueItem (.CStore_SkipDiscoveryQueueItem_Request) returns (.CStore_SkipDiscoveryQueueItem_Response);
+	rpc UpdatePackageReservations (.CStore_UpdatePackageReservations_Request) returns (.CStore_UpdatePackageReservations_Response);
 }
 
 service StoreClient {

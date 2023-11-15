@@ -10,6 +10,7 @@ message CFamilyGroups_CancelFamilyGroupInvite_Response {
 
 message CFamilyGroups_CreateFamilyGroup_Request {
 	optional string name = 1;
+	optional fixed64 steamid = 2;
 }
 
 message CFamilyGroups_CreateFamilyGroup_Response {
@@ -65,6 +66,7 @@ message CFamilyGroups_GetFamilyGroupForUser_Response {
 	optional uint64 latest_joined_family_groupid = 4;
 	repeated .FamilyGroupPendingInviteForUser pending_group_invites = 5;
 	optional uint32 role = 6;
+	optional uint32 cooldown_seconds_remaining = 7;
 }
 
 message CFamilyGroups_GetPlaytimeSummary_Request {
@@ -174,6 +176,9 @@ message CFamilyGroupsClient_GroupStatus_Notification_RunningApp {
 	repeated .CFamilyGroupsClient_GroupStatus_Notification_PlayingMember playing_members = 3;
 }
 
+message CFamilyGroupsClient_InviteStatus_Notification {
+}
+
 message FamilyGroupFormerMember {
 	optional fixed64 steamid = 1;
 }
@@ -221,5 +226,6 @@ service FamilyGroups {
 
 service FamilyGroupsClient {
 	rpc NotifyGroupStatus (.CFamilyGroupsClient_GroupStatus_Notification) returns (.NoResponse);
+	rpc NotifyInviteStatus (.CFamilyGroupsClient_InviteStatus_Notification) returns (.NoResponse);
 }
 

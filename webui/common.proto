@@ -3388,17 +3388,6 @@ message CMsgTrading_StartSession {
 	optional uint64 other_steamid = 1;
 }
 
-message CPackageReservationStatus {
-	optional uint32 packageid = 1;
-	optional int32 reservation_state = 2;
-	optional int32 queue_position = 3;
-	optional int32 total_queue_size = 4;
-	optional string reservation_country_code = 5;
-	optional bool expired = 6;
-	optional uint32 time_expires = 7;
-	optional uint32 time_reserved = 8;
-}
-
 message CProductImpressionsFromClient_Notification {
 	repeated .CProductImpressionsFromClient_Notification_Impression impressions = 1;
 }
