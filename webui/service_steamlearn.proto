@@ -125,6 +125,7 @@ message CMsgSteamLearn_GetTrainStatus_Response {
 	optional uint32 end_time = 14;
 	optional bool scheduled_train = 15;
 	optional bool live = 16;
+	optional bool active = 17;
 }
 
 message CMsgSteamLearn_GetTrainStatus_Response_Batch {
@@ -376,6 +377,7 @@ message CMsgSteamLearn_SetTrainLive_Request {
 	optional uint32 published_version = 2;
 	optional uint32 train_id = 3;
 	optional bool from_scheduled = 4;
+	optional bool deactivate = 5;
 }
 
 message CMsgSteamLearn_SetTrainLive_Response {
@@ -534,6 +536,7 @@ message CMsgSteamLearnModelNodeEmbedding {
 	optional string compact_table = 2;
 	optional uint32 embedding_width = 3;
 	optional bool flatten = 4;
+	optional string export_name = 5;
 }
 
 message CMsgSteamLearnModelNodeExplode {
@@ -642,6 +645,7 @@ message CMsgSteamLearnProjectSnapshotConfig {
 	optional int32 snapshot_schedule_type = 5 [(.description) = "enum"];
 	optional uint32 snapshot_schedule_day_of_week = 6;
 	optional uint32 snapshot_schedule_day_of_month = 7;
+	optional uint32 snapshot_oversample_percent = 8;
 }
 
 message CMsgSteamLearnProjectSnapshotConfigAccountIDs {

@@ -440,6 +440,13 @@ message CCuratorPreferences {
 	optional bool show_broadcast = 14;
 }
 
+message CFamilyGroupsClient_GetUsersSharingDevice_Request {
+}
+
+message CFamilyGroupsClient_GetUsersSharingDevice_Response {
+	repeated fixed64 users = 1;
+}
+
 message CLibraryBootstrapData {
 	repeated .CAppBootstrapData app_data = 1;
 }
@@ -3837,6 +3844,8 @@ message StoreItem_PurchaseOption {
 	optional bool hide_discount_pct_for_compliance = 42 [default = false];
 	optional int32 included_game_count = 43;
 	optional int64 lowest_recent_price_in_cents = 44;
+	optional bool requires_shipping = 45;
+	optional .StoreItem_PurchaseOption_RecurrenceInfo recurrence_info = 46;
 }
 
 // Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers
@@ -3844,6 +3853,14 @@ message StoreItem_PurchaseOption_Discount {
 	optional int64 discount_amount = 1;
 	optional string discount_description = 2;
 	optional uint32 discount_end_date = 3;
+}
+
+// Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers
+message StoreItem_PurchaseOption_RecurrenceInfo {
+	optional int32 packageid = 1;
+	optional int32 billing_agreement_type = 2;
+	optional int32 renewal_time_unit = 3;
+	optional int32 renewal_time_period = 4;
 }
 
 // Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers

@@ -584,6 +584,7 @@ message PublishedFileDetails {
 	optional int32 ban_text_check_result = 71 [(.description) = "enum"];
 	repeated int32 content_descriptorids = 72 [(.description) = "enum"];
 	optional float search_score = 73;
+	optional uint64 external_asset_id = 74;
 }
 
 message PublishedFileDetails_Child {

@@ -79,6 +79,7 @@ message CFamilyGroups_GetPlaytimeSummary_Response {
 
 message CFamilyGroups_GetPurchaseRequests_Request {
 	optional uint64 family_groupid = 1;
+	optional bool include_completed = 2;
 }
 
 message CFamilyGroups_GetPurchaseRequests_Response {
@@ -87,6 +88,7 @@ message CFamilyGroups_GetPurchaseRequests_Response {
 
 message CFamilyGroups_GetUsersSharingDevice_Request {
 	optional uint64 family_groupid = 1;
+	optional int32 client_session_id = 2;
 }
 
 message CFamilyGroups_GetUsersSharingDevice_Response {
@@ -203,6 +205,10 @@ message PurchaseRequest {
 	optional fixed64 requester_steamid = 1;
 	optional uint64 gidshoppingcart = 2;
 	optional uint32 time_requested = 3;
+	optional uint32 time_responded = 4;
+	optional fixed64 responder_steamid = 5;
+	optional int32 response_action = 6 [(.description) = "enum"];
+	optional bool is_completed = 7;
 }
 
 service FamilyGroups {
