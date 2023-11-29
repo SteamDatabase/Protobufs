@@ -53,6 +53,24 @@ message CMsgSteamLearn_GetDataSource_Response {
 	optional .CMsgSteamLearnDataSource data_source = 1;
 }
 
+message CMsgSteamLearn_GetEmbeddingValues_Request {
+	optional uint32 project_id = 1;
+	optional uint32 published_version = 2;
+	optional uint32 train_id = 3;
+	optional string export_name = 4;
+	repeated uint32 numerical_values = 5;
+}
+
+message CMsgSteamLearn_GetEmbeddingValues_Response {
+	optional int32 result = 1 [(.description) = "enum"];
+	repeated .CMsgSteamLearn_GetEmbeddingValues_Response_EmbeddingData embedding_data = 2;
+}
+
+message CMsgSteamLearn_GetEmbeddingValues_Response_EmbeddingData {
+	optional uint32 numerical_value = 1;
+	repeated float embedding_values = 2;
+}
+
 message CMsgSteamLearn_GetFetchStatus_Request {
 	optional uint32 project_id = 1;
 	optional uint32 fetch_id = 2;
@@ -93,6 +111,26 @@ message CMsgSteamLearn_GetLogEvents_Request {
 message CMsgSteamLearn_GetLogEvents_Response {
 	optional int32 result = 1 [(.description) = "enum"];
 	repeated .CMsgSteamLearn_LogEvent event_list = 2;
+}
+
+message CMsgSteamLearn_GetNearestEmbedding_Request {
+	optional uint32 project_id = 1;
+	optional uint32 published_version = 2;
+	optional uint32 train_id = 3;
+	optional string export_name = 4;
+	optional uint32 result_count = 5;
+	repeated float values = 6;
+}
+
+message CMsgSteamLearn_GetNearestEmbedding_Response {
+	optional int32 result = 1 [(.description) = "enum"];
+	repeated .CMsgSteamLearn_GetNearestEmbedding_Response_NearEmbedding near_embeddings = 2;
+}
+
+message CMsgSteamLearn_GetNearestEmbedding_Response_NearEmbedding {
+	optional uint32 value = 1;
+	optional float distance = 2;
+	repeated float embedding_values = 3;
 }
 
 message CMsgSteamLearn_GetProject_Request {
@@ -645,7 +683,6 @@ message CMsgSteamLearnProjectSnapshotConfig {
 	optional int32 snapshot_schedule_type = 5 [(.description) = "enum"];
 	optional uint32 snapshot_schedule_day_of_week = 6;
 	optional uint32 snapshot_schedule_day_of_month = 7;
-	optional uint32 snapshot_oversample_percent = 8;
 }
 
 message CMsgSteamLearnProjectSnapshotConfigAccountIDs {
@@ -711,9 +748,11 @@ service SteamLearn {
 	rpc CreateProject (.CMsgSteamLearn_CreateProject_Request) returns (.CMsgSteamLearn_CreateProject_Response);
 	rpc EditProject (.CMsgSteamLearn_EditProject_Request) returns (.CMsgSteamLearn_EditProject_Response);
 	rpc GetDataSource (.CMsgSteamLearn_GetDataSource_Request) returns (.CMsgSteamLearn_GetDataSource_Response);
+	rpc GetEmbeddingValues (.CMsgSteamLearn_GetEmbeddingValues_Request) returns (.CMsgSteamLearn_GetEmbeddingValues_Response);
 	rpc GetFetchStatus (.CMsgSteamLearn_GetFetchStatus_Request) returns (.CMsgSteamLearn_GetFetchStatus_Response);
 	rpc GetFetchStatusVersions (.CMsgSteamLearn_GetFetchStatusVersions_Request) returns (.CMsgSteamLearn_GetFetchStatusVersions_Response);
 	rpc GetLogEvents (.CMsgSteamLearn_GetLogEvents_Request) returns (.CMsgSteamLearn_GetLogEvents_Response);
+	rpc GetNearestEmbedding (.CMsgSteamLearn_GetNearestEmbedding_Request) returns (.CMsgSteamLearn_GetNearestEmbedding_Response);
 	rpc GetProject (.CMsgSteamLearn_GetProject_Request) returns (.CMsgSteamLearn_GetProject_Response);
 	rpc GetTrainStatus (.CMsgSteamLearn_GetTrainStatus_Request) returns (.CMsgSteamLearn_GetTrainStatus_Response);
 	rpc GetTrainStatusVersions (.CMsgSteamLearn_GetTrainStatusVersions_Request) returns (.CMsgSteamLearn_GetTrainStatusVersions_Response);

@@ -1,0 +1,48 @@
+
+message CVideo_BeginGameRecordingSegmentsUpload_Request {
+	optional uint64 recording_id = 1;
+	optional string component_name = 2;
+	optional string representation_name = 3;
+	repeated .CVideo_GameRecordingSegmentInfo segments_to_store = 4;
+}
+
+message CVideo_BeginGameRecordingSegmentsUpload_Response {
+	repeated .CVideo_GameRecordingSegmentUploadInfo segments_needed = 1;
+	optional bool call_again = 2;
+}
+
+message CVideo_CommitGameRecordingSegmentsUpload_Request {
+	optional uint64 recording_id = 1;
+	optional string component_name = 2;
+	optional string representation_name = 3;
+	optional uint32 first_segment_number = 4;
+	optional uint32 num_segments = 5;
+	optional uint32 upload_result = 6;
+}
+
+message CVideo_CommitGameRecordingSegmentsUpload_Response {
+}
+
+message CVideo_GameRecordingSegmentInfo {
+	optional uint32 segment_number = 1;
+	optional uint64 segment_size_bytes = 2;
+}
+
+message CVideo_GameRecordingSegmentUploadInfo {
+	optional .CVideo_GameRecordingSegmentInfo segment_info = 1;
+	optional string url_host = 2;
+	optional string url_path = 3;
+	optional bool use_https = 4;
+	repeated .CVideo_GameRecordingSegmentUploadInfo_HTTPHeaders request_headers = 5;
+}
+
+message CVideo_GameRecordingSegmentUploadInfo_HTTPHeaders {
+	optional string name = 1;
+	optional string value = 2;
+}
+
+service VideoClip {
+	rpc BeginGameRecordingSegmentsUpload (.CVideo_BeginGameRecordingSegmentsUpload_Request) returns (.CVideo_BeginGameRecordingSegmentsUpload_Response);
+	rpc CommitGameRecordingSegmentsUpload (.CVideo_CommitGameRecordingSegmentsUpload_Request) returns (.CVideo_CommitGameRecordingSegmentsUpload_Response);
+}
+

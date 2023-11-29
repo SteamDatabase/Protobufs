@@ -1,0 +1,107 @@
+
+message CGameRecording_CreateShareClip_Request {
+	optional fixed64 steamid = 1;
+	optional .CGameRecordingClip clip = 2;
+	repeated .CMsgVideoGameRecordingDef video_def = 3;
+}
+
+message CGameRecording_CreateShareClip_Response {
+	optional .CGameRecordingClip clip = 1;
+}
+
+message CGameRecording_DeleteSharedClip_Request {
+	optional fixed64 steamid = 1;
+	optional fixed64 clip_id = 2;
+}
+
+message CGameRecording_DeleteSharedClip_Response {
+}
+
+message CGameRecording_GetSharedClips_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 appid = 2;
+}
+
+message CGameRecording_GetSharedClips_Response {
+	repeated .CGameRecordingClip clips = 1;
+}
+
+message CGameRecording_GetSingleSharedClip_Request {
+	optional fixed64 steamid = 1;
+	optional fixed64 clip_id = 2;
+}
+
+message CGameRecording_GetSingleSharedClip_Response {
+	optional .CGameRecordingClip clip = 1;
+}
+
+message CGameRecording_UpdateSharedClip_Request {
+	optional fixed64 steamid = 1;
+	optional fixed64 clip_id = 2;
+	optional string clip_title = 3;
+	optional string clip_description = 4;
+	optional uint32 permission = 5;
+}
+
+message CGameRecording_UpdateSharedClip_Response {
+}
+
+message CGameRecordingClip {
+	optional fixed64 clip_id = 1;
+	optional uint64 gameid = 2;
+	optional uint32 appid = 3;
+	optional uint32 date_recorded = 4;
+	optional string clip_title = 5;
+	optional string clip_description = 6;
+	optional uint64 total_file_size_bytes = 7;
+	optional uint32 permission = 8;
+	repeated .CVideoManagerClipID video_ids = 9;
+	optional fixed64 owner_steamid = 10;
+	optional bool upload_complete = 11;
+}
+
+message CMsgVideoGameRecordingComponent {
+	optional string component_name = 1;
+	optional uint32 contents = 2;
+	optional uint32 segment_size = 3;
+	optional string file_type = 4;
+	repeated .CMsgVideoGameRecordingRepresentation representations = 5;
+}
+
+message CMsgVideoGameRecordingDef {
+	optional uint64 steamid = 1;
+	optional uint32 app_id = 2;
+	optional uint32 num_segments = 3;
+	optional uint32 length_milliseconds = 4;
+	optional uint32 segment_duration_timescale = 5;
+	optional uint32 segment_duration = 6;
+	repeated .CMsgVideoGameRecordingComponent components = 7;
+	optional uint32 start_time_ms = 8;
+}
+
+message CMsgVideoGameRecordingRepresentation {
+	optional string representation_name = 2;
+	optional uint32 horizontal_resolution = 3;
+	optional uint32 vertical_resolution = 4;
+	optional double frame_rate = 5;
+	optional uint32 bandwidth = 6;
+	optional uint32 audio_sample_rate = 7;
+	optional string frame_rate_string = 8;
+	optional string codec = 9;
+	optional uint32 audio_channel_config = 10;
+}
+
+message CVideoManagerClipID {
+	optional fixed64 video_manager_clip_id = 1;
+	optional fixed64 video_manager_video_id = 2;
+	optional fixed64 server_timeline_id = 3;
+}
+
+service GameRecordingClip {
+	rpc CreateShareClip (.CGameRecording_CreateShareClip_Request) returns (.CGameRecording_CreateShareClip_Response);
+	rpc DeleteSharedClip (.CGameRecording_DeleteSharedClip_Request) returns (.CGameRecording_DeleteSharedClip_Response);
+	rpc GetSharedClips (.CGameRecording_GetSharedClips_Request) returns (.CGameRecording_GetSharedClips_Response);
+	rpc GetSingleSharedClip (.CGameRecording_GetSingleSharedClip_Request) returns (.CGameRecording_GetSingleSharedClip_Response);
+	rpc UpdateSharedClip (.CGameRecording_UpdateSharedClip_Request) returns (.CGameRecording_UpdateSharedClip_Response);
+}
+

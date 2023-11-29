@@ -96,6 +96,9 @@ message CPlaytimeByNumbers {
 	optional uint32 games_played_pct = 11;
 	optional uint32 achievements_pct = 12;
 	optional uint32 game_streak_pct = 13;
+	optional uint32 games_played_avg = 14;
+	optional uint32 achievements_avg = 15;
+	optional uint32 game_streak_avg = 16;
 }
 
 message CPlaytimeRanks {

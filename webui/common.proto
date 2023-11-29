@@ -440,13 +440,6 @@ message CCuratorPreferences {
 	optional bool show_broadcast = 14;
 }
 
-message CFamilyGroupsClient_GetUsersSharingDevice_Request {
-}
-
-message CFamilyGroupsClient_GetUsersSharingDevice_Response {
-	repeated fixed64 users = 1;
-}
-
 message CLibraryBootstrapData {
 	repeated .CAppBootstrapData app_data = 1;
 }

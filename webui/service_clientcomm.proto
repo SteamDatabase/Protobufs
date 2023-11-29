@@ -9,6 +9,7 @@ message CClientComm_ClientData {
 	repeated .CClientComm_ClientData_RunningGames running_games = 7;
 	optional uint32 protocol_version = 8;
 	optional uint32 clientcomm_version = 9;
+	repeated uint32 local_users = 10;
 }
 
 message CClientComm_ClientData_RunningGames {
