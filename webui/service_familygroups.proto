@@ -83,7 +83,29 @@ message CFamilyGroups_GetPurchaseRequests_Request {
 }
 
 message CFamilyGroups_GetPurchaseRequests_Response {
-	repeated .PurchaseRequest pending_requests = 1;
+	repeated .PurchaseRequest requests = 1;
+}
+
+message CFamilyGroups_GetSharedLibraryApps_Request {
+	optional fixed64 family_groupid = 1;
+	optional bool include_own = 2;
+	optional bool include_excluded = 3;
+	optional bool include_free_sub = 4;
+	optional string language = 5;
+}
+
+message CFamilyGroups_GetSharedLibraryApps_Response {
+	repeated .CFamilyGroups_GetSharedLibraryApps_Response_SharedApp apps = 1;
+}
+
+message CFamilyGroups_GetSharedLibraryApps_Response_SharedApp {
+	optional uint32 appid = 1;
+	repeated fixed64 owner_steamids = 2;
+	optional bool excluded = 3;
+	optional string name = 4;
+	optional string sort_as = 5;
+	optional string capsule_filename = 6;
+	optional string img_icon_url = 7;
 }
 
 message CFamilyGroups_GetUsersSharingDevice_Request {
@@ -143,12 +165,14 @@ message CFamilyGroups_RequestPurchase_Request {
 
 message CFamilyGroups_RequestPurchase_Response {
 	optional uint64 gidshoppingcart = 1;
+	optional uint64 request_id = 2;
 }
 
 message CFamilyGroups_RespondToRequestedPurchase_Request {
 	optional uint64 family_groupid = 1;
 	optional fixed64 purchase_requester_steamid = 2;
 	optional int32 action = 3 [(.description) = "enum"];
+	optional uint64 request_id = 4;
 }
 
 message CFamilyGroups_RespondToRequestedPurchase_Response {
@@ -209,6 +233,7 @@ message PurchaseRequest {
 	optional fixed64 responder_steamid = 5;
 	optional int32 response_action = 6 [(.description) = "enum"];
 	optional bool is_completed = 7;
+	optional uint64 request_id = 8;
 }
 
 service FamilyGroups {
@@ -220,6 +245,7 @@ service FamilyGroups {
 	rpc GetFamilyGroupForUser (.CFamilyGroups_GetFamilyGroupForUser_Request) returns (.CFamilyGroups_GetFamilyGroupForUser_Response);
 	rpc GetPlaytimeSummary (.CFamilyGroups_GetPlaytimeSummary_Request) returns (.CFamilyGroups_GetPlaytimeSummary_Response);
 	rpc GetPurchaseRequests (.CFamilyGroups_GetPurchaseRequests_Request) returns (.CFamilyGroups_GetPurchaseRequests_Response);
+	rpc GetSharedLibraryApps (.CFamilyGroups_GetSharedLibraryApps_Request) returns (.CFamilyGroups_GetSharedLibraryApps_Response);
 	rpc GetUsersSharingDevice (.CFamilyGroups_GetUsersSharingDevice_Request) returns (.CFamilyGroups_GetUsersSharingDevice_Response);
 	rpc InviteToFamilyGroup (.CFamilyGroups_InviteToFamilyGroup_Request) returns (.CFamilyGroups_InviteToFamilyGroup_Response);
 	rpc JoinFamilyGroup (.CFamilyGroups_JoinFamilyGroup_Request) returns (.CFamilyGroups_JoinFamilyGroup_Response);

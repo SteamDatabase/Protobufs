@@ -26,6 +26,16 @@ message CPromotionEventInviteReceive {
 	optional string email_address = 3;
 }
 
+message CPromotionEventInvites_AcceptInvite_Request {
+	optional fixed64 inviteid = 1;
+	optional uint32 rtdatechosen = 2;
+	optional uint32 discount_days = 3;
+	optional string discount_info = 4;
+}
+
+message CPromotionEventInvites_AcceptInvite_Response {
+}
+
 message CPromotionEventInvites_GetAllActiveInvites_Request {
 	optional uint32 partnerid = 1;
 }
@@ -82,6 +92,7 @@ message CPromotionRequirements {
 }
 
 service PromotionEventInvites {
+	rpc AcceptInvite (.CPromotionEventInvites_AcceptInvite_Request) returns (.CPromotionEventInvites_AcceptInvite_Response);
 	rpc GetAllActiveInvites (.CPromotionEventInvites_GetAllActiveInvites_Request) returns (.CPromotionEventInvites_GetAllActiveInvites_Response);
 	rpc GetEmailTargets (.CPromotionEventInvites_GetEmailTargets_Request) returns (.CPromotionEventInvites_GetEmailTargets_Response);
 	rpc GetInvite (.CPromotionEventInvites_GetInvite_Request) returns (.CPromotionEventInvites_GetInvite_Response);

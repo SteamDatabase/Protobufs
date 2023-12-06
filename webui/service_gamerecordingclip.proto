@@ -95,6 +95,7 @@ message CVideoManagerClipID {
 	optional fixed64 video_manager_clip_id = 1;
 	optional fixed64 video_manager_video_id = 2;
 	optional fixed64 server_timeline_id = 3;
+	optional string manifest_url = 4;
 }
 
 service GameRecordingClip {

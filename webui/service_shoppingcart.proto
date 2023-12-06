@@ -58,6 +58,7 @@ message CShoppingCart_CouponItem {
 
 message CShoppingCart_CreateNew_Request {
 	optional fixed64 steamid_requester = 1;
+	optional uint64 purchase_request_id = 2;
 }
 
 message CShoppingCart_CreateNew_Response {
@@ -74,6 +75,7 @@ message CShoppingCart_GetContents_Response {
 	optional uint32 time_created = 3;
 	optional bool merged_into_account_cart = 4;
 	optional fixed64 steamid_requester = 5;
+	optional uint64 purchase_request_id = 6;
 }
 
 message CShoppingCart_Item {

@@ -1,5 +1,14 @@
 import "common_base.proto";
 
+message CStore_GetUserVotes_Request {
+	optional uint32 sale_appid = 1;
+}
+
+message CStore_GetUserVotes_Response {
+	repeated .SteamAwardsUserVote user_votes = 1;
+	optional uint32 total_votes_cast = 2;
+}
+
 message CStore_GetVoteDefinitions_Request {
 	optional string language = 1;
 	optional uint32 sale_appid = 2;
@@ -23,6 +32,20 @@ message CStore_GetVoteDefinitionsForEvents_Response {
 message CStore_GetVoteDefinitionsForEvents_Response_Vote_Defintion {
 	optional int32 voteid = 1;
 	optional uint32 appid = 2;
+}
+
+message CStore_SetVote_Request {
+	optional int32 voteid = 1;
+	optional uint32 appid = 2;
+	optional uint32 sale_appid = 3;
+	optional uint32 developerid = 4;
+}
+
+message CStore_SetVote_Response {
+	optional int32 voteid = 1;
+	optional uint32 appid = 2;
+	optional uint32 developerid = 3;
+	repeated .SteamAwardsUserVote user_votes = 4;
 }
 
 message CStore_VoteDefinition {
@@ -60,8 +83,15 @@ message CStore_VoteDefinition_Localization {
 	optional string award_description = 4;
 }
 
+message SteamAwardsUserVote {
+	optional uint32 voteid = 1;
+	optional uint32 appid = 2;
+}
+
 service StoreSales {
+	rpc GetUserVotes (.CStore_GetUserVotes_Request) returns (.CStore_GetUserVotes_Response);
 	rpc GetVoteDefinitions (.CStore_GetVoteDefinitions_Request) returns (.CStore_GetVoteDefinitions_Response);
 	rpc GetVoteDefinitionsForEvents (.CStore_GetVoteDefinitionsForEvents_Request) returns (.CStore_GetVoteDefinitionsForEvents_Response);
+	rpc SetVote (.CStore_SetVote_Request) returns (.CStore_SetVote_Response);
 }
 

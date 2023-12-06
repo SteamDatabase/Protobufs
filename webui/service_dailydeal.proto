@@ -2,7 +2,7 @@ import "common_base.proto";
 
 message CDailyDeal_CreateDailyDeal_Request {
 	optional .CDailyDealDetails daily_deal = 1;
-	optional uint32 appid = 2;
+	optional uint32 partnerid = 2;
 }
 
 message CDailyDeal_CreateDailyDeal_Response {
@@ -14,19 +14,6 @@ message CDailyDeal_DeleteDailyDeal_Request {
 }
 
 message CDailyDeal_DeleteDailyDeal_Response {
-}
-
-message CDailyDeal_GetDailyDeals_Request {
-	optional fixed64 gid = 1;
-	optional uint32 rtime32_start_date = 2;
-	optional uint32 rtime32_end_date = 3;
-	optional uint32 appid = 4;
-	optional int32 store_item_type = 5 [(.description) = "enum"];
-	optional string search_term = 6;
-}
-
-message CDailyDeal_GetDailyDeals_Response {
-	repeated .CDailyDealDetails daily_deals = 1;
 }
 
 message CDailyDeal_UpdateDailyDeal_Request {
@@ -55,7 +42,6 @@ message CDailyDealDetails {
 service DailyDeal {
 	rpc CreateDailyDeal (.CDailyDeal_CreateDailyDeal_Request) returns (.CDailyDeal_CreateDailyDeal_Response);
 	rpc DeleteDailyDeal (.CDailyDeal_DeleteDailyDeal_Request) returns (.CDailyDeal_DeleteDailyDeal_Response);
-	rpc GetDailyDeals (.CDailyDeal_GetDailyDeals_Request) returns (.CDailyDeal_GetDailyDeals_Response);
 	rpc UpdateDailyDeal (.CDailyDeal_UpdateDailyDeal_Request) returns (.CDailyDeal_UpdateDailyDeal_Response);
 }
 
