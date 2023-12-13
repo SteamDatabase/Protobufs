@@ -6,7 +6,6 @@ message CStore_GetUserVotes_Request {
 
 message CStore_GetUserVotes_Response {
 	repeated .SteamAwardsUserVote user_votes = 1;
-	optional uint32 total_votes_cast = 2;
 }
 
 message CStore_GetVoteDefinitions_Request {
@@ -38,14 +37,10 @@ message CStore_SetVote_Request {
 	optional int32 voteid = 1;
 	optional uint32 appid = 2;
 	optional uint32 sale_appid = 3;
-	optional uint32 developerid = 4;
 }
 
 message CStore_SetVote_Response {
-	optional int32 voteid = 1;
-	optional uint32 appid = 2;
-	optional uint32 developerid = 3;
-	repeated .SteamAwardsUserVote user_votes = 4;
+	repeated .SteamAwardsUserVote user_votes = 1;
 }
 
 message CStore_VoteDefinition {
@@ -63,6 +58,7 @@ message CStore_VoteDefinition {
 	optional uint32 winner_appid = 12;
 	optional int32 flag = 13 [(.description) = "enum"];
 	optional uint32 release_date_max = 14;
+	optional uint32 item_type = 15;
 }
 
 message CStore_VoteDefinition_AppDefinition {
@@ -86,6 +82,7 @@ message CStore_VoteDefinition_Localization {
 message SteamAwardsUserVote {
 	optional uint32 voteid = 1;
 	optional uint32 appid = 2;
+	optional uint64 communityitemid = 3;
 }
 
 service StoreSales {

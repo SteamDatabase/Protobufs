@@ -90,8 +90,9 @@ message CFamilyGroups_GetSharedLibraryApps_Request {
 	optional fixed64 family_groupid = 1;
 	optional bool include_own = 2;
 	optional bool include_excluded = 3;
-	optional bool include_free_sub = 4;
+	optional bool include_free = 4;
 	optional string language = 5;
+	optional uint32 max_apps = 6;
 }
 
 message CFamilyGroups_GetSharedLibraryApps_Response {
@@ -101,11 +102,12 @@ message CFamilyGroups_GetSharedLibraryApps_Response {
 message CFamilyGroups_GetSharedLibraryApps_Response_SharedApp {
 	optional uint32 appid = 1;
 	repeated fixed64 owner_steamids = 2;
-	optional bool excluded = 3;
-	optional string name = 4;
-	optional string sort_as = 5;
-	optional string capsule_filename = 6;
-	optional string img_icon_url = 7;
+	optional bool free_app = 5;
+	optional string name = 6;
+	optional string sort_as = 7;
+	optional string capsule_filename = 8;
+	optional string img_icon_url = 9;
+	optional int32 exclude_reason = 10 [default = 0, (.description) = "enum"];
 }
 
 message CFamilyGroups_GetUsersSharingDevice_Request {
@@ -161,6 +163,7 @@ message CFamilyGroups_RequestPurchase_Request {
 	optional uint64 family_groupid = 1;
 	optional uint64 gidshoppingcart = 2;
 	optional string store_country_code = 3;
+	optional bool use_account_cart = 4;
 }
 
 message CFamilyGroups_RequestPurchase_Response {
@@ -212,6 +215,7 @@ message FamilyGroupFormerMember {
 message FamilyGroupMember {
 	optional fixed64 steamid = 1;
 	optional int32 role = 2 [(.description) = "enum"];
+	optional uint32 time_joined = 3;
 }
 
 message FamilyGroupPendingInvite {

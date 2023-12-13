@@ -36,10 +36,6 @@ message CPromotionEventInvites_AcceptInvite_Request {
 message CPromotionEventInvites_AcceptInvite_Response {
 }
 
-message CPromotionEventInvites_GetAllActiveInvites_Request {
-	optional uint32 partnerid = 1;
-}
-
 message CPromotionEventInvites_GetAllActiveInvites_Response {
 	repeated .CPromotionEventInvitation invites = 1;
 }
@@ -93,7 +89,7 @@ message CPromotionRequirements {
 
 service PromotionEventInvites {
 	rpc AcceptInvite (.CPromotionEventInvites_AcceptInvite_Request) returns (.CPromotionEventInvites_AcceptInvite_Response);
-	rpc GetAllActiveInvites (.CPromotionEventInvites_GetAllActiveInvites_Request) returns (.CPromotionEventInvites_GetAllActiveInvites_Response);
+	rpc GetAllActiveInvites (.NotImplemented) returns (.CPromotionEventInvites_GetAllActiveInvites_Response);
 	rpc GetEmailTargets (.CPromotionEventInvites_GetEmailTargets_Request) returns (.CPromotionEventInvites_GetEmailTargets_Response);
 	rpc GetInvite (.CPromotionEventInvites_GetInvite_Request) returns (.CPromotionEventInvites_GetInvite_Response);
 	rpc ResendEmailInvite (.CPromotionEventInvites_ResendEmailInvite_Request) returns (.CPromotionEventInvites_ResendEmailInvite_Response);

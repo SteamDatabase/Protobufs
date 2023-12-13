@@ -151,12 +151,29 @@ message CMarketingMessages_GetMarketingMessageViewerStats_Response {
 	repeated .CMarketingMessageHourlyStats stats = 1;
 }
 
+message CMarketingMessages_GetPartnerMessagePreview_Request {
+	optional fixed64 gid = 1;
+	optional uint32 partnerid = 2;
+}
+
+message CMarketingMessages_GetPartnerMessagePreview_Response {
+	optional .CMarketingMessageProto message = 1;
+}
+
 message CMarketingMessages_GetPartnerReadyToPublishMessages_Request {
 	optional uint32 partnerid = 1;
 }
 
 message CMarketingMessages_GetPartnerReadyToPublishMessages_Response {
 	repeated .CDisplayMarketingMessage messages = 1;
+}
+
+message CMarketingMessages_PartnerPublishMessage_Request {
+	optional fixed64 gid = 1;
+	optional uint32 partnerid = 2;
+}
+
+message CMarketingMessages_PartnerPublishMessage_Response {
 }
 
 message CMarketingMessages_UpdateMarketingMessage_Request {
@@ -181,7 +198,9 @@ service MarketingMessages {
 	rpc GetMarketingMessagesForUser (.CMarketingMessages_GetMarketingMessagesForUser_Request) returns (.CMarketingMessages_GetMarketingMessagesForUser_Response);
 	rpc GetMarketingMessagesViewerRangeStats (.CMarketingMessages_GetMarketingMessagesViewerRangeStats_Request) returns (.CMarketingMessages_GetMarketingMessagesViewerRangeStats_Response);
 	rpc GetMarketingMessageViewerStats (.CMarketingMessages_GetMarketingMessageViewerStats_Request) returns (.CMarketingMessages_GetMarketingMessageViewerStats_Response);
+	rpc GetPartnerMessagePreview (.CMarketingMessages_GetPartnerMessagePreview_Request) returns (.CMarketingMessages_GetPartnerMessagePreview_Response);
 	rpc GetPartnerReadyToPublishMessages (.CMarketingMessages_GetPartnerReadyToPublishMessages_Request) returns (.CMarketingMessages_GetPartnerReadyToPublishMessages_Response);
+	rpc PublishPartnerMessage (.CMarketingMessages_PartnerPublishMessage_Request) returns (.CMarketingMessages_PartnerPublishMessage_Response);
 	rpc UpdateMarketingMessage (.CMarketingMessages_UpdateMarketingMessage_Request) returns (.CMarketingMessages_UpdateMarketingMessage_Response);
 }
 

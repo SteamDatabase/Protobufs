@@ -62,6 +62,19 @@ message CGameSummary {
 	optional uint32 rtime_release_date = 15;
 }
 
+message CGlobalPercentiles {
+	optional uint32 median_achievements = 1;
+	optional uint32 median_games = 2;
+	optional uint32 median_streak = 3;
+}
+
+message CGlobalPlaytimeDistribution {
+	optional uint32 new_releases = 1;
+	optional uint32 recent_releases = 2;
+	optional uint32 classic_releases = 3;
+	optional uint32 recent_cutoff_year = 4;
+}
+
 message CMonthlyPlaytimeStats {
 	optional uint32 rtime_month = 1;
 	optional .CPlaytimeStats stats = 2;
@@ -93,12 +106,14 @@ message CPlaytimeByNumbers {
 	optional uint32 friends_added = 8;
 	optional uint32 forum_posts = 9;
 	optional uint32 workshop_subscriptions = 10;
-	optional uint32 games_played_pct = 11;
-	optional uint32 achievements_pct = 12;
-	optional uint32 game_streak_pct = 13;
-	optional uint32 games_played_avg = 14;
-	optional uint32 achievements_avg = 15;
-	optional uint32 game_streak_avg = 16;
+	optional uint32 guide_subscribers = 11;
+	optional uint32 workshop_subscribers = 12;
+	optional uint32 games_played_pct = 13;
+	optional uint32 achievements_pct = 14;
+	optional uint32 game_streak_pct = 15;
+	optional uint32 games_played_avg = 16;
+	optional uint32 achievements_avg = 17;
+	optional uint32 game_streak_avg = 18;
 }
 
 message CPlaytimeRanks {
@@ -209,6 +224,8 @@ message CSaleFeature_GetUserYearInReview_Request {
 message CSaleFeature_GetUserYearInReview_Response {
 	optional .CUserYearInReviewStats stats = 1;
 	optional .CYearInReviewPerformanceStats performance_stats = 2;
+	optional .CGlobalPercentiles percentiles = 3;
+	optional .CGlobalPlaytimeDistribution distribution = 4;
 }
 
 message CSaleFeature_GetUserYearInReviewShareImage_Request {
