@@ -3682,6 +3682,7 @@ message StoreBrowseItemDataRequest {
 	optional bool include_full_description = 12;
 	optional bool include_included_items = 13;
 	optional .StoreBrowseItemDataRequest included_item_data_request = 14;
+	optional bool include_assets_without_overrides = 15;
 }
 
 // Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers
@@ -3736,6 +3737,7 @@ message StoreItem {
 	optional string internal_name = 57;
 	optional string full_description = 58;
 	optional bool is_free_temporarily = 59;
+	optional .StoreItem_Assets assets_without_overrides = 60;
 }
 
 // Used by: MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreQuery, StoreTopSellers

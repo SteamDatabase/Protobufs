@@ -21,7 +21,6 @@ message CTwoFactor_AddAuthenticator_Request {
 	optional fixed64 serial_number = 3;
 	optional uint32 authenticator_type = 4;
 	optional string device_identifier = 5;
-	optional string sms_phone_id = 6;
 	repeated string http_headers = 7;
 	optional uint32 version = 8 [default = 1];
 }
