@@ -420,6 +420,15 @@ message CPublishedFile_RemoveChild_Request {
 message CPublishedFile_RemoveChild_Response {
 }
 
+message CPublishedFile_SetCollectionChildren_Request {
+	optional uint32 appid = 1;
+	optional uint64 publishedfileid = 2;
+	repeated uint64 children = 3;
+}
+
+message CPublishedFile_SetCollectionChildren_Response {
+}
+
 message CPublishedFile_SetPlaytimeForControllerConfigs_Request {
 	optional uint32 appid = 1;
 	repeated .CPublishedFile_SetPlaytimeForControllerConfigs_Request_ControllerConfigUsage controller_config_usage = 2;
@@ -431,6 +440,16 @@ message CPublishedFile_SetPlaytimeForControllerConfigs_Request_ControllerConfigU
 }
 
 message CPublishedFile_SetPlaytimeForControllerConfigs_Response {
+}
+
+message CPublishedFile_SetSubscriptionListFromCollection_Request {
+	optional uint32 appid = 1;
+	optional uint32 list_type = 2;
+	optional uint64 publishedfileid = 3;
+	optional bool add_only = 4;
+}
+
+message CPublishedFile_SetSubscriptionListFromCollection_Response {
 }
 
 message CPublishedFile_StartPlaytimeTracking_Request {
@@ -670,7 +689,9 @@ service PublishedFile {
 	rpc RefreshVotingQueue (.CPublishedFile_RefreshVotingQueue_Request) returns (.CPublishedFile_RefreshVotingQueue_Response);
 	rpc RemoveAppRelationship (.CPublishedFile_RemoveAppRelationship_Request) returns (.CPublishedFile_RemoveAppRelationship_Response);
 	rpc RemoveChild (.CPublishedFile_RemoveChild_Request) returns (.CPublishedFile_RemoveChild_Response);
+	rpc SetCollectionChildren (.CPublishedFile_SetCollectionChildren_Request) returns (.CPublishedFile_SetCollectionChildren_Response);
 	rpc SetPlaytimeForControllerConfigs (.CPublishedFile_SetPlaytimeForControllerConfigs_Request) returns (.CPublishedFile_SetPlaytimeForControllerConfigs_Response);
+	rpc SetSubscriptionListFromCollection (.CPublishedFile_SetSubscriptionListFromCollection_Request) returns (.CPublishedFile_SetSubscriptionListFromCollection_Response);
 	rpc StartPlaytimeTracking (.CPublishedFile_StartPlaytimeTracking_Request) returns (.CPublishedFile_StartPlaytimeTracking_Response);
 	rpc StopPlaytimeTracking (.CPublishedFile_StopPlaytimeTracking_Request) returns (.CPublishedFile_StopPlaytimeTracking_Response);
 	rpc StopPlaytimeTrackingForAllAppItems (.CPublishedFile_StopPlaytimeTrackingForAllAppItems_Request) returns (.CPublishedFile_StopPlaytimeTrackingForAllAppItems_Response);
