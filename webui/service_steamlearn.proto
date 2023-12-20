@@ -105,8 +105,8 @@ message CMsgSteamLearn_GetFetchStatusVersions_Response {
 }
 
 message CMsgSteamLearn_GetLogEvents_Request {
-	optional uint32 look_behind_days = 1;
-	optional uint32 look_ahead_days = 2;
+	optional uint32 start_timestamp = 1;
+	optional uint32 end_timestamp = 2;
 }
 
 message CMsgSteamLearn_GetLogEvents_Response {
@@ -737,6 +737,8 @@ message CMsgSteamLearnTrainConfig {
 	optional uint32 train_epoch_count = 4;
 	optional float train_loss_improvement_threshold = 5;
 	optional uint32 train_no_loss_improvement_epoch_limit = 6;
+	optional int32 train_optimizer = 7 [(.description) = "enum"];
+	optional float train_learning_rate = 8;
 }
 
 message CMsgSteamLearnTrainInfo {

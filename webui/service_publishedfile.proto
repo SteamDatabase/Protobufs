@@ -480,6 +480,7 @@ message CPublishedFile_Subscribe_Request {
 	optional uint32 list_type = 2;
 	optional int32 appid = 3;
 	optional bool notify_client = 4;
+	optional bool include_dependencies = 5;
 }
 
 message CPublishedFile_Subscribe_Response {

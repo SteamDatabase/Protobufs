@@ -1,4 +1,3 @@
-import "common_base.proto";
 
 message CUserGameNote {
 	optional string id = 1;
@@ -10,6 +9,13 @@ message CUserGameNote {
 	optional uint32 time_modified = 7;
 	optional string title = 8;
 	optional string content = 9;
+}
+
+message CUserGameNotes_DeleteNote_Request {
+	optional uint32 appid = 1;
+	optional string shortcut_name = 2;
+	optional uint32 shortcutid = 3;
+	optional string note_id = 4;
 }
 
 message CUserGameNotes_DeleteNote_Response {
@@ -34,10 +40,21 @@ message CUserGameNotes_GetNotesForGame_Request {
 	optional uint32 appid = 1;
 	optional string shortcut_name = 2;
 	optional uint32 shortcutid = 3;
+	optional bool include_content = 4;
 }
 
 message CUserGameNotes_GetNotesForGame_Response {
 	repeated .CUserGameNote notes = 1;
+}
+
+message CUserGameNotes_SaveNote_Request {
+	optional uint32 appid = 1;
+	optional string shortcut_name = 2;
+	optional uint32 shortcutid = 3;
+	optional string note_id = 4;
+	optional bool create_new = 5;
+	optional string title = 6;
+	optional string content = 7;
 }
 
 message CUserGameNotes_SaveNote_Response {
@@ -45,9 +62,9 @@ message CUserGameNotes_SaveNote_Response {
 }
 
 service UserGameNotes {
-	rpc DeleteNote (.NotImplemented) returns (.CUserGameNotes_DeleteNote_Response);
+	rpc DeleteNote (.CUserGameNotes_DeleteNote_Request) returns (.CUserGameNotes_DeleteNote_Response);
 	rpc GetGamesWithNotes (.CUserGameNotes_GetGamesWithNotes_Request) returns (.CUserGameNotes_GetGamesWithNotes_Response);
 	rpc GetNotesForGame (.CUserGameNotes_GetNotesForGame_Request) returns (.CUserGameNotes_GetNotesForGame_Response);
-	rpc SaveNote (.NotImplemented) returns (.CUserGameNotes_SaveNote_Response);
+	rpc SaveNote (.CUserGameNotes_SaveNote_Request) returns (.CUserGameNotes_SaveNote_Response);
 }
 

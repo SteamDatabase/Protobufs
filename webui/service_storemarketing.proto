@@ -1,0 +1,41 @@
+import "common.proto";
+
+message CStoreMarketing_GetItemsToFeature_Request {
+	optional .StoreBrowseContext context = 1;
+	optional .StoreBrowseItemDataRequest data_request = 2;
+	optional .CStoreMarketing_GetItemsToFeature_Request_SpotlightFilter include_spotlights = 5;
+	optional bool include_dailydeals = 6;
+	optional int32 include_top_specials_count = 7;
+}
+
+message CStoreMarketing_GetItemsToFeature_Request_SpotlightFilter {
+	optional string location = 1;
+	optional string category = 2;
+	optional int32 genre_id = 3;
+}
+
+message CStoreMarketing_GetItemsToFeature_Response {
+	repeated .CStoreMarketing_GetItemsToFeature_Response_Spotlight spotlights = 1;
+	repeated .CStoreMarketing_GetItemsToFeature_Response_FeaturedItem daily_deals = 2;
+	repeated .CStoreMarketing_GetItemsToFeature_Response_FeaturedItem specials = 3;
+}
+
+message CStoreMarketing_GetItemsToFeature_Response_FeaturedItem {
+	optional .StoreItemID item_id = 1;
+	optional .StoreItem item = 2;
+}
+
+message CStoreMarketing_GetItemsToFeature_Response_Spotlight {
+	optional .StoreItemID item_id = 1;
+	optional .StoreItem associated_item = 2;
+	optional string spotlight_template = 3;
+	optional string spotlight_title = 4;
+	optional string spotlight_body = 5;
+	optional string asset_url = 6;
+	optional string spotlight_link_url = 7;
+}
+
+service StoreMarketing {
+	rpc GetItemsToFeature (.CStoreMarketing_GetItemsToFeature_Request) returns (.CStoreMarketing_GetItemsToFeature_Response);
+}
+
