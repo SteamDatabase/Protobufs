@@ -1,0 +1,60 @@
+import "common.proto";
+
+message CCheckout_ValidateStartCheckout_Request {
+	optional int64 gidshoppingcart = 1;
+	optional .StoreBrowseContext context = 2;
+	optional .StoreBrowseItemDataRequest data_request = 3;
+}
+
+message CCheckout_ValidateStartCheckout_Response {
+	repeated .CCheckout_ValidateStartCheckout_Response_CheckoutItem cart_items = 1;
+	optional .CCheckout_ValidateStartCheckout_Response_EstimatedTotals estimated_totals = 5;
+}
+
+message CCheckout_ValidateStartCheckout_Response_CheckoutItem {
+	optional uint64 line_item_id = 1;
+	optional .StoreItemID item_id = 2;
+	optional .StoreItem store_item = 3;
+	optional .CartGiftInfo gift_info = 4;
+	optional .CCheckout_ValidateStartCheckout_Response_CheckoutItem_Errors errors = 5;
+	optional .CCheckout_ValidateStartCheckout_Response_CheckoutItem_Warnings warnings = 6;
+	optional .CartAmount subtotal = 7;
+	optional .CartAmount price_when_added = 8;
+	optional .CartAmount original_price = 9;
+	optional .CartCoupon coupon_applied = 10;
+	optional .CartAmount coupon_discount = 11;
+}
+
+message CCheckout_ValidateStartCheckout_Response_CheckoutItem_Errors {
+	repeated int32 owned_appids = 1;
+	repeated int32 duplicate_appids_in_cart = 2;
+	optional bool unavailable_in_country = 3;
+	optional bool invalid_coupon = 4;
+	optional bool invalid_coupon_for_item = 5;
+	optional bool coupon_exclusive_promo = 6;
+}
+
+message CCheckout_ValidateStartCheckout_Response_CheckoutItem_Warnings {
+	repeated int32 owned_appids = 1;
+	repeated int32 owned_appids_extra_copy = 2;
+	repeated .CCheckout_ValidateStartCheckout_Response_CheckoutItem_Warnings_AppInMasterSub appids_in_mastersub = 3;
+	optional bool price_has_changed = 4;
+	optional bool non_refundable = 5;
+}
+
+message CCheckout_ValidateStartCheckout_Response_CheckoutItem_Warnings_AppInMasterSub {
+	optional uint32 cart_appid = 1;
+	optional uint32 mastersub_appid = 2;
+}
+
+message CCheckout_ValidateStartCheckout_Response_EstimatedTotals {
+	optional .CartAmount subtotal = 1;
+	optional .CartAmount wallet_balance = 2;
+	optional .CartAmount exceeding_wallet_balance = 3;
+	optional .CartAmount remaining_wallet_balance = 4;
+}
+
+service Checkout {
+	rpc ValidateStartCheckout (.CCheckout_ValidateStartCheckout_Request) returns (.CCheckout_ValidateStartCheckout_Response);
+}
+
