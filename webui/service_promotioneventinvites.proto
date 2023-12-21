@@ -18,6 +18,8 @@ message CPromotionEventInvitation {
 	optional bool notify_partner = 15;
 	repeated string additional_email = 16;
 	optional string promotion_id = 17;
+	optional bool cancelled = 18;
+	optional uint32 rtime32_cancel_time = 19;
 }
 
 message CPromotionEventInviteReceive {
@@ -34,6 +36,13 @@ message CPromotionEventInvites_AcceptInvite_Request {
 }
 
 message CPromotionEventInvites_AcceptInvite_Response {
+}
+
+message CPromotionEventInvites_CancelInvite_Request {
+	optional fixed64 inviteid = 1;
+}
+
+message CPromotionEventInvites_CancelInvite_Response {
 }
 
 message CPromotionEventInvites_GetAllActiveInvites_Response {
@@ -89,6 +98,7 @@ message CPromotionRequirements {
 
 service PromotionEventInvites {
 	rpc AcceptInvite (.CPromotionEventInvites_AcceptInvite_Request) returns (.CPromotionEventInvites_AcceptInvite_Response);
+	rpc CancelInvite (.CPromotionEventInvites_CancelInvite_Request) returns (.CPromotionEventInvites_CancelInvite_Response);
 	rpc GetAllActiveInvites (.NotImplemented) returns (.CPromotionEventInvites_GetAllActiveInvites_Response);
 	rpc GetEmailTargets (.CPromotionEventInvites_GetEmailTargets_Request) returns (.CPromotionEventInvites_GetEmailTargets_Response);
 	rpc GetInvite (.CPromotionEventInvites_GetInvite_Request) returns (.CPromotionEventInvites_GetInvite_Response);
