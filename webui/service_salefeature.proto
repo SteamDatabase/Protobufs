@@ -260,6 +260,8 @@ message CSaleFeature_GetUserYearScreenshots_Response_Screenshot {
 	optional uint32 image_height = 4;
 	optional bool maybe_inappropriate_sex = 5;
 	optional bool maybe_inappropriate_violence = 6;
+	optional uint32 visibility = 7;
+	optional bool spoiler_tag = 8;
 }
 
 message CSaleFeature_GetUserYearScreenshots_Response_ScreenshotsByApp {
