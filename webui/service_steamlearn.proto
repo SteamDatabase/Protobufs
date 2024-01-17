@@ -87,6 +87,7 @@ message CMsgSteamLearn_GetFetchStatus_Response {
 	optional uint32 start_time = 7;
 	optional uint32 end_time = 8;
 	optional uint32 total_rows_processed = 9;
+	optional string error_string = 10;
 }
 
 message CMsgSteamLearn_GetFetchStatus_Response_Worker {
@@ -215,7 +216,8 @@ message CMsgSteamLearn_InferenceBackend_Request {
 	optional uint32 fetch_id = 2;
 	optional uint32 train_id = 3;
 	repeated .CMsgSteamLearnRawDataElement data = 4;
-	repeated uint32 additional_data = 5;
+	repeated uint64 keys = 6;
+	repeated float additional_data = 7;
 }
 
 message CMsgSteamLearn_InferenceBackend_Response {

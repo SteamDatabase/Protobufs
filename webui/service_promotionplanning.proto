@@ -44,6 +44,14 @@ message CPromotionPlanning_GetAllActivePlan_Response {
 	repeated .CPromotionPlan plan = 1;
 }
 
+message CPromotionPlanning_GetAllPlansForApps_Request {
+	repeated uint32 appids = 1;
+}
+
+message CPromotionPlanning_GetAllPlansForApps_Response {
+	repeated .CPromotionPlan plans = 1;
+}
+
 message CPromotionPlanning_GetPlan_Request {
 	optional fixed64 promotion_id = 1;
 }
@@ -116,6 +124,7 @@ service PromotionPlanning {
 	rpc CreateTentativePlan (.CPromotionPlanning_CreatePlan_Request) returns (.CPromotionPlanning_CreatePlan_Response);
 	rpc DeletePlan (.CPromotionPlanning_DeletePlan_Request) returns (.CPromotionPlanning_DeletePlan_Response);
 	rpc GetAllActivePlan (.CPromotionPlanning_GetAllActivePlan_Request) returns (.CPromotionPlanning_GetAllActivePlan_Response);
+	rpc GetAllPlansForApps (.CPromotionPlanning_GetAllPlansForApps_Request) returns (.CPromotionPlanning_GetAllPlansForApps_Response);
 	rpc GetPlan (.CPromotionPlanning_GetPlan_Request) returns (.CPromotionPlanning_GetPlan_Response);
 	rpc GetPlanByInputAccessKey (.CPromotionPlanning_GetPlanByInputAccessKey_Request) returns (.CPromotionPlanning_GetPlanByInputAccessKey_Response);
 	rpc GetSentNotification (.CPromotionPlanning_GetSentNotification_Request) returns (.CPromotionPlanning_GetSentNotification_Response);
