@@ -40,6 +40,7 @@ message CStoreQueryFilters {
 	optional .CStoreQueryFilters_TypeFilters type_filters = 3;
 	repeated .CStoreQueryFilters_TagFilter tagids_must_match = 10;
 	repeated int32 tagids_exclude = 11;
+	optional .CStoreQueryFilters_PriceFilters price_filters = 12;
 	repeated int32 content_descriptors_must_match = 15 [(.description) = "enum"];
 	repeated int32 content_descriptors_excluded = 16 [(.description) = "enum"];
 	optional int32 regional_top_n_sellers = 40;
@@ -48,6 +49,11 @@ message CStoreQueryFilters {
 	optional int32 global_long_term_top_n_sellers = 43;
 	optional .CStorePageFilter store_page_filter = 44;
 	repeated uint32 parent_appids = 45;
+}
+
+message CStoreQueryFilters_PriceFilters {
+	optional bool only_free_items = 1;
+	optional bool exclude_free_items = 2;
 }
 
 message CStoreQueryFilters_TagFilter {

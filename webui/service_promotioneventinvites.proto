@@ -33,6 +33,7 @@ message CPromotionEventInvites_AcceptInvite_Request {
 	optional uint32 rtdatechosen = 2;
 	optional uint32 discount_days = 3;
 	optional string discount_info = 4;
+	optional bool skip_discount_event = 5;
 }
 
 message CPromotionEventInvites_AcceptInvite_Response {

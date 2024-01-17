@@ -535,6 +535,22 @@ message CPlayer_GetPurchasedProfileCustomizations_Response_PurchasedCustomizatio
 	optional int32 customization_type = 2 [(.description) = "enum"];
 }
 
+message CPlayer_GetRecentPlaytimeSessionsForChild_Request {
+	optional uint64 steamid = 1;
+}
+
+message CPlayer_GetRecentPlaytimeSessionsForChild_Response {
+	repeated .CPlayer_GetRecentPlaytimeSessionsForChild_Response_PlaytimeSession sessions = 1;
+}
+
+message CPlayer_GetRecentPlaytimeSessionsForChild_Response_PlaytimeSession {
+	optional uint32 time_start = 1;
+	optional uint32 time_end = 2;
+	optional uint32 appid = 3;
+	optional uint32 device_type = 4;
+	optional bool disconnected = 5;
+}
+
 message CPlayer_GetSteamDeckKeyboardSkin_Request {
 	optional fixed64 steamid = 1;
 	optional string language = 2;
@@ -865,6 +881,7 @@ service Player {
 	rpc GetProfileThemesAvailable (.CPlayer_GetProfileThemesAvailable_Request) returns (.CPlayer_GetProfileThemesAvailable_Response);
 	rpc GetPurchasedAndUpgradedProfileCustomizations (.CPlayer_GetPurchasedAndUpgradedProfileCustomizations_Request) returns (.CPlayer_GetPurchasedAndUpgradedProfileCustomizations_Response);
 	rpc GetPurchasedProfileCustomizations (.CPlayer_GetPurchasedProfileCustomizations_Request) returns (.CPlayer_GetPurchasedProfileCustomizations_Response);
+	rpc GetRecentPlaytimeSessionsForChild (.CPlayer_GetRecentPlaytimeSessionsForChild_Request) returns (.CPlayer_GetRecentPlaytimeSessionsForChild_Response);
 	rpc GetSteamDeckKeyboardSkin (.CPlayer_GetSteamDeckKeyboardSkin_Request) returns (.CPlayer_GetSteamDeckKeyboardSkin_Response);
 	rpc GetTextFilterWords (.CPlayer_GetTextFilterWords_Request) returns (.CPlayer_GetTextFilterWords_Response);
 	rpc GetTimeSSAAccepted (.CPlayer_GetTimeSSAAccepted_Request) returns (.CPlayer_GetTimeSSAAccepted_Response);

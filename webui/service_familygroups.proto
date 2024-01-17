@@ -60,6 +60,7 @@ message CFamilyGroups_GetChangeLog_Response_Change {
 
 message CFamilyGroups_GetFamilyGroup_Request {
 	optional uint64 family_groupid = 1;
+	optional bool send_running_apps = 2;
 }
 
 message CFamilyGroups_GetFamilyGroup_Response {
@@ -145,13 +146,17 @@ message CFamilyGroups_InviteToFamilyGroup_Request {
 }
 
 message CFamilyGroups_InviteToFamilyGroup_Response {
+	optional uint64 invite_id = 1;
+	optional int32 two_factor_method = 2 [(.description) = "enum"];
 }
 
 message CFamilyGroups_JoinFamilyGroup_Request {
 	optional uint64 family_groupid = 1;
+	optional uint64 nonce = 2;
 }
 
 message CFamilyGroups_JoinFamilyGroup_Response {
+	optional int32 two_factor_method = 2 [(.description) = "enum"];
 }
 
 message CFamilyGroups_ModifyFamilyGroupDetails_Request {
@@ -190,6 +195,14 @@ message CFamilyGroups_RequestPurchase_Response {
 	optional uint64 request_id = 2;
 }
 
+message CFamilyGroups_ResendInvitationToFamilyGroup_Request {
+	optional uint64 family_groupid = 1;
+	optional uint64 steamid = 2;
+}
+
+message CFamilyGroups_ResendInvitationToFamilyGroup_Response {
+}
+
 message CFamilyGroups_RespondToRequestedPurchase_Request {
 	optional uint64 family_groupid = 1;
 	optional fixed64 purchase_requester_steamid = 2;
@@ -212,23 +225,23 @@ message CFamilyGroupsClient_GroupChanged_Notification {
 	optional uint64 family_groupid = 1;
 }
 
-message CFamilyGroupsClient_GroupStatus_Notification {
-	optional uint64 family_groupid = 1;
-	repeated .CFamilyGroupsClient_GroupStatus_Notification_RunningApp running_apps = 2;
+message CFamilyGroupsClient_InviteStatus_Notification {
 }
 
-message CFamilyGroupsClient_GroupStatus_Notification_PlayingMember {
+message CFamilyGroupsClient_NotifyRunningApps_Notification {
+	optional uint64 family_groupid = 1;
+	repeated .CFamilyGroupsClient_NotifyRunningApps_Notification_RunningApp running_apps = 2;
+}
+
+message CFamilyGroupsClient_NotifyRunningApps_Notification_PlayingMember {
 	optional fixed64 member_steamid = 1;
 	optional fixed64 owner_steamid = 2;
 }
 
-message CFamilyGroupsClient_GroupStatus_Notification_RunningApp {
+message CFamilyGroupsClient_NotifyRunningApps_Notification_RunningApp {
 	optional uint32 appid = 1;
 	optional bool is_locked = 2;
-	repeated .CFamilyGroupsClient_GroupStatus_Notification_PlayingMember playing_members = 3;
-}
-
-message CFamilyGroupsClient_InviteStatus_Notification {
+	repeated .CFamilyGroupsClient_NotifyRunningApps_Notification_PlayingMember playing_members = 3;
 }
 
 message FamilyGroupFormerMember {
@@ -281,13 +294,14 @@ service FamilyGroups {
 	rpc ModifyFamilyGroupDetails (.CFamilyGroups_ModifyFamilyGroupDetails_Request) returns (.CFamilyGroups_ModifyFamilyGroupDetails_Response);
 	rpc RemoveFromFamilyGroup (.CFamilyGroups_RemoveFromFamilyGroup_Request) returns (.CFamilyGroups_RemoveFromFamilyGroup_Response);
 	rpc RequestPurchase (.CFamilyGroups_RequestPurchase_Request) returns (.CFamilyGroups_RequestPurchase_Response);
+	rpc ResendInvitationToFamilyGroup (.CFamilyGroups_ResendInvitationToFamilyGroup_Request) returns (.CFamilyGroups_ResendInvitationToFamilyGroup_Response);
 	rpc RespondToRequestedPurchase (.CFamilyGroups_RespondToRequestedPurchase_Request) returns (.CFamilyGroups_RespondToRequestedPurchase_Response);
 	rpc SetFamilyCooldownOverrides (.CFamilyGroups_SetFamilyCooldownOverrides_Request) returns (.CFamilyGroups_SetFamilyCooldownOverrides_Response);
 }
 
 service FamilyGroupsClient {
 	rpc NotifyGroupChanged (.CFamilyGroupsClient_GroupChanged_Notification) returns (.NoResponse);
-	rpc NotifyGroupStatus (.CFamilyGroupsClient_GroupStatus_Notification) returns (.NoResponse);
 	rpc NotifyInviteStatus (.CFamilyGroupsClient_InviteStatus_Notification) returns (.NoResponse);
+	rpc NotifyRunningApps (.CFamilyGroupsClient_NotifyRunningApps_Notification) returns (.NoResponse);
 }
 

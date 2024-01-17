@@ -17,15 +17,8 @@ message CStore_GetVoteDefinitions_Response {
 	repeated .CStore_VoteDefinition votes = 1;
 }
 
-message CStore_GetVoteDefinitionsForEvents_Request {
-	optional uint32 appid = 1;
-	optional uint32 sale_appid = 2;
-	optional string language = 3;
-}
-
 message CStore_GetVoteDefinitionsForEvents_Response {
 	repeated .CStore_GetVoteDefinitionsForEvents_Response_Vote_Defintion definitions = 1;
-	//repeated .CStore_VoteDefinition definitions = 1;
 }
 
 message CStore_GetVoteDefinitionsForEvents_Response_Vote_Defintion {
@@ -88,7 +81,7 @@ message SteamAwardsUserVote {
 service StoreSales {
 	rpc GetUserVotes (.CStore_GetUserVotes_Request) returns (.CStore_GetUserVotes_Response);
 	rpc GetVoteDefinitions (.CStore_GetVoteDefinitions_Request) returns (.CStore_GetVoteDefinitions_Response);
-	rpc GetVoteDefinitionsForEvents (.CStore_GetVoteDefinitionsForEvents_Request) returns (.CStore_GetVoteDefinitionsForEvents_Response);
+	rpc GetVoteDefinitionsForEvents (.NotImplemented) returns (.CStore_GetVoteDefinitionsForEvents_Response);
 	rpc SetVote (.CStore_SetVote_Request) returns (.CStore_SetVote_Response);
 }
 

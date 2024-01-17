@@ -611,7 +611,6 @@ message CMsgSteamLearnModelNodeTrain {
 	optional int32 activation = 2 [(.description) = "enum"];
 	optional uint32 width = 3;
 	optional string compact_table = 4;
-	optional int32 optimizer = 5 [(.description) = "enum"];
 	optional int32 loss = 6 [(.description) = "enum"];
 	optional float learning_rate = 7;
 }
