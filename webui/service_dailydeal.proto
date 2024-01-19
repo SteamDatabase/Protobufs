@@ -23,6 +23,14 @@ message CDailyDeal_DeleteDailyDeal_Request {
 message CDailyDeal_DeleteDailyDeal_Response {
 }
 
+message CDailyDeal_GetDailyDealsForApps_Request {
+	repeated uint32 appids = 1;
+}
+
+message CDailyDeal_GetDailyDealsForApps_Response {
+	repeated .CDailyDealDetails daily_deals = 1;
+}
+
 message CDailyDeal_UpdateDailyDeal_Request {
 	optional .CDailyDealDetails daily_deal = 1;
 	optional fixed64 gid = 2;
@@ -52,6 +60,7 @@ service DailyDeal {
 	rpc CancelDailyDeal (.CDailyDeal_CancelDailyDeal_Request) returns (.CDailyDeal_CancelDailyDeal_Response);
 	rpc CreateDailyDeal (.CDailyDeal_CreateDailyDeal_Request) returns (.CDailyDeal_CreateDailyDeal_Response);
 	rpc DeleteDailyDeal (.CDailyDeal_DeleteDailyDeal_Request) returns (.CDailyDeal_DeleteDailyDeal_Response);
+	rpc GetDailyDealsForApps (.CDailyDeal_GetDailyDealsForApps_Request) returns (.CDailyDeal_GetDailyDealsForApps_Response);
 	rpc UpdateDailyDeal (.CDailyDeal_UpdateDailyDeal_Request) returns (.CDailyDeal_UpdateDailyDeal_Response);
 }
 
