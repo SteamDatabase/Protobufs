@@ -109,7 +109,6 @@ message CFamilyGroups_GetSharedLibraryApps_Request {
 	optional fixed64 family_groupid = 1;
 	optional bool include_own = 2;
 	optional bool include_excluded = 3;
-	optional bool include_free = 4;
 	optional string language = 5;
 	optional uint32 max_apps = 6;
 }
@@ -121,7 +120,6 @@ message CFamilyGroups_GetSharedLibraryApps_Response {
 message CFamilyGroups_GetSharedLibraryApps_Response_SharedApp {
 	optional uint32 appid = 1;
 	repeated fixed64 owner_steamids = 2;
-	optional bool free_app = 5;
 	optional string name = 6;
 	optional string sort_as = 7;
 	optional string capsule_filename = 8;

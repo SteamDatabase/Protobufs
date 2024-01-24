@@ -1,23 +1,44 @@
 import "common.proto";
 
-message CCheckout_ValidateStartCheckout_Request {
+message CCheckout_GetFriendOwnershipForGifting_Request {
+	repeated .StoreItemID item_ids = 1;
+}
+
+message CCheckout_GetFriendOwnershipForGifting_Response {
+	repeated .CCheckout_GetFriendOwnershipForGifting_Response_OwnershipInfo ownership_info = 1;
+}
+
+message CCheckout_GetFriendOwnershipForGifting_Response_FriendOwnership {
+	optional uint32 accountid = 1;
+	optional bool already_owns = 2;
+	optional bool wishes_for = 3;
+	repeated uint32 partial_owns_appids = 4;
+	repeated uint32 partial_wishes_for = 5;
+}
+
+message CCheckout_GetFriendOwnershipForGifting_Response_OwnershipInfo {
+	optional .StoreItemID item_id = 1;
+	repeated .CCheckout_GetFriendOwnershipForGifting_Response_FriendOwnership friend_ownership = 2;
+}
+
+message CCheckout_ValidateCart_Request {
 	optional int64 gidshoppingcart = 1;
 	optional .StoreBrowseContext context = 2;
 	optional .StoreBrowseItemDataRequest data_request = 3;
 }
 
-message CCheckout_ValidateStartCheckout_Response {
-	repeated .CCheckout_ValidateStartCheckout_Response_CheckoutItem cart_items = 1;
-	optional .CCheckout_ValidateStartCheckout_Response_EstimatedTotals estimated_totals = 5;
+message CCheckout_ValidateCart_Response {
+	repeated .CCheckout_ValidateCart_Response_CartItem cart_items = 1;
+	optional .CCheckout_ValidateCart_Response_EstimatedTotals estimated_totals = 5;
 }
 
-message CCheckout_ValidateStartCheckout_Response_CheckoutItem {
+message CCheckout_ValidateCart_Response_CartItem {
 	optional uint64 line_item_id = 1;
 	optional .StoreItemID item_id = 2;
 	optional .StoreItem store_item = 3;
 	optional .CartGiftInfo gift_info = 4;
-	optional .CCheckout_ValidateStartCheckout_Response_CheckoutItem_Errors errors = 5;
-	optional .CCheckout_ValidateStartCheckout_Response_CheckoutItem_Warnings warnings = 6;
+	optional .CCheckout_ValidateCart_Response_CartItem_Errors errors = 5;
+	optional .CCheckout_ValidateCart_Response_CartItem_Warnings warnings = 6;
 	optional .CartAmount subtotal = 7;
 	optional .CartAmount price_when_added = 8;
 	optional .CartAmount original_price = 9;
@@ -25,7 +46,7 @@ message CCheckout_ValidateStartCheckout_Response_CheckoutItem {
 	optional .CartAmount coupon_discount = 11;
 }
 
-message CCheckout_ValidateStartCheckout_Response_CheckoutItem_Errors {
+message CCheckout_ValidateCart_Response_CartItem_Errors {
 	repeated int32 owned_appids = 1;
 	repeated int32 duplicate_appids_in_cart = 2;
 	optional bool unavailable_in_country = 3;
@@ -34,20 +55,20 @@ message CCheckout_ValidateStartCheckout_Response_CheckoutItem_Errors {
 	optional bool coupon_exclusive_promo = 6;
 }
 
-message CCheckout_ValidateStartCheckout_Response_CheckoutItem_Warnings {
+message CCheckout_ValidateCart_Response_CartItem_Warnings {
 	repeated int32 owned_appids = 1;
 	repeated int32 owned_appids_extra_copy = 2;
-	repeated .CCheckout_ValidateStartCheckout_Response_CheckoutItem_Warnings_AppInMasterSub appids_in_mastersub = 3;
+	repeated .CCheckout_ValidateCart_Response_CartItem_Warnings_AppInMasterSub appids_in_mastersub = 3;
 	optional bool price_has_changed = 4;
 	optional bool non_refundable = 5;
 }
 
-message CCheckout_ValidateStartCheckout_Response_CheckoutItem_Warnings_AppInMasterSub {
+message CCheckout_ValidateCart_Response_CartItem_Warnings_AppInMasterSub {
 	optional uint32 cart_appid = 1;
 	optional uint32 mastersub_appid = 2;
 }
 
-message CCheckout_ValidateStartCheckout_Response_EstimatedTotals {
+message CCheckout_ValidateCart_Response_EstimatedTotals {
 	optional .CartAmount subtotal = 1;
 	optional .CartAmount wallet_balance = 2;
 	optional .CartAmount exceeding_wallet_balance = 3;
@@ -55,6 +76,7 @@ message CCheckout_ValidateStartCheckout_Response_EstimatedTotals {
 }
 
 service Checkout {
-	rpc ValidateStartCheckout (.CCheckout_ValidateStartCheckout_Request) returns (.CCheckout_ValidateStartCheckout_Response);
+	rpc GetFriendOwnershipForGifting (.CCheckout_GetFriendOwnershipForGifting_Request) returns (.CCheckout_GetFriendOwnershipForGifting_Response);
+	rpc ValidateCart (.CCheckout_ValidateCart_Request) returns (.CCheckout_ValidateCart_Response);
 }
 

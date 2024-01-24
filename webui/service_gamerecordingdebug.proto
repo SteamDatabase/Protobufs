@@ -1,0 +1,52 @@
+
+message CGameRecordingDebug_AddTimelineHighlightMarker_Request {
+	optional uint32 appid = 1;
+	optional string icon = 2;
+	optional string title = 3;
+	optional string desc = 4;
+}
+
+message CGameRecordingDebug_AddTimelineHighlightMarker_Response {
+}
+
+message CGameRecordingDebug_AddTimelineRangeEnd_Request {
+	optional uint32 appid = 1;
+	optional string id = 2;
+}
+
+message CGameRecordingDebug_AddTimelineRangeEnd_Response {
+}
+
+message CGameRecordingDebug_AddTimelineRangeStart_Request {
+	optional uint32 appid = 1;
+	optional string id = 2;
+	optional string title = 3;
+}
+
+message CGameRecordingDebug_AddTimelineRangeStart_Response {
+}
+
+message CGameRecordingDebug_AddTimelineTimestamp_Request {
+	optional uint32 appid = 1;
+	optional string title = 2;
+}
+
+message CGameRecordingDebug_AddTimelineTimestamp_Response {
+}
+
+message CGameRecordingDebug_SetTimelineGameMode_Request {
+	optional uint32 appid = 1;
+	optional uint32 mode = 2;
+}
+
+message CGameRecordingDebug_SetTimelineGameMode_Response {
+}
+
+service GameRecordingDebug {
+	rpc AddTimelineHighlightMarker (.CGameRecordingDebug_AddTimelineHighlightMarker_Request) returns (.CGameRecordingDebug_AddTimelineHighlightMarker_Response);
+	rpc AddTimelineRangeEnd (.CGameRecordingDebug_AddTimelineRangeEnd_Request) returns (.CGameRecordingDebug_AddTimelineRangeEnd_Response);
+	rpc AddTimelineRangeStart (.CGameRecordingDebug_AddTimelineRangeStart_Request) returns (.CGameRecordingDebug_AddTimelineRangeStart_Response);
+	rpc AddTimelineTimestamp (.CGameRecordingDebug_AddTimelineTimestamp_Request) returns (.CGameRecordingDebug_AddTimelineTimestamp_Response);
+	rpc SetTimelineGameMode (.CGameRecordingDebug_SetTimelineGameMode_Request) returns (.CGameRecordingDebug_SetTimelineGameMode_Response);
+}
+
