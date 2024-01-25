@@ -47,10 +47,17 @@ message CPromotionPlanning_GetAllActivePlan_Response {
 
 message CPromotionPlanning_GetAllPlansForApps_Request {
 	repeated uint32 appids = 1;
+	optional bool exclude_sales = 2;
 }
 
 message CPromotionPlanning_GetAllPlansForApps_Response {
 	repeated .CPromotionPlan plans = 1;
+	repeated .CPromotionPlanning_GetAllPlansForApps_Response_CAppIncludedInSales apps_included_in_sales = 2;
+}
+
+message CPromotionPlanning_GetAllPlansForApps_Response_CAppIncludedInSales {
+	repeated uint32 appids = 1;
+	optional fixed64 clan_event_gid = 2;
 }
 
 message CPromotionPlanning_GetPlan_Request {
