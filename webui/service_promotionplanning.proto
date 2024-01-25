@@ -48,6 +48,7 @@ message CPromotionPlanning_GetAllActivePlan_Response {
 message CPromotionPlanning_GetAllPlansForApps_Request {
 	repeated uint32 appids = 1;
 	optional bool exclude_sales = 2;
+	optional bool exclude_direct_featuring = 3;
 }
 
 message CPromotionPlanning_GetAllPlansForApps_Response {
