@@ -79,6 +79,7 @@ message CPromotionPlanning_GetPlanByInputAccessKey_Response {
 
 message CPromotionPlanning_GetPlansUpdatedSince_Request {
 	optional uint32 rtime = 1;
+	optional uint32 upto_rtime = 2;
 }
 
 message CPromotionPlanning_GetPlansUpdatedSince_Response {
