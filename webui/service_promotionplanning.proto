@@ -20,6 +20,10 @@ message CPromotionPlan {
 	optional uint32 partner_id = 7;
 	optional string input_access_key = 8;
 	optional uint32 last_update_time = 9;
+	optional string partner_readonly_jsondata = 10;
+	optional string partner_writable_jsondata = 11;
+	optional string assets_readonly_jsondata = 12;
+	optional string assets_writable_jsondata = 13;
 }
 
 message CPromotionPlanning_CreatePlan_Request {
@@ -96,6 +100,14 @@ message CPromotionPlanning_GetSentNotification_Response {
 	repeated .CPromotionNotificationResults results = 1;
 }
 
+message CPromotionPlanning_MarkLocalizationAssetComplete_Request {
+	optional fixed64 promotion_id = 1;
+	optional bool value = 2;
+}
+
+message CPromotionPlanning_MarkLocalizationAssetComplete_Response {
+}
+
 message CPromotionPlanning_ResendNotification_Request {
 	optional fixed64 promotion_id = 1;
 	optional fixed64 notification_id = 2;
@@ -148,6 +160,7 @@ service PromotionPlanning {
 	rpc GetPlanByInputAccessKey (.CPromotionPlanning_GetPlanByInputAccessKey_Request) returns (.CPromotionPlanning_GetPlanByInputAccessKey_Response);
 	rpc GetPlansUpdatedSince (.CPromotionPlanning_GetPlansUpdatedSince_Request) returns (.CPromotionPlanning_GetPlansUpdatedSince_Response);
 	rpc GetSentNotification (.CPromotionPlanning_GetSentNotification_Request) returns (.CPromotionPlanning_GetSentNotification_Response);
+	rpc MarkLocalizationAssetComplete (.CPromotionPlanning_MarkLocalizationAssetComplete_Request) returns (.CPromotionPlanning_MarkLocalizationAssetComplete_Response);
 	rpc ResendNotification (.CPromotionPlanning_ResendNotification_Request) returns (.CPromotionPlanning_ResendNotification_Response);
 	rpc SearchPlan (.CPromotionPlanning_SearchPlan_Request) returns (.CPromotionPlanning_SearchPlan_Response);
 	rpc SendNotification (.CPromotionPlanning_SendNotification_Request) returns (.CPromotionPlanning_SendNotification_Response);
