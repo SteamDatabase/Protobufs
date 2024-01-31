@@ -1,11 +1,28 @@
 import "common.proto";
 
+message CPartnerStoreBrowse_GetCountryRestrictions_Request {
+	repeated .StoreItemID ids = 1;
+}
+
+message CPartnerStoreBrowse_GetCountryRestrictions_Response {
+	repeated .CPartnerStoreBrowse_GetCountryRestrictions_Response_CCountryRestrictions results = 1;
+	repeated .StoreItemID no_info = 2;
+}
+
+message CPartnerStoreBrowse_GetCountryRestrictions_Response_CCountryRestrictions {
+	optional .StoreItemID id = 1;
+	optional bool no_restrictions = 2;
+	repeated string allowed_countries = 3;
+	repeated string restricted_countries = 4;
+}
+
 message CPartnerStoreBrowse_GetItems_Request {
 	optional .CStoreBrowse_GetItems_Request request = 1;
 	optional bool include_unpublished = 2;
 }
 
 service PartnerStoreBrowse {
+	rpc GetCountryRestrictions (.CPartnerStoreBrowse_GetCountryRestrictions_Request) returns (.CPartnerStoreBrowse_GetCountryRestrictions_Response);
 	rpc GetItems (.CPartnerStoreBrowse_GetItems_Request) returns (.CStoreBrowse_GetItems_Response);
 }
 

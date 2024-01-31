@@ -96,6 +96,19 @@ message CFamilyGroups_GetPlaytimeSummary_Response {
 	repeated .CFamilyGroups_PlaytimeEntry entries = 1;
 }
 
+message CFamilyGroups_GetPreferredLenders_Request {
+	optional uint64 family_groupid = 1;
+}
+
+message CFamilyGroups_GetPreferredLenders_Response {
+	repeated .CFamilyGroups_GetPreferredLenders_Response_FamilyMember members = 1;
+}
+
+message CFamilyGroups_GetPreferredLenders_Response_FamilyMember {
+	optional fixed64 steamid = 1;
+	repeated uint32 preferred_appids = 2;
+}
+
 message CFamilyGroups_GetPurchaseRequests_Request {
 	optional uint64 family_groupid = 1;
 	optional bool include_completed = 2;
@@ -219,6 +232,15 @@ message CFamilyGroups_SetFamilyCooldownOverrides_Request {
 message CFamilyGroups_SetFamilyCooldownOverrides_Response {
 }
 
+message CFamilyGroups_SetPreferredLender_Request {
+	optional uint64 family_groupid = 1;
+	optional uint32 appid = 2;
+	optional fixed64 lender_steamid = 3;
+}
+
+message CFamilyGroups_SetPreferredLender_Response {
+}
+
 message CFamilyGroupsClient_GroupChanged_Notification {
 	optional uint64 family_groupid = 1;
 }
@@ -284,6 +306,7 @@ service FamilyGroups {
 	rpc GetFamilyGroup (.CFamilyGroups_GetFamilyGroup_Request) returns (.CFamilyGroups_GetFamilyGroup_Response);
 	rpc GetFamilyGroupForUser (.CFamilyGroups_GetFamilyGroupForUser_Request) returns (.CFamilyGroups_GetFamilyGroupForUser_Response);
 	rpc GetPlaytimeSummary (.CFamilyGroups_GetPlaytimeSummary_Request) returns (.CFamilyGroups_GetPlaytimeSummary_Response);
+	rpc GetPreferredLenders (.CFamilyGroups_GetPreferredLenders_Request) returns (.CFamilyGroups_GetPreferredLenders_Response);
 	rpc GetPurchaseRequests (.CFamilyGroups_GetPurchaseRequests_Request) returns (.CFamilyGroups_GetPurchaseRequests_Response);
 	rpc GetSharedLibraryApps (.CFamilyGroups_GetSharedLibraryApps_Request) returns (.CFamilyGroups_GetSharedLibraryApps_Response);
 	rpc GetUsersSharingDevice (.CFamilyGroups_GetUsersSharingDevice_Request) returns (.CFamilyGroups_GetUsersSharingDevice_Response);
@@ -295,6 +318,7 @@ service FamilyGroups {
 	rpc ResendInvitationToFamilyGroup (.CFamilyGroups_ResendInvitationToFamilyGroup_Request) returns (.CFamilyGroups_ResendInvitationToFamilyGroup_Response);
 	rpc RespondToRequestedPurchase (.CFamilyGroups_RespondToRequestedPurchase_Request) returns (.CFamilyGroups_RespondToRequestedPurchase_Response);
 	rpc SetFamilyCooldownOverrides (.CFamilyGroups_SetFamilyCooldownOverrides_Request) returns (.CFamilyGroups_SetFamilyCooldownOverrides_Response);
+	rpc SetPreferredLender (.CFamilyGroups_SetPreferredLender_Request) returns (.CFamilyGroups_SetPreferredLender_Response);
 }
 
 service FamilyGroupsClient {

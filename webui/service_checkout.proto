@@ -25,6 +25,7 @@ message CCheckout_ValidateCart_Request {
 	optional int64 gidshoppingcart = 1;
 	optional .StoreBrowseContext context = 2;
 	optional .StoreBrowseItemDataRequest data_request = 3;
+	optional .CartGiftInfo gift_info = 4;
 }
 
 message CCheckout_ValidateCart_Response {
