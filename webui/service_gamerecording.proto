@@ -9,6 +9,7 @@ message CGameRecording_ClipSummary {
 	optional uint64 start_offset_ms = 6;
 	optional uint64 published_file_id = 7;
 	optional uint64 file_size = 8;
+	optional string name = 9;
 }
 
 message CGameRecording_DeleteClip_Request {
@@ -110,6 +111,7 @@ message CGameRecording_SaveClip_Request {
 	optional uint64 game_id = 1;
 	optional .CGameRecording_SaveClip_Request_Position start = 2;
 	optional .CGameRecording_SaveClip_Request_Position end = 3;
+	optional string name = 4;
 }
 
 message CGameRecording_SaveClip_Request_Position {
