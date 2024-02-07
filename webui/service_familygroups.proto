@@ -139,6 +139,8 @@ message CFamilyGroups_GetSharedLibraryApps_Response_SharedApp {
 	optional string img_icon_url = 9;
 	optional int32 exclude_reason = 10 [default = 0, (.description) = "enum"];
 	optional uint32 rt_time_acquired = 11;
+	optional uint32 rt_last_played = 12;
+	optional uint32 rt_playtime = 13;
 }
 
 message CFamilyGroups_GetUsersSharingDevice_Request {
@@ -204,6 +206,7 @@ message CFamilyGroups_RequestPurchase_Request {
 message CFamilyGroups_RequestPurchase_Response {
 	optional uint64 gidshoppingcart = 1;
 	optional uint64 request_id = 2;
+	optional uint64 gidshoppingcartcopy = 3;
 }
 
 message CFamilyGroups_ResendInvitationToFamilyGroup_Request {
@@ -294,6 +297,7 @@ message PurchaseRequest {
 	optional int32 response_action = 6 [(.description) = "enum"];
 	optional bool is_completed = 7;
 	optional uint64 request_id = 8;
+	optional uint64 gidshoppingcartcopy = 9;
 }
 
 service FamilyGroups {

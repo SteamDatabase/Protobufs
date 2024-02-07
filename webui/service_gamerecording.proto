@@ -69,7 +69,7 @@ message CGameRecording_GetThumbnails_Request {
 	optional string clip_id = 3;
 	repeated int64 start_offset_us = 4;
 	optional uint32 major_axis = 5 [default = 512];
-	optional int32 time_precision = 6 [(.description) = "enum"];
+	optional int32 time_precision = 6 [default = 0, (.description) = "enum"];
 }
 
 message CGameRecording_GetThumbnails_Response {
