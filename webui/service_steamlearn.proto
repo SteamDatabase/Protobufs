@@ -245,6 +245,11 @@ message CMsgSteamLearn_InferenceBackend_Response_Output {
 	optional .CMsgSteamLearn_InferenceBackend_Response_BinaryCrossEntropyOutput binary_crossentropy = 1;
 	optional .CMsgSteamLearn_InferenceBackend_Response_CategoricalCrossEntropyOutput categorical_crossentropy = 2;
 	optional .CMsgSteamLearn_InferenceBackend_Response_MutliBinaryCrossEntropyOutput multi_binary_crossentropy = 3;
+	optional .CMsgSteamLearn_InferenceBackend_Response_RegressionOutput regression = 4;
+}
+
+message CMsgSteamLearn_InferenceBackend_Response_RegressionOutput {
+	optional float value = 1;
 }
 
 message CMsgSteamLearn_InferenceMetadata_Request {

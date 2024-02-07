@@ -65,6 +65,17 @@ message CPromotionPlanning_GetAllPlansForApps_Response_CAppIncludedInSales {
 	optional fixed64 clan_event_gid = 2;
 }
 
+message CPromotionPlanning_GetAllPlansForPartner_Request {
+	optional uint32 partnerid = 1;
+	optional uint32 start_date_after_rtime = 2;
+	optional uint32 start_date_before_rtime = 3;
+	optional bool show_hidden = 4;
+}
+
+message CPromotionPlanning_GetAllPlansForPartner_Response {
+	repeated .CPromotionPlan plans = 1;
+}
+
 message CPromotionPlanning_GetPlan_Request {
 	optional fixed64 promotion_id = 1;
 }
@@ -156,6 +167,7 @@ service PromotionPlanning {
 	rpc DeletePlan (.CPromotionPlanning_DeletePlan_Request) returns (.CPromotionPlanning_DeletePlan_Response);
 	rpc GetAllActivePlan (.CPromotionPlanning_GetAllActivePlan_Request) returns (.CPromotionPlanning_GetAllActivePlan_Response);
 	rpc GetAllPlansForApps (.CPromotionPlanning_GetAllPlansForApps_Request) returns (.CPromotionPlanning_GetAllPlansForApps_Response);
+	rpc GetAllPlansForPartner (.CPromotionPlanning_GetAllPlansForPartner_Request) returns (.CPromotionPlanning_GetAllPlansForPartner_Response);
 	rpc GetPlan (.CPromotionPlanning_GetPlan_Request) returns (.CPromotionPlanning_GetPlan_Response);
 	rpc GetPlanByInputAccessKey (.CPromotionPlanning_GetPlanByInputAccessKey_Request) returns (.CPromotionPlanning_GetPlanByInputAccessKey_Response);
 	rpc GetPlansUpdatedSince (.CPromotionPlanning_GetPlansUpdatedSince_Request) returns (.CPromotionPlanning_GetPlansUpdatedSince_Response);
