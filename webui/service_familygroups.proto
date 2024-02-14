@@ -206,7 +206,6 @@ message CFamilyGroups_RequestPurchase_Request {
 message CFamilyGroups_RequestPurchase_Response {
 	optional uint64 gidshoppingcart = 1;
 	optional uint64 request_id = 2;
-	optional uint64 gidshoppingcartcopy = 3;
 }
 
 message CFamilyGroups_ResendInvitationToFamilyGroup_Request {
@@ -298,7 +297,6 @@ message PurchaseRequest {
 	optional bool is_completed = 7;
 	optional uint64 request_id = 8;
 	repeated uint32 requested_packageids = 9;
-	//optional uint64 gidshoppingcartcopy = 9;
 	repeated uint32 purchased_packageids = 10;
 }
 
