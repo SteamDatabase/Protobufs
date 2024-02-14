@@ -1,0 +1,23 @@
+
+message CPromotionStats_GetOptInDemoStats_Request {
+	optional string opt_in_name = 1;
+}
+
+message CPromotionStats_GetOptInDemoStats_Response {
+	repeated .CPromotionStats_GetOptInDemoStats_Response_PerAppStats stats = 1;
+}
+
+message CPromotionStats_GetOptInDemoStats_Response_PerAppStats {
+	optional uint32 appid = 1;
+	optional uint32 demo_appid = 2;
+	optional uint32 rt_start_time = 3;
+	optional uint32 rt_end_time = 4;
+	optional uint32 demo_player_count = 5;
+	optional uint32 wishlist_count = 6;
+	optional uint32 player_wishlist_count = 7;
+}
+
+service PromotionStats {
+	rpc GetOptInDemoStats (.CPromotionStats_GetOptInDemoStats_Request) returns (.CPromotionStats_GetOptInDemoStats_Response);
+}
+

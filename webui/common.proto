@@ -3939,7 +3939,7 @@ message StoreItem_Screenshots_Screenshot {
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
 message StoreItem_SupportedLanguage {
-	optional int32 elanguage = 1;
+	optional int32 elanguage = 1 [default = -1];
 	optional bool supported = 2;
 	optional bool full_audio = 3;
 	optional bool subtitles = 4;
