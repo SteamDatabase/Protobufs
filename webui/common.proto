@@ -3943,6 +3943,7 @@ message StoreItem_SupportedLanguage {
 	optional bool supported = 2;
 	optional bool full_audio = 3;
 	optional bool subtitles = 4;
+	optional int32 eadditionallanguage = 5 [default = -1];
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers

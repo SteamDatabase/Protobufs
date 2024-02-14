@@ -297,7 +297,9 @@ message PurchaseRequest {
 	optional int32 response_action = 6 [(.description) = "enum"];
 	optional bool is_completed = 7;
 	optional uint64 request_id = 8;
-	optional uint64 gidshoppingcartcopy = 9;
+	repeated uint32 requested_packageids = 9;
+	//optional uint64 gidshoppingcartcopy = 9;
+	repeated uint32 purchased_packageids = 10;
 }
 
 service FamilyGroups {
