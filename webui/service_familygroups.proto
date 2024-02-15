@@ -218,7 +218,6 @@ message CFamilyGroups_ResendInvitationToFamilyGroup_Response {
 
 message CFamilyGroups_RespondToRequestedPurchase_Request {
 	optional uint64 family_groupid = 1;
-	optional fixed64 purchase_requester_steamid = 2;
 	optional int32 action = 3 [(.description) = "enum"];
 	optional uint64 request_id = 4;
 }
@@ -262,7 +261,6 @@ message CFamilyGroupsClient_NotifyRunningApps_Notification_PlayingMember {
 
 message CFamilyGroupsClient_NotifyRunningApps_Notification_RunningApp {
 	optional uint32 appid = 1;
-	optional bool is_locked = 2;
 	repeated .CFamilyGroupsClient_NotifyRunningApps_Notification_PlayingMember playing_members = 3;
 }
 
