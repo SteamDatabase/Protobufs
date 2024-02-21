@@ -40,6 +40,15 @@ message CMsgSteamLearn_EditProject_Response {
 	optional int32 result = 1 [(.description) = "enum"];
 }
 
+message CMsgSteamLearn_GetAccessTokens_Request {
+	optional uint32 appid = 1;
+}
+
+message CMsgSteamLearn_GetAccessTokens_Response {
+	optional int32 result = 1 [(.description) = "enum"];
+	optional .CMsgSteamLearnAccessTokens access_tokens = 2;
+}
+
 message CMsgSteamLearn_GetBatchedStatus_Request {
 	repeated .CMsgSteamLearn_GetFetchStatus_Request fetch_requests = 1;
 	repeated .CMsgSteamLearn_GetTrainStatus_Request train_requests = 2;
@@ -468,6 +477,28 @@ message CMsgSteamLearn_Train_Response {
 	optional int32 result = 1 [(.description) = "enum"];
 }
 
+message CMsgSteamLearnAccessTokens {
+	optional string register_data_source_access_token = 1;
+	repeated .CMsgSteamLearnAccessTokens_CacheDataAccessToken cache_data_access_tokens = 2;
+	repeated .CMsgSteamLearnAccessTokens_SnapshotProjectAccessToken snapshot_project_access_tokens = 3;
+	repeated .CMsgSteamLearnAccessTokens_InferenceAccessToken inference_access_tokens = 4;
+}
+
+message CMsgSteamLearnAccessTokens_CacheDataAccessToken {
+	optional uint32 data_source_id = 1;
+	optional string access_token = 2;
+}
+
+message CMsgSteamLearnAccessTokens_InferenceAccessToken {
+	optional uint32 project_id = 1;
+	optional string access_token = 2;
+}
+
+message CMsgSteamLearnAccessTokens_SnapshotProjectAccessToken {
+	optional uint32 project_id = 1;
+	optional string access_token = 2;
+}
+
 message CMsgSteamLearnData {
 	optional uint32 data_source_id = 1;
 	repeated uint64 keys = 2;
@@ -761,6 +792,7 @@ service SteamLearn {
 	rpc CacheData (.CMsgSteamLearn_CacheData_Request) returns (.CMsgSteamLearn_CacheData_Response);
 	rpc CreateProject (.CMsgSteamLearn_CreateProject_Request) returns (.CMsgSteamLearn_CreateProject_Response);
 	rpc EditProject (.CMsgSteamLearn_EditProject_Request) returns (.CMsgSteamLearn_EditProject_Response);
+	rpc GetAccessTokensWeb (.CMsgSteamLearn_GetAccessTokens_Request) returns (.CMsgSteamLearn_GetAccessTokens_Response);
 	rpc GetBatchedStatus (.CMsgSteamLearn_GetBatchedStatus_Request) returns (.CMsgSteamLearn_GetBatchedStatus_Response);
 	rpc GetDataSource (.CMsgSteamLearn_GetDataSource_Request) returns (.CMsgSteamLearn_GetDataSource_Response);
 	rpc GetEmbeddingValues (.CMsgSteamLearn_GetEmbeddingValues_Request) returns (.CMsgSteamLearn_GetEmbeddingValues_Response);

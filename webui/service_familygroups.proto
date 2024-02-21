@@ -111,7 +111,8 @@ message CFamilyGroups_GetPreferredLenders_Response_FamilyMember {
 
 message CFamilyGroups_GetPurchaseRequests_Request {
 	optional uint64 family_groupid = 1;
-	optional bool include_completed = 2;
+	repeated uint64 request_ids = 3;
+	optional uint32 rt_include_completed_since = 4;
 }
 
 message CFamilyGroups_GetPurchaseRequests_Response {

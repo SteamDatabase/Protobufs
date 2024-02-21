@@ -172,6 +172,7 @@ message CGameRecording_UploadProgress_Notification {
 message CGameRecording_UserAddTimelineEntry_Request {
 	optional uint64 game_id = 1;
 	optional .CTimelineEntry entry = 2;
+	optional string clip_id = 3;
 }
 
 message CGameRecording_UserAddTimelineEntry_Response {
@@ -182,6 +183,7 @@ message CGameRecording_UserRemoveTimelineEntry_Request {
 	optional uint64 game_id = 1;
 	optional string timeline_id = 2;
 	optional uint64 entry_id = 3;
+	optional string clip_id = 4;
 }
 
 message CGameRecording_UserRemoveTimelineEntry_Response {
@@ -190,6 +192,7 @@ message CGameRecording_UserRemoveTimelineEntry_Response {
 message CGameRecording_UserUpdateTimelineEntry_Request {
 	optional uint64 game_id = 1;
 	optional .CTimelineEntry entry = 2;
+	optional string clip_id = 3;
 }
 
 message CGameRecording_UserUpdateTimelineEntry_Response {
@@ -233,6 +236,7 @@ message CTimelineEntry {
 	optional int32 marker_priority = 14;
 	optional string rich_presence = 15;
 	optional uint32 screenshot_handle = 16;
+	optional string achievement_name = 17;
 }
 
 service GameRecording {
