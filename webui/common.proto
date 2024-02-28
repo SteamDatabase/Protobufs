@@ -3639,6 +3639,14 @@ message CStorePageFilter_StoreFilter {
 	optional string cache_key = 2;
 }
 
+// Used by: GameRecordingClip, VideoClip
+message CVideo_GameRecordingSegmentInfo {
+	optional uint32 segment_number = 1;
+	optional uint64 segment_size_bytes = 2;
+	optional string component_name = 3;
+	optional string representation_name = 4;
+}
+
 // Used by: common.proto
 message EncryptedAppTicket {
 	optional uint32 ticket_version_no = 1;

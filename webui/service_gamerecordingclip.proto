@@ -1,3 +1,4 @@
+import "common.proto";
 
 message CGameRecording_CreateShareClip_Request {
 	optional .CGameRecordingClip clip = 2;
@@ -64,6 +65,7 @@ message CMsgVideoGameRecordingRepresentation {
 	optional string frame_rate_string = 8;
 	optional string codec = 9;
 	optional uint32 audio_channel_config = 10;
+	repeated .CVideo_GameRecordingSegmentInfo segment_info = 11;
 }
 
 message CVideoManagerClipID {

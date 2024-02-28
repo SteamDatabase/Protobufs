@@ -1,3 +1,4 @@
+import "common.proto";
 
 message CVideo_BeginGameRecordingSegmentsUpload_Request {
 	optional uint64 recording_id = 1;
@@ -23,9 +24,20 @@ message CVideo_CommitGameRecordingSegmentsUpload_Request {
 message CVideo_CommitGameRecordingSegmentsUpload_Response {
 }
 
-message CVideo_GameRecordingSegmentInfo {
-	optional uint32 segment_number = 1;
-	optional uint64 segment_size_bytes = 2;
+message CVideo_GameRecordingCommitSegmentUploads_Request {
+	optional uint64 recording_id = 1;
+	repeated .CVideo_GameRecordingSegmentInfo segments_uploaded = 2;
+}
+
+message CVideo_GameRecordingCommitSegmentUploads_Response {
+}
+
+message CVideo_GameRecordingGetNextBatchOfSegmentsToUpload_Request {
+	optional uint64 recording_id = 1;
+}
+
+message CVideo_GameRecordingGetNextBatchOfSegmentsToUpload_Response {
+	repeated .CVideo_GameRecordingSegmentUploadInfo segments_needed = 1;
 }
 
 message CVideo_GameRecordingSegmentUploadInfo {
@@ -44,5 +56,7 @@ message CVideo_GameRecordingSegmentUploadInfo_HTTPHeaders {
 service VideoClip {
 	rpc BeginGameRecordingSegmentsUpload (.CVideo_BeginGameRecordingSegmentsUpload_Request) returns (.CVideo_BeginGameRecordingSegmentsUpload_Response);
 	rpc CommitGameRecordingSegmentsUpload (.CVideo_CommitGameRecordingSegmentsUpload_Request) returns (.CVideo_CommitGameRecordingSegmentsUpload_Response);
+	rpc CommitSegmentUploads (.CVideo_GameRecordingCommitSegmentUploads_Request) returns (.CVideo_GameRecordingCommitSegmentUploads_Response);
+	rpc GetNextBatchOfSegmentsToUpload (.CVideo_GameRecordingGetNextBatchOfSegmentsToUpload_Request) returns (.CVideo_GameRecordingGetNextBatchOfSegmentsToUpload_Response);
 }
 

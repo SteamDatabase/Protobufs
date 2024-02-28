@@ -70,6 +70,8 @@ message CPromotionPlanning_GetAllPlansForPartner_Request {
 	optional uint32 start_date_after_rtime = 2;
 	optional uint32 start_date_before_rtime = 3;
 	optional bool show_hidden = 4;
+	optional uint32 start_date = 5;
+	optional uint32 end_date = 6;
 }
 
 message CPromotionPlanning_GetAllPlansForPartner_Response {

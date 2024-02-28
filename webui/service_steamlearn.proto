@@ -618,6 +618,7 @@ message CMsgSteamLearnModelNodeEmbedding {
 	optional uint32 embedding_width = 3;
 	optional bool flatten = 4;
 	optional string export_name = 5;
+	optional string embed_name = 6;
 }
 
 message CMsgSteamLearnModelNodeExplode {
@@ -644,6 +645,13 @@ message CMsgSteamLearnModelNodeShuffle {
 
 message CMsgSteamLearnModelNodeSyncedShuffle {
 	optional bool exclude_zeroes = 1;
+}
+
+message CMsgSteamLearnModelNodeTextVectorization {
+	optional uint32 vocabulary_size = 1;
+	optional int32 standardize = 2 [(.description) = "enum"];
+	optional int32 output = 3 [(.description) = "enum"];
+	optional uint32 sequence_length = 4;
 }
 
 message CMsgSteamLearnModelNodeTrain {
@@ -710,6 +718,7 @@ message CMsgSteamLearnProjectNode {
 	optional .CMsgSteamLearnModelNodeConditionalSwap conditional_swap = 22;
 	optional .CMsgSteamLearnModelNodeKMeansCluster kmeans = 23;
 	optional .CMsgSteamLearnModelNodeCombine combine = 24;
+	optional .CMsgSteamLearnModelNodeTextVectorization text_vectorization = 25;
 }
 
 message CMsgSteamLearnProjectNodeConnector {

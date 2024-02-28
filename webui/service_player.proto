@@ -393,6 +393,7 @@ message CPlayer_GetPlayerLinkDetails_Response_PlayerLinkDetails_AccountPrivateDa
 	optional int32 game_os_type = 19;
 	optional int32 game_device_type = 20;
 	optional string game_device_name = 21;
+	optional bool game_is_private = 22;
 }
 
 message CPlayer_GetPlayerLinkDetails_Response_PlayerLinkDetails_AccountPublicData {

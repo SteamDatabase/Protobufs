@@ -42,6 +42,16 @@ message CFamilyGroups_DeleteFamilyGroup_Request {
 message CFamilyGroups_DeleteFamilyGroup_Response {
 }
 
+message CFamilyGroups_FamilyDispersionGraph {
+	repeated .CFamilyGroups_FamilyDispersionGraph_Edge edges = 1;
+}
+
+message CFamilyGroups_FamilyDispersionGraph_Edge {
+	optional uint32 accountid1 = 1;
+	optional uint32 accountid2 = 2;
+	optional double distance = 3;
+}
+
 message CFamilyGroups_GetChangeLog_Request {
 	optional uint64 family_groupid = 1;
 }
@@ -56,6 +66,15 @@ message CFamilyGroups_GetChangeLog_Response_Change {
 	optional int32 type = 3 [(.description) = "enum"];
 	optional string body = 4;
 	optional bool by_support = 5;
+}
+
+message CFamilyGroups_GetDispersionForFamily_Request {
+	optional uint64 family_groupid = 1;
+}
+
+message CFamilyGroups_GetDispersionForFamily_Response {
+	optional double total_dispersion = 1;
+	optional .CFamilyGroups_FamilyDispersionGraph graph = 2;
 }
 
 message CFamilyGroups_GetFamilyGroup_Request {
@@ -306,6 +325,7 @@ service FamilyGroups {
 	rpc CreateFamilyGroup (.CFamilyGroups_CreateFamilyGroup_Request) returns (.CFamilyGroups_CreateFamilyGroup_Response);
 	rpc DeleteFamilyGroup (.CFamilyGroups_DeleteFamilyGroup_Request) returns (.CFamilyGroups_DeleteFamilyGroup_Response);
 	rpc GetChangeLog (.CFamilyGroups_GetChangeLog_Request) returns (.CFamilyGroups_GetChangeLog_Response);
+	rpc GetDispersionForFamily (.CFamilyGroups_GetDispersionForFamily_Request) returns (.CFamilyGroups_GetDispersionForFamily_Response);
 	rpc GetFamilyGroup (.CFamilyGroups_GetFamilyGroup_Request) returns (.CFamilyGroups_GetFamilyGroup_Response);
 	rpc GetFamilyGroupForUser (.CFamilyGroups_GetFamilyGroupForUser_Request) returns (.CFamilyGroups_GetFamilyGroupForUser_Response);
 	rpc GetPlaytimeSummary (.CFamilyGroups_GetPlaytimeSummary_Request) returns (.CFamilyGroups_GetPlaytimeSummary_Response);

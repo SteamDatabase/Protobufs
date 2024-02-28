@@ -90,6 +90,7 @@ message CStoreBrowse_GetStoreCategories_Response_Category {
 	optional string display_name = 4;
 	optional string image_url = 5;
 	optional bool show_in_search = 6;
+	optional bool computed = 7;
 }
 
 service StoreBrowse {
