@@ -95,6 +95,7 @@ message CFamilyGroups_GetFamilyGroup_Response {
 
 message CFamilyGroups_GetFamilyGroupForUser_Request {
 	optional uint64 steamid = 1;
+	optional bool include_family_group_response = 2;
 }
 
 message CFamilyGroups_GetFamilyGroupForUser_Response {
@@ -105,6 +106,7 @@ message CFamilyGroups_GetFamilyGroupForUser_Response {
 	repeated .FamilyGroupPendingInviteForUser pending_group_invites = 5;
 	optional uint32 role = 6;
 	optional uint32 cooldown_seconds_remaining = 7;
+	optional .CFamilyGroups_GetFamilyGroup_Response family_group = 8;
 }
 
 message CFamilyGroups_GetPlaytimeSummary_Request {
@@ -156,7 +158,7 @@ message CFamilyGroups_GetSharedLibraryApps_Response_SharedApp {
 	optional string name = 6;
 	optional string sort_as = 7;
 	optional string capsule_filename = 8;
-	optional string img_icon_url = 9;
+	optional string img_icon_hash = 9;
 	optional int32 exclude_reason = 10 [default = 0, (.description) = "enum"];
 	optional uint32 rt_time_acquired = 11;
 	optional uint32 rt_last_played = 12;

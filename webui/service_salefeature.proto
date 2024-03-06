@@ -269,6 +269,21 @@ message CSaleFeature_GetUserYearScreenshots_Response_ScreenshotsByApp {
 	repeated .CSaleFeature_GetUserYearScreenshots_Response_Screenshot screenshots = 2;
 }
 
+message CSaleFeature_GetYIRCurrentMonthlySummary_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CSaleFeature_GetYIRCurrentMonthlySummary_Response {
+	optional uint32 year = 1;
+	optional uint32 month = 2;
+	optional uint32 games_played = 4;
+	optional uint32 top_played_appid = 5;
+	optional uint32 longest_streak_days = 6;
+	optional uint32 rt_streak_start = 7;
+	optional uint32 achievements = 8;
+	optional uint32 screenshots = 9;
+}
+
 message CSaleFeature_SetUserActionData_Request {
 	optional fixed64 steamid = 1;
 	optional fixed64 gid = 2;
@@ -351,6 +366,7 @@ service SaleFeature {
 	rpc GetUserYearInReview (.CSaleFeature_GetUserYearInReview_Request) returns (.CSaleFeature_GetUserYearInReview_Response);
 	rpc GetUserYearInReviewShareImage (.CSaleFeature_GetUserYearInReviewShareImage_Request) returns (.CSaleFeature_GetUserYearInReviewShareImage_Response);
 	rpc GetUserYearScreenshots (.CSaleFeature_GetUserYearScreenshots_Request) returns (.CSaleFeature_GetUserYearScreenshots_Response);
+	rpc GetYIRCurrentMonthlySummary (.CSaleFeature_GetYIRCurrentMonthlySummary_Request) returns (.CSaleFeature_GetYIRCurrentMonthlySummary_Response);
 	rpc SetUserActionData (.CSaleFeature_SetUserActionData_Request) returns (.CSaleFeature_SetUserActionData_Response);
 	rpc SetUserSharingPermissions (.CSaleFeature_SetUserSharingPermissions_Request) returns (.CSaleFeature_SetUserSharingPermissions_Response);
 }

@@ -566,6 +566,9 @@ message CMsgSteamLearnFetchInfo {
 	optional uint32 fetch_id = 1;
 }
 
+message CMsgSteamLearnModelNodeBatchNormalization {
+}
+
 message CMsgSteamLearnModelNodeCombine {
 }
 
@@ -632,6 +635,9 @@ message CMsgSteamLearnModelNodeKMeansCluster {
 	optional uint32 num_clusters = 1;
 	optional string name = 2;
 	optional bool generate_clusters = 3;
+}
+
+message CMsgSteamLearnModelNodeNormalize {
 }
 
 message CMsgSteamLearnModelNodeOnehot {
@@ -719,6 +725,8 @@ message CMsgSteamLearnProjectNode {
 	optional .CMsgSteamLearnModelNodeKMeansCluster kmeans = 23;
 	optional .CMsgSteamLearnModelNodeCombine combine = 24;
 	optional .CMsgSteamLearnModelNodeTextVectorization text_vectorization = 25;
+	optional .CMsgSteamLearnModelNodeBatchNormalization batch_normalization = 26;
+	optional .CMsgSteamLearnModelNodeNormalize normalize = 27;
 }
 
 message CMsgSteamLearnProjectNodeConnector {
