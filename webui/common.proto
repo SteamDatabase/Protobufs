@@ -3353,7 +3353,7 @@ message CMsgProtoBufHeader {
 	optional uint32 debug_source_string_index = 35;
 	optional uint64 token_id = 36;
 	optional .CMsgGCRoutingProtoBufHeader routing_gc = 37;
-	optional int32 session_disposition = 38 [(.description) = "enum"];
+	optional int32 session_disposition = 38 [default = 0, (.description) = "enum"];
 	optional string wg_token__field_39 = 39;
 	optional string webui_auth_key = 40;
 	repeated int32 exclude_client_sessionids = 41;
