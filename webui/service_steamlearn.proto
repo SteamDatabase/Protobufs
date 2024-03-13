@@ -160,6 +160,19 @@ message CMsgSteamLearn_GetProject_Response {
 	optional .CMsgSteamLearnProject project = 1;
 }
 
+message CMsgSteamLearn_GetTrainLogs_Request {
+	optional uint32 project_id = 1;
+	optional uint32 fetch_id = 2;
+	optional uint32 train_id = 3;
+}
+
+message CMsgSteamLearn_GetTrainLogs_Response {
+	optional int32 result = 1 [(.description) = "enum"];
+	optional string main_log = 2;
+	repeated string fetch_worker_logs = 3;
+	optional string gpu_log = 4;
+}
+
 message CMsgSteamLearn_GetTrainStatus_Request {
 	optional uint32 project_id = 1;
 	optional uint32 train_id = 2;
@@ -220,6 +233,7 @@ message CMsgSteamLearn_Inference_Request {
 	optional .CMsgSteamLearnDataList data = 6;
 	repeated float additional_data = 7;
 	repeated uint64 keys = 8;
+	optional string named_inference = 9;
 }
 
 message CMsgSteamLearn_Inference_Response {
@@ -235,6 +249,7 @@ message CMsgSteamLearn_InferenceBackend_Request {
 	repeated .CMsgSteamLearnRawDataElement data = 4;
 	repeated uint64 keys = 6;
 	repeated float additional_data = 7;
+	optional string named_inference = 8;
 }
 
 message CMsgSteamLearn_InferenceBackend_Response {
@@ -263,7 +278,7 @@ message CMsgSteamLearn_InferenceBackend_Response_Output {
 }
 
 message CMsgSteamLearn_InferenceBackend_Response_RegressionOutput {
-	optional float value = 1;
+	repeated float value = 2;
 }
 
 message CMsgSteamLearn_InferenceMetadata_Request {
@@ -611,6 +626,10 @@ message CMsgSteamLearnModelNodeDenseStack {
 	optional uint32 dropout_pct = 3;
 }
 
+message CMsgSteamLearnModelNodeDot {
+	optional bool normalize = 1;
+}
+
 message CMsgSteamLearnModelNodeDropout {
 	optional uint32 dropout_pct = 1;
 }
@@ -627,6 +646,21 @@ message CMsgSteamLearnModelNodeEmbedding {
 message CMsgSteamLearnModelNodeExplode {
 }
 
+message CMsgSteamLearnModelNodeExtract {
+	optional int32 input_type = 1 [(.description) = "enum"];
+	optional int32 mode = 2 [(.description) = "enum"];
+	optional int32 exclusion = 3 [(.description) = "enum"];
+	optional int32 selection = 4 [(.description) = "enum"];
+	optional float bias_start = 5;
+	optional float bias_end = 6;
+	optional uint32 input_bias_input_number = 7;
+	optional float input_bias_strength = 8;
+	optional uint32 positive_sample_percent = 9;
+	optional string compact_table = 10;
+	optional string extracted_compact_table = 11;
+	optional uint32 recency_months = 12;
+}
+
 message CMsgSteamLearnModelNodeInput {
 	optional uint32 input_num = 1;
 }
@@ -635,6 +669,10 @@ message CMsgSteamLearnModelNodeKMeansCluster {
 	optional uint32 num_clusters = 1;
 	optional string name = 2;
 	optional bool generate_clusters = 3;
+}
+
+message CMsgSteamLearnModelNodeNamedInference {
+	optional string name = 1;
 }
 
 message CMsgSteamLearnModelNodeNormalize {
@@ -727,6 +765,9 @@ message CMsgSteamLearnProjectNode {
 	optional .CMsgSteamLearnModelNodeTextVectorization text_vectorization = 25;
 	optional .CMsgSteamLearnModelNodeBatchNormalization batch_normalization = 26;
 	optional .CMsgSteamLearnModelNodeNormalize normalize = 27;
+	optional .CMsgSteamLearnModelNodeNamedInference named_inference = 28;
+	optional .CMsgSteamLearnModelNodeDot dot = 29;
+	optional .CMsgSteamLearnModelNodeExtract extract = 30;
 }
 
 message CMsgSteamLearnProjectNodeConnector {
@@ -818,6 +859,7 @@ service SteamLearn {
 	rpc GetLogEvents (.CMsgSteamLearn_GetLogEvents_Request) returns (.CMsgSteamLearn_GetLogEvents_Response);
 	rpc GetNearestEmbedding (.CMsgSteamLearn_GetNearestEmbedding_Request) returns (.CMsgSteamLearn_GetNearestEmbedding_Response);
 	rpc GetProject (.CMsgSteamLearn_GetProject_Request) returns (.CMsgSteamLearn_GetProject_Response);
+	rpc GetTrainLogs (.CMsgSteamLearn_GetTrainLogs_Request) returns (.CMsgSteamLearn_GetTrainLogs_Response);
 	rpc GetTrainStatus (.CMsgSteamLearn_GetTrainStatus_Request) returns (.CMsgSteamLearn_GetTrainStatus_Response);
 	rpc GetTrainStatusVersions (.CMsgSteamLearn_GetTrainStatusVersions_Request) returns (.CMsgSteamLearn_GetTrainStatusVersions_Response);
 	rpc Inference (.CMsgSteamLearn_Inference_Request) returns (.CMsgSteamLearn_Inference_Response);

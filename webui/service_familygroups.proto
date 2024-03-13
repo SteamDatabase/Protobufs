@@ -294,6 +294,7 @@ message FamilyGroupMember {
 	optional fixed64 steamid = 1;
 	optional int32 role = 2 [(.description) = "enum"];
 	optional uint32 time_joined = 3;
+	optional uint32 cooldown_seconds_remaining = 4;
 }
 
 message FamilyGroupPendingInvite {

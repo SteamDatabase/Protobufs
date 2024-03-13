@@ -69,7 +69,8 @@ message RecommendationDetails {
 	optional uint32 votes_funny = 24;
 	optional bool received_compensation = 25;
 	optional bool unverified_purchase = 26;
-	optional int32 review_quality = 27 [(.description) = "enum"];
+	repeated int32 review_qualities = 27 [(.description) = "enum"];
+	//optional int32 review_quality = 27 [(.description) = "enum"];
 	optional float weighted_vote_score = 28;
 	optional string moderation_note = 29;
 	optional int32 payment_method = 30;
