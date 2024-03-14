@@ -84,6 +84,38 @@ message CAppOverview_PerClientData {
 	optional uint32 playtime_left = 12;
 }
 
+// Used by: AccountCart, Checkout
+message CartAmount {
+	optional int64 amount_in_cents = 1;
+	optional int32 currency_code = 2;
+	optional string formatted_amount = 3;
+}
+
+// Used by: AccountCart, Checkout
+message CartCoupon {
+	optional uint32 couponid = 1;
+	optional uint64 gidcoupon = 2;
+	optional string title = 5;
+	optional string coupon_description = 6;
+	optional string large_icon_url = 7;
+	optional int32 discount_pct = 8;
+}
+
+// Used by: AccountCart, Checkout
+message CartGiftInfo {
+	optional int32 accountid_giftee = 1;
+	optional .CartGiftMessage gift_message = 2;
+	optional int32 time_scheduled_send = 3;
+}
+
+// Used by: AccountCart, Checkout
+message CartGiftMessage {
+	optional string gifteename = 1;
+	optional string message = 2;
+	optional string sentiment = 3;
+	optional string signature = 4;
+}
+
 message CBilling_Address {
 	optional string first_name = 1;
 	optional string last_name = 2;
