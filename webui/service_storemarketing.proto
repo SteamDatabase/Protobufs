@@ -6,6 +6,8 @@ message CStoreMarketing_GetItemsToFeature_Request {
 	optional .CStoreMarketing_GetItemsToFeature_Request_SpotlightFilter include_spotlights = 5;
 	optional bool include_dailydeals = 6;
 	optional int32 include_top_specials_count = 7;
+	optional bool include_purchase_recommendations = 8;
+	repeated .StoreItemID additional_purchase_item_ids = 9;
 }
 
 message CStoreMarketing_GetItemsToFeature_Request_SpotlightFilter {
@@ -18,6 +20,7 @@ message CStoreMarketing_GetItemsToFeature_Response {
 	repeated .CStoreMarketing_GetItemsToFeature_Response_Spotlight spotlights = 1;
 	repeated .CStoreMarketing_GetItemsToFeature_Response_FeaturedItem daily_deals = 2;
 	repeated .CStoreMarketing_GetItemsToFeature_Response_FeaturedItem specials = 3;
+	repeated .CStoreMarketing_GetItemsToFeature_Response_FeaturedItem purchase_recommendations = 4;
 }
 
 message CStoreMarketing_GetItemsToFeature_Response_FeaturedItem {

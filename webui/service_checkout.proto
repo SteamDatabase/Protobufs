@@ -25,7 +25,8 @@ message CCheckout_ValidateCart_Request {
 	optional int64 gidshoppingcart = 1;
 	optional .StoreBrowseContext context = 2;
 	optional .StoreBrowseItemDataRequest data_request = 3;
-	optional .CartGiftInfo gift_info = 4;
+	//optional UNKNOWN gift_info = 4;
+	optional fixed64 gidreplayoftransid = 5;
 }
 
 message CCheckout_ValidateCart_Response {
@@ -37,14 +38,14 @@ message CCheckout_ValidateCart_Response_CartItem {
 	optional uint64 line_item_id = 1;
 	optional .StoreItemID item_id = 2;
 	optional .StoreItem store_item = 3;
-	optional .CartGiftInfo gift_info = 4;
+	//optional UNKNOWN gift_info = 4;
 	optional .CCheckout_ValidateCart_Response_CartItem_Errors errors = 5;
 	optional .CCheckout_ValidateCart_Response_CartItem_Warnings warnings = 6;
-	optional .CartAmount subtotal = 7;
-	optional .CartAmount price_when_added = 8;
-	optional .CartAmount original_price = 9;
-	optional .CartCoupon coupon_applied = 10;
-	optional .CartAmount coupon_discount = 11;
+	//optional UNKNOWN subtotal = 7;
+	//optional UNKNOWN price_when_added = 8;
+	//optional UNKNOWN original_price = 9;
+	//optional UNKNOWN coupon_applied = 10;
+	//optional UNKNOWN coupon_discount = 11;
 }
 
 message CCheckout_ValidateCart_Response_CartItem_Errors {
@@ -70,10 +71,10 @@ message CCheckout_ValidateCart_Response_CartItem_Warnings_AppInMasterSub {
 }
 
 message CCheckout_ValidateCart_Response_EstimatedTotals {
-	optional .CartAmount subtotal = 1;
-	optional .CartAmount wallet_balance = 2;
-	optional .CartAmount exceeding_wallet_balance = 3;
-	optional .CartAmount remaining_wallet_balance = 4;
+	//optional UNKNOWN subtotal = 1;
+	//optional UNKNOWN wallet_balance = 2;
+	//optional UNKNOWN exceeding_wallet_balance = 3;
+	//optional UNKNOWN remaining_wallet_balance = 4;
 }
 
 service Checkout {
