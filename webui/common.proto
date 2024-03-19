@@ -3784,6 +3784,7 @@ message StoreItem {
 	optional .StoreItem_PurchaseOption best_purchase_option = 40;
 	repeated .StoreItem_PurchaseOption purchase_options = 41;
 	repeated .StoreItem_PurchaseOption accessories = 42;
+	optional .StoreItem_PurchaseOption self_purchase_option = 43;
 	optional .StoreItem_Screenshots screenshots = 50;
 	optional .StoreItem_Trailers trailers = 51;
 	repeated .StoreItem_SupportedLanguage supported_languages = 52;

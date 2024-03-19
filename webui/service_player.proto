@@ -271,6 +271,9 @@ message CPlayer_GetLastPlayedTimes_Response_Game {
 	optional uint32 last_mac_playtime = 13;
 	optional uint32 last_linux_playtime = 14;
 	optional uint32 playtime_disconnected = 15;
+	optional int32 playtime_deck_forever = 16;
+	optional uint32 first_deck_playtime = 17;
+	optional uint32 last_deck_playtime = 18;
 }
 
 message CPlayer_GetMiniProfileBackground_Request {
@@ -349,6 +352,7 @@ message CPlayer_GetOwnedGames_Response_Game {
 	optional bool has_leaderboards = 17;
 	repeated uint32 content_descriptorids = 18;
 	optional int32 playtime_disconnected = 19;
+	optional int32 playtime_deck_forever = 20;
 }
 
 message CPlayer_GetPerFriendPreferences_Request {

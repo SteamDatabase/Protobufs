@@ -1,5 +1,11 @@
 import "common_base.proto";
 
+message CGameRecording_CleanupBackgroundRecordings_Request {
+}
+
+message CGameRecording_CleanupBackgroundRecordings_Response {
+}
+
 message CGameRecording_ClipSummary {
 	optional string clip_id = 1;
 	optional uint64 game_id = 2;
@@ -93,6 +99,22 @@ message CGameRecording_GetTimelinesForClip_Response {
 	optional uint64 game_id = 1;
 	repeated .CGameRecordingTimelineMetadata timelines = 2;
 	optional uint64 first_timeline_start_offset_ms = 3;
+}
+
+message CGameRecording_GetTotalDiskSpaceUsage_Request {
+	optional string folder_path = 1;
+	optional int32 type = 2 [(.description) = "enum"];
+}
+
+message CGameRecording_GetTotalDiskSpaceUsage_Response {
+	optional uint64 size = 1;
+}
+
+message CGameRecording_ManuallyDeleteRecordingsForApps_Request {
+	repeated uint64 game_ids = 1;
+}
+
+message CGameRecording_ManuallyDeleteRecordingsForApps_Response {
 }
 
 message CGameRecording_NewClip_Notification {
@@ -204,7 +226,6 @@ message CGameRecordingTimelineMetadata {
 	optional uint32 date_recorded = 3;
 	optional uint64 duration_ms = 4;
 	repeated .CGameRecordingTimelineMetadata_Recording recordings = 5;
-	optional uint64 file_size = 6;
 }
 
 message CGameRecordingTimelineMetadata_Recording {
@@ -240,6 +261,7 @@ message CTimelineEntry {
 }
 
 service GameRecording {
+	rpc CleanupBackgroundRecordings (.CGameRecording_CleanupBackgroundRecordings_Request) returns (.CGameRecording_CleanupBackgroundRecordings_Response);
 	rpc DeleteClip (.CGameRecording_DeleteClip_Request) returns (.CGameRecording_DeleteClip_Response);
 	rpc ExportClip (.CGameRecording_ExportClip_Request) returns (.CGameRecording_ExportClip_Response);
 	rpc GetActiveTimelineApps (.CGameRecording_GetActiveTimelineApps_Request) returns (.CGameRecording_GetActiveTimelineApps_Response);
@@ -248,6 +270,8 @@ service GameRecording {
 	rpc GetThumbnails (.CGameRecording_GetThumbnails_Request) returns (.CGameRecording_GetThumbnails_Response);
 	rpc GetTimelinesForApp (.CGameRecording_GetTimelinesForApp_Request) returns (.CGameRecording_GetTimelinesForApp_Response);
 	rpc GetTimelinesForClip (.CGameRecording_GetTimelinesForClip_Request) returns (.CGameRecording_GetTimelinesForClip_Response);
+	rpc GetTotalDiskSpaceUsage (.CGameRecording_GetTotalDiskSpaceUsage_Request) returns (.CGameRecording_GetTotalDiskSpaceUsage_Response);
+	rpc ManuallyDeleteRecordingsForApps (.CGameRecording_ManuallyDeleteRecordingsForApps_Request) returns (.CGameRecording_ManuallyDeleteRecordingsForApps_Response);
 	rpc NotifyExportProgress (.CGameRecording_ExportProgress_Notification) returns (.NoResponse);
 	rpc NotifyNewClip (.CGameRecording_NewClip_Notification) returns (.NoResponse);
 	rpc NotifyRecordingSessionChanged (.CGameRecording_RecordingSessionChanged_Notification) returns (.NoResponse);

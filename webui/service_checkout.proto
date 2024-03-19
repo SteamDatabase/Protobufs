@@ -46,6 +46,7 @@ message CCheckout_ValidateCart_Response_CartItem {
 	optional .CartAmount original_price = 9;
 	optional .CartCoupon coupon_applied = 10;
 	optional .CartAmount coupon_discount = 11;
+	optional bool can_purchase_as_gift = 12;
 }
 
 message CCheckout_ValidateCart_Response_CartItem_Errors {
@@ -55,6 +56,8 @@ message CCheckout_ValidateCart_Response_CartItem_Errors {
 	optional bool invalid_coupon = 4;
 	optional bool invalid_coupon_for_item = 5;
 	optional bool coupon_exclusive_promo = 6;
+	optional bool cannot_purchase_as_gift = 7;
+	optional bool invalid_item = 8;
 }
 
 message CCheckout_ValidateCart_Response_CartItem_Warnings {

@@ -146,6 +146,8 @@ message CFamilyGroups_GetSharedLibraryApps_Request {
 	optional bool include_excluded = 3;
 	optional string language = 5;
 	optional uint32 max_apps = 6;
+	optional bool include_non_games = 7;
+	optional fixed64 steamid = 8;
 }
 
 message CFamilyGroups_GetSharedLibraryApps_Response {
@@ -319,6 +321,8 @@ message PurchaseRequest {
 	optional uint64 request_id = 8;
 	repeated uint32 requested_packageids = 9;
 	repeated uint32 purchased_packageids = 10;
+	repeated uint32 requested_bundleids = 11;
+	repeated uint32 purchased_bundleids = 12;
 }
 
 service FamilyGroups {
