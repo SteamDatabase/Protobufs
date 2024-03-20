@@ -152,6 +152,7 @@ message CFamilyGroups_GetSharedLibraryApps_Request {
 
 message CFamilyGroups_GetSharedLibraryApps_Response {
 	repeated .CFamilyGroups_GetSharedLibraryApps_Response_SharedApp apps = 1;
+	optional fixed64 owner_steamid = 2;
 }
 
 message CFamilyGroups_GetSharedLibraryApps_Response_SharedApp {
@@ -165,6 +166,7 @@ message CFamilyGroups_GetSharedLibraryApps_Response_SharedApp {
 	optional uint32 rt_time_acquired = 11;
 	optional uint32 rt_last_played = 12;
 	optional uint32 rt_playtime = 13;
+	optional int32 app_type = 14 [default = 1, (.description) = "enum"];
 }
 
 message CFamilyGroups_GetUsersSharingDevice_Request {
