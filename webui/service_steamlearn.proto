@@ -682,6 +682,7 @@ message CMsgSteamLearnModelNodeMaxPooling1D {
 
 message CMsgSteamLearnModelNodeNamedInference {
 	optional string name = 1;
+	optional bool only_inference = 2;
 }
 
 message CMsgSteamLearnModelNodeNormalize {
@@ -705,6 +706,8 @@ message CMsgSteamLearnModelNodeTextVectorization {
 	optional int32 standardize = 2 [(.description) = "enum"];
 	optional int32 output = 3 [(.description) = "enum"];
 	optional uint32 sequence_length = 4;
+	optional int32 split = 5 [(.description) = "enum"];
+	optional uint32 ngrams = 6;
 }
 
 message CMsgSteamLearnModelNodeTrain {

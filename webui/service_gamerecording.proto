@@ -220,6 +220,14 @@ message CGameRecording_UserUpdateTimelineEntry_Request {
 message CGameRecording_UserUpdateTimelineEntry_Response {
 }
 
+message CGameRecording_ZipClip_Request {
+	optional string clip_id = 1;
+}
+
+message CGameRecording_ZipClip_Response {
+	optional string zip_path = 1;
+}
+
 message CGameRecordingTimelineMetadata {
 	optional string timeline_id = 1;
 	optional uint64 game_id = 2;
@@ -285,5 +293,6 @@ service GameRecording {
 	rpc UserAddTimelineEntry (.CGameRecording_UserAddTimelineEntry_Request) returns (.CGameRecording_UserAddTimelineEntry_Response);
 	rpc UserRemoveTimelineEntry (.CGameRecording_UserRemoveTimelineEntry_Request) returns (.CGameRecording_UserRemoveTimelineEntry_Response);
 	rpc UserUpdateTimelineEntry (.CGameRecording_UserUpdateTimelineEntry_Request) returns (.CGameRecording_UserUpdateTimelineEntry_Response);
+	rpc ZipClip (.CGameRecording_ZipClip_Request) returns (.CGameRecording_ZipClip_Response);
 }
 

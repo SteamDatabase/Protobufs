@@ -58,7 +58,7 @@ message CParental_GetParentalSettings_Response {
 
 message CParental_GetRequests_Request {
 	optional uint32 rt_include_completed_since = 1;
-	optional fixed64 steamid = 10;
+	optional fixed64 family_groupid = 2;
 }
 
 message CParental_GetRequests_Response {
