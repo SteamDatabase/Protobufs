@@ -152,6 +152,7 @@ message CAuthentication_RefreshToken_Enumerate_Response_RefreshTokenDescription 
 	optional .CAuthentication_RefreshToken_Enumerate_Response_TokenUsageEvent first_seen = 9;
 	optional .CAuthentication_RefreshToken_Enumerate_Response_TokenUsageEvent last_seen = 10;
 	optional int32 os_type = 11;
+	optional int32 authentication_type = 12 [(.description) = "enum"];
 }
 
 message CAuthentication_RefreshToken_Enumerate_Response_TokenUsageEvent {

@@ -64,12 +64,15 @@ message CPublishedFile_FileSubscribed_Notification {
 	optional bool is_depot_content = 6;
 	optional uint32 rtime_updated = 7;
 	repeated .CPublishedFile_FileSubscribed_Notification_RevisionData revisions = 8;
+	optional int32 revision = 9 [(.description) = "enum"];
 }
 
 message CPublishedFile_FileSubscribed_Notification_RevisionData {
 	optional int32 revision = 1 [(.description) = "enum"];
 	optional fixed64 file_hcontent = 2;
 	optional uint32 rtime_updated = 3;
+	optional uint32 build_id_min = 4;
+	optional uint32 build_id_max = 5;
 }
 
 message CPublishedFile_FileUnsubscribed_Notification {
@@ -127,6 +130,9 @@ message CPublishedFile_GetChangeHistory_Response_ChangeLog {
 	optional uint32 timestamp = 1;
 	optional string change_description = 2;
 	optional int32 language = 3;
+	optional bool saved_snapshot = 4;
+	optional uint32 snapshot_build_id_min = 5;
+	optional uint32 snapshot_build_id_max = 6;
 }
 
 message CPublishedFile_GetChangeHistoryEntry_Request {
@@ -138,6 +144,9 @@ message CPublishedFile_GetChangeHistoryEntry_Request {
 message CPublishedFile_GetChangeHistoryEntry_Response {
 	optional string change_description = 1;
 	optional int32 language = 2;
+	optional bool saved_snapshot = 3;
+	optional uint32 snapshot_build_id_min = 4;
+	optional uint32 snapshot_build_id_max = 5;
 }
 
 message CPublishedFile_GetContentDescriptors_Request {
@@ -199,6 +208,7 @@ message CPublishedFile_GetItemInfo_Request {
 	optional uint32 appid = 1;
 	optional uint32 last_time_updated = 2;
 	repeated .CPublishedFile_GetItemInfo_Request_WorkshopItem workshop_items = 3;
+	optional uint32 build_id = 4;
 }
 
 message CPublishedFile_GetItemInfo_Request_WorkshopItem {
@@ -218,6 +228,7 @@ message CPublishedFile_GetItemInfo_Response_WorkshopItemInfo {
 	optional uint32 time_updated = 2;
 	optional fixed64 manifest_id = 3;
 	optional uint32 flags = 4;
+	optional int32 revision = 5 [(.description) = "enum"];
 }
 
 message CPublishedFile_GetSubSectionData_Request {
@@ -608,6 +619,14 @@ message PublishedFileDetails {
 	repeated int32 content_descriptorids = 72 [(.description) = "enum"];
 	optional float search_score = 73;
 	optional uint64 external_asset_id = 74;
+	repeated .PublishedFileDetails_AuthorSnapshot author_snapshots = 75;
+}
+
+message PublishedFileDetails_AuthorSnapshot {
+	optional uint32 timestamp = 1;
+	optional uint32 build_id_min = 2;
+	optional uint32 build_id_max = 3;
+	optional fixed64 manifestid = 4;
 }
 
 message PublishedFileDetails_Child {

@@ -666,6 +666,9 @@ message CMsgSteamLearnModelNodeExtract {
 	optional uint32 recency_months = 12;
 }
 
+message CMsgSteamLearnModelNodeFlatten {
+}
+
 message CMsgSteamLearnModelNodeInput {
 	optional uint32 input_num = 1;
 }
@@ -691,6 +694,7 @@ message CMsgSteamLearnModelNodeNormalize {
 message CMsgSteamLearnModelNodeOnehot {
 	optional uint32 width = 1;
 	optional string compact_table = 2;
+	optional bool multi_hot = 3;
 }
 
 message CMsgSteamLearnModelNodeShuffle {
@@ -782,6 +786,7 @@ message CMsgSteamLearnProjectNode {
 	optional .CMsgSteamLearnModelNodeExtract extract = 30;
 	optional .CMsgSteamLearnModelNodeConv1D conv_1d = 31;
 	optional .CMsgSteamLearnModelNodeMaxPooling1D max_pooling_1d = 32;
+	optional .CMsgSteamLearnModelNodeFlatten flatten = 33;
 }
 
 message CMsgSteamLearnProjectNodeConnector {

@@ -33,6 +33,7 @@ message CFamilyGroups_CreateFamilyGroup_Request {
 
 message CFamilyGroups_CreateFamilyGroup_Response {
 	optional uint64 family_groupid = 1;
+	optional bool cooldown_skip_granted = 2;
 }
 
 message CFamilyGroups_DeleteFamilyGroup_Request {
@@ -107,6 +108,7 @@ message CFamilyGroups_GetFamilyGroupForUser_Response {
 	optional uint32 role = 6;
 	optional uint32 cooldown_seconds_remaining = 7;
 	optional .CFamilyGroups_GetFamilyGroup_Response family_group = 8;
+	optional bool can_undelete_last_joined_family = 9;
 }
 
 message CFamilyGroups_GetPlaytimeSummary_Request {
@@ -196,6 +198,7 @@ message CFamilyGroups_JoinFamilyGroup_Request {
 
 message CFamilyGroups_JoinFamilyGroup_Response {
 	optional int32 two_factor_method = 2 [(.description) = "enum"];
+	optional bool cooldown_skip_granted = 3;
 }
 
 message CFamilyGroups_ModifyFamilyGroupDetails_Request {
@@ -266,6 +269,13 @@ message CFamilyGroups_SetPreferredLender_Request {
 }
 
 message CFamilyGroups_SetPreferredLender_Response {
+}
+
+message CFamilyGroups_UndeleteFamilyGroup_Request {
+	optional uint64 family_groupid = 1;
+}
+
+message CFamilyGroups_UndeleteFamilyGroup_Response {
 }
 
 message CFamilyGroupsClient_GroupChanged_Notification {
@@ -351,6 +361,7 @@ service FamilyGroups {
 	rpc RespondToRequestedPurchase (.CFamilyGroups_RespondToRequestedPurchase_Request) returns (.CFamilyGroups_RespondToRequestedPurchase_Response);
 	rpc SetFamilyCooldownOverrides (.CFamilyGroups_SetFamilyCooldownOverrides_Request) returns (.CFamilyGroups_SetFamilyCooldownOverrides_Response);
 	rpc SetPreferredLender (.CFamilyGroups_SetPreferredLender_Request) returns (.CFamilyGroups_SetPreferredLender_Response);
+	rpc UndeleteFamilyGroup (.CFamilyGroups_UndeleteFamilyGroup_Request) returns (.CFamilyGroups_UndeleteFamilyGroup_Response);
 }
 
 service FamilyGroupsClient {

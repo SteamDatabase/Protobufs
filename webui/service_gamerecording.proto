@@ -257,7 +257,7 @@ message CTimelineEntry {
 	optional string range_id = 6;
 	optional string range_title = 7;
 	optional uint64 range_duration = 8;
-	optional bool range_is_possible_clip = 9;
+	optional int32 range_possible_clip = 9;
 	optional string timestamp_title = 10;
 	optional string marker_icon = 11;
 	optional string marker_title = 12;
