@@ -803,6 +803,7 @@ message CMsgSteamLearnProjectSnapshotConfig {
 	optional int32 snapshot_schedule_type = 5 [(.description) = "enum"];
 	optional uint32 snapshot_schedule_day_of_week = 6;
 	optional uint32 snapshot_schedule_day_of_month = 7;
+	optional bool compress = 8;
 }
 
 message CMsgSteamLearnProjectSnapshotConfigAccountIDs {
