@@ -104,6 +104,9 @@ message CMsgSteamLearn_GetFetchStatus_Response {
 	optional uint32 total_rows_processed = 9;
 	optional string error_string = 10;
 	optional uint32 project_id = 11;
+	optional int32 metadata_phase = 12 [(.description) = "enum"];
+	optional string metadata_phase_name = 13;
+	optional uint32 metadata_phase_value = 14;
 }
 
 message CMsgSteamLearn_GetFetchStatus_Response_Worker {
@@ -618,6 +621,8 @@ message CMsgSteamLearnModelNodeConditionalSwap {
 message CMsgSteamLearnModelNodeConv1D {
 	optional uint32 filters = 1;
 	optional uint32 kernel_size = 2;
+	optional uint32 strides = 3;
+	optional int32 activation = 4 [(.description) = "enum"];
 }
 
 message CMsgSteamLearnModelNodeDense {
@@ -681,6 +686,7 @@ message CMsgSteamLearnModelNodeKMeansCluster {
 
 message CMsgSteamLearnModelNodeMaxPooling1D {
 	optional uint32 pool_size = 1;
+	optional uint32 strides = 2;
 }
 
 message CMsgSteamLearnModelNodeNamedInference {

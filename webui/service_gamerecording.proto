@@ -75,6 +75,13 @@ message CGameRecording_GetClips_Response {
 	repeated .CGameRecording_ClipSummary clip = 1;
 }
 
+message CGameRecording_GetPlatformCapabilities_Request {
+}
+
+message CGameRecording_GetPlatformCapabilities_Response {
+	optional bool per_process_audio_capture = 1;
+}
+
 message CGameRecording_GetRecordingHighlights_Request {
 	optional uint64 game_id = 1;
 	optional uint32 created_after = 2;
@@ -304,6 +311,7 @@ service GameRecording {
 	rpc GetActiveTimelineApps (.CGameRecording_GetActiveTimelineApps_Request) returns (.CGameRecording_GetActiveTimelineApps_Response);
 	rpc GetBackgroundRecordingFileSize (.CGameRecording_GetRecordingSize_Request) returns (.CGameRecording_GetRecordingSize_Response);
 	rpc GetClips (.CGameRecording_GetClips_Request) returns (.CGameRecording_GetClips_Response);
+	rpc GetPlatformCapabilities (.CGameRecording_GetPlatformCapabilities_Request) returns (.CGameRecording_GetPlatformCapabilities_Response);
 	rpc GetRecordingHighlights (.CGameRecording_GetRecordingHighlights_Request) returns (.CGameRecording_GetRecordingHighlights_Response);
 	rpc GetThumbnails (.CGameRecording_GetThumbnails_Request) returns (.CGameRecording_GetThumbnails_Response);
 	rpc GetTimelinesForApp (.CGameRecording_GetTimelinesForApp_Request) returns (.CGameRecording_GetTimelinesForApp_Response);

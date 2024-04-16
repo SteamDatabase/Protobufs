@@ -3675,6 +3675,7 @@ message LoyaltyRewardDefinition {
 	repeated uint32 bundle_defids = 15;
 	optional uint32 usable_duration = 16;
 	optional uint32 bundle_discount = 17;
+	optional uint32 timestamp_free_until = 18;
 }
 
 // Used by: LoyaltyRewards, SaleItemRewards
