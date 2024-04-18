@@ -1,6 +1,24 @@
 import "common.proto";
 import "common_base.proto";
 
+message CStoreQuery_GetItemsByUserRecommendedTags_Request {
+	optional int32 sort = 1 [default = 0, (.description) = "enum"];
+	optional .CStorePageFilter filters = 2;
+	optional uint32 recommended_tag_count = 3;
+	repeated uint32 min_items_per_tags = 4;
+	optional .StoreBrowseContext context = 5;
+}
+
+message CStoreQuery_GetItemsByUserRecommendedTags_Response {
+	repeated .CStoreQuery_GetItemsByUserRecommendedTags_Response_Section sections = 1;
+}
+
+message CStoreQuery_GetItemsByUserRecommendedTags_Response_Section {
+	optional uint32 tagid = 1;
+	repeated .StoreItemID store_item_ids = 2;
+	optional string tag_name = 3;
+}
+
 message CStoreQuery_Query_Request {
 	optional string query_name = 1;
 	optional .CStoreQueryParams query = 2;
@@ -97,6 +115,7 @@ message CStoreQueryResultMetadata {
 }
 
 service StoreQuery {
+	rpc GetItemsByUserRecommendedTags (.CStoreQuery_GetItemsByUserRecommendedTags_Request) returns (.CStoreQuery_GetItemsByUserRecommendedTags_Response);
 	rpc Query (.CStoreQuery_Query_Request) returns (.CStoreQuery_Query_Response);
 	rpc SearchSuggestions (.CStoreQuery_SearchSuggestions_Request) returns (.CStoreQuery_SearchSuggestions_Response);
 }
