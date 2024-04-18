@@ -1622,3 +1622,7 @@ message GCQuestStrangeEvent {
 message CMsgSDRTicket {
 	optional bytes serialized_ticket = 1;
 }
+
+message CMsgAuthorizeServerItemRetrieval {
+	repeated uint64 item_id = 1;
+}
