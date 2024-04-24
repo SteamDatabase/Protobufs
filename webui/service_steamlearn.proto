@@ -674,6 +674,9 @@ message CMsgSteamLearnModelNodeExtract {
 message CMsgSteamLearnModelNodeFlatten {
 }
 
+message CMsgSteamLearnModelNodeGlobalMaxPooling1D {
+}
+
 message CMsgSteamLearnModelNodeInput {
 	optional uint32 input_num = 1;
 }
@@ -727,6 +730,11 @@ message CMsgSteamLearnModelNodeTrain {
 	optional string compact_table = 4;
 	optional int32 loss = 6 [(.description) = "enum"];
 	optional float learning_rate = 7;
+}
+
+message CMsgSteamLearnModelNodeTransformer {
+	optional uint32 num_heads = 1;
+	optional uint32 key_dim = 2;
 }
 
 message CMsgSteamLearnProject {
@@ -793,6 +801,8 @@ message CMsgSteamLearnProjectNode {
 	optional .CMsgSteamLearnModelNodeConv1D conv_1d = 31;
 	optional .CMsgSteamLearnModelNodeMaxPooling1D max_pooling_1d = 32;
 	optional .CMsgSteamLearnModelNodeFlatten flatten = 33;
+	optional .CMsgSteamLearnModelNodeGlobalMaxPooling1D global_max_pooling = 34;
+	optional .CMsgSteamLearnModelNodeTransformer transformer = 35;
 }
 
 message CMsgSteamLearnProjectNodeConnector {

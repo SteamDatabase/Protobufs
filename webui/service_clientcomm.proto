@@ -50,6 +50,7 @@ message CClientComm_GetClientAppList_Request {
 	optional uint64 client_instanceid = 3;
 	optional bool include_client_info = 4;
 	optional string language = 5;
+	repeated uint32 filter_appids = 6;
 }
 
 message CClientComm_GetClientAppList_Response {
@@ -87,6 +88,7 @@ message CClientComm_GetClientAppList_Response_AppData {
 	optional int32 queue_position = 30 [default = -1];
 	optional bool uninstalling = 31;
 	optional uint32 rt_time_scheduled = 32;
+	optional bool running = 33;
 }
 
 message CClientComm_GetClientAppList_Response_AppData_DLCData {
@@ -121,6 +123,15 @@ message CClientComm_InstallClientApp_Request {
 message CClientComm_InstallClientApp_Response {
 }
 
+message CClientComm_LaunchClientApp_Request {
+	optional uint64 client_instanceid = 1;
+	optional uint32 appid = 2;
+	optional string query_params = 3;
+}
+
+message CClientComm_LaunchClientApp_Response {
+}
+
 message CClientComm_SetClientAppUpdateState_Request {
 	optional uint32 appid = 1;
 	optional uint32 action = 2;
@@ -145,6 +156,7 @@ service ClientComm {
 	rpc GetClientInfo (.CClientComm_GetClientInfo_Request) returns (.CClientComm_GetClientInfo_Response);
 	rpc GetClientLogonInfo (.CClientComm_GetClientLogonInfo_Request) returns (.CClientComm_GetClientLogonInfo_Response);
 	rpc InstallClientApp (.CClientComm_InstallClientApp_Request) returns (.CClientComm_InstallClientApp_Response);
+	rpc LaunchClientApp (.CClientComm_LaunchClientApp_Request) returns (.CClientComm_LaunchClientApp_Response);
 	rpc SetClientAppUpdateState (.CClientComm_SetClientAppUpdateState_Request) returns (.CClientComm_SetClientAppUpdateState_Response);
 	rpc UninstallClientApp (.CClientComm_UninstallClientApp_Request) returns (.CClientComm_UninstallClientApp_Response);
 }
