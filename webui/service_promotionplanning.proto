@@ -102,6 +102,19 @@ message CPromotionPlanning_GetPlansUpdatedSince_Response {
 	repeated fixed64 deleted_plan_ids = 2;
 }
 
+message CPromotionPlanning_GetPromotionPlanForSalePages_Request {
+	repeated .CPromotionPlanning_GetPromotionPlanForSalePages_Request_CSalePage request_list = 1;
+}
+
+message CPromotionPlanning_GetPromotionPlanForSalePages_Request_CSalePage {
+	optional uint32 clan_account_id = 1;
+	optional fixed64 gid_clan_event = 2;
+}
+
+message CPromotionPlanning_GetPromotionPlanForSalePages_Response {
+	repeated .CPromotionPlan plans = 1;
+}
+
 message CPromotionPlanning_GetSentNotification_Request {
 	optional fixed64 promotion_id = 1;
 	optional fixed64 notification_id = 2;
@@ -171,6 +184,7 @@ service PromotionPlanning {
 	rpc GetPlan (.CPromotionPlanning_GetPlan_Request) returns (.CPromotionPlanning_GetPlan_Response);
 	rpc GetPlanByInputAccessKey (.CPromotionPlanning_GetPlanByInputAccessKey_Request) returns (.CPromotionPlanning_GetPlanByInputAccessKey_Response);
 	rpc GetPlansUpdatedSince (.CPromotionPlanning_GetPlansUpdatedSince_Request) returns (.CPromotionPlanning_GetPlansUpdatedSince_Response);
+	rpc GetPromotionPlanForSalePages (.CPromotionPlanning_GetPromotionPlanForSalePages_Request) returns (.CPromotionPlanning_GetPromotionPlanForSalePages_Response);
 	rpc GetSentNotification (.CPromotionPlanning_GetSentNotification_Request) returns (.CPromotionPlanning_GetSentNotification_Response);
 	rpc MarkLocalizationAssetComplete (.CPromotionPlanning_MarkLocalizationAssetComplete_Request) returns (.CPromotionPlanning_MarkLocalizationAssetComplete_Response);
 	rpc ResendNotification (.CPromotionPlanning_ResendNotification_Request) returns (.CPromotionPlanning_ResendNotification_Response);
