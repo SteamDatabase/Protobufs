@@ -3515,6 +3515,9 @@ message CSteamVR_VoiceChat_PerUserVoiceStatus_Notification {
 	optional bool output_muted_locally = 3;
 }
 
+message CSteamVR_VoiceChat_Ready_Notification {
+}
+
 message CSteamVR_VoiceChat_SendGroupChatMessage_Request {
 	optional string message_with_bbcode = 1;
 }

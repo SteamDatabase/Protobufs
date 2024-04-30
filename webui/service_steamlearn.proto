@@ -107,6 +107,7 @@ message CMsgSteamLearn_GetFetchStatus_Response {
 	optional int32 metadata_phase = 12 [(.description) = "enum"];
 	optional string metadata_phase_name = 13;
 	optional uint32 metadata_phase_value = 14;
+	optional bool cancel_pending = 15;
 }
 
 message CMsgSteamLearn_GetFetchStatus_Response_Worker {
@@ -200,11 +201,13 @@ message CMsgSteamLearn_GetTrainStatus_Response {
 	optional bool live = 16;
 	optional bool active = 17;
 	optional uint32 project_id = 18;
+	optional bool cancel_pending = 19;
 }
 
 message CMsgSteamLearn_GetTrainStatus_Response_Batch {
 	optional float loss = 1;
 	repeated float accuracy = 2;
+	optional uint32 batch_id = 3;
 }
 
 message CMsgSteamLearn_GetTrainStatus_Response_Epoch {
