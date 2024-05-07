@@ -223,6 +223,7 @@ message ParentalSettings {
 	optional .ParentalTemporaryPlaytimeRestrictions temporary_playtime_restrictions = 16;
 	repeated uint32 excluded_store_content_descriptors = 17;
 	repeated uint32 excluded_community_content_descriptors = 18;
+	repeated uint32 utility_appids = 19;
 }
 
 message ParentalTemporaryPlaytimeRestrictions {

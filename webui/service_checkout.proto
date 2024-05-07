@@ -27,6 +27,7 @@ message CCheckout_ValidateCart_Request {
 	optional .StoreBrowseItemDataRequest data_request = 3;
 	optional .CartGiftInfo gift_info = 4;
 	optional fixed64 gidreplayoftransid = 5;
+	optional bool for_init_purchase = 6;
 }
 
 message CCheckout_ValidateCart_Response {
@@ -60,6 +61,7 @@ message CCheckout_ValidateCart_Response_CartItem_Errors {
 	optional bool cannot_purchase_as_gift = 7;
 	optional bool invalid_item = 8;
 	optional bool too_many_in_cart = 9;
+	optional bool has_existing_billing_agreement = 10;
 }
 
 message CCheckout_ValidateCart_Response_CartItem_Warnings {

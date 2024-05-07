@@ -14,6 +14,8 @@ message CStoreQuery_GetItemsByUserRecommendedTags_Request_Section {
 	optional int32 sort = 1 [default = 0, (.description) = "enum"];
 	optional uint32 min_items = 2;
 	optional bool randomize = 3;
+	optional bool include_packages = 4 [default = false];
+	optional bool include_bundles = 5 [default = false];
 }
 
 message CStoreQuery_GetItemsByUserRecommendedTags_Response {

@@ -737,7 +737,9 @@ message CMsgSteamLearnModelNodeTrain {
 
 message CMsgSteamLearnModelNodeTransformer {
 	optional uint32 num_heads = 1;
-	optional uint32 key_dim = 2;
+	optional uint32 feedforward_size = 3;
+	optional uint32 dropout_pct = 4;
+	optional uint32 num_internal_blocks = 5;
 }
 
 message CMsgSteamLearnProject {
