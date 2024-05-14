@@ -65,6 +65,8 @@ message CVoiceChat_UpdateVoiceChatWebRTCData_Request {
 	optional string user_agent = 7;
 	optional bool has_audio_worklets_support = 8;
 	optional bool has_webrtc_data_channel = 9;
+	optional bool accepts_webrtc_video = 10;
+	optional bool sends_webrtc_video = 11;
 }
 
 message CVoiceChat_UpdateVoiceChatWebRTCData_Response {
@@ -106,6 +108,7 @@ message CVoiceChat_UserVoiceStatus_Notification {
 	optional bool user_muted_output_locally = 4;
 	optional bool user_has_no_mic_for_session = 5;
 	optional int32 user_webaudio_sample_rate = 6;
+	optional bool user_sends_video = 7;
 }
 
 message CVoiceChat_VoiceChatEnded_Notification {

@@ -87,6 +87,11 @@ message RecommendationDetails {
 	optional string ipaddress = 41;
 	optional bool hidden_in_steam_china = 42;
 	optional string steam_china_location = 43;
+	optional uint32 category_ascii_pct = 44;
+	optional uint32 category_meme_pct = 45;
+	optional uint32 category_offtopic_pct = 46;
+	optional uint32 category_uninformative_pct = 47;
+	optional uint32 category_votefarming_pct = 48;
 }
 
 service UserReviews {

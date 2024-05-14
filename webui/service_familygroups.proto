@@ -8,6 +8,13 @@ message CFamilyGroups_CancelFamilyGroupInvite_Request {
 message CFamilyGroups_CancelFamilyGroupInvite_Response {
 }
 
+message CFamilyGroups_ClearCooldownSkip_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CFamilyGroups_ClearCooldownSkip_Response {
+}
+
 message CFamilyGroups_ConfirmInviteToFamilyGroup_Request {
 	optional uint64 family_groupid = 1;
 	optional uint64 invite_id = 2;
@@ -340,6 +347,7 @@ message PurchaseRequest {
 
 service FamilyGroups {
 	rpc CancelFamilyGroupInvite (.CFamilyGroups_CancelFamilyGroupInvite_Request) returns (.CFamilyGroups_CancelFamilyGroupInvite_Response);
+	rpc ClearCooldownSkip (.CFamilyGroups_ClearCooldownSkip_Request) returns (.CFamilyGroups_ClearCooldownSkip_Response);
 	rpc ConfirmInviteToFamilyGroup (.CFamilyGroups_ConfirmInviteToFamilyGroup_Request) returns (.CFamilyGroups_ConfirmInviteToFamilyGroup_Response);
 	rpc ConfirmJoinFamilyGroup (.CFamilyGroups_ConfirmJoinFamilyGroup_Request) returns (.CFamilyGroups_ConfirmJoinFamilyGroup_Response);
 	rpc CreateFamilyGroup (.CFamilyGroups_CreateFamilyGroup_Request) returns (.CFamilyGroups_CreateFamilyGroup_Response);

@@ -280,6 +280,14 @@ message CClientMetrics_ClientBootstrap_Summary {
 	repeated .CClientMetrics_ClientBootstrap_RequestInfo package_requests = 8;
 }
 
+message CClientMetrics_ClipShare_Notification {
+	optional uint32 eresult = 1 [default = 2];
+	optional int32 share_method = 2 [(.description) = "enum"];
+	optional float seconds = 3;
+	optional uint64 bytes = 4;
+	optional fixed64 gameid = 5;
+}
+
 message CClientMetrics_CloudAppSyncStats_Notification {
 	optional uint32 app_id = 1;
 	optional uint32 platform_type = 2;
