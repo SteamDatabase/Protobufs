@@ -78,6 +78,15 @@ message CGameRecording_GetActiveTimelineApps_Response_App {
 	optional uint64 file_size = 7;
 }
 
+message CGameRecording_GetAndTrimPostGameHighlights_Request {
+	optional uint64 game_id = 1;
+	optional uint32 created_after = 2;
+}
+
+message CGameRecording_GetAndTrimPostGameHighlights_Response {
+	repeated .CGameRecordingTimelineEvent events = 1;
+}
+
 message CGameRecording_GetAvailableDiskSpace_Request {
 }
 
@@ -107,15 +116,6 @@ message CGameRecording_GetPlatformCapabilities_Request {
 
 message CGameRecording_GetPlatformCapabilities_Response {
 	optional bool per_process_audio_capture = 1;
-}
-
-message CGameRecording_GetRecordingHighlights_Request {
-	optional uint64 game_id = 1;
-	optional uint32 created_after = 2;
-}
-
-message CGameRecording_GetRecordingHighlights_Response {
-	repeated .CGameRecordingTimelineEvent events = 1;
 }
 
 message CGameRecording_GetRecordingSize_Request {
@@ -174,6 +174,10 @@ message CGameRecording_ManuallyDeleteRecordingsForApps_Request {
 }
 
 message CGameRecording_ManuallyDeleteRecordingsForApps_Response {
+}
+
+message CGameRecording_PostGameHighlightsChanged_Notification {
+	optional uint64 game_id = 1;
 }
 
 message CGameRecording_RecordingSessionChanged_Notification {
@@ -340,12 +344,12 @@ service GameRecording {
 	rpc DeleteClip (.CGameRecording_DeleteClip_Request) returns (.CGameRecording_DeleteClip_Response);
 	rpc ExportClip (.CGameRecording_ExportClip_Request) returns (.CGameRecording_ExportClip_Response);
 	rpc GetActiveTimelineApps (.CGameRecording_GetActiveTimelineApps_Request) returns (.CGameRecording_GetActiveTimelineApps_Response);
+	rpc GetAndTrimPostGameHighlights (.CGameRecording_GetAndTrimPostGameHighlights_Request) returns (.CGameRecording_GetAndTrimPostGameHighlights_Response);
 	rpc GetAvailableDiskSpace (.CGameRecording_GetAvailableDiskSpace_Request) returns (.CGameRecording_GetAvailableDiskSpace_Response);
 	rpc GetBackgroundRecordingFileSize (.CGameRecording_GetRecordingSize_Request) returns (.CGameRecording_GetRecordingSize_Response);
 	rpc GetClips (.CGameRecording_GetClips_Request) returns (.CGameRecording_GetClips_Response);
 	rpc GetEnoughDiskSpace (.CGameRecording_GetEnoughDiskSpace_Request) returns (.CGameRecording_GetEnoughDiskSpace_Response);
 	rpc GetPlatformCapabilities (.CGameRecording_GetPlatformCapabilities_Request) returns (.CGameRecording_GetPlatformCapabilities_Response);
-	rpc GetRecordingHighlights (.CGameRecording_GetRecordingHighlights_Request) returns (.CGameRecording_GetRecordingHighlights_Response);
 	rpc GetThumbnails (.CGameRecording_GetThumbnails_Request) returns (.CGameRecording_GetThumbnails_Response);
 	rpc GetTimelinesForApp (.CGameRecording_GetTimelinesForApp_Request) returns (.CGameRecording_GetTimelinesForApp_Response);
 	rpc GetTimelinesForClip (.CGameRecording_GetTimelinesForClip_Request) returns (.CGameRecording_GetTimelinesForClip_Response);
@@ -355,6 +359,7 @@ service GameRecording {
 	rpc NotifyClipDeleted (.CGameRecording_ClipDeleted_Notification) returns (.NoResponse);
 	rpc NotifyExportProgress (.CGameRecording_ExportProgress_Notification) returns (.NoResponse);
 	rpc NotifyLowDiskSpace (.CGameRecording_LowDiskSpace_Notification) returns (.NoResponse);
+	rpc NotifyPostGameHighlightsChanged (.CGameRecording_PostGameHighlightsChanged_Notification) returns (.NoResponse);
 	rpc NotifyRecordingSessionChanged (.CGameRecording_RecordingSessionChanged_Notification) returns (.NoResponse);
 	rpc NotifyTimelineChanged (.CGameRecording_TimelineChanged_Notification) returns (.NoResponse);
 	rpc NotifyTimelineEntryChanged (.CGameRecording_TimelineEntryChanged_Notification) returns (.NoResponse);

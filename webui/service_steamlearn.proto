@@ -143,6 +143,8 @@ message CMsgSteamLearn_GetNearestEmbedding_Request {
 	optional uint32 result_count = 5;
 	repeated float values = 6;
 	optional uint32 fetch_id = 7;
+	optional uint32 popularity_weight = 8;
+	optional uint32 focus_weight = 9;
 }
 
 message CMsgSteamLearn_GetNearestEmbedding_Response {

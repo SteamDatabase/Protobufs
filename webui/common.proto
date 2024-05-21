@@ -375,6 +375,13 @@ message CClientMetrics_DownloadRates_Notification_StatsInfo {
 	optional uint64 miss_bytes = 12;
 }
 
+message CClientMetrics_EndGameRecording_Notification {
+	optional int32 recording_type = 1 [(.description) = "enum"];
+	optional float seconds = 2;
+	optional uint64 bytes = 3;
+	optional fixed64 gameid = 4;
+}
+
 message CClientMetrics_IPv6Connectivity_Notification {
 	optional uint32 cell_id = 1;
 	repeated .CClientMetrics_IPv6Connectivity_Result results = 2;
@@ -397,6 +404,7 @@ message CClientMetrics_ReportClientArgs_Notification {
 	optional bool fps_counter_enabled = 7;
 	optional bool library_low_bandwidth_mode_enabled = 8;
 	optional bool library_low_perf_mode_enabled = 9;
+	optional int32 gr_mode = 10;
 }
 
 message CClientMetrics_ReportReactUsage_Notification {

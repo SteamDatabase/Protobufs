@@ -200,6 +200,17 @@ message CStore_GetUserGameInterestState_Response_InQueue {
 	optional uint32 experimental_cohort = 5;
 }
 
+message CStore_GetWishlistDemoEmailStatus_Request {
+	optional uint32 appid = 1;
+	optional uint32 demo_appid = 2;
+}
+
+message CStore_GetWishlistDemoEmailStatus_Response {
+	optional bool can_fire = 1 [default = false];
+	optional uint32 time_staged = 2;
+	optional uint32 demo_release_date = 3;
+}
+
 message CStore_PurchaseReceiptInfo {
 	optional uint64 transactionid = 1;
 	optional uint32 packageid = 2;
@@ -225,6 +236,14 @@ message CStore_PurchaseReceiptInfo_LineItem {
 	optional uint32 packageid = 1;
 	optional uint32 appid = 2;
 	optional string line_item_description = 3;
+}
+
+message CStore_QueueWishlistDemoEmailToFire_Request {
+	optional uint32 appid = 1;
+	optional uint32 demo_appid = 2;
+}
+
+message CStore_QueueWishlistDemoEmailToFire_Response {
 }
 
 message CStore_RegisterCDKey_Request {
@@ -344,6 +363,8 @@ service Store {
 	rpc GetTagList (.CStore_GetTagList_Request) returns (.CStore_GetTagList_Response);
 	rpc GetTrendingAppsAmongFriends (.CStore_GetTrendingAppsAmongFriends_Request) returns (.CStore_GetTrendingAppsAmongFriends_Response);
 	rpc GetUserGameInterestState (.CStore_GetUserGameInterestState_Request) returns (.CStore_GetUserGameInterestState_Response);
+	rpc GetWishlistDemoEmailStatus (.CStore_GetWishlistDemoEmailStatus_Request) returns (.CStore_GetWishlistDemoEmailStatus_Response);
+	rpc QueueWishlistDemoEmailToFire (.CStore_QueueWishlistDemoEmailToFire_Request) returns (.CStore_QueueWishlistDemoEmailToFire_Response);
 	rpc RegisterCDKey (.CStore_RegisterCDKey_Request) returns (.CStore_RegisterCDKey_Response);
 	rpc ReportApp (.CStore_ReportApp_Request) returns (.CStore_ReportApp_Response);
 	rpc SetCompatibilityFeedback (.CSteamDeckCompatibility_SetFeedback_Request) returns (.CSteamDeckCompatibility_SetFeedback_Response);
