@@ -115,6 +115,22 @@ message CPromotionPlanning_GetPromotionPlanForSalePages_Response {
 	repeated .CPromotionPlan plans = 1;
 }
 
+message CPromotionPlanning_GetPromotionPlanPackageSales_Request {
+	optional uint64 promotion_id = 1;
+	optional uint32 partnerid = 2;
+}
+
+message CPromotionPlanning_GetPromotionPlanPackageSales_Response {
+	repeated .CPromotionPlanning_GetPromotionPlanPackageSales_Response_PromotionPlanPackageSalesDetails promo_plan_package_sales_details = 1;
+}
+
+message CPromotionPlanning_GetPromotionPlanPackageSales_Response_PromotionPlanPackageSalesDetails {
+	optional string date = 1;
+	optional uint32 packageid = 2;
+	optional int32 gross_units_sold = 3;
+	optional int64 gross_sales_usdx100 = 4;
+}
+
 message CPromotionPlanning_GetSentNotification_Request {
 	optional fixed64 promotion_id = 1;
 	optional fixed64 notification_id = 2;
@@ -185,6 +201,7 @@ service PromotionPlanning {
 	rpc GetPlanByInputAccessKey (.CPromotionPlanning_GetPlanByInputAccessKey_Request) returns (.CPromotionPlanning_GetPlanByInputAccessKey_Response);
 	rpc GetPlansUpdatedSince (.CPromotionPlanning_GetPlansUpdatedSince_Request) returns (.CPromotionPlanning_GetPlansUpdatedSince_Response);
 	rpc GetPromotionPlanForSalePages (.CPromotionPlanning_GetPromotionPlanForSalePages_Request) returns (.CPromotionPlanning_GetPromotionPlanForSalePages_Response);
+	rpc GetPromotionPlanPackageSales (.CPromotionPlanning_GetPromotionPlanPackageSales_Request) returns (.CPromotionPlanning_GetPromotionPlanPackageSales_Response);
 	rpc GetSentNotification (.CPromotionPlanning_GetSentNotification_Request) returns (.CPromotionPlanning_GetSentNotification_Response);
 	rpc MarkLocalizationAssetComplete (.CPromotionPlanning_MarkLocalizationAssetComplete_Request) returns (.CPromotionPlanning_MarkLocalizationAssetComplete_Response);
 	rpc ResendNotification (.CPromotionPlanning_ResendNotification_Request) returns (.CPromotionPlanning_ResendNotification_Response);
