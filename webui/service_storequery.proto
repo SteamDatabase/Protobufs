@@ -2,10 +2,7 @@ import "common.proto";
 import "common_base.proto";
 
 message CStoreQuery_GetItemsByUserRecommendedTags_Request {
-	optional int32 sort = 1 [default = 0, (.description) = "enum"];
 	optional .CStorePageFilter filters = 2;
-	optional uint32 recommended_tag_count = 3;
-	repeated uint32 min_items_per_tags = 4;
 	optional .StoreBrowseContext context = 5;
 	repeated .CStoreQuery_GetItemsByUserRecommendedTags_Request_Section sections = 6;
 }
