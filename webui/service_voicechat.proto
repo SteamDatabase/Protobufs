@@ -55,6 +55,15 @@ message CVoiceChat_RequestOneOnOneChat_Response {
 	optional fixed64 voice_chatid = 1;
 }
 
+message CVoiceChat_UpdateUserVideoStatus_Request {
+	optional fixed64 voice_chatid = 1;
+	optional fixed64 user_steamid = 2;
+	optional bool accept_webrtc_video = 3;
+}
+
+message CVoiceChat_UpdateUserVideoStatus_Response {
+}
+
 message CVoiceChat_UpdateVoiceChatWebRTCData_Request {
 	optional fixed64 voice_chatid = 1;
 	optional uint32 ip_webrtc_server = 2;
@@ -126,6 +135,7 @@ service VoiceChat {
 	rpc LeaveVoiceChat (.CVoiceChat_LeaveVoiceChat_Request) returns (.CVoiceChat_LeaveVoiceChat_Response);
 	rpc NotifyUserVoiceStatus (.CVoiceChat_UserVoiceStatus_Notification) returns (.NoResponse);
 	rpc RequestOneOnOneChat (.CVoiceChat_RequestOneOnOneChat_Request) returns (.CVoiceChat_RequestOneOnOneChat_Response);
+	rpc UpdateUserVideoStatus (.CVoiceChat_UpdateUserVideoStatus_Request) returns (.CVoiceChat_UpdateUserVideoStatus_Response);
 	rpc UpdateVoiceChatWebRTCData (.CVoiceChat_UpdateVoiceChatWebRTCData_Request) returns (.CVoiceChat_UpdateVoiceChatWebRTCData_Response);
 	rpc UploadClientVoiceChatLogs (.CVoiceChat_UploadClientVoiceChatLogs_Request) returns (.CVoiceChat_UploadClientVoiceChatLogs_Response);
 }

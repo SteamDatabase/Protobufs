@@ -59,20 +59,6 @@ message CFamilyGroups_ForceAcceptInvite_Request {
 message CFamilyGroups_ForceAcceptInvite_Response {
 }
 
-message CFamilyGroups_GetAllPreferredLenders_Request {
-	optional uint64 family_groupid = 1;
-}
-
-message CFamilyGroups_GetAllPreferredLenders_Response {
-	repeated .CFamilyGroups_GetAllPreferredLenders_Response_PreferredLender preferred_lenders = 1;
-}
-
-message CFamilyGroups_GetAllPreferredLenders_Response_PreferredLender {
-	optional fixed64 borrower_steamid = 1;
-	optional fixed64 preferred_lender_steamid = 2;
-	optional uint32 appid = 3;
-}
-
 message CFamilyGroups_GetChangeLog_Request {
 	optional uint64 family_groupid = 1;
 }
@@ -369,7 +355,6 @@ service FamilyGroups {
 	rpc CreateFamilyGroup (.CFamilyGroups_CreateFamilyGroup_Request) returns (.CFamilyGroups_CreateFamilyGroup_Response);
 	rpc DeleteFamilyGroup (.CFamilyGroups_DeleteFamilyGroup_Request) returns (.CFamilyGroups_DeleteFamilyGroup_Response);
 	rpc ForceAcceptInvite (.CFamilyGroups_ForceAcceptInvite_Request) returns (.CFamilyGroups_ForceAcceptInvite_Response);
-	rpc GetAllPreferredLenders (.CFamilyGroups_GetAllPreferredLenders_Request) returns (.CFamilyGroups_GetAllPreferredLenders_Response);
 	rpc GetChangeLog (.CFamilyGroups_GetChangeLog_Request) returns (.CFamilyGroups_GetChangeLog_Response);
 	rpc GetFamilyGroup (.CFamilyGroups_GetFamilyGroup_Request) returns (.CFamilyGroups_GetFamilyGroup_Response);
 	rpc GetFamilyGroupForUser (.CFamilyGroups_GetFamilyGroupForUser_Request) returns (.CFamilyGroups_GetFamilyGroupForUser_Response);

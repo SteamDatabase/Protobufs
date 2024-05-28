@@ -3460,6 +3460,7 @@ message CSteamNotification_MarkNotificationsRead_Notification {
 }
 
 message CSteamNotification_MarkNotificationsViewed_Notification {
+	optional uint64 remote_client_id = 1;
 }
 
 message CSteamVR_Header {
@@ -3552,6 +3553,14 @@ message CSteamVR_VoiceChat_SetPerUserMuting_Request {
 }
 
 message CSteamVR_VoiceChat_SetPerUserMuting_Response {
+}
+
+message CSteamVR_VoiceChat_SetPerUserVideo_Request {
+	optional uint32 accountid = 1;
+	optional bool receive = 2;
+}
+
+message CSteamVR_VoiceChat_SetPerUserVideo_Response {
 }
 
 message CSteamVR_WebRTC_Active_Notification {

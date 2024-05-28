@@ -92,6 +92,16 @@ message CPromotionPlanning_GetPlanByInputAccessKey_Response {
 	optional .CPromotionPlan plan = 1;
 }
 
+message CPromotionPlanning_GetPlanCompletedInDateRange_Request {
+	optional uint32 oldest_rtime = 1;
+	optional uint32 newest_rtime = 2;
+	repeated string promotion_types = 3;
+}
+
+message CPromotionPlanning_GetPlanCompletedInDateRange_Response {
+	repeated .CPromotionPlan plans = 1;
+}
+
 message CPromotionPlanning_GetPlansUpdatedSince_Request {
 	optional uint32 rtime = 1;
 	optional uint32 upto_rtime = 2;
@@ -129,6 +139,24 @@ message CPromotionPlanning_GetPromotionPlanPackageSales_Response_PromotionPlanPa
 	optional uint32 packageid = 2;
 	optional int32 gross_units_sold = 3;
 	optional int64 gross_sales_usdx100 = 4;
+}
+
+message CPromotionPlanning_GetPromotionPlanSummarySales_Request {
+	optional uint32 num_weeks = 1;
+	repeated string promotion_types = 2;
+}
+
+message CPromotionPlanning_GetPromotionPlanSummarySales_Response {
+	repeated .CPromotionPlanning_GetPromotionPlanSummarySales_Response_CSummaryResults results = 1;
+}
+
+message CPromotionPlanning_GetPromotionPlanSummarySales_Response_CSummaryResults {
+	optional string promotion_type = 1;
+	optional int64 gross_sales_minimum_usdx100 = 2;
+	optional int64 gross_sales_median_usdx100 = 3;
+	optional int64 gross_sales_average_usdx100 = 4;
+	optional int64 gross_sales_maximum_usdx100 = 5;
+	optional int32 num_weeks = 6;
 }
 
 message CPromotionPlanning_GetSentNotification_Request {
@@ -199,9 +227,11 @@ service PromotionPlanning {
 	rpc GetAllPlansForPartner (.CPromotionPlanning_GetAllPlansForPartner_Request) returns (.CPromotionPlanning_GetAllPlansForPartner_Response);
 	rpc GetPlan (.CPromotionPlanning_GetPlan_Request) returns (.CPromotionPlanning_GetPlan_Response);
 	rpc GetPlanByInputAccessKey (.CPromotionPlanning_GetPlanByInputAccessKey_Request) returns (.CPromotionPlanning_GetPlanByInputAccessKey_Response);
+	rpc GetPlanCompletedInDateRange (.CPromotionPlanning_GetPlanCompletedInDateRange_Request) returns (.CPromotionPlanning_GetPlanCompletedInDateRange_Response);
 	rpc GetPlansUpdatedSince (.CPromotionPlanning_GetPlansUpdatedSince_Request) returns (.CPromotionPlanning_GetPlansUpdatedSince_Response);
 	rpc GetPromotionPlanForSalePages (.CPromotionPlanning_GetPromotionPlanForSalePages_Request) returns (.CPromotionPlanning_GetPromotionPlanForSalePages_Response);
 	rpc GetPromotionPlanPackageSales (.CPromotionPlanning_GetPromotionPlanPackageSales_Request) returns (.CPromotionPlanning_GetPromotionPlanPackageSales_Response);
+	rpc GetPromotionPlanSummarySales (.CPromotionPlanning_GetPromotionPlanSummarySales_Request) returns (.CPromotionPlanning_GetPromotionPlanSummarySales_Response);
 	rpc GetSentNotification (.CPromotionPlanning_GetSentNotification_Request) returns (.CPromotionPlanning_GetSentNotification_Response);
 	rpc MarkLocalizationAssetComplete (.CPromotionPlanning_MarkLocalizationAssetComplete_Request) returns (.CPromotionPlanning_MarkLocalizationAssetComplete_Response);
 	rpc ResendNotification (.CPromotionPlanning_ResendNotification_Request) returns (.CPromotionPlanning_ResendNotification_Response);
