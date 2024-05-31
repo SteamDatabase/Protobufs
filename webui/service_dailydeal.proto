@@ -10,6 +10,7 @@ message CDailyDeal_CancelDailyDeal_Response {
 message CDailyDeal_CreateDailyDeal_Request {
 	optional .CDailyDealDetails daily_deal = 1;
 	optional uint32 partnerid = 2;
+	optional fixed64 inviteid = 3;
 }
 
 message CDailyDeal_CreateDailyDeal_Response {

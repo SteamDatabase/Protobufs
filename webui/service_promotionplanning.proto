@@ -26,6 +26,27 @@ message CPromotionPlan {
 	optional string assets_writable_jsondata = 13;
 }
 
+message CPromotionPlan_CreateSalePageForPromo_Request {
+	optional uint32 clan_account_id = 1;
+	optional fixed64 clan_event_gid = 2;
+	optional uint32 rtime_sale_start = 3;
+	optional uint32 rtime_sale_end = 4;
+	optional fixed64 daily_deal_gid = 5;
+	optional fixed64 promotion_gid = 6;
+	optional bool create_asset_request = 7;
+	optional uint32 partner_id = 8;
+	optional uint32 advertising_appid = 9;
+}
+
+message CPromotionPlan_CreateSalePageForPromo_Response {
+	optional uint32 clan_account_id = 1;
+	optional fixed64 clan_event_gid = 2;
+	optional fixed64 daily_deal_gid = 3;
+	optional fixed64 promotion_gid = 4;
+	optional fixed64 asset_request_gid = 5;
+	optional uint32 advertising_appid = 6;
+}
+
 message CPromotionPlanning_CreatePlan_Request {
 	optional .CPromotionPlan plan = 1;
 }
@@ -168,6 +189,43 @@ message CPromotionPlanning_GetSentNotification_Response {
 	repeated .CPromotionNotificationResults results = 1;
 }
 
+message CPromotionPlanning_GetUpcomingScheduledDiscounts_Request {
+	optional uint32 rtstart = 1;
+	optional uint32 rtend = 2;
+	optional bool include_packages = 3;
+	optional bool filter_modified_sales_rank = 4 [default = true];
+}
+
+message CPromotionPlanning_GetUpcomingScheduledDiscounts_Response {
+	repeated .CPromotionPlanning_GetUpcomingScheduledDiscounts_Response_CUpcomingPackageDiscountInfo package_details = 1;
+	repeated .CPromotionPlanning_GetUpcomingScheduledDiscounts_Response_CUpcomingAppDiscountInfo app_details = 2;
+}
+
+message CPromotionPlanning_GetUpcomingScheduledDiscounts_Response_CUpcomingAppDiscountInfo {
+	optional uint32 appid = 1;
+	optional uint32 cheapest_package_id = 3;
+	optional uint32 cheapest_discount_id = 4;
+	optional string cheapest_discount_name = 5;
+	optional uint32 package_original_price_usd = 6;
+	optional uint32 discounted_price_usd = 7;
+	optional uint32 discount_percentage = 8;
+	optional uint32 rtime_discount_start = 9;
+	optional uint32 rtime_discount_end = 10;
+	optional uint32 num_discounted_packages = 11;
+	optional uint32 modified_sales_rank = 12;
+}
+
+message CPromotionPlanning_GetUpcomingScheduledDiscounts_Response_CUpcomingPackageDiscountInfo {
+	optional uint32 package_id = 1;
+	optional uint32 discount_id = 2;
+	optional string discount_name = 3;
+	optional uint32 discount_percentage = 4;
+	optional uint32 original_price_usd = 5;
+	optional uint32 discount_price_usd = 6;
+	optional uint32 rtime_discount_start = 7;
+	optional uint32 rtime_discount_end = 8;
+}
+
 message CPromotionPlanning_MarkLocalizationAssetComplete_Request {
 	optional fixed64 promotion_id = 1;
 	optional bool value = 2;
@@ -220,6 +278,7 @@ message CPromotionPlanning_UpdatePlan_Response {
 
 service PromotionPlanning {
 	rpc CreatePlan (.CPromotionPlanning_CreatePlan_Request) returns (.CPromotionPlanning_CreatePlan_Response);
+	rpc CreateSalePageForPromo (.CPromotionPlan_CreateSalePageForPromo_Request) returns (.CPromotionPlan_CreateSalePageForPromo_Response);
 	rpc CreateTentativePlan (.CPromotionPlanning_CreatePlan_Request) returns (.CPromotionPlanning_CreatePlan_Response);
 	rpc DeletePlan (.CPromotionPlanning_DeletePlan_Request) returns (.CPromotionPlanning_DeletePlan_Response);
 	rpc GetAllActivePlan (.CPromotionPlanning_GetAllActivePlan_Request) returns (.CPromotionPlanning_GetAllActivePlan_Response);
@@ -233,6 +292,7 @@ service PromotionPlanning {
 	rpc GetPromotionPlanPackageSales (.CPromotionPlanning_GetPromotionPlanPackageSales_Request) returns (.CPromotionPlanning_GetPromotionPlanPackageSales_Response);
 	rpc GetPromotionPlanSummarySales (.CPromotionPlanning_GetPromotionPlanSummarySales_Request) returns (.CPromotionPlanning_GetPromotionPlanSummarySales_Response);
 	rpc GetSentNotification (.CPromotionPlanning_GetSentNotification_Request) returns (.CPromotionPlanning_GetSentNotification_Response);
+	rpc GetUpcomingScheduledDiscounts (.CPromotionPlanning_GetUpcomingScheduledDiscounts_Request) returns (.CPromotionPlanning_GetUpcomingScheduledDiscounts_Response);
 	rpc MarkLocalizationAssetComplete (.CPromotionPlanning_MarkLocalizationAssetComplete_Request) returns (.CPromotionPlanning_MarkLocalizationAssetComplete_Response);
 	rpc ResendNotification (.CPromotionPlanning_ResendNotification_Request) returns (.CPromotionPlanning_ResendNotification_Response);
 	rpc SearchPlan (.CPromotionPlanning_SearchPlan_Request) returns (.CPromotionPlanning_SearchPlan_Response);
