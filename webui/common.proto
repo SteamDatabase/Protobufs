@@ -3461,6 +3461,7 @@ message CSteamNotification_MarkNotificationsRead_Notification {
 
 message CSteamNotification_MarkNotificationsViewed_Notification {
 	optional uint64 remote_client_id = 1;
+	optional uint32 target_client_type = 2;
 }
 
 message CSteamVR_Header {

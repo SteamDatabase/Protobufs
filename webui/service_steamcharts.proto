@@ -1,3 +1,4 @@
+import "common_base.proto";
 import "common.proto";
 
 message CSteamCharts_GetBestOfYearPages_Request {
@@ -55,17 +56,19 @@ message CSteamCharts_GetMostPlayedGames_Response_MostPlayedRank {
 message CSteamCharts_GetMostPlayedSteamDeckGames_Request {
 	optional .StoreBrowseContext context = 1;
 	optional .StoreBrowseItemDataRequest data_request = 2;
+	optional int32 top_played_period = 3 [(.description) = "enum"];
 }
 
 message CSteamCharts_GetMostPlayedSteamDeckGames_Response {
 	repeated .CSteamCharts_GetMostPlayedSteamDeckGames_Response_MostPlayedRank ranks = 1;
+	optional int32 top_played_period = 2 [(.description) = "enum"];
 }
 
 message CSteamCharts_GetMostPlayedSteamDeckGames_Response_MostPlayedRank {
 	optional int32 rank = 1;
 	optional uint32 appid = 2;
 	optional .StoreItem item = 3;
-	optional int32 last_week_rank = 4;
+	optional int32 last_period_rank = 4;
 }
 
 message CSteamCharts_GetTopReleasesPages_Request {

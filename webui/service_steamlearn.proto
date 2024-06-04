@@ -596,6 +596,7 @@ message CMsgSteamLearnModelNodeCombine {
 }
 
 message CMsgSteamLearnModelNodeConcatenate {
+	optional uint32 axis = 1;
 }
 
 message CMsgSteamLearnModelNodeConditionalExtract {
@@ -659,6 +660,13 @@ message CMsgSteamLearnModelNodeEmbedding {
 }
 
 message CMsgSteamLearnModelNodeExplode {
+}
+
+message CMsgSteamLearnModelNodeExternalEmbedding {
+	optional uint32 project_id = 1;
+	optional uint32 published_version = 2;
+	optional string embedding_name = 3;
+	optional string compact_table = 4;
 }
 
 message CMsgSteamLearnModelNodeExtract {
@@ -726,6 +734,11 @@ message CMsgSteamLearnModelNodeTextVectorization {
 	optional uint32 sequence_length = 4;
 	optional int32 split = 5 [(.description) = "enum"];
 	optional uint32 ngrams = 6;
+}
+
+message CMsgSteamLearnModelNodeTimeDistributedDense {
+	optional int32 activation = 1 [(.description) = "enum"];
+	optional uint32 width = 2;
 }
 
 message CMsgSteamLearnModelNodeTrain {
@@ -810,6 +823,8 @@ message CMsgSteamLearnProjectNode {
 	optional .CMsgSteamLearnModelNodeFlatten flatten = 33;
 	optional .CMsgSteamLearnModelNodeGlobalMaxPooling1D global_max_pooling = 34;
 	optional .CMsgSteamLearnModelNodeTransformer transformer = 35;
+	optional .CMsgSteamLearnModelNodeExternalEmbedding external_embedding = 36;
+	optional .CMsgSteamLearnModelNodeTimeDistributedDense time_distributed_dense = 37;
 }
 
 message CMsgSteamLearnProjectNodeConnector {
