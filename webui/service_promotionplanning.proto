@@ -203,6 +203,7 @@ message CPromotionPlanning_GetSalePageCandidatesForPromo_Response_salepage {
 	optional bool published = 4;
 	optional uint32 start_time = 5;
 	optional uint32 end_time = 6;
+	optional uint32 external_sale_event_type = 7;
 }
 
 message CPromotionPlanning_GetSentNotification_Request {

@@ -57,6 +57,7 @@ message CSteamCharts_GetMostPlayedSteamDeckGames_Request {
 	optional .StoreBrowseContext context = 1;
 	optional .StoreBrowseItemDataRequest data_request = 2;
 	optional int32 top_played_period = 3 [(.description) = "enum"];
+	optional int32 count = 4;
 }
 
 message CSteamCharts_GetMostPlayedSteamDeckGames_Response {
