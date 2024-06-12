@@ -331,6 +331,7 @@ message FamilyGroupPendingInviteForUser {
 	optional uint64 family_groupid = 1;
 	optional int32 role = 2 [(.description) = "enum"];
 	optional fixed64 inviter_steamid = 3;
+	optional bool awaiting_2fa = 4;
 }
 
 message PurchaseRequest {
