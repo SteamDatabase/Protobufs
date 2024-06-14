@@ -1,6 +1,7 @@
 
 message CPromotionStats_GetOptInDemoStats_Request {
 	optional string opt_in_name = 1;
+	optional uint32 partner_id = 2;
 }
 
 message CPromotionStats_GetOptInDemoStats_Response {
@@ -15,6 +16,7 @@ message CPromotionStats_GetOptInDemoStats_Response_PerAppStats {
 	optional uint32 demo_player_count = 5;
 	optional uint32 wishlist_count = 6;
 	optional uint32 player_wishlist_count = 7;
+	optional uint32 rt_last_update_time = 9;
 }
 
 service PromotionStats {
