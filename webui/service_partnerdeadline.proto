@@ -1,0 +1,36 @@
+import "common_base.proto";
+
+message CPartnerDeadline {
+	optional uint32 partnerid = 1;
+	optional int32 type = 2 [(.description) = "enum"];
+	optional int32 status = 3 [(.description) = "enum"];
+	optional uint32 due_date = 4;
+	repeated uint32 email_days_before_due = 5;
+	optional fixed64 gid = 6;
+	optional int32 store_item_type = 7 [(.description) = "enum"];
+	optional uint32 store_item_id = 8;
+	optional uint32 discount_event_id = 9;
+	optional string description_jsondata = 10;
+	optional uint64 required_rights = 11;
+}
+
+message CPartnerDeadline_GetDeadlinesForPartner_Request {
+	optional uint32 partnerid = 1;
+	optional uint32 start_date = 2;
+	optional uint32 end_date = 3;
+	optional bool include_complete = 4;
+}
+
+message CPartnerDeadline_GetDeadlinesForPartner_Response {
+	repeated .CPartnerDeadline_GetDeadlinesForPartner_Response_Result deadlines = 1;
+}
+
+message CPartnerDeadline_GetDeadlinesForPartner_Response_Result {
+	optional fixed64 deadlineid = 1;
+	optional .CPartnerDeadline data = 2;
+}
+
+service PartnerDeadline {
+	rpc GetDeadlinesForPartner (.CPartnerDeadline_GetDeadlinesForPartner_Request) returns (.CPartnerDeadline_GetDeadlinesForPartner_Response);
+}
+

@@ -1,0 +1,43 @@
+import "common_base.proto";
+
+message CDismissPinData {
+	optional int32 state = 1 [(.description) = "enum"];
+	optional uint32 accountid = 2;
+	optional string key_json = 3;
+	optional uint32 partnerid = 4;
+	optional uint32 rtime_create = 5;
+	optional uint32 rtime_validity = 6;
+	optional fixed64 dismiss_id = 7;
+}
+
+message CPartnerDismiss_CreateDismiss_Request {
+	repeated .CDismissPinData dismiss_list = 1;
+}
+
+message CPartnerDismiss_CreateDismiss_Response {
+	repeated .CDismissPinData dismiss_list = 1;
+}
+
+message CPartnerDismiss_DeleteDismiss_Request {
+	optional fixed64 dismiss_id = 7;
+}
+
+message CPartnerDismiss_DeleteDismiss_Response {
+}
+
+message CPartnerDismiss_GetDismissTimeRange_Request {
+	optional uint32 partnerid = 1;
+	optional uint32 accountid = 2;
+	optional uint32 rtime_after = 3;
+}
+
+message CPartnerDismiss_GetDismissTimeRange_Response {
+	repeated .CDismissPinData dismiss_list = 1;
+}
+
+service PartnerDismiss {
+	rpc CreateDismiss (.CPartnerDismiss_CreateDismiss_Request) returns (.CPartnerDismiss_CreateDismiss_Response);
+	rpc DeleteDismiss (.CPartnerDismiss_DeleteDismiss_Request) returns (.CPartnerDismiss_DeleteDismiss_Response);
+	rpc GetDismissTimeRange (.CPartnerDismiss_GetDismissTimeRange_Request) returns (.CPartnerDismiss_GetDismissTimeRange_Response);
+}
+
