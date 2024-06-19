@@ -6,6 +6,7 @@ message CPromotionStats_GetOptInDemoStats_Request {
 
 message CPromotionStats_GetOptInDemoStats_Response {
 	repeated .CPromotionStats_GetOptInDemoStats_Response_PerAppStats stats = 1;
+	repeated uint32 appid_without_permissions = 2;
 }
 
 message CPromotionStats_GetOptInDemoStats_Response_PerAppStats {
