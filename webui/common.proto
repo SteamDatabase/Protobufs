@@ -280,6 +280,21 @@ message CClientMetrics_ClientBootstrap_Summary {
 	repeated .CClientMetrics_ClientBootstrap_RequestInfo package_requests = 8;
 }
 
+message CClientMetrics_ClipRange_Notification {
+	optional int32 original_range_method = 1 [(.description) = "enum"];
+	optional .CClientMetrics_ClipRange_Notification_RelativeRangeEdge start = 2;
+	optional .CClientMetrics_ClipRange_Notification_RelativeRangeEdge end = 3;
+	optional float seconds = 4;
+	optional fixed64 gameid = 5;
+}
+
+// Used by: common.proto
+message CClientMetrics_ClipRange_Notification_RelativeRangeEdge {
+	optional int32 original_range_method = 1 [(.description) = "enum"];
+	optional int32 latest_range_method = 2 [(.description) = "enum"];
+	optional int32 delta_ms = 3;
+}
+
 message CClientMetrics_ClipShare_Notification {
 	optional uint32 eresult = 1 [default = 2];
 	optional int32 share_method = 2 [(.description) = "enum"];

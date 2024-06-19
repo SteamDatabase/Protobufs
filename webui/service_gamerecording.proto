@@ -136,7 +136,13 @@ message CGameRecording_GetThumbnails_Request {
 }
 
 message CGameRecording_GetThumbnails_Response {
-	repeated bytes thumbnails = 1;
+	repeated .CGameRecording_GetThumbnails_Response_Thumbnail thumbnails = 1;
+}
+
+message CGameRecording_GetThumbnails_Response_Thumbnail {
+	optional bytes image_data = 1;
+	optional uint32 width = 2;
+	optional uint32 height = 3;
 }
 
 message CGameRecording_GetTimelinesForApp_Request {
@@ -223,6 +229,13 @@ message CGameRecording_StopRecording_Response {
 	optional .CGameRecording_ClipSummary summary = 1;
 }
 
+message CGameRecording_SwitchBackgroundRecordingGame_Request {
+	optional uint64 game_id = 1;
+}
+
+message CGameRecording_SwitchBackgroundRecordingGame_Response {
+}
+
 message CGameRecording_TimelineChanged_Notification {
 	optional int32 notification_type = 1 [(.description) = "enum"];
 	optional string timeline_id = 2;
@@ -299,6 +312,7 @@ message CGameRecordingTimelineEvent {
 	optional uint64 duration_ms = 7;
 	optional string marker_icon = 8;
 	optional string marker_title = 9;
+	optional bool user_marker = 10;
 }
 
 message CGameRecordingTimelineMetadata {
@@ -369,6 +383,7 @@ service GameRecording {
 	rpc SaveClip (.CGameRecording_SaveClip_Request) returns (.CGameRecording_SaveClip_Response);
 	rpc StartRecording (.CGameRecording_StartRecording_Request) returns (.CGameRecording_StartRecording_Response);
 	rpc StopRecording (.CGameRecording_StopRecording_Request) returns (.CGameRecording_StopRecording_Response);
+	rpc SwitchBackgroundRecordingGame (.CGameRecording_SwitchBackgroundRecordingGame_Request) returns (.CGameRecording_SwitchBackgroundRecordingGame_Response);
 	rpc UploadClipToSteam (.CGameRecording_UploadClipToSteam_Request) returns (.CGameRecording_UploadClipToSteam_Response);
 	rpc UserAddTimelineEntry (.CGameRecording_UserAddTimelineEntry_Request) returns (.CGameRecording_UserAddTimelineEntry_Response);
 	rpc UserRemoveTimelineEntry (.CGameRecording_UserRemoveTimelineEntry_Request) returns (.CGameRecording_UserRemoveTimelineEntry_Response);
