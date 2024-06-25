@@ -583,6 +583,8 @@ message CMsgSteamLearnDataSourceElementUsage {
 	optional float std_dev = 9;
 	optional string compact_table = 10;
 	optional uint32 compact_table_count = 11;
+	optional string sequence_table = 12;
+	optional uint32 sequence_table_count = 13;
 }
 
 message CMsgSteamLearnFetchInfo {
@@ -719,6 +721,14 @@ message CMsgSteamLearnModelNodeOnehot {
 	optional bool multi_hot = 3;
 }
 
+message CMsgSteamLearnModelNodeSequenceSplit {
+	optional uint32 head_split_chance = 1;
+	optional uint32 mid_split_chance = 2;
+	optional uint32 tail_split_chance = 3;
+	optional string sequence_table_name = 4;
+	optional string compact_table_name = 5;
+}
+
 message CMsgSteamLearnModelNodeShuffle {
 	optional bool exclude_zeroes = 1;
 }
@@ -825,6 +835,7 @@ message CMsgSteamLearnProjectNode {
 	optional .CMsgSteamLearnModelNodeTransformer transformer = 35;
 	optional .CMsgSteamLearnModelNodeExternalEmbedding external_embedding = 36;
 	optional .CMsgSteamLearnModelNodeTimeDistributedDense time_distributed_dense = 37;
+	optional .CMsgSteamLearnModelNodeSequenceSplit sequence_split = 38;
 }
 
 message CMsgSteamLearnProjectNodeConnector {

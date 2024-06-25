@@ -1,0 +1,96 @@
+
+message CAssetSet {
+	optional uint32 appid = 1;
+	optional fixed64 assetset_id = 2;
+	optional string name = 3;
+	optional string desc = 4;
+	repeated string branches = 5;
+	optional uint32 last_update_rtime = 6;
+	optional uint32 priority = 7;
+	optional uint32 last_publish_rtime = 8;
+}
+
+message CAssetSetPublishing_AddBranchToAssetSet_Request {
+	optional uint32 appid = 1;
+	optional fixed64 assetset_id = 2;
+	optional string branch = 3;
+}
+
+message CAssetSetPublishing_AddBranchToAssetSet_Response {
+	optional .CAssetSet updated = 1;
+}
+
+message CAssetSetPublishing_CreateAssetSet_Request {
+	optional uint32 appid = 1;
+	optional .CAssetSet assetset = 2;
+}
+
+message CAssetSetPublishing_CreateAssetSet_Response {
+	optional .CAssetSet assetset = 1;
+}
+
+message CAssetSetPublishing_DeleteAssetSet_Request {
+	optional uint32 appid = 1;
+	optional fixed64 assetset_id = 2;
+}
+
+message CAssetSetPublishing_DeleteAssetSet_Response {
+}
+
+message CAssetSetPublishing_GetAllAssetSets_Request {
+	optional uint32 appid = 1;
+}
+
+message CAssetSetPublishing_GetAllAssetSets_Response {
+	repeated .CAssetSet assetset = 2;
+}
+
+message CAssetSetPublishing_RemoseBranchFromAssetSet_Response {
+	optional .CAssetSet updated = 1;
+}
+
+message CAssetSetPublishing_RemoveBranchFromAssetSet_Request {
+	optional uint32 appid = 1;
+	optional fixed64 assetset_id = 2;
+	optional string branch = 3;
+}
+
+message CAssetSetPublishing_SwapAssetSetPriority_Request {
+	optional uint32 appid = 1;
+	optional fixed64 first_assetset_id = 2;
+	optional fixed64 second_assetset_id = 3;
+}
+
+message CAssetSetPublishing_SwapAssetSetPriority_Response {
+	optional .CAssetSet updated_first = 1;
+	optional .CAssetSet updated_second = 2;
+}
+
+message CAssetSetPublishing_UpdateAssetSet_Request {
+	optional uint32 appid = 1;
+	optional .CAssetSet assetset = 2;
+}
+
+message CAssetSetPublishing_UpdateAssetSet_Response {
+}
+
+message CAssetSetPublishing_UpdatePublishTime_Request {
+	optional uint32 appid = 1;
+	optional fixed64 assetset_id = 2;
+}
+
+message CAssetSetPublishing_UpdatePublishTime_Response {
+	optional .CAssetSet updated = 1;
+}
+
+service AssetSetPublishing {
+	rpc AddBranchToAssetSet (.CAssetSetPublishing_AddBranchToAssetSet_Request) returns (.CAssetSetPublishing_AddBranchToAssetSet_Response);
+	rpc CreateAssetSet (.CAssetSetPublishing_CreateAssetSet_Request) returns (.CAssetSetPublishing_CreateAssetSet_Response);
+	rpc DeleteAssetSet (.CAssetSetPublishing_DeleteAssetSet_Request) returns (.CAssetSetPublishing_DeleteAssetSet_Response);
+	rpc GetAllAssetSets (.CAssetSetPublishing_GetAllAssetSets_Request) returns (.CAssetSetPublishing_GetAllAssetSets_Response);
+	rpc RemoveBranchFromAssetSet (.CAssetSetPublishing_RemoveBranchFromAssetSet_Request) returns (.CAssetSetPublishing_RemoseBranchFromAssetSet_Response);
+	rpc SwapAssetSetPriority (.CAssetSetPublishing_SwapAssetSetPriority_Request) returns (.CAssetSetPublishing_SwapAssetSetPriority_Response);
+	rpc UpdateAssetSet (.CAssetSetPublishing_UpdateAssetSet_Request) returns (.CAssetSetPublishing_UpdateAssetSet_Response);
+	rpc UpdatePublishTime (.CAssetSetPublishing_UpdatePublishTime_Request) returns (.CAssetSetPublishing_UpdatePublishTime_Response);
+}
+

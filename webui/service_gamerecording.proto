@@ -30,6 +30,9 @@ message CGameRecording_ClipSummary {
 	optional string original_device = 12;
 	optional uint32 original_gaming_device_type = 13;
 	optional uint32 date_downloaded = 14;
+	optional string thumbnail_url = 15;
+	optional uint32 thumbnail_width = 16;
+	optional uint32 thumbnail_height = 17;
 }
 
 message CGameRecording_DeleteClip_Request {

@@ -63,6 +63,19 @@ message CPromotionPlanning_DeletePlan_Request {
 message CPromotionPlanning_DeletePlan_Response {
 }
 
+message CPromotionPlanning_GetAdvertisingAppsForPartner_Request {
+	optional uint32 partner_id = 1;
+}
+
+message CPromotionPlanning_GetAdvertisingAppsForPartner_Response {
+	repeated .CPromotionPlanning_GetAdvertisingAppsForPartner_Response_advertising_app advertising_apps = 1;
+}
+
+message CPromotionPlanning_GetAdvertisingAppsForPartner_Response_advertising_app {
+	optional uint32 appid = 1;
+	optional string app_name = 2;
+}
+
 message CPromotionPlanning_GetAllActivePlan_Request {
 }
 
@@ -307,6 +320,7 @@ service PromotionPlanning {
 	rpc CreateSalePageForPromo (.CPromotionPlan_CreateSalePageForPromo_Request) returns (.CPromotionPlan_CreateSalePageForPromo_Response);
 	rpc CreateTentativePlan (.CPromotionPlanning_CreatePlan_Request) returns (.CPromotionPlanning_CreatePlan_Response);
 	rpc DeletePlan (.CPromotionPlanning_DeletePlan_Request) returns (.CPromotionPlanning_DeletePlan_Response);
+	rpc GetAdvertisingAppsForPartner (.CPromotionPlanning_GetAdvertisingAppsForPartner_Request) returns (.CPromotionPlanning_GetAdvertisingAppsForPartner_Response);
 	rpc GetAllActivePlan (.CPromotionPlanning_GetAllActivePlan_Request) returns (.CPromotionPlanning_GetAllActivePlan_Response);
 	rpc GetAllPlansForApps (.CPromotionPlanning_GetAllPlansForApps_Request) returns (.CPromotionPlanning_GetAllPlansForApps_Response);
 	rpc GetAllPlansForPartner (.CPromotionPlanning_GetAllPlansForPartner_Request) returns (.CPromotionPlanning_GetAllPlansForPartner_Response);
