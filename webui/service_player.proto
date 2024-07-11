@@ -55,6 +55,7 @@ message CPlayer_GetAchievementsProgress_Request {
 	optional uint64 steamid = 1;
 	optional string language = 2;
 	repeated uint32 appids = 3;
+	optional bool include_unvetted_apps = 4;
 }
 
 message CPlayer_GetAchievementsProgress_Response {
@@ -68,6 +69,7 @@ message CPlayer_GetAchievementsProgress_Response_AchievementProgress {
 	optional float percentage = 4;
 	optional bool all_unlocked = 5;
 	optional uint32 cache_time = 6;
+	optional bool vetted = 7;
 }
 
 message CPlayer_GetAnimatedAvatar_Request {

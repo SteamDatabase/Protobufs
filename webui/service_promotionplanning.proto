@@ -110,6 +110,15 @@ message CPromotionPlanning_GetAllPlansForPartner_Response {
 	repeated .CPromotionPlan plans = 1;
 }
 
+message CPromotionPlanning_GetAvailableWeekSlots_Request {
+	optional uint32 publisherid = 1;
+}
+
+message CPromotionPlanning_GetAvailableWeekSlots_Response {
+	repeated uint32 rt_weeklong_deals = 1;
+	repeated uint32 rt_weekend_deals = 2;
+}
+
 message CPromotionPlanning_GetPlan_Request {
 	optional fixed64 promotion_id = 1;
 }
@@ -324,6 +333,7 @@ service PromotionPlanning {
 	rpc GetAllActivePlan (.CPromotionPlanning_GetAllActivePlan_Request) returns (.CPromotionPlanning_GetAllActivePlan_Response);
 	rpc GetAllPlansForApps (.CPromotionPlanning_GetAllPlansForApps_Request) returns (.CPromotionPlanning_GetAllPlansForApps_Response);
 	rpc GetAllPlansForPartner (.CPromotionPlanning_GetAllPlansForPartner_Request) returns (.CPromotionPlanning_GetAllPlansForPartner_Response);
+	rpc GetAvailableWeekSlots (.CPromotionPlanning_GetAvailableWeekSlots_Request) returns (.CPromotionPlanning_GetAvailableWeekSlots_Response);
 	rpc GetPlan (.CPromotionPlanning_GetPlan_Request) returns (.CPromotionPlanning_GetPlan_Response);
 	rpc GetPlanByInputAccessKey (.CPromotionPlanning_GetPlanByInputAccessKey_Request) returns (.CPromotionPlanning_GetPlanByInputAccessKey_Response);
 	rpc GetPlanCompletedInDateRange (.CPromotionPlanning_GetPlanCompletedInDateRange_Request) returns (.CPromotionPlanning_GetPlanCompletedInDateRange_Response);

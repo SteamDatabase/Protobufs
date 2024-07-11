@@ -22,6 +22,8 @@ message CPromotionEventInvitation {
 	optional uint32 rtime32_cancel_time = 19;
 	optional bool require_sale_page = 20;
 	optional int32 require_sale_page_type = 21 [(.description) = "enum"];
+	optional string admin_notes = 22;
+	optional string partner_notes = 23;
 }
 
 message CPromotionEventInviteReceive {

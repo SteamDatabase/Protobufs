@@ -136,6 +136,7 @@ message CGameRecording_GetThumbnails_Request {
 	optional uint32 major_axis = 5 [default = 512];
 	optional int32 time_precision = 6 [default = 0, (.description) = "enum"];
 	optional string timeline_id = 7;
+	optional int32 format = 8 [default = 1, (.description) = "enum"];
 }
 
 message CGameRecording_GetThumbnails_Response {
@@ -239,6 +240,16 @@ message CGameRecording_SwitchBackgroundRecordingGame_Request {
 message CGameRecording_SwitchBackgroundRecordingGame_Response {
 }
 
+message CGameRecording_TakeScreenshot_Request {
+	optional fixed64 game_id = 1;
+	optional string timeline_id = 2;
+	optional uint64 timeline_offset_ms = 3;
+}
+
+message CGameRecording_TakeScreenshot_Response {
+	optional fixed64 screenshot_id = 1;
+}
+
 message CGameRecording_TimelineChanged_Notification {
 	optional int32 notification_type = 1 [(.description) = "enum"];
 	optional string timeline_id = 2;
@@ -249,6 +260,7 @@ message CGameRecording_TimelineChanged_Notification {
 
 message CGameRecording_TimelineEntryChanged_Notification {
 	optional .CTimelineEntry entry = 1;
+	optional fixed64 game_id = 2;
 }
 
 message CGameRecording_UploadClipToSteam_Request {
@@ -387,6 +399,7 @@ service GameRecording {
 	rpc StartRecording (.CGameRecording_StartRecording_Request) returns (.CGameRecording_StartRecording_Response);
 	rpc StopRecording (.CGameRecording_StopRecording_Request) returns (.CGameRecording_StopRecording_Response);
 	rpc SwitchBackgroundRecordingGame (.CGameRecording_SwitchBackgroundRecordingGame_Request) returns (.CGameRecording_SwitchBackgroundRecordingGame_Response);
+	rpc TakeScreenshot (.CGameRecording_TakeScreenshot_Request) returns (.CGameRecording_TakeScreenshot_Response);
 	rpc UploadClipToSteam (.CGameRecording_UploadClipToSteam_Request) returns (.CGameRecording_UploadClipToSteam_Response);
 	rpc UserAddTimelineEntry (.CGameRecording_UserAddTimelineEntry_Request) returns (.CGameRecording_UserAddTimelineEntry_Response);
 	rpc UserRemoveTimelineEntry (.CGameRecording_UserRemoveTimelineEntry_Request) returns (.CGameRecording_UserRemoveTimelineEntry_Response);

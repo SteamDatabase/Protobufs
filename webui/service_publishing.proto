@@ -98,6 +98,7 @@ message CPublishing_GetOptInAppealsSummaryStats_Response_CSummary {
 	optional uint32 open_appeals = 2;
 	optional uint32 reject_appeals = 3;
 	optional uint32 accepted_appeals = 4;
+	optional uint32 appeal_account_id = 5;
 }
 
 message CPublishing_GetOptInEmailTracking_Request {
