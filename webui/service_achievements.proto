@@ -1,0 +1,23 @@
+
+message CAchievements_GetInfo_Request {
+	optional uint64 gameid = 1;
+}
+
+message CAchievements_GetInfo_Response {
+	repeated .CAchievements_GetInfo_Response_Info achievements = 1;
+}
+
+message CAchievements_GetInfo_Response_Info {
+	optional string id = 1;
+	optional string name = 2;
+	optional string desc = 3;
+	optional string image_url_achieved = 4;
+	optional string image_url_not_achieved = 5;
+	optional bool achieved = 6;
+	optional uint32 unlock_time = 7;
+}
+
+service Achievements {
+	rpc GetInfo (.CAchievements_GetInfo_Request) returns (.CAchievements_GetInfo_Response);
+}
+

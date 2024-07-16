@@ -1,0 +1,51 @@
+import "common_base.proto";
+
+message CGamescope_GetState_Request {
+}
+
+message CGamescope_GetState_Response {
+	optional .CMsgGamescopeState state = 1;
+}
+
+message CGamescope_SetBlurParams_Request {
+	optional int32 mode = 1 [(.description) = "enum"];
+	optional int32 radius = 2;
+	optional int32 fade_duration_ms = 3;
+}
+
+message CGamescope_SetBlurParams_Response {
+}
+
+message CGamescope_StateChanged_Notification {
+}
+
+message CMsgDisplayInfo {
+	optional string make = 1;
+	optional string model = 2;
+	optional string connector_name = 3;
+	repeated int32 supported_refresh_rates = 4;
+	repeated int32 supported_frame_rates = 5;
+	optional bool is_external = 6;
+	optional bool is_hdr_capable = 7;
+	optional bool is_vrr_capable = 8;
+}
+
+message CMsgGamescopeState {
+	optional bool is_service_available = 1;
+	optional bool is_reshade_supported = 2;
+	optional bool is_app_hdr_enabled = 3;
+	optional bool is_app_refresh_rate_supported = 4;
+	optional .CMsgDisplayInfo active_display_info = 5;
+	optional bool is_app_refresh_rate_capable = 6;
+	optional bool is_refresh_rate_switching_supported = 7;
+	optional bool is_refresh_rate_switching_restricted = 8;
+	optional bool is_hdr_visualization_supported = 9;
+	optional bool is_mura_correction_supported = 10;
+}
+
+service Gamescope {
+	rpc GetState (.CGamescope_GetState_Request) returns (.CGamescope_GetState_Response);
+	rpc NotifyStateChanged (.CGamescope_StateChanged_Notification) returns (.NoResponse);
+	rpc SetBlurParams (.CGamescope_SetBlurParams_Request) returns (.CGamescope_SetBlurParams_Response);
+}
+

@@ -4,6 +4,17 @@ message CMobileDevice_DeregisterMobileDevice_Notification {
 	optional string deviceid = 1;
 }
 
+message CMobileDevice_HasMobileDevice_Request {
+	optional int32 app_type = 1 [(.description) = "enum"];
+	optional bool push_enabled_only = 2;
+	optional string minimum_version = 3;
+}
+
+message CMobileDevice_HasMobileDevice_Response {
+	optional bool found_device = 1;
+	optional bool up_to_date = 2;
+}
+
 message CMobileDevice_RegisterMobileDevice_Request {
 	optional string deviceid = 1;
 	optional string language = 2;
@@ -21,6 +32,7 @@ message CMobileDevice_RegisterMobileDevice_Response {
 
 service MobileDevice {
 	rpc DeregisterMobileDevice (.CMobileDevice_DeregisterMobileDevice_Notification) returns (.NoResponse);
+	rpc HasMobileDevice (.CMobileDevice_HasMobileDevice_Request) returns (.CMobileDevice_HasMobileDevice_Response);
 	rpc RegisterMobileDevice (.CMobileDevice_RegisterMobileDevice_Request) returns (.CMobileDevice_RegisterMobileDevice_Response);
 }
 

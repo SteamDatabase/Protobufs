@@ -1,0 +1,63 @@
+import "common_base.proto";
+
+message CMsgFactoryResetState {
+	optional bool is_running = 1;
+	optional int32 progress = 2;
+	optional bool is_restart_pending = 3;
+	optional fixed32 rtime_estimated_completion = 4;
+}
+
+message CSteamOSManager_ApplyMandatoryUpdate_Request {
+}
+
+message CSteamOSManager_ApplyMandatoryUpdate_Response {
+}
+
+message CSteamOSManager_FactoryReset_Request {
+	optional bool reset_os = 1;
+	optional bool reset_user_data = 2;
+}
+
+message CSteamOSManager_FactoryReset_Response {
+}
+
+message CSteamOSManager_GetState_Request {
+}
+
+message CSteamOSManager_GetState_Response {
+	optional .CSteamOSManagerState state = 1;
+}
+
+message CSteamOSManager_OptOutOfSideloadedClient_Request {
+}
+
+message CSteamOSManager_OptOutOfSideloadedClient_Response {
+}
+
+message CSteamOSManager_StateChanged_Notification {
+}
+
+message CSteamOSManagerState {
+	optional bool is_service_available = 1;
+	optional string os_version = 2;
+	optional bool is_mandatory_update_available = 3;
+	optional int32 startup_movie_variant = 4 [(.description) = "enum"];
+	optional bool is_status_led_control_available = 5;
+	optional .CMsgFactoryResetState factory_reset_state = 6;
+	optional bool is_tdp_limit_available = 7;
+	optional int32 tdp_limit_min = 8;
+	optional int32 tdp_limit_max = 9;
+	optional bool is_cec_available = 10;
+	optional bool is_wifi_debug_supported = 11;
+	optional bool is_wifi_debug_force_disabled = 12;
+	optional bool is_wifi_force_wpa_supplicant_supported = 13;
+}
+
+service SteamOSManager {
+	rpc ApplyMandatoryUpdate (.CSteamOSManager_ApplyMandatoryUpdate_Request) returns (.CSteamOSManager_ApplyMandatoryUpdate_Response);
+	rpc FactoryReset (.CSteamOSManager_FactoryReset_Request) returns (.CSteamOSManager_FactoryReset_Response);
+	rpc GetState (.CSteamOSManager_GetState_Request) returns (.CSteamOSManager_GetState_Response);
+	rpc NotifyStateChanged (.CSteamOSManager_StateChanged_Notification) returns (.NoResponse);
+	rpc OptOutOfSideloadedClient (.CSteamOSManager_OptOutOfSideloadedClient_Request) returns (.CSteamOSManager_OptOutOfSideloadedClient_Response);
+}
+

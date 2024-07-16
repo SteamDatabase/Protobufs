@@ -13,6 +13,7 @@ message CUserNews_Event {
 	optional fixed64 publishedfileid = 11;
 	optional uint32 event_last_mod_time = 12;
 	repeated uint32 appids = 13;
+	optional uint32 event_post_time = 14;
 }
 
 message CUserNews_GetAppDetailsSpotlight_Request {

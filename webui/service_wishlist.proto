@@ -1,0 +1,20 @@
+import "common.proto";
+
+message CWishlist_GetWishlistItemsOnSale_Request {
+	optional .StoreBrowseContext context = 1;
+	optional .StoreBrowseItemDataRequest data_request = 2;
+}
+
+message CWishlist_GetWishlistItemsOnSale_Response {
+	repeated .CWishlist_GetWishlistItemsOnSale_Response_WishlistItem items = 1;
+}
+
+message CWishlist_GetWishlistItemsOnSale_Response_WishlistItem {
+	optional uint32 appid = 1;
+	optional .StoreItem store_item = 2;
+}
+
+service Wishlist {
+	rpc GetWishlistItemsOnSale (.CWishlist_GetWishlistItemsOnSale_Request) returns (.CWishlist_GetWishlistItemsOnSale_Response);
+}
+

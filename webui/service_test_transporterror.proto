@@ -1,6 +1,6 @@
-import "common_base.proto";
+import "common.proto";
 
 service Test_TransportError {
-	rpc InvalidService (.NotImplemented) returns (.NoResponse);
+	rpc InvalidService (.CTransportValidation_AppendToString_Request) returns (.CTransportValidation_AppendToString_Response);
 }
 

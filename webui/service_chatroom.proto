@@ -716,8 +716,8 @@ message CUserChatRoomGroupState {
 	optional uint64 chat_group_id = 1;
 	optional uint32 time_joined = 2;
 	repeated .CUserChatRoomState user_chat_room_state = 3;
-	optional int32 desktop_notification_level = 4 [(.description) = "enum"];
-	optional int32 mobile_notification_level = 5 [(.description) = "enum"];
+	optional int32 desktop_notification_level = 4 [default = 0, (.description) = "enum"];
+	optional int32 mobile_notification_level = 5 [default = 0, (.description) = "enum"];
 	optional uint32 time_last_group_ack = 6;
 	optional bool unread_indicator_muted = 7 [default = false];
 }
@@ -726,8 +726,8 @@ message CUserChatRoomState {
 	optional uint64 chat_id = 1;
 	optional uint32 time_joined = 2;
 	optional uint32 time_last_ack = 3;
-	optional int32 desktop_notification_level = 4 [(.description) = "enum"];
-	optional int32 mobile_notification_level = 5 [(.description) = "enum"];
+	optional int32 desktop_notification_level = 4 [default = 0, (.description) = "enum"];
+	optional int32 mobile_notification_level = 5 [default = 0, (.description) = "enum"];
 	optional uint32 time_last_mention = 6;
 	optional bool unread_indicator_muted = 7 [default = false];
 	optional uint32 time_first_unread = 8;

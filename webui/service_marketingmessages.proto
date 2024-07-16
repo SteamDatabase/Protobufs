@@ -20,6 +20,14 @@ message CMarketingMessage_GetMarketingMessagesForApps_Response {
 	repeated .CMarketingMessageProto messages = 1;
 }
 
+message CMarketingMessage_GetMarketingMessagesForPartner_Request {
+	optional uint32 partnerid = 1;
+}
+
+message CMarketingMessage_GetMarketingMessagesForPartner_Response {
+	repeated .CMarketingMessageProto messages = 1;
+}
+
 message CMarketingMessageHourlyStats {
 	optional uint32 rt_time_hour = 1;
 	optional uint32 seen_count = 2;
@@ -204,6 +212,7 @@ service MarketingMessages {
 	rpc GetDisplayMarketingMessageForUser (.CMarketingMessages_GetDisplayMarketingMessage_Request) returns (.CMarketingMessages_GetDisplayMarketingMessage_Response);
 	rpc GetMarketingMessage (.CMarketingMessages_GetMarketingMessage_Request) returns (.CMarketingMessages_GetMarketingMessage_Response);
 	rpc GetMarketingMessagesForApps (.CMarketingMessage_GetMarketingMessagesForApps_Request) returns (.CMarketingMessage_GetMarketingMessagesForApps_Response);
+	rpc GetMarketingMessagesForPartner (.CMarketingMessage_GetMarketingMessagesForPartner_Request) returns (.CMarketingMessage_GetMarketingMessagesForPartner_Response);
 	rpc GetMarketingMessagesForUser (.CMarketingMessages_GetMarketingMessagesForUser_Request) returns (.CMarketingMessages_GetMarketingMessagesForUser_Response);
 	rpc GetMarketingMessagesViewerRangeStats (.CMarketingMessages_GetMarketingMessagesViewerRangeStats_Request) returns (.CMarketingMessages_GetMarketingMessagesViewerRangeStats_Response);
 	rpc GetMarketingMessageViewerStats (.CMarketingMessages_GetMarketingMessageViewerStats_Request) returns (.CMarketingMessages_GetMarketingMessageViewerStats_Response);

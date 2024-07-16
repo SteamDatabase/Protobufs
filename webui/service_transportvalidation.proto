@@ -24,6 +24,10 @@ message CTransportValidation_GetLastNotifyNumber_Response {
 	optional int32 last_notify_number = 1;
 }
 
+message CTransportValidation_NotifyCount_Notification {
+	optional int32 num = 1;
+}
+
 message CTransportValidation_NotifyNumber_Notification {
 	optional int32 number = 1;
 }
@@ -34,6 +38,23 @@ message CTransportValidation_NotifySyntheticEvent_Notification {
 
 message CTransportValidation_NotifyText_Notification {
 	optional string text = 1;
+}
+
+message CTransportValidation_RequestInvalidBool_Request {
+}
+
+message CTransportValidation_RequestInvalidBool_Response {
+	optional int32 before = 1;
+	optional bool output = 2;
+	optional int32 after = 3;
+}
+
+message CTransportValidation_ThreadedCount_Request {
+	optional int32 start_num = 1;
+	optional int32 end_num = 2;
+}
+
+message CTransportValidation_ThreadedCount_Response {
 }
 
 message CTransportValidation_TriggerSyntheticEvents_Request {
@@ -57,9 +78,12 @@ service TransportValidation {
 	rpc AppendToString (.CTransportValidation_AppendToString_Request) returns (.CTransportValidation_AppendToString_Response);
 	rpc CountOrderedBytes (.CTransportValidation_CountOrderedBytes_Request) returns (.CTransportValidation_CountOrderedBytes_Response);
 	rpc GetLastNotifyNumber (.CTransportValidation_GetLastNotifyNumber_Request) returns (.CTransportValidation_GetLastNotifyNumber_Response);
+	rpc NotifyCount (.CTransportValidation_NotifyCount_Notification) returns (.NoResponse);
 	rpc NotifyNumber (.CTransportValidation_NotifyNumber_Notification) returns (.NoResponse);
 	rpc NotifySyntheticEvent (.CTransportValidation_NotifySyntheticEvent_Notification) returns (.NoResponse);
 	rpc NotifyText (.CTransportValidation_NotifyText_Notification) returns (.NoResponse);
+	rpc RequestInvalidBool (.CTransportValidation_RequestInvalidBool_Request) returns (.CTransportValidation_RequestInvalidBool_Response);
+	rpc ThreadedCount (.CTransportValidation_ThreadedCount_Request) returns (.CTransportValidation_ThreadedCount_Response);
 	rpc TriggerSyntheticEvents (.CTransportValidation_TriggerSyntheticEvents_Request) returns (.CTransportValidation_TriggerSyntheticEvents_Response);
 }
 

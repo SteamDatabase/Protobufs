@@ -1,0 +1,46 @@
+import "common_base.proto";
+
+message CSteamOSSLS_GetState_Request {
+}
+
+message CSteamOSSLS_GetState_Response {
+	optional .CSteamOSSLSState state = 1;
+}
+
+message CSteamOSSLS_SetEnabled_Request {
+	optional bool enabled = 1;
+}
+
+message CSteamOSSLS_SetEnabled_Response {
+}
+
+message CSteamOSSLS_SetPluginEnabled_Request {
+	optional int32 etype = 1 [(.description) = "enum"];
+	optional bool enabled = 2;
+}
+
+message CSteamOSSLS_SetPluginEnabled_Response {
+}
+
+message CSteamOSSLS_StateChanged_Notification {
+}
+
+message CSteamOSSLSPlugin {
+	optional int32 etype = 1 [(.description) = "enum"];
+	optional bool is_available = 2;
+	optional bool is_enabled = 3;
+}
+
+message CSteamOSSLSState {
+	optional bool is_available = 1;
+	optional bool is_enabled = 2;
+	repeated .CSteamOSSLSPlugin plugins = 3;
+}
+
+service SteamOSSLS {
+	rpc GetState (.CSteamOSSLS_GetState_Request) returns (.CSteamOSSLS_GetState_Response);
+	rpc NotifyStateChanged (.CSteamOSSLS_StateChanged_Notification) returns (.NoResponse);
+	rpc SetEnabled (.CSteamOSSLS_SetEnabled_Request) returns (.CSteamOSSLS_SetEnabled_Response);
+	rpc SetPluginEnabled (.CSteamOSSLS_SetPluginEnabled_Request) returns (.CSteamOSSLS_SetPluginEnabled_Response);
+}
+

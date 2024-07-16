@@ -1,0 +1,94 @@
+import "common.proto";
+
+message CRemoteClient_AllocateRelayServer_Request {
+	optional uint32 cellid = 1;
+	optional string credentials = 2;
+}
+
+message CRemoteClient_AllocateRelayServer_Response {
+	optional string relay_server = 1;
+}
+
+message CRemoteClient_AllocateSDR_Request {
+	optional uint32 appid = 1;
+}
+
+message CRemoteClient_AllocateSDR_Response {
+}
+
+message CRemoteClient_ClientDetails {
+	optional fixed64 remote_client_id = 1;
+	optional .CRemoteClient_DeviceDetails device_details = 2;
+	optional uint64 last_seen = 4;
+	optional string city = 5;
+	optional string state = 6;
+	optional string country = 7;
+	optional bool is_online = 8;
+}
+
+message CRemoteClient_CreateRemotePlayTogetherInvitation_Request {
+	optional uint32 appid = 1;
+	optional string launch_parameters = 2;
+}
+
+message CRemoteClient_CreateRemotePlayTogetherInvitation_Response {
+	optional string invitation_code = 1;
+}
+
+message CRemoteClient_DeleteRemotePlayTogetherInvitation_Request {
+	optional string invitation_code = 1;
+}
+
+message CRemoteClient_DeleteRemotePlayTogetherInvitation_Response {
+}
+
+message CRemoteClient_GetPairingInfo_Request {
+	optional uint32 pin = 1;
+}
+
+message CRemoteClient_GetPairingInfo_Response {
+	optional fixed64 session_id = 1;
+	optional fixed64 device_id = 2;
+	optional bytes request = 3;
+}
+
+message CRemoteClient_GetRecentClients_Request {
+}
+
+message CRemoteClient_GetRecentClients_Response {
+	repeated .CRemoteClient_ClientDetails clients = 1;
+}
+
+message CRemoteClient_MarkTaskComplete_Request {
+	optional fixed64 remote_client_id = 1;
+	optional fixed64 task_id = 2;
+	optional string content_id = 3;
+}
+
+message CRemoteClient_MarkTaskComplete_Response {
+}
+
+message CRemotePlay_SessionStarted_Request {
+	optional uint32 host_account_id = 1;
+	optional uint32 client_account_id = 2;
+	optional uint32 appid = 3;
+	optional int32 device_form_factor = 4;
+	optional bool remote_play_together = 5;
+	optional bool guest_session = 6;
+}
+
+message CRemotePlay_SessionStarted_Response {
+	optional fixed64 record_id = 1;
+}
+
+service RemoteClient {
+	rpc AllocateRelayServer (.CRemoteClient_AllocateRelayServer_Request) returns (.CRemoteClient_AllocateRelayServer_Response);
+	rpc AllocateSDR (.CRemoteClient_AllocateSDR_Request) returns (.CRemoteClient_AllocateSDR_Response);
+	rpc CreateRemotePlayTogetherInvitation (.CRemoteClient_CreateRemotePlayTogetherInvitation_Request) returns (.CRemoteClient_CreateRemotePlayTogetherInvitation_Response);
+	rpc DeleteRemotePlayTogetherInvitation (.CRemoteClient_DeleteRemotePlayTogetherInvitation_Request) returns (.CRemoteClient_DeleteRemotePlayTogetherInvitation_Response);
+	rpc GetPairingInfo (.CRemoteClient_GetPairingInfo_Request) returns (.CRemoteClient_GetPairingInfo_Response);
+	rpc GetRecentClients (.CRemoteClient_GetRecentClients_Request) returns (.CRemoteClient_GetRecentClients_Response);
+	rpc MarkTaskComplete (.CRemoteClient_MarkTaskComplete_Request) returns (.CRemoteClient_MarkTaskComplete_Response);
+	rpc SendRemotePlaySessionStarted (.CRemotePlay_SessionStarted_Request) returns (.CRemotePlay_SessionStarted_Response);
+}
+
