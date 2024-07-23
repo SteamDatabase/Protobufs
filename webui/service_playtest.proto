@@ -1,0 +1,33 @@
+import "common_base.proto";
+
+message CPlaytest_GetInvites_Request {
+	optional uint64 invite_id = 1;
+}
+
+message CPlaytest_GetInvites_Response {
+	repeated .CPlaytest_GetInvites_Response_Invite invites = 1;
+}
+
+message CPlaytest_GetInvites_Response_Invite {
+	optional uint64 invite_id = 1;
+	optional uint32 appid = 2;
+	optional fixed64 steamid_inviter = 3;
+	optional int32 status = 4 [(.description) = "enum"];
+	optional uint32 time_created = 5;
+	optional string app_name = 6;
+}
+
+message CPlaytest_UpdateInvites_Request {
+	repeated uint64 invite_ids = 1;
+	optional int32 status = 2 [(.description) = "enum"];
+}
+
+message CPlaytest_UpdateInvites_Response {
+	optional uint32 invites_updated = 1;
+}
+
+service Playtest {
+	rpc GetInvites (.CPlaytest_GetInvites_Request) returns (.CPlaytest_GetInvites_Response);
+	rpc UpdateInvites (.CPlaytest_UpdateInvites_Request) returns (.CPlaytest_UpdateInvites_Response);
+}
+

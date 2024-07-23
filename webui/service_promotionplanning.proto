@@ -112,6 +112,7 @@ message CPromotionPlanning_GetAllPlansForPartner_Response {
 
 message CPromotionPlanning_GetAvailableWeekSlots_Request {
 	optional uint32 publisherid = 1;
+	optional uint32 rtime_start = 2;
 }
 
 message CPromotionPlanning_GetAvailableWeekSlots_Response {
@@ -180,8 +181,10 @@ message CPromotionPlanning_GetPromotionPlanPackageSales_Response {
 message CPromotionPlanning_GetPromotionPlanPackageSales_Response_PromotionPlanPackageSalesDetails {
 	optional string date = 1;
 	optional uint32 packageid = 2;
-	optional int32 gross_units_sold = 3;
-	optional int64 gross_sales_usdx100 = 4;
+	optional uint32 primary_app_id = 3;
+	optional bool is_dlc = 4;
+	optional int32 gross_units_sold = 5;
+	optional int64 gross_sales_usdx100 = 6;
 }
 
 message CPromotionPlanning_GetPromotionPlanSummarySales_Request {
