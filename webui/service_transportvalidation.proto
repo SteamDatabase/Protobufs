@@ -17,6 +17,14 @@ message CTransportValidation_CountOrderedBytes_Response {
 	optional int32 byte_count = 1;
 }
 
+message CTransportValidation_GetLargeResponse_Request {
+	optional uint32 data_size = 1;
+}
+
+message CTransportValidation_GetLargeResponse_Response {
+	optional bytes data = 1;
+}
+
 message CTransportValidation_GetLastNotifyNumber_Request {
 }
 
@@ -26,6 +34,10 @@ message CTransportValidation_GetLastNotifyNumber_Response {
 
 message CTransportValidation_NotifyCount_Notification {
 	optional int32 num = 1;
+}
+
+message CTransportValidation_NotifyLarge_Notification {
+	optional bytes data = 1;
 }
 
 message CTransportValidation_NotifyNumber_Notification {
@@ -47,6 +59,13 @@ message CTransportValidation_RequestInvalidBool_Response {
 	optional int32 before = 1;
 	optional bool output = 2;
 	optional int32 after = 3;
+}
+
+message CTransportValidation_RequestLargeNotification_Request {
+	optional uint32 data_size = 1;
+}
+
+message CTransportValidation_RequestLargeNotification_Response {
 }
 
 message CTransportValidation_ThreadedCount_Request {
@@ -77,12 +96,15 @@ service TransportValidation {
 	rpc AddNumbersStatic (.CTransportValidation_AddNumbers_Request) returns (.CTransportValidation_AddNumbers_Response);
 	rpc AppendToString (.CTransportValidation_AppendToString_Request) returns (.CTransportValidation_AppendToString_Response);
 	rpc CountOrderedBytes (.CTransportValidation_CountOrderedBytes_Request) returns (.CTransportValidation_CountOrderedBytes_Response);
+	rpc GetLargeResponse (.CTransportValidation_GetLargeResponse_Request) returns (.CTransportValidation_GetLargeResponse_Response);
 	rpc GetLastNotifyNumber (.CTransportValidation_GetLastNotifyNumber_Request) returns (.CTransportValidation_GetLastNotifyNumber_Response);
 	rpc NotifyCount (.CTransportValidation_NotifyCount_Notification) returns (.NoResponse);
+	rpc NotifyLarge (.CTransportValidation_NotifyLarge_Notification) returns (.NoResponse);
 	rpc NotifyNumber (.CTransportValidation_NotifyNumber_Notification) returns (.NoResponse);
 	rpc NotifySyntheticEvent (.CTransportValidation_NotifySyntheticEvent_Notification) returns (.NoResponse);
 	rpc NotifyText (.CTransportValidation_NotifyText_Notification) returns (.NoResponse);
 	rpc RequestInvalidBool (.CTransportValidation_RequestInvalidBool_Request) returns (.CTransportValidation_RequestInvalidBool_Response);
+	rpc RequestLargeNotification (.CTransportValidation_RequestLargeNotification_Request) returns (.CTransportValidation_RequestLargeNotification_Response);
 	rpc ThreadedCount (.CTransportValidation_ThreadedCount_Request) returns (.CTransportValidation_ThreadedCount_Response);
 	rpc TriggerSyntheticEvents (.CTransportValidation_TriggerSyntheticEvents_Request) returns (.CTransportValidation_TriggerSyntheticEvents_Response);
 }
