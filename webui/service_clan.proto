@@ -1,3 +1,4 @@
+import "common_base.proto";
 
 message CClan_GetDraftAndRecentPartnerEventSnippet_Request {
 	optional fixed64 steamid = 1;
@@ -15,6 +16,7 @@ message CClan_GetDraftAndRecentPartnerEventSnippet_Response_CEventSnippetData {
 	optional bool published = 4;
 	optional uint32 rtime32_start_time = 5;
 	optional string event_name = 6;
+	optional int32 event_type = 7 [(.description) = "enum"];
 }
 
 message CClan_GetPartnerEventsByBuildIDRange_Request {

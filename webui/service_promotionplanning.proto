@@ -74,6 +74,7 @@ message CPromotionPlanning_GetAdvertisingAppsForPartner_Response {
 message CPromotionPlanning_GetAdvertisingAppsForPartner_Response_advertising_app {
 	optional uint32 appid = 1;
 	optional string app_name = 2;
+	optional uint32 itemid = 3;
 }
 
 message CPromotionPlanning_GetAllActivePlan_Request {

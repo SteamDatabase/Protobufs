@@ -1,0 +1,53 @@
+
+message CPartnerAppNotes_CreateNotes_Request {
+	optional uint32 appid = 1;
+	optional string partner_notes = 2;
+	optional string admin_notes = 3;
+	optional string partner_readonly_notes = 4;
+}
+
+message CPartnerAppNotes_CreateNotes_Response {
+}
+
+message CPartnerAppNotes_GetMultipleNotes_Request {
+	repeated uint32 appids = 1;
+}
+
+message CPartnerAppNotes_GetMultipleNotes_Response {
+	repeated .CPartnerAppNotes_GetMultipleNotes_Response_Container notes = 1;
+}
+
+message CPartnerAppNotes_GetMultipleNotes_Response_Container {
+	optional uint32 appid = 1;
+	optional string partner_notes = 2;
+	optional string admin_notes = 3;
+	optional string partner_readonly_notes = 4;
+}
+
+message CPartnerAppNotes_GetNotes_Request {
+	optional uint32 appid = 1;
+}
+
+message CPartnerAppNotes_GetNotes_Response {
+	optional string partner_notes = 2;
+	optional string admin_notes = 3;
+	optional string partner_readonly_notes = 4;
+}
+
+message CPartnerAppNotes_UpdateNotes_Request {
+	optional uint32 appid = 1;
+	optional string partner_notes = 2;
+	optional string admin_notes = 3;
+	optional string partner_readonly_notes = 4;
+}
+
+message CPartnerAppNotes_UpdateNotes_Response {
+}
+
+service PartnerAppNotes {
+	rpc CreateNotes (.CPartnerAppNotes_CreateNotes_Request) returns (.CPartnerAppNotes_CreateNotes_Response);
+	rpc GetMultipleNotes (.CPartnerAppNotes_GetMultipleNotes_Request) returns (.CPartnerAppNotes_GetMultipleNotes_Response);
+	rpc GetNotes (.CPartnerAppNotes_GetNotes_Request) returns (.CPartnerAppNotes_GetNotes_Response);
+	rpc UpdateNotes (.CPartnerAppNotes_UpdateNotes_Request) returns (.CPartnerAppNotes_UpdateNotes_Response);
+}
+
