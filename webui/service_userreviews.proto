@@ -92,6 +92,7 @@ message RecommendationDetails {
 	optional uint32 category_offtopic_pct = 46;
 	optional uint32 category_uninformative_pct = 47;
 	optional uint32 category_votefarming_pct = 48;
+	optional int32 deck_playtime_at_review = 49;
 }
 
 service UserReviews {

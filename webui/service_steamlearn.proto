@@ -615,6 +615,8 @@ message CMsgSteamLearnDataSourceElementUsage {
 	optional uint32 compact_table_count = 11;
 	optional string sequence_table = 12;
 	optional uint32 sequence_table_count = 13;
+	optional bool sort_sequence = 14;
+	optional uint32 sequence_min_length = 15;
 }
 
 message CMsgSteamLearnFetchInfo {
@@ -666,12 +668,14 @@ message CMsgSteamLearnModelNodeConv1D {
 message CMsgSteamLearnModelNodeDense {
 	optional int32 activation = 1 [(.description) = "enum"];
 	optional uint32 width = 2;
+	optional int32 regularization = 3 [(.description) = "enum"];
 }
 
 message CMsgSteamLearnModelNodeDenseStack {
 	optional int32 activation = 1 [(.description) = "enum"];
 	repeated uint32 width = 2;
 	optional uint32 dropout_pct = 3;
+	optional int32 regularization = 4 [(.description) = "enum"];
 }
 
 message CMsgSteamLearnModelNodeDot {
@@ -795,6 +799,7 @@ message CMsgSteamLearnModelNodeTransformer {
 	optional uint32 feedforward_size = 3;
 	optional uint32 dropout_pct = 4;
 	optional uint32 num_internal_blocks = 5;
+	optional int32 regularization = 6 [(.description) = "enum"];
 }
 
 message CMsgSteamLearnModelNodeWeightedAverage {
@@ -890,11 +895,13 @@ message CMsgSteamLearnProjectSnapshotConfig {
 	optional uint32 snapshot_schedule_day_of_month = 7;
 	optional bool compress = 8;
 	optional uint32 job_count = 9;
+	optional uint32 snapshot_schedule_hour_of_day = 10;
 }
 
 message CMsgSteamLearnProjectSnapshotConfigAccountIDs {
 	optional uint32 percent = 1;
 	optional uint32 activity_recency_days = 2;
+	optional int32 filter = 3 [(.description) = "enum"];
 }
 
 message CMsgSteamLearnProjectSnapshotConfigAppIDs {
@@ -942,6 +949,7 @@ message CMsgSteamLearnTrainConfig {
 	optional uint32 train_no_loss_improvement_epoch_limit = 6;
 	optional int32 train_optimizer = 7 [(.description) = "enum"];
 	optional float train_learning_rate = 8;
+	optional int32 train_gpu = 9 [(.description) = "enum"];
 }
 
 message CMsgSteamLearnTrainInfo {
