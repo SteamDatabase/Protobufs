@@ -169,6 +169,8 @@ enum ETFGCMsg {
 	k_EMsgGC_SDRTicket = 6580;
 	k_EMsgGC_ProcessMatchVoteKick = 6581;
 	k_EMsgGC_ProcessMatchVoteKickResponse = 6582;
+	k_EMsgGCToGC_SendAccountBannedNotifications = 6584;
+	k_EMsgGCToGC_SendNotification = 6585;
 	k_EMsgGCDev_GrantWarKill = 10001;
 }
 
@@ -1625,4 +1627,14 @@ message CMsgSDRTicket {
 
 message CMsgAuthorizeServerItemRetrieval {
 	repeated uint64 item_id = 1;
+}
+
+message CMsgGCToGCSendAccountBannedNotifications {
+	optional uint32 banned_accountid = 1;
+	optional uint32 report_period_begin = 2;
+	optional uint32 report_period_end = 3;
+}
+
+message CMsgGCToGCSendNotification {
+	optional .CMsgGCNotification notification = 1;
 }
