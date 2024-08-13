@@ -384,6 +384,8 @@ message CClientMetrics_DownloadRates_Notification {
 	optional uint32 cell_id = 1;
 	repeated .CClientMetrics_DownloadRates_Notification_StatsInfo stats = 2;
 	optional uint32 throttling_kbps = 3;
+	optional uint32 os_type = 4;
+	optional uint32 device_type = 5;
 }
 
 // Used by: common.proto
@@ -2747,6 +2749,8 @@ message CMsgClientSettings {
 	optional bool gamescope_disable_mura_correction = 21007;
 	optional bool gamescope_include_steamui_in_screenshots = 21008;
 	optional bool gamescope_allow_tearing = 21009;
+	optional bool gamescope_composite_debug = 21010;
+	optional bool gamescope_force_composite = 21011;
 	optional int32 steamos_status_led_brightness = 22000;
 	optional bool steamos_tdp_limit_enabled = 22001;
 	optional int32 steamos_tdp_limit = 22002;
@@ -4751,8 +4755,6 @@ message CMsgSystemPerfSettingsPerApp {
 	optional int32 fps_limit_external = 18;
 	optional bool is_tearing_enabled = 19;
 	optional bool is_vrr_enabled = 20;
-	optional bool is_composite_debug_enabled = 21;
-	optional bool force_composite = 22;
 	optional bool use_dynamic_refresh_rate_in_steam = 23;
 	optional int32 split_scaling_filter = 24 [(.description) = "enum"];
 	optional int32 split_scaling_scaler = 25 [(.description) = "enum"];
@@ -5374,6 +5376,13 @@ message CVRGamepadUIShared_PathProperty_DesktopWindows_Window {
 	optional uint32 tab_id = 4;
 }
 
+message CVRGamepadUIShared_PathProperty_PowerOptions {
+	optional bool can_sleep = 1;
+	optional bool can_shutdown = 2;
+	optional bool can_restart_system = 3;
+	optional bool can_exitvr = 4;
+}
+
 // Used by: common.proto
 message EncryptedAppTicket {
 	optional uint32 ticket_version_no = 1;
@@ -5651,6 +5660,8 @@ message StoreItem_PurchaseOption_RecurrenceInfo {
 	optional int32 billing_agreement_type = 2;
 	optional int32 renewal_time_unit = 3;
 	optional int32 renewal_time_period = 4;
+	optional int64 renewal_price_in_cents = 5;
+	optional string formatted_renewal_price = 6;
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, Wishlist
