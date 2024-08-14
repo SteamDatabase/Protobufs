@@ -14,6 +14,24 @@ message CPartnerDeadline {
 	optional uint64 required_rights = 11;
 }
 
+message CPartnerDeadline_GetDeadlineByTimeRange_Request {
+	optional int32 type = 1 [(.description) = "enum"];
+	optional uint32 start_date = 2;
+	optional uint32 end_date = 3;
+	optional bool include_complete = 4;
+	optional int32 store_item_type = 7 [(.description) = "enum"];
+	optional uint32 store_item_id = 8;
+}
+
+message CPartnerDeadline_GetDeadlineByTimeRange_Response {
+	repeated .CPartnerDeadline_GetDeadlineByTimeRange_Response_Result deadlines = 1;
+}
+
+message CPartnerDeadline_GetDeadlineByTimeRange_Response_Result {
+	optional fixed64 deadlineid = 1;
+	optional .CPartnerDeadline data = 2;
+}
+
 message CPartnerDeadline_GetDeadlinesForPartner_Request {
 	optional uint32 partnerid = 1;
 	optional uint32 start_date = 2;
@@ -31,6 +49,7 @@ message CPartnerDeadline_GetDeadlinesForPartner_Response_Result {
 }
 
 service PartnerDeadline {
+	rpc GetDeadlineByTimeRange (.CPartnerDeadline_GetDeadlineByTimeRange_Request) returns (.CPartnerDeadline_GetDeadlineByTimeRange_Response);
 	rpc GetDeadlinesForPartner (.CPartnerDeadline_GetDeadlinesForPartner_Request) returns (.CPartnerDeadline_GetDeadlinesForPartner_Response);
 }
 

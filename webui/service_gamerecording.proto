@@ -242,6 +242,7 @@ message CGameRecording_QueryPhases_Response_Phase {
 	optional int32 type = 11 [(.description) = "enum"];
 	optional uint64 start_ms = 12;
 	repeated uint32 screenshots = 13;
+	optional bool active = 14;
 }
 
 message CGameRecording_QueryPhases_Response_Phase_BackgroundRecording {
