@@ -254,6 +254,7 @@ enum TFMatchLeaveReason {
 }
 
 enum TFVoteKickReason {
+	TFVoteKickReason_Invalid = -1;
 	TFVoteKickReason_Other = 0;
 	TFVoteKickReason_Cheating = 1;
 	TFVoteKickReason_Idle = 2;
@@ -1035,16 +1036,13 @@ message CMsgProcessMatchVoteKick {
 	optional fixed64 match_id = 1;
 	optional fixed64 initiator_steam_id = 2;
 	optional fixed64 target_steam_id = 3;
-	optional .TFVoteKickReason reason = 4 [default = TFVoteKickReason_Other];
+	optional .TFVoteKickReason reason = 4 [default = TFVoteKickReason_Invalid];
 	repeated .CMsgProcessMatchVoteKick.Vote votes = 5;
 	optional bool default_pass = 6;
 }
 
 message CMsgProcessMatchVoteKickResponse {
 	optional bool rip = 1;
-}
-
-message CMsgPlayerVoteKickedAfterLeavingMatchResponse {
 }
 
 message CMsgHalloween_ServerBossEvent {
@@ -1366,7 +1364,7 @@ message CSOTFRatingData {
 message CMsgGC_TFVoteKickPlayerRequest {
 	optional uint64 target_id = 2;
 	optional uint64 voter_id = 3;
-	optional .TFVoteKickReason reason = 4 [default = TFVoteKickReason_Other];
+	optional .TFVoteKickReason reason = 4 [default = TFVoteKickReason_Invalid];
 	optional uint64 match_id = 5;
 }
 
