@@ -5268,6 +5268,14 @@ message CVRGamepadUI_Message_HideDashboardPopup_Request {
 message CVRGamepadUI_Message_HideDashboardPopup_Response {
 }
 
+message CVRGamepadUI_Message_RemoteVideoStream_Request {
+	optional uint32 source_accountid = 1;
+	optional string video_uniqueid = 2;
+}
+
+message CVRGamepadUI_Message_RemoteVideoStream_Response {
+}
+
 message CVRGamepadUI_Message_ShowDashboardPopup_Request {
 	optional uint32 dashboard_popup_request_id = 1;
 	optional string popup_overlay_key = 2;
