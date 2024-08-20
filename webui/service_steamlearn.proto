@@ -723,6 +723,9 @@ message CMsgSteamLearnModelNodeExtract {
 message CMsgSteamLearnModelNodeFlatten {
 }
 
+message CMsgSteamLearnModelNodeGlobalAvgPooling1D {
+}
+
 message CMsgSteamLearnModelNodeGlobalMaxPooling1D {
 }
 
@@ -877,6 +880,7 @@ message CMsgSteamLearnProjectNode {
 	optional .CMsgSteamLearnModelNodeTimeDistributedDense time_distributed_dense = 37;
 	optional .CMsgSteamLearnModelNodeSequenceSplit sequence_split = 38;
 	optional .CMsgSteamLearnModelNodeWeightedAverage weighted_average = 39;
+	optional .CMsgSteamLearnModelNodeGlobalAvgPooling1D global_avg_pooling_1d = 40;
 }
 
 message CMsgSteamLearnProjectNodeConnector {
