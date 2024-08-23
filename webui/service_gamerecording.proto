@@ -225,6 +225,9 @@ message CGameRecording_PerGameSettings {
 	optional int32 bitrate = 4;
 }
 
+message CGameRecording_PhaseListChanged_Notification {
+}
+
 message CGameRecording_PostGameHighlightsChanged_Notification {
 	optional uint64 game_id = 1;
 }
@@ -264,6 +267,7 @@ message CGameRecording_QueryPhases_Response_Phase {
 	repeated uint32 screenshots = 13;
 	optional bool active = 14;
 	optional string phase_id = 15;
+	repeated .CTimelineEntry significant_events = 16;
 }
 
 message CGameRecording_QueryPhases_Response_Phase_BackgroundRecording {
@@ -442,6 +446,7 @@ message CGameRecordingTimelineMetadata {
 	optional uint64 duration_ms = 4;
 	repeated .CGameRecordingTimelineMetadata_Recording recordings = 5;
 	repeated .CGameRecordingPhase phases = 6;
+	repeated .CGameRecordingTimelineEvent significant_events = 7;
 }
 
 message CGameRecordingTimelineMetadata_Recording {
@@ -508,6 +513,7 @@ service GameRecording {
 	rpc NotifyLowDiskSpace (.CGameRecording_LowDiskSpace_Notification) returns (.NoResponse);
 	rpc NotifyOpenOverlayToGamePhase (.CGameRecording_OpenOverlayToGamePhase_Notification) returns (.NoResponse);
 	rpc NotifyOpenOverlayToTimelineEvent (.CGameRecording_OpenOverlayToTimelineEvent_Notification) returns (.NoResponse);
+	rpc NotifyPhaseListChanged (.CGameRecording_PhaseListChanged_Notification) returns (.NoResponse);
 	rpc NotifyPostGameHighlightsChanged (.CGameRecording_PostGameHighlightsChanged_Notification) returns (.NoResponse);
 	rpc NotifyRecordingSessionChanged (.CGameRecording_RecordingSessionChanged_Notification) returns (.NoResponse);
 	rpc NotifyTimelineChanged (.CGameRecording_TimelineChanged_Notification) returns (.NoResponse);

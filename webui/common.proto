@@ -674,6 +674,8 @@ message CCloud_PendingRemoteOperation {
 	optional string machine_name = 2;
 	optional uint64 client_id = 3;
 	optional uint32 time_last_updated = 4;
+	optional int32 os_type = 5;
+	optional int32 device_type = 6;
 }
 
 // Used by: common.proto
@@ -2740,6 +2742,8 @@ message CMsgClientSettings {
 	optional bool force_deck_perf_tab = 20004;
 	optional bool force_fake_mandatory_update = 20005;
 	optional bool hdr_compat_testing = 20006;
+	optional bool developer_mode_enabled = 20007;
+	optional bool show_advanced_update_channels = 20008;
 	optional int32 gamescope_hdr_visualization = 21001 [(.description) = "enum"];
 	optional int32 gamescope_app_target_framerate = 21002;
 	optional bool gamescope_enable_app_target_framerate = 21003;
@@ -2751,6 +2755,7 @@ message CMsgClientSettings {
 	optional bool gamescope_allow_tearing = 21009;
 	optional bool gamescope_composite_debug = 21010;
 	optional bool gamescope_force_composite = 21011;
+	optional string gamescope_game_resolution_global = 21012;
 	optional int32 steamos_status_led_brightness = 22000;
 	optional bool steamos_tdp_limit_enabled = 22001;
 	optional int32 steamos_tdp_limit = 22002;
