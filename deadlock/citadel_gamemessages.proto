@@ -1,0 +1,65 @@
+import "citadel_gcmessages_common.proto";
+
+enum ECitadelGameMessages {
+	k_EMsgGameServerToClientConnectionStatus = 10;
+	k_EMsgGameServerToClientInitialGameState = 12;
+	k_EMsgGameServerToClientGameCompleted = 13;
+	k_EMsgGameServerToClientGoodbye = 15;
+}
+
+enum ECitadelDisconnectReason {
+	k_ECitadelDisconnectReason_UserLeaveMatch = 1001;
+	k_ECitadelDisconnectReason_UserQuitApp = 1002;
+	k_ECitadelDisconnectReason_UserCancel = 1003;
+	k_ECitadelDisconnectReason_Goodbye = 1004;
+	k_ECitadelDisconnectReason_BadMessage = 2001;
+	k_ECitadelDisconnectReason_GameDestroyedUnexpectedly = 2002;
+	k_ECitadelDisconnectReason_ChangingServer = 2003;
+	k_ECitadelDisconnectReason_OldConnection = 2004;
+	k_ECitadelDisconnectReason_GoodbyeUnrecognizedGame = 2005;
+}
+
+message CMsgClientServerHeader {
+	optional uint64 game_instance_id = 1;
+	optional uint32 local_player_index = 2;
+	optional bytes payload = 3;
+	optional .ECitadelGameMessages msg_id = 4 [default = k_EMsgGameServerToClientConnectionStatus];
+}
+
+message CMsgGameServerToClientGameCompleted {
+}
+
+message CMsgGameServerToClientGoodbye {
+}
+
+message CMsgGameServerToClientConnectionStatus {
+	message Player {
+		optional int32 player_slot = 1 [default = -1];
+		optional .CMsgGameServerToClientConnectionStatus.EStatus status = 2 [default = k_EConnected];
+		optional bool inactivity_ticking = 3;
+		optional uint32 inactivity_ms_remaining = 4;
+		optional uint32 inactivity_anim_ms_remaining = 5;
+	}
+
+	enum EStatus {
+		k_EConnected = 1;
+		k_EDisconnected = 2;
+	}
+
+	repeated .CMsgGameServerToClientConnectionStatus.Player players = 1;
+}
+
+message CClientReconnectInfo {
+	optional fixed64 server_steam_id = 1;
+	optional uint64 lobby_id = 2;
+	optional uint32 time_updated = 3;
+	optional uint32 udp_connect_ip = 4;
+	optional uint32 udp_connect_port = 5;
+	optional uint32 compatibility_version = 6;
+}
+
+message CMsgClientAccountSyncStorageFile {
+	optional uint32 version = 1;
+	repeated uint32 ids = 2;
+	repeated uint32 values = 3;
+}

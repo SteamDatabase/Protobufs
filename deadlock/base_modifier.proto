@@ -1,0 +1,52 @@
+import "networkbasetypes.proto";
+
+enum MODIFIER_ENTRY_TYPE {
+	MODIFIER_ENTRY_TYPE_ACTIVE = 1;
+	MODIFIER_ENTRY_TYPE_REMOVED = 2;
+}
+
+message CModifierTableEntry {
+	required .MODIFIER_ENTRY_TYPE entry_type = 1 [default = MODIFIER_ENTRY_TYPE_ACTIVE];
+	required uint32 parent = 2 [default = 16777215];
+	required uint32 serial_number = 3;
+	optional uint32 modifier_subclass = 4;
+	optional int32 stack_count = 5;
+	optional int32 max_stack_count = 6;
+	optional float last_applied_time = 7;
+	optional float duration = 8 [default = -1];
+	optional uint32 caster = 9 [default = 16777215];
+	optional uint32 ability = 10 [default = 16777215];
+	optional int32 aura_provider_serial_number = 11;
+	optional uint32 aura_provider_ehandle = 12 [default = 16777215];
+	optional uint32 ability_subclass = 13;
+	optional bool bool1_ = 20;
+	optional bool bool2_ = 21;
+	optional bool bool3_ = 22;
+	optional bool bool4_ = 23;
+	optional int32 int1_ = 25;
+	optional int32 int2_ = 26;
+	optional int32 int3_ = 27;
+	optional int32 int4_ = 28;
+	optional float float1_ = 30;
+	optional float float2_ = 31;
+	optional float float3_ = 32;
+	optional float float4_ = 33;
+	optional float float5_ = 49;
+	optional float float6_ = 50;
+	optional float float7_ = 51;
+	optional float float8_ = 52;
+	optional float float9_ = 53;
+	optional float float10_ = 54;
+	optional uint64 uint1_ = 35;
+	optional uint64 uint2_ = 36;
+	optional uint64 uint3_ = 37;
+	optional uint64 uint4_ = 38;
+	optional .CMsgVector vec1_ = 40;
+	optional .CMsgVector vec2_ = 41;
+	optional .CMsgVector vec3_ = 42;
+	optional .CMsgVector vec4_ = 43;
+	optional string string1_ = 45;
+	optional string string2_ = 46;
+	optional string string3_ = 47;
+	optional string string4_ = 48;
+}

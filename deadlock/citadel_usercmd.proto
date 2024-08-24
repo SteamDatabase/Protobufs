@@ -1,0 +1,13 @@
+import "networkbasetypes.proto";
+import "usercmd.proto";
+
+message CCitadelUserCmdPB {
+	optional .CBaseUserCmdPB base = 1;
+	optional .CMsgVector vec_camera_position = 2;
+	optional .CMsgQAngle ang_camera_angles = 3;
+	optional int32 execute_ability_indices = 4;
+	optional bool in_shop = 5;
+	optional float camera_roaming_speed = 6;
+	optional bool using_free_cursor = 8;
+	optional int32 enemy_hero_aimed_at = 10 [default = -1];
+}

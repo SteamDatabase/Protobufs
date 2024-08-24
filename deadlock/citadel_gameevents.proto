@@ -1,0 +1,204 @@
+import "google/protobuf/descriptor.proto";
+import "networkbasetypes.proto";
+
+enum ECitadelGameEvents {
+	GE_FireBullets = 450;
+	GE_PlayerAnimEvent = 451;
+	GE_ParticleSystemManager = 458;
+	GE_ScreenTextPretty = 459;
+	GE_ServerRequestedTracer = 460;
+	GE_BulletImpact = 461;
+	GE_EnableSatVolumesEvent = 462;
+	GE_PlaceSatVolumeEvent = 463;
+	GE_DisableSatVolumesEvent = 464;
+	GE_RemoveSatVolumeEvent = 465;
+}
+
+enum PARTICLE_SYSTEM_MANAGER_MESSAGE {
+	PARTICLE_SYSTEM_MANAGER_EVENT_CREATE = 0;
+	PARTICLE_SYSTEM_MANAGER_EVENT_DESTROY = 1;
+	PARTICLE_SYSTEM_MANAGER_EVENT_DESTROY_INVOLVING = 2;
+	PARTICLE_SYSTEM_MANAGER_EVENT_RELEASE = 3;
+	PARTICLE_SYSTEM_MANAGER_EVENT_UPDATE = 4;
+	PARTICLE_SYSTEM_MANAGER_EVENT_UPDATE_FORWARD = 5;
+	PARTICLE_SYSTEM_MANAGER_EVENT_UPDATE_ORIENTATION = 6;
+	PARTICLE_SYSTEM_MANAGER_EVENT_UPDATE_FALLBACK = 7;
+	PARTICLE_SYSTEM_MANAGER_EVENT_UPDATE_ENT = 8;
+	PARTICLE_SYSTEM_MANAGER_EVENT_UPDATE_OFFSET = 9;
+	PARTICLE_SYSTEM_MANAGER_EVENT_UPDATE_FROZEN = 10;
+	PARTICLE_SYSTEM_MANAGER_EVENT_UPDATE_SHOULD_DRAW = 11;
+}
+
+message CMsgFireBullets {
+	message TracerAssignment {
+		optional uint64 tracer_resource_id = 1;
+		optional uint32 bullet_indicies = 2;
+	}
+
+	optional .CMsgVector origin = 1;
+	optional .CMsgQAngle angles = 2;
+	optional uint32 seed = 4;
+	optional int32 shooter_entity = 5 [default = -1];
+	optional int32 ability = 7 [default = -1];
+	optional float penetration_percent = 8;
+	optional float spread = 9;
+	optional bool fired_from_gun = 10 [default = true];
+	optional uint32 bullets_override = 11;
+	optional .CMsgFireBullets.TracerAssignment tracer_replacement = 12;
+	repeated .CMsgFireBullets.TracerAssignment tracer_additional = 13;
+	optional .CMsgQAngle angles_original = 14;
+	optional uint32 weapon_subclass_id = 15;
+	optional uint32 shot_number = 16;
+	optional int32 ignore_entity = 17 [default = -1];
+	optional float max_range = 18;
+}
+
+message CMsgBulletImpact {
+	optional .CMsgVector trace_start = 1;
+	optional .CMsgVector impact_origin = 2;
+	optional .CMsgVector surface_normal = 3;
+	optional uint32 damage = 4;
+	optional uint32 surface_type = 5;
+	optional int32 ability_entindex = 7 [default = -1];
+	optional int32 impacted_entindex = 8 [default = -1];
+	optional uint32 impacted_hitbox = 9;
+	optional uint32 weapon_subclass_id = 10;
+	optional int32 shooter_entindex = 11 [default = -1];
+}
+
+message CMsgPlayerAnimEvent {
+	optional fixed32 player = 1 [default = 16777215];
+	optional uint32 event = 2;
+	optional int32 data = 3;
+}
+
+message CMsgParticleSystemManager {
+	message CreateParticle {
+		optional fixed64 particle_name_index = 1;
+		optional int32 attach_type = 2;
+		optional uint32 entity_handle = 3 [default = 16777215];
+		optional .CMsgVector position = 4;
+		optional .CMsgQAngle angles = 5;
+	}
+
+	message DestroyParticle {
+		optional bool destroy_immediately = 1;
+	}
+
+	message DestroyParticleInvolving {
+		optional bool destroy_immediately = 1;
+		optional uint32 entity_handle = 3 [default = 16777215];
+	}
+
+	message ReleaseParticleIndex {
+	}
+
+	message UpdateParticle {
+		optional int32 control_point = 1;
+		optional .CMsgVector position = 2;
+	}
+
+	message UpdateParticleFwd {
+		optional int32 control_point = 1;
+		optional .CMsgVector forward = 2;
+	}
+
+	message UpdateParticleOrient {
+		optional int32 control_point = 1;
+		optional .CMsgVector forward = 2;
+		optional .CMsgVector left = 3;
+		optional .CMsgVector up = 4;
+	}
+
+	message UpdateParticleFallback {
+		optional int32 control_point = 1;
+		optional .CMsgVector position = 2;
+	}
+
+	message UpdateParticleEnt {
+		optional int32 control_point = 1;
+		optional uint32 entity_handle = 2 [default = 16777215];
+		optional int32 attach_type = 3;
+		optional int32 attachment = 4;
+		optional .CMsgVector fallback_position = 5;
+	}
+
+	message UpdateParticleOffset {
+		optional int32 control_point = 1;
+		optional .CMsgVector origin_offset = 2;
+	}
+
+	message UpdateParticleFrozen {
+		optional bool set_frozen = 1;
+	}
+
+	message UpdateParticleShouldDraw {
+		optional bool should_draw = 1;
+	}
+
+	required .PARTICLE_SYSTEM_MANAGER_MESSAGE type = 1 [default = PARTICLE_SYSTEM_MANAGER_EVENT_CREATE];
+	required uint32 index = 2;
+	optional .CMsgParticleSystemManager.CreateParticle create_particle = 3;
+	optional .CMsgParticleSystemManager.DestroyParticle destroy_particle = 4;
+	optional .CMsgParticleSystemManager.DestroyParticleInvolving destroy_particle_involving = 5;
+	optional .CMsgParticleSystemManager.ReleaseParticleIndex release_particle_index = 6;
+	optional .CMsgParticleSystemManager.UpdateParticle update_particle = 7;
+	optional .CMsgParticleSystemManager.UpdateParticleFwd update_particle_fwd = 8;
+	optional .CMsgParticleSystemManager.UpdateParticleOrient update_particle_orient = 9;
+	optional .CMsgParticleSystemManager.UpdateParticleFallback update_particle_fallback = 10;
+	optional .CMsgParticleSystemManager.UpdateParticleOffset update_particle_offset = 11;
+	optional .CMsgParticleSystemManager.UpdateParticleEnt update_particle_ent = 12;
+	optional .CMsgParticleSystemManager.UpdateParticleFrozen update_particle_frozen = 13;
+	optional .CMsgParticleSystemManager.UpdateParticleShouldDraw update_particle_should_draw = 14;
+}
+
+message CMsgScreenTextPretty {
+	optional float x_pos = 1;
+	optional float y_pos = 2;
+	optional int32 line = 3;
+	optional string text = 4;
+	optional int32 r = 5;
+	optional int32 g = 6;
+	optional int32 b = 7;
+	optional int32 a = 8;
+	optional float duration = 9;
+	optional string font_name = 10;
+	optional int32 font_size = 11;
+	optional bool bold_font = 12;
+}
+
+message CMsgServerRequestedTracer {
+	optional .CMsgVector origin = 1;
+	optional .CMsgVector end = 2;
+	optional int32 weaponid = 3 [default = -1];
+	optional uint32 entity_handle = 4 [default = 16777215];
+	optional float dps = 5;
+}
+
+message CMsgEnableSatVolumesEvent {
+	optional uint32 mode = 1;
+	optional float desat_amount = 2;
+	optional fixed32 sat_tint = 3;
+	optional fixed32 desat_tint = 4;
+	optional fixed32 outline_color = 5;
+}
+
+message CMsgPlaceSatVolumeEvent {
+	optional .CMsgVector position = 1;
+	optional .CMsgVector direction = 2;
+	optional float radius = 3;
+	optional float falloff_distance = 4;
+	optional float theta_dot = 5;
+	optional float phi_dot = 6;
+	optional uint32 entity_handle = 7 [default = 16777215];
+	optional uint32 attachment_handle = 8;
+	optional uint32 type = 9;
+	optional int32 volume_id = 10;
+}
+
+message CMsgRemoveSatVolumeEvent {
+	optional int32 volume_id = 1;
+}
+
+message CMsgDisableSatVolumesEvent {
+}
