@@ -40,9 +40,22 @@ message CWebRTCClient_InitiateWebRTCConnection_Response {
 	optional string remote_description = 1;
 }
 
+message CWebRTCClient_UpdateWebRTCConnection_Request {
+	optional uint32 ip_webrtc_server = 1;
+	optional uint32 port_webrtc_server = 2;
+	optional uint32 ip_webrtc_session_client = 3;
+	optional uint32 port_webrtc_session_client = 4;
+	optional string sdp = 5;
+}
+
+message CWebRTCClient_UpdateWebRTCConnection_Response {
+	optional string remote_description = 1;
+}
+
 service WebRTCClient {
 	rpc AcknowledgeUpdatedRemoteDescription (.CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Request) returns (.CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Response);
 	rpc InitiateWebRTCConnection (.CWebRTCClient_InitiateWebRTCConnection_Request) returns (.CWebRTCClient_InitiateWebRTCConnection_Response);
+	rpc UpdateWebRTCConnection (.CWebRTCClient_UpdateWebRTCConnection_Request) returns (.CWebRTCClient_UpdateWebRTCConnection_Response);
 }
 
 service WebRTCClientNotifications {

@@ -5295,6 +5295,8 @@ message CVRGamepadUI_Message_ShowDashboardPopup_Request {
 	optional bool interactive = 11;
 	optional bool requires_laser = 12;
 	optional string parent_device_path = 13;
+	optional int32 sort_order = 14 [(.description) = "enum"];
+	optional int32 parent_enum = 15 [(.description) = "enum"];
 }
 
 // Used by: common.proto
