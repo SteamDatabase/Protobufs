@@ -1,0 +1,19 @@
+
+message CDeveloperPageToApps {
+	optional uint32 clan_account_id = 1;
+	repeated uint32 appid_list = 2;
+}
+
+message CStoreCatalog_GetDevPageAllAppsLinked_Request {
+	repeated uint32 clan_account_ids = 1;
+	optional bool ignore_dlc = 2;
+}
+
+message CStoreCatalog_GetDevPageAllAppsLinked_Response {
+	repeated .CDeveloperPageToApps results = 1;
+}
+
+service StoreCatalog {
+	rpc GetDevPageAllAppsLinked (.CStoreCatalog_GetDevPageAllAppsLinked_Request) returns (.CStoreCatalog_GetDevPageAllAppsLinked_Response);
+}
+
