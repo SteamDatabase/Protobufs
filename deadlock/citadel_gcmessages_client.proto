@@ -54,8 +54,6 @@ enum EGCCitadelClientMessages {
 	k_EMsgClientToGCPartyUpdateRosterResponse = 9141;
 	k_EMsgClientToGCPartySetReadyState = 9142;
 	k_EMsgClientToGCPartySetReadyStateResponse = 9143;
-	k_EMsgClientToGCDevForceMatchFormation = 9162;
-	k_EMsgClientToGCDevForceMatchFormationResponse = 9163;
 	k_EMsgClientToGCGetAccountStats = 9164;
 	k_EMsgClientToGCGetAccountStatsResponse = 9165;
 	k_EMsgGCToClientAccountStatsUpdated = 9166;
