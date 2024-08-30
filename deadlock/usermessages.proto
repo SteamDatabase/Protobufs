@@ -547,6 +547,7 @@ message CUserMsg_ParticleManager {
 
 	message SetMaterialOverride {
 		optional string material_name = 1;
+		optional bool include_children = 2;
 	}
 
 	required .PARTICLE_MESSAGE type = 1 [default = GAME_PARTICLE_MANAGER_EVENT_CREATE];

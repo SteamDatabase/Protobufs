@@ -34,8 +34,6 @@ enum EGCCitadelClientMessages {
 	k_EMsgClientToGCGetMatchHistoryResponse = 9113;
 	k_EMsgClientToGCSpectateUser = 9116;
 	k_EMsgClientToGCSpectateUserResponse = 9117;
-	k_EMsgClientToGCGetGlobalMatchHistory = 9118;
-	k_EMsgClientToGCGetGlobalMatchHistoryResponse = 9119;
 	k_EMsgClientToGCPartyCreate = 9123;
 	k_EMsgClientToGCPartyCreateResponse = 9124;
 	k_EMsgClientToGCPartyLeave = 9125;
@@ -82,8 +80,6 @@ enum EGCCitadelClientMessages {
 	k_EMsgGCToClientBookUpdated = 9188;
 	k_EMsgClientToGCSubmitPlaytestUser = 9189;
 	k_EMsgClientToGCSubmitPlaytestUserResponse = 9190;
-	k_EMsgClientToGCGetDevMatchInfo = 9191;
-	k_EMsgClientToGCGetDevMatchInfoResponse = 9192;
 	k_EMsgClientToGCUpdateHeroBuild = 9193;
 	k_EMsgClientToGCUpdateHeroBuildResponse = 9194;
 	k_EMsgClientToGCFindHeroBuilds = 9195;
@@ -726,7 +722,6 @@ message CMsgClientToGCGetMatchHistoryResponse {
 		optional uint32 player_kills = 7;
 		optional uint32 player_deaths = 8;
 		optional uint32 player_assists = 9;
-		optional uint32 objectives_mask_legacy = 10;
 		optional uint32 last_hits = 11;
 		optional uint32 denies = 12;
 		optional uint32 hero_level = 13;
@@ -870,29 +865,8 @@ message CMsgClientToGCGetAccountStatsResponse {
 	optional .CMsgAccountStats stats = 2;
 }
 
-message CMsgClientToGCGetGlobalMatchHistory {
-	optional uint64 cursor = 1;
-	optional uint32 hero_id = 2;
-}
-
-message CMsgClientToGCGetGlobalMatchHistoryResponse {
-	enum EResult {
-		k_eInternalError = 0;
-		k_eSuccess = 1;
-		k_eDisabled = 2;
-		k_eTooBusy = 3;
-		k_eRateLimited = 4;
-		k_eInvalidPermissions = 5;
-	}
-
-	optional .CMsgClientToGCGetGlobalMatchHistoryResponse.EResult result = 1 [default = k_eInternalError];
-	repeated .CMsgDevMatchInfo matches = 2;
-	optional uint64 next_cursor = 3;
-}
-
 message CMsgClientToGCGetMatchMetaData {
 	optional uint64 match_id = 1;
-	optional uint32 access_as_account_id = 2;
 	optional uint32 metadata_salt = 3;
 }
 
@@ -904,6 +878,8 @@ message CMsgClientToGCGetMatchMetaDataResponse {
 		k_eResult_TemporarilyDisabled = 3;
 		k_eResult_TooBusy = 4;
 		k_eResult_RateLimited = 5;
+		k_eResult_InvalidMatch = 6;
+		k_eResult_MatchInFlight = 7;
 	}
 
 	optional .CMsgClientToGCGetMatchMetaDataResponse.EResult result = 1 [default = k_eResult_InternalError];
@@ -1143,24 +1119,6 @@ message CMsgClientToGCSubmitPlaytestUserResponse {
 	}
 
 	optional .CMsgClientToGCSubmitPlaytestUserResponse.EResponse response = 1 [default = eResponse_Success];
-}
-
-message CMsgClientToGCGetDevMatchInfo {
-	optional uint64 match_id = 1;
-}
-
-message CMsgClientToGCGetDevMatchInfoResponse {
-	enum EResponse {
-		eResponse_Success = 0;
-		eResponse_InternalError = 1;
-		eResponse_RateLiimited = 2;
-		eResponse_NoPermission = 3;
-		eResponse_InvalidMatch = 4;
-		eResponse_MatchInFlight = 5;
-	}
-
-	optional .CMsgClientToGCGetDevMatchInfoResponse.EResponse response = 1 [default = eResponse_Success];
-	optional .CMsgDevMatchInfo match_info = 2;
 }
 
 message CMsgHeroBuild {
@@ -1427,4 +1385,5 @@ message CMsgClientToGCGetFriendGameStatusResponse {
 
 message CMsgClientToGCUpdateSpectatorStatus {
 	optional fixed64 spectating_lobby_id = 1;
+	optional bool stopped_spectating = 2;
 }

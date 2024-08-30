@@ -44,6 +44,7 @@ enum CitadelUserMessageIds {
 	k_EUserMsg_ParticipantSetLibraryStackFields = 344;
 	k_EUserMsg_CurrencyChanged = 345;
 	k_EUserMsg_GameOver = 346;
+	k_EUserMsg_BossKilled = 347;
 }
 
 enum CitadelEntityMessageIds {
@@ -94,6 +95,7 @@ enum ECitadelChatMessage {
 	CITADEL_CHAT_MESSAGE_NOPAUSESLEFT = 9;
 	CITADEL_CHAT_MESSAGE_CANTPAUSEYET = 10;
 	CITADEL_CHAT_MESSAGE_PREGAME_COUNTDOWN = 11;
+	CITADEL_CHAT_MESSAGE_NOTEAMPAUSESLEFT = 12;
 }
 
 enum PostProcessingGameStates {
@@ -506,4 +508,13 @@ message CCitadelUserMsg_ParticipantSetSoundEventParams {
 message CCitadelUserMsg_ParticipantSetLibraryStackFields {
 	required .CMsgSosSetLibraryStackFields event = 1;
 	repeated int32 player_slots = 2;
+}
+
+message CCitadelUserMsg_BossKilled {
+	optional int32 objective_team = 1;
+	optional int32 objective_mask_change = 2;
+	required uint32 entity_killed = 3 [default = 16777215];
+	required int32 entity_killed_class = 4;
+	required uint32 entity_killer = 5 [default = 16777215];
+	required float gametime = 6;
 }
