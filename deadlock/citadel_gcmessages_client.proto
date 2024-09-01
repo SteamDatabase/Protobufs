@@ -403,7 +403,6 @@ message CMsgPartyMMInfo {
 	optional .CMsgRegionPingTimesClient ping_times = 2;
 	optional uint32 client_version = 3;
 	optional .ECitadelRegionMode region_mode = 4 [default = k_ECitadelRegionMode_ROW];
-	optional .CMsgHeroSelectionMatchInfo hero_roster = 5;
 }
 
 message CMsgClientToGCPartyCreate {
@@ -452,7 +451,6 @@ message CMsgClientToGCPartyJoin {
 	optional fixed64 party_id = 1;
 	optional bool is_rejoin = 2;
 	optional .CMsgPartyMMInfo party_mm_info = 3;
-	optional bool start_ready = 4;
 }
 
 message CMsgClientToGCPartyJoinResponse {
@@ -643,7 +641,6 @@ message CMsgGCToClientCanRejoinParty {
 message CMsgClientToGCPartyJoinViaCode {
 	optional uint64 join_code = 1;
 	optional .CMsgPartyMMInfo party_mm_info = 2;
-	optional bool start_ready = 3;
 }
 
 message CMsgClientToGCPartyJoinViaCodeResponse {
