@@ -5332,6 +5332,13 @@ message CVRGamepadUI_Message_ShowDashboardPopup_Request_Rotation {
 message CVRGamepadUI_Message_ShowDashboardPopup_Response {
 }
 
+message CVRGamepadUI_Message_ShowGame_Request {
+	optional string overlay_key = 1;
+}
+
+message CVRGamepadUI_Message_ShowGame_Response {
+}
+
 // Used by: common.proto
 message CVRGamepadUIShared_DashboardAction {
 	optional uint32 action_id = 1;
