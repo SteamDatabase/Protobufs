@@ -863,6 +863,7 @@ message CMsgClientToGCGetAccountStatsResponse {
 message CMsgClientToGCGetMatchMetaData {
 	optional uint64 match_id = 1;
 	optional uint32 metadata_salt = 3;
+	optional uint32 target_account_id = 4;
 }
 
 message CMsgClientToGCGetMatchMetaDataResponse {
