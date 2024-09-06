@@ -409,6 +409,7 @@ message CClientMetrics_EndGameRecording_Notification {
 	optional float seconds = 2;
 	optional uint64 bytes = 3;
 	optional fixed64 gameid = 4;
+	optional bool instant_clip = 5;
 }
 
 message CClientMetrics_IPv6Connectivity_Notification {
@@ -568,6 +569,11 @@ message CClientNotificationFriendOnline {
 message CClientNotificationGameRecordingError {
 	optional fixed64 game_id = 1;
 	optional int32 error_type = 2 [(.description) = "enum"];
+}
+
+message CClientNotificationGameRecordingInstantClip {
+	optional fixed64 game_id = 1;
+	optional string clip_id = 2;
 }
 
 message CClientNotificationGameRecordingStart {
@@ -2628,6 +2634,7 @@ message CMsgClientSettings {
 	optional bool small_mode = 16;
 	optional bool skip_steamvr_install_dialog = 19;
 	optional bool always_show_user_chooser = 20;
+	optional bool os_version_unsupported = 21;
 	optional bool show_family_sharing_notifications = 3000;
 	optional bool show_copy_count_in_library = 3001;
 	optional int32 overlay_fps_counter_corner = 4000;
@@ -2735,6 +2742,8 @@ message CMsgClientSettings {
 	optional int32 g_background_mode = 18212 [(.description) = "enum"];
 	optional int32 g_background_audio = 18213 [(.description) = "enum"];
 	optional int32 g_max_fps = 18214;
+	optional .CMsgHotkey gamerecording_hotkey_ic = 18215;
+	optional float gamerecording_ic_seconds = 18216;
 	optional bool show_timestamps_in_console = 20000;
 	optional bool force_oobe = 20001;
 	optional int32 override_browser_composer_mode = 20002;
