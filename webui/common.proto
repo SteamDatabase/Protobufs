@@ -5601,6 +5601,7 @@ message StoreItem_IncludedItems {
 message StoreItem_Link {
 	optional int32 link_type = 1 [(.description) = "enum"];
 	optional string url = 2;
+	optional string text = 3;
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, Wishlist
@@ -5670,6 +5671,8 @@ message StoreItem_PurchaseOption_RecurrenceInfo {
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, Wishlist
 message StoreItem_RelatedItems {
 	optional uint32 parent_appid = 1;
+	repeated uint32 demo_appid = 2;
+	repeated uint32 standalone_demo_appid = 3;
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, Wishlist
