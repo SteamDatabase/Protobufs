@@ -4,7 +4,7 @@ import "gcsdk_gcmessages.proto";
 enum CMsgLaneColor {
 	k_ELaneColor_Invalid = 0;
 	k_ELaneColor_Yellow = 1;
-	k_ELaneColor_Orange = 3;
+	k_ELaneColor_Green = 3;
 	k_ELaneColor_Blue = 4;
 	k_ELaneColor_Purple = 6;
 }
@@ -125,6 +125,19 @@ enum ELobbyServerState {
 	k_eLobbyServerState_Abandoned = 4;
 }
 
+enum EBannedFeature {
+	k_eBannedFeature_Invalid = 0;
+	k_eBannedFeature_LowPriorityMatchmaking = 1;
+	k_eBannedFeature_CommsRestricted = 2;
+}
+
+enum EFeatureBanReason {
+	k_eFeatureBanReason_Invalid = 0;
+	k_eFeatureBanReason_DevCommand = 1;
+	k_eFeatureBanReason_PlayerReports = 2;
+	k_eFeatureBanReason_MatchAbandons = 3;
+}
+
 message CSOCitadelLobby {
 	optional uint64 lobby_id = 1;
 	optional uint64 match_id = 2;
@@ -195,6 +208,17 @@ message CMsgRegionPingTimesClient {
 }
 
 message CSOCitadelParty {
+	message PrivateLobbySlot {
+		optional uint32 slot_id = 1;
+		optional uint32 player_account_id = 2;
+		optional .ECitadelBotDifficulty bot_difficulty = 3 [default = k_ECitadelBotDifficulty_None];
+	}
+
+	message PrivateLobbySettings {
+		optional uint32 min_roster_size = 1;
+		repeated .CSOCitadelParty.PrivateLobbySlot match_slots = 2;
+	}
+
 	message Member {
 		optional uint32 account_id = 1;
 		optional string persona_name = 2;
@@ -252,6 +276,8 @@ message CSOCitadelParty {
 	optional bool is_high_skill_range_party = 13;
 	optional .CSOCitadelParty.EChatMode chat_mode = 14 [default = k_eNone];
 	optional .ECitadelRegionMode region_mode = 15 [default = k_ECitadelRegionMode_ROW];
+	optional bool is_private_lobby = 16;
+	optional .CSOCitadelParty.PrivateLobbySettings private_lobby_settings = 17;
 }
 
 message CMsgMatchPlayerPathsData {

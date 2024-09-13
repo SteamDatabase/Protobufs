@@ -202,6 +202,9 @@ message CSOGameAccountClient {
 	optional uint64 permissions = 7;
 	optional uint64 new_player_progress = 8;
 	optional uint32 hero_unlock_credits = 9;
+	optional uint32 mm_ban_until = 10;
+	optional uint32 comms_ban_until = 11;
+	optional uint32 low_priority_games_remaining = 12;
 }
 
 message CSOAccountSyncStorage {
@@ -325,31 +328,15 @@ message CMsgDevMatchInfo {
 }
 
 message CMsgGCToClientDevPlaytestStatus {
-	message NextMMWindow {
-		optional uint32 start_time = 1;
-		optional uint32 end_time = 2;
-		optional bool is_paused = 3;
-		optional uint32 mm_next_interval_time = 4;
-	}
-
 	message HeroWhitelist {
 		optional uint32 hero_id = 1;
 		repeated uint32 account_ids = 2;
 	}
 
-	message PlaytestInterval {
-		optional uint32 start_time = 1;
-		optional uint32 end_time = 2;
-	}
-
 	message RegionInfo {
 		optional .ECitadelRegionMode region = 1 [default = k_ECitadelRegionMode_ROW];
-		optional .CMsgGCToClientDevPlaytestStatus.NextMMWindow mm_window = 2;
-		optional .CMsgGCToClientDevPlaytestStatus.PlaytestInterval weekdays = 3;
-		optional .CMsgGCToClientDevPlaytestStatus.PlaytestInterval weekends = 4;
 		optional uint32 unranked_queue_size = 5;
 		optional uint32 coop_queue_size = 6;
-		optional bool allow_unranked_queuing = 7;
 		optional uint32 coop_mm_formation_time = 8;
 		optional uint32 available_servers = 9;
 	}
@@ -358,7 +345,6 @@ message CMsgGCToClientDevPlaytestStatus {
 	optional bool locked_heroes = 8;
 	optional bool party_shared_heroes = 9;
 	repeated .CMsgGCToClientDevPlaytestStatus.HeroWhitelist hero_whitelists = 10;
-	optional uint32 coop_mm_min_players = 13;
 	optional uint32 mm_pause_time = 14;
 	repeated uint32 valid_client_versions = 15;
 	optional uint32 active_match_count = 21;
@@ -366,7 +352,7 @@ message CMsgGCToClientDevPlaytestStatus {
 }
 
 message CMsgGCToClientSDRTicket {
-	optional string ticket = 1;
+	optional bytes ticket = 1;
 }
 
 message CMsgClientToGCReplacementSDRTicket {
@@ -374,7 +360,7 @@ message CMsgClientToGCReplacementSDRTicket {
 }
 
 message CMsgClientToGCReplacementSDRTicketResponse {
-	optional string ticket = 1;
+	optional bytes ticket = 1;
 	optional string error_message = 2;
 }
 
@@ -409,6 +395,9 @@ message CMsgClientToGCPartyCreate {
 	optional .CMsgPartyMMInfo party_mm_info = 1;
 	optional uint32 invite_account_id = 3;
 	optional bool disable_party_code = 4;
+	optional bool is_private_lobby = 5;
+	optional .ECitadelRegionMode region_mode = 6 [default = k_ECitadelRegionMode_ROW];
+	optional string server_search_key = 7;
 }
 
 message CMsgClientToGCPartyCreateResponse {
@@ -470,6 +459,7 @@ message CMsgClientToGCPartyJoinResponse {
 		k_eDurationControlBlocked = 12;
 		k_ePartyInMatchMaking = 13;
 		k_eInMatchmaking = 14;
+		k_ePartyFull = 15;
 	}
 
 	optional .CMsgClientToGCPartyJoinResponse.EResponse result = 1 [default = k_eInternalError];
@@ -484,6 +474,10 @@ message CMsgClientToGCPartyAction {
 		k_eEnablePartyCode = 7;
 		k_eSetMemberTeam = 8;
 		k_eSetChatMode = 9;
+		k_eSetPlayerSlot = 10;
+		k_eSetRegionMode = 11;
+		k_eSetPlayerSlotBot = 12;
+		k_eSetAllSlotBots = 13;
 	}
 
 	optional fixed64 party_id = 1;
@@ -507,6 +501,7 @@ message CMsgClientToGCPartyActionResponse {
 		k_eTooBusy = 9;
 		k_eRateLimited = 10;
 		k_eCannotChangeWhileReady = 12;
+		k_eSlotTaken = 13;
 	}
 
 	optional .CMsgClientToGCPartyActionResponse.EResponse result = 1 [default = k_eInternalError];
@@ -540,6 +535,7 @@ message CMsgClientToGCPartySetModeResponse {
 		k_eTooManyPlayers = 14;
 		k_ePlayerBanned = 15;
 		k_eTooManyHighMMR = 16;
+		k_eFiveStacksNotAllowed = 18;
 	}
 
 	optional .CMsgClientToGCPartySetModeResponse.EResponse result = 1 [default = k_eInternalError];
@@ -578,6 +574,7 @@ message CMsgClientToGCPartyStartMatchResponse {
 		k_eInvalidTeam = 24;
 		k_eInvalidHeroLineup = 25;
 		k_eInvalidGroupHeroLineup = 26;
+		k_eUnassignedPlayers = 27;
 	}
 
 	optional .CMsgClientToGCPartyStartMatchResponse.EResponse result = 1 [default = k_eInternalError];
@@ -723,6 +720,8 @@ message CMsgClientToGCGetMatchHistoryResponse {
 		optional uint32 net_worth = 14;
 		optional uint64 objectives_mask_team0 = 15;
 		optional uint64 objectives_mask_team1 = 16;
+		optional bool team_abandoned = 17;
+		optional uint32 abandoned_time_s = 18;
 	}
 
 	enum EResult {

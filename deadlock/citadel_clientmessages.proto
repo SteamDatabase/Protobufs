@@ -2,7 +2,6 @@ import "networkbasetypes.proto";
 import "citadel_gcmessages_common.proto";
 
 enum ECitadelClientMessages {
-	CITADEL_CM_CancelAbility = 1001;
 	CITADEL_CM_MapPing = 1002;
 	CITADEL_CM_PerformanceStats = 1003;
 	CITADEL_CM_PingWheel = 1004;
@@ -17,11 +16,6 @@ enum ECitadelClientMessages {
 }
 
 message CCitadelClientMsg_Pause {
-}
-
-message CCitadelClientMsg_CancelAbilities {
-	optional bool casts = 1;
-	optional bool channels = 2;
 }
 
 message CCitadelClientMsg_MapPing {

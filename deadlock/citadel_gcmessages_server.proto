@@ -120,6 +120,7 @@ message CSOCitadelServerStaticLobby {
 		optional uint32 party_index = 6;
 		optional .EGCPlatform platform = 7 [default = k_eGCPlatform_None];
 		repeated .CSOCitadelServerStaticLobby.EAwardIDs award_ids = 8;
+		optional bool is_comms_restricted = 9;
 	}
 
 	message DevSettings {
@@ -144,6 +145,8 @@ message CSOCitadelServerStaticLobby {
 	optional uint32 experimental_gameplay_state = 15;
 	optional .ECitadelRegionMode region_mode = 16 [default = k_ECitadelRegionMode_ROW];
 	optional string broadcast_url = 17;
+	optional bool new_player_pool = 18;
+	optional bool low_pri_pool = 19;
 }
 
 message CMsgServerSignoutData_ServerPerfStats {
@@ -462,6 +465,8 @@ message CMsgMatchData {
 	optional float stomp_score = 12;
 	optional bool safe_to_abandon = 13;
 	optional bool team_abandon = 14;
+	optional bool new_player_pool = 15;
+	optional bool low_pri_pool = 16;
 }
 
 message CMsgServerToGCMatchSignout {
@@ -511,7 +516,6 @@ message CMsgServerToGCEnterMatchmaking {
 	optional uint32 server_public_ip = 5;
 	optional uint32 server_private_ip = 6;
 	optional uint32 server_port = 7;
-	optional uint32 hltv_port = 8;
 	optional bytes sdr_address = 9;
 }
 

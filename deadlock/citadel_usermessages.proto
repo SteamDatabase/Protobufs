@@ -77,6 +77,11 @@ enum CameraParam {
 	k_EParam_HorizOffset = 6;
 }
 
+enum CameraParamMode {
+	k_EParamMode_AllowInOneContext = 0;
+	k_EParamMode_AllowInMultipleContexts = 1;
+}
+
 enum CameraAction {
 	k_EAction_AddOp = 0;
 	k_EAction_ClearAllOps = 1;
@@ -96,6 +101,7 @@ enum ECitadelChatMessage {
 	CITADEL_CHAT_MESSAGE_CANTPAUSEYET = 10;
 	CITADEL_CHAT_MESSAGE_PREGAME_COUNTDOWN = 11;
 	CITADEL_CHAT_MESSAGE_NOTEAMPAUSESLEFT = 12;
+	CITADEL_CHAT_MESSAGE_COMMS_RESTRICTED = 13;
 }
 
 enum PostProcessingGameStates {
@@ -293,6 +299,9 @@ message CCitadelUserMsg_GoldHistory {
 message CCitadelUserMsg_CameraController {
 	message Maintain {
 		optional float duration = 1 [default = 1];
+		optional .CMsgVector maintain_vector = 2;
+		optional float maintain_float = 3;
+		optional bool maintain_current = 4;
 	}
 
 	message Approach {
@@ -333,6 +342,7 @@ message CCitadelUserMsg_CameraController {
 	required .CameraAction action = 1 [default = k_EAction_AddOp];
 	optional .CameraOperation operation = 2 [default = k_ECameraOp_Maintain];
 	optional .CameraParam param = 3 [default = k_EParam_ClearAllOps];
+	optional .CameraParamMode param_mode = 12 [default = k_EParamMode_AllowInOneContext];
 	optional float delay = 4;
 	optional bool relative_values = 11;
 	optional uint32 context_symbol_id = 5;
