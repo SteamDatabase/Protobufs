@@ -476,8 +476,8 @@ message CMsgClientToGCPartyAction {
 		k_eSetChatMode = 9;
 		k_eSetPlayerSlot = 10;
 		k_eSetRegionMode = 11;
-		k_eSetPlayerSlotBot = 12;
-		k_eSetAllSlotBots = 13;
+		k_eSetSearchKey = 12;
+		k_eSetBotDifficulty = 13;
 	}
 
 	optional fixed64 party_id = 1;
@@ -485,6 +485,7 @@ message CMsgClientToGCPartyAction {
 	optional .CMsgClientToGCPartyAction.EAction action_id = 3 [default = k_eKickUser];
 	optional uint64 uint_value = 4;
 	optional bool bool_value = 5;
+	optional string str_value = 6;
 }
 
 message CMsgClientToGCPartyActionResponse {

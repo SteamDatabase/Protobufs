@@ -211,7 +211,6 @@ message CSOCitadelParty {
 	message PrivateLobbySlot {
 		optional uint32 slot_id = 1;
 		optional uint32 player_account_id = 2;
-		optional .ECitadelBotDifficulty bot_difficulty = 3 [default = k_ECitadelBotDifficulty_None];
 	}
 
 	message PrivateLobbySettings {
