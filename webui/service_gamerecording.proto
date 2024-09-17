@@ -63,6 +63,17 @@ message CGameRecording_ExportClip_Settings {
 	optional int32 width = 2;
 	optional int32 height = 3;
 	optional int32 frames_per_second = 4;
+	optional int32 codec = 5 [(.description) = "enum"];
+}
+
+message CGameRecording_ExportClipPreview_Request {
+	optional string clip_id = 1;
+	optional .CGameRecording_ExportClip_Settings settings = 2;
+}
+
+message CGameRecording_ExportClipPreview_Response {
+	optional uint64 estimated_size = 1;
+	optional .CGameRecording_ExportClip_Settings settings = 2;
 }
 
 message CGameRecording_ExportProgress_Notification {
@@ -223,6 +234,7 @@ message CGameRecording_PerGameSettings {
 	optional bool enabled = 2;
 	optional int32 minutes = 3;
 	optional int32 bitrate = 4;
+	//optional string bitrate = 4;
 }
 
 message CGameRecording_PhaseListChanged_Notification {
@@ -291,6 +303,7 @@ message CGameRecording_SaveClip_Request {
 	optional string name = 4;
 	optional string src_clip_id = 5;
 	optional bool temporary = 6;
+	optional bool force_thumbnail = 7;
 }
 
 message CGameRecording_SaveClip_Request_Position {
@@ -496,6 +509,7 @@ service GameRecording {
 	rpc DeleteClip (.CGameRecording_DeleteClip_Request) returns (.CGameRecording_DeleteClip_Response);
 	rpc DeletePerGameSettings (.CGameRecording_DeletePerGameSettings_Request) returns (.CGameRecording_DeletePerGameSettings_Response);
 	rpc ExportClip (.CGameRecording_ExportClip_Request) returns (.CGameRecording_ExportClip_Response);
+	rpc ExportClipPreview (.CGameRecording_ExportClipPreview_Request) returns (.CGameRecording_ExportClipPreview_Response);
 	rpc GetActiveTimelineApps (.CGameRecording_GetActiveTimelineApps_Request) returns (.CGameRecording_GetActiveTimelineApps_Response);
 	rpc GetAndTrimPostGameHighlights (.CGameRecording_GetAndTrimPostGameHighlights_Request) returns (.CGameRecording_GetAndTrimPostGameHighlights_Response);
 	rpc GetAvailableDiskSpace (.CGameRecording_GetAvailableDiskSpace_Request) returns (.CGameRecording_GetAvailableDiskSpace_Response);
