@@ -441,6 +441,7 @@ message CMsgMatchData {
 		optional uint32 player_melee_damage = 40;
 		optional uint32 abandon_match_time_s = 41;
 		optional uint32 abandon_time_stamp = 42;
+		optional uint32 trooper_kill_excluded = 43;
 	}
 
 	enum EEndReason {

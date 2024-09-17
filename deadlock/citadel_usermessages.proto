@@ -346,6 +346,7 @@ message CCitadelUserMsg_CameraController {
 	optional float delay = 4;
 	optional bool relative_values = 11;
 	optional uint32 context_symbol_id = 5;
+	optional uint32 priority = 13 [default = 1];
 	optional .CCitadelUserMsg_CameraController.Maintain maintain = 6;
 	optional .CCitadelUserMsg_CameraController.Approach approach = 7;
 	optional .CCitadelUserMsg_CameraController.Spring spring = 8;
