@@ -121,6 +121,7 @@ message CSOCitadelServerStaticLobby {
 		optional .EGCPlatform platform = 7 [default = k_eGCPlatform_None];
 		repeated .CSOCitadelServerStaticLobby.EAwardIDs award_ids = 8;
 		optional bool is_comms_restricted = 9;
+		optional uint32 lane_id = 10;
 	}
 
 	message DevSettings {

@@ -216,6 +216,7 @@ message CSOCitadelParty {
 	message PrivateLobbySettings {
 		optional uint32 min_roster_size = 1;
 		repeated .CSOCitadelParty.PrivateLobbySlot match_slots = 2;
+		optional bool randomize_lanes = 3;
 	}
 
 	message Member {

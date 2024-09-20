@@ -478,6 +478,7 @@ message CMsgClientToGCPartyAction {
 		k_eSetRegionMode = 11;
 		k_eSetSearchKey = 12;
 		k_eSetBotDifficulty = 13;
+		k_eSetRandomizedLanes = 14;
 	}
 
 	optional fixed64 party_id = 1;
