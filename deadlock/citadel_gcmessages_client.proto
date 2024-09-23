@@ -1378,6 +1378,7 @@ message CMsgClientToGCGetFriendGameStatusResponse {
 	optional .CMsgClientToGCGetFriendGameStatusResponse.EResponse response = 1 [default = k_eInternalError];
 	repeated uint32 friends_played_game = 2 [packed = true];
 	repeated uint32 friends_invited = 3 [packed = true];
+	repeated uint32 friends_invites_sent = 4 [packed = true];
 }
 
 message CMsgClientToGCUpdateSpectatorStatus {
