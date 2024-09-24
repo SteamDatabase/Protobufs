@@ -74,6 +74,21 @@ message CStoreBrowse_GetHardwareItems_Response {
 	repeated .CHardwarePackageDetails details = 1;
 }
 
+message CStoreBrowse_GetPriceStops_Request {
+	optional string country_code = 1;
+	optional string currency_code = 2;
+}
+
+message CStoreBrowse_GetPriceStops_Response {
+	repeated .CStoreBrowse_GetPriceStops_Response_PriceStop price_stops = 1;
+	optional string currency_code = 2;
+}
+
+message CStoreBrowse_GetPriceStops_Response_PriceStop {
+	optional string formatted_amount = 1;
+	optional int64 amount_in_cents = 2;
+}
+
 message CStoreBrowse_GetStoreCategories_Request {
 	optional string language = 1;
 	optional int32 elanguage = 2 [default = -1];
@@ -98,6 +113,7 @@ service StoreBrowse {
 	rpc GetDLCForAppsSolr (.CStoreBrowse_GetDLCForAppsSolr_Request) returns (.CStoreBrowse_GetDLCForAppsSolr_Response);
 	rpc GetHardwareItems (.CStoreBrowse_GetHardwareItems_Request) returns (.CStoreBrowse_GetHardwareItems_Response);
 	rpc GetItems (.CStoreBrowse_GetItems_Request) returns (.CStoreBrowse_GetItems_Response);
+	rpc GetPriceStops (.CStoreBrowse_GetPriceStops_Request) returns (.CStoreBrowse_GetPriceStops_Response);
 	rpc GetStoreCategories (.CStoreBrowse_GetStoreCategories_Request) returns (.CStoreBrowse_GetStoreCategories_Response);
 }
 

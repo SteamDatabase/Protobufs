@@ -104,10 +104,14 @@ message CMsgSteamLearn_GetFetchStatus_Response {
 	optional uint32 total_rows_processed = 9;
 	optional string error_string = 10;
 	optional uint32 project_id = 11;
-	optional int32 metadata_phase = 12 [(.description) = "enum"];
-	optional string metadata_phase_name = 13;
-	optional uint32 metadata_phase_value = 14;
 	optional bool cancel_pending = 15;
+	repeated .CMsgSteamLearn_GetFetchStatus_Response_Metadata metadata = 16;
+}
+
+message CMsgSteamLearn_GetFetchStatus_Response_Metadata {
+	optional int32 metadata_phase = 1 [(.description) = "enum"];
+	optional string metadata_phase_name = 2;
+	optional uint32 metadata_phase_value = 3;
 }
 
 message CMsgSteamLearn_GetFetchStatus_Response_Worker {

@@ -85,6 +85,19 @@ message CAuthentication_GetAuthSessionInfo_Response {
 	optional bool requestor_location_mismatch = 10;
 	optional bool high_usage_login = 11;
 	optional int32 requested_persistence = 12 [(.description) = "enum"];
+	optional int32 device_trust = 13;
+}
+
+message CAuthentication_GetAuthSessionRiskInfo_Request {
+	optional uint64 client_id = 1;
+	optional uint32 language = 2;
+}
+
+message CAuthentication_GetAuthSessionRiskInfo_Response {
+	optional string location_confirmer = 1;
+	optional string location_requestor = 2;
+	optional string location_other = 3;
+	optional int32 platform_type = 4 [(.description) = "enum"];
 }
 
 message CAuthentication_GetAuthSessionsForAccount_Request {
@@ -211,6 +224,7 @@ service Authentication {
 	rpc EnumerateTokens (.CAuthentication_RefreshToken_Enumerate_Request) returns (.CAuthentication_RefreshToken_Enumerate_Response);
 	rpc GenerateAccessTokenForApp (.CAuthentication_AccessToken_GenerateForApp_Request) returns (.CAuthentication_AccessToken_GenerateForApp_Response);
 	rpc GetAuthSessionInfo (.CAuthentication_GetAuthSessionInfo_Request) returns (.CAuthentication_GetAuthSessionInfo_Response);
+	rpc GetAuthSessionRiskInfo (.CAuthentication_GetAuthSessionRiskInfo_Request) returns (.CAuthentication_GetAuthSessionRiskInfo_Response);
 	rpc GetAuthSessionsForAccount (.CAuthentication_GetAuthSessionsForAccount_Request) returns (.CAuthentication_GetAuthSessionsForAccount_Response);
 	rpc GetPasswordRSAPublicKey (.CAuthentication_GetPasswordRSAPublicKey_Request) returns (.CAuthentication_GetPasswordRSAPublicKey_Response);
 	rpc MigrateMobileSession (.CAuthentication_MigrateMobileSession_Request) returns (.CAuthentication_MigrateMobileSession_Response);

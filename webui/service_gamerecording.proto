@@ -53,6 +53,7 @@ message CGameRecording_ExportClip_Request {
 	optional string clip_id = 1;
 	optional string export_mp4_path = 2;
 	optional .CGameRecording_ExportClip_Settings settings = 3;
+	optional bool use_unique_filename = 4;
 }
 
 message CGameRecording_ExportClip_Response {
@@ -367,6 +368,12 @@ message CGameRecording_TimelineEntryChanged_Notification {
 	optional fixed64 game_id = 2;
 }
 
+message CGameRecording_TimelineEntryRemoved_Notification {
+	optional uint64 game_id = 1;
+	optional string timeline_id = 2;
+	optional uint64 entry_id = 3;
+}
+
 message CGameRecording_UploadClipToSteam_Request {
 	optional string clip_id = 1;
 	optional string title = 2;
@@ -535,6 +542,7 @@ service GameRecording {
 	rpc NotifyRecordingSessionChanged (.CGameRecording_RecordingSessionChanged_Notification) returns (.NoResponse);
 	rpc NotifyTimelineChanged (.CGameRecording_TimelineChanged_Notification) returns (.NoResponse);
 	rpc NotifyTimelineEntryChanged (.CGameRecording_TimelineEntryChanged_Notification) returns (.NoResponse);
+	rpc NotifyTimelineEntryRemoved (.CGameRecording_TimelineEntryRemoved_Notification) returns (.NoResponse);
 	rpc NotifyUploadProgress (.CGameRecording_UploadProgress_Notification) returns (.NoResponse);
 	rpc QueryPhases (.CGameRecording_QueryPhases_Request) returns (.CGameRecording_QueryPhases_Response);
 	rpc SaveClip (.CGameRecording_SaveClip_Request) returns (.CGameRecording_SaveClip_Response);
