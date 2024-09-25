@@ -23,6 +23,8 @@ enum EGCCitadelServerMessages {
 	k_EMsgGCToServerSetServerConVar = 10039;
 	k_EMsgGCToServerSetServerConVarResponse = 10040;
 	k_EMsgServerToGCUpdateMatchInfo = 10041;
+	k_EMsgServerToGCReportCheater = 10042;
+	k_EMsgServerToGCReportCheaterResponse = 10043;
 }
 
 enum EGCServerLobbyData {
@@ -41,6 +43,7 @@ enum EGCServerSignoutData {
 	k_EServerSignoutData_PlayerChat = 7;
 	k_EServerSignoutData_BookRewards = 8;
 	k_EServerSignoutData_PenalizedPlayers = 9;
+	k_EServerSignoutData_ReportCheaters = 10;
 }
 
 message CMsgServerCrashSentinelFile {
@@ -597,4 +600,15 @@ message CMsgGCToServerAddSpectatorResponse {
 
 	optional .CMsgGCToServerAddSpectatorResponse.EResponse result = 1 [default = k_eInternalError];
 	optional uint32 requesting_account_id = 2;
+}
+
+message CMsgServerToGCReportCheater {
+	optional uint32 account_id = 1;
+	optional uint64 match_id = 2;
+	optional fixed64 lobby_id = 3;
+	optional string reason = 4;
+}
+
+message CMsgServerToGCReportCheaterResponse {
+	optional bool success = 1;
 }
