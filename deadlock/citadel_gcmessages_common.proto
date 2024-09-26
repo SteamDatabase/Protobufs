@@ -213,10 +213,18 @@ message CSOCitadelParty {
 		optional uint32 player_account_id = 2;
 	}
 
+	message ServerRegion {
+		optional uint32 region_id = 1;
+	}
+
 	message PrivateLobbySettings {
 		optional uint32 min_roster_size = 1;
 		repeated .CSOCitadelParty.PrivateLobbySlot match_slots = 2;
 		optional bool randomize_lanes = 3;
+		optional uint32 server_region = 4;
+		optional bool is_publicly_visible = 6;
+		optional bool cheats_enabled = 7;
+		repeated .CSOCitadelParty.ServerRegion available_regions = 8;
 	}
 
 	message Member {

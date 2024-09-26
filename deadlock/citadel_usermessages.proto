@@ -45,6 +45,12 @@ enum CitadelUserMessageIds {
 	k_EUserMsg_CurrencyChanged = 345;
 	k_EUserMsg_GameOver = 346;
 	k_EUserMsg_BossKilled = 347;
+	k_EUserMsg_BossDamaged = 348;
+	k_EUserMsg_MidBossSpawned = 349;
+	k_EUserMsg_RejuvStatus = 350;
+	k_EUserMsg_KillStreak = 351;
+	k_EUserMsg_TeamMsg = 352;
+	k_EUserMsg_PlayerRespawned = 353;
 }
 
 enum CitadelEntityMessageIds {
@@ -337,6 +343,7 @@ message CCitadelUserMsg_CameraController {
 		optional float lag_time = 2;
 		optional float max_speed = 3;
 		optional float spring_strength = 4;
+		optional bool increase_spring_strength_to_keep_target_on_screen = 5 [default = true];
 	}
 
 	required .CameraAction action = 1 [default = k_EAction_AddOp];
@@ -524,8 +531,43 @@ message CCitadelUserMsg_ParticipantSetLibraryStackFields {
 message CCitadelUserMsg_BossKilled {
 	optional int32 objective_team = 1;
 	optional int32 objective_mask_change = 2;
-	required uint32 entity_killed = 3 [default = 16777215];
-	required int32 entity_killed_class = 4;
-	required uint32 entity_killer = 5 [default = 16777215];
-	required float gametime = 6;
+	optional uint32 entity_killed = 3 [default = 16777215];
+	optional int32 entity_killed_class = 4;
+	optional uint32 entity_killer = 5 [default = 16777215];
+	optional float gametime = 6;
+	optional int32 bosses_remaining = 7;
+}
+
+message CCitadelUserMsg_BossDamaged {
+	required int32 objective_team = 1;
+	required int32 objective_id = 2;
+	required uint32 entity_damaged = 3 [default = 16777215];
+}
+
+message CCitadelUserMsg_MidBossSpawned {
+}
+
+message CCitadelUserMsg_RejuvStatus {
+	optional int32 killing_team = 1;
+	required uint32 player_pawn = 2 [default = 16777215];
+	required int32 user_team = 3;
+	required int32 event_type = 4;
+}
+
+message CCitadelUserMsg_KillStreak {
+	required uint32 player_pawn = 1 [default = 16777215];
+	required int32 num_kills = 2;
+	required bool is_first_blood = 3;
+}
+
+message CCitadelUserMsg_TeamMsg {
+	required int32 event_type = 1;
+	required int32 team_number = 2;
+	required int32 lane_color = 3;
+	required uint32 player_controller = 4 [default = 16777215];
+}
+
+message CCitadelUserMsg_PlayerRespawned {
+	required uint32 player_pawn = 1 [default = 16777215];
+	required float facing_yaw = 2;
 }

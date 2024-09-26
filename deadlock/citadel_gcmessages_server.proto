@@ -151,6 +151,8 @@ message CSOCitadelServerStaticLobby {
 	optional string broadcast_url = 17;
 	optional bool new_player_pool = 18;
 	optional bool low_pri_pool = 19;
+	optional bool is_restricted_access = 20;
+	optional bool cheats_enabled = 21;
 }
 
 message CMsgServerSignoutData_ServerPerfStats {

@@ -479,6 +479,9 @@ message CMsgClientToGCPartyAction {
 		k_eSetSearchKey = 12;
 		k_eSetBotDifficulty = 13;
 		k_eSetRandomizedLanes = 14;
+		k_eSetServerRegion = 15;
+		k_eSetPubliclyVisible = 16;
+		k_eSetCheatsEnabled = 17;
 	}
 
 	optional fixed64 party_id = 1;
@@ -778,6 +781,7 @@ message CMsgClientToGCSpectateLobby {
 	optional .ECitadelRegionMode region_mode = 2 [default = k_ECitadelRegionMode_ROW];
 	optional uint32 client_version = 3;
 	optional .EGCPlatform client_platform = 4 [default = k_eGCPlatform_None];
+	optional uint64 match_id = 5;
 }
 
 message CMsgClientToGCSpectateLobbyResponse {
@@ -1195,11 +1199,15 @@ message CMsgClientToGCFindHeroBuildsResponse {
 		optional uint32 num_favorites = 3;
 		optional uint32 num_ignores = 4;
 		optional uint32 num_reports = 5;
+		optional uint32 num_weekly_favorites = 6;
+		optional uint32 num_daily_favorites = 7;
+		optional uint32 rollup_category = 8;
 	}
 
 	enum EResponse {
 		k_eInternalError = 0;
 		k_eSuccess = 1;
+		k_eTooBusy = 2;
 	}
 
 	optional .CMsgClientToGCFindHeroBuildsResponse.EResponse response = 1 [default = k_eInternalError];
@@ -1253,6 +1261,7 @@ message CMsgClientToGCReportPlayerFromMatch {
 		k_eReport_Griefing = 2;
 		k_eReport_LeftMatch = 3;
 		k_eReport_Matchmaking = 4;
+		k_eReport_Cheating = 5;
 	}
 
 	optional uint64 match_id = 1;
