@@ -13,6 +13,7 @@ enum ECitadelClientMessages {
 	CITADEL_CM_AbilityPing = 1010;
 	CITADEL_CM_ExecuteMapUnitAbility = 1011;
 	CITADEL_CM_GetDamageStats = 1012;
+	CITADEL_CM_CheaterVote = 1013;
 }
 
 message CCitadelClientMsg_Pause {
@@ -106,4 +107,8 @@ message CCitadelClientCachedPlayerStats {
 message CCitadelClientMsg_ExecuteMapUnitAbility {
 	optional int32 ability_entity_index = 1;
 	optional int32 target_entity_index = 2;
+}
+
+message CCitadelClientMsg_CheaterVote {
+	optional bool end_game_immediately = 1;
 }
