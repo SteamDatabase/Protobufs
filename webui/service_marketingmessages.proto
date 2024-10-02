@@ -184,6 +184,15 @@ message CMarketingMessages_GetPartnerReadyToPublishMessages_Response {
 	repeated .CDisplayMarketingMessage messages = 1;
 }
 
+message CMarketingMessages_GetPastMarketingMessages_Request {
+	optional uint32 start_past_days = 1;
+	optional uint32 upto_past_days = 2;
+}
+
+message CMarketingMessages_GetPastMarketingMessages_Response {
+	repeated .CMarketingMessageProto messages = 1;
+}
+
 message CMarketingMessages_PartnerPublishMessage_Request {
 	optional fixed64 gid = 1;
 	optional uint32 partnerid = 2;
@@ -218,6 +227,7 @@ service MarketingMessages {
 	rpc GetMarketingMessageViewerStats (.CMarketingMessages_GetMarketingMessageViewerStats_Request) returns (.CMarketingMessages_GetMarketingMessageViewerStats_Response);
 	rpc GetPartnerMessagePreview (.CMarketingMessages_GetPartnerMessagePreview_Request) returns (.CMarketingMessages_GetPartnerMessagePreview_Response);
 	rpc GetPartnerReadyToPublishMessages (.CMarketingMessages_GetPartnerReadyToPublishMessages_Request) returns (.CMarketingMessages_GetPartnerReadyToPublishMessages_Response);
+	rpc GetPastMarketingMessages (.CMarketingMessages_GetPastMarketingMessages_Request) returns (.CMarketingMessages_GetPastMarketingMessages_Response);
 	rpc PublishPartnerMessage (.CMarketingMessages_PartnerPublishMessage_Request) returns (.CMarketingMessages_PartnerPublishMessage_Response);
 	rpc UpdateMarketingMessage (.CMarketingMessages_UpdateMarketingMessage_Request) returns (.CMarketingMessages_UpdateMarketingMessage_Response);
 }
