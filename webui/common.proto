@@ -2715,6 +2715,7 @@ message CMsgClientSettings {
 	optional bool broadcast_show_live_reminder = 12009;
 	optional int32 broadcast_chat_corner = 12010;
 	optional bool gamestream_hardware_video_encode = 13000;
+	optional bool gamestream_enable_video_h265 = 13001;
 	optional bool steam_input_configurator_error_msg_enable = 14001;
 	optional bool controller_guide_button_focus_steam = 14002;
 	optional int32 controller_ps_support = 14003;
@@ -2737,13 +2738,22 @@ message CMsgClientSettings {
 	optional .CMsgHotkey g_background_mk = 18207;
 	optional .CMsgHotkey g_background_tg = 18208;
 	optional bool g_background_a_m = 18209;
-	optional int32 g_background_br = 18210;
+	optional string gamerecording_video_bitrate = 18210;
 	optional bool g_background_a_s = 18211;
 	optional int32 g_background_mode = 18212 [(.description) = "enum"];
 	optional int32 g_background_audio = 18213 [(.description) = "enum"];
 	optional int32 g_max_fps = 18214;
 	optional .CMsgHotkey gamerecording_hotkey_ic = 18215;
 	optional float gamerecording_ic_seconds = 18216;
+	optional int32 gamerecording_export_limit_type = 18217 [(.description) = "enum"];
+	optional int32 gamerecording_export_limit_size_mb = 18218;
+	optional int32 gamerecording_export_limit_bitrate = 18219;
+	optional int32 gamerecording_export_limit_width = 18220;
+	optional int32 gamerecording_export_limit_height = 18221;
+	optional int32 gamerecording_export_limit_frame_rate = 18222;
+	optional string gamerecording_export_directory = 18223;
+	optional int32 gamerecording_export_codec = 18224 [(.description) = "enum"];
+	optional int32 gamerecording_video_maxheight = 18225;
 	optional bool show_timestamps_in_console = 20000;
 	optional bool force_oobe = 20001;
 	optional int32 override_browser_composer_mode = 20002;
@@ -2781,6 +2791,8 @@ message CMsgClientSettings {
 	optional float setting_validation_float = 23006;
 	optional string setting_validation_string = 23007;
 	optional bool system_bluetooth_enabled = 24000;
+	optional bool controller_enable_chord = 140011;
+	optional bool controller_poll_rate = 140012;
 }
 
 message CMsgClientSharedLibraryLockStatus {
@@ -5144,6 +5156,7 @@ message CStreamingClientConfig {
 	optional .CStreamVideoLimit runtime_limit = 23;
 	repeated .CStreamVideoLimit decoder_limit = 24;
 	optional bool enable_unreliable_fec = 25 [default = false];
+	optional bool enable_video_av1 = 26 [default = false];
 }
 
 message CStreamingServerConfig {
@@ -5184,6 +5197,28 @@ message CTransportValidation_AppendToString_Request {
 // Used by: Test_TransportError, TransportValidation
 message CTransportValidation_AppendToString_Response {
 	optional string combined_text = 1;
+}
+
+// Used by: AccountCart, Wishlist
+message CUserInterface_CuratorData {
+	optional uint32 clanid = 1;
+	optional uint64 listid = 2;
+}
+
+// Used by: AccountCart, Wishlist
+message CUserInterface_NavData {
+	optional string domain = 1;
+	optional string controller = 2;
+	optional string method = 3;
+	optional string submethod = 4;
+	optional string feature = 5;
+	optional uint32 depth = 6;
+	optional string countrycode = 7;
+	optional uint64 webkey = 8;
+	optional bool is_client = 9;
+	optional .CUserInterface_CuratorData curator_data = 10;
+	optional bool is_likely_bot = 11;
+	optional bool is_utm = 12;
 }
 
 // Used by: GameRecordingClip, VideoClip
@@ -5645,7 +5680,7 @@ message StoreItem_PurchaseOption {
 	optional bool is_commercial_license = 40;
 	optional bool should_suppress_discount_pct = 41;
 	optional bool hide_discount_pct_for_compliance = 42 [default = false];
-	optional int32 included_game_count = 43;
+	optional int32 included_game_count = 43 [default = 1];
 	optional int64 lowest_recent_price_in_cents = 44;
 	optional bool requires_shipping = 45;
 	optional .StoreItem_PurchaseOption_RecurrenceInfo recurrence_info = 46;

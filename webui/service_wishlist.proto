@@ -1,4 +1,36 @@
 import "common.proto";
+import "common_base.proto";
+
+message CWishlist_AddToWishlist_Request {
+	optional uint32 appid = 1;
+	optional .CUserInterface_NavData navdata = 2;
+}
+
+message CWishlist_AddToWishlist_Response {
+	optional uint32 wishlist_count = 1;
+}
+
+message CWishlist_GetWishlist_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CWishlist_GetWishlist_Response {
+	repeated .CWishlist_GetWishlist_Response_WishlistItem items = 1;
+}
+
+message CWishlist_GetWishlist_Response_WishlistItem {
+	optional uint32 appid = 1;
+	optional uint32 priority = 2;
+	optional uint32 date_added = 3;
+}
+
+message CWishlist_GetWishlistItemCount_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CWishlist_GetWishlistItemCount_Response {
+	optional uint32 count = 1;
+}
 
 message CWishlist_GetWishlistItemsOnSale_Request {
 	optional .StoreBrowseContext context = 1;
@@ -14,7 +46,65 @@ message CWishlist_GetWishlistItemsOnSale_Response_WishlistItem {
 	optional .StoreItem store_item = 2;
 }
 
+message CWishlist_GetWishlistSortedFiltered_Request {
+	optional fixed64 steamid = 1;
+	optional .StoreBrowseContext context = 2;
+	optional .StoreBrowseItemDataRequest data_request = 3;
+	optional int32 sort_order = 4 [default = 0, (.description) = "enum"];
+	optional .CWishlistFilters filters = 5;
+	optional int32 start_index = 6 [default = 0];
+	optional int32 page_size = 7 [default = 100];
+}
+
+message CWishlist_GetWishlistSortedFiltered_Response {
+	repeated .CWishlist_GetWishlistSortedFiltered_Response_WishlistItem items = 1;
+}
+
+message CWishlist_GetWishlistSortedFiltered_Response_WishlistItem {
+	optional uint32 appid = 1;
+	optional uint32 priority = 2;
+	optional uint32 date_added = 3;
+	optional .StoreItem store_item = 4;
+}
+
+message CWishlist_RemoveFromWishlist_Request {
+	optional uint32 appid = 1;
+}
+
+message CWishlist_RemoveFromWishlist_Response {
+	optional uint32 wishlist_count = 1;
+}
+
+message CWishlistFilters {
+	optional bool macos_only = 1;
+	optional bool steamos_linux_only = 2;
+	optional bool only_games = 10;
+	optional bool only_software = 11;
+	optional bool only_dlc = 12;
+	optional bool only_free = 13;
+	optional int64 max_price_in_cents = 20;
+	optional int32 min_discount_percent = 21;
+	optional .CWishlistFilters_ExcludeTypeFilters exclude_types = 22;
+	optional .CWishlistFilters_SteamDeckFilters steam_deck_filters = 23;
+}
+
+message CWishlistFilters_ExcludeTypeFilters {
+	optional bool exclude_early_access = 1;
+	optional bool exclude_coming_soon = 2;
+	optional bool exclude_vr_only = 3;
+}
+
+message CWishlistFilters_SteamDeckFilters {
+	optional bool include_verified = 1;
+	optional bool include_playable = 2;
+}
+
 service Wishlist {
+	rpc AddToWishlist (.CWishlist_AddToWishlist_Request) returns (.CWishlist_AddToWishlist_Response);
+	rpc GetWishlist (.CWishlist_GetWishlist_Request) returns (.CWishlist_GetWishlist_Response);
+	rpc GetWishlistItemCount (.CWishlist_GetWishlistItemCount_Request) returns (.CWishlist_GetWishlistItemCount_Response);
 	rpc GetWishlistItemsOnSale (.CWishlist_GetWishlistItemsOnSale_Request) returns (.CWishlist_GetWishlistItemsOnSale_Response);
+	rpc GetWishlistSortedFiltered (.CWishlist_GetWishlistSortedFiltered_Request) returns (.CWishlist_GetWishlistSortedFiltered_Response);
+	rpc RemoveFromWishlist (.CWishlist_RemoveFromWishlist_Request) returns (.CWishlist_RemoveFromWishlist_Response);
 }
 

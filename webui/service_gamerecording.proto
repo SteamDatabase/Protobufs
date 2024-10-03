@@ -234,8 +234,9 @@ message CGameRecording_PerGameSettings {
 	optional fixed64 gameid = 1;
 	optional bool enabled = 2;
 	optional int32 minutes = 3;
-	optional int32 bitrate = 4;
-	//optional string bitrate = 4;
+	//optional uint32 minutes = 3;
+	optional string bitrate = 4;
+	optional bool infinite = 5;
 }
 
 message CGameRecording_PhaseListChanged_Notification {
