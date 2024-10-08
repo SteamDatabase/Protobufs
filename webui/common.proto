@@ -5275,6 +5275,13 @@ message CVRGamepadUI_Message_Error_Response {
 	optional int32 origin = 3 [(.description) = "enum"];
 }
 
+message CVRGamepadUI_Message_ExecuteSteamURL_Request {
+	optional string url = 1;
+}
+
+message CVRGamepadUI_Message_ExecuteSteamURL_Response {
+}
+
 message CVRGamepadUI_Message_Header {
 	optional string name = 1;
 	optional uint32 message_id = 2;
@@ -5353,6 +5360,13 @@ message CVRGamepadUI_Message_ShowGame_Request {
 }
 
 message CVRGamepadUI_Message_ShowGame_Response {
+}
+
+message CVRGamepadUI_Message_ShowOverlay_Request {
+	optional string overlay_key = 1;
+}
+
+message CVRGamepadUI_Message_ShowOverlay_Response {
 }
 
 // Used by: common.proto

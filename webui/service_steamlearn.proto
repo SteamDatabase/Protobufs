@@ -722,6 +722,7 @@ message CMsgSteamLearnModelNodeExtract {
 	optional string compact_table = 10;
 	optional string extracted_compact_table = 11;
 	optional uint32 recency_months = 12;
+	optional string fest_name = 13;
 }
 
 message CMsgSteamLearnModelNodeFlatten {
