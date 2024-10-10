@@ -379,6 +379,7 @@ message CCitadelUserMsg_HeroKilled {
 	repeated int32 entindex_assisters = 4;
 	optional int32 entindex_scorer = 5 [default = -1];
 	optional int32 respawn_reason = 6;
+	optional int32 victim_team_number = 7;
 }
 
 message CCitadelEntityMsg_BreakablePropSpawnDebris {
@@ -537,6 +538,7 @@ message CCitadelUserMsg_BossKilled {
 	optional uint32 entity_killer = 5 [default = 16777215];
 	optional float gametime = 6;
 	optional int32 bosses_remaining = 7;
+	optional .CMsgVector entity_position = 8;
 }
 
 message CCitadelUserMsg_BossDamaged {

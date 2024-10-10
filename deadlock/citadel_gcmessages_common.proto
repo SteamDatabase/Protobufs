@@ -129,6 +129,7 @@ enum EBannedFeature {
 	k_eBannedFeature_Invalid = 0;
 	k_eBannedFeature_LowPriorityMatchmaking = 1;
 	k_eBannedFeature_CommsRestricted = 2;
+	k_eBannedFeature_ReportingDisabled = 3;
 }
 
 enum EFeatureBanReason {
@@ -136,6 +137,7 @@ enum EFeatureBanReason {
 	k_eFeatureBanReason_DevCommand = 1;
 	k_eFeatureBanReason_PlayerReports = 2;
 	k_eFeatureBanReason_MatchAbandons = 3;
+	k_eFeatureBanReason_ExcessivePlayerReports = 4;
 }
 
 message CSOCitadelLobby {
@@ -225,6 +227,7 @@ message CSOCitadelParty {
 		optional bool is_publicly_visible = 6;
 		optional bool cheats_enabled = 7;
 		repeated .CSOCitadelParty.ServerRegion available_regions = 8;
+		optional bool duplicate_heroes_enabled = 9;
 	}
 
 	message Member {
@@ -570,4 +573,9 @@ message CMsgAccountBookStats {
 message CMsgAccountStats {
 	optional uint32 account_id = 1;
 	repeated .CMsgAccountHeroStats stats = 2;
+}
+
+message CMsgGCAccountData {
+	optional uint32 account_id = 1;
+	optional float cheater_report_score = 2;
 }

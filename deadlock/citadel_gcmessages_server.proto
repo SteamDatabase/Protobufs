@@ -125,6 +125,8 @@ message CSOCitadelServerStaticLobby {
 		repeated .CSOCitadelServerStaticLobby.EAwardIDs award_ids = 8;
 		optional bool is_comms_restricted = 9;
 		optional uint32 lane_id = 10;
+		optional uint32 ranked_badge_level = 11;
+		optional uint32 ranked_badge_detail = 12;
 	}
 
 	message DevSettings {
@@ -153,6 +155,7 @@ message CSOCitadelServerStaticLobby {
 	optional bool low_pri_pool = 19;
 	optional bool is_restricted_access = 20;
 	optional bool cheats_enabled = 21;
+	optional bool duplicate_heroes_enabled = 22;
 }
 
 message CMsgServerSignoutData_ServerPerfStats {
@@ -390,6 +393,7 @@ message CMsgServerSignoutData_PenalizedPlayers {
 	enum EPenaltyReason {
 		k_EPenaltyReason_Abandon = 0;
 		k_EPenaltyReason_DisconnectedTooLong = 1;
+		k_EPenaltyReason_AFK = 2;
 	}
 
 	repeated .CMsgServerSignoutData_PenalizedPlayers.Penalty penalized_players = 1;
@@ -449,6 +453,7 @@ message CMsgMatchData {
 		optional uint32 abandon_time_stamp = 42;
 		optional uint32 trooper_kill_excluded = 43;
 		optional uint32 hero_bullets_lucky_shots = 44;
+		optional uint32 hero_build_id = 45;
 	}
 
 	enum EEndReason {
