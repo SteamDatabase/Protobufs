@@ -267,6 +267,7 @@ message CMsgClientToGCStartMatchmakingResponse {
 		k_EResult_RankedNotUnlocked = 17;
 		k_EResult_NoRankedWhileInLowPri = 18;
 		k_EResult_NoRankedWhileCommsBanned = 19;
+		k_EResult_NoRankedWhileReportBanned = 20;
 	}
 
 	optional .CMsgClientToGCStartMatchmakingResponse.EResultCode result = 1 [default = k_EResult_OK];
