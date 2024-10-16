@@ -38,6 +38,7 @@ message CPartnerDeadline_GetDeadlinesForPartner_Request {
 	optional uint32 start_date = 2;
 	optional uint32 end_date = 3;
 	optional bool include_complete = 4;
+	repeated .CPartnerDeadlineLookUpKey lookup_key = 5;
 }
 
 message CPartnerDeadline_GetDeadlinesForPartner_Response {
@@ -47,6 +48,16 @@ message CPartnerDeadline_GetDeadlinesForPartner_Response {
 message CPartnerDeadline_GetDeadlinesForPartner_Response_Result {
 	optional fixed64 deadlineid = 1;
 	optional .CPartnerDeadline data = 2;
+}
+
+message CPartnerDeadlineLookUpKey {
+	optional fixed64 deadlineid = 1;
+	optional uint32 partnerid = 2;
+	optional int32 type = 3 [(.description) = "enum"];
+	optional fixed64 gid = 4;
+	optional int32 store_item_type = 5 [(.description) = "enum"];
+	optional uint32 store_item_id = 6;
+	optional uint32 discount_event_id = 7;
 }
 
 service PartnerDeadline {
