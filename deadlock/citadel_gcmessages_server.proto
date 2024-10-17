@@ -615,6 +615,8 @@ message CMsgServerToGCReportCheater {
 	optional uint64 match_id = 2;
 	optional fixed64 lobby_id = 3;
 	optional string reason = 4;
+	optional bool record_data_only = 5;
+	optional float cheater_score = 6;
 }
 
 message CMsgServerToGCReportCheaterResponse {
