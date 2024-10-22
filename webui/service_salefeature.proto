@@ -78,7 +78,6 @@ message CGlobalPlaytimeDistribution {
 message CMonthlyPlaytimeStats {
 	optional uint32 rtime_month = 1;
 	optional .CPlaytimeStats stats = 2;
-	optional .CPlaytimeStreak playtime_streak = 3;
 	repeated .CGamePlaytimeStats appid = 4;
 	optional .CPlaytimeStats relative_monthly_stats = 5;
 	repeated .CSimpleGameSummary game_summary = 6;

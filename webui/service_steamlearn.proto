@@ -476,6 +476,7 @@ message CMsgSteamLearn_PublishProject_Request {
 
 message CMsgSteamLearn_PublishProject_Response {
 	optional int32 result = 1 [(.description) = "enum"];
+	optional uint32 new_published_version = 2;
 }
 
 message CMsgSteamLearn_RegisterDataSource_Request {
@@ -621,6 +622,8 @@ message CMsgSteamLearnDataSourceElementUsage {
 	optional uint32 sequence_table_count = 13;
 	optional bool sort_sequence = 14;
 	optional uint32 sequence_min_length = 15;
+	optional bool table_full_sample = 16;
+	optional float sequence_prefix_frequency = 17;
 }
 
 message CMsgSteamLearnFetchInfo {

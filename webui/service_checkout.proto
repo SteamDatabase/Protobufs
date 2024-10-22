@@ -1,5 +1,15 @@
 import "common.proto";
 
+message CCheckout_AddFreeLicense_Request {
+	optional .StoreItemID item_id = 1;
+}
+
+message CCheckout_AddFreeLicense_Response {
+	repeated uint32 packageids_added = 1;
+	repeated uint32 appids_added = 2;
+	optional uint32 purchase_result_detail = 3;
+}
+
 message CCheckout_GetFriendOwnershipForGifting_Request {
 	repeated .StoreItemID item_ids = 1;
 }
@@ -86,6 +96,7 @@ message CCheckout_ValidateCart_Response_EstimatedTotals {
 }
 
 service Checkout {
+	rpc AddFreeLicense (.CCheckout_AddFreeLicense_Request) returns (.CCheckout_AddFreeLicense_Response);
 	rpc GetFriendOwnershipForGifting (.CCheckout_GetFriendOwnershipForGifting_Request) returns (.CCheckout_GetFriendOwnershipForGifting_Response);
 	rpc ValidateCart (.CCheckout_ValidateCart_Request) returns (.CCheckout_ValidateCart_Response);
 }

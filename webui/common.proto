@@ -5571,6 +5571,7 @@ message StoreItem {
 	optional .StoreItem_ReleaseInfo release = 31;
 	optional .StoreItem_Platforms platforms = 32;
 	optional .StoreGameRating game_rating = 33;
+	optional bool is_coming_soon = 34;
 	optional .StoreItem_PurchaseOption best_purchase_option = 40;
 	repeated .StoreItem_PurchaseOption purchase_options = 41;
 	repeated .StoreItem_PurchaseOption accessories = 42;
@@ -5686,6 +5687,7 @@ message StoreItem_PurchaseOption {
 	optional int32 discount_pct = 10;
 	optional int32 user_discount_pct = 11;
 	optional int32 bundle_discount_pct = 12;
+	optional bool is_free_to_keep = 13;
 	repeated .StoreItem_PurchaseOption_Discount active_discounts = 20;
 	repeated .StoreItem_PurchaseOption_Discount user_active_discounts = 21;
 	repeated .StoreItem_PurchaseOption_Discount inactive_discounts = 22;
