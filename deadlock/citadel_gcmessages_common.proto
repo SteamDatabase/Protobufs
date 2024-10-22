@@ -473,6 +473,8 @@ message CMsgMatchMetaDataContents {
 		repeated float stats_type_stat = 21 [packed = true];
 		repeated .CMsgMatchMetaDataContents.BookReward book_rewards = 22;
 		optional uint32 abandon_match_time_s = 23;
+		optional uint32 ranked_badge_level = 24;
+		optional uint32 ranked_badge_detail = 25;
 	}
 
 	message Objective {

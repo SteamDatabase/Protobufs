@@ -106,6 +106,9 @@ enum EGCCitadelClientMessages {
 	k_EMsgGCToClientRankedSchedule = 9220;
 	k_EMsgClientToGCSetRankedSchedule = 9221;
 	k_EMsgClientToGCSetRankedScheduleResponse = 9222;
+	k_EMsgClientToGCCommendPlayerFromMatch = 9223;
+	k_EMsgClientToGCCommendPlayerFromMatchResponse = 9224;
+	k_EMsgGCToClientCommendNotification = 9225;
 }
 
 enum ECitadelAccountPermissionFlag {
@@ -180,6 +183,13 @@ enum ECitadelClientAccountEvent {
 	k_eViewedGuidePage_60s = 53;
 	k_eOpenedBookTest = 54;
 	k_eSandboxViaHeroPage = 55;
+}
+
+enum ECommendType {
+	k_eInvalid = 0;
+	k_eFriendly = 1;
+	k_eTeamwork = 2;
+	k_eSkilled = 3;
 }
 
 message CSOGameAccountClient {
@@ -724,6 +734,7 @@ message CMsgClientToGCDevSetMMBias {
 message CMsgClientToGCGetMatchHistory {
 	optional uint32 account_id = 1;
 	optional uint64 continue_cursor = 2;
+	optional uint32 ranked_interval = 3;
 }
 
 message CMsgClientToGCGetMatchHistoryResponse {
@@ -745,6 +756,8 @@ message CMsgClientToGCGetMatchHistoryResponse {
 		optional uint64 objectives_mask_team1 = 16;
 		optional bool team_abandoned = 17;
 		optional uint32 abandoned_time_s = 18;
+		optional .ECitadelMatchMode match_mode = 19 [default = k_ECitadelMatchMode_Invalid];
+		optional .ECitadelGameMode game_mode = 20 [default = k_ECitadelGameMode_Invalid];
 	}
 
 	enum EResult {
@@ -839,6 +852,7 @@ message CMsgCitadelProfileCard {
 
 	optional uint32 account_id = 1;
 	repeated .CMsgCitadelProfileCard.Slot slots = 2;
+	optional uint32 ranked_badge_level = 3;
 }
 
 message CMsgClientToGCUpdateRoster {
@@ -1314,6 +1328,10 @@ message CMsgClientToGCGetAccountMatchReportsResponse {
 		optional uint32 account_id = 1;
 	}
 
+	message Commend {
+		optional uint32 account_id = 1;
+	}
+
 	enum EResponse {
 		k_eInternalError = 0;
 		k_eSuccess = 1;
@@ -1323,6 +1341,7 @@ message CMsgClientToGCGetAccountMatchReportsResponse {
 
 	optional .CMsgClientToGCGetAccountMatchReportsResponse.EResponse response = 1 [default = k_eInternalError];
 	repeated .CMsgClientToGCGetAccountMatchReportsResponse.Report reports = 2;
+	repeated .CMsgClientToGCGetAccountMatchReportsResponse.Commend commends = 3;
 }
 
 message CMsgClientToGCDeleteHeroBuild {
@@ -1430,4 +1449,30 @@ message CMsgClientToGCSetRankedScheduleResponse {
 	}
 
 	optional .CMsgClientToGCSetRankedScheduleResponse.EResult result = 1 [default = k_eInternalError];
+}
+
+message CMsgClientToGCCommendPlayerFromMatch {
+	optional uint64 match_id = 1;
+	optional uint32 target_account_id = 2;
+	optional uint32 commender_hero_id = 3;
+	optional .ECommendType commend_type = 4 [default = k_eInvalid];
+}
+
+message CMsgClientToGCCommendPlayerFromMatchResponse {
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eDisabled = 2;
+		k_eTooBusy = 3;
+		k_eRateLimited = 4;
+	}
+
+	optional .CMsgClientToGCCommendPlayerFromMatchResponse.EResponse result = 1 [default = k_eInternalError];
+}
+
+message CMsgGCToClientCommendNotification {
+	optional uint32 commender_account_id = 1;
+	optional string commender_name = 2;
+	optional uint32 commender_hero_id = 4;
+	optional .ECommendType commend_type = 5 [default = k_eInvalid];
 }
