@@ -104,11 +104,12 @@ enum EGCCitadelClientMessages {
 	k_EMsgClientToGCGetOldHeroBuildDataResponse = 9218;
 	k_EMsgClientToGCUpdateSpectatorStatus = 9219;
 	k_EMsgGCToClientRankedSchedule = 9220;
-	k_EMsgClientToGCSetRankedSchedule = 9221;
-	k_EMsgClientToGCSetRankedScheduleResponse = 9222;
 	k_EMsgClientToGCCommendPlayerFromMatch = 9223;
 	k_EMsgClientToGCCommendPlayerFromMatchResponse = 9224;
 	k_EMsgGCToClientCommendNotification = 9225;
+	k_EMsgClientToGCGetRankedIntervalStats = 9226;
+	k_EMsgClientToGCGetRankedIntervalStatsResponse = 9227;
+	k_EMsgGCToClientHeroLabsSchedule = 9228;
 }
 
 enum ECitadelAccountPermissionFlag {
@@ -187,9 +188,10 @@ enum ECitadelClientAccountEvent {
 
 enum ECommendType {
 	k_eInvalid = 0;
-	k_eFriendly = 1;
-	k_eTeamwork = 2;
-	k_eSkilled = 3;
+	k_eGeneric = 1;
+	k_eFriendly = 2;
+	k_eTeamwork = 3;
+	k_eSkilled = 4;
 }
 
 message CSOGameAccountClient {
@@ -216,12 +218,10 @@ message CSOGameAccountClient {
 	optional uint32 low_priority_games_remaining = 12;
 	optional uint32 report_ban_until = 13;
 	optional uint32 ranked_badge_level = 14;
-	optional uint32 ranked_badge_detail = 15;
 	optional uint32 ranked_badge_interval = 16;
 	optional uint32 ranked_matches = 17;
 	optional uint32 ranked_interval = 18;
-	optional uint32 ranked_schedule = 19;
-	optional uint32 ranked_schedule_time = 20;
+	optional uint32 hero_labs_matches_since_test_hero = 21;
 }
 
 message CSOAccountSyncStorage {
@@ -278,6 +278,9 @@ message CMsgClientToGCStartMatchmakingResponse {
 		k_EResult_NoRankedWhileInLowPri = 18;
 		k_EResult_NoRankedWhileCommsBanned = 19;
 		k_EResult_NoRankedWhileReportBanned = 20;
+		k_EResult_HeroLabsMMNotOpen = 21;
+		k_EResult_HeroLabsNotUnlocked = 22;
+		k_EResult_NoHeroLabsWhileInLowPri = 23;
 	}
 
 	optional .CMsgClientToGCStartMatchmakingResponse.EResultCode result = 1 [default = k_EResult_OK];
@@ -347,6 +350,8 @@ message CMsgDevMatchInfo {
 	optional .ECitadelGameMode game_mode = 17 [default = k_ECitadelGameMode_Invalid];
 	optional uint32 match_score = 18;
 	optional .ECitadelRegionMode region_mode = 19 [default = k_ECitadelRegionMode_ROW];
+	optional uint32 compat_version = 20;
+	optional uint32 ranked_badge_level = 21;
 }
 
 message CMsgGCToClientRankedSchedule {
@@ -360,13 +365,29 @@ message CMsgGCToClientRankedSchedule {
 		repeated .CMsgGCToClientRankedSchedule.TimeRange weekends = 2;
 		repeated .CMsgGCToClientRankedSchedule.TimeRange weekdays = 3;
 		optional bool is_open = 4;
-		repeated .ECitadelRegionMode regions = 5;
 	}
 
 	repeated .CMsgGCToClientRankedSchedule.Schedule schedules = 1;
 	optional uint32 active_ranked_interval = 2;
 	optional uint32 active_interval_start = 3;
 	optional uint32 active_interval_end = 4;
+}
+
+message CMsgGCToClientHeroLabsSchedule {
+	message TimeRange {
+		optional int32 start_time = 1;
+		optional int32 end_time = 2;
+	}
+
+	message Schedule {
+		optional uint32 schedule_id = 1;
+		repeated .CMsgGCToClientHeroLabsSchedule.TimeRange weekends = 2;
+		repeated .CMsgGCToClientHeroLabsSchedule.TimeRange weekdays = 3;
+		optional bool is_open = 4;
+		repeated .ECitadelRegionMode regions = 5;
+	}
+
+	repeated .CMsgGCToClientHeroLabsSchedule.Schedule schedules = 1;
 }
 
 message CMsgGCToClientDevPlaytestStatus {
@@ -590,6 +611,10 @@ message CMsgClientToGCPartySetModeResponse {
 		k_eFiveStacksNotAllowed = 18;
 		k_eRankedMMNotOpen = 19;
 		k_eRankedNotunlocked = 20;
+		k_eHeroLabsMMNotOpen = 21;
+		k_eHeroLabsNotUnlocked = 22;
+		k_eNoHeroLabsWhileInLowPri = 23;
+		k_eNoHighRangeFiveStack = 24;
 	}
 
 	optional .CMsgClientToGCPartySetModeResponse.EResponse result = 1 [default = k_eInternalError];
@@ -630,6 +655,9 @@ message CMsgClientToGCPartyStartMatchResponse {
 		k_eInvalidGroupHeroLineup = 26;
 		k_eUnassignedPlayers = 27;
 		k_eRankedMMNotOpen = 28;
+		k_eHeroLabsMMNotOpen = 29;
+		k_eHeroLabsNotUnlocked = 30;
+		k_eNoHeroLabsWhileInLowPri = 31;
 	}
 
 	optional .CMsgClientToGCPartyStartMatchResponse.EResponse result = 1 [default = k_eInternalError];
@@ -1434,28 +1462,10 @@ message CMsgClientToGCUpdateSpectatorStatus {
 	optional bool stopped_spectating = 2;
 }
 
-message CMsgClientToGCSetRankedSchedule {
-	optional .ECitadelRegionMode region_mode = 1 [default = k_ECitadelRegionMode_ROW];
-	optional uint32 schedule = 2;
-}
-
-message CMsgClientToGCSetRankedScheduleResponse {
-	enum EResult {
-		k_eInternalError = 0;
-		k_eSuccess = 1;
-		k_eInCooldown = 2;
-		k_eInvalidValue = 3;
-		k_eRankedNotUnlocked = 4;
-	}
-
-	optional .CMsgClientToGCSetRankedScheduleResponse.EResult result = 1 [default = k_eInternalError];
-}
-
 message CMsgClientToGCCommendPlayerFromMatch {
 	optional uint64 match_id = 1;
 	optional uint32 target_account_id = 2;
-	optional uint32 commender_hero_id = 3;
-	optional .ECommendType commend_type = 4 [default = k_eInvalid];
+	optional .ECommendType commend_type = 3 [default = k_eInvalid];
 }
 
 message CMsgClientToGCCommendPlayerFromMatchResponse {
@@ -1475,4 +1485,31 @@ message CMsgGCToClientCommendNotification {
 	optional string commender_name = 2;
 	optional uint32 commender_hero_id = 4;
 	optional .ECommendType commend_type = 5 [default = k_eInvalid];
+}
+
+message CMsgClientToGCGetRankedIntervalStats {
+	optional uint32 account_id = 1;
+	optional uint32 target_interval_id = 2;
+}
+
+message CMsgClientToGCGetRankedIntervalStatsResponse {
+	message RankedInterval {
+		optional uint32 interval_id = 1;
+		optional uint32 matches_played = 2;
+		optional uint32 badge_level = 3;
+		optional uint32 start_time = 5;
+		optional uint32 end_time = 6;
+	}
+
+	enum EResponse {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eDisabled = 2;
+		k_eTooBusy = 3;
+		k_eRateLimited = 4;
+		k_eInvalidPermission = 5;
+	}
+
+	optional .CMsgClientToGCGetRankedIntervalStatsResponse.EResponse result = 1 [default = k_eInternalError];
+	repeated .CMsgClientToGCGetRankedIntervalStatsResponse.RankedInterval intervals = 2;
 }

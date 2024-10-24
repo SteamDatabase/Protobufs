@@ -22,6 +22,7 @@ enum ECitadelMatchMode {
 	k_ECitadelMatchMode_Ranked = 4;
 	k_ECitadelMatchMode_ServerTest = 5;
 	k_ECitadelMatchMode_Tutorial = 6;
+	k_ECitadelMatchMode_HeroLabs = 7;
 }
 
 enum ECitadelLobbyTeam {
@@ -154,6 +155,7 @@ message CSOCitadelLobby {
 	optional bytes sdr_address = 12;
 	optional uint32 server_version = 13;
 	optional bool safe_to_abandon = 14;
+	optional bool match_punishes_abandons = 15;
 }
 
 message CLobbyData_PostMatchSurvey {
@@ -474,7 +476,6 @@ message CMsgMatchMetaDataContents {
 		repeated .CMsgMatchMetaDataContents.BookReward book_rewards = 22;
 		optional uint32 abandon_match_time_s = 23;
 		optional uint32 ranked_badge_level = 24;
-		optional uint32 ranked_badge_detail = 25;
 	}
 
 	message Objective {
