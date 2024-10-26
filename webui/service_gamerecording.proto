@@ -84,23 +84,6 @@ message CGameRecording_ExportProgress_Notification {
 	optional int32 eresult = 3;
 }
 
-message CGameRecording_GetActiveTimelineApps_Request {
-}
-
-message CGameRecording_GetActiveTimelineApps_Response {
-	repeated .CGameRecording_GetActiveTimelineApps_Response_App apps = 1;
-}
-
-message CGameRecording_GetActiveTimelineApps_Response_App {
-	optional uint64 game_id = 1;
-	optional uint32 most_recent_start_time = 2;
-	optional int32 recording_type = 3 [(.description) = "enum"];
-	optional double video_duration_seconds = 4;
-	optional double timeline_duration_seconds = 5;
-	optional bool is_active = 6;
-	optional uint64 file_size = 7;
-}
-
 message CGameRecording_GetAndTrimPostGameHighlights_Request {
 	optional uint64 game_id = 1;
 	optional uint32 created_after = 2;
@@ -535,7 +518,6 @@ service GameRecording {
 	rpc DeletePerGameSettings (.CGameRecording_DeletePerGameSettings_Request) returns (.CGameRecording_DeletePerGameSettings_Response);
 	rpc ExportClip (.CGameRecording_ExportClip_Request) returns (.CGameRecording_ExportClip_Response);
 	rpc ExportClipPreview (.CGameRecording_ExportClipPreview_Request) returns (.CGameRecording_ExportClipPreview_Response);
-	rpc GetActiveTimelineApps (.CGameRecording_GetActiveTimelineApps_Request) returns (.CGameRecording_GetActiveTimelineApps_Response);
 	rpc GetAndTrimPostGameHighlights (.CGameRecording_GetAndTrimPostGameHighlights_Request) returns (.CGameRecording_GetAndTrimPostGameHighlights_Response);
 	rpc GetAppsWithBackgroundVideo (.CGameRecording_GetAppsWithBackgroundVideo_Request) returns (.CGameRecording_GetAppsWithBackgroundVideo_Response);
 	rpc GetAvailableDiskSpace (.CGameRecording_GetAvailableDiskSpace_Request) returns (.CGameRecording_GetAvailableDiskSpace_Response);

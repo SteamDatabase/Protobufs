@@ -2754,6 +2754,8 @@ message CMsgClientSettings {
 	optional string gamerecording_export_directory = 18223;
 	optional int32 gamerecording_export_codec = 18224 [(.description) = "enum"];
 	optional int32 gamerecording_video_maxheight = 18225;
+	optional bool gamerecording_force_mic_mono = 18226;
+	optional bool gamerecording_automatic_gain_control = 18227;
 	optional bool show_timestamps_in_console = 20000;
 	optional bool force_oobe = 20001;
 	optional int32 override_browser_composer_mode = 20002;
