@@ -169,6 +169,22 @@ message CSaleFeature_GetFriendsSharedYearInReview_Response {
 	optional uint32 year = 2;
 }
 
+message CSaleFeature_GetMultipleUserActionData_Request {
+	optional fixed64 steamid = 1;
+	repeated fixed64 gids = 2;
+	optional int32 type = 3 [(.description) = "enum"];
+}
+
+message CSaleFeature_GetMultipleUserActionData_Response {
+	repeated .CSaleFeature_GetMultipleUserActionData_Response_Entry entries = 1;
+}
+
+message CSaleFeature_GetMultipleUserActionData_Response_Entry {
+	optional fixed64 gid = 1;
+	optional string jsondata = 2;
+	optional fixed64 steamid = 3;
+}
+
 message CSaleFeature_GetUpdateProcessingProgress_Request {
 	optional uint32 year = 1;
 }
@@ -283,16 +299,6 @@ message CSaleFeature_GetYIRCurrentMonthlySummary_Response {
 	optional uint32 screenshots = 9;
 }
 
-message CSaleFeature_SetUserActionData_Request {
-	optional fixed64 steamid = 1;
-	optional fixed64 gid = 2;
-	optional int32 type = 3 [(.description) = "enum"];
-	optional string jsondata = 4;
-}
-
-message CSaleFeature_SetUserActionData_Response {
-}
-
 message CSaleFeature_SetUserSharingPermissions_Request {
 	optional fixed64 steamid = 1;
 	optional uint32 year = 2;
@@ -358,6 +364,7 @@ message CYearInReviewPerformanceStats {
 
 service SaleFeature {
 	rpc GetFriendsSharedYearInReview (.CSaleFeature_GetFriendsSharedYearInReview_Request) returns (.CSaleFeature_GetFriendsSharedYearInReview_Response);
+	rpc GetMultipleUserActionData (.CSaleFeature_GetMultipleUserActionData_Request) returns (.CSaleFeature_GetMultipleUserActionData_Response);
 	rpc GetUpdateProcessingProgress (.CSaleFeature_GetUpdateProcessingProgress_Request) returns (.CSaleFeature_GetUpdateProcessingProgress_Response);
 	rpc GetUserActionData (.CSaleFeature_GetUserActionData_Request) returns (.CSaleFeature_GetUserActionData_Response);
 	rpc GetUserSharingPermissions (.CSaleFeature_GetUserSharingPermissions_Request) returns (.CSaleFeature_GetUserSharingPermissions_Response);
@@ -366,7 +373,6 @@ service SaleFeature {
 	rpc GetUserYearInReviewShareImage (.CSaleFeature_GetUserYearInReviewShareImage_Request) returns (.CSaleFeature_GetUserYearInReviewShareImage_Response);
 	rpc GetUserYearScreenshots (.CSaleFeature_GetUserYearScreenshots_Request) returns (.CSaleFeature_GetUserYearScreenshots_Response);
 	rpc GetYIRCurrentMonthlySummary (.CSaleFeature_GetYIRCurrentMonthlySummary_Request) returns (.CSaleFeature_GetYIRCurrentMonthlySummary_Response);
-	rpc SetUserActionData (.CSaleFeature_SetUserActionData_Request) returns (.CSaleFeature_SetUserActionData_Response);
 	rpc SetUserSharingPermissions (.CSaleFeature_SetUserSharingPermissions_Request) returns (.CSaleFeature_SetUserSharingPermissions_Response);
 }
 

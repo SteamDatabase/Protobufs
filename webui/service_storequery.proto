@@ -62,6 +62,7 @@ message CStoreQueryFilters {
 	optional bool released_only = 1;
 	optional bool coming_soon_only = 2;
 	optional .CStoreQueryFilters_TypeFilters type_filters = 3;
+	repeated int32 exclude_from = 4 [(.description) = "enum"];
 	repeated .CStoreQueryFilters_TagFilter tagids_must_match = 10;
 	repeated int32 tagids_exclude = 11;
 	optional .CStoreQueryFilters_PriceFilters price_filters = 12;
@@ -78,6 +79,7 @@ message CStoreQueryFilters {
 message CStoreQueryFilters_PriceFilters {
 	optional bool only_free_items = 1;
 	optional bool exclude_free_items = 2;
+	optional int32 min_discount_percent = 3;
 }
 
 message CStoreQueryFilters_TagFilter {

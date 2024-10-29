@@ -1,0 +1,61 @@
+
+message CPartnerMeetSteam_EmailInvitees_Request {
+	optional fixed64 clan_event_gid = 1;
+	optional fixed64 steamid = 2;
+}
+
+message CPartnerMeetSteam_EmailInvitees_Response {
+	optional uint32 num_emailed = 1;
+	optional uint32 num_skipped = 2;
+}
+
+message CPartnerMeetSteam_GetAvailability_Request {
+	optional fixed64 clan_event_gid = 1;
+}
+
+message CPartnerMeetSteam_GetAvailability_Response {
+	repeated .CPartnerMeetSteam_GetAvailability_Response_Session availability = 1;
+}
+
+message CPartnerMeetSteam_GetAvailability_Response_Session {
+	optional uint32 group_id = 1;
+	optional uint32 session_id = 2;
+	optional uint32 guest_count = 3;
+}
+
+message CPartnerMeetSteam_GetRegistrations_Request {
+	optional fixed64 clan_event_gid = 1;
+	optional fixed64 steamid = 2;
+}
+
+message CPartnerMeetSteam_GetRegistrations_Response {
+	repeated .CPartnerMeetSteam_GetRegistrations_Response_Registration registrations = 1;
+}
+
+message CPartnerMeetSteam_GetRegistrations_Response_Registration {
+	optional uint32 group_id = 1;
+	optional uint32 session_id = 2;
+	optional fixed64 steamid = 3;
+	optional uint32 guests_registered = 4;
+	optional string jsondata = 5;
+}
+
+message CPartnerMeetSteam_UpdateRegistration_Request {
+	optional fixed64 clan_event_gid = 1;
+	optional fixed64 steamid = 2;
+	optional uint32 registration_group_id = 3;
+	optional uint32 registration_session_id = 4;
+	optional uint32 guest_count = 5;
+	optional string jsondata = 7;
+}
+
+message CPartnerMeetSteam_UpdateRegistration_Response {
+}
+
+service PartnerMeetSteam {
+	rpc EmailInvitees (.CPartnerMeetSteam_EmailInvitees_Request) returns (.CPartnerMeetSteam_EmailInvitees_Response);
+	rpc GetAvailability (.CPartnerMeetSteam_GetAvailability_Request) returns (.CPartnerMeetSteam_GetAvailability_Response);
+	rpc GetRegistrations (.CPartnerMeetSteam_GetRegistrations_Request) returns (.CPartnerMeetSteam_GetRegistrations_Response);
+	rpc UpdateRegistration (.CPartnerMeetSteam_UpdateRegistration_Request) returns (.CPartnerMeetSteam_UpdateRegistration_Response);
+}
+

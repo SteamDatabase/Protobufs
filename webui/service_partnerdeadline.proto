@@ -13,6 +13,7 @@ message CPartnerDeadline {
 	optional string description_jsondata = 10;
 	optional uint64 required_rights = 11;
 	optional bool send_email_on_creation = 12;
+	optional uint32 accountid = 13;
 }
 
 message CPartnerDeadline_GetDeadlineByTimeRange_Request {
@@ -39,6 +40,7 @@ message CPartnerDeadline_GetDeadlinesForPartner_Request {
 	optional uint32 end_date = 3;
 	optional bool include_complete = 4;
 	repeated .CPartnerDeadlineLookUpKey lookup_key = 5;
+	optional uint32 accountid = 6;
 }
 
 message CPartnerDeadline_GetDeadlinesForPartner_Response {
@@ -58,6 +60,7 @@ message CPartnerDeadlineLookUpKey {
 	optional int32 store_item_type = 5 [(.description) = "enum"];
 	optional uint32 store_item_id = 6;
 	optional uint32 discount_event_id = 7;
+	optional uint32 accountid = 8;
 }
 
 service PartnerDeadline {

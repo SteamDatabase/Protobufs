@@ -156,6 +156,15 @@ message CCommunity_GetClanAnnouncementVoteForUser_Response {
 	optional bool voted_down = 2;
 }
 
+message CCommunity_GetClanCrowdInMetadata_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CCommunity_GetClanCrowdInMetadata_Response {
+	optional uint64 crowdin_project_id = 1;
+	optional uint64 crowdin_directory_id = 2;
+}
+
 message CCommunity_GetClanEventCrowdInMetadata_Request {
 	optional fixed64 steamid = 1;
 	optional uint64 itemid = 2;
@@ -360,6 +369,7 @@ service Community {
 	rpc GetAvatarHistory (.CCommunity_GetAvatarHistory_Request) returns (.CCommunity_GetAvatarHistory_Response);
 	rpc GetBestEventsForUser (.CCommunity_GetBestEventsForUser_Request) returns (.CCommunity_GetBestEventsForUser_Response);
 	rpc GetClanAnnouncementVoteForUser (.CCommunity_GetClanAnnouncementVoteForUser_Request) returns (.CCommunity_GetClanAnnouncementVoteForUser_Response);
+	rpc GetClanCrowdInMetadata (.CCommunity_GetClanCrowdInMetadata_Request) returns (.CCommunity_GetClanCrowdInMetadata_Response);
 	rpc GetClanEventCrowdInMetadata (.CCommunity_GetClanEventCrowdInMetadata_Request) returns (.CCommunity_GetClanEventCrowdInMetadata_Response);
 	rpc GetCommentThread (.CCommunity_GetCommentThread_Request) returns (.CCommunity_GetCommentThread_Response);
 	rpc GetCommentThreadRatings (.CCommunity_GetCommentThreadRatings_Request) returns (.CCommunity_GetCommentThreadRatings_Response);
