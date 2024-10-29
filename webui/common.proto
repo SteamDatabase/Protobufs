@@ -574,6 +574,7 @@ message CClientNotificationGameRecordingError {
 message CClientNotificationGameRecordingInstantClip {
 	optional fixed64 game_id = 1;
 	optional string clip_id = 2;
+	optional float duration_secs = 3;
 }
 
 message CClientNotificationGameRecordingStart {
@@ -583,6 +584,7 @@ message CClientNotificationGameRecordingStart {
 message CClientNotificationGameRecordingStop {
 	optional fixed64 game_id = 1;
 	optional string clip_id = 2;
+	optional float duration_secs = 3;
 }
 
 message CClientNotificationGameRecordingUserMarkerAdded {
