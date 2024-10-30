@@ -52,6 +52,7 @@ enum CitadelUserMessageIds {
 	k_EUserMsg_TeamMsg = 352;
 	k_EUserMsg_PlayerRespawned = 353;
 	k_EUserMsg_CallCheaterVote = 354;
+	k_EUserMsg_MeleeHit = 355;
 }
 
 enum CitadelEntityMessageIds {
@@ -577,4 +578,9 @@ message CCitadelUserMsg_PlayerRespawned {
 
 message CCitadelUserMsg_CallCheaterVote {
 	required int32 player_slot = 1 [default = -1];
+}
+
+message CCitadelUserMessage_MeleeHit {
+	optional int32 hit_entindex = 1 [default = -1];
+	optional bool heavy = 2;
 }
