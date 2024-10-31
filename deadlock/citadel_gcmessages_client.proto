@@ -1466,6 +1466,7 @@ message CMsgClientToGCCommendPlayerFromMatch {
 	optional uint64 match_id = 1;
 	optional uint32 target_account_id = 2;
 	optional .ECommendType commend_type = 3 [default = k_eInvalid];
+	optional uint32 fake_commend_hero_id = 4;
 }
 
 message CMsgClientToGCCommendPlayerFromMatchResponse {
