@@ -110,6 +110,10 @@ enum EGCCitadelClientMessages {
 	k_EMsgClientToGCGetRankedIntervalStats = 9226;
 	k_EMsgClientToGCGetRankedIntervalStatsResponse = 9227;
 	k_EMsgGCToClientHeroLabsSchedule = 9228;
+	k_EMsgClientToGCDevRequestCheatReports = 9230;
+	k_EMsgClientToGCDevRequestCheatReportsResponse = 9231;
+	k_EMsgClientToGCDevBan = 9232;
+	k_EMsgClientToGCDevBanResponse = 9233;
 }
 
 enum ECitadelAccountPermissionFlag {
@@ -1004,6 +1008,7 @@ message CMsgClientToGCDevAction {
 		k_eBookReset = 9;
 		k_eBookXPGrant = 10;
 		k_eBanAccount = 11;
+		k_eExonerateAccount = 12;
 	}
 
 	optional .CMsgClientToGCDevAction.EAction action = 1 [default = k_eSetDeveloper];
@@ -1513,4 +1518,47 @@ message CMsgClientToGCGetRankedIntervalStatsResponse {
 
 	optional .CMsgClientToGCGetRankedIntervalStatsResponse.EResponse result = 1 [default = k_eInternalError];
 	repeated .CMsgClientToGCGetRankedIntervalStatsResponse.RankedInterval intervals = 2;
+}
+
+message CMsgClientToGCRequestCheatReports {
+}
+
+message CMsgClientToGCRequestCheatReportsResponse {
+	message RecentCheatReport {
+		optional uint32 account_id = 1;
+		optional uint64 match_id = 2;
+		optional uint32 hero_id = 3;
+	}
+
+	enum EResult {
+		k_eSuccess = 0;
+		k_eInvalidPermission = 1;
+		k_eInternalError = 2;
+	}
+
+	optional .CMsgClientToGCRequestCheatReportsResponse.EResult result = 1 [default = k_eSuccess];
+	repeated .CMsgClientToGCRequestCheatReportsResponse.RecentCheatReport cheat_reports = 2;
+}
+
+message CMsgClientToGCDevBan {
+	enum EBanReason {
+		k_eAimAssist = 0;
+		k_eVisionAssist = 1;
+		k_eMovementAssist = 2;
+	}
+
+	optional uint32 account_id = 1;
+	optional uint64 match_id = 2;
+	optional .CMsgClientToGCDevBan.EBanReason reason_code = 3 [default = k_eAimAssist];
+	optional string str_reason = 4;
+}
+
+message CMsgClientToGCDevBanResponse {
+	enum EResult {
+		k_eSuccess = 0;
+		k_eInvalidPermission = 1;
+		k_eInternalError = 2;
+	}
+
+	optional .CMsgClientToGCDevBanResponse.EResult result = 1 [default = k_eSuccess];
 }
