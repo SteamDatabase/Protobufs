@@ -132,6 +132,13 @@ enum EProfileCardSlotType {
 	k_EProfileCardSlotType_Hero = 2;
 }
 
+enum EDevBanReason {
+	k_eDevBanReason_Unspecified = 0;
+	k_eDevBanReason_AimAssist = 1;
+	k_eDevBanReason_VisionAssist = 2;
+	k_eDevBanReason_MovementAssist = 3;
+}
+
 enum ECitadelClientAccountEvent {
 	k_eLaunchedHeroTest = 1;
 	k_eViewedProfile = 2;
@@ -1017,6 +1024,7 @@ message CMsgClientToGCDevAction {
 	optional int32 int_value = 4;
 	optional bool bool_value = 5;
 	optional string str_value = 6;
+	optional uint64 match_id = 7;
 }
 
 message CMsgClientToGCDevActionResponse {
@@ -1538,27 +1546,4 @@ message CMsgClientToGCRequestCheatReportsResponse {
 
 	optional .CMsgClientToGCRequestCheatReportsResponse.EResult result = 1 [default = k_eSuccess];
 	repeated .CMsgClientToGCRequestCheatReportsResponse.RecentCheatReport cheat_reports = 2;
-}
-
-message CMsgClientToGCDevBan {
-	enum EBanReason {
-		k_eAimAssist = 0;
-		k_eVisionAssist = 1;
-		k_eMovementAssist = 2;
-	}
-
-	optional uint32 account_id = 1;
-	optional uint64 match_id = 2;
-	optional .CMsgClientToGCDevBan.EBanReason reason_code = 3 [default = k_eAimAssist];
-	optional string str_reason = 4;
-}
-
-message CMsgClientToGCDevBanResponse {
-	enum EResult {
-		k_eSuccess = 0;
-		k_eInvalidPermission = 1;
-		k_eInternalError = 2;
-	}
-
-	optional .CMsgClientToGCDevBanResponse.EResult result = 1 [default = k_eSuccess];
 }
