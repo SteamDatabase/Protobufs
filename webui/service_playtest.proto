@@ -17,6 +17,16 @@ message CPlaytest_GetInvites_Response_Invite {
 	optional string app_name = 6;
 }
 
+message CPlaytest_RequestInvite_Request {
+	optional uint32 appid = 1;
+	optional fixed64 steamid = 2;
+}
+
+message CPlaytest_RequestInvite_Response {
+	optional int32 invites_remaining = 1;
+	optional int32 status = 2 [(.description) = "enum"];
+}
+
 message CPlaytest_UpdateInvites_Request {
 	repeated uint64 invite_ids = 1;
 	optional int32 status = 2 [(.description) = "enum"];
@@ -28,6 +38,7 @@ message CPlaytest_UpdateInvites_Response {
 
 service Playtest {
 	rpc GetInvites (.CPlaytest_GetInvites_Request) returns (.CPlaytest_GetInvites_Response);
+	rpc RequestInvite (.CPlaytest_RequestInvite_Request) returns (.CPlaytest_RequestInvite_Response);
 	rpc UpdateInvites (.CPlaytest_UpdateInvites_Request) returns (.CPlaytest_UpdateInvites_Response);
 }
 
