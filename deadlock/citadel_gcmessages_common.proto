@@ -230,6 +230,7 @@ message CSOCitadelParty {
 		optional bool cheats_enabled = 7;
 		repeated .CSOCitadelParty.ServerRegion available_regions = 8;
 		optional bool duplicate_heroes_enabled = 9;
+		optional bool experimental_heroes_enabled = 10;
 	}
 
 	message Member {

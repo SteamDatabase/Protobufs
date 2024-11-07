@@ -157,6 +157,7 @@ message CSOCitadelServerStaticLobby {
 	optional bool cheats_enabled = 21;
 	optional bool duplicate_heroes_enabled = 22;
 	optional bool is_high_skill_range_parties = 23;
+	optional bool experimental_heroes_enabled = 24;
 }
 
 message CMsgServerSignoutData_ServerPerfStats {

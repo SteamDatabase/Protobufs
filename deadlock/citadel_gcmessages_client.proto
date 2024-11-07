@@ -195,6 +195,8 @@ enum ECitadelClientAccountEvent {
 	k_eViewedGuidePage_60s = 53;
 	k_eOpenedBookTest = 54;
 	k_eSandboxViaHeroPage = 55;
+	k_eViewedSettings_SteamInput = 56;
+	k_eViewedSettings_Social = 57;
 }
 
 enum ECommendType {
@@ -255,7 +257,6 @@ message CSOAccountHeroInfo {
 }
 
 message CMsgCitadelClientHello {
-	optional .ECitadelRegionMode region_mode = 1 [default = k_ECitadelRegionMode_ROW];
 }
 
 message CMsgClientToGCStartMatchmaking {
@@ -310,7 +311,8 @@ message CMsgGCToClientMatchmakingStopped {
 	enum EReason {
 		k_EResult_Unspecified = 0;
 		k_EResult_VersionUpdated = 1;
-		k_EResult_FailedReadyUp = 2;
+		k_EResult_RankedClosed = 2;
+		k_EResult_HeroLabsClosed = 3;
 	}
 
 	optional .CMsgGCToClientMatchmakingStopped.EReason reason = 1 [default = k_EResult_Unspecified];
@@ -407,14 +409,13 @@ message CMsgGCToClientDevPlaytestStatus {
 		repeated uint32 account_ids = 2;
 	}
 
-	message RegionInfo {
-		optional .ECitadelRegionMode region = 1 [default = k_ECitadelRegionMode_ROW];
-		optional uint32 unranked_queue_size = 5;
-		optional uint32 coop_queue_size = 6;
-		optional uint32 coop_mm_formation_time = 8;
-		optional uint32 available_servers = 9;
+	message DevQueueSize {
+		optional .ECitadelMatchMode match_mode = 1 [default = k_ECitadelMatchMode_Invalid];
+		optional uint32 queue_size = 2;
 	}
 
+	repeated .CMsgGCToClientDevPlaytestStatus.DevQueueSize dev_queue_size = 1;
+	optional uint32 dev_available_servers = 2;
 	optional bool is_mm_enabled = 4;
 	optional bool locked_heroes = 8;
 	optional bool party_shared_heroes = 9;
@@ -422,7 +423,6 @@ message CMsgGCToClientDevPlaytestStatus {
 	optional uint32 mm_pause_time = 14;
 	repeated uint32 valid_client_versions = 15;
 	optional uint32 active_match_count = 21;
-	repeated .CMsgGCToClientDevPlaytestStatus.RegionInfo regions = 22;
 }
 
 message CMsgGCToClientSDRTicket {
@@ -560,6 +560,7 @@ message CMsgClientToGCPartyAction {
 		k_eShuffleLobby = 19;
 		k_eShuffleLanes = 20;
 		k_eSetDuplicateHeroesEnabled = 21;
+		k_eSetExperimentalHeroesEnabled = 22;
 	}
 
 	optional fixed64 party_id = 1;
