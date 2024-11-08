@@ -106,6 +106,8 @@ message CStoreBrowse_GetStoreCategories_Response_Category {
 	optional string image_url = 5;
 	optional bool show_in_search = 6;
 	optional bool computed = 7;
+	optional string edit_url = 8;
+	optional uint32 edit_sort_order = 9;
 }
 
 service StoreBrowse {
