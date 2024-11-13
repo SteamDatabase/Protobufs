@@ -747,6 +747,9 @@ message CMsgSteamLearnModelNodeKMeansCluster {
 	optional bool generate_clusters = 3;
 }
 
+message CMsgSteamLearnModelNodeMaskedHead {
+}
+
 message CMsgSteamLearnModelNodeMaxPooling1D {
 	optional uint32 pool_size = 1;
 	optional uint32 strides = 2;
@@ -794,6 +797,23 @@ message CMsgSteamLearnModelNodeTextVectorization {
 message CMsgSteamLearnModelNodeTimeDistributedDense {
 	optional int32 activation = 1 [(.description) = "enum"];
 	optional uint32 width = 2;
+}
+
+message CMsgSteamLearnModelNodeTokenMask {
+	optional uint32 mask_pct = 1;
+	optional uint32 mask_count_limit = 2;
+	optional uint32 random_pct = 3;
+	optional uint32 keep_pct = 4;
+}
+
+message CMsgSteamLearnModelNodeTokenTransformer {
+	optional uint32 vocabulary_size = 1;
+	optional uint32 sequence_length = 2;
+	optional uint32 embedding_width = 3;
+	optional uint32 transformer_layers = 4;
+	optional uint32 transformer_dim = 5;
+	optional uint32 transformer_heads = 6;
+	optional uint32 transformer_dropout_pct = 7;
 }
 
 message CMsgSteamLearnModelNodeTrain {
@@ -889,6 +909,9 @@ message CMsgSteamLearnProjectNode {
 	optional .CMsgSteamLearnModelNodeSequenceSplit sequence_split = 38;
 	optional .CMsgSteamLearnModelNodeWeightedAverage weighted_average = 39;
 	optional .CMsgSteamLearnModelNodeGlobalAvgPooling1D global_avg_pooling_1d = 40;
+	optional .CMsgSteamLearnModelNodeTokenMask token_mask = 41;
+	optional .CMsgSteamLearnModelNodeMaskedHead masked_head = 42;
+	optional .CMsgSteamLearnModelNodeTokenTransformer token_transformer = 43;
 }
 
 message CMsgSteamLearnProjectNodeConnector {

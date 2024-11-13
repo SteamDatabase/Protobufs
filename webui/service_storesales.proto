@@ -15,6 +15,7 @@ message CStore_GetVoteDefinitions_Request {
 
 message CStore_GetVoteDefinitions_Response {
 	repeated .CStore_VoteDefinition votes = 1;
+	repeated uint32 labor_of_love_winners = 2;
 }
 
 message CStore_GetVoteDefinitionsForEvents_Response {
