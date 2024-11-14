@@ -171,6 +171,7 @@ enum ETFGCMsg {
 	k_EMsgGC_ProcessMatchVoteKickResponse = 6582;
 	k_EMsgGCToGC_SendAccountBannedNotifications = 6584;
 	k_EMsgGCToGC_SendNotification = 6585;
+	k_EMsgGCParty_MMError = 6586;
 	k_EMsgGCDev_GrantWarKill = 10001;
 }
 
@@ -705,6 +706,15 @@ message CMsgPartyRequestJoinPlayer {
 message CMsgPartyClearPendingPlayer {
 	optional fixed64 party_id = 1;
 	optional fixed64 pending_player_id = 2;
+}
+
+message CMsgPartyMMError {
+	enum Type {
+		QUEUE_KICK_NO_PING = 1;
+		QUEUE_KICK_AUTH = 2;
+	}
+
+	optional .CMsgPartyMMError.Type type = 1 [default = QUEUE_KICK_NO_PING];
 }
 
 message CMsgPartyClearPendingPlayerResponse {
