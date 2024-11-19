@@ -899,7 +899,6 @@ message CMsgClientToGCUpdateRoster {
 	optional .CMsgHeroSelectionMatchInfo heroes = 1;
 	optional .ECitadelGameMode game_mode = 2 [default = k_ECitadelGameMode_Invalid];
 	optional .ECitadelMatchMode match_mode = 3 [default = k_ECitadelMatchMode_Invalid];
-	optional bool solo_match = 4;
 }
 
 message CMsgClientToGCUpdateRosterResponse {
@@ -1017,6 +1016,7 @@ message CMsgClientToGCDevAction {
 		k_eBookXPGrant = 10;
 		k_eBanAccount = 11;
 		k_eExonerateAccount = 12;
+		k_eRequireAccountInMM = 13;
 	}
 
 	optional .CMsgClientToGCDevAction.EAction action = 1 [default = k_eSetDeveloper];

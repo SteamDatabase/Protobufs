@@ -181,7 +181,6 @@ message CMsgStartFindingMatchInfo {
 	optional string server_command_string = 2;
 	optional .ECitadelMatchMode match_mode = 3 [default = k_ECitadelMatchMode_Invalid];
 	optional .ECitadelGameMode game_mode = 5 [default = k_ECitadelGameMode_Invalid];
-	optional bool solo_match = 6;
 	optional .ECitadelBotDifficulty bot_difficulty = 7 [default = k_ECitadelBotDifficulty_None];
 	optional .ECitadelRegionMode region_mode = 8 [default = k_ECitadelRegionMode_ROW];
 }
