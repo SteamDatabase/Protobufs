@@ -115,6 +115,7 @@ message CEconItem_DescriptionLine {
 	optional string value = 2;
 	optional string color = 3;
 	optional string label = 4;
+	optional string name = 5;
 }
 
 message CEconItem_Tag {

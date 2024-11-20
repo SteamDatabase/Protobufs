@@ -93,6 +93,15 @@ message CCommunity_DeleteCommentFromThread_Request {
 message CCommunity_DeleteCommentFromThread_Response {
 }
 
+message CCommunity_FetchTranslationFromCrowdIn_Request {
+	optional fixed64 steamid = 1;
+	optional uint64 itemid = 2;
+	optional uint32 language = 3;
+}
+
+message CCommunity_FetchTranslationFromCrowdIn_Response {
+}
+
 message CCommunity_GetAppRichPresenceLocalization_Request {
 	optional int32 appid = 1;
 	optional string language = 2;
@@ -365,6 +374,7 @@ service Community {
 	rpc ClearSinglePartnerEventsAppPriority (.CCommunity_ClearSinglePartnerEventsAppPriority_Request) returns (.CCommunity_ClearSinglePartnerEventsAppPriority_Response);
 	rpc ClearUserPartnerEventsAppPriorities (.CCommunity_ClearUserPartnerEventsAppPriorities_Request) returns (.CCommunity_ClearUserPartnerEventsAppPriorities_Response);
 	rpc DeleteCommentFromThread (.CCommunity_DeleteCommentFromThread_Request) returns (.CCommunity_DeleteCommentFromThread_Response);
+	rpc FetchTranslationFromCrowdIn (.CCommunity_FetchTranslationFromCrowdIn_Request) returns (.CCommunity_FetchTranslationFromCrowdIn_Response);
 	rpc GetAppRichPresenceLocalization (.CCommunity_GetAppRichPresenceLocalization_Request) returns (.CCommunity_GetAppRichPresenceLocalization_Response);
 	rpc GetApps (.CCommunity_GetApps_Request) returns (.CCommunity_GetApps_Response);
 	rpc GetAvatarHistory (.CCommunity_GetAvatarHistory_Request) returns (.CCommunity_GetAvatarHistory_Response);

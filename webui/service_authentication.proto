@@ -66,6 +66,7 @@ message CAuthentication_DeviceDetails {
 	optional uint32 gaming_device_type = 4;
 	optional uint32 client_count = 5;
 	optional bytes machine_id = 6;
+	optional int32 app_type = 7 [(.description) = "enum"];
 }
 
 message CAuthentication_GetAuthSessionInfo_Request {
@@ -86,6 +87,7 @@ message CAuthentication_GetAuthSessionInfo_Response {
 	optional bool high_usage_login = 11;
 	optional int32 requested_persistence = 12 [(.description) = "enum"];
 	optional int32 device_trust = 13;
+	optional int32 app_type = 14 [(.description) = "enum"];
 }
 
 message CAuthentication_GetAuthSessionRiskInfo_Request {

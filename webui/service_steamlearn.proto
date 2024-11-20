@@ -712,6 +712,12 @@ message CMsgSteamLearnModelNodeExternalEmbedding {
 	optional string compact_table = 4;
 }
 
+message CMsgSteamLearnModelNodeExternalModel {
+	optional uint32 project_id = 1;
+	optional uint32 published_version = 2;
+	optional string named_inference_name = 3;
+}
+
 message CMsgSteamLearnModelNodeExtract {
 	optional int32 input_type = 1 [(.description) = "enum"];
 	optional int32 mode = 2 [(.description) = "enum"];
@@ -912,6 +918,7 @@ message CMsgSteamLearnProjectNode {
 	optional .CMsgSteamLearnModelNodeTokenMask token_mask = 41;
 	optional .CMsgSteamLearnModelNodeMaskedHead masked_head = 42;
 	optional .CMsgSteamLearnModelNodeTokenTransformer token_transformer = 43;
+	optional .CMsgSteamLearnModelNodeExternalModel external_model = 44;
 }
 
 message CMsgSteamLearnProjectNodeConnector {
