@@ -81,6 +81,7 @@ message CServerLobbyData_PlayerMMR {
 		optional uint32 player_mmr = 2;
 		optional uint32 player_uncertainty = 3;
 		optional uint32 hero_mmr = 4;
+		optional uint32 hero_mmr_with_uncertainty = 5;
 	}
 
 	repeated .CServerLobbyData_PlayerMMR.Player players = 1;
@@ -125,8 +126,8 @@ message CSOCitadelServerStaticLobby {
 		repeated .CSOCitadelServerStaticLobby.EAwardIDs award_ids = 8;
 		optional bool is_comms_restricted = 9;
 		optional uint32 lane_id = 10;
-		optional uint32 ranked_badge_level = 11;
 		optional .CMsgGCAccountData gc_account_data = 13;
+		optional bool party_desires_laning_together = 14;
 	}
 
 	message DevSettings {
@@ -158,6 +159,8 @@ message CSOCitadelServerStaticLobby {
 	optional bool duplicate_heroes_enabled = 22;
 	optional bool is_high_skill_range_parties = 23;
 	optional bool experimental_heroes_enabled = 24;
+	optional uint32 average_badge_team_0 = 25;
+	optional uint32 average_badge_team_1 = 26;
 }
 
 message CMsgServerSignoutData_ServerPerfStats {
@@ -415,6 +418,7 @@ message CMsgMatchData {
 		optional uint32 account_id = 1;
 		optional .ECitadelLobbyTeam team = 2 [default = k_ECitadelLobbyTeam_Team0];
 		optional uint32 player_slot = 3;
+		optional uint32 hero_mmr_with_uncertainty = 4;
 		optional uint32 player_mmr = 5;
 		optional uint32 player_uncertainty = 6;
 		optional uint32 hero_id = 7;

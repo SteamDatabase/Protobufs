@@ -114,6 +114,12 @@ enum EGCCitadelClientMessages {
 	k_EMsgClientToGCDevRequestCheatReportsResponse = 9231;
 	k_EMsgClientToGCDevBan = 9232;
 	k_EMsgClientToGCDevBanResponse = 9233;
+	k_EMsgClientToGCGetHeroMMRRankings = 9234;
+	k_EMsgClientToGCGetHeroMMRRankingsResponse = 9235;
+	k_EMsgClientToGCGetLeaderboard = 9236;
+	k_EMsgClientToGCGetLeaderboardResponse = 9237;
+	k_EMsgClientToGCGetAccountLeaderboards = 9238;
+	k_EMsgClientToGCGetAccountLeaderboardsResponse = 9239;
 }
 
 enum ECitadelAccountPermissionFlag {
@@ -364,7 +370,6 @@ message CMsgDevMatchInfo {
 	optional uint32 match_score = 18;
 	optional .ECitadelRegionMode region_mode = 19 [default = k_ECitadelRegionMode_ROW];
 	optional uint32 compat_version = 20;
-	optional uint32 ranked_badge_level = 21;
 }
 
 message CMsgGCToClientRankedSchedule {
@@ -561,6 +566,7 @@ message CMsgClientToGCPartyAction {
 		k_eShuffleLanes = 20;
 		k_eSetDuplicateHeroesEnabled = 21;
 		k_eSetExperimentalHeroesEnabled = 22;
+		k_eSetDesiresLaningTogether = 23;
 	}
 
 	optional fixed64 party_id = 1;
@@ -1500,6 +1506,7 @@ message CMsgGCToClientCommendNotification {
 	optional string commender_name = 2;
 	optional uint32 commender_hero_id = 4;
 	optional .ECommendType commend_type = 5 [default = k_eInvalid];
+	optional uint64 match_id = 6;
 }
 
 message CMsgClientToGCGetRankedIntervalStats {
@@ -1547,4 +1554,70 @@ message CMsgClientToGCRequestCheatReportsResponse {
 
 	optional .CMsgClientToGCRequestCheatReportsResponse.EResult result = 1 [default = k_eSuccess];
 	repeated .CMsgClientToGCRequestCheatReportsResponse.RecentCheatReport cheat_reports = 2;
+}
+
+message CMsgClientToGCGetHeroMMRRankings {
+	optional uint32 target_account_id = 1;
+}
+
+message CMsgClientToGCGetHeroMMRRankingsResponse {
+	message Hero {
+		optional uint32 hero_id = 1;
+		optional int32 relative_mmr = 2;
+	}
+
+	enum EResult {
+		k_eSuccess = 0;
+		k_eInvalidPermission = 1;
+		k_eInternalError = 2;
+		k_eTooBusy = 3;
+	}
+
+	optional .CMsgClientToGCGetHeroMMRRankingsResponse.EResult result = 1 [default = k_eSuccess];
+	repeated .CMsgClientToGCGetHeroMMRRankingsResponse.Hero heroes = 2;
+}
+
+message CMsgClientToGCGetLeaderboard {
+	optional .ECitadelLeaderboardRegion leaderboard_region = 1 [default = k_ECitadelLeaderboardRegion_None];
+	optional uint32 hero_id = 2;
+}
+
+message CMsgClientToGCGetLeaderboardResponse {
+	message LeaderboardEntry {
+		optional string account_name = 1;
+		optional uint32 rank = 2;
+	}
+
+	enum EResult {
+		k_eSuccess = 0;
+		k_eInvalidArguments = 1;
+		k_eInternalError = 2;
+		k_eTooBusy = 3;
+	}
+
+	optional .CMsgClientToGCGetLeaderboardResponse.EResult result = 1 [default = k_eSuccess];
+	repeated .CMsgClientToGCGetLeaderboardResponse.LeaderboardEntry entries = 2;
+}
+
+message CMsgClientToGCGetAccountLeaderboards {
+	optional uint32 account_id = 1;
+}
+
+message CMsgClientToGCGetAccountLeaderboardsResponse {
+	message LeaderboardEntry {
+		optional .ECitadelLeaderboardRegion region = 1 [default = k_ECitadelLeaderboardRegion_None];
+		optional uint32 hero_id = 2;
+		optional uint32 rank = 3;
+	}
+
+	enum EResult {
+		k_eSuccess = 0;
+		k_eInvalidPermission = 1;
+		k_eInternalError = 2;
+		k_eTooBusy = 3;
+	}
+
+	optional .CMsgClientToGCGetAccountLeaderboardsResponse.EResult result = 1 [default = k_eSuccess];
+	optional string account_name = 2;
+	repeated .CMsgClientToGCGetAccountLeaderboardsResponse.LeaderboardEntry entries = 3;
 }

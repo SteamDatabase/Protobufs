@@ -53,6 +53,7 @@ enum CitadelUserMessageIds {
 	k_EUserMsg_PlayerRespawned = 353;
 	k_EUserMsg_CallCheaterVote = 354;
 	k_EUserMsg_MeleeHit = 355;
+	k_EUserMsg_FlexSlotUnlocked = 356;
 }
 
 enum CitadelEntityMessageIds {
@@ -144,6 +145,9 @@ message CCitadelUserMessage_Damage {
 	optional int32 victim_shield_new = 18;
 	optional int32 hits = 19;
 	optional int32 health_lost = 20;
+	optional int32 hitgroup_id = 21;
+	optional int32 entindex_attacking_object = 22 [default = -1];
+	optional .CMsgVector damage_direction = 23;
 }
 
 message PingCommonData {
@@ -584,4 +588,9 @@ message CCitadelUserMsg_CallCheaterVote {
 message CCitadelUserMessage_MeleeHit {
 	optional int32 hit_entindex = 1 [default = -1];
 	optional bool heavy = 2;
+}
+
+message CCitadelUserMsg_FlexSlotUnlocked {
+	optional int32 team_number = 1;
+	optional int32 flexslot_unlocked = 2;
 }
