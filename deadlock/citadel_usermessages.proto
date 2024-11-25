@@ -408,6 +408,7 @@ message CCitadelUserMessage_BulletHit {
 	optional int32 pellet = 2;
 	optional int32 hit_entindex = 3 [default = -1];
 	optional int32 weapon_entindex = 4 [default = -1];
+	optional bool is_predicted = 5;
 }
 
 message CCitadelUserMessage_ObjectiveMask {
