@@ -829,6 +829,7 @@ message CMsgSteamLearnModelNodeTrain {
 	optional string compact_table = 4;
 	optional int32 loss = 6 [(.description) = "enum"];
 	optional float learning_rate = 7;
+	optional bool uses_weight_mask = 8;
 }
 
 message CMsgSteamLearnModelNodeTransformer {
