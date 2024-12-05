@@ -203,6 +203,7 @@ message CStore_GetUserGameInterestState_Response_InQueue {
 message CStore_GetWishlistDemoEmailStatus_Request {
 	optional uint32 appid = 1;
 	optional uint32 demo_appid = 2;
+	optional bool allow_late_firing = 3;
 }
 
 message CStore_GetWishlistDemoEmailStatus_Response {
@@ -241,6 +242,7 @@ message CStore_PurchaseReceiptInfo_LineItem {
 message CStore_QueueWishlistDemoEmailToFire_Request {
 	optional uint32 appid = 1;
 	optional uint32 demo_appid = 2;
+	optional bool allow_late_firing = 3;
 }
 
 message CStore_QueueWishlistDemoEmailToFire_Response {
