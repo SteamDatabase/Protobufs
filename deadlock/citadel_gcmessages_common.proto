@@ -38,6 +38,12 @@ enum ECitadelAccountStatMedal {
 	k_eGold = 3;
 }
 
+enum ECitadelMMPreference {
+	k_ECitadelMMPreference_Invalid = 0;
+	k_ECitadelMMPreference_Casual = 1;
+	k_ECitadelMMPreference_Serious = 2;
+}
+
 enum ECitadelObjective {
 	k_eCitadelObjective_Team0_Core = 0;
 	k_eCitadelObjective_Team0_Tier1_Lane1 = 1;
@@ -193,6 +199,7 @@ message CMsgStartFindingMatchInfo {
 	optional .ECitadelBotDifficulty bot_difficulty = 7 [default = k_ECitadelBotDifficulty_None];
 	optional .ECitadelRegionMode region_mode = 8 [default = k_ECitadelRegionMode_ROW];
 	optional bool prefer_solo_only = 9;
+	optional .ECitadelMMPreference mm_preference = 10 [default = k_ECitadelMMPreference_Invalid];
 }
 
 message CMsgAnyToGCReportAsserts {
@@ -302,6 +309,7 @@ message CSOCitadelParty {
 	optional bool is_private_lobby = 16;
 	optional .CSOCitadelParty.PrivateLobbySettings private_lobby_settings = 17;
 	optional bool desires_laning_together = 18;
+	optional .ECitadelMMPreference mm_preference = 19 [default = k_ECitadelMMPreference_Invalid];
 }
 
 message CMsgMatchPlayerPathsData {
@@ -556,6 +564,7 @@ message CMsgMatchMetaDataContents {
 		k_eTreasure = 5;
 		k_eAssists = 6;
 		k_eDenies = 7;
+		k_eTeamBonus = 8;
 	}
 
 	optional .CMsgMatchMetaDataContents.MatchInfo match_info = 2;

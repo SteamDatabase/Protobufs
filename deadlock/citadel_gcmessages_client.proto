@@ -103,12 +103,9 @@ enum EGCCitadelClientMessages {
 	k_EMsgClientToGCGetOldHeroBuildData = 9217;
 	k_EMsgClientToGCGetOldHeroBuildDataResponse = 9218;
 	k_EMsgClientToGCUpdateSpectatorStatus = 9219;
-	k_EMsgGCToClientRankedSchedule = 9220;
 	k_EMsgClientToGCCommendPlayerFromMatch = 9223;
 	k_EMsgClientToGCCommendPlayerFromMatchResponse = 9224;
 	k_EMsgGCToClientCommendNotification = 9225;
-	k_EMsgClientToGCGetRankedIntervalStats = 9226;
-	k_EMsgClientToGCGetRankedIntervalStatsResponse = 9227;
 	k_EMsgGCToClientHeroLabsSchedule = 9228;
 	k_EMsgClientToGCDevRequestCheatReports = 9230;
 	k_EMsgClientToGCDevRequestCheatReportsResponse = 9231;
@@ -120,6 +117,8 @@ enum EGCCitadelClientMessages {
 	k_EMsgClientToGCGetLeaderboardResponse = 9237;
 	k_EMsgClientToGCGetAccountLeaderboards = 9238;
 	k_EMsgClientToGCGetAccountLeaderboardsResponse = 9239;
+	k_EMsgClientToGCSetHideHolidayModels = 9240;
+	k_EMsgClientToGCSetHideHolidayModelsResponse = 9241;
 }
 
 enum ECitadelAccountPermissionFlag {
@@ -218,6 +217,7 @@ message CSOGameAccountClient {
 		k_eDeveloper = 1;
 		k_eExternalModerator = 2;
 		k_eGotInitialHeroes = 4;
+		k_eHideHolidayModels = 8;
 		k_eClaimedDiscordLink = 16;
 		k_eClaimedForum = 32;
 		k_eAccountBanned = 64;
@@ -237,9 +237,6 @@ message CSOGameAccountClient {
 	optional uint32 low_priority_games_remaining = 12;
 	optional uint32 report_ban_until = 13;
 	optional uint32 ranked_badge_level = 14;
-	optional uint32 ranked_badge_interval = 16;
-	optional uint32 ranked_matches = 17;
-	optional uint32 ranked_interval = 18;
 	optional uint32 hero_labs_matches_since_test_hero = 21;
 }
 
@@ -299,6 +296,7 @@ message CMsgClientToGCStartMatchmakingResponse {
 		k_EResult_HeroLabsMMNotOpen = 21;
 		k_EResult_HeroLabsNotUnlocked = 22;
 		k_EResult_NoHeroLabsWhileInLowPri = 23;
+		k_EResult_AccountLocked = 24;
 	}
 
 	optional .CMsgClientToGCStartMatchmakingResponse.EResultCode result = 1 [default = k_EResult_OK];
@@ -372,25 +370,6 @@ message CMsgDevMatchInfo {
 	optional uint32 compat_version = 20;
 }
 
-message CMsgGCToClientRankedSchedule {
-	message TimeRange {
-		optional int32 start_time = 1;
-		optional int32 end_time = 2;
-	}
-
-	message Schedule {
-		optional uint32 schedule_id = 1;
-		repeated .CMsgGCToClientRankedSchedule.TimeRange weekends = 2;
-		repeated .CMsgGCToClientRankedSchedule.TimeRange weekdays = 3;
-		optional bool is_open = 4;
-	}
-
-	repeated .CMsgGCToClientRankedSchedule.Schedule schedules = 1;
-	optional uint32 active_ranked_interval = 2;
-	optional uint32 active_interval_start = 3;
-	optional uint32 active_interval_end = 4;
-}
-
 message CMsgGCToClientHeroLabsSchedule {
 	message TimeRange {
 		optional int32 start_time = 1;
@@ -457,6 +436,7 @@ message CMsgClientToGCPostMatchSurveyResponse {
 	message PostMatchSurvey {
 		optional uint32 question_id = 1;
 		optional uint32 response_value = 2;
+		optional string response_freeform = 3;
 	}
 
 	repeated .CMsgClientToGCPostMatchSurveyResponse.PostMatchSurvey post_match_survey = 1;
@@ -477,6 +457,7 @@ message CMsgClientToGCPartyCreate {
 	optional bool is_private_lobby = 5;
 	optional .ECitadelRegionMode region_mode = 6 [default = k_ECitadelRegionMode_ROW];
 	optional string server_search_key = 7;
+	optional .ECitadelMMPreference mm_preference = 8 [default = k_ECitadelMMPreference_Invalid];
 }
 
 message CMsgClientToGCPartyCreateResponse {
@@ -567,6 +548,7 @@ message CMsgClientToGCPartyAction {
 		k_eSetDuplicateHeroesEnabled = 21;
 		k_eSetExperimentalHeroesEnabled = 22;
 		k_eSetDesiresLaningTogether = 23;
+		k_eSetMMPreference = 24;
 	}
 
 	optional fixed64 party_id = 1;
@@ -604,7 +586,6 @@ message CMsgClientToGCPartySetMode {
 	optional .ECitadelBotDifficulty bot_difficulty = 4 [default = k_ECitadelBotDifficulty_None];
 	optional string dev_server_command = 5;
 	optional .ECitadelRegionMode region_mode = 6 [default = k_ECitadelRegionMode_ROW];
-	optional uint32 ranked_schedule = 7;
 }
 
 message CMsgClientToGCPartySetModeResponse {
@@ -633,6 +614,7 @@ message CMsgClientToGCPartySetModeResponse {
 		k_eHeroLabsNotUnlocked = 22;
 		k_eNoHeroLabsWhileInLowPri = 23;
 		k_eNoHighRangeFiveStack = 24;
+		k_eAccountLocked = 25;
 	}
 
 	optional .CMsgClientToGCPartySetModeResponse.EResponse result = 1 [default = k_eInternalError];
@@ -804,6 +786,7 @@ message CMsgClientToGCGetMatchHistoryResponse {
 		optional uint32 abandoned_time_s = 18;
 		optional .ECitadelMatchMode match_mode = 19 [default = k_ECitadelMatchMode_Invalid];
 		optional .ECitadelGameMode game_mode = 20 [default = k_ECitadelGameMode_Invalid];
+		optional bool not_scored = 21;
 	}
 
 	enum EResult {
@@ -1509,33 +1492,6 @@ message CMsgGCToClientCommendNotification {
 	optional uint64 match_id = 6;
 }
 
-message CMsgClientToGCGetRankedIntervalStats {
-	optional uint32 account_id = 1;
-	optional uint32 target_interval_id = 2;
-}
-
-message CMsgClientToGCGetRankedIntervalStatsResponse {
-	message RankedInterval {
-		optional uint32 interval_id = 1;
-		optional uint32 matches_played = 2;
-		optional uint32 badge_level = 3;
-		optional uint32 start_time = 5;
-		optional uint32 end_time = 6;
-	}
-
-	enum EResponse {
-		k_eInternalError = 0;
-		k_eSuccess = 1;
-		k_eDisabled = 2;
-		k_eTooBusy = 3;
-		k_eRateLimited = 4;
-		k_eInvalidPermission = 5;
-	}
-
-	optional .CMsgClientToGCGetRankedIntervalStatsResponse.EResponse result = 1 [default = k_eInternalError];
-	repeated .CMsgClientToGCGetRankedIntervalStatsResponse.RankedInterval intervals = 2;
-}
-
 message CMsgClientToGCRequestCheatReports {
 }
 
@@ -1586,6 +1542,8 @@ message CMsgClientToGCGetLeaderboardResponse {
 	message LeaderboardEntry {
 		optional string account_name = 1;
 		optional uint32 rank = 2;
+		repeated uint32 top_hero_ids = 3;
+		optional uint32 badge_level = 4;
 	}
 
 	enum EResult {
@@ -1620,4 +1578,12 @@ message CMsgClientToGCGetAccountLeaderboardsResponse {
 	optional .CMsgClientToGCGetAccountLeaderboardsResponse.EResult result = 1 [default = k_eSuccess];
 	optional string account_name = 2;
 	repeated .CMsgClientToGCGetAccountLeaderboardsResponse.LeaderboardEntry entries = 3;
+}
+
+message CMsgClientToGCSetHideHolidayModels {
+	optional bool hide_holiday_models = 1;
+}
+
+message CMsgClientToGCSetHideHolidayModelsResponse {
+	optional bool success = 1;
 }

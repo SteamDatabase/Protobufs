@@ -1,0 +1,16 @@
+import "networkbasetypes.proto";
+
+enum EBasePredictionEvents {
+	BPE_StringCommand = 128;
+	BPE_Teleport = 130;
+}
+
+message CPredictionEvent_Teleport {
+	optional .CMsgVector origin = 1;
+	optional .CMsgQAngle angles = 2;
+	optional float drop_to_ground_range = 3;
+}
+
+message CPredictionEvent_StringCommand {
+	optional string command = 1;
+}
