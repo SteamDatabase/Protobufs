@@ -5720,6 +5720,7 @@ message StoreItem_PurchaseOption {
 	optional int64 lowest_recent_price_in_cents = 44;
 	optional bool requires_shipping = 45;
 	optional .StoreItem_PurchaseOption_RecurrenceInfo recurrence_info = 46;
+	optional uint32 free_to_keep_ends = 47;
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, Wishlist

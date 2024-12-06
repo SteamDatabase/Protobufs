@@ -8,6 +8,7 @@ message CSteamAwards_GetNominationRecommendations_Response {
 	repeated .CSteamAwards_GetNominationRecommendations_Response_PlayedApps played_app = 1;
 	repeated .CSteamAwards_GetNominationRecommendations_Response_SuggestedEvent suggested_events = 2;
 	repeated .CSteamAwards_GetNominationRecommendations_Response_SuggestedApp suggested_apps = 3;
+	optional string debug_query = 4;
 }
 
 message CSteamAwards_GetNominationRecommendations_Response_PlayedApps {

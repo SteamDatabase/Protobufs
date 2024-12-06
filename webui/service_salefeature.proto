@@ -32,6 +32,7 @@ message CGamePlaytimeStats {
 message CGameRank {
 	optional uint32 appid = 1;
 	optional uint32 rank = 2;
+	optional uint32 relative_playtime_percentagex100 = 3;
 }
 
 message CGameRankings {
@@ -153,6 +154,12 @@ message CPlaytimeStreakGame {
 	optional uint32 appid = 1;
 }
 
+message CPreviousYIRSummaryData {
+	optional uint32 games_played = 1;
+	optional uint32 unlocked_achievements = 2;
+	optional uint32 longest_streak = 3;
+}
+
 message CRankingCategory {
 	optional string category = 1;
 	repeated .CGameRank rankings = 2;
@@ -234,6 +241,7 @@ message CSaleFeature_GetUserYearInReview_Request {
 	optional uint32 year = 2;
 	optional bool force_regenerate = 3;
 	optional int32 access_source = 4;
+	optional bool fetch_previous_year_summary = 5 [default = false];
 }
 
 message CSaleFeature_GetUserYearInReview_Response {
@@ -241,6 +249,7 @@ message CSaleFeature_GetUserYearInReview_Response {
 	optional .CYearInReviewPerformanceStats performance_stats = 2;
 	optional .CGlobalPercentiles percentiles = 3;
 	optional .CGlobalPlaytimeDistribution distribution = 4;
+	optional .CPreviousYIRSummaryData previous_year_summary = 5;
 }
 
 message CSaleFeature_GetUserYearInReviewShareImage_Request {

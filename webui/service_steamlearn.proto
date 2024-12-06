@@ -707,15 +707,16 @@ message CMsgSteamLearnModelNodeExplode {
 
 message CMsgSteamLearnModelNodeExternalEmbedding {
 	optional uint32 project_id = 1;
-	optional uint32 published_version = 2;
+	optional uint32 train_id = 2;
 	optional string embedding_name = 3;
 	optional string compact_table = 4;
 }
 
 message CMsgSteamLearnModelNodeExternalModel {
 	optional uint32 project_id = 1;
-	optional uint32 published_version = 2;
+	optional uint32 train_id = 2;
 	optional string named_inference_name = 3;
+	optional bool freeze_weights = 4;
 }
 
 message CMsgSteamLearnModelNodeExtract {
@@ -798,6 +799,8 @@ message CMsgSteamLearnModelNodeTextVectorization {
 	optional uint32 sequence_length = 4;
 	optional int32 split = 5 [(.description) = "enum"];
 	optional uint32 ngrams = 6;
+	optional uint32 other_project_id = 7;
+	optional uint32 other_fetch_id = 8;
 }
 
 message CMsgSteamLearnModelNodeTimeDistributedDense {
@@ -993,6 +996,7 @@ message CMsgSteamLearnTrainConfig {
 	optional int32 train_optimizer = 7 [(.description) = "enum"];
 	optional float train_learning_rate = 8;
 	optional int32 train_gpu = 9 [(.description) = "enum"];
+	optional uint32 gpu_count = 10;
 }
 
 message CMsgSteamLearnTrainInfo {
