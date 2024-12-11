@@ -2712,6 +2712,7 @@ message CMsgClientSettings {
 	optional bool download_while_app_running = 8010;
 	optional bool download_throttle_while_streaming = 8011;
 	optional int32 download_throttle_rate = 8012;
+	optional int32 default_app_update_behavior = 8013;
 	optional bool cloud_enabled = 10000;
 	optional bool show_screenshot_manager = 10001;
 	optional int32 music_volume = 11000;
@@ -2793,6 +2794,8 @@ message CMsgClientSettings {
 	optional bool gamescope_composite_debug = 21010;
 	optional bool gamescope_force_composite = 21011;
 	optional string gamescope_game_resolution_global = 21012;
+	optional .CMsgHotkey gamescope_guide_hotkey = 21013;
+	optional .CMsgHotkey gamescope_qam_hotkey = 21014;
 	optional int32 steamos_status_led_brightness = 22000;
 	optional bool steamos_tdp_limit_enabled = 22001;
 	optional int32 steamos_tdp_limit = 22002;
@@ -2808,7 +2811,9 @@ message CMsgClientSettings {
 	optional uint64 setting_validation_uint64 = 23005;
 	optional float setting_validation_float = 23006;
 	optional string setting_validation_string = 23007;
+	optional .CMsgHotkey setting_validation_hotkey = 23008;
 	optional bool system_bluetooth_enabled = 24000;
+	optional bool vr_show_perf_graph_in_hmd = 25000;
 	optional bool controller_enable_chord = 140011;
 	optional bool controller_poll_rate = 140012;
 }
@@ -4858,11 +4863,6 @@ message CMsgWebUITransportFailure {
 	optional uint32 connect_count = 1;
 }
 
-message CPartnerStoreBrowse_GetItems_Request {
-	optional .CStoreBrowse_GetItems_Request request = 1;
-	optional bool include_unpublished = 2;
-}
-
 message CProductImpressionsFromClient_Notification {
 	repeated .CProductImpressionsFromClient_Notification_Impression impressions = 1;
 }
@@ -4943,6 +4943,15 @@ message CSteamVR_AudioSettings_SettingsChanged_Notification {
 message CSteamVR_Header {
 	optional int32 type = 1 [(.description) = "enum"];
 	optional uint32 id = 2;
+}
+
+message CSteamVR_Settings_SetValue_Request {
+	optional string section = 1;
+	optional string settings_key = 2;
+	optional bool bool = 3;
+	optional int32 int = 4;
+	optional float float = 5;
+	optional string string = 6;
 }
 
 message CSteamVR_VoiceChat_Active_Notification {
@@ -5102,7 +5111,7 @@ message CStore_MigratePartnerLinkTracking_Notification {
 message CStore_ReloadAllReservationPositionMessages_Notification {
 }
 
-// Used by: PartnerStoreBrowse, StoreBrowse, common.proto
+// Used by: PartnerStoreBrowse, StoreBrowse
 message CStoreBrowse_GetItems_Request {
 	repeated .StoreItemID ids = 1;
 	optional .StoreBrowseContext context = 2;
@@ -5245,6 +5254,41 @@ message CVideo_GameRecordingSegmentInfo {
 	optional uint64 segment_size_bytes = 2;
 	optional string component_name = 3;
 	optional string representation_name = 4;
+}
+
+message CVirtualMenuCreateDestroy {
+	optional bool created = 1;
+	optional uint32 controller_idx = 2;
+	optional uint32 menu_idx = 3;
+	optional uint32 source = 4;
+	optional float x_position = 5;
+	optional float y_position = 6;
+	optional float opacity = 7;
+	optional float scale = 8;
+	optional bool show_labels = 9;
+	optional bool force_on = 10;
+	optional uint32 appID = 11;
+	optional uint32 menu_style = 12;
+	repeated .CVirtualMenuCreateDestroy_TouchMenuKey popup_keys = 13;
+}
+
+// Used by: common.proto
+message CVirtualMenuCreateDestroy_TouchMenuKey {
+	optional uint32 key_idx = 1;
+	optional bool bound = 2;
+	optional bool placeholder = 3;
+	optional uint32 binding_type = 4;
+	optional float x = 5;
+	optional float y = 6;
+	optional float width = 7;
+	optional float height = 8;
+	optional string description = 9;
+	optional string label = 10;
+	optional string glyph_path = 11;
+	optional string icon_filename = 12;
+	optional string color_foreground = 13;
+	optional string color_background = 14;
+	optional uint32 quandrants = 15;
 }
 
 // Used by: common.proto
@@ -5398,7 +5442,9 @@ message CVRGamepadUIShared_DashboardAction {
 	optional int32 invocation = 7 [default = 1, (.description) = "enum"];
 	optional bool active = 8;
 	optional int32 special_invocation = 9 [(.description) = "enum"];
-	optional bool visible_in_dashboard_menu = 10;
+	optional bool visible_in_menu = 10;
+	optional bool is_menu = 11;
+	optional uint32 parent_menu_action_id = 12;
 }
 
 // Used by: common.proto
@@ -5507,7 +5553,7 @@ message LoyaltyRewardDefinition_CommunityItemData {
 	optional bool tiled = 13;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, Wishlist, common.proto
+// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, Wishlist
 message StoreBrowseContext {
 	optional string language = 1;
 	optional int32 elanguage = 2;
@@ -5530,7 +5576,7 @@ message StoreBrowseFilterFailure {
 	repeated int32 excluded_content_descriptorids = 30 [(.description) = "enum"];
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, Wishlist, common.proto
+// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, Wishlist
 message StoreBrowseItemDataRequest {
 	optional bool include_assets = 1;
 	optional bool include_release = 2;
@@ -5829,7 +5875,7 @@ message StoreItem_Trailers_VideoSource {
 	optional string type = 2;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, common.proto
+// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery
 message StoreItemID {
 	optional uint32 appid = 1;
 	optional uint32 packageid = 2;

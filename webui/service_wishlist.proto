@@ -86,6 +86,7 @@ message CWishlistFilters {
 	optional int32 min_discount_percent = 21;
 	optional .CWishlistFilters_ExcludeTypeFilters exclude_types = 22;
 	optional .CWishlistFilters_SteamDeckFilters steam_deck_filters = 23;
+	repeated int32 tagids_must_match = 24;
 }
 
 message CWishlistFilters_ExcludeTypeFilters {
