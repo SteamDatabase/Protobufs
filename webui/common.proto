@@ -5504,6 +5504,7 @@ message LoyaltyRewardDefinition_CommunityItemData {
 	optional string item_movie_webm_small = 10;
 	optional string item_movie_mp4_small = 11;
 	optional string profile_theme_id = 12;
+	optional bool tiled = 13;
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, Wishlist, common.proto
@@ -5819,6 +5820,7 @@ message StoreItem_Trailers_Trailer {
 	optional string screenshot_medium = 10;
 	optional string screenshot_full = 11;
 	optional int32 trailer_base_id = 12;
+	optional int32 trailer_category = 13 [(.description) = "enum"];
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, Wishlist

@@ -838,6 +838,7 @@ message ProfileItem {
 	optional string movie_webm_small = 13;
 	optional string movie_mp4_small = 14;
 	repeated .ProfileItem_ProfileColor profile_colors = 15;
+	optional bool tiled = 16;
 }
 
 message ProfileItem_ProfileColor {

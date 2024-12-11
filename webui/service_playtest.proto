@@ -1,5 +1,13 @@
 import "common_base.proto";
 
+message CPlaytest_GetInviteOptions_Request {
+	optional uint32 appid = 1;
+}
+
+message CPlaytest_GetInviteOptions_Response {
+	repeated uint32 ineligible_friends = 1;
+}
+
 message CPlaytest_GetInvites_Request {
 	optional uint64 invite_id = 1;
 }
@@ -28,6 +36,7 @@ message CPlaytest_GetUserStatus_Response_AppStatus {
 	optional uint32 appid = 1;
 	optional int32 status = 2 [(.description) = "enum"];
 	optional int32 invites_remaining = 3;
+	optional uint32 time_joined = 4;
 }
 
 message CPlaytest_RequestInvite_Request {
@@ -50,6 +59,7 @@ message CPlaytest_UpdateInvites_Response {
 }
 
 service Playtest {
+	rpc GetInviteOptions (.CPlaytest_GetInviteOptions_Request) returns (.CPlaytest_GetInviteOptions_Response);
 	rpc GetInvites (.CPlaytest_GetInvites_Request) returns (.CPlaytest_GetInvites_Response);
 	rpc GetUserStatus (.CPlaytest_GetUserStatus_Request) returns (.CPlaytest_GetUserStatus_Response);
 	rpc RequestInvite (.CPlaytest_RequestInvite_Request) returns (.CPlaytest_RequestInvite_Response);
