@@ -823,6 +823,7 @@ message CMsgSteamLearnModelNodeTokenTransformer {
 	optional uint32 transformer_dim = 5;
 	optional uint32 transformer_heads = 6;
 	optional uint32 transformer_dropout_pct = 7;
+	optional string compact_table = 8;
 }
 
 message CMsgSteamLearnModelNodeTrain {
