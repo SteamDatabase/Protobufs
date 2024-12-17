@@ -805,7 +805,6 @@ message CMsgClientToGCGetMatchHistoryResponse {
 
 message CMsgClientToGCSpectateUser {
 	optional uint32 spectate_account_id = 1;
-	optional .ECitadelRegionMode region_mode = 2 [default = k_ECitadelRegionMode_ROW];
 	optional uint32 client_version = 3;
 	optional .EGCPlatform client_platform = 4 [default = k_eGCPlatform_None];
 }
@@ -838,7 +837,6 @@ message CMsgClientToGCSpectateUserResponse {
 
 message CMsgClientToGCSpectateLobby {
 	optional uint64 lobby_id = 1;
-	optional .ECitadelRegionMode region_mode = 2 [default = k_ECitadelRegionMode_ROW];
 	optional uint32 client_version = 3;
 	optional .EGCPlatform client_platform = 4 [default = k_eGCPlatform_None];
 	optional uint64 match_id = 5;
