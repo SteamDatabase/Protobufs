@@ -11,6 +11,7 @@ message CFriendSharedYearInView {
 	optional fixed64 steamid = 1;
 	optional int32 privacy_state = 3 [(.description) = "enum"];
 	optional uint32 rt_privacy_updated = 4;
+	optional bool privacy_override = 5;
 }
 
 message CGameAchievements {

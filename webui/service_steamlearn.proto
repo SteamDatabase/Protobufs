@@ -943,6 +943,7 @@ message CMsgSteamLearnProjectSnapshotConfig {
 	optional bool compress = 8;
 	optional uint32 job_count = 9;
 	optional uint32 snapshot_schedule_hour_of_day = 10;
+	optional int32 snapshot_location = 11 [(.description) = "enum"];
 }
 
 message CMsgSteamLearnProjectSnapshotConfigAccountIDs {
@@ -998,6 +999,7 @@ message CMsgSteamLearnTrainConfig {
 	optional float train_learning_rate = 8;
 	optional int32 train_gpu = 9 [(.description) = "enum"];
 	optional uint32 gpu_count = 10;
+	optional bool mixed_precision = 11;
 }
 
 message CMsgSteamLearnTrainInfo {
