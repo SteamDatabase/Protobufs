@@ -28,6 +28,14 @@ message CMarketingMessage_GetMarketingMessagesForPartner_Response {
 	repeated .CMarketingMessageProto messages = 1;
 }
 
+message CMarketingMessageClickedHourlyStats {
+	optional uint32 rt_time_hour = 1;
+	optional uint32 clicked_count = 2;
+	optional uint32 display_index = 3;
+	optional int32 template_type = 4 [(.description) = "enum"];
+	optional int32 click_location = 5 [(.description) = "enum"];
+}
+
 message CMarketingMessageHourlyStats {
 	optional uint32 rt_time_hour = 1;
 	optional uint32 seen_count = 2;
@@ -131,6 +139,14 @@ message CMarketingMessages_GetMarketingMessage_Response {
 	optional .CMarketingMessageProto message = 1;
 }
 
+message CMarketingMessages_GetMarketingMessageClickedStats_Request {
+	optional fixed64 gid = 1;
+}
+
+message CMarketingMessages_GetMarketingMessageClickedStats_Response {
+	repeated .CMarketingMessageClickedHourlyStats stats = 1;
+}
+
 message CMarketingMessages_GetMarketingMessagesForUser_Request {
 	optional bool include_seen_messages = 1;
 	optional string country_code = 2;
@@ -220,6 +236,7 @@ service MarketingMessages {
 	rpc GetDisplayMarketingMessageAdmin (.CMarketingMessages_GetDisplayMarketingMessage_Request) returns (.CMarketingMessages_GetDisplayMarketingMessage_Response);
 	rpc GetDisplayMarketingMessageForUser (.CMarketingMessages_GetDisplayMarketingMessage_Request) returns (.CMarketingMessages_GetDisplayMarketingMessage_Response);
 	rpc GetMarketingMessage (.CMarketingMessages_GetMarketingMessage_Request) returns (.CMarketingMessages_GetMarketingMessage_Response);
+	rpc GetMarketingMessageClickedStats (.CMarketingMessages_GetMarketingMessageClickedStats_Request) returns (.CMarketingMessages_GetMarketingMessageClickedStats_Response);
 	rpc GetMarketingMessagesForApps (.CMarketingMessage_GetMarketingMessagesForApps_Request) returns (.CMarketingMessage_GetMarketingMessagesForApps_Response);
 	rpc GetMarketingMessagesForPartner (.CMarketingMessage_GetMarketingMessagesForPartner_Request) returns (.CMarketingMessage_GetMarketingMessagesForPartner_Response);
 	rpc GetMarketingMessagesForUser (.CMarketingMessages_GetMarketingMessagesForUser_Request) returns (.CMarketingMessages_GetMarketingMessagesForUser_Response);
