@@ -438,54 +438,6 @@ message CClientMetrics_IPv6Connectivity_Result {
 	optional uint32 connectivity_state = 2;
 }
 
-message CClientMetrics_ReportClientArgs_Notification {
-	repeated string client_args = 1;
-	optional bool gpu_webview_regkey_disabled = 2;
-	optional bool suppress_gpu_chrome = 3;
-	optional bool browser_not_supported = 4;
-	optional bool hw_accel_video_regkey_disabled = 5;
-	optional bool mini_mode_enabled = 6;
-	optional bool fps_counter_enabled = 7;
-	optional bool library_low_bandwidth_mode_enabled = 8;
-	optional bool library_low_perf_mode_enabled = 9;
-	optional int32 gr_mode = 10;
-}
-
-message CClientMetrics_ReportLinuxStats_Notification {
-	optional int32 glibc_version_major = 1;
-	optional int32 glibc_version_minor = 2;
-	optional int32 account_type = 3;
-	optional int32 launcher_type = 4;
-	optional int32 game_server_appid = 5;
-	optional string process_name = 6;
-}
-
-message CClientMetrics_ReportReactUsage_Notification {
-	optional string product = 1;
-	optional string version = 2;
-	repeated .CClientMetrics_ReportReactUsage_Notification_RouteData routes = 3;
-	repeated .CClientMetrics_ReportReactUsage_Notification_ComponentData components = 4;
-	repeated .CClientMetrics_ReportReactUsage_Notification_ActionData actions = 5;
-}
-
-// Used by: common.proto
-message CClientMetrics_ReportReactUsage_Notification_ActionData {
-	optional string action = 1;
-	optional uint32 count = 2;
-}
-
-// Used by: common.proto
-message CClientMetrics_ReportReactUsage_Notification_ComponentData {
-	optional string component = 1;
-	optional uint32 count = 2;
-}
-
-// Used by: common.proto
-message CClientMetrics_ReportReactUsage_Notification_RouteData {
-	optional string route = 1;
-	optional uint32 count = 2;
-}
-
 message CClientMetrics_SteamPipeWorkStats_Notification {
 	optional uint32 appid = 1;
 	optional uint32 depotid = 2;
@@ -820,19 +772,6 @@ message CLibraryBootstrapData {
 message CLocalizationToken {
 	optional uint32 language = 1;
 	optional string localized_string = 2;
-}
-
-message CMarketingMessages_MarkMessageClicked_Notification {
-	optional fixed64 gid = 1;
-	optional uint32 display_index = 2 [default = 0];
-	optional int32 template_type = 3 [default = 0, (.description) = "enum"];
-	optional int32 click_location = 4 [default = 0, (.description) = "enum"];
-}
-
-message CMarketingMessages_MarkMessageSeen_Notification {
-	optional fixed64 gid = 1;
-	optional uint32 display_index = 2 [default = 0];
-	optional int32 template_type = 3 [default = 0, (.description) = "enum"];
 }
 
 message CMsgAchievementChange {
@@ -4891,45 +4830,11 @@ message CProductImpressionsFromClient_Notification_Impression {
 	optional uint32 num_impressions = 3;
 }
 
-// Used by: RemoteClient, common.proto
-message CRemoteClient_DeviceDetails {
-	optional string device_friendly_name = 1;
-	optional int32 os_type = 2;
-	optional uint32 gaming_device_type = 3;
-}
-
-message CRemoteClient_Online_Notification {
-	optional fixed64 steamid = 1;
-	optional fixed64 remote_client_id = 2;
-	optional .CRemoteClient_DeviceDetails device_details = 3;
-}
-
-message CRemoteClient_ReplyPacket_Notification {
-	optional fixed64 session_id = 1;
-	optional bytes payload = 2;
-}
-
 message CRemotePlay_SessionStopped_Notification {
 	optional fixed64 record_id = 1;
 	optional bool used_x264 = 2;
 	optional bool used_h264 = 3;
 	optional bool used_hevc = 4;
-}
-
-message CSteamNotification_HideNotification_Notification {
-	repeated uint64 notification_ids = 1;
-}
-
-message CSteamNotification_MarkNotificationsRead_Notification {
-	optional uint32 timestamp = 1;
-	optional int32 notification_type = 2 [(.description) = "enum"];
-	repeated uint64 notification_ids = 3;
-	optional bool mark_all_read = 4;
-}
-
-message CSteamNotification_MarkNotificationsViewed_Notification {
-	optional uint64 remote_client_id = 1;
-	optional uint32 target_client_type = 2;
 }
 
 message CSteamVR_AudioSettings_ChangeSettings_Request {
@@ -5117,15 +5022,6 @@ message CSteamVR_WebRTC_OnDataChannel_Notification {
 	optional fixed64 source_steamid = 1;
 	optional uint32 channel_id = 2;
 	optional string label = 3;
-}
-
-message CStore_MigratePartnerLinkTracking_Notification {
-	optional uint32 accountid = 1;
-	optional uint64 browserid = 2;
-	optional int32 backfill_source = 3 [(.description) = "enum"];
-}
-
-message CStore_ReloadAllReservationPositionMessages_Notification {
 }
 
 // Used by: PartnerStoreBrowse, StoreBrowse

@@ -230,6 +230,7 @@ service Authentication {
 	rpc GetAuthSessionsForAccount (.CAuthentication_GetAuthSessionsForAccount_Request) returns (.CAuthentication_GetAuthSessionsForAccount_Response);
 	rpc GetPasswordRSAPublicKey (.CAuthentication_GetPasswordRSAPublicKey_Request) returns (.CAuthentication_GetPasswordRSAPublicKey_Response);
 	rpc MigrateMobileSession (.CAuthentication_MigrateMobileSession_Request) returns (.CAuthentication_MigrateMobileSession_Response);
+	rpc NotifyRiskQuizResults (.NotImplemented) returns (.NoResponse);
 	rpc PollAuthSessionStatus (.CAuthentication_PollAuthSessionStatus_Request) returns (.CAuthentication_PollAuthSessionStatus_Response);
 	rpc RevokeRefreshToken (.CAuthentication_RefreshToken_Revoke_Request) returns (.CAuthentication_RefreshToken_Revoke_Response);
 	rpc RevokeToken (.CAuthentication_Token_Revoke_Request) returns (.CAuthentication_Token_Revoke_Response);

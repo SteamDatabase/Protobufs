@@ -209,6 +209,19 @@ message CMarketingMessages_GetPastMarketingMessages_Response {
 	repeated .CMarketingMessageProto messages = 1;
 }
 
+message CMarketingMessages_MarkMessageClicked_Notification {
+	optional fixed64 gid = 1;
+	optional uint32 display_index = 2 [default = 0];
+	optional int32 template_type = 3 [default = 0, (.description) = "enum"];
+	optional int32 click_location = 4 [default = 0, (.description) = "enum"];
+}
+
+message CMarketingMessages_MarkMessageSeen_Notification {
+	optional fixed64 gid = 1;
+	optional uint32 display_index = 2 [default = 0];
+	optional int32 template_type = 3 [default = 0, (.description) = "enum"];
+}
+
 message CMarketingMessages_PartnerPublishMessage_Request {
 	optional fixed64 gid = 1;
 	optional uint32 partnerid = 2;
@@ -245,6 +258,8 @@ service MarketingMessages {
 	rpc GetPartnerMessagePreview (.CMarketingMessages_GetPartnerMessagePreview_Request) returns (.CMarketingMessages_GetPartnerMessagePreview_Response);
 	rpc GetPartnerReadyToPublishMessages (.CMarketingMessages_GetPartnerReadyToPublishMessages_Request) returns (.CMarketingMessages_GetPartnerReadyToPublishMessages_Response);
 	rpc GetPastMarketingMessages (.CMarketingMessages_GetPastMarketingMessages_Request) returns (.CMarketingMessages_GetPastMarketingMessages_Response);
+	rpc MarkMessageClicked (.CMarketingMessages_MarkMessageClicked_Notification) returns (.NoResponse);
+	rpc MarkMessageSeen (.CMarketingMessages_MarkMessageSeen_Notification) returns (.NoResponse);
 	rpc PublishPartnerMessage (.CMarketingMessages_PartnerPublishMessage_Request) returns (.CMarketingMessages_PartnerPublishMessage_Response);
 	rpc UpdateMarketingMessage (.CMarketingMessages_UpdateMarketingMessage_Request) returns (.CMarketingMessages_UpdateMarketingMessage_Response);
 }

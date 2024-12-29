@@ -1,4 +1,4 @@
-import "common.proto";
+import "common_base.proto";
 
 message CRemoteClient_AllocateRelayServer_Request {
 	optional uint32 cellid = 1;
@@ -42,6 +42,12 @@ message CRemoteClient_DeleteRemotePlayTogetherInvitation_Request {
 message CRemoteClient_DeleteRemotePlayTogetherInvitation_Response {
 }
 
+message CRemoteClient_DeviceDetails {
+	optional string device_friendly_name = 1;
+	optional int32 os_type = 2;
+	optional uint32 gaming_device_type = 3;
+}
+
 message CRemoteClient_GetPairingInfo_Request {
 	optional uint32 pin = 1;
 }
@@ -68,6 +74,17 @@ message CRemoteClient_MarkTaskComplete_Request {
 message CRemoteClient_MarkTaskComplete_Response {
 }
 
+message CRemoteClient_Online_Notification {
+	optional fixed64 steamid = 1;
+	optional fixed64 remote_client_id = 2;
+	optional .CRemoteClient_DeviceDetails device_details = 3;
+}
+
+message CRemoteClient_ReplyPacket_Notification {
+	optional fixed64 session_id = 1;
+	optional bytes payload = 2;
+}
+
 message CRemotePlay_SessionStarted_Request {
 	optional uint32 host_account_id = 1;
 	optional uint32 client_account_id = 2;
@@ -89,6 +106,12 @@ service RemoteClient {
 	rpc GetPairingInfo (.CRemoteClient_GetPairingInfo_Request) returns (.CRemoteClient_GetPairingInfo_Response);
 	rpc GetRecentClients (.CRemoteClient_GetRecentClients_Request) returns (.CRemoteClient_GetRecentClients_Response);
 	rpc MarkTaskComplete (.CRemoteClient_MarkTaskComplete_Request) returns (.CRemoteClient_MarkTaskComplete_Response);
+	rpc NotifyOnline (.CRemoteClient_Online_Notification) returns (.NoResponse);
+	rpc NotifyReplyPacket (.CRemoteClient_ReplyPacket_Notification) returns (.NoResponse);
 	rpc SendRemotePlaySessionStarted (.CRemotePlay_SessionStarted_Request) returns (.CRemotePlay_SessionStarted_Response);
+	rpc SendRemotePlaySessionStopped (.NotImplemented) returns (.NoResponse);
+	rpc SendRemotePlayTogetherPacket (.NotImplemented) returns (.NoResponse);
+	rpc SendSteamBroadcastPacket (.NotImplemented) returns (.NoResponse);
+	rpc SendSteamToSteamPacket (.NotImplemented) returns (.NoResponse);
 }
 
