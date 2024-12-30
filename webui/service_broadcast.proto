@@ -240,6 +240,15 @@ message CBroadcast_MuteBroadcastChatUser_Request {
 message CBroadcast_MuteBroadcastChatUser_Response {
 }
 
+message CBroadcast_NotifyBroadcastSessionHeartbeat_Notification {
+	optional fixed64 broadcast_id = 1;
+}
+
+message CBroadcast_NotifyBroadcastUploadStop_Notification {
+	optional fixed64 broadcast_upload_id = 1;
+	optional uint32 upload_result = 2;
+}
+
 message CBroadcast_PostChatMessage_Request {
 	optional fixed64 chat_id = 1;
 	optional string message = 2;
@@ -522,8 +531,8 @@ service Broadcast {
 	rpc HeartbeatBroadcast (.CBroadcast_HeartbeatBroadcast_Notification) returns (.NoResponse);
 	rpc InviteToBroadcast (.CBroadcast_InviteToBroadcast_Request) returns (.CBroadcast_InviteToBroadcast_Response);
 	rpc MuteBroadcastChatUser (.CBroadcast_MuteBroadcastChatUser_Request) returns (.CBroadcast_MuteBroadcastChatUser_Response);
-	rpc NotifyBroadcastSessionHeartbeat (.NotImplemented) returns (.NoResponse);
-	rpc NotifyBroadcastUploadStop (.NotImplemented) returns (.NoResponse);
+	rpc NotifyBroadcastSessionHeartbeat (.CBroadcast_NotifyBroadcastSessionHeartbeat_Notification) returns (.NoResponse);
+	rpc NotifyBroadcastUploadStop (.CBroadcast_NotifyBroadcastUploadStop_Notification) returns (.NoResponse);
 	rpc NotifyWebRTCHaveTURNServer (.CBroadcast_WebRTCHaveTURNServer_Notification) returns (.NoResponse);
 	rpc PostChatMessage (.CBroadcast_PostChatMessage_Request) returns (.CBroadcast_PostChatMessage_Response);
 	rpc RemoveUserChatText (.CBroadcast_RemoveUserChatText_Request) returns (.CBroadcast_RemoveUserChatText_Response);
