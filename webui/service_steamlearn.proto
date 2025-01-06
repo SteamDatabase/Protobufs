@@ -118,6 +118,7 @@ message CMsgSteamLearn_GetFetchStatus_Response_Worker {
 	optional uint32 rows_written = 1;
 	optional bool complete = 2;
 	optional uint32 rows_processed = 3;
+	optional uint32 rows_total = 4;
 }
 
 message CMsgSteamLearn_GetFetchStatusVersions_Request {
@@ -1000,6 +1001,7 @@ message CMsgSteamLearnTrainConfig {
 	optional int32 train_gpu = 9 [(.description) = "enum"];
 	optional uint32 gpu_count = 10;
 	optional bool mixed_precision = 11;
+	optional int32 snapshot_location = 12 [(.description) = "enum"];
 }
 
 message CMsgSteamLearnTrainInfo {
