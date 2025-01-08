@@ -625,6 +625,8 @@ message CMsgSteamLearnDataSourceElementUsage {
 	optional uint32 sequence_min_length = 15;
 	optional bool table_full_sample = 16;
 	optional float sequence_prefix_frequency = 17;
+	optional uint32 other_project_id = 18;
+	optional uint32 other_fetch_id = 19;
 }
 
 message CMsgSteamLearnFetchInfo {
@@ -1002,6 +1004,8 @@ message CMsgSteamLearnTrainConfig {
 	optional uint32 gpu_count = 10;
 	optional bool mixed_precision = 11;
 	optional int32 snapshot_location = 12 [(.description) = "enum"];
+	optional float train_weight_decay = 13;
+	optional float train_clip_norm = 14;
 }
 
 message CMsgSteamLearnTrainInfo {

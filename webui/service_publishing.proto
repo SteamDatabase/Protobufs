@@ -145,6 +145,7 @@ message CPublishing_GetPartnerPaidGivenPackageList_Response_CPackageAndPartnerPa
 
 message CPublishing_GetSinglePartnerAppOptIns_Request {
 	optional uint32 appid = 1;
+	optional string opt_in_name = 2;
 }
 
 message CPublishing_GetSinglePartnerAppOptIns_Response {

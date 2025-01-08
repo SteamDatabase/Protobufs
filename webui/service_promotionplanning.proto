@@ -47,6 +47,55 @@ message CPromotionPlan_CreateSalePageForPromo_Response {
 	optional uint32 advertising_appid = 6;
 }
 
+message CPromotionPlan_GetPromotionPlanSalesDaily_Request {
+	repeated uint64 promotionids = 1;
+	optional uint32 partnerid = 2;
+}
+
+message CPromotionPlan_GetPromotionPlanSalesDaily_Response {
+	repeated .CPromotionPlan_GetPromotionPlanSalesDaily_Response_PromotionSaleData sales = 1;
+	optional bool partial_access = 2;
+}
+
+message CPromotionPlan_GetPromotionPlanSalesDaily_Response_DailyPromotionSales {
+	optional uint32 rtime_date = 1;
+	optional string date = 2;
+	optional .CPromotionPlan_SummarySaleResult summary_sales = 3;
+}
+
+message CPromotionPlan_GetPromotionPlanSalesDaily_Response_Product {
+	optional uint32 appid = 1;
+	optional uint32 packageid = 2;
+	optional uint32 secondary_product_id = 3;
+	optional .CPromotionPlan_SummarySaleResult summary_sales = 4;
+	repeated .CPromotionPlan_GetPromotionPlanSalesDaily_Response_DailyPromotionSales daily_promo_sales = 5;
+}
+
+message CPromotionPlan_GetPromotionPlanSalesDaily_Response_PromotionSaleData {
+	optional uint64 promotionid = 1;
+	repeated .CPromotionPlan_GetPromotionPlanSalesDaily_Response_DailyPromotionSales daily_promo_sales = 2;
+	optional .CPromotionPlan_SummarySaleResult summary_sales = 3;
+	repeated .CPromotionPlan_GetPromotionPlanSalesDaily_Response_Product products = 4;
+}
+
+message CPromotionPlan_SummarySaleResult {
+	optional int64 total_gross_sales_usdx100 = 1;
+	optional int64 total_gross_returns_usdx100 = 2;
+	optional int64 total_net_tax_usdx100 = 3;
+	optional int64 steam_gross_sales_usdx100 = 4;
+	optional int64 steam_gross_returns_usdx100 = 5;
+	optional int64 steam_net_tax_usdx100 = 6;
+	optional int64 in_game_gross_sales_usdx100 = 7;
+	optional int64 in_game_gross_returns_usdx100 = 8;
+	optional int64 in_game_net_tax_usdx100 = 9;
+	optional int64 total_net_sales_usdx100 = 10;
+	optional int64 steam_net_sales_usdx100 = 11;
+	optional int64 in_game_net_sales_usdx100 = 12;
+	optional int64 steam_gross_units_sold = 13;
+	optional int64 steam_gross_units_returned = 14;
+	optional int64 gross_units_activated = 15;
+}
+
 message CPromotionPlanning_CreatePlan_Request {
 	optional .CPromotionPlan plan = 1;
 }
@@ -307,6 +356,7 @@ service PromotionPlanning {
 	rpc GetPlanCompletedInDateRange (.CPromotionPlanning_GetPlanCompletedInDateRange_Request) returns (.CPromotionPlanning_GetPlanCompletedInDateRange_Response);
 	rpc GetPlansUpdatedSince (.CPromotionPlanning_GetPlansUpdatedSince_Request) returns (.CPromotionPlanning_GetPlansUpdatedSince_Response);
 	rpc GetPromotionPlanForSalePages (.CPromotionPlanning_GetPromotionPlanForSalePages_Request) returns (.CPromotionPlanning_GetPromotionPlanForSalePages_Response);
+	rpc GetPromotionPlanSalesDaily (.CPromotionPlan_GetPromotionPlanSalesDaily_Request) returns (.CPromotionPlan_GetPromotionPlanSalesDaily_Response);
 	rpc GetSalePageCandidatesForPromo (.CPromotionPlanning_GetSalePageCandidatesForPromo_Request) returns (.CPromotionPlanning_GetSalePageCandidatesForPromo_Response);
 	rpc GetSentNotification (.CPromotionPlanning_GetSentNotification_Request) returns (.CPromotionPlanning_GetSentNotification_Response);
 	rpc GetUpcomingScheduledDiscounts (.CPromotionPlanning_GetUpcomingScheduledDiscounts_Request) returns (.CPromotionPlanning_GetUpcomingScheduledDiscounts_Response);
