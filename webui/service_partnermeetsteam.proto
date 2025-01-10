@@ -49,6 +49,14 @@ message CPartnerMeetSteam_GetRegistrations_Response_Registration {
 	optional string jsondata = 5;
 }
 
+message CPartnerMeetSteam_GetSaleEventOrganizers_Request {
+	optional uint32 rt_oldest_date = 1;
+}
+
+message CPartnerMeetSteam_GetSaleEventOrganizers_Response {
+	repeated .CSaleEventOrganizerInfo info = 1;
+}
+
 message CPartnerMeetSteam_UpdateRegistration_Request {
 	optional fixed64 clan_event_gid = 1;
 	optional fixed64 steamid = 2;
@@ -61,10 +69,16 @@ message CPartnerMeetSteam_UpdateRegistration_Request {
 message CPartnerMeetSteam_UpdateRegistration_Response {
 }
 
+message CSaleEventOrganizerInfo {
+	optional uint32 accountid = 1;
+	repeated fixed64 clan_event_gids = 2;
+}
+
 service PartnerMeetSteam {
 	rpc EmailInvitees (.CPartnerMeetSteam_EmailInvitees_Request) returns (.CPartnerMeetSteam_EmailInvitees_Response);
 	rpc GetAvailability (.CPartnerMeetSteam_GetAvailability_Request) returns (.CPartnerMeetSteam_GetAvailability_Response);
 	rpc GetRegistrations (.CPartnerMeetSteam_GetRegistrations_Request) returns (.CPartnerMeetSteam_GetRegistrations_Response);
+	rpc GetSaleEventOrganizers (.CPartnerMeetSteam_GetSaleEventOrganizers_Request) returns (.CPartnerMeetSteam_GetSaleEventOrganizers_Response);
 	rpc TestFireEmails (.CParterMeetSteam_TestFireEmails_Request) returns (.CParterMeetSteam_TestFireEmails_Response);
 	rpc UpdateRegistration (.CPartnerMeetSteam_UpdateRegistration_Request) returns (.CPartnerMeetSteam_UpdateRegistration_Response);
 }
