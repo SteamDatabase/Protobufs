@@ -8,6 +8,13 @@ message CParterMeetSteam_TestFireEmails_Response {
 	repeated uint32 sessionids = 1;
 }
 
+message CPartnerEmailAndName {
+	optional uint32 accountid = 1;
+	optional uint32 partnerid = 2;
+	optional string realname = 3;
+	optional string email = 4;
+}
+
 message CPartnerMeetSteam_EmailInvitees_Request {
 	optional fixed64 clan_event_gid = 1;
 	optional fixed64 steamid = 2;
@@ -30,6 +37,15 @@ message CPartnerMeetSteam_GetAvailability_Response_Session {
 	optional uint32 group_id = 1;
 	optional uint32 session_id = 2;
 	optional uint32 guest_count = 3;
+}
+
+message CPartnerMeetSteam_GetBatchPartnerEmailAndName_Request {
+	repeated uint32 accountids = 1;
+	repeated uint32 partnerids = 2;
+}
+
+message CPartnerMeetSteam_GetBatchPartnerEmailAndName_Response {
+	repeated .CPartnerEmailAndName info = 1;
 }
 
 message CPartnerMeetSteam_GetRegistrations_Request {
@@ -77,6 +93,7 @@ message CSaleEventOrganizerInfo {
 service PartnerMeetSteam {
 	rpc EmailInvitees (.CPartnerMeetSteam_EmailInvitees_Request) returns (.CPartnerMeetSteam_EmailInvitees_Response);
 	rpc GetAvailability (.CPartnerMeetSteam_GetAvailability_Request) returns (.CPartnerMeetSteam_GetAvailability_Response);
+	rpc GetBatchPartnerEmailAndName (.CPartnerMeetSteam_GetBatchPartnerEmailAndName_Request) returns (.CPartnerMeetSteam_GetBatchPartnerEmailAndName_Response);
 	rpc GetRegistrations (.CPartnerMeetSteam_GetRegistrations_Request) returns (.CPartnerMeetSteam_GetRegistrations_Response);
 	rpc GetSaleEventOrganizers (.CPartnerMeetSteam_GetSaleEventOrganizers_Request) returns (.CPartnerMeetSteam_GetSaleEventOrganizers_Response);
 	rpc TestFireEmails (.CParterMeetSteam_TestFireEmails_Request) returns (.CParterMeetSteam_TestFireEmails_Response);

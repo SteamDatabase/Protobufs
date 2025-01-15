@@ -26,6 +26,7 @@ message CPlaytest_GetInvites_Response_Invite {
 }
 
 message CPlaytest_GetUserStatus_Request {
+	optional uint32 appid = 1;
 }
 
 message CPlaytest_GetUserStatus_Response {

@@ -85,6 +85,7 @@ message CMsgSteamLearn_GetEmbeddingValues_Response {
 message CMsgSteamLearn_GetEmbeddingValues_Response_EmbeddingData {
 	optional uint32 numerical_value = 1;
 	repeated float embedding_values = 2;
+	optional bool found_value = 3;
 }
 
 message CMsgSteamLearn_GetFetchStatus_Request {
@@ -133,6 +134,8 @@ message CMsgSteamLearn_GetFetchStatusVersions_Response {
 message CMsgSteamLearn_GetLogEvents_Request {
 	optional uint32 start_timestamp = 1;
 	optional uint32 end_timestamp = 2;
+	optional uint32 project_id = 3;
+	optional uint32 published_version = 4;
 }
 
 message CMsgSteamLearn_GetLogEvents_Response {
@@ -213,8 +216,9 @@ message CMsgSteamLearn_GetTrainStatus_Response {
 
 message CMsgSteamLearn_GetTrainStatus_Response_Batch {
 	optional float loss = 1;
-	repeated float accuracy = 2;
 	optional uint32 batch_id = 3;
+	repeated float f1_score = 4;
+	repeated float accuracy = 5;
 }
 
 message CMsgSteamLearn_GetTrainStatus_Response_Epoch {
@@ -436,39 +440,40 @@ message CMsgSteamLearn_ListProjects_Response {
 message CMsgSteamLearn_LogEvent {
 	optional int32 event_type = 1 [(.description) = "enum"];
 	optional uint32 timestamp = 2;
-	optional .CMsgSteamLearn_LogEvent_TrainStarted train_started = 3;
-	optional .CMsgSteamLearn_LogEvent_TrainEnded train_ended = 4;
-	optional .CMsgSteamLearn_LogEvent_TrainSetLive train_set_live = 5;
-	optional .CMsgSteamLearn_LogEvent_ScheduledTrain scheduled_train = 6;
+	optional uint32 project_id = 3;
+	optional uint32 published_version = 4;
+	optional .CMsgSteamLearn_LogEvent_TrainStarted train_started = 5;
+	optional .CMsgSteamLearn_LogEvent_TrainEnded train_ended = 6;
+	optional .CMsgSteamLearn_LogEvent_TrainSetLive train_set_live = 7;
+	optional .CMsgSteamLearn_LogEvent_Autosnapshot auto_snapshot = 8;
 }
 
-message CMsgSteamLearn_LogEvent_ScheduledTrain {
-	optional uint32 project_id = 1;
-	optional uint32 fetch_id = 2;
-	optional uint32 train_id = 3;
+message CMsgSteamLearn_LogEvent_Autosnapshot {
+	optional int32 status = 1 [(.description) = "enum"];
+	optional uint64 key_completed = 2;
+	optional uint64 key_end = 3;
+	optional uint64 num_snapshot_requests = 4;
 }
 
 message CMsgSteamLearn_LogEvent_TrainEnded {
-	optional uint32 project_id = 1;
-	optional uint32 fetch_id = 2;
-	optional uint32 train_id = 3;
-	optional float loss = 4;
-	optional float accuracy = 5;
+	optional uint32 fetch_id = 1;
+	optional uint32 train_id = 2;
+	optional float loss = 3;
+	optional float accuracy = 4;
+	optional float f1_score = 5;
 }
 
 message CMsgSteamLearn_LogEvent_TrainSetLive {
-	optional uint32 project_id = 1;
-	optional uint32 fetch_id = 2;
-	optional uint32 train_id = 3;
-	optional bool manual_set_live = 4;
-	optional float accuracy_difference = 5;
-	optional float accuracy_threshold = 6;
+	optional uint32 fetch_id = 1;
+	optional uint32 train_id = 2;
+	optional bool manual_set_live = 3;
+	optional float accuracy_difference = 4;
+	optional float accuracy_threshold = 5;
 }
 
 message CMsgSteamLearn_LogEvent_TrainStarted {
-	optional uint32 project_id = 1;
-	optional uint32 fetch_id = 2;
-	optional uint32 train_id = 3;
+	optional uint32 fetch_id = 1;
+	optional uint32 train_id = 2;
 }
 
 message CMsgSteamLearn_PublishProject_Request {
@@ -594,6 +599,7 @@ message CMsgSteamLearnDataSource {
 	optional .CMsgSteamLearnDataSourceDescObject structure = 5;
 	optional uint32 structure_crc = 6;
 	optional uint32 cache_duration_seconds = 7;
+	optional int32 key_type = 8 [default = 1, (.description) = "enum"];
 }
 
 message CMsgSteamLearnDataSourceDescElement {
@@ -1006,6 +1012,7 @@ message CMsgSteamLearnTrainConfig {
 	optional int32 snapshot_location = 12 [(.description) = "enum"];
 	optional float train_weight_decay = 13;
 	optional float train_clip_norm = 14;
+	optional bool use_class_weights = 15;
 }
 
 message CMsgSteamLearnTrainInfo {

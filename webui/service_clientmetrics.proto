@@ -23,6 +23,7 @@ message CClientMetrics_ReportClientError_Notification_Error {
 	optional string identifier = 1;
 	optional string message = 2;
 	optional uint32 count = 3;
+	optional string context = 4;
 }
 
 message CClientMetrics_ReportLinuxStats_Notification {
