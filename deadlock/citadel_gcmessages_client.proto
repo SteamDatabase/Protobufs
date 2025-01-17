@@ -297,6 +297,7 @@ message CMsgClientToGCStartMatchmakingResponse {
 		k_EResult_HeroLabsNotUnlocked = 22;
 		k_EResult_NoHeroLabsWhileInLowPri = 23;
 		k_EResult_AccountLocked = 24;
+		k_EResult_TooManyLimitedHeroes = 25;
 	}
 
 	optional .CMsgClientToGCStartMatchmakingResponse.EResultCode result = 1 [default = k_EResult_OK];
@@ -407,6 +408,7 @@ message CMsgGCToClientDevPlaytestStatus {
 	optional uint32 mm_pause_time = 14;
 	repeated uint32 valid_client_versions = 15;
 	optional uint32 active_match_count = 21;
+	optional uint32 roster_non_limited_heroes = 22;
 }
 
 message CMsgGCToClientSDRTicket {
@@ -749,6 +751,7 @@ message CMsgClientToGCPartySetReadyStateResponse {
 		k_eHeroesNotUnlocked = 10;
 		k_eModeLocked = 11;
 		k_eModeBanned = 12;
+		k_eTooManyLimitedHeroes = 13;
 	}
 
 	optional .CMsgClientToGCPartySetReadyStateResponse.EResponse result = 1 [default = k_eInternalError];
