@@ -310,10 +310,7 @@ message CCitadelUserMsg_GoldHistory {
 
 message CCitadelUserMsg_CameraController {
 	message Maintain {
-		optional float duration = 1 [default = 1];
-		optional .CMsgVector maintain_vector = 2;
-		optional float maintain_float = 3;
-		optional bool maintain_current = 4;
+		optional float duration = 1 [default = 0];
 	}
 
 	message Approach {
