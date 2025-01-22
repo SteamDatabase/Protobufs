@@ -79,6 +79,7 @@ message CStoreQueryFilters {
 	optional bool coming_soon_only = 2;
 	optional .CStoreQueryFilters_TypeFilters type_filters = 3;
 	repeated int32 exclude_from = 4 [(.description) = "enum"];
+	optional .CStoreQueryFilters_PredefinedFilter predefined_filter = 5;
 	repeated .CStoreQueryFilters_TagFilter tagids_must_match = 10;
 	repeated int32 tagids_exclude = 11;
 	optional .CStoreQueryFilters_PriceFilters price_filters = 12;
@@ -90,6 +91,11 @@ message CStoreQueryFilters {
 	optional int32 global_long_term_top_n_sellers = 43;
 	optional .CStorePageFilter store_page_filter = 44;
 	repeated uint32 parent_appids = 45;
+}
+
+message CStoreQueryFilters_PredefinedFilter {
+	optional int32 filter_type = 1 [(.description) = "enum"];
+	repeated int32 language_preferences = 2;
 }
 
 message CStoreQueryFilters_PriceFilters {

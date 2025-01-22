@@ -69,6 +69,7 @@ message CPromotionPlan_GetPromotionPlanSalesDaily_Response_Product {
 	optional uint32 secondary_product_id = 3;
 	optional .CPromotionPlan_SummarySaleResult summary_sales = 4;
 	repeated .CPromotionPlan_GetPromotionPlanSalesDaily_Response_DailyPromotionSales daily_promo_sales = 5;
+	optional uint32 package_billing_type = 6;
 }
 
 message CPromotionPlan_GetPromotionPlanSalesDaily_Response_PromotionSaleData {

@@ -38,6 +38,7 @@ message CPlaytest_GetUserStatus_Response_AppStatus {
 	optional int32 status = 2 [(.description) = "enum"];
 	optional int32 invites_remaining = 3;
 	optional uint32 time_joined = 4;
+	optional uint32 packageid = 5;
 }
 
 message CPlaytest_RequestInvite_Request {
