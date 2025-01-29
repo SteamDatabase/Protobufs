@@ -150,7 +150,6 @@ message CSOCitadelServerStaticLobby {
 	optional .ECitadelBotDifficulty bot_difficulty = 9 [default = k_ECitadelBotDifficulty_None];
 	optional fixed32 metadata_salt = 10;
 	optional uint32 match_start_time = 11;
-	optional uint32 experimental_gameplay_state = 15;
 	optional .ECitadelRegionMode region_mode = 16 [default = k_ECitadelRegionMode_ROW];
 	optional string broadcast_url = 17;
 	optional bool new_player_pool = 18;
@@ -162,6 +161,7 @@ message CSOCitadelServerStaticLobby {
 	optional bool experimental_heroes_enabled = 24;
 	optional uint32 average_badge_team_0 = 25;
 	optional uint32 average_badge_team_1 = 26;
+	optional string gameplay_experiment = 27;
 }
 
 message CMsgServerSignoutData_ServerPerfStats {
