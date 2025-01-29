@@ -80,6 +80,7 @@ message CPartnerMeetSteam_UpdateRegistration_Request {
 	optional uint32 registration_session_id = 4;
 	optional uint32 guest_count = 5;
 	optional string jsondata = 7;
+	optional bool skip_email = 8;
 }
 
 message CPartnerMeetSteam_UpdateRegistration_Response {

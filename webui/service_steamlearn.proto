@@ -187,6 +187,11 @@ message CMsgSteamLearn_GetSnapshotStatus_Response {
 	optional uint32 snapshot_count = 4;
 	optional uint32 snapshot_object_count = 5;
 	repeated .CMsgSteamLearnSnapshotStorage snapshot_examples = 6;
+	optional int32 autosnapshot_status = 7 [(.description) = "enum"];
+	optional uint32 autosnapshot_time_started = 8;
+	optional uint32 autosnapshot_time_ended = 9;
+	optional uint64 autosnapshot_key_current = 10;
+	optional uint64 autosnapshot_key_max = 11;
 }
 
 message CMsgSteamLearn_GetTrainLogs_Request {
@@ -617,6 +622,7 @@ message CMsgSteamLearnDataSource {
 	optional uint32 structure_crc = 6;
 	optional uint32 cache_duration_seconds = 7;
 	optional int32 key_type = 8 [default = 1, (.description) = "enum"];
+	optional bool supports_auto_snapshots = 9;
 }
 
 message CMsgSteamLearnDataSourceDescElement {
@@ -970,6 +976,7 @@ message CMsgSteamLearnProjectSnapshotConfig {
 	optional uint32 job_count = 9;
 	optional uint32 snapshot_schedule_hour_of_day = 10;
 	optional int32 snapshot_location = 11 [(.description) = "enum"];
+	optional .CMsgSteamLearnProjectSnapshotConfigDataSource config_data_source = 12;
 }
 
 message CMsgSteamLearnProjectSnapshotConfigAccountIDs {
@@ -981,6 +988,10 @@ message CMsgSteamLearnProjectSnapshotConfigAccountIDs {
 message CMsgSteamLearnProjectSnapshotConfigAppIDs {
 	optional uint32 percent = 1;
 	optional uint32 release_recency_days = 2;
+}
+
+message CMsgSteamLearnProjectSnapshotConfigDataSource {
+	optional uint32 data_source_id = 1;
 }
 
 message CMsgSteamLearnProjectSnapshotConfigOtherProject {
@@ -1044,6 +1055,10 @@ message CMsgSteamLearnTrainConfig {
 	optional float train_weight_decay = 13;
 	optional float train_clip_norm = 14;
 	optional bool use_class_weights = 15;
+	optional uint32 train_warmup_steps = 16;
+	optional float train_warmup_start = 17;
+	optional int32 train_decay_steps = 18;
+	optional float train_decay_rate = 19;
 }
 
 message CMsgSteamLearnTrainInfo {
