@@ -1,5 +1,21 @@
 import "common_base.proto";
 
+message CPlaytest_GetInviteHistory_Request {
+	optional uint32 limit = 1;
+	optional uint32 time_before = 2;
+}
+
+message CPlaytest_GetInviteHistory_Response {
+	repeated .CPlaytest_GetInviteHistory_Response_Invite invites = 1;
+}
+
+message CPlaytest_GetInviteHistory_Response_Invite {
+	optional uint32 appid = 1;
+	optional fixed64 steamid_invited = 2;
+	optional uint32 time_created = 3;
+	optional string app_name = 4;
+}
+
 message CPlaytest_GetInviteOptions_Request {
 	optional uint32 appid = 1;
 }
@@ -62,6 +78,7 @@ message CPlaytest_UpdateInvites_Response {
 }
 
 service Playtest {
+	rpc GetInviteHistory (.CPlaytest_GetInviteHistory_Request) returns (.CPlaytest_GetInviteHistory_Response);
 	rpc GetInviteOptions (.CPlaytest_GetInviteOptions_Request) returns (.CPlaytest_GetInviteOptions_Response);
 	rpc GetInvites (.CPlaytest_GetInvites_Request) returns (.CPlaytest_GetInvites_Response);
 	rpc GetUserStatus (.CPlaytest_GetUserStatus_Request) returns (.CPlaytest_GetUserStatus_Response);

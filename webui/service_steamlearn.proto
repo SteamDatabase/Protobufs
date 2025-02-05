@@ -742,6 +742,7 @@ message CMsgSteamLearnModelNodeExternalEmbedding {
 	optional uint32 train_id = 2;
 	optional string embedding_name = 3;
 	optional string compact_table = 4;
+	optional uint32 fetch_id = 5;
 }
 
 message CMsgSteamLearnModelNodeExternalModel {
