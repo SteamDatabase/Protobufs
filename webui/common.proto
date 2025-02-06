@@ -2729,6 +2729,7 @@ message CMsgClientSettings {
 	optional string gamescope_game_resolution_global = 21012;
 	optional .CMsgHotkey gamescope_guide_hotkey = 21013;
 	optional .CMsgHotkey gamescope_qam_hotkey = 21014;
+	optional bool gamescope_hdr_enabled = 21015;
 	optional int32 steamos_status_led_brightness = 22000;
 	optional bool steamos_tdp_limit_enabled = 22001;
 	optional int32 steamos_tdp_limit = 22002;
@@ -3648,6 +3649,7 @@ message CMsgControllerMode {
 	optional int32 source = 7 [(.description) = "enum"];
 	optional .CMsgControllerVirtualMenuPreviewInfo virtual_menu_info = 8;
 	optional bool mode_shift = 9;
+	repeated int32 mode_shift_buttons = 10 [(.description) = "enum"];
 }
 
 // Used by: common.proto
@@ -4287,7 +4289,7 @@ message CMsgSetModeShiftButton {
 	optional string action_set_layer_key = 2;
 	optional int32 modeid = 3;
 	optional int32 source = 4 [(.description) = "enum"];
-	optional int32 digital_io = 5 [(.description) = "enum"];
+	repeated int32 mode_shift_buttons_digital_io = 5 [(.description) = "enum"];
 }
 
 // Used by: common.proto
@@ -4522,9 +4524,9 @@ message CMsgSystemDisplay {
 	optional int32 refresh_rate_min = 12;
 	optional int32 refresh_rate_max = 13;
 	optional bool is_vrr_capable = 14;
-	optional bool is_vrr_enabled = 15;
+	optional bool is_vrr_output_active = 15;
 	optional bool is_hdr_capable = 16;
-	optional bool is_hdr_enabled = 17;
+	optional bool is_hdr_output_active = 17;
 	repeated int32 supported_refresh_rates = 18;
 }
 
@@ -4535,7 +4537,6 @@ message CMsgSystemDisplayManagerSetMode {
 
 message CMsgSystemDisplayManagerState {
 	repeated .CMsgSystemDisplay displays = 1;
-	optional bool is_mode_switching_supported = 2;
 	optional int32 compatibility_mode = 3 [(.description) = "enum"];
 }
 
@@ -4645,8 +4646,6 @@ message CMsgSystemPerfLimits {
 	optional bool is_split_scaling_and_filtering_supported = 25;
 	repeated int32 split_scaling_filters_available = 26 [(.description) = "enum"];
 	repeated int32 split_scaling_scalers_available = 27 [(.description) = "enum"];
-	optional bool is_hdr_supported = 28;
-	optional int32 display_refresh_manual_hz_oc_max = 29;
 	optional bool disable_refresh_rate_management = 30;
 }
 
@@ -4676,14 +4675,9 @@ message CMsgSystemPerfSettingsGlobal {
 	optional bool is_show_perf_overlay_over_steam_enabled = 6;
 	optional bool is_advanced_settings_enabled = 7;
 	optional bool allow_external_display_refresh_control = 8;
-	optional bool is_hdr_enabled = 9;
 	optional int32 hdr_on_sdr_tonemap_operator = 12 [(.description) = "enum"];
 	optional bool is_hdr_debug_heatmap_enabled = 13;
 	optional bool force_hdr_wide_gammut_for_sdr = 15 [default = true];
-	optional bool allow_experimental_hdr = 16;
-	optional bool debug_force_hdr_support = 18;
-	optional bool force_hdr_10pq_output_debug = 19;
-	optional bool is_display_oc_enabled = 20;
 	optional bool is_color_management_enabled = 21;
 	optional float sdr_to_hdr_brightness = 22;
 }

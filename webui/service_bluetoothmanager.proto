@@ -69,6 +69,14 @@ message CBluetoothManager_SetDiscovering_Request {
 message CBluetoothManager_SetDiscovering_Response {
 }
 
+message CBluetoothManager_SetTrusted_Request {
+	optional uint32 device = 1;
+	optional bool trusted = 2;
+}
+
+message CBluetoothManager_SetTrusted_Response {
+}
+
 message CBluetoothManager_SetWakeAllowed_Request {
 	optional uint32 device = 1;
 	optional bool allowed = 2;
@@ -105,6 +113,7 @@ message CMsgBluetoothManagerDeviceDetails {
 	optional bool wake_allowed_supported = 10;
 	optional int32 battery_percent = 11;
 	optional bool operation_in_progress = 12;
+	optional bool is_trusted = 13;
 }
 
 message CMsgBluetoothManagerDeviceInfo {
@@ -127,6 +136,7 @@ service BluetoothManager {
 	rpc NotifyStateChanged (.CBluetoothManager_StateChanged_Notification) returns (.NoResponse);
 	rpc Pair (.CBluetoothManager_Pair_Request) returns (.CBluetoothManager_Pair_Response);
 	rpc SetDiscovering (.CBluetoothManager_SetDiscovering_Request) returns (.CBluetoothManager_SetDiscovering_Response);
+	rpc SetTrusted (.CBluetoothManager_SetTrusted_Request) returns (.CBluetoothManager_SetTrusted_Response);
 	rpc SetWakeAllowed (.CBluetoothManager_SetWakeAllowed_Request) returns (.CBluetoothManager_SetWakeAllowed_Response);
 }
 
