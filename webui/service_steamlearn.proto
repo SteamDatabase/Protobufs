@@ -809,6 +809,10 @@ message CMsgSteamLearnModelNodeOnehot {
 	optional bool multi_hot = 3;
 }
 
+message CMsgSteamLearnModelNodeReshape2D {
+	optional uint32 dimension = 1;
+}
+
 message CMsgSteamLearnModelNodeSequenceSplit {
 	optional uint32 head_split_chance = 1;
 	optional uint32 mid_split_chance = 2;
@@ -957,6 +961,7 @@ message CMsgSteamLearnProjectNode {
 	optional .CMsgSteamLearnModelNodeMaskedHead masked_head = 42;
 	optional .CMsgSteamLearnModelNodeTokenTransformer token_transformer = 43;
 	optional .CMsgSteamLearnModelNodeExternalModel external_model = 44;
+	optional .CMsgSteamLearnModelNodeReshape2D reshape_2d = 45;
 }
 
 message CMsgSteamLearnProjectNodeConnector {
