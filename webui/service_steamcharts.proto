@@ -34,6 +34,21 @@ message CSteamCharts_GetGamesByConcurrentPlayers_Response_MostPlayedRank {
 	optional uint32 peak_in_game = 5;
 }
 
+message CSteamCharts_GetMonthTopAppReleases_Request {
+	optional uint32 rtime_month = 1;
+	optional bool include_dlc = 2;
+}
+
+message CSteamCharts_GetMonthTopAppReleases_Response {
+	repeated .CSteamCharts_GetMonthTopAppReleases_Response_AppNewRelease top_app_releases = 1;
+	repeated .CSteamCharts_GetMonthTopAppReleases_Response_AppNewRelease top_dlc_releases = 2;
+}
+
+message CSteamCharts_GetMonthTopAppReleases_Response_AppNewRelease {
+	optional uint32 appid = 1;
+	optional uint32 rtime_release = 2;
+}
+
 message CSteamCharts_GetMostPlayedGames_Request {
 	optional .StoreBrowseContext context = 1;
 	optional .StoreBrowseItemDataRequest data_request = 2;
@@ -89,6 +104,7 @@ message CSteamCharts_GetTopReleasesPages_Response_TopReleasesPage {
 service SteamCharts {
 	rpc GetBestOfYearPages (.CSteamCharts_GetBestOfYearPages_Request) returns (.CSteamCharts_GetBestOfYearPages_Response);
 	rpc GetGamesByConcurrentPlayers (.CSteamCharts_GetGamesByConcurrentPlayers_Request) returns (.CSteamCharts_GetGamesByConcurrentPlayers_Response);
+	rpc GetMonthTopAppReleases (.CSteamCharts_GetMonthTopAppReleases_Request) returns (.CSteamCharts_GetMonthTopAppReleases_Response);
 	rpc GetMostPlayedGames (.CSteamCharts_GetMostPlayedGames_Request) returns (.CSteamCharts_GetMostPlayedGames_Response);
 	rpc GetMostPlayedSteamDeckGames (.CSteamCharts_GetMostPlayedSteamDeckGames_Request) returns (.CSteamCharts_GetMostPlayedSteamDeckGames_Response);
 	rpc GetTopReleasesPages (.CSteamCharts_GetTopReleasesPages_Request) returns (.CSteamCharts_GetTopReleasesPages_Response);

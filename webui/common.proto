@@ -629,7 +629,14 @@ message CClientNotificationTimedTrialRemaining {
 message CClientNotificationTimerExpired {
 }
 
-// Used by: common.proto
+message CCloud_AppExitSyncDone_Notification {
+	optional uint32 appid = 1;
+	optional uint64 client_id = 2;
+	optional bool uploads_completed = 3;
+	optional bool uploads_required = 4;
+}
+
+// Used by: Cloud, common.proto
 message CCloud_PendingRemoteOperation {
 	optional int32 operation = 1 [(.description) = "enum"];
 	optional string machine_name = 2;
@@ -2123,6 +2130,7 @@ message CMsgClientPersonaState_Friend {
 	optional bool player_name_pending_review = 79;
 	optional bool avatar_pending_review = 80;
 	optional bool on_steam_deck = 81;
+	repeated .CMsgClientPersonaState_Friend_OtherGameData other_game_data = 82;
 }
 
 // Used by: ChatRoom, ChatRoomClient, common.proto
@@ -2135,6 +2143,12 @@ message CMsgClientPersonaState_Friend_ClanData {
 message CMsgClientPersonaState_Friend_KV {
 	optional string key = 1;
 	optional string value = 2;
+}
+
+// Used by: ChatRoom, ChatRoomClient, common.proto
+message CMsgClientPersonaState_Friend_OtherGameData {
+	optional uint64 gameid = 1;
+	repeated .CMsgClientPersonaState_Friend_KV rich_presence = 2;
 }
 
 message CMsgClientPICSAccessTokenRequest {
@@ -5558,6 +5572,8 @@ message StoreItem_Assets {
 	optional string library_hero_2x = 12;
 	optional string community_icon = 13;
 	optional string clan_avatar = 14;
+	optional string page_background_path = 15;
+	optional string raw_page_background = 16;
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, Wishlist
