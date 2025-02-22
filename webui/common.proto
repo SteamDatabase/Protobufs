@@ -3663,7 +3663,8 @@ message CMsgControllerMode {
 	optional int32 source = 7 [(.description) = "enum"];
 	optional .CMsgControllerVirtualMenuPreviewInfo virtual_menu_info = 8;
 	optional bool mode_shift = 9;
-	repeated int32 mode_shift_buttons = 10 [(.description) = "enum"];
+	optional uint32 reference_modeid = 10;
+	repeated int32 mode_shift_buttons = 11 [(.description) = "enum"];
 }
 
 // Used by: common.proto
