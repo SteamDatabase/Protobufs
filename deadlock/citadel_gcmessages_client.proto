@@ -357,6 +357,7 @@ message CMsgDevMatchInfo {
 	optional uint64 match_id = 3;
 	repeated .CMsgDevMatchInfo.MatchPlayer players = 4;
 	optional fixed64 lobby_id = 5;
+	optional uint32 game_mode_version = 6;
 	optional uint32 net_worth_team_0 = 9;
 	optional uint32 net_worth_team_1 = 10;
 	optional uint32 duration_s = 11;
@@ -401,6 +402,7 @@ message CMsgGCToClientDevPlaytestStatus {
 
 	repeated .CMsgGCToClientDevPlaytestStatus.DevQueueSize dev_queue_size = 1;
 	optional uint32 dev_available_servers = 2;
+	optional uint32 coop_bot_max_wait_s = 3;
 	optional bool is_mm_enabled = 4;
 	optional bool locked_heroes = 8;
 	optional bool party_shared_heroes = 9;
@@ -460,6 +462,8 @@ message CMsgClientToGCPartyCreate {
 	optional .ECitadelRegionMode region_mode = 6 [default = k_ECitadelRegionMode_ROW];
 	optional string server_search_key = 7;
 	optional .ECitadelMMPreference mm_preference = 8 [default = k_ECitadelMMPreference_Invalid];
+	optional .CSOCitadelParty.PrivateLobbySettings private_lobby_settings = 9;
+	optional .ECitadelBotDifficulty bot_difficulty = 10 [default = k_ECitadelBotDifficulty_None];
 }
 
 message CMsgClientToGCPartyCreateResponse {
@@ -790,6 +794,7 @@ message CMsgClientToGCGetMatchHistoryResponse {
 		optional .ECitadelMatchMode match_mode = 19 [default = k_ECitadelMatchMode_Invalid];
 		optional .ECitadelGameMode game_mode = 20 [default = k_ECitadelGameMode_Invalid];
 		optional bool not_scored = 21;
+		optional uint32 game_mode_version = 22;
 	}
 
 	enum EResult {
@@ -948,7 +953,7 @@ message CMsgClientToGCGetMatchMetaDataResponse {
 	optional uint32 replay_salt = 2;
 	optional uint32 metadata_salt = 3;
 	optional uint32 replay_valid_through = 4;
-	optional uint32 cluster_id = 5;
+	optional uint32 replay_group_id = 5;
 	optional uint32 replay_processing_through = 6;
 }
 
@@ -1277,6 +1282,7 @@ message CMsgClientToGCFindHeroBuildsResponse {
 
 	optional .CMsgClientToGCFindHeroBuildsResponse.EResponse response = 1 [default = k_eInternalError];
 	repeated .CMsgClientToGCFindHeroBuildsResponse.HeroBuildResult results = 2;
+	optional uint32 build_window_start_time_override = 3;
 }
 
 message CMsgClientToGCUpdateHeroBuildPreference {
@@ -1491,6 +1497,7 @@ message CMsgGCToClientCommendNotification {
 	optional uint32 commender_hero_id = 4;
 	optional .ECommendType commend_type = 5 [default = k_eInvalid];
 	optional uint64 match_id = 6;
+	optional bool enemy_commend = 7;
 }
 
 message CMsgClientToGCRequestCheatReports {

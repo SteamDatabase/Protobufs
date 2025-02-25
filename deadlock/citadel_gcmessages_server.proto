@@ -44,6 +44,7 @@ enum EGCServerSignoutData {
 	k_EServerSignoutData_BookRewards = 8;
 	k_EServerSignoutData_PenalizedPlayers = 9;
 	k_EServerSignoutData_ReportCheaters = 10;
+	k_EServerSignoutData_MatchDevStats = 11;
 }
 
 message CMsgServerCrashSentinelFile {
@@ -66,13 +67,14 @@ message CMsgServerCrashSentinelFile {
 	optional fixed64 server_steam_id = 2;
 	optional fixed32 server_public_ip_addr = 3;
 	optional uint32 server_port = 4;
-	optional uint32 server_cluster = 5;
+	optional uint32 server_cluster_id = 5;
 	optional uint32 pid = 6;
 	optional uint32 saved_time = 7;
 	optional uint32 server_version = 8;
 	optional .CMsgServerCrashSentinelFile.GameInfo game_info = 9;
 	optional uint32 server_private_ip_addr = 10;
 	optional uint32 instance_id = 11;
+	optional uint32 server_region_id = 12;
 }
 
 message CServerLobbyData_PlayerMMR {
@@ -238,6 +240,14 @@ message CMsgServerSignoutData_Disconnections {
 	}
 
 	repeated .CMsgServerSignoutData_Disconnections.CMsgMatchDisconnection disconnections = 1;
+}
+
+message CMsgServerSignoutData_MatchDevStats {
+	message PlayerSlot {
+		optional uint32 player_slot = 1;
+	}
+
+	repeated .CMsgServerSignoutData_MatchDevStats.PlayerSlot players = 1;
 }
 
 message CMsgServerSignoutData_DetailedStats {
@@ -488,6 +498,7 @@ message CMsgMatchData {
 	optional bool team_abandon = 14;
 	optional bool new_player_pool = 15;
 	optional bool low_pri_pool = 16;
+	optional bool not_scored = 17;
 }
 
 message CMsgServerToGCMatchSignout {
@@ -538,6 +549,7 @@ message CMsgServerToGCEnterMatchmaking {
 	optional uint32 server_private_ip = 6;
 	optional uint32 server_port = 7;
 	optional bytes sdr_address = 9;
+	optional uint32 replay_group_id = 10;
 }
 
 message CMsgGCToServerCancelAllocateForMatch {
@@ -578,6 +590,7 @@ message CMsgServerToGCAbandonMatch {
 	optional .ECitadelMatchMode match_mode = 15 [default = k_ECitadelMatchMode_Invalid];
 	optional .ECitadelGameMode game_mode = 16 [default = k_ECitadelGameMode_Invalid];
 	optional bool was_server_shutdown = 17;
+	optional uint32 region_id = 18;
 }
 
 message CMsgServerToGCAbandonMatchResponse {

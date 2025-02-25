@@ -1,6 +1,7 @@
 import "networkbasetypes.proto";
 import "citadel_gcmessages_common.proto";
 import "gameevents.proto";
+import "valveextensions.proto";
 
 enum CitadelUserMessageIds {
 	k_EUserMsg_Damage = 300;
@@ -55,6 +56,8 @@ enum CitadelUserMessageIds {
 	k_EUserMsg_MeleeHit = 355;
 	k_EUserMsg_FlexSlotUnlocked = 356;
 	k_EUserMsg_SeasonalAchievementUnlocked = 357;
+	k_EUserMsg_MusicQueue = 358;
+	k_EUserMsg_AG2ParamTrigger = 359;
 }
 
 enum CitadelEntityMessageIds {
@@ -62,11 +65,11 @@ enum CitadelEntityMessageIds {
 }
 
 enum ChatMsgPingMarkerInfo {
-	k_EPingMarkerInfo_ShowMarkerAndSound = 0;
-	k_EPingMarkerInfo_HideMarkerAndSound = 1;
-	k_EPingMarkerInfo_ShowMarkerOnSender = 2;
-	k_EPingMarkerInfo_OnlyShowMarker = 3;
-	k_EPingMarkerInfo_OnlyPlaySound = 4;
+	k_EPingMarkerInfo_ShowMarkerAndSound = 0 [(schema_friendly_name) = "Show Ping Indicator at Ping Location, Play Ping Sound, and Play VO"];
+	k_EPingMarkerInfo_ShowMarkerOnSender = 1 [(schema_friendly_name) = "Show Ping Indicator on Pinging Player, Play Ping Sound, and Play VO"];
+	k_EPingMarkerInfo_HideMarkerAndSound = 2 [(schema_friendly_name) = "No Marker or Sound (just VO)"];
+	k_EPingMarkerInfo_OnlyShowMarker = 3 [(schema_friendly_name) = "Only Show Ping Indicator at Ping Location (no ping sound)"];
+	k_EPingMarkerInfo_OnlyPlaySound = 4 [(schema_friendly_name) = "Only Play Ping Sound (and VO)"];
 }
 
 enum CameraOperation {
@@ -127,7 +130,8 @@ message CUserMessageEmpty {
 
 message CCitadelUserMessage_Damage {
 	optional int32 damage = 1;
-	optional int32 pre_damage = 2;
+	optional int32 pre_damage_deprecated = 2;
+	optional float pre_damage = 27;
 	optional int32 type = 3;
 	optional int32 citadel_type = 4;
 	optional .CMsgVector origin = 5;
@@ -135,7 +139,8 @@ message CCitadelUserMessage_Damage {
 	optional int32 entindex_inflictor = 7 [default = -1];
 	optional int32 entindex_attacker = 8 [default = -1];
 	optional int32 entindex_ability = 9 [default = -1];
-	optional int32 damage_absorbed = 10;
+	optional int32 damage_absorbed_deprecated = 10;
+	optional float damage_absorbed = 28;
 	optional int32 victim_health_max = 11;
 	optional int32 victim_health_new = 12;
 	optional uint64 flags = 13;
@@ -149,6 +154,9 @@ message CCitadelUserMessage_Damage {
 	optional int32 hitgroup_id = 21;
 	optional int32 entindex_attacking_object = 22 [default = -1];
 	optional .CMsgVector damage_direction = 23;
+	optional bool is_secondary_stat = 24;
+	optional float effectiveness = 25;
+	optional float crit_damage = 26;
 }
 
 message PingCommonData {
@@ -248,9 +256,12 @@ message CCitadelUserMsg_RecentDamageSummary {
 		optional uint32 hero_id = 4;
 		optional uint32 ability_id = 5;
 		optional uint32 attacker_class = 6;
-		optional int32 damage_absorbed = 7;
+		optional float damage_absorbed = 7;
 		optional bool is_killing_blow = 8;
 		optional uint32 victim_hero_id = 9;
+		optional bool is_secondary_stat = 10;
+		optional float pre_damage = 11;
+		optional float crit_damage = 12;
 	}
 
 	message ModifierRecord {
@@ -481,7 +492,7 @@ message CCitadelUserMessage_AbilityNotify {
 }
 
 message CCitadelUserMessage_CurrencyChanged {
-	optional int32 entindex_hero_pawn = 1 [default = -1];
+	optional int32 userid = 1 [default = -1];
 	optional int32 currency_type = 2;
 	optional int32 currency_source = 3;
 	optional int32 delta = 4;
@@ -597,4 +608,14 @@ message CCitadelUserMsg_FlexSlotUnlocked {
 message CCitadelUserMsg_SeasonalAchievementUnlocked {
 	optional uint32 account_id = 1;
 	optional uint32 hero_id = 2;
+}
+
+message CCitadelUserMsg_MusicQueue {
+	required int32 music_state = 1;
+	optional bool override = 2;
+}
+
+message CCitadelUserMsg_AG2ParamTrigger {
+	optional string param_id = 1;
+	optional string param_value = 2;
 }
