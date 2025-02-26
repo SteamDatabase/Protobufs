@@ -37,6 +37,7 @@ message CSteamCharts_GetGamesByConcurrentPlayers_Response_MostPlayedRank {
 message CSteamCharts_GetMonthTopAppReleases_Request {
 	optional uint32 rtime_month = 1;
 	optional bool include_dlc = 2;
+	optional uint32 top_results_limit = 3;
 }
 
 message CSteamCharts_GetMonthTopAppReleases_Response {
