@@ -4230,6 +4230,7 @@ message CMsgProtoBufHeader {
 	optional string webui_auth_key = 40;
 	repeated int32 exclude_client_sessionids = 41;
 	optional fixed64 admin_request_spoofing_steamid = 43;
+	optional bool is_valveds = 44;
 }
 
 message CMsgProtobufWrapped {
@@ -5710,6 +5711,7 @@ message StoreItem_ReleaseInfo {
 	optional bool is_early_access = 10;
 	optional uint32 mac_release_date = 20;
 	optional uint32 linux_release_date = 21;
+	optional bool limited_launch_active = 22;
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, Wishlist
