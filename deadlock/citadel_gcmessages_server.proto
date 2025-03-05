@@ -472,6 +472,7 @@ message CMsgMatchData {
 		optional uint32 trooper_kill_excluded = 43;
 		optional uint32 hero_bullets_lucky_shots = 44;
 		optional uint32 hero_build_id = 45;
+		optional uint32 objective_damage = 46;
 	}
 
 	enum EEndReason {
