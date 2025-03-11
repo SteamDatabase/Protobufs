@@ -71,6 +71,7 @@ service ClientMetrics {
 	rpc ReportClipRange (.NotImplemented) returns (.NoResponse);
 	rpc ReportClipShare (.NotImplemented) returns (.NoResponse);
 	rpc ReportEndGameRecording (.NotImplemented) returns (.NoResponse);
+	rpc ReportGamePerformance (.NotImplemented) returns (.NoResponse);
 	rpc ReportLinuxStats (.CClientMetrics_ReportLinuxStats_Notification) returns (.NoResponse);
 	rpc ReportReactUsage (.CClientMetrics_ReportReactUsage_Notification) returns (.NoResponse);
 	rpc SteamPipeWorkStatsReport (.NotImplemented) returns (.NoResponse);

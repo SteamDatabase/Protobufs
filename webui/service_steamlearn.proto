@@ -779,6 +779,7 @@ message CMsgSteamLearnModelNodeGlobalMaxPooling1D {
 
 message CMsgSteamLearnModelNodeInput {
 	optional uint32 input_num = 1;
+	optional bool inference_iterate = 2;
 }
 
 message CMsgSteamLearnModelNodeKMeansCluster {
@@ -981,7 +982,6 @@ message CMsgSteamLearnProjectSnapshotConfig {
 	optional bool compress = 8;
 	optional uint32 job_count = 9;
 	optional uint32 snapshot_schedule_hour_of_day = 10;
-	optional int32 snapshot_location = 11 [(.description) = "enum"];
 	optional .CMsgSteamLearnProjectSnapshotConfigDataSource config_data_source = 12;
 }
 
@@ -1008,6 +1008,7 @@ message CMsgSteamLearnProjectSnapshotConfigOtherProject {
 message CMsgSteamLearnProjectSnapshotFilter {
 	optional uint32 sample_reduce_percent = 1;
 	optional .CMsgSteamLearnProjectSnapshotFilterHistogram histogram = 2;
+	optional .CMsgSteamLearnProjectSnapshotFilterRange filter_range = 3;
 }
 
 message CMsgSteamLearnProjectSnapshotFilterHistogram {
@@ -1015,6 +1016,12 @@ message CMsgSteamLearnProjectSnapshotFilterHistogram {
 	optional float min_value = 2;
 	optional float max_value = 3;
 	optional uint32 num_buckets = 4;
+}
+
+message CMsgSteamLearnProjectSnapshotFilterRange {
+	optional string data_element_path = 1;
+	optional float min_value = 2;
+	optional float max_value = 3;
 }
 
 message CMsgSteamLearnRawDataElement {
@@ -1057,7 +1064,6 @@ message CMsgSteamLearnTrainConfig {
 	optional int32 train_gpu = 9 [(.description) = "enum"];
 	optional uint32 gpu_count = 10;
 	optional bool mixed_precision = 11;
-	optional int32 snapshot_location = 12 [(.description) = "enum"];
 	optional float train_weight_decay = 13;
 	optional float train_clip_norm = 14;
 	optional bool use_class_weights = 15;
