@@ -492,6 +492,11 @@ message CLocalizationToken {
 	optional string localized_string = 2;
 }
 
+message CLoyaltyRewards_RedeemPointsToUpgradeItem_Request {
+	optional uint32 defid = 1;
+	optional uint64 communityitemid = 2;
+}
+
 message CMsgAMUnlockHEVC {
 }
 
