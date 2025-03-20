@@ -1,18 +1,6 @@
 import "common.proto";
 import "common_base.proto";
 
-message CChatMentions {
-	optional bool mention_all = 1;
-	optional bool mention_here = 2;
-	repeated uint32 mention_accountids = 3;
-}
-
-message CChatRole {
-	optional uint64 role_id = 1;
-	optional string name = 2;
-	optional uint32 ordinal = 3;
-}
-
 message CChatRoom_AckChatMessage_Notification {
 	optional uint64 chat_group_id = 1;
 	optional uint64 chat_id = 2;
@@ -26,28 +14,6 @@ message CChatRoom_AddRoleToUser_Request {
 }
 
 message CChatRoom_AddRoleToUser_Response {
-}
-
-message CChatRoom_ChatMessageModified_Notification {
-	optional uint64 chat_group_id = 1;
-	optional uint64 chat_id = 2;
-	repeated .CChatRoom_ChatMessageModified_Notification_ChatMessage messages = 3;
-}
-
-message CChatRoom_ChatMessageModified_Notification_ChatMessage {
-	optional uint32 server_timestamp = 1;
-	optional uint32 ordinal = 2;
-	optional bool deleted = 3;
-}
-
-message CChatRoom_ChatRoomGroupRoomsChange_Notification {
-	optional uint64 chat_group_id = 1;
-	optional uint64 default_chat_id = 2;
-	repeated .CChatRoomState chat_rooms = 3;
-}
-
-message CChatRoom_ChatRoomHeaderState_Notification {
-	optional .CChatRoomGroupHeaderState header_state = 1;
 }
 
 message CChatRoom_CreateChatRoom_Request {
@@ -307,20 +273,6 @@ message CChatRoom_GetRolesForUser_Response {
 	repeated uint64 role_ids = 1;
 }
 
-message CChatRoom_IncomingChatMessage_Notification {
-	optional uint64 chat_group_id = 1;
-	optional uint64 chat_id = 2;
-	optional fixed64 steamid_sender = 3;
-	optional string message = 4;
-	optional uint32 timestamp = 5;
-	optional .CChatMentions mentions = 6;
-	optional uint32 ordinal = 7;
-	optional .ServerMessage server_message = 8;
-	optional string message_no_bbcode = 9;
-	optional string chat_name = 10;
-	optional string notification_key = 11;
-}
-
 message CChatRoom_InviteFriendToChatRoomGroup_Request {
 	optional uint64 chat_group_id = 1;
 	optional fixed64 steamid = 2;
@@ -386,23 +338,6 @@ message CChatRoom_LeaveVoiceChat_Request {
 message CChatRoom_LeaveVoiceChat_Response {
 }
 
-message CChatRoom_MemberStateChange_Notification {
-	optional uint64 chat_group_id = 1;
-	optional .CChatRoomMember member = 2;
-	optional int32 change = 3 [(.description) = "enum"];
-}
-
-message CChatRoom_MessageReaction_Notification {
-	optional uint64 chat_group_id = 1;
-	optional uint64 chat_id = 2;
-	optional uint32 server_timestamp = 3;
-	optional uint32 ordinal = 4;
-	optional fixed64 reactor = 5;
-	optional int32 reaction_type = 6 [(.description) = "enum"];
-	optional string reaction = 7;
-	optional bool is_add = 8;
-}
-
 message CChatRoom_MuteUser_Request {
 	optional uint64 chat_group_id = 1;
 	optional fixed64 steamid = 2;
@@ -410,11 +345,6 @@ message CChatRoom_MuteUser_Request {
 }
 
 message CChatRoom_MuteUser_Response {
-}
-
-message CChatRoom_NotifyShouldRejoinChatRoomVoiceChat_Notification {
-	optional uint64 chat_id = 1;
-	optional uint64 chat_group_id = 2;
 }
 
 message CChatRoom_RenameChatRoom_Request {
@@ -625,41 +555,6 @@ message CChatRoom_UpdateMessageReaction_Response {
 	optional uint32 num_reactors = 1;
 }
 
-message CChatRoomClient_MemberListViewUpdated_Notification {
-	optional uint64 chat_group_id = 1;
-	optional uint64 view_id = 2;
-	optional .CChatRoomMemberListView view = 3;
-	repeated .CChatRoomClient_MemberListViewUpdated_Notification_MemberListViewEntry members = 4;
-	optional uint32 status_flags = 5;
-	optional .CChatRoomMemberSummaryCounts member_summary = 6;
-	repeated .CMsgClientPersonaState_Friend subscribed_personas = 7;
-}
-
-message CChatRoomClient_MemberListViewUpdated_Notification_MemberListViewEntry {
-	optional int32 rank = 1;
-	optional uint32 accountid = 2;
-	optional .CMsgClientPersonaState_Friend persona = 3;
-}
-
-message CChatRoomGroupHeaderState {
-	optional uint64 chat_group_id = 1;
-	optional string chat_name = 2;
-	optional uint32 clanid = 13;
-	optional uint32 accountid_owner = 14;
-	optional string tagline = 15;
-	optional bytes avatar_sha = 16;
-	optional uint64 default_role_id = 17;
-	repeated .CChatRole roles = 18;
-	repeated .CChatRoleActions role_actions = 19;
-	optional uint32 watching_broadcast_accountid = 20;
-	optional uint32 appid = 21;
-	repeated .CChatPartyBeacon party_beacons = 22;
-	optional uint64 watching_broadcast_channel_id = 23;
-	optional uint64 active_minigame_id = 24;
-	optional string avatar_ugc_url = 25;
-	optional bool disabled = 26;
-}
-
 message CChatRoomGroupInvite {
 	optional uint32 accountid = 1;
 	optional uint32 accountid_actor = 2;
@@ -674,69 +569,9 @@ message CChatRoomGroupState {
 	repeated .CChatRoomMember kicked = 7;
 }
 
-message CChatRoomMember {
-	optional uint32 accountid = 1;
-	optional int32 state = 3 [(.description) = "enum"];
-	optional int32 rank = 4 [(.description) = "enum"];
-	optional uint32 time_kick_expire = 6;
-	repeated uint64 role_ids = 7;
-}
-
-message CChatRoomMemberListView {
-	optional int32 start = 3;
-	optional int32 end = 4;
-	optional int32 total_count = 5;
-	optional int32 client_changenumber = 6;
-	optional int32 server_changenumber = 7;
-}
-
-message CChatRoomMemberSummaryCounts {
-	optional int32 ingame = 1;
-	optional int32 online = 2;
-	optional int32 offline = 3;
-}
-
 message CChatRoomSummaryPair {
 	optional .CUserChatRoomGroupState user_chat_group_state = 1;
 	optional .CChatRoom_GetChatRoomGroupSummary_Response group_summary = 2;
-}
-
-message ChatRoomClient_NotifyChatGroupUserStateChanged_Notification {
-	optional uint64 chat_group_id = 1;
-	optional .CUserChatRoomGroupState user_chat_group_state = 2;
-	optional .CChatRoom_GetChatRoomGroupSummary_Response group_summary = 3;
-	optional int32 user_action = 4 [(.description) = "enum"];
-}
-
-message ChatRoomClient_NotifyChatRoomDisconnect_Notification {
-	repeated uint64 chat_group_ids = 1;
-}
-
-message CUserChatRoomGroupState {
-	optional uint64 chat_group_id = 1;
-	optional uint32 time_joined = 2;
-	repeated .CUserChatRoomState user_chat_room_state = 3;
-	optional int32 desktop_notification_level = 4 [(.description) = "enum"];
-	optional int32 mobile_notification_level = 5 [(.description) = "enum"];
-	optional uint32 time_last_group_ack = 6;
-	optional bool unread_indicator_muted = 7 [default = false];
-}
-
-message CUserChatRoomState {
-	optional uint64 chat_id = 1;
-	optional uint32 time_joined = 2;
-	optional uint32 time_last_ack = 3;
-	optional int32 desktop_notification_level = 4 [(.description) = "enum"];
-	optional int32 mobile_notification_level = 5 [(.description) = "enum"];
-	optional uint32 time_last_mention = 6;
-	optional bool unread_indicator_muted = 7 [default = false];
-	optional uint32 time_first_unread = 8;
-}
-
-message ServerMessage {
-	optional int32 message = 1 [(.description) = "enum"];
-	optional string string_param = 2;
-	optional uint32 accountid_param = 3;
 }
 
 service ChatRoom {
@@ -793,19 +628,5 @@ service ChatRoom {
 	rpc SetUserChatGroupPreferences (.CChatRoom_SetUserChatGroupPreferences_Request) returns (.CChatRoom_SetUserChatGroupPreferences_Response);
 	rpc UpdateMemberListView (.CChatRoom_UpdateMemberListView_Notification) returns (.NoResponse);
 	rpc UpdateMessageReaction (.CChatRoom_UpdateMessageReaction_Request) returns (.CChatRoom_UpdateMessageReaction_Response);
-}
-
-service ChatRoomClient {
-	rpc NotifyAckChatMessageEcho (.CChatRoom_AckChatMessage_Notification) returns (.NoResponse);
-	rpc NotifyChatGroupUserStateChanged (.ChatRoomClient_NotifyChatGroupUserStateChanged_Notification) returns (.NoResponse);
-	rpc NotifyChatMessageModified (.CChatRoom_ChatMessageModified_Notification) returns (.NoResponse);
-	rpc NotifyChatRoomDisconnect (.ChatRoomClient_NotifyChatRoomDisconnect_Notification) returns (.NoResponse);
-	rpc NotifyChatRoomGroupRoomsChange (.CChatRoom_ChatRoomGroupRoomsChange_Notification) returns (.NoResponse);
-	rpc NotifyChatRoomHeaderStateChange (.CChatRoom_ChatRoomHeaderState_Notification) returns (.NoResponse);
-	rpc NotifyIncomingChatMessage (.CChatRoom_IncomingChatMessage_Notification) returns (.NoResponse);
-	rpc NotifyMemberListViewUpdated (.CChatRoomClient_MemberListViewUpdated_Notification) returns (.NoResponse);
-	rpc NotifyMemberStateChange (.CChatRoom_MemberStateChange_Notification) returns (.NoResponse);
-	rpc NotifyMessageReaction (.CChatRoom_MessageReaction_Notification) returns (.NoResponse);
-	rpc NotifyShouldRejoinChatRoomVoiceChat (.CChatRoom_NotifyShouldRejoinChatRoomVoiceChat_Notification) returns (.NoResponse);
 }
 

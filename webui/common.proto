@@ -84,38 +84,6 @@ message CAppOverview_PerClientData {
 	optional uint32 playtime_left = 12;
 }
 
-// Used by: AccountCart, Checkout
-message CartAmount {
-	optional int64 amount_in_cents = 1;
-	optional int32 currency_code = 2;
-	optional string formatted_amount = 3;
-}
-
-// Used by: AccountCart, Checkout
-message CartCoupon {
-	optional uint32 couponid = 1;
-	optional uint64 gidcoupon = 2;
-	optional string title = 5;
-	optional string coupon_description = 6;
-	optional string large_icon_url = 7;
-	optional int32 discount_pct = 8;
-}
-
-// Used by: AccountCart, Checkout
-message CartGiftInfo {
-	optional int32 accountid_giftee = 1;
-	optional .CartGiftMessage gift_message = 2;
-	optional int32 time_scheduled_send = 3;
-}
-
-// Used by: AccountCart, Checkout
-message CartGiftMessage {
-	optional string gifteename = 1;
-	optional string message = 2;
-	optional string sentiment = 3;
-	optional string signature = 4;
-}
-
 message CBilling_Address {
 	optional string first_name = 1;
 	optional string last_name = 2;
@@ -129,7 +97,14 @@ message CBilling_Address {
 	optional string phone = 10;
 }
 
-// Used by: ChatRoom, ChatRoomClient, ClanChatRooms
+// Used by: common.proto
+message CChatMentions {
+	optional bool mention_all = 1;
+	optional bool mention_here = 2;
+	repeated uint32 mention_accountids = 3;
+}
+
+// Used by: ChatRoom, ClanChatRooms, common.proto
 message CChatPartyBeacon {
 	optional uint32 app_id = 1;
 	optional fixed64 steamid_owner = 2;
@@ -137,7 +112,14 @@ message CChatPartyBeacon {
 	optional string game_metadata = 4;
 }
 
-// Used by: ChatRoom, ChatRoomClient, ClanChatRooms
+// Used by: ChatRoom, common.proto
+message CChatRole {
+	optional uint64 role_id = 1;
+	optional string name = 2;
+	optional uint32 ordinal = 3;
+}
+
+// Used by: ChatRoom, ClanChatRooms, common.proto
 message CChatRoleActions {
 	optional uint64 role_id = 1;
 	optional bool can_create_rename_delete_channel = 2;
@@ -153,7 +135,30 @@ message CChatRoleActions {
 	optional bool can_set_watching_broadcast = 12;
 }
 
-// Used by: ChatRoom, ChatRoomClient, ClanChatRooms
+message CChatRoom_ChatMessageModified_Notification {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_id = 2;
+	repeated .CChatRoom_ChatMessageModified_Notification_ChatMessage messages = 3;
+}
+
+// Used by: common.proto
+message CChatRoom_ChatMessageModified_Notification_ChatMessage {
+	optional uint32 server_timestamp = 1;
+	optional uint32 ordinal = 2;
+	optional bool deleted = 3;
+}
+
+message CChatRoom_ChatRoomGroupRoomsChange_Notification {
+	optional uint64 chat_group_id = 1;
+	optional uint64 default_chat_id = 2;
+	repeated .CChatRoomState chat_rooms = 3;
+}
+
+message CChatRoom_ChatRoomHeaderState_Notification {
+	optional .CChatRoomGroupHeaderState header_state = 1;
+}
+
+// Used by: ChatRoom, ClanChatRooms, common.proto
 message CChatRoom_GetChatRoomGroupSummary_Response {
 	optional uint64 chat_group_id = 1;
 	optional string chat_group_name = 2;
@@ -176,10 +181,105 @@ message CChatRoom_GetChatRoomGroupSummary_Response {
 	optional uint64 watching_broadcast_channel_id = 19;
 	optional uint64 active_minigame_id = 20;
 	optional string avatar_ugc_url = 21;
-	optional bool disabled = 22;
 }
 
-// Used by: ChatRoom, ChatRoomClient, ClanChatRooms
+message CChatRoom_IncomingChatMessage_Notification {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_id = 2;
+	optional fixed64 steamid_sender = 3;
+	optional string message = 4;
+	optional uint32 timestamp = 5;
+	optional .CChatMentions mentions = 6;
+	optional uint32 ordinal = 7;
+	optional .ServerMessage server_message = 8;
+	optional string message_no_bbcode = 9;
+	optional string chat_name = 10;
+}
+
+message CChatRoom_MemberStateChange_Notification {
+	optional uint64 chat_group_id = 1;
+	optional .CChatRoomMember member = 2;
+	optional int32 change = 3 [(.description) = "enum"];
+}
+
+message CChatRoom_MessageReaction_Notification {
+	optional uint64 chat_group_id = 1;
+	optional uint64 chat_id = 2;
+	optional uint32 server_timestamp = 3;
+	optional uint32 ordinal = 4;
+	optional fixed64 reactor = 5;
+	optional int32 reaction_type = 6 [(.description) = "enum"];
+	optional string reaction = 7;
+	optional bool is_add = 8;
+}
+
+message CChatRoom_NotifyShouldRejoinChatRoomVoiceChat_Notification {
+	optional uint64 chat_id = 1;
+	optional uint64 chat_group_id = 2;
+}
+
+message CChatRoomClient_MemberListViewUpdated_Notification {
+	optional uint64 chat_group_id = 1;
+	optional uint64 view_id = 2;
+	optional .CChatRoomMemberListView view = 3;
+	repeated .CChatRoomClient_MemberListViewUpdated_Notification_MemberListViewEntry members = 4;
+	optional uint32 status_flags = 5;
+	optional .CChatRoomMemberSummaryCounts member_summary = 6;
+	repeated .CMsgClientPersonaState_Friend subscribed_personas = 7;
+}
+
+// Used by: common.proto
+message CChatRoomClient_MemberListViewUpdated_Notification_MemberListViewEntry {
+	optional int32 rank = 1;
+	optional uint32 accountid = 2;
+	optional .CMsgClientPersonaState_Friend persona = 3;
+}
+
+// Used by: ChatRoom, common.proto
+message CChatRoomGroupHeaderState {
+	optional uint64 chat_group_id = 1;
+	optional string chat_name = 2;
+	optional uint32 clanid = 13;
+	optional uint32 accountid_owner = 14;
+	optional string tagline = 15;
+	optional bytes avatar_sha = 16;
+	optional uint64 default_role_id = 17;
+	repeated .CChatRole roles = 18;
+	repeated .CChatRoleActions role_actions = 19;
+	optional uint32 watching_broadcast_accountid = 20;
+	optional uint32 appid = 21;
+	repeated .CChatPartyBeacon party_beacons = 22;
+	optional uint64 watching_broadcast_channel_id = 23;
+	optional uint64 active_minigame_id = 24;
+	optional string avatar_ugc_url = 25;
+}
+
+// Used by: ChatRoom, common.proto
+message CChatRoomMember {
+	optional uint32 accountid = 1;
+	optional int32 state = 3 [(.description) = "enum"];
+	optional int32 rank = 4 [(.description) = "enum"];
+	optional uint32 time_kick_expire = 6;
+	repeated uint64 role_ids = 7;
+}
+
+// Used by: common.proto
+message CChatRoomMemberListView {
+	optional int32 start = 3;
+	optional int32 end = 4;
+	optional int32 total_count = 5;
+	optional int32 client_changenumber = 6;
+	optional int32 server_changenumber = 7;
+}
+
+// Used by: common.proto
+message CChatRoomMemberSummaryCounts {
+	optional int32 ingame = 1;
+	optional int32 online = 2;
+	optional int32 offline = 3;
+}
+
+// Used by: ChatRoom, ClanChatRooms, common.proto
 message CChatRoomState {
 	optional uint64 chat_id = 1;
 	optional string chat_name = 2;
@@ -189,6 +289,10 @@ message CChatRoomState {
 	optional uint32 sort_order = 6;
 	optional string last_message = 7;
 	optional uint32 accountid_last_message = 8;
+}
+
+message CChatUsability_RequestClientUsabilityMetrics_Notification {
+	optional uint32 metrics_run_id = 1;
 }
 
 message CClanEventData {
@@ -271,144 +375,6 @@ message CClientMetrics_ClientBootstrap_Summary {
 	repeated .CClientMetrics_ClientBootstrap_RequestInfo package_requests = 8;
 }
 
-message CClientMetrics_ClipRange_Notification {
-	optional int32 original_range_method = 1 [(.description) = "enum"];
-	optional .CClientMetrics_ClipRange_Notification_RelativeRangeEdge start = 2;
-	optional .CClientMetrics_ClipRange_Notification_RelativeRangeEdge end = 3;
-	optional float seconds = 4;
-	optional fixed64 gameid = 5;
-}
-
-// Used by: common.proto
-message CClientMetrics_ClipRange_Notification_RelativeRangeEdge {
-	optional int32 original_range_method = 1 [(.description) = "enum"];
-	optional int32 latest_range_method = 2 [(.description) = "enum"];
-	optional int32 delta_ms = 3;
-}
-
-message CClientMetrics_ClipShare_Notification {
-	optional uint32 eresult = 1 [default = 2];
-	optional int32 share_method = 2 [(.description) = "enum"];
-	optional float seconds = 3;
-	optional uint64 bytes = 4;
-	optional fixed64 gameid = 5;
-}
-
-message CClientMetrics_CloudAppSyncStats_Notification {
-	optional uint32 app_id = 1;
-	optional uint32 platform_type = 2;
-	optional bool preload = 3;
-	optional bool blocking_app_launch = 4;
-	optional uint32 files_uploaded = 5;
-	optional uint32 files_downloaded = 6;
-	optional uint32 files_deleted = 7;
-	optional uint64 bytes_uploaded = 8;
-	optional uint64 bytes_downloaded = 9;
-	optional uint64 microsec_total = 10;
-	optional uint64 microsec_init_caches = 11;
-	optional uint64 microsec_validate_state = 12;
-	optional uint64 microsec_ac_launch = 13;
-	optional uint64 microsec_ac_prep_user_files = 14;
-	optional uint64 microsec_ac_exit = 15;
-	optional uint64 microsec_build_sync_list = 16;
-	optional uint64 microsec_delete_files = 17;
-	optional uint64 microsec_download_files = 18;
-	optional uint64 microsec_upload_files = 19;
-	optional uint32 hardware_type = 20;
-	optional uint32 files_managed = 21;
-}
-
-// Used by: common.proto
-message CClientMetrics_ContentDownloadResponse_Counts {
-	optional uint32 class_100 = 1;
-	optional uint32 class_200 = 2;
-	optional uint32 class_300 = 3;
-	optional uint32 class_400 = 4;
-	optional uint32 class_500 = 5;
-	optional uint32 no_response = 6;
-	optional uint32 class_unknown = 7;
-}
-
-message CClientMetrics_ContentDownloadResponse_Counts_Notification {
-	optional uint32 cell_id = 1;
-	optional .CClientMetrics_ContentDownloadResponse_Hosts data = 2;
-}
-
-// Used by: common.proto
-message CClientMetrics_ContentDownloadResponse_HostCounts {
-	optional string hostname = 1;
-	optional uint32 source_type = 2;
-	optional .CClientMetrics_ContentDownloadResponse_Counts counts = 3;
-}
-
-// Used by: common.proto
-message CClientMetrics_ContentDownloadResponse_Hosts {
-	repeated .CClientMetrics_ContentDownloadResponse_HostCounts hosts = 1;
-}
-
-message CClientMetrics_ContentValidation_Notification {
-	optional int32 validation_result = 1;
-	optional uint32 app_id = 2;
-	optional bool staged_files = 3;
-	optional bool user_initiated = 4;
-	optional bool early_out = 5;
-	optional uint32 chunks_scanned = 6;
-	optional uint32 chunks_corrupt = 7;
-	optional uint64 bytes_scanned = 8;
-	optional uint64 chunk_bytes_corrupt = 9;
-	optional uint64 total_file_size_corrupt = 10;
-}
-
-message CClientMetrics_DownloadRates_Notification {
-	optional uint32 cell_id = 1;
-	repeated .CClientMetrics_DownloadRates_Notification_StatsInfo stats = 2;
-	optional uint32 throttling_kbps = 3;
-	optional uint32 os_type = 4;
-	optional uint32 device_type = 5;
-}
-
-// Used by: common.proto
-message CClientMetrics_DownloadRates_Notification_StatsInfo {
-	optional uint32 source_type = 1;
-	optional uint32 source_id = 2;
-	optional uint64 bytes = 3;
-	optional string host_name = 4;
-	optional uint64 microseconds = 5;
-	optional bool used_ipv6 = 6;
-	optional bool proxied = 7;
-	optional bool used_http2 = 8;
-	optional uint32 cache_hits = 9;
-	optional uint32 cache_misses = 10;
-	optional uint64 hit_bytes = 11;
-	optional uint64 miss_bytes = 12;
-}
-
-message CClientMetrics_EndGameRecording_Notification {
-	optional int32 recording_type = 1 [(.description) = "enum"];
-	optional float seconds = 2;
-	optional uint64 bytes = 3;
-	optional fixed64 gameid = 4;
-	optional bool instant_clip = 5;
-}
-
-message CClientMetrics_GamePerformance_Notification {
-	repeated .CClientMetrics_GamePerformance_Notification_FrameRateReport reports = 1;
-}
-
-// Used by: common.proto
-message CClientMetrics_GamePerformance_Notification_FrameRateReport {
-	optional fixed64 gameid = 1;
-	optional uint32 frame_rate = 2;
-	optional string manufacturer = 3;
-	optional string model = 4;
-	optional string dx_video_card = 5;
-	optional int32 dx_vendorid = 6;
-	optional int32 dx_deviceid = 7;
-	optional uint32 num_gpu = 8;
-	optional uint64 system_ram = 9;
-	optional int32 session_seconds = 10;
-}
-
 message CClientMetrics_IPv6Connectivity_Notification {
 	optional uint32 cell_id = 1;
 	repeated .CClientMetrics_IPv6Connectivity_Result results = 2;
@@ -426,7 +392,6 @@ message CClientMetrics_SteamPipeWorkStats_Notification {
 	optional uint32 depotid = 2;
 	optional int32 work_type = 3 [(.description) = "enum"];
 	repeated .CClientMetrics_SteamPipeWorkStats_Operation operations = 4;
-	optional uint32 hardware_type = 5;
 }
 
 // Used by: common.proto
@@ -438,13 +403,6 @@ message CClientMetrics_SteamPipeWorkStats_Operation {
 	optional uint64 idle_time_ms = 5;
 	optional uint64 sum_run_time_ms = 6;
 	optional uint64 sum_wait_time_ms = 7;
-}
-
-message CCloud_AppExitSyncDone_Notification {
-	optional uint32 appid = 1;
-	optional uint64 client_id = 2;
-	optional bool uploads_completed = 3;
-	optional bool uploads_required = 4;
 }
 
 // Used by: common.proto
@@ -483,6 +441,39 @@ message CCuratorPreferences {
 	optional bool show_broadcast = 14;
 }
 
+message CFriendMessages_IncomingMessage_Notification {
+	optional fixed64 steamid_friend = 1;
+	optional int32 chat_entry_type = 2;
+	optional bool from_limited_account = 3;
+	optional string message = 4;
+	optional fixed32 rtime32_server_timestamp = 5;
+	optional uint32 ordinal = 6;
+	optional bool local_echo = 7;
+	optional string message_no_bbcode = 8;
+	optional bool low_priority = 9;
+}
+
+message CFriendMessages_MessageReaction_Notification {
+	optional fixed64 steamid_friend = 1;
+	optional uint32 server_timestamp = 2;
+	optional uint32 ordinal = 3;
+	optional fixed64 reactor = 4;
+	optional int32 reaction_type = 5 [(.description) = "enum"];
+	optional string reaction = 6;
+	optional bool is_add = 7;
+}
+
+message ChatRoomClient_NotifyChatGroupUserStateChanged_Notification {
+	optional uint64 chat_group_id = 1;
+	optional .CUserChatRoomGroupState user_chat_group_state = 2;
+	optional .CChatRoom_GetChatRoomGroupSummary_Response group_summary = 3;
+	optional int32 user_action = 4 [(.description) = "enum"];
+}
+
+message ChatRoomClient_NotifyChatRoomDisconnect_Notification {
+	repeated uint64 chat_group_ids = 1;
+}
+
 message CLibraryBootstrapData {
 	repeated .CAppBootstrapData app_data = 1;
 }
@@ -490,11 +481,6 @@ message CLibraryBootstrapData {
 message CLocalizationToken {
 	optional uint32 language = 1;
 	optional string localized_string = 2;
-}
-
-message CLoyaltyRewards_RedeemPointsToUpgradeItem_Request {
-	optional uint32 defid = 1;
-	optional uint64 communityitemid = 2;
 }
 
 message CMsgAMUnlockHEVC {
@@ -540,8 +526,6 @@ message CMsgAuthTicket {
 	optional uint32 h_steam_pipe = 5;
 	optional uint32 ticket_crc = 6;
 	optional bytes ticket = 7;
-	optional bytes server_secret = 8;
-	optional uint32 ticket_type = 9;
 }
 
 message CMsgBadgeCraftedNotification {
@@ -1469,10 +1453,6 @@ message CMsgClientLogon {
 	optional int32 priority_reason = 104;
 	optional .CMsgClientSecret embedded_client_secret = 105;
 	optional bool disable_partner_autogrants = 106;
-	optional bool is_steam_deck = 107;
-	optional string access_token = 108;
-	optional bool is_chrome_os = 109;
-	optional bool is_tesla = 110;
 }
 
 message CMsgClientLogonResponse {
@@ -1493,7 +1473,6 @@ message CMsgClientLogonResponse {
 	optional bool deprecated_use_pics = 13;
 	optional string vanity_url = 14;
 	optional .CMsgIPAddress public_ip = 15;
-	optional string user_country = 16;
 	optional fixed64 client_supplied_steamid = 20;
 	optional string ip_country_code = 21;
 	optional bytes parental_settings = 22;
@@ -1504,8 +1483,6 @@ message CMsgClientLogonResponse {
 	optional uint64 client_instance_id = 27;
 	optional bool force_client_update_check = 28;
 	optional string agreement_session_url = 29;
-	optional uint64 token_id = 30;
-	optional uint64 family_group_id = 31;
 }
 
 message CMsgClientManageFriendsGroup {
@@ -1830,7 +1807,7 @@ message CMsgClientPersonaState {
 	repeated .CMsgClientPersonaState_Friend friends = 2;
 }
 
-// Used by: ChatRoom, ChatRoomClient, common.proto
+// Used by: ChatRoom, common.proto
 message CMsgClientPersonaState_Friend {
 	optional fixed64 friendid = 1;
 	optional uint32 persona_state = 2;
@@ -1860,29 +1837,18 @@ message CMsgClientPersonaState_Friend {
 	optional uint32 watching_broadcast_appid = 75;
 	optional uint32 watching_broadcast_viewers = 76;
 	optional string watching_broadcast_title = 77;
-	optional bool is_community_banned = 78;
-	optional bool player_name_pending_review = 79;
-	optional bool avatar_pending_review = 80;
-	optional bool on_steam_deck = 81;
-	repeated .CMsgClientPersonaState_Friend_OtherGameData other_game_data = 82;
 }
 
-// Used by: ChatRoom, ChatRoomClient, common.proto
+// Used by: ChatRoom, common.proto
 message CMsgClientPersonaState_Friend_ClanData {
 	optional uint32 ogg_app_id = 1;
 	optional uint64 chat_group_id = 2;
 }
 
-// Used by: ChatRoom, ChatRoomClient, common.proto
+// Used by: ChatRoom, common.proto
 message CMsgClientPersonaState_Friend_KV {
 	optional string key = 1;
 	optional string value = 2;
-}
-
-// Used by: ChatRoom, ChatRoomClient, common.proto
-message CMsgClientPersonaState_Friend_OtherGameData {
-	optional uint64 gameid = 1;
-	repeated .CMsgClientPersonaState_Friend_KV rich_presence = 2;
 }
 
 message CMsgClientPICSAccessTokenRequest {
@@ -3443,6 +3409,22 @@ message CMsgTrading_StartSession {
 	optional uint64 other_steamid = 1;
 }
 
+message CPackageReservationStatus {
+	optional uint32 packageid = 1;
+	optional int32 reservation_state = 2;
+	optional int32 queue_position = 3;
+	optional int32 total_queue_size = 4;
+	optional string reservation_country_code = 5;
+	optional bool expired = 6;
+	optional uint32 time_expires = 7;
+	optional uint32 time_reserved = 8;
+}
+
+message CPartnerStoreBrowse_GetItems_Request {
+	optional .CStoreBrowse_GetItems_Request request = 1;
+	optional bool include_unpublished = 2;
+}
+
 message CProductImpressionsFromClient_Notification {
 	repeated .CProductImpressionsFromClient_Notification_Impression impressions = 1;
 }
@@ -3454,160 +3436,7 @@ message CProductImpressionsFromClient_Notification_Impression {
 	optional uint32 num_impressions = 3;
 }
 
-message CSteamVR_Header {
-	optional int32 type = 1 [(.description) = "enum"];
-	optional uint32 id = 2;
-}
-
-message CSteamVR_VoiceChat_Active_Notification {
-}
-
-message CSteamVR_VoiceChat_ConfigureVideo_Request {
-	optional bool send = 1;
-	optional bool receive = 2;
-}
-
-message CSteamVR_VoiceChat_ConfigureVideo_Response {
-}
-
-message CSteamVR_VoiceChat_ExitRoomChat_Request {
-	optional uint64 chat_group_id = 1;
-	optional uint64 chat_room_id = 2;
-}
-
-message CSteamVR_VoiceChat_ExitRoomChat_Response {
-}
-
-message CSteamVR_VoiceChat_GetAvatarUrl_Request {
-	optional fixed64 profile_steamid = 1;
-	optional int32 avatar_type = 2 [(.description) = "enum"];
-}
-
-message CSteamVR_VoiceChat_GetAvatarUrl_Response {
-	optional string profile_avatar_url = 1;
-}
-
-message CSteamVR_VoiceChat_GroupName_Notification {
-	optional string name = 1;
-}
-
-message CSteamVR_VoiceChat_Inactive_Notification {
-}
-
-message CSteamVR_VoiceChat_InitiateRoomChat_Request {
-	optional uint64 chat_group_id = 1;
-	optional uint64 chat_room_id = 2;
-}
-
-message CSteamVR_VoiceChat_InitiateRoomChat_Response {
-}
-
-message CSteamVR_VoiceChat_NewGroupChatMsgAdded_Notification {
-	optional uint64 chat_group_id = 1;
-	optional uint64 chat_room_id = 2;
-	optional uint32 sender_accountid = 3;
-	optional uint32 timestamp = 4;
-	optional uint32 ordinal = 5;
-	optional string message = 6;
-}
-
-message CSteamVR_VoiceChat_PerUserGainValue_Notification {
-	optional uint32 accountid = 1;
-	optional bool muted = 2;
-	optional float gain = 3;
-}
-
-message CSteamVR_VoiceChat_PerUserVoiceStatus_Notification {
-	optional uint32 accountid = 1;
-	optional bool mic_muted_locally = 2;
-	optional bool output_muted_locally = 3;
-}
-
-message CSteamVR_VoiceChat_Ready_Notification {
-}
-
-message CSteamVR_VoiceChat_SendGroupChatMessage_Request {
-	optional string message_with_bbcode = 1;
-}
-
-message CSteamVR_VoiceChat_SendGroupChatMessage_Response {
-}
-
-message CSteamVR_VoiceChat_SetDefaultSession_Notification {
-	optional uint64 chat_group_id = 1;
-	optional uint64 chat_room_id = 2;
-}
-
-message CSteamVR_VoiceChat_SetPerUserMuting_Request {
-	optional uint32 accountid = 1;
-	optional bool muted = 2;
-}
-
-message CSteamVR_VoiceChat_SetPerUserMuting_Response {
-}
-
-message CSteamVR_VoiceChat_SetPerUserVideo_Request {
-	optional uint32 accountid = 1;
-	optional bool receive = 2;
-}
-
-message CSteamVR_VoiceChat_SetPerUserVideo_Response {
-}
-
-message CSteamVR_VRGamepadUI_Message {
-	optional bytes header = 1;
-	optional bytes payload = 2;
-}
-
-message CSteamVR_WebRTC_Active_Notification {
-}
-
-message CSteamVR_WebRTC_CloseDataChannel_Request {
-	optional uint32 channel_id = 1;
-}
-
-message CSteamVR_WebRTC_CloseDataChannel_Response {
-}
-
-message CSteamVR_WebRTC_CreateDataChannel_Request {
-	optional string label = 1;
-	optional bool ordered = 2;
-	optional uint32 max_retransmits = 3;
-	optional uint32 max_packet_life_time = 4;
-}
-
-message CSteamVR_WebRTC_CreateDataChannel_Response {
-	optional uint32 channel_id = 1;
-}
-
-message CSteamVR_WebRTC_DataChannel_Close_Notification {
-	optional uint32 channel_id = 1;
-}
-
-message CSteamVR_WebRTC_DataChannel_Error_Notification {
-	optional uint32 channel_id = 1;
-	optional string reason = 2;
-}
-
-message CSteamVR_WebRTC_DataChannel_Message_Notification {
-	optional uint32 channel_id = 1;
-	optional bytes data = 2;
-}
-
-message CSteamVR_WebRTC_DataChannel_Open_Notification {
-	optional uint32 channel_id = 1;
-}
-
-message CSteamVR_WebRTC_Inactive_Notification {
-}
-
-message CSteamVR_WebRTC_OnDataChannel_Notification {
-	optional fixed64 source_steamid = 1;
-	optional uint32 channel_id = 2;
-	optional string label = 3;
-}
-
-// Used by: PartnerStoreBrowse, StoreBrowse
+// Used by: PartnerStoreBrowse, StoreBrowse, common.proto
 message CStoreBrowse_GetItems_Request {
 	repeated .StoreItemID ids = 1;
 	optional .StoreBrowseContext context = 2;
@@ -3619,14 +3448,14 @@ message CStoreBrowse_GetItems_Response {
 	repeated .StoreItem store_items = 1;
 }
 
-// Used by: Store, StoreBrowse, StoreQuery
+// Used by: StoreBrowse, StoreQuery
 message CStorePageFilter {
 	optional .CStorePageFilter_SalePageFilter sale_filter = 1;
 	optional .CStorePageFilter_ContentHubFilter content_hub_filter = 2;
 	repeated .CStorePageFilter_StoreFilter store_filters = 3;
 }
 
-// Used by: Store, StoreBrowse, StoreQuery
+// Used by: StoreBrowse, StoreQuery
 message CStorePageFilter_ContentHubFilter {
 	optional string hub_type = 1;
 	optional string hub_category = 2;
@@ -3635,7 +3464,7 @@ message CStorePageFilter_ContentHubFilter {
 	optional .CStorePageFilter_ContentHubFilter_OptInInfo optin = 5;
 }
 
-// Used by: Store, StoreBrowse, StoreQuery
+// Used by: StoreBrowse, StoreQuery
 message CStorePageFilter_ContentHubFilter_OptInInfo {
 	optional string name = 1;
 	optional uint32 optin_tagid = 2;
@@ -3643,145 +3472,112 @@ message CStorePageFilter_ContentHubFilter_OptInInfo {
 	optional bool optin_only = 4;
 }
 
-// Used by: Store, StoreBrowse, StoreQuery
+// Used by: StoreBrowse, StoreQuery
 message CStorePageFilter_SalePageFilter {
 	optional uint32 sale_tagid = 1;
 }
 
-// Used by: Store, StoreBrowse, StoreQuery
+// Used by: StoreBrowse, StoreQuery
 message CStorePageFilter_StoreFilter {
 	optional string filter_json = 1;
 	optional string cache_key = 2;
 }
 
-// Used by: GameRecordingClip, VideoClip
-message CVideo_GameRecordingSegmentInfo {
-	optional uint32 segment_number = 1;
-	optional uint64 segment_size_bytes = 2;
-	optional string component_name = 3;
-	optional string representation_name = 4;
+// Used by: ChatRoom, common.proto
+message CUserChatRoomGroupState {
+	optional uint64 chat_group_id = 1;
+	optional uint32 time_joined = 2;
+	repeated .CUserChatRoomState user_chat_room_state = 3;
+	optional int32 desktop_notification_level = 4 [(.description) = "enum"];
+	optional int32 mobile_notification_level = 5 [(.description) = "enum"];
+	optional uint32 time_last_group_ack = 6;
+	optional bool unread_indicator_muted = 7 [default = false];
 }
 
-message CVRGamepadUI_Message_DashboardActionInvoked_Request {
-	optional uint32 action_id = 1;
-	optional bool toggle_value = 2;
+// Used by: ChatRoom, common.proto
+message CUserChatRoomState {
+	optional uint64 chat_id = 1;
+	optional uint32 time_joined = 2;
+	optional uint32 time_last_ack = 3;
+	optional int32 desktop_notification_level = 4 [(.description) = "enum"];
+	optional int32 mobile_notification_level = 5 [(.description) = "enum"];
+	optional uint32 time_last_mention = 6;
+	optional bool unread_indicator_muted = 7 [default = false];
+	optional uint32 time_first_unread = 8;
 }
 
-message CVRGamepadUI_Message_DashboardActionInvoked_Response {
+message CVoiceChat_AllMembersStatus_Notification {
+	optional fixed64 voice_chatid = 1;
+	repeated .CVoiceChat_UserVoiceStatus_Notification users = 2;
 }
 
-message CVRGamepadUI_Message_DashboardDesktopWindowClicked_Request {
-	optional uint32 window_id = 1;
+message CVoiceChat_OneOnOneChatRequested_Notification {
+	optional fixed64 voice_chatid = 1;
+	optional fixed64 steamid_partner = 2;
 }
 
-message CVRGamepadUI_Message_DashboardDesktopWindowClicked_Response {
+message CVoiceChat_OneOnOneChatRequestResponse_Notification {
+	optional fixed64 voicechat_id = 1;
+	optional fixed64 steamid_partner = 2;
+	optional bool accepted_request = 3;
 }
 
-message CVRGamepadUI_Message_DashboardTabClicked_Request {
-	optional uint32 tab_id = 1;
+message CVoiceChat_UserJoinedVoiceChat_Notification {
+	optional fixed64 voice_chatid = 1;
+	optional fixed64 user_steamid = 2;
+	optional uint64 chatid = 3;
+	optional fixed64 one_on_one_steamid_lower = 4;
+	optional fixed64 one_on_one_steamid_higher = 5;
+	optional uint64 chat_group_id = 6;
+	optional uint32 user_sessionid = 7;
 }
 
-message CVRGamepadUI_Message_DashboardTabClicked_Response {
+message CVoiceChat_UserLeftVoiceChat_Notification {
+	optional fixed64 voice_chatid = 1;
+	optional fixed64 user_steamid = 2;
+	optional uint64 chatid = 3;
+	optional fixed64 one_on_one_steamid_lower = 4;
+	optional fixed64 one_on_one_steamid_higher = 5;
+	optional uint64 chat_group_id = 6;
+	optional uint32 user_sessionid = 7;
 }
 
-message CVRGamepadUI_Message_Error_Response {
-	optional int32 error = 1 [(.description) = "enum"];
-	optional string description = 2;
-	optional int32 origin = 3 [(.description) = "enum"];
+// Used by: VoiceChat, common.proto
+message CVoiceChat_UserVoiceStatus_Notification {
+	optional fixed64 voice_chatid = 1;
+	optional fixed64 user_steamid = 2;
+	optional bool user_muted_mic_locally = 3;
+	optional bool user_muted_output_locally = 4;
+	optional bool user_has_no_mic_for_session = 5;
+	optional int32 user_webaudio_sample_rate = 6;
 }
 
-message CVRGamepadUI_Message_ExecuteSteamURL_Request {
-	optional string url = 1;
+message CVoiceChat_VoiceChatEnded_Notification {
+	optional fixed64 voice_chatid = 1;
+	optional fixed64 one_on_one_steamid_lower = 2;
+	optional fixed64 one_on_one_steamid_higher = 3;
+	optional uint64 chatid = 4;
+	optional uint64 chat_group_id = 5;
 }
 
-message CVRGamepadUI_Message_ExecuteSteamURL_Response {
+message CWebRTC_WebRTCSessionConnected_Notification {
+	optional uint32 ssrc = 1;
+	optional uint32 client_ip = 2;
+	optional uint32 client_port = 3;
+	optional uint32 server_ip = 4;
+	optional uint32 server_port = 5;
 }
 
-message CVRGamepadUI_Message_Header {
-	optional string name = 1;
-	optional uint32 message_id = 2;
-	optional uint32 response_to_message_id = 3;
-	optional bool is_error_response = 4;
-}
-
-message CVRGamepadUI_Message_HideDashboardPopup_Request {
-	optional uint32 dashboard_popup_request_id = 1;
-}
-
-message CVRGamepadUI_Message_HideDashboardPopup_Response {
-}
-
-message CVRGamepadUI_Message_RemoteVideoStream_Request {
-	optional uint32 source_accountid = 1;
-	optional string video_uniqueid = 2;
-}
-
-message CVRGamepadUI_Message_RemoteVideoStream_Response {
-}
-
-message CVRGamepadUI_Message_ShowDashboardPopup_Request {
-	optional uint32 dashboard_popup_request_id = 1;
-	optional string popup_overlay_key = 2;
-	optional string parent_overlay_key = 3;
-	optional .CVRGamepadUI_Message_ShowDashboardPopup_Request_NormalizedPosition origin_on_parent = 4;
-	optional .CVRGamepadUI_Message_ShowDashboardPopup_Request_NormalizedPosition origin_on_popup = 5;
-	optional .CVRGamepadUI_Message_ShowDashboardPopup_Request_Position offset = 6;
-	optional .CVRGamepadUI_Message_ShowDashboardPopup_Request_Rotation rotation = 7;
-	optional bool inherit_parent_pitch = 8;
-	optional bool inherit_parent_curvature = 9;
-	optional .CVRGamepadUI_Message_ShowDashboardPopup_Request_Rect clip_rect = 10;
-	optional bool interactive = 11;
-	optional bool requires_laser = 12;
-	optional string parent_device_path = 13;
-	optional int32 sort_order = 14 [(.description) = "enum"];
-	optional int32 parent_enum = 15 [(.description) = "enum"];
-}
-
-// Used by: common.proto
-message CVRGamepadUI_Message_ShowDashboardPopup_Request_NormalizedPosition {
-	optional float x = 1;
-	optional float y = 2;
-}
-
-// Used by: common.proto
-message CVRGamepadUI_Message_ShowDashboardPopup_Request_Position {
-	optional float x_pixels = 1;
-	optional float y_pixels = 2;
-	optional float z_pixels = 3;
-	optional float x_meters = 4;
-	optional float y_meters = 5;
-	optional float z_meters = 6;
+message CWebRTC_WebRTCUpdateRemoteDescription_Notification {
+	optional string remote_description = 1;
+	optional uint64 remote_description_version = 2;
+	repeated .CWebRTC_WebRTCUpdateRemoteDescription_Notification_CSSRCToAccountIDMapping ssrcs_to_accountids = 3;
 }
 
 // Used by: common.proto
-message CVRGamepadUI_Message_ShowDashboardPopup_Request_Rect {
-	optional float u_min = 1;
-	optional float v_min = 2;
-	optional float u_max = 3;
-	optional float v_max = 4;
-}
-
-// Used by: common.proto
-message CVRGamepadUI_Message_ShowDashboardPopup_Request_Rotation {
-	optional float pitch_degrees = 1;
-	optional float yaw_degrees = 2;
-}
-
-message CVRGamepadUI_Message_ShowDashboardPopup_Response {
-}
-
-message CVRGamepadUI_Message_ShowGame_Request {
-	optional string overlay_key = 1;
-}
-
-message CVRGamepadUI_Message_ShowGame_Response {
-}
-
-message CVRGamepadUI_Message_ShowOverlay_Request {
-	optional string overlay_key = 1;
-}
-
-message CVRGamepadUI_Message_ShowOverlay_Response {
+message CWebRTC_WebRTCUpdateRemoteDescription_Notification_CSSRCToAccountIDMapping {
+	optional uint32 ssrc = 1;
+	optional uint32 accountid = 2;
 }
 
 // Used by: common.proto
@@ -3812,7 +3608,6 @@ message LoyaltyRewardDefinition {
 	repeated uint32 bundle_defids = 15;
 	optional uint32 usable_duration = 16;
 	optional uint32 bundle_discount = 17;
-	optional uint32 timestamp_free_until = 18;
 }
 
 // Used by: LoyaltyRewards, SaleItemRewards
@@ -3835,10 +3630,16 @@ message LoyaltyRewardDefinition_CommunityItemData {
 	optional string item_movie_webm_small = 10;
 	optional string item_movie_mp4_small = 11;
 	optional string profile_theme_id = 12;
-	optional bool tiled = 13;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: ChatRoom, common.proto
+message ServerMessage {
+	optional int32 message = 1 [(.description) = "enum"];
+	optional string string_param = 2;
+	optional uint32 accountid_param = 3;
+}
+
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery, common.proto
 message StoreBrowseContext {
 	optional string language = 1;
 	optional int32 elanguage = 2;
@@ -3846,7 +3647,7 @@ message StoreBrowseContext {
 	optional int32 steam_realm = 4;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreBrowseFilterFailure {
 	optional int32 filter_failure = 1 [default = 0, (.description) = "enum"];
 	optional bool already_owned = 5;
@@ -3861,7 +3662,7 @@ message StoreBrowseFilterFailure {
 	repeated int32 excluded_content_descriptorids = 30 [(.description) = "enum"];
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery, common.proto
 message StoreBrowseItemDataRequest {
 	optional bool include_assets = 1;
 	optional bool include_release = 2;
@@ -3882,7 +3683,7 @@ message StoreBrowseItemDataRequest {
 	optional bool include_links = 17;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreGameRating {
 	optional string type = 1;
 	optional string rating = 2;
@@ -3894,7 +3695,7 @@ message StoreGameRating {
 	optional string image_target = 21;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem {
 	optional int32 item_type = 1 [(.description) = "enum"];
 	optional uint32 id = 2;
@@ -3941,7 +3742,7 @@ message StoreItem {
 	repeated .StoreItem_Link links = 71;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Assets {
 	optional string asset_url_format = 1;
 	optional string main_capsule = 2;
@@ -3961,7 +3762,7 @@ message StoreItem_Assets {
 	optional string raw_page_background = 16;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_BasicInfo {
 	optional string short_description = 1;
 	repeated .StoreItem_BasicInfo_CreatorHomeLink publishers = 2;
@@ -3973,40 +3774,40 @@ message StoreItem_BasicInfo {
 	optional string capsule_headline = 5;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_BasicInfo_CreatorHomeLink {
 	optional string name = 1;
 	optional uint32 creator_clan_account_id = 2;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Categories {
 	repeated uint32 supported_player_categoryids = 2;
 	repeated uint32 feature_categoryids = 3;
 	repeated uint32 controller_categoryids = 4;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_FreeWeekend {
 	optional uint32 start_time = 1;
 	optional uint32 end_time = 2;
 	optional string text = 3;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_IncludedItems {
 	repeated .StoreItem included_apps = 1;
 	repeated .StoreItem included_packages = 2;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Link {
 	optional int32 link_type = 1 [(.description) = "enum"];
 	optional string url = 2;
 	optional string text = 3;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Platforms {
 	optional bool windows = 1;
 	optional bool mac = 2;
@@ -4016,7 +3817,7 @@ message StoreItem_Platforms {
 	optional int32 steam_deck_compat_category = 11 [(.description) = "enum"];
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Platforms_VRSupport {
 	optional bool vrhmd = 1;
 	optional bool vrhmd_only = 2;
@@ -4026,7 +3827,7 @@ message StoreItem_Platforms_VRSupport {
 	optional bool valve_index = 43;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_PurchaseOption {
 	optional int32 packageid = 1;
 	optional int32 bundleid = 2;
@@ -4050,21 +3851,21 @@ message StoreItem_PurchaseOption {
 	optional bool is_commercial_license = 40;
 	optional bool should_suppress_discount_pct = 41;
 	optional bool hide_discount_pct_for_compliance = 42 [default = false];
-	optional int32 included_game_count = 43 [default = 1];
+	optional int32 included_game_count = 43;
 	optional int64 lowest_recent_price_in_cents = 44;
 	optional bool requires_shipping = 45;
 	optional .StoreItem_PurchaseOption_RecurrenceInfo recurrence_info = 46;
 	optional uint32 free_to_keep_ends = 47;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_PurchaseOption_Discount {
 	optional int64 discount_amount = 1;
 	optional string discount_description = 2;
 	optional uint32 discount_end_date = 3;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_PurchaseOption_RecurrenceInfo {
 	optional int32 packageid = 1;
 	optional int32 billing_agreement_type = 2;
@@ -4074,14 +3875,14 @@ message StoreItem_PurchaseOption_RecurrenceInfo {
 	optional string formatted_renewal_price = 6;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_RelatedItems {
 	optional uint32 parent_appid = 1;
 	repeated uint32 demo_appid = 2;
 	repeated uint32 standalone_demo_appid = 3;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_ReleaseInfo {
 	optional uint32 steam_release_date = 1;
 	optional uint32 original_release_date = 2;
@@ -4097,13 +3898,13 @@ message StoreItem_ReleaseInfo {
 	optional bool limited_launch_active = 22;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Reviews {
 	optional .StoreItem_Reviews_StoreReviewSummary summary_filtered = 1;
 	optional .StoreItem_Reviews_StoreReviewSummary summary_unfiltered = 2;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Reviews_StoreReviewSummary {
 	optional uint32 review_count = 1;
 	optional int32 percent_positive = 2;
@@ -4111,40 +3912,40 @@ message StoreItem_Reviews_StoreReviewSummary {
 	optional string review_score_label = 4;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Screenshots {
 	repeated .StoreItem_Screenshots_Screenshot all_ages_screenshots = 2;
 	repeated .StoreItem_Screenshots_Screenshot mature_content_screenshots = 3;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Screenshots_Screenshot {
 	optional string filename = 1;
 	optional int32 ordinal = 2;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_SupportedLanguage {
-	optional int32 elanguage = 1 [default = -1];
+	optional int32 elanguage = 1;
 	optional bool supported = 2;
 	optional bool full_audio = 3;
 	optional bool subtitles = 4;
 	optional int32 eadditionallanguage = 5 [default = -1];
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Tag {
 	optional uint32 tagid = 1;
 	optional uint32 weight = 2;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Trailers {
 	repeated .StoreItem_Trailers_Trailer highlights = 1;
 	repeated .StoreItem_Trailers_Trailer other_trailers = 2;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Trailers_Trailer {
 	optional string trailer_name = 1;
 	optional string trailer_url_format = 2;
@@ -4157,13 +3958,13 @@ message StoreItem_Trailers_Trailer {
 	optional int32 trailer_category = 13 [(.description) = "enum"];
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery
 message StoreItem_Trailers_VideoSource {
 	optional string filename = 1;
 	optional string type = 2;
 }
 
-// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery
+// Used by: PartnerStoreBrowse, StoreBrowse, StoreQuery, common.proto
 message StoreItemID {
 	optional uint32 appid = 1;
 	optional uint32 packageid = 2;
@@ -4171,16 +3972,5 @@ message StoreItemID {
 	optional uint32 tagid = 4;
 	optional uint32 creatorid = 5;
 	optional uint32 hubcategoryid = 6;
-}
-
-// Used by: Player, PlayerClient, Store, StoreClient
-message UserContentDescriptorPreferences {
-	repeated .UserContentDescriptorPreferences_ContentDescriptor content_descriptors_to_exclude = 1;
-}
-
-// Used by: Player, PlayerClient, Store, StoreClient
-message UserContentDescriptorPreferences_ContentDescriptor {
-	optional uint32 content_descriptorid = 1;
-	optional uint32 timestamp_added = 2;
 }
 

@@ -1,3 +1,4 @@
+import "common_base.proto";
 
 message CUserAccount_CancelLicenseForApp_Request {
 	optional uint32 appid = 1;
@@ -51,21 +52,11 @@ message CUserAccount_GetAvailableValveDiscountPromotions_Response_ValveDiscountP
 	optional int32 max_use_count = 11;
 }
 
-message CUserAccount_GetClientWalletDetails_Request {
-	optional bool include_balance_in_usd = 1;
-	optional int32 wallet_region = 2 [default = 1];
-	optional bool include_formatted_balance = 3;
-}
-
 message CUserAccount_GetFriendInviteTokens_Request {
 }
 
 message CUserAccount_GetFriendInviteTokens_Response {
 	repeated .CUserAccount_CreateFriendInviteToken_Response tokens = 1;
-}
-
-message CUserAccount_GetUserCountry_Request {
-	optional fixed64 steamid = 1;
 }
 
 message CUserAccount_GetUserCountry_Response {
@@ -87,10 +78,6 @@ message CUserAccount_GetWalletDetails_Response {
 	optional bool has_wallet_in_other_regions = 12;
 	repeated int32 other_regions = 13;
 	optional string formatted_balance = 14;
-	optional string formatted_delayed_balance = 15;
-	optional int32 delayed_balance_available_min_time = 16;
-	optional int32 delayed_balance_available_max_time = 17;
-	optional int32 delayed_balance_newest_source = 18;
 }
 
 message CUserAccount_RedeemFriendInviteToken_Request {
@@ -131,9 +118,9 @@ service UserAccount {
 	rpc CreateFriendInviteToken (.CUserAccount_CreateFriendInviteToken_Request) returns (.CUserAccount_CreateFriendInviteToken_Response);
 	rpc GetAccountLinkStatus (.CUserAccount_GetAccountLinkStatus_Request) returns (.CUserAccount_GetAccountLinkStatus_Response);
 	rpc GetAvailableValveDiscountPromotions (.CUserAccount_GetAvailableValveDiscountPromotions_Request) returns (.CUserAccount_GetAvailableValveDiscountPromotions_Response);
-	rpc GetClientWalletDetails (.CUserAccount_GetClientWalletDetails_Request) returns (.CUserAccount_GetWalletDetails_Response);
+	rpc GetClientWalletDetails (.NotImplemented) returns (.CUserAccount_GetWalletDetails_Response);
 	rpc GetFriendInviteTokens (.CUserAccount_GetFriendInviteTokens_Request) returns (.CUserAccount_GetFriendInviteTokens_Response);
-	rpc GetUserCountry (.CUserAccount_GetUserCountry_Request) returns (.CUserAccount_GetUserCountry_Response);
+	rpc GetUserCountry (.NotImplemented) returns (.CUserAccount_GetUserCountry_Response);
 	rpc RedeemFriendInviteToken (.CUserAccount_RedeemFriendInviteToken_Request) returns (.CUserAccount_RedeemFriendInviteToken_Response);
 	rpc RegisterCompatTool (.CUserAccount_RegisterCompatTool_Request) returns (.CUserAccount_RegisterCompatTool_Response);
 	rpc RevokeFriendInviteToken (.CUserAccount_RevokeFriendInviteToken_Request) returns (.CUserAccount_RevokeFriendInviteToken_Response);

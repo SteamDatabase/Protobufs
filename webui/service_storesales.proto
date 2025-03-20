@@ -1,23 +1,5 @@
 import "common_base.proto";
 
-message CStore_GetUserVotes_Request {
-	optional uint32 sale_appid = 1;
-}
-
-message CStore_GetUserVotes_Response {
-	repeated .SteamAwardsUserVote user_votes = 1;
-}
-
-message CStore_GetVoteDefinitions_Request {
-	optional string language = 1;
-	optional uint32 sale_appid = 2;
-}
-
-message CStore_GetVoteDefinitions_Response {
-	repeated .CStore_VoteDefinition votes = 1;
-	repeated uint32 labor_of_love_winners = 2;
-}
-
 message CStore_GetVoteDefinitionsForEvents_Response {
 	repeated .CStore_GetVoteDefinitionsForEvents_Response_Vote_Defintion definitions = 1;
 }
@@ -27,62 +9,7 @@ message CStore_GetVoteDefinitionsForEvents_Response_Vote_Defintion {
 	optional uint32 appid = 2;
 }
 
-message CStore_SetVote_Request {
-	optional int32 voteid = 1;
-	optional uint32 appid = 2;
-	optional uint32 sale_appid = 3;
-}
-
-message CStore_SetVote_Response {
-	repeated .SteamAwardsUserVote user_votes = 1;
-}
-
-message CStore_VoteDefinition {
-	optional int32 voteid = 1;
-	optional bool active = 2;
-	optional uint32 start_time = 3;
-	optional uint32 end_time = 4;
-	repeated .CStore_VoteDefinition_AppDefinition app_discounts = 5;
-	optional uint32 grouped_vote_options = 6;
-	repeated .CStore_VoteDefinition_GroupDefinition groups = 7;
-	optional string internal_name = 8;
-	optional .CStore_VoteDefinition_Localization localization = 9;
-	optional uint32 reveal_time = 10;
-	optional uint32 release_date_min = 11;
-	optional uint32 winner_appid = 12;
-	optional int32 flag = 13 [(.description) = "enum"];
-	optional uint32 release_date_max = 14;
-	optional uint32 item_type = 15;
-}
-
-message CStore_VoteDefinition_AppDefinition {
-	optional uint32 appid = 1;
-	optional uint32 discount = 2;
-}
-
-message CStore_VoteDefinition_GroupDefinition {
-	optional uint32 groupid = 1;
-	optional string group_name = 2;
-	repeated .CStore_VoteDefinition_AppDefinition app_discounts = 3;
-}
-
-message CStore_VoteDefinition_Localization {
-	optional string title = 1;
-	optional string title_linebreak = 2;
-	optional string title_award = 3;
-	optional string award_description = 4;
-}
-
-message SteamAwardsUserVote {
-	optional uint32 voteid = 1;
-	optional uint32 appid = 2;
-	optional uint64 communityitemid = 3;
-}
-
 service StoreSales {
-	rpc GetUserVotes (.CStore_GetUserVotes_Request) returns (.CStore_GetUserVotes_Response);
-	rpc GetVoteDefinitions (.CStore_GetVoteDefinitions_Request) returns (.CStore_GetVoteDefinitions_Response);
 	rpc GetVoteDefinitionsForEvents (.NotImplemented) returns (.CStore_GetVoteDefinitionsForEvents_Response);
-	rpc SetVote (.CStore_SetVote_Request) returns (.CStore_SetVote_Response);
 }
 

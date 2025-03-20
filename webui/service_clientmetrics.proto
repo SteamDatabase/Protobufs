@@ -1,18 +1,5 @@
 import "common_base.proto";
 
-message CClientMetrics_ReportClientArgs_Notification {
-	repeated string client_args = 1;
-	optional bool gpu_webview_regkey_disabled = 2;
-	optional bool suppress_gpu_chrome = 3;
-	optional bool browser_not_supported = 4;
-	optional bool hw_accel_video_regkey_disabled = 5;
-	optional bool mini_mode_enabled = 6;
-	optional bool fps_counter_enabled = 7;
-	optional bool library_low_bandwidth_mode_enabled = 8;
-	optional bool library_low_perf_mode_enabled = 9;
-	optional int32 gr_mode = 10;
-}
-
 message CClientMetrics_ReportClientError_Notification {
 	optional string product = 1;
 	optional string version = 2;
@@ -23,57 +10,13 @@ message CClientMetrics_ReportClientError_Notification_Error {
 	optional string identifier = 1;
 	optional string message = 2;
 	optional uint32 count = 3;
-	optional string context = 4;
-}
-
-message CClientMetrics_ReportLinuxStats_Notification {
-	optional int32 glibc_version_major = 1;
-	optional int32 glibc_version_minor = 2;
-	optional int32 account_type = 3;
-	optional int32 launcher_type = 4;
-	optional int32 game_server_appid = 5;
-	optional string process_name = 6;
-}
-
-message CClientMetrics_ReportReactUsage_Notification {
-	optional string product = 1;
-	optional string version = 2;
-	repeated .CClientMetrics_ReportReactUsage_Notification_RouteData routes = 3;
-	repeated .CClientMetrics_ReportReactUsage_Notification_ComponentData components = 4;
-	repeated .CClientMetrics_ReportReactUsage_Notification_ActionData actions = 5;
-}
-
-message CClientMetrics_ReportReactUsage_Notification_ActionData {
-	optional string action = 1;
-	optional uint32 count = 2;
-}
-
-message CClientMetrics_ReportReactUsage_Notification_ComponentData {
-	optional string component = 1;
-	optional uint32 count = 2;
-}
-
-message CClientMetrics_ReportReactUsage_Notification_RouteData {
-	optional string route = 1;
-	optional uint32 count = 2;
 }
 
 service ClientMetrics {
 	rpc ClientAppInterfaceStatsReport (.NotImplemented) returns (.NoResponse);
 	rpc ClientBootstrapReport (.NotImplemented) returns (.NoResponse);
-	rpc ClientCloudAppSyncStats (.NotImplemented) returns (.NoResponse);
-	rpc ClientContentValidationReport (.NotImplemented) returns (.NoResponse);
-	rpc ClientDownloadRatesReport (.NotImplemented) returns (.NoResponse);
-	rpc ClientDownloadResponseCodeCounts (.NotImplemented) returns (.NoResponse);
 	rpc ClientIPv6ConnectivityReport (.NotImplemented) returns (.NoResponse);
-	rpc ReportClientArgs (.CClientMetrics_ReportClientArgs_Notification) returns (.NoResponse);
 	rpc ReportClientError (.CClientMetrics_ReportClientError_Notification) returns (.NoResponse);
-	rpc ReportClipRange (.NotImplemented) returns (.NoResponse);
-	rpc ReportClipShare (.NotImplemented) returns (.NoResponse);
-	rpc ReportEndGameRecording (.NotImplemented) returns (.NoResponse);
-	rpc ReportGamePerformance (.NotImplemented) returns (.NoResponse);
-	rpc ReportLinuxStats (.CClientMetrics_ReportLinuxStats_Notification) returns (.NoResponse);
-	rpc ReportReactUsage (.CClientMetrics_ReportReactUsage_Notification) returns (.NoResponse);
 	rpc SteamPipeWorkStatsReport (.NotImplemented) returns (.NoResponse);
 }
 

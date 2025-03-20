@@ -1,30 +1,4 @@
-import "common_base.proto";
 import "common.proto";
-
-message CommunityItemDefinition {
-	optional uint32 item_type = 1;
-	optional uint32 appid = 2;
-	optional string item_name = 3;
-	optional string item_title = 4;
-	optional string item_description = 5;
-	optional string item_image_small = 6;
-	optional string item_image_large = 7;
-	optional string item_key_values = 8;
-	optional uint32 item_series = 9;
-	optional uint32 item_class = 10;
-	optional uint32 editor_accountid = 11;
-	optional bool active = 12;
-	optional string item_image_composed = 13;
-	optional string item_image_composed_foil = 14;
-	optional bool deleted = 15;
-	optional uint32 item_last_changed = 16;
-	optional uint64 broadcast_channel_id = 17;
-	optional string item_movie_webm = 18;
-	optional string item_movie_mp4 = 19;
-	optional string item_movie_webm_small = 20;
-	optional string item_movie_mp4_small = 21;
-	optional string item_internal_name = 22;
-}
 
 message CSaleItemRewards_CanClaimItem_Request {
 	optional string language = 1;
@@ -46,76 +20,8 @@ message CSaleItemRewards_ClaimItem_Response {
 	optional .LoyaltyRewardDefinition reward_item = 3;
 }
 
-message CSaleItemRewards_GetClaimedSaleRewards_Request {
-	optional int32 sale_def_type = 1 [(.description) = "enum"];
-	optional string language = 2;
-	optional bool include_community_item_def = 3;
-}
-
-message CSaleItemRewards_GetClaimedSaleRewards_Response {
-	optional int32 num_items_granted = 1;
-	optional int32 num_items_earned = 2;
-	optional .CSteamItemRewardDefinition current_def = 3;
-	repeated .SaleItemRewardGrant reward_items = 4;
-}
-
-message CSaleItemRewards_GetCurrentDefinition_Request {
-	optional int32 sale_def_type = 1 [(.description) = "enum"];
-	optional string language = 2;
-	optional bool include_community_item_def = 3;
-}
-
-message CSaleItemRewards_GetCurrentDefinition_Response {
-	optional .CSteamItemRewardDefinition definition = 1;
-	repeated .SaleReward_ItemDefinition reward_items = 2;
-}
-
-message CSaleItemRewards_GetRewardDefinitions_Request {
-	optional uint32 virtual_item_reward_event_id = 1;
-}
-
-message CSaleItemRewards_GetRewardDefinitions_Response {
-	repeated .CSteamItemRewardDefinition definitions = 1;
-}
-
-message CSaleItemRewards_SetRewardDefinitions_Request {
-	repeated .CSteamItemRewardDefinition definitions = 1;
-	optional int32 action = 2 [(.description) = "enum"];
-}
-
-message CSaleItemRewards_SetRewardDefinitions_Response {
-	repeated .CSteamItemRewardDefinition definitions = 1;
-}
-
-message CSteamItemRewardDefinition {
-	optional uint32 sale_reward_def_id = 1;
-	optional uint32 appid = 2;
-	optional uint32 virtual_item_reward_event_id = 3;
-	optional uint32 rtime_start_time = 4;
-	optional uint32 rtime_end_time = 5;
-	optional uint32 num_items_per_def = 6;
-	optional int32 reward_def_type = 7 [(.description) = "enum"];
-}
-
-message SaleItemRewardGrant {
-	optional uint64 communityitemid = 1;
-	optional uint32 time_granted = 2;
-	optional .SaleReward_ItemDefinition item_definition = 3;
-}
-
-message SaleReward_ItemDefinition {
-	optional uint32 appid = 1;
-	optional uint32 community_item_type = 2;
-	optional uint32 community_item_class = 3;
-	optional .CommunityItemDefinition community_definition = 4;
-}
-
 service SaleItemRewards {
 	rpc CanClaimItem (.CSaleItemRewards_CanClaimItem_Request) returns (.CSaleItemRewards_CanClaimItem_Response);
 	rpc ClaimItem (.CSaleItemRewards_ClaimItem_Request) returns (.CSaleItemRewards_ClaimItem_Response);
-	rpc GetClaimedSaleRewards (.CSaleItemRewards_GetClaimedSaleRewards_Request) returns (.CSaleItemRewards_GetClaimedSaleRewards_Response);
-	rpc GetCurrentDefinition (.CSaleItemRewards_GetCurrentDefinition_Request) returns (.CSaleItemRewards_GetCurrentDefinition_Response);
-	rpc GetRewardDefinitions (.CSaleItemRewards_GetRewardDefinitions_Request) returns (.CSaleItemRewards_GetRewardDefinitions_Response);
-	rpc SetRewardDefinitions (.CSaleItemRewards_SetRewardDefinitions_Request) returns (.CSaleItemRewards_SetRewardDefinitions_Response);
 }
 

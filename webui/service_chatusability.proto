@@ -93,15 +93,7 @@ message CChatUsability_ClientUsabilityMetrics_Notification_VoiceSettings {
 	optional bool play_ptt_sounds = 11;
 }
 
-message CChatUsability_RequestClientUsabilityMetrics_Notification {
-	optional uint32 metrics_run_id = 1;
-}
-
 service ChatUsability {
 	rpc NotifyClientUsabilityMetrics (.CChatUsability_ClientUsabilityMetrics_Notification) returns (.NoResponse);
-}
-
-service ChatUsabilityClient {
-	rpc NotifyRequestClientUsabilityMetrics (.CChatUsability_RequestClientUsabilityMetrics_Notification) returns (.NoResponse);
 }
 

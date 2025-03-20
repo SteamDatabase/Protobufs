@@ -1,18 +1,8 @@
 import "common_base.proto";
 
-message CVideo_ClientGetVideoURL_Request {
-	optional uint64 video_id = 1;
-	optional uint32 client_cellid = 2;
-}
-
 message CVideo_ClientGetVideoURL_Response {
 	optional uint64 video_id = 1;
 	optional string video_url = 2;
-}
-
-message CVideo_GetVideoBookmarks_Request {
-	repeated uint32 appids = 1;
-	optional uint32 updated_since = 2;
 }
 
 message CVideo_GetVideoBookmarks_Response {
@@ -39,8 +29,8 @@ message VideoBookmark {
 }
 
 service Video {
-	rpc ClientGetVideoURL (.CVideo_ClientGetVideoURL_Request) returns (.CVideo_ClientGetVideoURL_Response);
-	rpc GetVideoBookmarks (.CVideo_GetVideoBookmarks_Request) returns (.CVideo_GetVideoBookmarks_Response);
+	rpc ClientGetVideoURL (.NotImplemented) returns (.CVideo_ClientGetVideoURL_Response);
+	rpc GetVideoBookmarks (.NotImplemented) returns (.CVideo_GetVideoBookmarks_Response);
 	rpc SetVideoBookmark (.CVideo_SetVideoBookmark_Notification) returns (.NoResponse);
 }
 

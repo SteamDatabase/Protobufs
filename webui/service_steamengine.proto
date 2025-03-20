@@ -17,20 +17,6 @@ message CSteamEngine_GetTextFilterDictionary_Response {
 	optional string dictionary = 1;
 }
 
-message CSteamEngine_SearchAppDataCacheByStoreKeywords_Request {
-	optional string search_term = 1;
-	optional uint32 max_results = 2;
-}
-
-message CSteamEngine_SearchAppDataCacheByStoreKeywords_Response {
-	repeated uint32 appids = 1;
-}
-
-message CSteamEngine_SetOverlayEscapeKeyHandling_Notification {
-	optional uint64 gameid = 1;
-	optional bool should_handle = 2;
-}
-
 message CSteamEngine_TextFilterDictionaryChanged_Notification {
 	optional string language = 1;
 	optional string type = 2;
@@ -45,8 +31,6 @@ service SteamEngine {
 	rpc GetGameIDForPID (.CSteamEngine_GetGameIDForPID_Request) returns (.CSteamEngine_GetGameIDForPID_Response);
 	rpc GetTextFilterDictionary (.CSteamEngine_GetTextFilterDictionary_Request) returns (.CSteamEngine_GetTextFilterDictionary_Response);
 	rpc NotifyTextFilterDictionaryChanged (.CSteamEngine_TextFilterDictionaryChanged_Notification) returns (.NoResponse);
-	rpc SearchAppDataCacheByStoreKeywords (.CSteamEngine_SearchAppDataCacheByStoreKeywords_Request) returns (.CSteamEngine_SearchAppDataCacheByStoreKeywords_Response);
-	rpc SetOverlayEscapeKeyHandling (.CSteamEngine_SetOverlayEscapeKeyHandling_Notification) returns (.NoResponse);
 	rpc UpdateTextFilterDictionary (.CSteamEngine_UpdateTextFilterDictionary_Notification) returns (.NoResponse);
 }
 

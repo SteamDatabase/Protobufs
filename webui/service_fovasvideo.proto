@@ -1,8 +1,4 @@
-
-message CFovasVideo_ClientGetOPFSettings_Request {
-	optional uint32 app_id = 1;
-	optional uint32 client_cellid = 2;
-}
+import "common_base.proto";
 
 message CFovasVideo_ClientGetOPFSettings_Response {
 	optional uint32 app_id = 1;
@@ -10,6 +6,6 @@ message CFovasVideo_ClientGetOPFSettings_Response {
 }
 
 service FovasVideo {
-	rpc ClientGetOPFSettings (.CFovasVideo_ClientGetOPFSettings_Request) returns (.CFovasVideo_ClientGetOPFSettings_Response);
+	rpc ClientGetOPFSettings (.NotImplemented) returns (.CFovasVideo_ClientGetOPFSettings_Response);
 }
 
