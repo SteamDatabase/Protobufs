@@ -1,5 +1,10 @@
 import "common_base.proto";
 
+message CNews_ConvertHTMLToBBCode_Request {
+	optional string content = 1;
+	optional bool preserve_newlines = 2 [default = false];
+}
+
 message CNews_ConvertHTMLToBBCode_Response {
 	optional string converted_content = 1;
 	optional bool found_html = 2;
@@ -17,6 +22,10 @@ message CNews_GetBatchPublishedPartnerEvent_Response {
 	repeated fixed64 clan_event_gid = 3;
 	repeated fixed64 news_post_gid = 4;
 	repeated string news_url = 5;
+}
+
+message CNews_GetNewsFeedByRepublishClan_Request {
+	optional uint32 clan_account_id = 1;
 }
 
 message CNews_GetNewsFeedByRepublishClan_Response {
@@ -92,9 +101,9 @@ message CNewsPartnerEventPreview {
 }
 
 service News {
-	rpc ConvertHTMLToBBCode (.NotImplemented) returns (.CNews_ConvertHTMLToBBCode_Response);
+	rpc ConvertHTMLToBBCode (.CNews_ConvertHTMLToBBCode_Request) returns (.CNews_ConvertHTMLToBBCode_Response);
 	rpc GetBatchPublishedPartnerEvent (.CNews_GetBatchPublishedPartnerEvent_Request) returns (.CNews_GetBatchPublishedPartnerEvent_Response);
-	rpc GetNewsFeedByRepublishClan (.NotImplemented) returns (.CNews_GetNewsFeedByRepublishClan_Response);
+	rpc GetNewsFeedByRepublishClan (.CNews_GetNewsFeedByRepublishClan_Request) returns (.CNews_GetNewsFeedByRepublishClan_Response);
 	rpc PreviewPartnerEvents (.CNews_PreviewPartnerEvents_Request) returns (.CNews_PreviewPartnerEvents_Response);
 	rpc PublishPartnerEvent (.CNews_PublishPartnerEvent_Request) returns (.CNews_PublishPartnerEvent_Response);
 }

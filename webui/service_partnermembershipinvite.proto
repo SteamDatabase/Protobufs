@@ -1,5 +1,10 @@
 import "common_base.proto";
 
+message CPartnerMembershipInvite_GetInvites_Request {
+	optional uint32 partnerid = 1;
+	repeated int32 filter_states = 2 [(.description) = "enum"];
+}
+
 message CPartnerMembershipInvite_GetInvites_Response {
 	repeated .MembershipInvite invites = 1;
 }
@@ -24,6 +29,6 @@ message MembershipInvite {
 }
 
 service PartnerMembershipInvite {
-	rpc GetInvites (.NotImplemented) returns (.CPartnerMembershipInvite_GetInvites_Response);
+	rpc GetInvites (.CPartnerMembershipInvite_GetInvites_Request) returns (.CPartnerMembershipInvite_GetInvites_Response);
 }
 

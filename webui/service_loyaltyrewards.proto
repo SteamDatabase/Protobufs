@@ -42,10 +42,30 @@ message CLoyaltyRewards_GetEligibleApps_Response_EligibleApp {
 	optional bool has_items_anyone_can_purchase = 2;
 	optional bool event_app = 3;
 	optional string hero_carousel_image = 4;
+	optional bool owned = 5;
+}
+
+message CLoyaltyRewards_GetEquippedProfileItems_Request {
+	optional fixed64 steamid = 1;
+	optional string language = 2;
+}
+
+message CLoyaltyRewards_GetEquippedProfileItems_Response {
+	repeated .LoyaltyRewardDefinition active_definitions = 1;
+	repeated .LoyaltyRewardDefinition inactive_definitions = 2;
+	repeated .LoyaltyRewardDefinition bundle_definitions = 3;
+}
+
+message CLoyaltyRewards_GetPointsForSpend_Request {
+	optional int64 amount = 1;
+	optional uint32 ecurrency = 2;
 }
 
 message CLoyaltyRewards_GetPointsForSpend_Response {
 	optional int64 points = 1;
+}
+
+message CLoyaltyRewards_GetProfileCustomizationsConfig_Request {
 }
 
 message CLoyaltyRewards_GetProfileCustomizationsConfig_Response {
@@ -79,6 +99,10 @@ message CLoyaltyRewards_GetReactions_Request {
 
 message CLoyaltyRewards_GetReactions_Response {
 	repeated uint32 reactionids = 1;
+}
+
+message CLoyaltyRewards_GetReactionsSummaryForUser_Request {
+	optional fixed64 steamid = 1;
 }
 
 message CLoyaltyRewards_GetReactionsSummaryForUser_Response {
@@ -141,6 +165,9 @@ message CLoyaltyRewards_QueryRewardItems_Request {
 	optional bool include_direct_purchase_disabled = 16;
 	repeated uint32 excluded_content_descriptors = 17;
 	repeated uint32 excluded_appids = 18;
+	repeated uint32 excluded_store_tagids = 19;
+	repeated uint32 store_tagids = 20;
+	optional string search_term = 21;
 }
 
 message CLoyaltyRewards_QueryRewardItems_Response {
@@ -181,6 +208,16 @@ message CLoyaltyRewards_RedeemPointsForProfileCustomizationUpgrade_Request {
 message CLoyaltyRewards_RedeemPointsForProfileCustomizationUpgrade_Response {
 }
 
+message CLoyaltyRewards_RedeemPointsToUpgradeItem_Request {
+	optional uint32 defid = 1;
+	optional uint64 communityitemid = 2;
+}
+
+message CLoyaltyRewards_RegisterForSteamDeckRewards_Request {
+	optional string serial_number = 1;
+	optional string controller_code = 2;
+}
+
 message CLoyaltyRewards_RegisterForSteamDeckRewards_Response {
 	optional bool granted_profile_modifier = 1;
 }
@@ -200,18 +237,19 @@ service LoyaltyRewards {
 	rpc BatchedQueryRewardItems (.CLoyaltyRewards_BatchedQueryRewardItems_Request) returns (.CLoyaltyRewards_BatchedQueryRewardItems_Response);
 	rpc GetActivePurchaseBonuses (.CLoyaltyRewards_GetActivePurchaseBonuses_Request) returns (.CLoyaltyRewards_GetActivePurchaseBonuses_Response);
 	rpc GetEligibleApps (.CLoyaltyRewards_GetEligibleApps_Request) returns (.CLoyaltyRewards_GetEligibleApps_Response);
-	rpc GetPointsForSpend (.NotImplemented) returns (.CLoyaltyRewards_GetPointsForSpend_Response);
-	rpc GetProfileCustomizationsConfig (.NotImplemented) returns (.CLoyaltyRewards_GetProfileCustomizationsConfig_Response);
+	rpc GetEquippedProfileItems (.CLoyaltyRewards_GetEquippedProfileItems_Request) returns (.CLoyaltyRewards_GetEquippedProfileItems_Response);
+	rpc GetPointsForSpend (.CLoyaltyRewards_GetPointsForSpend_Request) returns (.CLoyaltyRewards_GetPointsForSpend_Response);
+	rpc GetProfileCustomizationsConfig (.CLoyaltyRewards_GetProfileCustomizationsConfig_Request) returns (.CLoyaltyRewards_GetProfileCustomizationsConfig_Response);
 	rpc GetReactionConfig (.CLoyaltyRewards_GetReactionConfig_Request) returns (.CLoyaltyRewards_GetReactionConfig_Response);
 	rpc GetReactions (.CLoyaltyRewards_GetReactions_Request) returns (.CLoyaltyRewards_GetReactions_Response);
-	rpc GetReactionsSummaryForUser (.NotImplemented) returns (.CLoyaltyRewards_GetReactionsSummaryForUser_Response);
+	rpc GetReactionsSummaryForUser (.CLoyaltyRewards_GetReactionsSummaryForUser_Request) returns (.CLoyaltyRewards_GetReactionsSummaryForUser_Response);
 	rpc GetSummary (.CLoyaltyRewards_GetSummary_Request) returns (.CLoyaltyRewards_GetSummary_Response);
 	rpc QueryRewardItems (.CLoyaltyRewards_QueryRewardItems_Request) returns (.CLoyaltyRewards_QueryRewardItems_Response);
 	rpc RedeemPoints (.CLoyaltyRewards_RedeemPoints_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
 	rpc RedeemPointsForBadgeLevel (.CLoyaltyRewards_RedeemPointsForBadgeLevel_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
 	rpc RedeemPointsForProfileCustomization (.CLoyaltyRewards_RedeemPointsForProfileCustomization_Request) returns (.CLoyaltyRewards_RedeemPointsForProfileCustomization_Response);
 	rpc RedeemPointsForProfileCustomizationUpgrade (.CLoyaltyRewards_RedeemPointsForProfileCustomizationUpgrade_Request) returns (.CLoyaltyRewards_RedeemPointsForProfileCustomizationUpgrade_Response);
-	rpc RedeemPointsToUpgradeItem (.CLoyaltyRewards_RedeemPoints_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
-	rpc RegisterForSteamDeckRewards (.NotImplemented) returns (.CLoyaltyRewards_RegisterForSteamDeckRewards_Response);
+	rpc RedeemPointsToUpgradeItem (.CLoyaltyRewards_RedeemPointsToUpgradeItem_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
+	rpc RegisterForSteamDeckRewards (.CLoyaltyRewards_RegisterForSteamDeckRewards_Request) returns (.CLoyaltyRewards_RegisterForSteamDeckRewards_Response);
 }
 

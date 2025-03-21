@@ -1,4 +1,5 @@
 import "common_base.proto";
+import "common.proto";
 
 message CCloud_AppCloudStateChange_Notification {
 	optional uint32 appid = 1;
@@ -342,15 +343,6 @@ message CCloud_GetUploadServerInfo_Request {
 
 message CCloud_GetUploadServerInfo_Response {
 	optional string server_url = 1;
-}
-
-message CCloud_PendingRemoteOperation {
-	optional int32 operation = 1 [(.description) = "enum"];
-	optional string machine_name = 2;
-	optional uint64 client_id = 3;
-	optional uint32 time_last_updated = 4;
-	optional int32 os_type = 5;
-	optional int32 device_type = 6;
 }
 
 message CCloud_UserFile {

@@ -89,6 +89,7 @@ message CClientComm_GetClientAppList_Response_AppData {
 	optional bool uninstalling = 31;
 	optional uint32 rt_time_scheduled = 32;
 	optional bool running = 33;
+	optional uint32 update_percentage = 34;
 }
 
 message CClientComm_GetClientAppList_Response_AppData_DLCData {

@@ -20,6 +20,22 @@ message CHardwarePackageDetails {
 	optional uint32 estimated_delivery_latest_business_days = 18;
 }
 
+message CStoreBrowse_GetContentHubConfig_Request {
+	optional .StoreBrowseContext context = 1;
+}
+
+message CStoreBrowse_GetContentHubConfig_Response {
+	repeated .CStoreBrowse_GetContentHubConfig_Response_ContentHubConfig hubconfigs = 1;
+}
+
+message CStoreBrowse_GetContentHubConfig_Response_ContentHubConfig {
+	optional uint32 hubcategoryid = 1;
+	optional string type = 2;
+	optional string handle = 3;
+	optional string display_name = 4;
+	optional string url_path = 5;
+}
+
 message CStoreBrowse_GetDLCForApps_Request {
 	optional .StoreBrowseContext context = 1;
 	optional .CStorePageFilter store_page_filter = 2;
@@ -111,6 +127,7 @@ message CStoreBrowse_GetStoreCategories_Response_Category {
 }
 
 service StoreBrowse {
+	rpc GetContentHubConfig (.CStoreBrowse_GetContentHubConfig_Request) returns (.CStoreBrowse_GetContentHubConfig_Response);
 	rpc GetDLCForApps (.CStoreBrowse_GetDLCForApps_Request) returns (.CStoreBrowse_GetDLCForApps_Response);
 	rpc GetDLCForAppsSolr (.CStoreBrowse_GetDLCForAppsSolr_Request) returns (.CStoreBrowse_GetDLCForAppsSolr_Response);
 	rpc GetHardwareItems (.CStoreBrowse_GetHardwareItems_Request) returns (.CStoreBrowse_GetHardwareItems_Response);

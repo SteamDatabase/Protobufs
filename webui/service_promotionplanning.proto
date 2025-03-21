@@ -1,5 +1,15 @@
 import "common_base.proto";
 
+message CPromotionNotificationResults {
+	optional fixed64 notification_id = 1;
+	optional fixed64 tracking_id = 2;
+	optional string email_address = 3;
+	optional uint32 accountid = 4;
+	optional uint32 status = 5;
+	optional int32 type = 6 [(.description) = "enum"];
+	optional uint32 rt_send_time = 7;
+}
+
 message CPromotionPlan {
 	optional fixed64 promotion_id = 1;
 	optional string admin_jsondata = 2;
@@ -9,6 +19,82 @@ message CPromotionPlan {
 	optional uint32 rtime32_end_time = 6;
 	optional uint32 partner_id = 7;
 	optional string input_access_key = 8;
+	optional uint32 last_update_time = 9;
+	optional string partner_readonly_jsondata = 10;
+	optional string partner_writable_jsondata = 11;
+	optional string assets_readonly_jsondata = 12;
+	optional string assets_writable_jsondata = 13;
+}
+
+message CPromotionPlan_CreateSalePageForPromo_Request {
+	optional uint32 clan_account_id = 1;
+	optional fixed64 clan_event_gid = 2;
+	optional uint32 rtime_sale_start = 3;
+	optional uint32 rtime_sale_end = 4;
+	optional fixed64 daily_deal_gid = 5;
+	optional fixed64 promotion_gid = 6;
+	optional bool create_asset_request = 7;
+	optional uint32 partner_id = 8;
+	optional uint32 advertising_appid = 9;
+}
+
+message CPromotionPlan_CreateSalePageForPromo_Response {
+	optional uint32 clan_account_id = 1;
+	optional fixed64 clan_event_gid = 2;
+	optional fixed64 daily_deal_gid = 3;
+	optional fixed64 promotion_gid = 4;
+	optional fixed64 asset_request_gid = 5;
+	optional uint32 advertising_appid = 6;
+}
+
+message CPromotionPlan_GetPromotionPlanSalesDaily_Request {
+	repeated uint64 promotionids = 1;
+	optional uint32 partnerid = 2;
+}
+
+message CPromotionPlan_GetPromotionPlanSalesDaily_Response {
+	repeated .CPromotionPlan_GetPromotionPlanSalesDaily_Response_PromotionSaleData sales = 1;
+	optional bool partial_access = 2;
+}
+
+message CPromotionPlan_GetPromotionPlanSalesDaily_Response_DailyPromotionSales {
+	optional uint32 rtime_date = 1;
+	optional string date = 2;
+	optional .CPromotionPlan_SummarySaleResult summary_sales = 3;
+}
+
+message CPromotionPlan_GetPromotionPlanSalesDaily_Response_Product {
+	optional uint32 appid = 1;
+	optional uint32 packageid = 2;
+	optional uint32 secondary_product_id = 3;
+	optional .CPromotionPlan_SummarySaleResult summary_sales = 4;
+	repeated .CPromotionPlan_GetPromotionPlanSalesDaily_Response_DailyPromotionSales daily_promo_sales = 5;
+	optional uint32 package_billing_type = 6;
+}
+
+message CPromotionPlan_GetPromotionPlanSalesDaily_Response_PromotionSaleData {
+	optional uint64 promotionid = 1;
+	repeated .CPromotionPlan_GetPromotionPlanSalesDaily_Response_DailyPromotionSales daily_promo_sales = 2;
+	optional .CPromotionPlan_SummarySaleResult summary_sales = 3;
+	repeated .CPromotionPlan_GetPromotionPlanSalesDaily_Response_Product products = 4;
+}
+
+message CPromotionPlan_SummarySaleResult {
+	optional int64 total_gross_sales_usdx100 = 1;
+	optional int64 total_gross_returns_usdx100 = 2;
+	optional int64 total_net_tax_usdx100 = 3;
+	optional int64 steam_gross_sales_usdx100 = 4;
+	optional int64 steam_gross_returns_usdx100 = 5;
+	optional int64 steam_net_tax_usdx100 = 6;
+	optional int64 in_game_gross_sales_usdx100 = 7;
+	optional int64 in_game_gross_returns_usdx100 = 8;
+	optional int64 in_game_net_tax_usdx100 = 9;
+	optional int64 total_net_sales_usdx100 = 10;
+	optional int64 steam_net_sales_usdx100 = 11;
+	optional int64 in_game_net_sales_usdx100 = 12;
+	optional int64 steam_gross_units_sold = 13;
+	optional int64 steam_gross_units_returned = 14;
+	optional int64 gross_units_activated = 15;
 }
 
 message CPromotionPlanning_CreatePlan_Request {
@@ -27,11 +113,62 @@ message CPromotionPlanning_DeletePlan_Request {
 message CPromotionPlanning_DeletePlan_Response {
 }
 
+message CPromotionPlanning_GetAdvertisingAppsForPartner_Request {
+	optional uint32 partner_id = 1;
+}
+
+message CPromotionPlanning_GetAdvertisingAppsForPartner_Response {
+	repeated .CPromotionPlanning_GetAdvertisingAppsForPartner_Response_advertising_app advertising_apps = 1;
+}
+
+message CPromotionPlanning_GetAdvertisingAppsForPartner_Response_advertising_app {
+	optional uint32 appid = 1;
+	optional string app_name = 2;
+	optional uint32 itemid = 3;
+}
+
 message CPromotionPlanning_GetAllActivePlan_Request {
 }
 
 message CPromotionPlanning_GetAllActivePlan_Response {
 	repeated .CPromotionPlan plan = 1;
+}
+
+message CPromotionPlanning_GetAllPlansForApps_Request {
+	repeated uint32 appids = 1;
+	optional bool exclude_sales = 2;
+	optional bool exclude_direct_featuring = 3;
+}
+
+message CPromotionPlanning_GetAllPlansForApps_Response {
+	repeated .CPromotionPlan plans = 1;
+	repeated .CPromotionPlanning_GetAllPlansForApps_Response_CAppIncludedInSales apps_included_in_sales = 2;
+}
+
+message CPromotionPlanning_GetAllPlansForApps_Response_CAppIncludedInSales {
+	repeated uint32 appids = 1;
+	optional fixed64 clan_event_gid = 2;
+}
+
+message CPromotionPlanning_GetAllPlansForPartner_Request {
+	optional uint32 partnerid = 1;
+	optional bool show_hidden = 4;
+	optional uint32 start_date = 5;
+	optional uint32 end_date = 6;
+}
+
+message CPromotionPlanning_GetAllPlansForPartner_Response {
+	repeated .CPromotionPlan plans = 1;
+}
+
+message CPromotionPlanning_GetAvailableWeekSlots_Request {
+	optional uint32 publisherid = 1;
+	optional uint32 rtime_start = 2;
+}
+
+message CPromotionPlanning_GetAvailableWeekSlots_Response {
+	repeated uint32 rt_weeklong_deals = 1;
+	repeated uint32 rt_weekend_deals = 2;
 }
 
 message CPromotionPlanning_GetPlan_Request {
@@ -42,16 +179,164 @@ message CPromotionPlanning_GetPlan_Response {
 	optional .CPromotionPlan plan = 1;
 }
 
+message CPromotionPlanning_GetPlanByInputAccessKey_Request {
+	optional string input_access_key = 1;
+}
+
 message CPromotionPlanning_GetPlanByInputAccessKey_Response {
 	optional .CPromotionPlan plan = 1;
+}
+
+message CPromotionPlanning_GetPlanCompletedInDateRange_Request {
+	optional uint32 oldest_rtime = 1;
+	optional uint32 newest_rtime = 2;
+	repeated string promotion_types = 3;
+}
+
+message CPromotionPlanning_GetPlanCompletedInDateRange_Response {
+	repeated .CPromotionPlan plans = 1;
+}
+
+message CPromotionPlanning_GetPlansUpdatedSince_Request {
+	optional uint32 rtime = 1;
+	optional uint32 upto_rtime = 2;
+}
+
+message CPromotionPlanning_GetPlansUpdatedSince_Response {
+	repeated .CPromotionPlan plans = 1;
+	repeated fixed64 deleted_plan_ids = 2;
+}
+
+message CPromotionPlanning_GetPromotionPlanForSalePages_Request {
+	repeated .CPromotionPlanning_GetPromotionPlanForSalePages_Request_CSalePage request_list = 1;
+}
+
+message CPromotionPlanning_GetPromotionPlanForSalePages_Request_CSalePage {
+	optional uint32 clan_account_id = 1;
+	optional fixed64 gid_clan_event = 2;
+}
+
+message CPromotionPlanning_GetPromotionPlanForSalePages_Response {
+	repeated .CPromotionPlan plans = 1;
+}
+
+message CPromotionPlanning_GetSalePageCandidatesForPromo_Request {
+	optional uint32 account_id = 1;
+	optional bool include_published = 2;
+}
+
+message CPromotionPlanning_GetSalePageCandidatesForPromo_Response {
+	repeated .CPromotionPlanning_GetSalePageCandidatesForPromo_Response_clan clans = 1;
+}
+
+message CPromotionPlanning_GetSalePageCandidatesForPromo_Response_clan {
+	optional uint32 clan_account_id = 1;
+	optional string clan_name = 2;
+	optional bool is_creator_home = 3;
+	repeated .CPromotionPlanning_GetSalePageCandidatesForPromo_Response_salepage sale_pages = 4;
+}
+
+message CPromotionPlanning_GetSalePageCandidatesForPromo_Response_salepage {
+	optional uint32 clan_account_id = 1;
+	optional fixed64 gid_clan_event = 2;
+	optional string name = 3;
+	optional bool published = 4;
+	optional uint32 start_time = 5;
+	optional uint32 end_time = 6;
+	optional uint32 external_sale_event_type = 7;
+}
+
+message CPromotionPlanning_GetSentNotification_Request {
+	optional fixed64 promotion_id = 1;
+	optional fixed64 notification_id = 2;
+}
+
+message CPromotionPlanning_GetSentNotification_Response {
+	repeated .CPromotionNotificationResults results = 1;
+}
+
+message CPromotionPlanning_GetUpcomingScheduledDiscounts_Request {
+	optional uint32 rtstart = 1;
+	optional uint32 rtend = 2;
+	optional bool include_packages = 3;
+	optional bool filter_modified_sales_rank = 4 [default = true];
+}
+
+message CPromotionPlanning_GetUpcomingScheduledDiscounts_Response {
+	repeated .CPromotionPlanning_GetUpcomingScheduledDiscounts_Response_CUpcomingPackageDiscountInfo package_details = 1;
+	repeated .CPromotionPlanning_GetUpcomingScheduledDiscounts_Response_CUpcomingAppDiscountInfo app_details = 2;
+}
+
+message CPromotionPlanning_GetUpcomingScheduledDiscounts_Response_CUpcomingAppDiscountInfo {
+	optional uint32 appid = 1;
+	optional uint32 cheapest_package_id = 3;
+	optional uint32 cheapest_discount_id = 4;
+	optional string cheapest_discount_name = 5;
+	optional uint32 package_original_price_usd = 6;
+	optional uint32 discounted_price_usd = 7;
+	optional uint32 discount_percentage = 8;
+	optional uint32 rtime_discount_start = 9;
+	optional uint32 rtime_discount_end = 10;
+	optional uint32 num_discounted_packages = 11;
+	optional uint32 modified_sales_rank = 12;
+}
+
+message CPromotionPlanning_GetUpcomingScheduledDiscounts_Response_CUpcomingPackageDiscountInfo {
+	optional uint32 package_id = 1;
+	optional uint32 discount_id = 2;
+	optional string discount_name = 3;
+	optional uint32 discount_percentage = 4;
+	optional uint32 original_price_usd = 5;
+	optional uint32 discount_price_usd = 6;
+	optional uint32 rtime_discount_start = 7;
+	optional uint32 rtime_discount_end = 8;
+}
+
+message CPromotionPlanning_MarkLocalizationAssetComplete_Request {
+	optional fixed64 promotion_id = 1;
+	optional bool value = 2;
+}
+
+message CPromotionPlanning_MarkLocalizationAssetComplete_Response {
+}
+
+message CPromotionPlanning_ResendNotification_Request {
+	optional fixed64 promotion_id = 1;
+	optional fixed64 notification_id = 2;
+}
+
+message CPromotionPlanning_ResendNotification_Response {
+}
+
+message CPromotionPlanning_SearchPlan_Request {
+	optional string token = 1;
 }
 
 message CPromotionPlanning_SearchPlan_Response {
 	repeated .CPromotionPlan plan = 1;
 }
 
+message CPromotionPlanning_SendNotification_Request {
+	optional fixed64 promotion_id = 1;
+	optional int32 notification_type = 2 [(.description) = "enum"];
+	optional bool only_explicit_email_addresses = 3;
+}
+
+message CPromotionPlanning_SendNotification_Response {
+}
+
+message CPromotionPlanning_SetPromotionEmailTarget_Request {
+	optional fixed64 promotion_id = 1;
+	optional bool add = 2;
+	optional string email_address = 3;
+}
+
+message CPromotionPlanning_SetPromotionEmailTarget_Response {
+}
+
 message CPromotionPlanning_UpdatePlan_Request {
 	optional .CPromotionPlan plan = 1;
+	optional fixed64 promotion_id = 2;
 }
 
 message CPromotionPlanning_UpdatePlan_Response {
@@ -59,12 +344,28 @@ message CPromotionPlanning_UpdatePlan_Response {
 
 service PromotionPlanning {
 	rpc CreatePlan (.CPromotionPlanning_CreatePlan_Request) returns (.CPromotionPlanning_CreatePlan_Response);
+	rpc CreateSalePageForPromo (.CPromotionPlan_CreateSalePageForPromo_Request) returns (.CPromotionPlan_CreateSalePageForPromo_Response);
 	rpc CreateTentativePlan (.CPromotionPlanning_CreatePlan_Request) returns (.CPromotionPlanning_CreatePlan_Response);
 	rpc DeletePlan (.CPromotionPlanning_DeletePlan_Request) returns (.CPromotionPlanning_DeletePlan_Response);
+	rpc GetAdvertisingAppsForPartner (.CPromotionPlanning_GetAdvertisingAppsForPartner_Request) returns (.CPromotionPlanning_GetAdvertisingAppsForPartner_Response);
 	rpc GetAllActivePlan (.CPromotionPlanning_GetAllActivePlan_Request) returns (.CPromotionPlanning_GetAllActivePlan_Response);
+	rpc GetAllPlansForApps (.CPromotionPlanning_GetAllPlansForApps_Request) returns (.CPromotionPlanning_GetAllPlansForApps_Response);
+	rpc GetAllPlansForPartner (.CPromotionPlanning_GetAllPlansForPartner_Request) returns (.CPromotionPlanning_GetAllPlansForPartner_Response);
+	rpc GetAvailableWeekSlots (.CPromotionPlanning_GetAvailableWeekSlots_Request) returns (.CPromotionPlanning_GetAvailableWeekSlots_Response);
 	rpc GetPlan (.CPromotionPlanning_GetPlan_Request) returns (.CPromotionPlanning_GetPlan_Response);
-	rpc GetPlanByInputAccessKey (.NotImplemented) returns (.CPromotionPlanning_GetPlanByInputAccessKey_Response);
-	rpc SearchPlan (.NotImplemented) returns (.CPromotionPlanning_SearchPlan_Response);
+	rpc GetPlanByInputAccessKey (.CPromotionPlanning_GetPlanByInputAccessKey_Request) returns (.CPromotionPlanning_GetPlanByInputAccessKey_Response);
+	rpc GetPlanCompletedInDateRange (.CPromotionPlanning_GetPlanCompletedInDateRange_Request) returns (.CPromotionPlanning_GetPlanCompletedInDateRange_Response);
+	rpc GetPlansUpdatedSince (.CPromotionPlanning_GetPlansUpdatedSince_Request) returns (.CPromotionPlanning_GetPlansUpdatedSince_Response);
+	rpc GetPromotionPlanForSalePages (.CPromotionPlanning_GetPromotionPlanForSalePages_Request) returns (.CPromotionPlanning_GetPromotionPlanForSalePages_Response);
+	rpc GetPromotionPlanSalesDaily (.CPromotionPlan_GetPromotionPlanSalesDaily_Request) returns (.CPromotionPlan_GetPromotionPlanSalesDaily_Response);
+	rpc GetSalePageCandidatesForPromo (.CPromotionPlanning_GetSalePageCandidatesForPromo_Request) returns (.CPromotionPlanning_GetSalePageCandidatesForPromo_Response);
+	rpc GetSentNotification (.CPromotionPlanning_GetSentNotification_Request) returns (.CPromotionPlanning_GetSentNotification_Response);
+	rpc GetUpcomingScheduledDiscounts (.CPromotionPlanning_GetUpcomingScheduledDiscounts_Request) returns (.CPromotionPlanning_GetUpcomingScheduledDiscounts_Response);
+	rpc MarkLocalizationAssetComplete (.CPromotionPlanning_MarkLocalizationAssetComplete_Request) returns (.CPromotionPlanning_MarkLocalizationAssetComplete_Response);
+	rpc ResendNotification (.CPromotionPlanning_ResendNotification_Request) returns (.CPromotionPlanning_ResendNotification_Response);
+	rpc SearchPlan (.CPromotionPlanning_SearchPlan_Request) returns (.CPromotionPlanning_SearchPlan_Response);
+	rpc SendNotification (.CPromotionPlanning_SendNotification_Request) returns (.CPromotionPlanning_SendNotification_Response);
+	rpc SetPromotionEmailTarget (.CPromotionPlanning_SetPromotionEmailTarget_Request) returns (.CPromotionPlanning_SetPromotionEmailTarget_Response);
 	rpc UpdatePlan (.CPromotionPlanning_UpdatePlan_Request) returns (.CPromotionPlanning_UpdatePlan_Response);
 	rpc UpdatePlanInputData (.CPromotionPlanning_UpdatePlan_Request) returns (.CPromotionPlanning_UpdatePlan_Response);
 	rpc UpdatePlanPartnerInfo (.CPromotionPlanning_UpdatePlan_Request) returns (.CPromotionPlanning_UpdatePlan_Response);

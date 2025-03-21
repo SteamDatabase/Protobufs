@@ -1,12 +1,61 @@
 import "common_base.proto";
+import "common.proto";
+
+message CPackageReservationStatus {
+	optional uint32 packageid = 1;
+	optional int32 reservation_state = 2;
+	optional int32 queue_position = 3;
+	optional int32 total_queue_size = 4;
+	optional string reservation_country_code = 5;
+	optional bool expired = 6;
+	optional uint32 time_expires = 7;
+	optional uint32 time_reserved = 8;
+	optional uint32 rtime_estimated_notification = 9;
+	optional string notificaton_token = 10;
+}
+
+message CReservationPositionMessage {
+	optional uint32 edistributor = 1;
+	optional string product_identifier = 2;
+	optional uint32 start_queue_position = 3;
+	optional uint32 rtime_estimated_notification = 4;
+	optional string localization_token = 5;
+	optional uint32 accountid = 6;
+	optional uint32 rtime_created = 7;
+}
+
+message CSteamDeckCompatibility_SetFeedback_Request {
+	optional uint32 appid = 1;
+	optional int32 feedback = 2 [(.description) = "enum"];
+}
 
 message CSteamDeckCompatibility_SetFeedback_Response {
+}
+
+message CSteamDeckCompatibility_ShouldPrompt_Request {
+	optional uint32 appid = 1;
 }
 
 message CSteamDeckCompatibility_ShouldPrompt_Response {
 	optional bool prompt = 1;
 	optional bool feedback_eligible = 2;
 	optional int32 existing_feedback = 3 [(.description) = "enum"];
+}
+
+message CStore_DeleteReservationPositionMessage_Request {
+	optional uint32 edistributor = 1;
+	optional string product_identifier = 2;
+	optional uint32 start_queue_position = 3;
+}
+
+message CStore_DeleteReservationPositionMessage_Response {
+}
+
+message CStore_GetAllReservationPositionMessages_Request {
+}
+
+message CStore_GetAllReservationPositionMessages_Response {
+	repeated .CReservationPositionMessage settings = 1;
 }
 
 message CStore_GetDiscoveryQueue_Request {
@@ -20,6 +69,9 @@ message CStore_GetDiscoveryQueue_Request {
 	optional bool no_experimental_results = 9;
 	optional uint32 experimental_cohort = 10;
 	optional bool debug_get_solr_query = 11;
+	optional .CStorePageFilter store_page_filter = 12;
+	optional .StoreBrowseContext context = 13;
+	optional .StoreBrowseItemDataRequest data_request = 14;
 }
 
 message CStore_GetDiscoveryQueue_Response {
@@ -30,11 +82,27 @@ message CStore_GetDiscoveryQueue_Response {
 	optional bool exhausted = 5;
 	optional uint32 experimental_cohort = 6;
 	optional string debug_solr_query = 7;
+	repeated .StoreItem store_items = 8;
+}
+
+message CStore_GetDiscoveryQueueSettings_Request {
+	optional int32 queue_type = 1 [(.description) = "enum"];
+	optional .CStorePageFilter store_page_filter = 2;
 }
 
 message CStore_GetDiscoveryQueueSettings_Response {
 	optional string country_code = 1;
 	optional .CStoreDiscoveryQueueSettings settings = 2;
+}
+
+message CStore_GetDiscoveryQueueSkippedApps_Request {
+	optional fixed64 steamid = 1;
+	optional int32 queue_type = 2 [(.description) = "enum"];
+	optional .CStorePageFilter store_page_filter = 3;
+}
+
+message CStore_GetDiscoveryQueueSkippedApps_Response {
+	repeated uint32 appids = 1;
 }
 
 message CStore_GetLocalizedNameForTags_Request {
@@ -66,6 +134,23 @@ message CStore_GetMostPopularTags_Response_Tag {
 	optional string name = 2;
 }
 
+message CStore_GetRecommendedTagsForUser_Request {
+	optional fixed64 steamid = 1;
+	optional string language = 2;
+	optional string country_code = 3;
+	optional bool favor_rarer_tags = 4;
+}
+
+message CStore_GetRecommendedTagsForUser_Response {
+	repeated .CStore_GetRecommendedTagsForUser_Response_Tag tags = 1;
+}
+
+message CStore_GetRecommendedTagsForUser_Response_Tag {
+	optional uint32 tagid = 1;
+	optional string name = 2;
+	optional float weight = 3;
+}
+
 message CStore_GetStorePreferences_Request {
 }
 
@@ -73,6 +158,27 @@ message CStore_GetStorePreferences_Response {
 	optional .CStore_UserPreferences preferences = 1;
 	optional .CStore_UserTagPreferences tag_preferences = 2;
 	optional .CStore_UserContentDescriptorPreferences content_descriptor_preferences = 3;
+	//optional .UserContentDescriptorPreferences content_descriptor_preferences = 3;
+}
+
+message CStore_GetTagList_Request {
+	optional string language = 1;
+	optional string have_version_hash = 2;
+}
+
+message CStore_GetTagList_Response {
+	optional string version_hash = 1;
+	repeated .CStore_GetTagList_Response_Tag tags = 2;
+}
+
+message CStore_GetTagList_Response_Tag {
+	optional uint32 tagid = 1;
+	optional string name = 2;
+}
+
+message CStore_GetTrendingAppsAmongFriends_Request {
+	optional uint32 num_apps = 1;
+	optional uint32 num_top_friends = 2;
 }
 
 message CStore_GetTrendingAppsAmongFriends_Response {
@@ -83,6 +189,12 @@ message CStore_GetTrendingAppsAmongFriends_Response_TrendingAppData {
 	optional uint32 appid = 1;
 	repeated uint64 steamids_top_friends = 2;
 	optional uint32 total_friends = 3;
+}
+
+message CStore_GetUserGameInterestState_Request {
+	optional uint32 appid = 1;
+	optional uint32 store_appid = 2;
+	optional uint32 beta_appid = 3;
 }
 
 message CStore_GetUserGameInterestState_Response {
@@ -106,6 +218,24 @@ message CStore_GetUserGameInterestState_Response_InQueue {
 	optional int32 items_remaining = 3;
 	optional uint32 next_appid = 4;
 	optional uint32 experimental_cohort = 5;
+}
+
+message CStore_GetWishlistDemoEmailStatus_Request {
+	optional uint32 appid = 1;
+	optional uint32 demo_appid = 2;
+	optional bool allow_late_firing = 3;
+}
+
+message CStore_GetWishlistDemoEmailStatus_Response {
+	optional bool can_fire = 1 [default = false];
+	optional uint32 time_staged = 2;
+	optional uint32 demo_release_date = 3;
+}
+
+message CStore_MigratePartnerLinkTracking_Notification {
+	optional uint32 accountid = 1;
+	optional uint64 browserid = 2;
+	optional int32 backfill_source = 3 [(.description) = "enum"];
 }
 
 message CStore_PurchaseReceiptInfo {
@@ -135,14 +265,49 @@ message CStore_PurchaseReceiptInfo_LineItem {
 	optional string line_item_description = 3;
 }
 
+message CStore_QueueWishlistDemoEmailToFire_Request {
+	optional uint32 appid = 1;
+	optional uint32 demo_appid = 2;
+	optional bool allow_late_firing = 3;
+}
+
+message CStore_QueueWishlistDemoEmailToFire_Response {
+}
+
+message CStore_RegisterCDKey_Request {
+	optional string activation_code = 1;
+	optional int32 purchase_platform = 2;
+	optional bool is_request_from_client = 3;
+}
+
 message CStore_RegisterCDKey_Response {
 	optional int32 purchase_result_details = 1;
 	optional .CStore_PurchaseReceiptInfo purchase_receipt_info = 2;
 }
 
+message CStore_ReloadAllReservationPositionMessages_Notification {
+}
+
+message CStore_ReportApp_Request {
+	optional uint32 appid = 1;
+	optional int32 report_type = 2 [(.description) = "enum"];
+	optional string report = 3;
+}
+
+message CStore_ReportApp_Response {
+}
+
+message CStore_SetReservationPositionMessage_Request {
+	repeated .CReservationPositionMessage settings = 1;
+}
+
+message CStore_SetReservationPositionMessage_Response {
+}
+
 message CStore_SkipDiscoveryQueueItem_Request {
 	optional int32 queue_type = 1 [(.description) = "enum"];
 	optional uint32 appid = 2;
+	optional .CStorePageFilter store_page_filter = 3;
 }
 
 message CStore_SkipDiscoveryQueueItem_Response {
@@ -152,6 +317,17 @@ message CStore_StorePreferencesChanged_Notification {
 	optional .CStore_UserPreferences preferences = 1;
 	optional .CStore_UserTagPreferences tag_preferences = 2;
 	optional .CStore_UserContentDescriptorPreferences content_descriptor_preferences = 3;
+	//optional .UserContentDescriptorPreferences content_descriptor_preferences = 3;
+}
+
+message CStore_UpdatePackageReservations_Request {
+	repeated uint32 packages_to_reserve = 1;
+	repeated uint32 packages_to_unreserve = 2;
+	optional string country_code = 3;
+}
+
+message CStore_UpdatePackageReservations_Response {
+	repeated .CPackageReservationStatus reservation_status = 1;
 }
 
 message CStore_UserContentDescriptorPreferences {
@@ -177,6 +353,7 @@ message CStore_UserPreferences {
 	optional int32 review_score_preference = 10 [(.description) = "enum"];
 	optional int32 timestamp_content_descriptor_preferences_updated = 11;
 	optional int32 provide_deck_feedback = 12 [(.description) = "enum"];
+	optional string additional_languages = 13;
 }
 
 message CStore_UserTagPreferences {
@@ -206,17 +383,29 @@ message CStoreDiscoveryQueueSettings {
 }
 
 service Store {
+	rpc DeleteReservationPositionMessage (.CStore_DeleteReservationPositionMessage_Request) returns (.CStore_DeleteReservationPositionMessage_Response);
+	rpc GetAllReservationPositionMessages (.CStore_GetAllReservationPositionMessages_Request) returns (.CStore_GetAllReservationPositionMessages_Response);
 	rpc GetDiscoveryQueue (.CStore_GetDiscoveryQueue_Request) returns (.CStore_GetDiscoveryQueue_Response);
-	rpc GetDiscoveryQueueSettings (.NotImplemented) returns (.CStore_GetDiscoveryQueueSettings_Response);
+	rpc GetDiscoveryQueueSettings (.CStore_GetDiscoveryQueueSettings_Request) returns (.CStore_GetDiscoveryQueueSettings_Response);
+	rpc GetDiscoveryQueueSkippedApps (.CStore_GetDiscoveryQueueSkippedApps_Request) returns (.CStore_GetDiscoveryQueueSkippedApps_Response);
 	rpc GetLocalizedNameForTags (.CStore_GetLocalizedNameForTags_Request) returns (.CStore_GetLocalizedNameForTags_Response);
 	rpc GetMostPopularTags (.CStore_GetMostPopularTags_Request) returns (.CStore_GetMostPopularTags_Response);
+	rpc GetRecommendedTagsForUser (.CStore_GetRecommendedTagsForUser_Request) returns (.CStore_GetRecommendedTagsForUser_Response);
 	rpc GetStorePreferences (.CStore_GetStorePreferences_Request) returns (.CStore_GetStorePreferences_Response);
-	rpc GetTrendingAppsAmongFriends (.NotImplemented) returns (.CStore_GetTrendingAppsAmongFriends_Response);
-	rpc GetUserGameInterestState (.NotImplemented) returns (.CStore_GetUserGameInterestState_Response);
-	rpc RegisterCDKey (.NotImplemented) returns (.CStore_RegisterCDKey_Response);
-	rpc SetCompatibilityFeedback (.NotImplemented) returns (.CSteamDeckCompatibility_SetFeedback_Response);
-	rpc ShouldPromptForCompatibilityFeedback (.NotImplemented) returns (.CSteamDeckCompatibility_ShouldPrompt_Response);
+	rpc GetTagList (.CStore_GetTagList_Request) returns (.CStore_GetTagList_Response);
+	rpc GetTrendingAppsAmongFriends (.CStore_GetTrendingAppsAmongFriends_Request) returns (.CStore_GetTrendingAppsAmongFriends_Response);
+	rpc GetUserGameInterestState (.CStore_GetUserGameInterestState_Request) returns (.CStore_GetUserGameInterestState_Response);
+	rpc GetWishlistDemoEmailStatus (.CStore_GetWishlistDemoEmailStatus_Request) returns (.CStore_GetWishlistDemoEmailStatus_Response);
+	rpc MigratePartnerLinkTracking (.CStore_MigratePartnerLinkTracking_Notification) returns (.NoResponse);
+	rpc QueueWishlistDemoEmailToFire (.CStore_QueueWishlistDemoEmailToFire_Request) returns (.CStore_QueueWishlistDemoEmailToFire_Response);
+	rpc RegisterCDKey (.CStore_RegisterCDKey_Request) returns (.CStore_RegisterCDKey_Response);
+	rpc ReloadAllReservationPositionMessages (.CStore_ReloadAllReservationPositionMessages_Notification) returns (.NoResponse);
+	rpc ReportApp (.CStore_ReportApp_Request) returns (.CStore_ReportApp_Response);
+	rpc SetCompatibilityFeedback (.CSteamDeckCompatibility_SetFeedback_Request) returns (.CSteamDeckCompatibility_SetFeedback_Response);
+	rpc SetReservationPositionMessage (.CStore_SetReservationPositionMessage_Request) returns (.CStore_SetReservationPositionMessage_Response);
+	rpc ShouldPromptForCompatibilityFeedback (.CSteamDeckCompatibility_ShouldPrompt_Request) returns (.CSteamDeckCompatibility_ShouldPrompt_Response);
 	rpc SkipDiscoveryQueueItem (.CStore_SkipDiscoveryQueueItem_Request) returns (.CStore_SkipDiscoveryQueueItem_Response);
+	rpc UpdatePackageReservations (.CStore_UpdatePackageReservations_Request) returns (.CStore_UpdatePackageReservations_Response);
 }
 
 service StoreClient {

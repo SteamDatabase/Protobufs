@@ -273,6 +273,9 @@ message CMsgSteamLearn_Inference_Request {
 	repeated float additional_data = 7;
 	repeated uint64 keys = 8;
 	optional string named_inference = 9;
+	optional uint32 inference_iterations = 10;
+	repeated uint32 weighted_items = 11;
+	repeated float item_weights = 12;
 }
 
 message CMsgSteamLearn_Inference_Response {
@@ -289,6 +292,9 @@ message CMsgSteamLearn_InferenceBackend_Request {
 	repeated uint64 keys = 6;
 	repeated float additional_data = 7;
 	optional string named_inference = 8;
+	optional uint32 inference_iterations = 10;
+	repeated uint32 weighted_items = 11;
+	repeated float item_weights = 12;
 }
 
 message CMsgSteamLearn_InferenceBackend_Response {
@@ -814,6 +820,10 @@ message CMsgSteamLearnModelNodeReshape2D {
 	optional uint32 dimension = 1;
 }
 
+message CMsgSteamLearnModelNodeRowExtract {
+	optional int32 row = 1;
+}
+
 message CMsgSteamLearnModelNodeSequenceSplit {
 	optional uint32 head_split_chance = 1;
 	optional uint32 mid_split_chance = 2;
@@ -862,6 +872,7 @@ message CMsgSteamLearnModelNodeTokenTransformer {
 	optional uint32 transformer_heads = 6;
 	optional uint32 transformer_dropout_pct = 7;
 	optional string compact_table = 8;
+	optional bool is_causal = 9;
 }
 
 message CMsgSteamLearnModelNodeTrain {
@@ -963,6 +974,7 @@ message CMsgSteamLearnProjectNode {
 	optional .CMsgSteamLearnModelNodeTokenTransformer token_transformer = 43;
 	optional .CMsgSteamLearnModelNodeExternalModel external_model = 44;
 	optional .CMsgSteamLearnModelNodeReshape2D reshape_2d = 45;
+	optional .CMsgSteamLearnModelNodeRowExtract row_extract = 46;
 }
 
 message CMsgSteamLearnProjectNodeConnector {
@@ -1071,6 +1083,9 @@ message CMsgSteamLearnTrainConfig {
 	optional float train_warmup_start = 17;
 	optional int32 train_decay_steps = 18;
 	optional float train_decay_rate = 19;
+	optional uint32 profile_epoch = 20;
+	optional uint32 profile_start_batch = 21;
+	optional uint32 profile_end_batch = 22;
 }
 
 message CMsgSteamLearnTrainInfo {

@@ -1,0 +1,50 @@
+import "common_base.proto";
+
+message CHardwareUpdate_CheckForUpdates_Request {
+}
+
+message CHardwareUpdate_CheckForUpdates_Response {
+	repeated .CMsgAvailableHardwareUpdate updates = 1;
+}
+
+message CHardwareUpdate_GetState_Request {
+}
+
+message CHardwareUpdate_GetState_Response {
+	optional bool is_updater_supported = 1;
+	optional bool has_seen_controllers = 2;
+}
+
+message CHardwareUpdate_StateChanged_Notification {
+}
+
+message CHardwareUpdate_Update_Request {
+}
+
+message CHardwareUpdate_Update_Response {
+}
+
+message CHardwareUpdate_UpdateProgress_Notification {
+	optional int32 progress = 1;
+}
+
+message CHardwareUpdate_UpdateStateChanged_Notification {
+}
+
+message CMsgAvailableHardwareUpdate {
+	optional uint32 etype = 1;
+	optional uint32 hardware_id = 2;
+	optional string serial_number = 3;
+	optional string current_ts = 4;
+	optional string update_ts = 5;
+}
+
+service HardwareUpdate {
+	rpc CheckForUpdates (.CHardwareUpdate_CheckForUpdates_Request) returns (.CHardwareUpdate_CheckForUpdates_Response);
+	rpc GetState (.CHardwareUpdate_GetState_Request) returns (.CHardwareUpdate_GetState_Response);
+	rpc NotifyStateChanged (.CHardwareUpdate_StateChanged_Notification) returns (.NoResponse);
+	rpc NotifyUpdateProgress (.CHardwareUpdate_UpdateProgress_Notification) returns (.NoResponse);
+	rpc NotifyUpdateStateChanged (.CHardwareUpdate_UpdateStateChanged_Notification) returns (.NoResponse);
+	rpc Update (.CHardwareUpdate_Update_Request) returns (.CHardwareUpdate_Update_Response);
+}
+
