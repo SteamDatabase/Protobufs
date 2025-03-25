@@ -84,6 +84,7 @@ message CServerLobbyData_PlayerMMR {
 		optional uint32 player_uncertainty = 3;
 		optional uint32 hero_mmr = 4;
 		optional uint32 hero_mmr_with_uncertainty = 5;
+		optional uint32 player_slot = 6;
 	}
 
 	repeated .CServerLobbyData_PlayerMMR.Player players = 1;
