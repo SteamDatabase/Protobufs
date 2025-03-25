@@ -135,7 +135,6 @@ message CStore_GetMostPopularTags_Response_Tag {
 }
 
 message CStore_GetRecommendedTagsForUser_Request {
-	optional fixed64 steamid = 1;
 	optional string language = 2;
 	optional string country_code = 3;
 	optional bool favor_rarer_tags = 4;

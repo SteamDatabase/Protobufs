@@ -156,6 +156,24 @@ message CRankingCategory {
 	repeated .CGameRank rankings = 2;
 }
 
+message CSaleFeature_GetAllUserActionDataForType_Request {
+	optional fixed64 gid = 1;
+	optional int32 type = 2 [(.description) = "enum"];
+	optional uint32 count = 3;
+	optional uint32 last_account_index = 4;
+}
+
+message CSaleFeature_GetAllUserActionDataForType_Response {
+	repeated .CSaleFeature_GetAllUserActionDataForType_Response_Entry entries = 1;
+	optional uint32 last_account_index = 2;
+}
+
+message CSaleFeature_GetAllUserActionDataForType_Response_Entry {
+	optional fixed64 gid = 1;
+	optional string jsondata = 2;
+	optional fixed64 steamid = 3;
+}
+
 message CSaleFeature_GetFriendsSharedYearInReview_Request {
 	optional fixed64 steamid = 1;
 	optional uint32 year = 2;
@@ -355,6 +373,7 @@ message CYearInReviewPerformanceStats {
 }
 
 service SaleFeature {
+	rpc GetAllUserActionDataForType (.CSaleFeature_GetAllUserActionDataForType_Request) returns (.CSaleFeature_GetAllUserActionDataForType_Response);
 	rpc GetFriendsSharedYearInReview (.CSaleFeature_GetFriendsSharedYearInReview_Request) returns (.CSaleFeature_GetFriendsSharedYearInReview_Response);
 	rpc GetMultipleUserActionData (.CSaleFeature_GetMultipleUserActionData_Request) returns (.CSaleFeature_GetMultipleUserActionData_Response);
 	rpc GetUserActionData (.CSaleFeature_GetUserActionData_Request) returns (.CSaleFeature_GetUserActionData_Response);
