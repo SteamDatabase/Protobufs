@@ -157,6 +157,7 @@ message CCitadelUserMessage_Damage {
 	optional bool is_secondary_stat = 24;
 	optional float effectiveness = 25;
 	optional float crit_damage = 26;
+	optional int32 server_tick = 29;
 }
 
 message PingCommonData {
