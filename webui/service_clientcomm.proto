@@ -68,7 +68,6 @@ message CClientComm_GetClientAppList_Response_AppData {
 	optional string category = 3;
 	optional string app_type = 4;
 	optional uint32 num_downloading = 8;
-	optional uint32 num_paused = 10;
 	optional uint32 bytes_download_rate = 11;
 	optional uint64 bytes_downloaded = 12;
 	optional uint64 bytes_to_download = 13;
