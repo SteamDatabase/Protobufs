@@ -39,11 +39,17 @@ message CDailyDeal_GetDailyDeals_Response {
 	repeated uint32 blocked_dates = 2;
 	repeated uint32 scheduled_slots = 3;
 	repeated .CDailyDeal_GetDailyDeals_Response_DailyDealBlockedDate blocked = 4;
+	repeated .CDailyDeal_GetDailyDeals_Response_DailyDealScheduledSlot scheduled = 5;
 }
 
 message CDailyDeal_GetDailyDeals_Response_DailyDealBlockedDate {
 	optional uint32 date = 1;
 	optional string name = 2;
+}
+
+message CDailyDeal_GetDailyDeals_Response_DailyDealScheduledSlot {
+	optional uint32 date = 1;
+	optional string descids = 2;
 }
 
 message CDailyDeal_GetDailyDealsForApps_Request {
@@ -78,6 +84,7 @@ message CDailyDealDetails {
 	optional bool cancelled = 13;
 	optional uint32 rtime32_cancel_time = 14;
 	optional fixed64 asset_request_id = 15;
+	optional string descids = 16;
 }
 
 service DailyDeal {

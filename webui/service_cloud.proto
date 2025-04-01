@@ -262,19 +262,6 @@ message CCloud_Delete_Request {
 message CCloud_Delete_Response {
 }
 
-message CCloud_EnumerateUserApps_Request {
-}
-
-message CCloud_EnumerateUserApps_Response {
-	repeated .CCloud_EnumerateUserApps_Response_Apps apps = 1;
-}
-
-message CCloud_EnumerateUserApps_Response_Apps {
-	optional uint32 appid = 1;
-	optional int32 totalcount = 2;
-	optional int64 totalsize = 3;
-}
-
 message CCloud_EnumerateUserFiles_Request {
 	optional uint32 appid = 1;
 	optional bool extended_details = 2;
@@ -337,14 +324,6 @@ message CCloud_GetFileDetails_Response {
 	optional .CCloud_UserFile details = 1;
 }
 
-message CCloud_GetUploadServerInfo_Request {
-	optional uint32 appid = 1;
-}
-
-message CCloud_GetUploadServerInfo_Response {
-	optional string server_url = 1;
-}
-
 message CCloud_UserFile {
 	optional uint32 appid = 1;
 	optional uint64 ugcid = 2;
@@ -393,13 +372,11 @@ service Cloud {
 	rpc CompleteAppUploadBatch (.CCloud_CompleteAppUploadBatch_Notification) returns (.NoResponse);
 	rpc CompleteAppUploadBatchBlocking (.CCloud_CompleteAppUploadBatch_Request) returns (.CCloud_CompleteAppUploadBatch_Response);
 	rpc Delete (.CCloud_Delete_Request) returns (.CCloud_Delete_Response);
-	rpc EnumerateUserApps (.CCloud_EnumerateUserApps_Request) returns (.CCloud_EnumerateUserApps_Response);
 	rpc EnumerateUserFiles (.CCloud_EnumerateUserFiles_Request) returns (.CCloud_EnumerateUserFiles_Response);
 	rpc ExternalStorageTransferReport (.CCloud_ExternalStorageTransferReport_Notification) returns (.NoResponse);
 	rpc GetAppFileChangelist (.CCloud_GetAppFileChangelist_Request) returns (.CCloud_GetAppFileChangelist_Response);
 	rpc GetClientEncryptionKey (.CCloud_GetClientEncryptionKey_Request) returns (.CCloud_GetClientEncryptionKey_Response);
 	rpc GetFileDetails (.CCloud_GetFileDetails_Request) returns (.CCloud_GetFileDetails_Response);
-	rpc GetUploadServerInfo (.CCloud_GetUploadServerInfo_Request) returns (.CCloud_GetUploadServerInfo_Response);
 	rpc ResumeAppSession (.CCloud_AppSessionResume_Request) returns (.CCloud_AppSessionResume_Response);
 	rpc SignalAppExitSyncDone (.NotImplemented) returns (.NoResponse);
 	rpc SignalAppLaunchIntent (.CCloud_AppLaunchIntent_Request) returns (.CCloud_AppLaunchIntent_Response);
