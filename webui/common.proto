@@ -2762,6 +2762,8 @@ message CMsgClientSettings {
 	optional bool steamos_wifi_debug = 22005;
 	optional bool steamos_wifi_force_wpa_supplicant = 22006;
 	optional int32 steamos_magnifier_scale = 22007;
+	optional bool steamos_manual_gpu_clock_enabled = 22008;
+	optional int32 steamos_manual_gpu_clock_hz = 22009;
 	optional bool setting_validation_bool = 23001;
 	optional int32 setting_validation_enum = 23002 [(.description) = "enum"];
 	optional int32 setting_validation_int32 = 23003;

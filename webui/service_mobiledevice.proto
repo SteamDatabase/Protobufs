@@ -8,11 +8,13 @@ message CMobileDevice_HasMobileDevice_Request {
 	optional int32 app_type = 1 [(.description) = "enum"];
 	optional bool push_enabled_only = 2;
 	optional string minimum_version = 3;
+	optional string twofactor_device_identifier = 4;
 }
 
 message CMobileDevice_HasMobileDevice_Response {
 	optional bool found_device = 1;
 	optional bool up_to_date = 2;
+	optional string max_version = 3;
 }
 
 message CMobileDevice_RegisterMobileDevice_Request {
