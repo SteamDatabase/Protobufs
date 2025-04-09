@@ -48,6 +48,7 @@ message CSteamCharts_GetMonthTopAppReleases_Response {
 message CSteamCharts_GetMonthTopAppReleases_Response_AppNewRelease {
 	optional uint32 appid = 1;
 	optional uint32 rtime_release = 2;
+	optional uint32 app_release_rank = 3;
 }
 
 message CSteamCharts_GetMostPlayedGames_Request {
