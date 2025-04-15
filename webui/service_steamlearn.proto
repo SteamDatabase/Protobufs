@@ -749,6 +749,7 @@ message CMsgSteamLearnModelNodeExternalEmbedding {
 	optional string embedding_name = 3;
 	optional string compact_table = 4;
 	optional uint32 fetch_id = 5;
+	optional bool exclude_missing = 6;
 }
 
 message CMsgSteamLearnModelNodeExternalModel {
@@ -756,6 +757,7 @@ message CMsgSteamLearnModelNodeExternalModel {
 	optional uint32 train_id = 2;
 	optional string named_inference_name = 3;
 	optional bool freeze_weights = 4;
+	optional uint32 unfrozen_layers = 5;
 }
 
 message CMsgSteamLearnModelNodeExtract {
@@ -906,6 +908,7 @@ message CMsgSteamLearnProject {
 	optional uint32 create_time = 5;
 	optional .CMsgSteamLearnProjectConfig unpublished_config = 6;
 	repeated .CMsgSteamLearnProjectConfig published_configs = 7;
+	optional bool hidden = 8;
 }
 
 message CMsgSteamLearnProjectConfig {
@@ -924,6 +927,8 @@ message CMsgSteamLearnProjectConfig {
 	optional .CMsgSteamLearnScheduledTrainConfig scheduled_train_config = 16;
 	repeated .CMsgSteamLearnFetchInfo fetch_infos = 17;
 	repeated .CMsgSteamLearnTrainInfo train_infos = 18;
+	optional bool hidden = 19;
+	optional uint32 last_edit_time = 20;
 }
 
 message CMsgSteamLearnProjectConfig_MapDataElementSqlColumnEntry {
