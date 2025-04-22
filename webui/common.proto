@@ -5780,6 +5780,7 @@ message StoreItem_Trailers_Trailer {
 	optional string screenshot_full = 11;
 	optional int32 trailer_base_id = 12;
 	optional int32 trailer_category = 13 [(.description) = "enum"];
+	optional bool all_ages = 14;
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, Wishlist
