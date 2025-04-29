@@ -1,0 +1,117 @@
+import "common_base.proto";
+
+message CForums_GetForumDetails_Response {
+	optional uint64 gidforum = 1;
+	optional uint32 clanidowner = 2;
+	optional int64 gidfeature = 3;
+	optional string forumtype = 4;
+	optional uint32 appid = 5;
+	optional string name = 6;
+	optional uint32 permission_moderate = 7;
+	optional uint32 permission_post = 8;
+	optional uint32 permission_reply = 9;
+	optional uint32 permission_view = 10;
+	optional .CForums_UserPermissions permissions = 11;
+	optional .CForums_UserBan user_ban = 12;
+	optional bool is_public_forum = 13;
+	optional uint32 permission_attach_images = 14;
+}
+
+message CForums_GetTopicDetails_Request {
+	optional uint64 steamid = 1;
+	optional uint64 gidforum = 2;
+	optional string forumtype = 3;
+	optional uint64 gidfeature = 4;
+	repeated uint64 gidtopics = 5;
+	optional bool include_preview = 6;
+	optional bool include_full_text = 7;
+}
+
+message CForums_GetTopicDetails_Response {
+	optional .CForums_GetForumDetails_Response forum_details = 1;
+	repeated .CForums_Topic topics = 2;
+}
+
+message CForums_ReportPost_Request {
+	optional uint64 steamid = 1;
+	optional string forum_type = 2;
+	optional int64 gidfeature = 3;
+	optional uint64 gidforum = 4;
+	optional uint64 gidtopic = 5;
+	optional uint64 gidcomment = 6;
+	optional string authorname = 7;
+	optional string reportername = 8;
+	optional string report = 9;
+	optional int32 report_type = 10 [(.description) = "enum"];
+	optional int32 report_reason = 11 [(.description) = "enum"];
+}
+
+message CForums_ReportPost_Response {
+	optional uint64 gidreportforum = 1;
+	optional uint64 gidreportthread = 2;
+}
+
+message CForums_ResolveReportedPost_Request {
+	optional uint64 steamid = 1;
+	optional uint64 gidforum = 3;
+	optional uint64 gidtopic = 4;
+	optional uint64 gidpost = 5;
+}
+
+message CForums_ResolveReportedPost_Response {
+}
+
+message CForums_Topic {
+	optional uint64 gidforumtopic = 1;
+	optional uint32 originalpost_accountid = 2;
+	optional uint32 originalpost_date = 3;
+	optional uint32 lastpost_accountid = 4;
+	optional uint32 lastpost_date = 5;
+	optional uint32 replies = 6;
+	optional uint32 expires_date = 7;
+	optional bool deleted = 8;
+	optional bool sticky = 9;
+	optional bool locked = 10;
+	optional bool moved = 11;
+	optional bool merged = 12;
+	optional bool expired = 13;
+	optional bool has_attachments = 14;
+	optional string title = 15;
+	optional string textpreview = 16;
+	optional int32 ipaddress = 17;
+	optional uint64 answer_comment = 18;
+	optional string ipaddress_string = 19;
+	optional int32 ban_check_result = 20 [(.description) = "enum"];
+	repeated .CForums_Topic_Reaction reactions = 21;
+	optional string full_text = 22;
+}
+
+message CForums_Topic_Reaction {
+	optional uint32 reactionid = 1;
+	optional uint32 count = 2;
+}
+
+message CForums_UserBan {
+	optional uint32 accountid_ban_actor = 1;
+	optional uint32 time_ban_start = 2;
+	optional uint32 time_ban_end = 3;
+	optional string ban_reason = 4;
+}
+
+message CForums_UserPermissions {
+	optional bool can_view = 1;
+	optional bool can_post = 2;
+	optional bool can_reply = 3;
+	optional bool can_moderate = 4;
+	optional bool can_edit_others_posts = 5;
+	optional bool can_purge_topics = 6;
+	optional bool is_banned = 7;
+	optional bool can_attach_images = 8;
+}
+
+service Forums {
+	rpc GetTopicDetails (.CForums_GetTopicDetails_Request) returns (.CForums_GetTopicDetails_Response);
+	rpc ReportPost (.CForums_ReportPost_Request) returns (.CForums_ReportPost_Response);
+	rpc ResolveReportedPost (.CForums_ResolveReportedPost_Request) returns (.CForums_ResolveReportedPost_Response);
+}
+

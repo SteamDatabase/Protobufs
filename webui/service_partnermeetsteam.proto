@@ -63,6 +63,9 @@ message CPartnerMeetSteam_GetRegistrations_Response_Registration {
 	optional fixed64 steamid = 3;
 	optional uint32 guests_registered = 4;
 	optional string jsondata = 5;
+	optional uint32 rt_attendance_marked = 6;
+	optional uint32 attendance_count = 7;
+	optional string guests_attendance = 8;
 }
 
 message CPartnerMeetSteam_GetSaleEventOrganizers_Request {

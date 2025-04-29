@@ -105,6 +105,7 @@ message CTwoFactor_SendEmail_Response {
 
 message CTwoFactor_Status_Request {
 	optional fixed64 steamid = 1;
+	optional int32 include = 2 [(.description) = "enum"];
 }
 
 message CTwoFactor_Status_Response {
@@ -122,6 +123,8 @@ message CTwoFactor_Status_Response {
 	optional bool allow_external_authenticator = 12;
 	optional uint32 time_transferred = 13;
 	optional uint32 version = 14;
+	optional fixed64 last_seen_auth_token_id = 15;
+	repeated .CTwoFactor_UsageEvent usages = 16;
 }
 
 message CTwoFactor_Time_Request {
@@ -147,6 +150,13 @@ message CTwoFactor_UpdateTokenVersion_Request {
 }
 
 message CTwoFactor_UpdateTokenVersion_Response {
+}
+
+message CTwoFactor_UsageEvent {
+	optional uint32 time = 1;
+	optional int32 usage_type = 2 [(.description) = "enum"];
+	optional int32 confirmation_type = 3;
+	optional int32 confirmation_action = 4;
 }
 
 message CTwoFactor_ValidateToken_Response {

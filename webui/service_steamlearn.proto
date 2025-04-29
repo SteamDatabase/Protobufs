@@ -1,5 +1,18 @@
 import "common_base.proto";
 
+message CMsgInferenceIterateBeamSearch {
+	optional uint32 beam_length = 1;
+	optional uint32 beam_width = 2;
+	optional float item_decay = 3;
+	optional uint32 next_item_count = 4;
+	repeated .CMsgInferenceIterateBeamSearch_CustomItemScalar item_scalars = 5;
+}
+
+message CMsgInferenceIterateBeamSearch_CustomItemScalar {
+	optional uint32 item = 1;
+	optional float scale = 2;
+}
+
 message CMsgSteamLearn_BatchOperation_Request {
 	repeated .CMsgSteamLearn_CacheData_Request cache_data_requests = 1;
 	repeated .CMsgSteamLearn_SnapshotProject_Request snapshot_requests = 2;
@@ -37,6 +50,14 @@ message CMsgSteamLearn_EditProject_Request {
 }
 
 message CMsgSteamLearn_EditProject_Response {
+	optional int32 result = 1 [(.description) = "enum"];
+}
+
+message CMsgSteamLearn_EditProjectConfig_Request {
+	optional .CMsgSteamLearnProjectConfig project_config = 1;
+}
+
+message CMsgSteamLearn_EditProjectConfig_Response {
 	optional int32 result = 1 [(.description) = "enum"];
 }
 
@@ -174,6 +195,15 @@ message CMsgSteamLearn_GetProject_Response {
 	optional .CMsgSteamLearnProject project = 1;
 }
 
+message CMsgSteamLearn_GetProjectConfig_Request {
+	optional uint32 project_id = 1;
+	optional uint32 published_version = 2;
+}
+
+message CMsgSteamLearn_GetProjectConfig_Response {
+	optional .CMsgSteamLearnProjectConfig project_config = 1;
+}
+
 message CMsgSteamLearn_GetSnapshotStatus_Request {
 	optional uint32 project_id = 1;
 	optional uint32 published_version = 2;
@@ -273,9 +303,7 @@ message CMsgSteamLearn_Inference_Request {
 	repeated float additional_data = 7;
 	repeated uint64 keys = 8;
 	optional string named_inference = 9;
-	optional uint32 inference_iterations = 10;
-	repeated uint32 weighted_items = 11;
-	repeated float item_weights = 12;
+	optional .CMsgInferenceIterateBeamSearch iterate_beam_search = 13;
 }
 
 message CMsgSteamLearn_Inference_Response {
@@ -292,9 +320,7 @@ message CMsgSteamLearn_InferenceBackend_Request {
 	repeated uint64 keys = 6;
 	repeated float additional_data = 7;
 	optional string named_inference = 8;
-	optional uint32 inference_iterations = 10;
-	repeated uint32 weighted_items = 11;
-	repeated float item_weights = 12;
+	optional .CMsgInferenceIterateBeamSearch iterate_beam_search = 13;
 }
 
 message CMsgSteamLearn_InferenceBackend_Response {
@@ -455,6 +481,20 @@ message CMsgSteamLearn_ListDataSources_Request {
 
 message CMsgSteamLearn_ListDataSources_Response {
 	repeated .CMsgSteamLearnDataSource data_sources = 1;
+}
+
+message CMsgSteamLearn_ListProjectConfigs_Request {
+}
+
+message CMsgSteamLearn_ListProjectConfigs_Response {
+	repeated .CMsgSteamLearn_ListProjectConfigs_Response_ProjectConfigInfo project_config_infos = 1;
+}
+
+message CMsgSteamLearn_ListProjectConfigs_Response_ProjectConfigInfo {
+	optional uint32 project_id = 1;
+	optional string project_name = 2;
+	optional string project_description = 3;
+	repeated uint32 published_versions = 4;
 }
 
 message CMsgSteamLearn_ListProjects_Request {
@@ -1105,6 +1145,7 @@ service SteamLearn {
 	rpc CacheData (.CMsgSteamLearn_CacheData_Request) returns (.CMsgSteamLearn_CacheData_Response);
 	rpc CreateProject (.CMsgSteamLearn_CreateProject_Request) returns (.CMsgSteamLearn_CreateProject_Response);
 	rpc EditProject (.CMsgSteamLearn_EditProject_Request) returns (.CMsgSteamLearn_EditProject_Response);
+	rpc EditProjectConfig (.CMsgSteamLearn_EditProjectConfig_Request) returns (.CMsgSteamLearn_EditProjectConfig_Response);
 	rpc GetAccessTokensWeb (.CMsgSteamLearn_GetAccessTokens_Request) returns (.CMsgSteamLearn_GetAccessTokens_Response);
 	rpc GetBatchedStatus (.CMsgSteamLearn_GetBatchedStatus_Request) returns (.CMsgSteamLearn_GetBatchedStatus_Response);
 	rpc GetDataSource (.CMsgSteamLearn_GetDataSource_Request) returns (.CMsgSteamLearn_GetDataSource_Response);
@@ -1114,6 +1155,7 @@ service SteamLearn {
 	rpc GetLogEvents (.CMsgSteamLearn_GetLogEvents_Request) returns (.CMsgSteamLearn_GetLogEvents_Response);
 	rpc GetNearestEmbedding (.CMsgSteamLearn_GetNearestEmbedding_Request) returns (.CMsgSteamLearn_GetNearestEmbedding_Response);
 	rpc GetProject (.CMsgSteamLearn_GetProject_Request) returns (.CMsgSteamLearn_GetProject_Response);
+	rpc GetProjectConfig (.CMsgSteamLearn_GetProjectConfig_Request) returns (.CMsgSteamLearn_GetProjectConfig_Response);
 	rpc GetSnapshotStatus (.CMsgSteamLearn_GetSnapshotStatus_Request) returns (.CMsgSteamLearn_GetSnapshotStatus_Response);
 	rpc GetTrainLogs (.CMsgSteamLearn_GetTrainLogs_Request) returns (.CMsgSteamLearn_GetTrainLogs_Response);
 	rpc GetTrainStatus (.CMsgSteamLearn_GetTrainStatus_Request) returns (.CMsgSteamLearn_GetTrainStatus_Response);
@@ -1122,6 +1164,7 @@ service SteamLearn {
 	rpc InferenceBackend (.CMsgSteamLearn_InferenceBackend_Request) returns (.CMsgSteamLearn_InferenceBackend_Response);
 	rpc InferenceMetadata (.CMsgSteamLearn_InferenceMetadata_Request) returns (.CMsgSteamLearn_InferenceMetadata_Response);
 	rpc ListDataSources (.CMsgSteamLearn_ListDataSources_Request) returns (.CMsgSteamLearn_ListDataSources_Response);
+	rpc ListProjectConfigs (.CMsgSteamLearn_ListProjectConfigs_Request) returns (.CMsgSteamLearn_ListProjectConfigs_Response);
 	rpc ListProjects (.CMsgSteamLearn_ListProjects_Request) returns (.CMsgSteamLearn_ListProjects_Response);
 	rpc PublishProject (.CMsgSteamLearn_PublishProject_Request) returns (.CMsgSteamLearn_PublishProject_Response);
 	rpc RegisterDataSource (.CMsgSteamLearn_RegisterDataSource_Request) returns (.CMsgSteamLearn_RegisterDataSource_Response);

@@ -24,6 +24,7 @@ message CCDDBAppDetailCommon {
 	optional bool has_adult_content_sex = 15;
 	optional bool has_adult_content_violence = 16;
 	repeated uint32 content_descriptorids = 17;
+	repeated uint32 content_descriptorids_including_dlc = 18;
 }
 
 message CClanEventUserNewsTuple {
