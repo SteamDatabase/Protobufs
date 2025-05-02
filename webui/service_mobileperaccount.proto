@@ -25,7 +25,9 @@ message CMobilePerAccount_SetSettings_Response {
 }
 
 service MobilePerAccount {
+	// ePrivilege=1
 	rpc GetSettings (.CMobilePerAccount_GetSettings_Request) returns (.CMobilePerAccount_GetSettings_Response);
+	// ePrivilege=1
 	rpc SetSettings (.CMobilePerAccount_SetSettings_Request) returns (.CMobilePerAccount_SetSettings_Response);
 }
 

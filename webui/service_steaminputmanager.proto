@@ -116,13 +116,21 @@ message CSteamInputService_GyroSpeedChanged_Notification {
 }
 
 service SteamInputManager {
+	// ePrivilege=1, eClientExecutionSite=2
 	rpc EndControllerStateFlow (.CSteamInputService_ControllerStateFlow_Request) returns (.CSteamInputService_ControllerStateFlow_Response);
+	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyAxesStateChanged (.CSteamInputService_ControllerAxesStateChange_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyButtonStateChanged (.CSteamInputService_ControllerButtonStateChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyGyroAccelerometerStateChanged (.CSteamInputService_GyroAccelerometerChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyGyroCalibrationStateChanged (.CSteamInputService_GyroCalibration_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyGyroQuaternionStateChanged (.CSteamInputService_GyroQuaternionChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyGyroSpeedStateChanged (.CSteamInputService_GyroSpeedChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=2
 	rpc StartControllerStateFlow (.CSteamInputService_ControllerStateFlow_Request) returns (.CSteamInputService_ControllerStateFlow_Response);
 }
 

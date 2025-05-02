@@ -117,11 +117,17 @@ message CFriendsMessages_GetActiveMessageSessions_Response_FriendMessageSession 
 }
 
 service FriendMessages {
+	// ePrivilege=1
 	rpc AckMessage (.CFriendMessages_AckMessage_Notification) returns (.NoResponse);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetActiveMessageSessions (.CFriendsMessages_GetActiveMessageSessions_Request) returns (.CFriendsMessages_GetActiveMessageSessions_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetRecentMessages (.CFriendMessages_GetRecentMessages_Request) returns (.CFriendMessages_GetRecentMessages_Response);
+	// ePrivilege=1
 	rpc IsInFriendsUIBeta (.CFriendMessages_IsInFriendsUIBeta_Request) returns (.CFriendMessages_IsInFriendsUIBeta_Response);
+	// ePrivilege=1
 	rpc SendMessage (.CFriendMessages_SendMessage_Request) returns (.CFriendMessages_SendMessage_Response);
+	// ePrivilege=1
 	rpc UpdateMessageReaction (.CFriendMessages_UpdateMessageReaction_Request) returns (.CFriendMessages_UpdateMessageReaction_Response);
 }
 

@@ -53,8 +53,11 @@ message CWebRTCClient_UpdateWebRTCConnection_Response {
 }
 
 service WebRTCClient {
+	// ePrivilege=1
 	rpc AcknowledgeUpdatedRemoteDescription (.CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Request) returns (.CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Response);
+	// ePrivilege=1
 	rpc InitiateWebRTCConnection (.CWebRTCClient_InitiateWebRTCConnection_Request) returns (.CWebRTCClient_InitiateWebRTCConnection_Response);
+	// ePrivilege=1
 	rpc UpdateWebRTCConnection (.CWebRTCClient_UpdateWebRTCConnection_Request) returns (.CWebRTCClient_UpdateWebRTCConnection_Response);
 }
 

@@ -74,10 +74,15 @@ message CSupportRefreshTokenDescription_TokenUsageEvent {
 }
 
 service AuthenticationSupport {
+	// bConstMethod=true, ePrivilege=5
 	rpc GetTokenHistory (.CAuthenticationSupport_GetTokenHistory_Request) returns (.CAuthenticationSupport_GetTokenHistory_Response);
+	// ePrivilege=5
 	rpc MarkTokenCompromised (.CAuthenticationSupport_MarkTokenCompromised_Request) returns (.CAuthenticationSupport_MarkTokenCompromised_Response);
+	// bConstMethod=true, ePrivilege=5
 	rpc QueryRefreshTokenByID (.CAuthenticationSupport_QueryRefreshTokenByID_Request) returns (.CAuthenticationSupport_QueryRefreshTokenByID_Response);
+	// bConstMethod=true, ePrivilege=5
 	rpc QueryRefreshTokensByAccount (.CAuthenticationSupport_QueryRefreshTokensByAccount_Request) returns (.CAuthenticationSupport_QueryRefreshTokensByAccount_Response);
+	// ePrivilege=5
 	rpc RevokeToken (.CAuthenticationSupport_RevokeToken_Request) returns (.CAuthenticationSupport_RevokeToken_Response);
 }
 

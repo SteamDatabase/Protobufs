@@ -38,9 +38,13 @@ message CSteamOSSLSState {
 }
 
 service SteamOSSLS {
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetState (.CSteamOSSLS_GetState_Request) returns (.CSteamOSSLS_GetState_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyStateChanged (.CSteamOSSLS_StateChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc SetEnabled (.CSteamOSSLS_SetEnabled_Request) returns (.CSteamOSSLS_SetEnabled_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc SetPluginEnabled (.CSteamOSSLS_SetPluginEnabled_Request) returns (.CSteamOSSLS_SetPluginEnabled_Response);
 }
 

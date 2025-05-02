@@ -51,9 +51,13 @@ message CMsgGamescopeState {
 }
 
 service Gamescope {
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetState (.CGamescope_GetState_Request) returns (.CGamescope_GetState_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyStateChanged (.CGamescope_StateChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc ReArmMuraCalibration (.CGamescope_ReArmMuraCalibration_Request) returns (.CGamescope_ReArmMuraCalibration_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc SetBlurParams (.CGamescope_SetBlurParams_Request) returns (.CGamescope_SetBlurParams_Response);
 }
 

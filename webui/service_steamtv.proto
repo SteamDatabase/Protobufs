@@ -459,37 +459,69 @@ message GetBroadcastChannelEntry {
 }
 
 service SteamTV {
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc AddChatBan (.CSteamTV_AddChatBan_Request) returns (.CSteamTV_AddChatBan_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc AddChatModerator (.CSteamTV_AddChatModerator_Request) returns (.CSteamTV_AddChatModerator_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc AddWordBan (.CSteamTV_AddWordBan_Request) returns (.CSteamTV_AddWordBan_Response);
+	// ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc AppCheer (.CSteamTV_AppCheer_Request) returns (.CSteamTV_AppCheer_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc CreateBroadcastChannel (.CSteamTV_CreateBroadcastChannel_Request) returns (.CSteamTV_CreateBroadcastChannel_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc FollowBroadcastChannel (.CSteamTV_FollowBroadcastChannel_Request) returns (.CSteamTV_FollowBroadcastChannel_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetBroadcastChannelBroadcasters (.CSteamTV_GetBroadcastChannelBroadcasters_Request) returns (.CSteamTV_GetBroadcastChannelBroadcasters_Response);
+	// bConstMethod=true, ePrivilege=0
 	rpc GetBroadcastChannelClips (.CSteamTV_GetBroadcastChannelClips_Request) returns (.CSteamTV_GetBroadcastChannelClips_Response);
+	// bConstMethod=true, ePrivilege=0
 	rpc GetBroadcastChannelID (.CSteamTV_GetBroadcastChannelID_Request) returns (.CSteamTV_GetBroadcastChannelID_Response);
+	// bConstMethod=true, ePrivilege=0
 	rpc GetBroadcastChannelImages (.CSteamTV_GetBroadcastChannelImages_Request) returns (.CSteamTV_GetBroadcastChannelImages_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetBroadcastChannelInteraction (.CSteamTV_GetBroadcastChannelInteraction_Request) returns (.CSteamTV_GetBroadcastChannelInteraction_Response);
+	// bConstMethod=true, ePrivilege=0
 	rpc GetBroadcastChannelLinks (.CSteamTV_GetBroadcastChannelLinks_Request) returns (.CSteamTV_GetBroadcastChannelLinks_Response);
+	// bConstMethod=true, ePrivilege=0
 	rpc GetBroadcastChannelProfile (.CSteamTV_GetBroadcastChannelProfile_Request) returns (.CSteamTV_GetBroadcastChannelProfile_Response);
+	// bConstMethod=true, ePrivilege=0
 	rpc GetBroadcastChannelStatus (.CSteamTV_GetBroadcastChannelStatus_Request) returns (.CSteamTV_GetBroadcastChannelStatus_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetChannels (.CSteamTV_GetChannels_Request) returns (.CSteamTV_GetChannels_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetChatBans (.CSteamTV_GetChatBans_Request) returns (.CSteamTV_GetChatBans_Response);
+	// bConstMethod=true, ePrivilege=0
 	rpc GetChatModerators (.CSteamTV_GetChatModerators_Request) returns (.CSteamTV_GetChatModerators_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetFollowedChannels (.CSteamTV_GetFollowedChannels_Request) returns (.CSteamTV_GetFollowedChannels_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetGames (.CSteamTV_GetGames_Request) returns (.CSteamTV_GetGames_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetHomePageContents (.CSteamTV_GetHomePageContents_Request) returns (.CSteamTV_GetHomePageContents_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetMyBroadcastChannels (.CSteamTV_GetMyBroadcastChannels_Request) returns (.CSteamTV_GetMyBroadcastChannels_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetSteamTVUserSettings (.CSteamTV_GetSteamTVUserSettings_Request) returns (.CSteamTV_GetSteamTVUserSettings_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetSubscribedChannels (.CSteamTV_GetSubscribedChannels_Request) returns (.CSteamTV_GetSubscribedChannels_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetWordBans (.CSteamTV_GetWordBans_Request) returns (.CSteamTV_GetWordBans_Response);
+	// ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc JoinChat (.CSteamTV_JoinChat_Request) returns (.CSteamTV_JoinChat_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc ReportBroadcastChannel (.CSteamTV_ReportBroadcastChannel_Request) returns (.CSteamTV_ReportBroadcastChannel_Response);
+	// bConstMethod=true, ePrivilege=0
 	rpc Search (.CSteamTV_Search_Request) returns (.CSteamTV_Search_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc SetBroadcastChannelImage (.CSteamTV_SetBroadcastChannelImage_Request) returns (.CSteamTV_SetBroadcastChannelImage_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc SetBroadcastChannelLinkRegions (.CSteamTV_SetBroadcastChannelLinkRegions_Request) returns (.CSteamTV_SetBroadcastChannelLinkRegions_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc SetBroadcastChannelProfile (.CSteamTV_SetBroadcastChannelProfile_Request) returns (.CSteamTV_SetBroadcastChannelProfile_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc SetSteamTVUserSettings (.CSteamTV_SetSteamTVUserSettings_Request) returns (.CSteamTV_SetSteamTVUserSettings_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc SubscribeBroadcastChannel (.CSteamTV_SubscribeBroadcastChannel_Request) returns (.CSteamTV_SubscribeBroadcastChannel_Response);
 }
 

@@ -233,23 +233,41 @@ message LoyaltyRewardPurchaseBonus {
 }
 
 service LoyaltyRewards {
+	// ePrivilege=1
 	rpc AddReaction (.CLoyaltyRewards_AddReaction_Request) returns (.CLoyaltyRewards_AddReaction_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc BatchedQueryRewardItems (.CLoyaltyRewards_BatchedQueryRewardItems_Request) returns (.CLoyaltyRewards_BatchedQueryRewardItems_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetActivePurchaseBonuses (.CLoyaltyRewards_GetActivePurchaseBonuses_Request) returns (.CLoyaltyRewards_GetActivePurchaseBonuses_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetEligibleApps (.CLoyaltyRewards_GetEligibleApps_Request) returns (.CLoyaltyRewards_GetEligibleApps_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetEquippedProfileItems (.CLoyaltyRewards_GetEquippedProfileItems_Request) returns (.CLoyaltyRewards_GetEquippedProfileItems_Response);
+	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc GetPointsForSpend (.CLoyaltyRewards_GetPointsForSpend_Request) returns (.CLoyaltyRewards_GetPointsForSpend_Response);
+	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc GetProfileCustomizationsConfig (.CLoyaltyRewards_GetProfileCustomizationsConfig_Request) returns (.CLoyaltyRewards_GetProfileCustomizationsConfig_Response);
+	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc GetReactionConfig (.CLoyaltyRewards_GetReactionConfig_Request) returns (.CLoyaltyRewards_GetReactionConfig_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetReactions (.CLoyaltyRewards_GetReactions_Request) returns (.CLoyaltyRewards_GetReactions_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetReactionsSummaryForUser (.CLoyaltyRewards_GetReactionsSummaryForUser_Request) returns (.CLoyaltyRewards_GetReactionsSummaryForUser_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetSummary (.CLoyaltyRewards_GetSummary_Request) returns (.CLoyaltyRewards_GetSummary_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc QueryRewardItems (.CLoyaltyRewards_QueryRewardItems_Request) returns (.CLoyaltyRewards_QueryRewardItems_Response);
+	// ePrivilege=1
 	rpc RedeemPoints (.CLoyaltyRewards_RedeemPoints_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
+	// ePrivilege=1
 	rpc RedeemPointsForBadgeLevel (.CLoyaltyRewards_RedeemPointsForBadgeLevel_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
+	// ePrivilege=1
 	rpc RedeemPointsForProfileCustomization (.CLoyaltyRewards_RedeemPointsForProfileCustomization_Request) returns (.CLoyaltyRewards_RedeemPointsForProfileCustomization_Response);
+	// ePrivilege=1
 	rpc RedeemPointsForProfileCustomizationUpgrade (.CLoyaltyRewards_RedeemPointsForProfileCustomizationUpgrade_Request) returns (.CLoyaltyRewards_RedeemPointsForProfileCustomizationUpgrade_Response);
+	// ePrivilege=1
 	rpc RedeemPointsToUpgradeItem (.CLoyaltyRewards_RedeemPointsToUpgradeItem_Request) returns (.CLoyaltyRewards_RedeemPoints_Response);
+	// ePrivilege=1
 	rpc RegisterForSteamDeckRewards (.CLoyaltyRewards_RegisterForSteamDeckRewards_Request) returns (.CLoyaltyRewards_RegisterForSteamDeckRewards_Response);
 }
 

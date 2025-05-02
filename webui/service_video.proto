@@ -39,8 +39,11 @@ message VideoBookmark {
 }
 
 service Video {
+	// ePrivilege=1
 	rpc ClientGetVideoURL (.CVideo_ClientGetVideoURL_Request) returns (.CVideo_ClientGetVideoURL_Response);
+	// ePrivilege=1
 	rpc GetVideoBookmarks (.CVideo_GetVideoBookmarks_Request) returns (.CVideo_GetVideoBookmarks_Response);
+	// ePrivilege=1
 	rpc SetVideoBookmark (.CVideo_SetVideoBookmark_Notification) returns (.NoResponse);
 }
 

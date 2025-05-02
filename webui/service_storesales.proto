@@ -80,9 +80,13 @@ message SteamAwardsUserVote {
 }
 
 service StoreSales {
+	// bConstMethod=true, ePrivilege=1
 	rpc GetUserVotes (.CStore_GetUserVotes_Request) returns (.CStore_GetUserVotes_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetVoteDefinitions (.CStore_GetVoteDefinitions_Request) returns (.CStore_GetVoteDefinitions_Response);
+	// bConstMethod=true, ePrivilege=7
 	rpc GetVoteDefinitionsForEvents (.NotImplemented) returns (.CStore_GetVoteDefinitionsForEvents_Response);
+	// ePrivilege=1
 	rpc SetVote (.CStore_SetVote_Request) returns (.CStore_SetVote_Response);
 }
 

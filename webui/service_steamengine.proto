@@ -42,11 +42,17 @@ message CSteamEngine_UpdateTextFilterDictionary_Notification {
 }
 
 service SteamEngine {
+	// ePrivilege=1, eClientExecutionSite=2
 	rpc GetGameIDForPID (.CSteamEngine_GetGameIDForPID_Request) returns (.CSteamEngine_GetGameIDForPID_Response);
+	// ePrivilege=1, eClientExecutionSite=2
 	rpc GetTextFilterDictionary (.CSteamEngine_GetTextFilterDictionary_Request) returns (.CSteamEngine_GetTextFilterDictionary_Response);
+	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyTextFilterDictionaryChanged (.CSteamEngine_TextFilterDictionaryChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=2
 	rpc SearchAppDataCacheByStoreKeywords (.CSteamEngine_SearchAppDataCacheByStoreKeywords_Request) returns (.CSteamEngine_SearchAppDataCacheByStoreKeywords_Response);
+	// ePrivilege=1, eClientExecutionSite=2
 	rpc SetOverlayEscapeKeyHandling (.CSteamEngine_SetOverlayEscapeKeyHandling_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=2
 	rpc UpdateTextFilterDictionary (.CSteamEngine_UpdateTextFilterDictionary_Notification) returns (.NoResponse);
 }
 

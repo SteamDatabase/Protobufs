@@ -84,13 +84,21 @@ message CAssetSetPublishing_UpdatePublishTime_Response {
 }
 
 service AssetSetPublishing {
+	// ePrivilege=7
 	rpc AddBranchToAssetSet (.CAssetSetPublishing_AddBranchToAssetSet_Request) returns (.CAssetSetPublishing_AddBranchToAssetSet_Response);
+	// ePrivilege=7
 	rpc CreateAssetSet (.CAssetSetPublishing_CreateAssetSet_Request) returns (.CAssetSetPublishing_CreateAssetSet_Response);
+	// ePrivilege=7
 	rpc DeleteAssetSet (.CAssetSetPublishing_DeleteAssetSet_Request) returns (.CAssetSetPublishing_DeleteAssetSet_Response);
+	// bConstMethod=true, ePrivilege=7
 	rpc GetAllAssetSets (.CAssetSetPublishing_GetAllAssetSets_Request) returns (.CAssetSetPublishing_GetAllAssetSets_Response);
+	// ePrivilege=7
 	rpc RemoveBranchFromAssetSet (.CAssetSetPublishing_RemoveBranchFromAssetSet_Request) returns (.CAssetSetPublishing_RemoseBranchFromAssetSet_Response);
+	// ePrivilege=7
 	rpc SwapAssetSetPriority (.CAssetSetPublishing_SwapAssetSetPriority_Request) returns (.CAssetSetPublishing_SwapAssetSetPriority_Response);
+	// ePrivilege=7
 	rpc UpdateAssetSet (.CAssetSetPublishing_UpdateAssetSet_Request) returns (.CAssetSetPublishing_UpdateAssetSet_Response);
+	// ePrivilege=7
 	rpc UpdatePublishTime (.CAssetSetPublishing_UpdatePublishTime_Request) returns (.CAssetSetPublishing_UpdatePublishTime_Response);
 }
 

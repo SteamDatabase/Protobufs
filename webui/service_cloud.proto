@@ -355,31 +355,57 @@ message ClientCloudFileUploadBlockDetails_HTTPHeaders {
 }
 
 service Cloud {
+	// ePrivilege=1
 	rpc BeginAppUploadBatch (.CCloud_BeginAppUploadBatch_Request) returns (.CCloud_BeginAppUploadBatch_Response);
+	// ePrivilege=1
 	rpc BeginHTTPUpload (.CCloud_BeginHTTPUpload_Request) returns (.CCloud_BeginHTTPUpload_Response);
+	// ePrivilege=1
 	rpc BeginUGCUpload (.CCloud_BeginUGCUpload_Request) returns (.CCloud_BeginUGCUpload_Response);
+	// ePrivilege=1
 	rpc CDNReport (.CCloud_CDNReport_Notification) returns (.NoResponse);
+	// ePrivilege=1
 	rpc ClientBeginFileUpload (.CCloud_ClientBeginFileUpload_Request) returns (.CCloud_ClientBeginFileUpload_Response);
+	// ePrivilege=1
 	rpc ClientCommitFileUpload (.CCloud_ClientCommitFileUpload_Request) returns (.CCloud_ClientCommitFileUpload_Response);
+	// ePrivilege=1
 	rpc ClientConflictResolution (.CCloud_ClientConflictResolution_Notification) returns (.NoResponse);
+	// ePrivilege=1
 	rpc ClientDeleteFile (.CCloud_ClientDeleteFile_Request) returns (.CCloud_ClientDeleteFile_Response);
+	// ePrivilege=1
 	rpc ClientFileDownload (.CCloud_ClientFileDownload_Request) returns (.CCloud_ClientFileDownload_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc ClientGetAppQuotaUsage (.CCloud_ClientGetAppQuotaUsage_Request) returns (.CCloud_ClientGetAppQuotaUsage_Response);
+	// ePrivilege=1
 	rpc ClientLogUploadCheck (.CCloud_ClientLogUploadCheck_Notification) returns (.NoResponse);
+	// ePrivilege=1
 	rpc ClientLogUploadComplete (.CCloud_ClientLogUploadComplete_Notification) returns (.NoResponse);
+	// ePrivilege=1
 	rpc CommitHTTPUpload (.CCloud_CommitHTTPUpload_Request) returns (.CCloud_CommitHTTPUpload_Response);
+	// ePrivilege=1
 	rpc CommitUGCUpload (.CCloud_CommitUGCUpload_Request) returns (.CCloud_CommitUGCUpload_Response);
+	// ePrivilege=1
 	rpc CompleteAppUploadBatch (.CCloud_CompleteAppUploadBatch_Notification) returns (.NoResponse);
+	// ePrivilege=1
 	rpc CompleteAppUploadBatchBlocking (.CCloud_CompleteAppUploadBatch_Request) returns (.CCloud_CompleteAppUploadBatch_Response);
+	// ePrivilege=1
 	rpc Delete (.CCloud_Delete_Request) returns (.CCloud_Delete_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc EnumerateUserFiles (.CCloud_EnumerateUserFiles_Request) returns (.CCloud_EnumerateUserFiles_Response);
+	// ePrivilege=1
 	rpc ExternalStorageTransferReport (.CCloud_ExternalStorageTransferReport_Notification) returns (.NoResponse);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetAppFileChangelist (.CCloud_GetAppFileChangelist_Request) returns (.CCloud_GetAppFileChangelist_Response);
+	// ePrivilege=1
 	rpc GetClientEncryptionKey (.CCloud_GetClientEncryptionKey_Request) returns (.CCloud_GetClientEncryptionKey_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=2
 	rpc GetFileDetails (.CCloud_GetFileDetails_Request) returns (.CCloud_GetFileDetails_Response);
+	// ePrivilege=1
 	rpc ResumeAppSession (.CCloud_AppSessionResume_Request) returns (.CCloud_AppSessionResume_Response);
+	// ePrivilege=1
 	rpc SignalAppExitSyncDone (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
 	rpc SignalAppLaunchIntent (.CCloud_AppLaunchIntent_Request) returns (.CCloud_AppLaunchIntent_Response);
+	// ePrivilege=1
 	rpc SuspendAppSession (.CCloud_AppSessionSuspend_Request) returns (.CCloud_AppSessionSuspend_Response);
 }
 

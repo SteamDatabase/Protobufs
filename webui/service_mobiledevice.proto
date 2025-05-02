@@ -33,8 +33,11 @@ message CMobileDevice_RegisterMobileDevice_Response {
 }
 
 service MobileDevice {
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc DeregisterMobileDevice (.CMobileDevice_DeregisterMobileDevice_Notification) returns (.NoResponse);
+	// bConstMethod=true, ePrivilege=1
 	rpc HasMobileDevice (.CMobileDevice_HasMobileDevice_Request) returns (.CMobileDevice_HasMobileDevice_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc RegisterMobileDevice (.CMobileDevice_RegisterMobileDevice_Request) returns (.CMobileDevice_RegisterMobileDevice_Response);
 }
 

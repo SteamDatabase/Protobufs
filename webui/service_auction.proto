@@ -86,12 +86,19 @@ message CAuction_PlaceBid_Response {
 }
 
 service Auction {
+	// ePrivilege=1
 	rpc CancelBid (.CAuction_CancelBid_Request) returns (.CAuction_CancelBid_Response);
+	// bConstMethod=true, ePrivilege=0
 	rpc GetAllItems (.CAuction_GetAllItems_Request) returns (.CAuction_GetAllItems_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetBidsForItem (.CAuction_GetBidsForItem_Request) returns (.CAuction_GetBidsForItem_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetBidsForUser (.CAuction_GetBidsForUser_Request) returns (.CAuction_GetBidsForUser_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetItemDetails (.CAuction_GetItemDetails_Request) returns (.CAuction_GetItemDetails_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetUserBidForItem (.CAuction_GetUserBidForItem_Request) returns (.CAuction_GetUserBidForItem_Response);
+	// ePrivilege=3
 	rpc PlaceBid (.CAuction_PlaceBid_Request) returns (.CAuction_PlaceBid_Response);
 }
 

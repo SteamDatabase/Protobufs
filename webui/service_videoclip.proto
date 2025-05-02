@@ -54,9 +54,13 @@ message CVideo_GameRecordingSegmentUploadInfo_HTTPHeaders {
 }
 
 service VideoClip {
+	// ePrivilege=1
 	rpc BeginGameRecordingSegmentsUpload (.CVideo_BeginGameRecordingSegmentsUpload_Request) returns (.CVideo_BeginGameRecordingSegmentsUpload_Response);
+	// ePrivilege=1
 	rpc CommitGameRecordingSegmentsUpload (.CVideo_CommitGameRecordingSegmentsUpload_Request) returns (.CVideo_CommitGameRecordingSegmentsUpload_Response);
+	// ePrivilege=1
 	rpc CommitSegmentUploads (.CVideo_GameRecordingCommitSegmentUploads_Request) returns (.CVideo_GameRecordingCommitSegmentUploads_Response);
+	// ePrivilege=1
 	rpc GetNextBatchOfSegmentsToUpload (.CVideo_GameRecordingGetNextBatchOfSegmentsToUpload_Request) returns (.CVideo_GameRecordingGetNextBatchOfSegmentsToUpload_Response);
 }
 

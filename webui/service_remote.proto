@@ -99,19 +99,33 @@ message CRemotePlay_SessionStarted_Response {
 }
 
 service RemoteClient {
+	// ePrivilege=1
 	rpc AllocateRelayServer (.CRemoteClient_AllocateRelayServer_Request) returns (.CRemoteClient_AllocateRelayServer_Response);
+	// ePrivilege=1
 	rpc AllocateSDR (.CRemoteClient_AllocateSDR_Request) returns (.CRemoteClient_AllocateSDR_Response);
+	// ePrivilege=1
 	rpc CreateRemotePlayTogetherInvitation (.CRemoteClient_CreateRemotePlayTogetherInvitation_Request) returns (.CRemoteClient_CreateRemotePlayTogetherInvitation_Response);
+	// ePrivilege=1
 	rpc DeleteRemotePlayTogetherInvitation (.CRemoteClient_DeleteRemotePlayTogetherInvitation_Request) returns (.CRemoteClient_DeleteRemotePlayTogetherInvitation_Response);
+	// ePrivilege=1
 	rpc GetPairingInfo (.CRemoteClient_GetPairingInfo_Request) returns (.CRemoteClient_GetPairingInfo_Response);
+	// ePrivilege=1
 	rpc GetRecentClients (.CRemoteClient_GetRecentClients_Request) returns (.CRemoteClient_GetRecentClients_Response);
+	// ePrivilege=1
 	rpc MarkTaskComplete (.CRemoteClient_MarkTaskComplete_Request) returns (.CRemoteClient_MarkTaskComplete_Response);
+	// ePrivilege=1
 	rpc NotifyOnline (.CRemoteClient_Online_Notification) returns (.NoResponse);
+	// ePrivilege=1
 	rpc NotifyReplyPacket (.CRemoteClient_ReplyPacket_Notification) returns (.NoResponse);
+	// ePrivilege=1
 	rpc SendRemotePlaySessionStarted (.CRemotePlay_SessionStarted_Request) returns (.CRemotePlay_SessionStarted_Response);
+	// ePrivilege=1
 	rpc SendRemotePlaySessionStopped (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
 	rpc SendRemotePlayTogetherPacket (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
 	rpc SendSteamBroadcastPacket (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
 	rpc SendSteamToSteamPacket (.NotImplemented) returns (.NoResponse);
 }
 

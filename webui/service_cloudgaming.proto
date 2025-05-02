@@ -24,7 +24,9 @@ message CCloudGaming_TimeRemaining {
 }
 
 service CloudGaming {
+	// bConstMethod=true, ePrivilege=1
 	rpc CreateNonce (.CCloudGaming_CreateNonce_Request) returns (.CCloudGaming_CreateNonce_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetTimeRemaining (.CCloudGaming_GetTimeRemaining_Request) returns (.CCloudGaming_GetTimeRemaining_Response);
 }
 

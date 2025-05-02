@@ -57,10 +57,15 @@ message CSteamOSManagerState {
 }
 
 service SteamOSManager {
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc ApplyMandatoryUpdate (.CSteamOSManager_ApplyMandatoryUpdate_Request) returns (.CSteamOSManager_ApplyMandatoryUpdate_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc FactoryReset (.CSteamOSManager_FactoryReset_Request) returns (.CSteamOSManager_FactoryReset_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetState (.CSteamOSManager_GetState_Request) returns (.CSteamOSManager_GetState_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyStateChanged (.CSteamOSManager_StateChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc OptOutOfSideloadedClient (.CSteamOSManager_OptOutOfSideloadedClient_Request) returns (.CSteamOSManager_OptOutOfSideloadedClient_Response);
 }
 

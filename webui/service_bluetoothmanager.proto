@@ -126,17 +126,29 @@ message CMsgBluetoothManagerDeviceInfo {
 }
 
 service BluetoothManager {
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc CancelPair (.CBluetoothManager_CancelPair_Request) returns (.CBluetoothManager_CancelPair_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc Connect (.CBluetoothManager_Connect_Request) returns (.CBluetoothManager_Connect_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc Disconnect (.CBluetoothManager_Disconnect_Request) returns (.CBluetoothManager_Disconnect_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc Forget (.CBluetoothManager_Forget_Request) returns (.CBluetoothManager_Forget_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetAdapterDetails (.CBluetoothManager_GetAdapterDetails_Request) returns (.CBluetoothManager_GetAdapterDetails_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetDeviceDetails (.CBluetoothManager_GetDeviceDetails_Request) returns (.CBluetoothManager_GetDeviceDetails_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetState (.CBluetoothManager_GetState_Request) returns (.CBluetoothManager_GetState_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyStateChanged (.CBluetoothManager_StateChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc Pair (.CBluetoothManager_Pair_Request) returns (.CBluetoothManager_Pair_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc SetDiscovering (.CBluetoothManager_SetDiscovering_Request) returns (.CBluetoothManager_SetDiscovering_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc SetTrusted (.CBluetoothManager_SetTrusted_Request) returns (.CBluetoothManager_SetTrusted_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc SetWakeAllowed (.CBluetoothManager_SetWakeAllowed_Request) returns (.CBluetoothManager_SetWakeAllowed_Response);
 }
 

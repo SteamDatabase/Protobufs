@@ -11,6 +11,7 @@ message CHelpRequestLogs_UploadUserApplicationLog_Response {
 }
 
 service HelpRequestLogs {
+	// ePrivilege=1
 	rpc UploadUserApplicationLog (.CHelpRequestLogs_UploadUserApplicationLog_Request) returns (.CHelpRequestLogs_UploadUserApplicationLog_Response);
 }
 

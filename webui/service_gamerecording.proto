@@ -513,49 +513,93 @@ message CTimelineTag {
 }
 
 service GameRecording {
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc CleanupBackgroundRecordings (.CGameRecording_CleanupBackgroundRecordings_Request) returns (.CGameRecording_CleanupBackgroundRecordings_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc DeleteClip (.CGameRecording_DeleteClip_Request) returns (.CGameRecording_DeleteClip_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc DeletePerGameSettings (.CGameRecording_DeletePerGameSettings_Request) returns (.CGameRecording_DeletePerGameSettings_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc ExportClip (.CGameRecording_ExportClip_Request) returns (.CGameRecording_ExportClip_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc ExportClipPreview (.CGameRecording_ExportClipPreview_Request) returns (.CGameRecording_ExportClipPreview_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetAndTrimPostGameHighlights (.CGameRecording_GetAndTrimPostGameHighlights_Request) returns (.CGameRecording_GetAndTrimPostGameHighlights_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetAppsWithBackgroundVideo (.CGameRecording_GetAppsWithBackgroundVideo_Request) returns (.CGameRecording_GetAppsWithBackgroundVideo_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetAvailableDiskSpace (.CGameRecording_GetAvailableDiskSpace_Request) returns (.CGameRecording_GetAvailableDiskSpace_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetBackgroundRecordingFileSize (.CGameRecording_GetRecordingSize_Request) returns (.CGameRecording_GetRecordingSize_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetClips (.CGameRecording_GetClips_Request) returns (.CGameRecording_GetClips_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetEnoughDiskSpace (.CGameRecording_GetEnoughDiskSpace_Request) returns (.CGameRecording_GetEnoughDiskSpace_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetPerGameSettings (.CGameRecording_GetPerGameSettings_Request) returns (.CGameRecording_GetPerGameSettings_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetPlatformCapabilities (.CGameRecording_GetPlatformCapabilities_Request) returns (.CGameRecording_GetPlatformCapabilities_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetTags (.CGameRecording_GetTags_Request) returns (.CGameRecording_GetTags_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetThumbnails (.CGameRecording_GetThumbnails_Request) returns (.CGameRecording_GetThumbnails_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetTimelinesForApp (.CGameRecording_GetTimelinesForApp_Request) returns (.CGameRecording_GetTimelinesForApp_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetTimelinesForClip (.CGameRecording_GetTimelinesForClip_Request) returns (.CGameRecording_GetTimelinesForClip_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetTotalDiskSpaceUsage (.CGameRecording_GetTotalDiskSpaceUsage_Request) returns (.CGameRecording_GetTotalDiskSpaceUsage_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc ManuallyDeleteRecordingsForApps (.CGameRecording_ManuallyDeleteRecordingsForApps_Request) returns (.CGameRecording_ManuallyDeleteRecordingsForApps_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyClipCreated (.CGameRecording_ClipCreated_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyClipDeleted (.CGameRecording_ClipDeleted_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyExportProgress (.CGameRecording_ExportProgress_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyLowDiskSpace (.CGameRecording_LowDiskSpace_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyOpenOverlayToGamePhase (.CGameRecording_OpenOverlayToGamePhase_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyOpenOverlayToTimelineEvent (.CGameRecording_OpenOverlayToTimelineEvent_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyPhaseListChanged (.CGameRecording_PhaseListChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyPostGameHighlightsChanged (.CGameRecording_PostGameHighlightsChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyRecordingSessionChanged (.CGameRecording_RecordingSessionChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyTimelineChanged (.CGameRecording_TimelineChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyTimelineEntryChanged (.CGameRecording_TimelineEntryChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyTimelineEntryRemoved (.CGameRecording_TimelineEntryRemoved_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyUploadProgress (.CGameRecording_UploadProgress_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc QueryPhases (.CGameRecording_QueryPhases_Request) returns (.CGameRecording_QueryPhases_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc SaveClip (.CGameRecording_SaveClip_Request) returns (.CGameRecording_SaveClip_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc SetPerGameSettings (.CGameRecording_SetPerGameSettings_Request) returns (.CGameRecording_SetPerGameSettings_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc StartRecording (.CGameRecording_StartRecording_Request) returns (.CGameRecording_StartRecording_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc StopRecording (.CGameRecording_StopRecording_Request) returns (.CGameRecording_StopRecording_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc SwitchBackgroundRecordingGame (.CGameRecording_SwitchBackgroundRecordingGame_Request) returns (.CGameRecording_SwitchBackgroundRecordingGame_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc TakeScreenshot (.CGameRecording_TakeScreenshot_Request) returns (.CGameRecording_TakeScreenshot_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc UploadClipToSteam (.CGameRecording_UploadClipToSteam_Request) returns (.CGameRecording_UploadClipToSteam_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc UserAddTimelineEntry (.CGameRecording_UserAddTimelineEntry_Request) returns (.CGameRecording_UserAddTimelineEntry_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc UserRemoveTimelineEntry (.CGameRecording_UserRemoveTimelineEntry_Request) returns (.CGameRecording_UserRemoveTimelineEntry_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc UserUpdateTimelineEntry (.CGameRecording_UserUpdateTimelineEntry_Request) returns (.CGameRecording_UserUpdateTimelineEntry_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc ZipClip (.CGameRecording_ZipClip_Request) returns (.CGameRecording_ZipClip_Response);
 }
 

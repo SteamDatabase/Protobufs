@@ -20,6 +20,7 @@ message CSharedJSContext_GetDesiredSteamUIWindows_Response {
 }
 
 service SharedJSContext {
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetDesiredSteamUIWindows (.CSharedJSContext_GetDesiredSteamUIWindows_Request) returns (.CSharedJSContext_GetDesiredSteamUIWindows_Response);
 }
 

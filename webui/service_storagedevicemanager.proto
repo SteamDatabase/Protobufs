@@ -94,13 +94,21 @@ message CStorageDeviceManagerState {
 }
 
 service StorageDeviceManager {
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc Adopt (.CStorageDeviceManager_Adopt_Request) returns (.CStorageDeviceManager_Adopt_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc Eject (.CStorageDeviceManager_Eject_Request) returns (.CStorageDeviceManager_Eject_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc Format (.CStorageDeviceManager_Format_Request) returns (.CStorageDeviceManager_Format_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetState (.CStorageDeviceManager_GetState_Request) returns (.CStorageDeviceManager_GetState_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc IsServiceAvailable (.CStorageDeviceManager_IsServiceAvailable_Request) returns (.CStorageDeviceManager_IsServiceAvailable_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyStateChanged (.CStorageDeviceManager_StateChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc TrimAll (.CStorageDeviceManager_TrimAll_Request) returns (.CStorageDeviceManager_TrimAll_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc Unmount (.CStorageDeviceManager_Unmount_Request) returns (.CStorageDeviceManager_Unmount_Response);
 }
 

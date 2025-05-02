@@ -68,10 +68,15 @@ message CSteamAwardsNomination {
 }
 
 service SteamAwards {
+	// bConstMethod=true, ePrivilege=1
 	rpc GetNominationRecommendations (.CSteamAwards_GetNominationRecommendations_Request) returns (.CSteamAwards_GetNominationRecommendations_Response);
+	// ePrivilege=1
 	rpc GetNominationShareLink (.CSteamAwards_GetNominationShareLink_Request) returns (.CSteamAwards_GetNominationShareLink_Response);
+	// bConstMethod=true, ePrivilege=2
 	rpc GetOtherUserNominations (.CSteamAwards_GetOtherUserNominations_Request) returns (.CSteamAwards_GetUserNominations_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetUserNominations (.CSteamAwards_GetUserNominations_Request) returns (.CSteamAwards_GetUserNominations_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc Nominate (.CSteamAwards_Nominate_Request) returns (.CSteamAwards_Nominate_Response);
 }
 

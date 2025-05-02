@@ -194,18 +194,31 @@ message CPublishing_UpdatePartnerAppOptInEmail_Response {
 }
 
 service Publishing {
+	// ePrivilege=1
 	rpc CreatePartnerAppOptInEmails (.CPublishing_CreatePartnerAppOptInEmail_Request) returns (.CPublishing_CreatePartnerAppOptInEmail_Response);
+	// ePrivilege=1
 	rpc GetEstimatePartnerAppOptInEmail (.CPublishing_GetEstimatePartnerAppOptInEmail_Request) returns (.CPublishing_GetEstimatePartnerAppOptInEmail_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetOptInAppealsSummaryStats (.CPublishing_GetOptInAppealsSummaryStats_Request) returns (.CPublishing_GetOptInAppealsSummaryStats_Response);
+	// ePrivilege=1
 	rpc GetOptInEmailTracking (.CPublishing_GetOptInEmailTracking_Request) returns (.CPublishing_GetOptInEmailTracking_Response);
+	// ePrivilege=1
 	rpc GetPartnerAppOptInEmailDefAndStats (.CPublishing_GetPartnerAppOptInEmailDefAndStats_Request) returns (.CPublishing_GetPartnerAppOptInEmailDefAndStats_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetPartnerAppOptInsIDs (.CPublishing_GetPartnerAppOptInsIDs_Request) returns (.CPublishing_GetPartnerAppOptInsIDs_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetPartnerOptInInvites (.NotImplemented) returns (.CPublishing_GetPartnerOptInInvites_Response);
+	// bConstMethod=true, ePrivilege=4
 	rpc GetPartnerPaidGivenPackageList (.CPublishing_GetPartnerPaidGivenPackageList_Request) returns (.CPublishing_GetPartnerPaidGivenPackageList_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetSinglePartnerAppOptIn (.CPublishing_GetSinglePartnerAppOptIns_Request) returns (.CPublishing_GetSinglePartnerAppOptIns_Response);
+	// ePrivilege=1
 	rpc SendPartnerOptInEmailAndWait (.CPublishing_SendPartnerAppOptInEmailAndWait_Request) returns (.CPublishing_SendPartnerAppOptInEmailAndWait_Response);
+	// ePrivilege=1
 	rpc SetFeaturingOnPartnerAppOptIn (.CPublishing_SetFeaturingOnPartnerAppOptIn_Request) returns (.CPublishing_SetFeaturingOnPartnerAppOptIn_Response);
+	// ePrivilege=1
 	rpc TestFirePartnerAppOptInEmail (.CPublishing_TestFirePartnerAppOptInEmail_Request) returns (.CPublishing_TestFirePartnerAppOptInEmail_Response);
+	// ePrivilege=1
 	rpc UpdatePartnerAppOptInEmails (.CPublishing_UpdatePartnerAppOptInEmail_Request) returns (.CPublishing_UpdatePartnerAppOptInEmail_Response);
 }
 

@@ -19,6 +19,7 @@ message CMobileAuth_MigrateMobileSession_Response {
 }
 
 service MobileAuth {
+	// ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc MigrateMobileSession (.CMobileAuth_MigrateMobileSession_Request) returns (.CMobileAuth_MigrateMobileSession_Response);
 }
 

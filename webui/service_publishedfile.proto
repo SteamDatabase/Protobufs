@@ -697,38 +697,71 @@ message PublishedFileSubSection {
 }
 
 service PublishedFile {
+	// ePrivilege=1
 	rpc AddAppRelationship (.CPublishedFile_AddAppRelationship_Request) returns (.CPublishedFile_AddAppRelationship_Response);
+	// ePrivilege=1
 	rpc AddChild (.CPublishedFile_AddChild_Request) returns (.CPublishedFile_AddChild_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc AreFilesInSubscriptionList (.CPublishedFile_AreFilesInSubscriptionList_Request) returns (.CPublishedFile_AreFilesInSubscriptionList_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc CanSubscribe (.CPublishedFile_CanSubscribe_Request) returns (.CPublishedFile_CanSubscribe_Response);
+	// ePrivilege=3, eWebAPIKeyRequirement=5
 	rpc Delete (.CPublishedFile_Delete_Request) returns (.CPublishedFile_Delete_Response);
+	// bConstMethod=true, ePrivilege=0
 	rpc GetAppRelationships (.CPublishedFile_GetAppRelationships_Request) returns (.CPublishedFile_GetAppRelationships_Response);
+	// bConstMethod=true, ePrivilege=0
 	rpc GetAppRelationshipsBatched (.CPublishedFile_GetAppRelationshipsBatched_Request) returns (.CPublishedFile_GetAppRelationshipsBatched_Response);
+	// bConstMethod=true, ePrivilege=0
 	rpc GetChangeHistory (.CPublishedFile_GetChangeHistory_Request) returns (.CPublishedFile_GetChangeHistory_Response);
+	// bConstMethod=true, ePrivilege=0
 	rpc GetChangeHistoryEntry (.CPublishedFile_GetChangeHistoryEntry_Request) returns (.CPublishedFile_GetChangeHistoryEntry_Response);
+	// ePrivilege=0
 	rpc GetContentDescriptors (.CPublishedFile_GetContentDescriptors_Request) returns (.CPublishedFile_GetContentDescriptors_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=2
 	rpc GetDetails (.CPublishedFile_GetDetails_Request) returns (.CPublishedFile_GetDetails_Response);
+	// ePrivilege=1
 	rpc GetItemChanges (.CPublishedFile_GetItemChanges_Request) returns (.CPublishedFile_GetItemChanges_Response);
+	// ePrivilege=2
 	rpc GetItemInfo (.CPublishedFile_GetItemInfo_Request) returns (.CPublishedFile_GetItemInfo_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=2
 	rpc GetSubSectionData (.CPublishedFile_GetSubSectionData_Request) returns (.CPublishedFile_GetSubSectionData_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=2
 	rpc GetUserFileCount (.CPublishedFile_GetUserFiles_Request) returns (.CPublishedFile_GetUserFiles_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=2
 	rpc GetUserFiles (.CPublishedFile_GetUserFiles_Request) returns (.CPublishedFile_GetUserFiles_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetUserVoteSummary (.CPublishedFile_GetUserVoteSummary_Request) returns (.CPublishedFile_GetUserVoteSummary_Response);
+	// ePrivilege=3
 	rpc Publish (.CPublishedFile_Publish_Request) returns (.CPublishedFile_Publish_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=2
 	rpc QueryFiles (.CPublishedFile_QueryFiles_Request) returns (.CPublishedFile_QueryFiles_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=5
 	rpc RefreshVotingQueue (.CPublishedFile_RefreshVotingQueue_Request) returns (.CPublishedFile_RefreshVotingQueue_Response);
+	// ePrivilege=1
 	rpc RemoveAppRelationship (.CPublishedFile_RemoveAppRelationship_Request) returns (.CPublishedFile_RemoveAppRelationship_Response);
+	// ePrivilege=1
 	rpc RemoveChild (.CPublishedFile_RemoveChild_Request) returns (.CPublishedFile_RemoveChild_Response);
+	// ePrivilege=1
 	rpc SetCollectionChildren (.CPublishedFile_SetCollectionChildren_Request) returns (.CPublishedFile_SetCollectionChildren_Response);
+	// ePrivilege=1
 	rpc SetPlaytimeForControllerConfigs (.CPublishedFile_SetPlaytimeForControllerConfigs_Request) returns (.CPublishedFile_SetPlaytimeForControllerConfigs_Response);
+	// ePrivilege=1
 	rpc SetSubscriptionListFromCollection (.CPublishedFile_SetSubscriptionListFromCollection_Request) returns (.CPublishedFile_SetSubscriptionListFromCollection_Response);
+	// ePrivilege=1
 	rpc StartPlaytimeTracking (.CPublishedFile_StartPlaytimeTracking_Request) returns (.CPublishedFile_StartPlaytimeTracking_Response);
+	// ePrivilege=1
 	rpc StopPlaytimeTracking (.CPublishedFile_StopPlaytimeTracking_Request) returns (.CPublishedFile_StopPlaytimeTracking_Response);
+	// ePrivilege=1
 	rpc StopPlaytimeTrackingForAllAppItems (.CPublishedFile_StopPlaytimeTrackingForAllAppItems_Request) returns (.CPublishedFile_StopPlaytimeTrackingForAllAppItems_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc Subscribe (.CPublishedFile_Subscribe_Request) returns (.CPublishedFile_Subscribe_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc Unsubscribe (.CPublishedFile_Unsubscribe_Request) returns (.CPublishedFile_Unsubscribe_Response);
+	// ePrivilege=3
 	rpc Update (.CPublishedFile_Update_Request) returns (.CPublishedFile_Update_Response);
+	// ePrivilege=1
 	rpc UpdateContentDescriptors (.CPublishedFile_UpdateContentDescriptors_Request) returns (.CPublishedFile_UpdateContentDescriptors_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=5
 	rpc Vote (.CPublishedFile_Vote_Request) returns (.CPublishedFile_Vote_Response);
 }
 

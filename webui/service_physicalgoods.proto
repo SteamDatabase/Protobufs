@@ -10,6 +10,7 @@ message CPhysicalGoods_CheckInventoryAvailableByPackage_Response {
 }
 
 service PhysicalGoods {
+	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc CheckInventoryAvailableByPackage (.CPhysicalGoods_CheckInventoryAvailableByPackage_Request) returns (.CPhysicalGoods_CheckInventoryAvailableByPackage_Response);
 }
 

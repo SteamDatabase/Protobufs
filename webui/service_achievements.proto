@@ -18,6 +18,7 @@ message CAchievements_GetInfo_Response_Info {
 }
 
 service Achievements {
+	// ePrivilege=1, eClientExecutionSite=2
 	rpc GetInfo (.CAchievements_GetInfo_Request) returns (.CAchievements_GetInfo_Response);
 }
 

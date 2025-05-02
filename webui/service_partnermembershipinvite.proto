@@ -29,6 +29,7 @@ message MembershipInvite {
 }
 
 service PartnerMembershipInvite {
+	// bConstMethod=true, ePrivilege=11
 	rpc GetInvites (.CPartnerMembershipInvite_GetInvites_Request) returns (.CPartnerMembershipInvite_GetInvites_Response);
 }
 

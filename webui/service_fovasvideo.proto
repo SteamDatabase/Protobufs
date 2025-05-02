@@ -10,6 +10,7 @@ message CFovasVideo_ClientGetOPFSettings_Response {
 }
 
 service FovasVideo {
+	// ePrivilege=1
 	rpc ClientGetOPFSettings (.CFovasVideo_ClientGetOPFSettings_Request) returns (.CFovasVideo_ClientGetOPFSettings_Response);
 }
 

@@ -19,6 +19,7 @@ message CEmbeddedClient_Token {
 }
 
 service EmbeddedClient {
+	// ePrivilege=1
 	rpc AuthorizeCurrentDevice (.CEmbeddedClient_AuthorizeCurrentDevice_Request) returns (.CEmbeddedClient_AuthorizeDevice_Response);
 }
 

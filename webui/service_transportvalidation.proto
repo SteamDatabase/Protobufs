@@ -92,24 +92,40 @@ message CTransportValidationClient_AddNumbers_Response {
 }
 
 service TransportValidation {
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc AddNumbers (.CTransportValidation_AddNumbers_Request) returns (.CTransportValidation_AddNumbers_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc AddNumbersStatic (.CTransportValidation_AddNumbers_Request) returns (.CTransportValidation_AddNumbers_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc AppendToString (.CTransportValidation_AppendToString_Request) returns (.CTransportValidation_AppendToString_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc CountOrderedBytes (.CTransportValidation_CountOrderedBytes_Request) returns (.CTransportValidation_CountOrderedBytes_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetLargeResponse (.CTransportValidation_GetLargeResponse_Request) returns (.CTransportValidation_GetLargeResponse_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetLastNotifyNumber (.CTransportValidation_GetLastNotifyNumber_Request) returns (.CTransportValidation_GetLastNotifyNumber_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyCount (.CTransportValidation_NotifyCount_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyLarge (.CTransportValidation_NotifyLarge_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyNumber (.CTransportValidation_NotifyNumber_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifySyntheticEvent (.CTransportValidation_NotifySyntheticEvent_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyText (.CTransportValidation_NotifyText_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc RequestInvalidBool (.CTransportValidation_RequestInvalidBool_Request) returns (.CTransportValidation_RequestInvalidBool_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc RequestLargeNotification (.CTransportValidation_RequestLargeNotification_Request) returns (.CTransportValidation_RequestLargeNotification_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc ThreadedCount (.CTransportValidation_ThreadedCount_Request) returns (.CTransportValidation_ThreadedCount_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc TriggerSyntheticEvents (.CTransportValidation_TriggerSyntheticEvents_Request) returns (.CTransportValidation_TriggerSyntheticEvents_Response);
 }
 
 service TransportValidationClient {
+	// ePrivilege=1, eClientExecutionSite=2
 	rpc AddNumbers (.CTransportValidationClient_AddNumbers_Request) returns (.CTransportValidationClient_AddNumbers_Response);
 }
 

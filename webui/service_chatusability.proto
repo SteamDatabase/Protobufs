@@ -98,6 +98,7 @@ message CChatUsability_RequestClientUsabilityMetrics_Notification {
 }
 
 service ChatUsability {
+	// ePrivilege=1
 	rpc NotifyClientUsabilityMetrics (.CChatUsability_ClientUsabilityMetrics_Notification) returns (.NoResponse);
 }
 

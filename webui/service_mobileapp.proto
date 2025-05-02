@@ -13,6 +13,7 @@ message CMobileApp_GetMobileSummary_Response {
 }
 
 service MobileApp {
+	// ePrivilege=1
 	rpc GetMobileSummary (.CMobileApp_GetMobileSummary_Request) returns (.CMobileApp_GetMobileSummary_Response);
 }
 

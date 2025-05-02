@@ -59,21 +59,37 @@ message CClientMetrics_ReportReactUsage_Notification_RouteData {
 }
 
 service ClientMetrics {
+	// ePrivilege=1
 	rpc ClientAppInterfaceStatsReport (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
 	rpc ClientBootstrapReport (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
 	rpc ClientCloudAppSyncStats (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
 	rpc ClientContentValidationReport (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
 	rpc ClientDownloadRatesReport (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
 	rpc ClientDownloadResponseCodeCounts (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
 	rpc ClientIPv6ConnectivityReport (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
 	rpc ReportClientArgs (.CClientMetrics_ReportClientArgs_Notification) returns (.NoResponse);
+	// ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc ReportClientError (.CClientMetrics_ReportClientError_Notification) returns (.NoResponse);
+	// ePrivilege=1
 	rpc ReportClipRange (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
 	rpc ReportClipShare (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
 	rpc ReportEndGameRecording (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
 	rpc ReportGamePerformance (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
 	rpc ReportLinuxStats (.CClientMetrics_ReportLinuxStats_Notification) returns (.NoResponse);
+	// ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc ReportReactUsage (.CClientMetrics_ReportReactUsage_Notification) returns (.NoResponse);
+	// ePrivilege=1
 	rpc SteamPipeWorkStatsReport (.NotImplemented) returns (.NoResponse);
 }
 

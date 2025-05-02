@@ -101,11 +101,17 @@ message CWishlistFilters_SteamDeckFilters {
 }
 
 service Wishlist {
+	// ePrivilege=1
 	rpc AddToWishlist (.CWishlist_AddToWishlist_Request) returns (.CWishlist_AddToWishlist_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetWishlist (.CWishlist_GetWishlist_Request) returns (.CWishlist_GetWishlist_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetWishlistItemCount (.CWishlist_GetWishlistItemCount_Request) returns (.CWishlist_GetWishlistItemCount_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetWishlistItemsOnSale (.CWishlist_GetWishlistItemsOnSale_Request) returns (.CWishlist_GetWishlistItemsOnSale_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetWishlistSortedFiltered (.CWishlist_GetWishlistSortedFiltered_Request) returns (.CWishlist_GetWishlistSortedFiltered_Response);
+	// ePrivilege=1
 	rpc RemoveFromWishlist (.CWishlist_RemoveFromWishlist_Request) returns (.CWishlist_RemoveFromWishlist_Response);
 }
 

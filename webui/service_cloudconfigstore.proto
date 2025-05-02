@@ -41,7 +41,9 @@ message CCloudConfigStore_Upload_Response {
 }
 
 service CloudConfigStore {
+	// bConstMethod=true, ePrivilege=1
 	rpc Download (.CCloudConfigStore_Download_Request) returns (.CCloudConfigStore_Download_Response);
+	// ePrivilege=1
 	rpc Upload (.CCloudConfigStore_Upload_Request) returns (.CCloudConfigStore_Upload_Response);
 }
 

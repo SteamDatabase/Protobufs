@@ -740,58 +740,111 @@ message ServerMessage {
 }
 
 service ChatRoom {
+	// ePrivilege=1
 	rpc AckChatMessage (.CChatRoom_AckChatMessage_Notification) returns (.NoResponse);
+	// ePrivilege=3
 	rpc AddRoleToUser (.CChatRoom_AddRoleToUser_Request) returns (.CChatRoom_AddRoleToUser_Response);
+	// ePrivilege=3
 	rpc CreateChatRoom (.CChatRoom_CreateChatRoom_Request) returns (.CChatRoom_CreateChatRoom_Response);
+	// ePrivilege=3
 	rpc CreateChatRoomGroup (.CChatRoom_CreateChatRoomGroup_Request) returns (.CChatRoom_CreateChatRoomGroup_Response);
+	// ePrivilege=3
 	rpc CreateInviteLink (.CChatRoom_CreateInviteLink_Request) returns (.CChatRoom_CreateInviteLink_Response);
+	// ePrivilege=3
 	rpc CreateRole (.CChatRoom_CreateRole_Request) returns (.CChatRoom_CreateRole_Response);
+	// ePrivilege=1
 	rpc DeleteChatMessages (.CChatRoom_DeleteChatMessages_Request) returns (.CChatRoom_DeleteChatMessages_Response);
+	// ePrivilege=3
 	rpc DeleteChatRoom (.CChatRoom_DeleteChatRoom_Request) returns (.CChatRoom_DeleteChatRoom_Response);
+	// ePrivilege=3
 	rpc DeleteInviteLink (.CChatRoom_DeleteInviteLink_Request) returns (.CChatRoom_DeleteInviteLink_Response);
+	// ePrivilege=3
 	rpc DeleteRole (.CChatRoom_DeleteRole_Request) returns (.CChatRoom_DeleteRole_Response);
+	// ePrivilege=3
 	rpc DeleteRoleFromUser (.CChatRoom_DeleteRoleFromUser_Request) returns (.CChatRoom_DeleteRoleFromUser_Response);
+	// ePrivilege=3
 	rpc EndMiniGameForChatRoomGroup (.CChatRoom_EndMiniGameForChatRoomGroup_Request) returns (.CChatRoom_EndMiniGameForChatRoomGroup_Response);
+	// ePrivilege=3
 	rpc GetBanList (.CChatRoom_GetBanList_Request) returns (.CChatRoom_GetBanList_Response);
+	// ePrivilege=3
 	rpc GetChatRoomGroupState (.CChatRoom_GetChatRoomGroupState_Request) returns (.CChatRoom_GetChatRoomGroupState_Response);
+	// ePrivilege=2
 	rpc GetChatRoomGroupSummary (.CChatRoom_GetChatRoomGroupSummary_Request) returns (.CChatRoom_GetChatRoomGroupSummary_Response);
+	// ePrivilege=1
 	rpc GetInviteInfo (.CChatRoom_GetInviteInfo_Request) returns (.CChatRoom_GetInviteInfo_Response);
+	// ePrivilege=2
 	rpc GetInviteLinkInfo (.CChatRoom_GetInviteLinkInfo_Request) returns (.CChatRoom_GetInviteLinkInfo_Response);
+	// ePrivilege=3
 	rpc GetInviteLinksForGroup (.CChatRoom_GetInviteLinksForGroup_Request) returns (.CChatRoom_GetInviteLinksForGroup_Response);
+	// ePrivilege=3
 	rpc GetInviteList (.CChatRoom_GetInviteList_Request) returns (.CChatRoom_GetInviteList_Response);
+	// ePrivilege=3
 	rpc GetMessageHistory (.CChatRoom_GetMessageHistory_Request) returns (.CChatRoom_GetMessageHistory_Response);
+	// ePrivilege=1
 	rpc GetMessageReactionReactors (.CChatRoom_GetMessageReactionReactors_Request) returns (.CChatRoom_GetMessageReactionReactors_Response);
+	// ePrivilege=1
 	rpc GetMyChatRoomGroups (.CChatRoom_GetMyChatRoomGroups_Request) returns (.CChatRoom_GetMyChatRoomGroups_Response);
+	// ePrivilege=1
 	rpc GetRoleActions (.CChatRoom_GetRoleActions_Request) returns (.CChatRoom_GetRoleActions_Response);
+	// ePrivilege=1
 	rpc GetRoles (.CChatRoom_GetRoles_Request) returns (.CChatRoom_GetRoles_Response);
+	// ePrivilege=1
 	rpc GetRolesForUser (.CChatRoom_GetRolesForUser_Request) returns (.CChatRoom_GetRolesForUser_Response);
+	// ePrivilege=3
 	rpc InviteFriendToChatRoomGroup (.CChatRoom_InviteFriendToChatRoomGroup_Request) returns (.CChatRoom_InviteFriendToChatRoomGroup_Response);
+	// ePrivilege=3
 	rpc JoinChatRoomGroup (.CChatRoom_JoinChatRoomGroup_Request) returns (.CChatRoom_JoinChatRoomGroup_Response);
+	// ePrivilege=3
 	rpc JoinMiniGameForChatRoomGroup (.CChatRoom_JoinMiniGameForChatRoomGroup_Request) returns (.CChatRoom_JoinMiniGameForChatRoomGroup_Response);
+	// ePrivilege=3
 	rpc JoinVoiceChat (.CChatRoom_JoinVoiceChat_Request) returns (.CChatRoom_JoinVoiceChat_Response);
+	// ePrivilege=3
 	rpc KickUserFromGroup (.CChatRoom_KickUser_Request) returns (.CChatRoom_KickUser_Response);
+	// ePrivilege=1
 	rpc LeaveChatRoomGroup (.CChatRoom_LeaveChatRoomGroup_Request) returns (.CChatRoom_LeaveChatRoomGroup_Response);
+	// ePrivilege=1
 	rpc LeaveVoiceChat (.CChatRoom_LeaveVoiceChat_Request) returns (.CChatRoom_LeaveVoiceChat_Response);
+	// ePrivilege=3
 	rpc MuteUserInGroup (.CChatRoom_MuteUser_Request) returns (.CChatRoom_MuteUser_Response);
+	// ePrivilege=3
 	rpc RenameChatRoom (.CChatRoom_RenameChatRoom_Request) returns (.CChatRoom_RenameChatRoom_Response);
+	// ePrivilege=3
 	rpc RenameChatRoomGroup (.CChatRoom_RenameChatRoomGroup_Request) returns (.CChatRoom_RenameChatRoomGroup_Response);
+	// ePrivilege=3
 	rpc RenameRole (.CChatRoom_RenameRole_Request) returns (.CChatRoom_RenameRole_Response);
+	// ePrivilege=3
 	rpc ReorderChatRoom (.CChatRoom_ReorderChatRoom_Request) returns (.CChatRoom_ReorderChatRoom_Response);
+	// ePrivilege=3
 	rpc ReorderRole (.CChatRoom_ReorderRole_Request) returns (.CChatRoom_ReorderRole_Response);
+	// ePrivilege=3
 	rpc ReplaceRoleActions (.CChatRoom_ReplaceRoleActions_Request) returns (.CChatRoom_ReplaceRoleActions_Response);
+	// ePrivilege=1
 	rpc RevokeInviteToGroup (.CChatRoom_RevokeInvite_Request) returns (.CChatRoom_RevokeInvite_Response);
+	// ePrivilege=3
 	rpc SaveChatRoomGroup (.CChatRoom_SaveChatRoomGroup_Request) returns (.CChatRoom_SaveChatRoomGroup_Response);
+	// ePrivilege=1
 	rpc SearchMembers (.CChatRoom_SearchMembers_Request) returns (.CChatRoom_SearchMembers_Response);
+	// ePrivilege=3
 	rpc SendChatMessage (.CChatRoom_SendChatMessage_Request) returns (.CChatRoom_SendChatMessage_Response);
+	// ePrivilege=1
 	rpc SetAppChatRoomGroupForceActive (.CChatRoom_SetAppChatRoomGroupForceActive_Request) returns (.CChatRoom_SetAppChatRoomGroupForceActive_Response);
+	// ePrivilege=1
 	rpc SetAppChatRoomGroupStopForceActive (.CChatRoom_SetAppChatRoomGroupStopForceActive_Notification) returns (.NoResponse);
+	// ePrivilege=3
 	rpc SetChatRoomGroupAvatar (.CChatRoom_SetChatRoomGroupAvatar_Request) returns (.CChatRoom_SetChatRoomGroupAvatar_Response);
+	// ePrivilege=3
 	rpc SetChatRoomGroupTagline (.CChatRoom_SetChatRoomGroupTagline_Request) returns (.CChatRoom_SetChatRoomGroupTagline_Response);
+	// ePrivilege=3
 	rpc SetChatRoomGroupWatchingBroadcast (.CChatRoom_SetChatRoomGroupWatchingBroadcast_Request) returns (.CChatRoom_SetChatRoomGroupWatchingBroadcast_Response);
+	// ePrivilege=1
 	rpc SetSessionActiveChatRoomGroups (.CChatRoom_SetSessionActiveChatRoomGroups_Request) returns (.CChatRoom_SetSessionActiveChatRoomGroups_Response);
+	// ePrivilege=3
 	rpc SetUserBanState (.CChatRoom_SetUserBanState_Request) returns (.CChatRoom_SetUserBanState_Response);
+	// ePrivilege=1
 	rpc SetUserChatGroupPreferences (.CChatRoom_SetUserChatGroupPreferences_Request) returns (.CChatRoom_SetUserChatGroupPreferences_Response);
+	// ePrivilege=1
 	rpc UpdateMemberListView (.CChatRoom_UpdateMemberListView_Notification) returns (.NoResponse);
+	// ePrivilege=1
 	rpc UpdateMessageReaction (.CChatRoom_UpdateMessageReaction_Request) returns (.CChatRoom_UpdateMessageReaction_Response);
 }
 

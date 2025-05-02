@@ -101,10 +101,15 @@ message CNewsPartnerEventPreview {
 }
 
 service News {
+	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc ConvertHTMLToBBCode (.CNews_ConvertHTMLToBBCode_Request) returns (.CNews_ConvertHTMLToBBCode_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetBatchPublishedPartnerEvent (.CNews_GetBatchPublishedPartnerEvent_Request) returns (.CNews_GetBatchPublishedPartnerEvent_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetNewsFeedByRepublishClan (.CNews_GetNewsFeedByRepublishClan_Request) returns (.CNews_GetNewsFeedByRepublishClan_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc PreviewPartnerEvents (.CNews_PreviewPartnerEvents_Request) returns (.CNews_PreviewPartnerEvents_Response);
+	// ePrivilege=1
 	rpc PublishPartnerEvent (.CNews_PublishPartnerEvent_Request) returns (.CNews_PublishPartnerEvent_Response);
 }
 

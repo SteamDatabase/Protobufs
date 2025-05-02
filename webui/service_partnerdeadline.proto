@@ -64,7 +64,9 @@ message CPartnerDeadlineLookUpKey {
 }
 
 service PartnerDeadline {
+	// bConstMethod=true, ePrivilege=4
 	rpc GetDeadlineByTimeRange (.CPartnerDeadline_GetDeadlineByTimeRange_Request) returns (.CPartnerDeadline_GetDeadlineByTimeRange_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetDeadlinesForPartner (.CPartnerDeadline_GetDeadlinesForPartner_Request) returns (.CPartnerDeadline_GetDeadlinesForPartner_Response);
 }
 

@@ -373,16 +373,27 @@ message CYearInReviewPerformanceStats {
 }
 
 service SaleFeature {
+	// bConstMethod=true, ePrivilege=4
 	rpc GetAllUserActionDataForType (.CSaleFeature_GetAllUserActionDataForType_Request) returns (.CSaleFeature_GetAllUserActionDataForType_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetFriendsSharedYearInReview (.CSaleFeature_GetFriendsSharedYearInReview_Request) returns (.CSaleFeature_GetFriendsSharedYearInReview_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetMultipleUserActionData (.CSaleFeature_GetMultipleUserActionData_Request) returns (.CSaleFeature_GetMultipleUserActionData_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetUserActionData (.CSaleFeature_GetUserActionData_Request) returns (.CSaleFeature_GetUserActionData_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetUserSharingPermissions (.CSaleFeature_GetUserSharingPermissions_Request) returns (.CSaleFeature_GetUserSharingPermissions_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetUserYearAchievements (.CSaleFeature_GetUserYearAchievements_Request) returns (.CSaleFeature_GetUserYearAchievements_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetUserYearInReview (.CSaleFeature_GetUserYearInReview_Request) returns (.CSaleFeature_GetUserYearInReview_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetUserYearInReviewShareImage (.CSaleFeature_GetUserYearInReviewShareImage_Request) returns (.CSaleFeature_GetUserYearInReviewShareImage_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetUserYearScreenshots (.CSaleFeature_GetUserYearScreenshots_Request) returns (.CSaleFeature_GetUserYearScreenshots_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetYIRCurrentMonthlySummary (.CSaleFeature_GetYIRCurrentMonthlySummary_Request) returns (.CSaleFeature_GetYIRCurrentMonthlySummary_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc SetUserSharingPermissions (.CSaleFeature_SetUserSharingPermissions_Request) returns (.CSaleFeature_SetUserSharingPermissions_Response);
 }
 

@@ -96,8 +96,11 @@ message RecommendationDetails {
 }
 
 service UserReviews {
+	// bConstMethod=true, ePrivilege=1
 	rpc GetFriendsRecommendedApp (.CUserReviews_GetFriendsRecommendedApp_Request) returns (.CUserReviews_GetFriendsRecommendedApp_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetIndividualRecommendations (.CUserReviews_GetIndividualRecommendations_Request) returns (.CUserReviews_GetIndividualRecommendations_Response);
+	// ePrivilege=3
 	rpc Update (.CUserReviews_Update_Request) returns (.CUserReviews_Update_Response);
 }
 

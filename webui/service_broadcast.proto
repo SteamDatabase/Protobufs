@@ -517,39 +517,73 @@ message CBroadcast_WebRTCStopped_Response {
 }
 
 service Broadcast {
+	// ePrivilege=1
 	rpc BeginBroadcastSession (.CBroadcast_BeginBroadcastSession_Request) returns (.CBroadcast_BeginBroadcastSession_Response);
+	// ePrivilege=1
 	rpc EndBroadcastSession (.CBroadcast_EndBroadcastSession_Request) returns (.CBroadcast_EndBroadcastSession_Response);
+	// ePrivilege=2
 	rpc GetBroadcastChatInfo (.CBroadcast_GetBroadcastChatInfo_Request) returns (.CBroadcast_GetBroadcastChatInfo_Response);
+	// ePrivilege=1
 	rpc GetBroadcastChatUserNames (.CBroadcast_GetBroadcastChatUserNames_Request) returns (.CBroadcast_GetBroadcastChatUserNames_Response);
+	// ePrivilege=2
 	rpc GetBroadcastStatus (.CBroadcast_GetBroadcastStatus_Request) returns (.CBroadcast_GetBroadcastStatus_Response);
+	// ePrivilege=2
 	rpc GetBroadcastThumbnail (.CBroadcast_GetBroadcastThumbnail_Request) returns (.CBroadcast_GetBroadcastThumbnail_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetBroadcastUploadStats (.CBroadcast_GetBroadcastUploadStats_Request) returns (.CBroadcast_GetBroadcastUploadStats_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetBroadcastViewerStats (.CBroadcast_GetBroadcastViewerStats_Request) returns (.CBroadcast_GetBroadcastViewerStats_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetBuildClipStatus (.CBroadcast_GetBuildClipStatus_Request) returns (.CBroadcast_GetBuildClipStatus_Response);
+	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=2
 	rpc GetClipDetails (.CBroadcast_GetClipDetails_Request) returns (.CBroadcast_GetClipDetails_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetRTMPInfo (.CBroadcast_GetRTMPInfo_Request) returns (.CBroadcast_GetRTMPInfo_Response);
+	// ePrivilege=2
 	rpc HeartbeatBroadcast (.CBroadcast_HeartbeatBroadcast_Notification) returns (.NoResponse);
+	// ePrivilege=1
 	rpc InviteToBroadcast (.CBroadcast_InviteToBroadcast_Request) returns (.CBroadcast_InviteToBroadcast_Response);
+	// ePrivilege=3
 	rpc MuteBroadcastChatUser (.CBroadcast_MuteBroadcastChatUser_Request) returns (.CBroadcast_MuteBroadcastChatUser_Response);
+	// ePrivilege=1
 	rpc NotifyBroadcastSessionHeartbeat (.CBroadcast_NotifyBroadcastSessionHeartbeat_Notification) returns (.NoResponse);
+	// ePrivilege=1
 	rpc NotifyBroadcastUploadStop (.CBroadcast_NotifyBroadcastUploadStop_Notification) returns (.NoResponse);
+	// ePrivilege=1
 	rpc NotifyWebRTCHaveTURNServer (.CBroadcast_WebRTCHaveTURNServer_Notification) returns (.NoResponse);
+	// ePrivilege=3
 	rpc PostChatMessage (.CBroadcast_PostChatMessage_Request) returns (.CBroadcast_PostChatMessage_Response);
+	// ePrivilege=3
 	rpc RemoveUserChatText (.CBroadcast_RemoveUserChatText_Request) returns (.CBroadcast_RemoveUserChatText_Response);
+	// ePrivilege=1
 	rpc SendBroadcastStateToServer (.CBroadcast_SendBroadcastStateToServer_Request) returns (.CBroadcast_SendBroadcastStateToServer_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc SetClipDetails (.CBroadcast_SetClipDetails_Request) returns (.CBroadcast_SetClipDetails_Response);
+	// ePrivilege=1
 	rpc SetRTMPInfo (.CBroadcast_SetRTMPInfo_Request) returns (.CBroadcast_SetRTMPInfo_Response);
+	// ePrivilege=1
 	rpc StartBroadcastUpload (.CBroadcast_StartBroadcastUpload_Request) returns (.CBroadcast_StartBroadcastUpload_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc StartBuildClip (.CBroadcast_StartBuildClip_Request) returns (.CBroadcast_StartBuildClip_Response);
+	// ePrivilege=2
 	rpc StopWatchingBroadcast (.CBroadcast_StopWatchingBroadcast_Notification) returns (.NoResponse);
+	// ePrivilege=1
 	rpc UpdateChatMessageFlair (.CBroadcast_UpdateChatMessageFlair_Request) returns (.CBroadcast_UpdateChatMessageFlair_Response);
+	// ePrivilege=2
 	rpc WatchBroadcast (.CBroadcast_WatchBroadcast_Request) returns (.CBroadcast_WatchBroadcast_Response);
+	// ePrivilege=1
 	rpc WebRTCAddHostCandidate (.CBroadcast_WebRTCAddHostCandidate_Request) returns (.CBroadcast_WebRTCAddHostCandidate_Response);
+	// ePrivilege=1
 	rpc WebRTCAddViewerCandidate (.CBroadcast_WebRTCAddViewerCandidate_Request) returns (.CBroadcast_WebRTCAddViewerCandidate_Response);
+	// ePrivilege=1
 	rpc WebRTCGetHostCandidates (.CBroadcast_WebRTCGetHostCandidates_Request) returns (.CBroadcast_WebRTCGetHostCandidates_Response);
+	// ePrivilege=1
 	rpc WebRTCLookupTURNServer (.CBroadcast_WebRTCLookupTURNServer_Request) returns (.CBroadcast_WebRTCLookupTURNServer_Response);
+	// ePrivilege=1
 	rpc WebRTCSetAnswer (.CBroadcast_WebRTCSetAnswer_Request) returns (.CBroadcast_WebRTCSetAnswer_Response);
+	// ePrivilege=1
 	rpc WebRTCStartResult (.CBroadcast_WebRTCStartResult_Request) returns (.CBroadcast_WebRTCStartResult_Response);
+	// ePrivilege=1
 	rpc WebRTCStopped (.CBroadcast_WebRTCStopped_Request) returns (.CBroadcast_WebRTCStopped_Response);
 }
 

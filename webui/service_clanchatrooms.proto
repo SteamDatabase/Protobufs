@@ -19,7 +19,9 @@ message CClanChatRooms_SetClanChatRoomPrivate_Response {
 }
 
 service ClanChatRooms {
+	// ePrivilege=2
 	rpc GetClanChatRoomInfo (.CClanChatRooms_GetClanChatRoomInfo_Request) returns (.CClanChatRooms_GetClanChatRoomInfo_Response);
+	// ePrivilege=3
 	rpc SetClanChatRoomPrivate (.CClanChatRooms_SetClanChatRoomPrivate_Request) returns (.CClanChatRooms_SetClanChatRoomPrivate_Response);
 }
 

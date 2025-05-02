@@ -103,12 +103,19 @@ message CPromotionRequirements {
 }
 
 service PromotionEventInvites {
+	// ePrivilege=1
 	rpc AcceptInvite (.CPromotionEventInvites_AcceptInvite_Request) returns (.CPromotionEventInvites_AcceptInvite_Response);
+	// ePrivilege=4
 	rpc CancelInvite (.CPromotionEventInvites_CancelInvite_Request) returns (.CPromotionEventInvites_CancelInvite_Response);
+	// bConstMethod=true, ePrivilege=11
 	rpc GetAllActiveInvites (.NotImplemented) returns (.CPromotionEventInvites_GetAllActiveInvites_Response);
+	// ePrivilege=4
 	rpc GetEmailTargets (.CPromotionEventInvites_GetEmailTargets_Request) returns (.CPromotionEventInvites_GetEmailTargets_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetInvite (.CPromotionEventInvites_GetInvite_Request) returns (.CPromotionEventInvites_GetInvite_Response);
+	// ePrivilege=4
 	rpc ResendEmailInvite (.CPromotionEventInvites_ResendEmailInvite_Request) returns (.CPromotionEventInvites_ResendEmailInvite_Response);
+	// ePrivilege=4
 	rpc SetInvite (.CPromotionEventInvites_SetInvite_Request) returns (.CPromotionEventInvites_SetInvite_Response);
 }
 

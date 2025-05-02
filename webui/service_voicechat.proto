@@ -129,14 +129,23 @@ message CVoiceChat_VoiceChatEnded_Notification {
 }
 
 service VoiceChat {
+	// ePrivilege=1
 	rpc AnswerOneOnOneChat (.CVoiceChat_AnswerOneOnOneChat_Request) returns (.CVoiceChat_AnswerOneOnOneChat_Response);
+	// ePrivilege=1
 	rpc EndOneOnOneChat (.CVoiceChat_EndOneOnOneChat_Request) returns (.CVoiceChat_EndOneOnOneChat_Response);
+	// ePrivilege=1
 	rpc LeaveOneOnOneChat (.CVoiceChat_LeaveOneOnOneChat_Request) returns (.CVoiceChat_LeaveOneOnOneChat_Response);
+	// ePrivilege=1
 	rpc LeaveVoiceChat (.CVoiceChat_LeaveVoiceChat_Request) returns (.CVoiceChat_LeaveVoiceChat_Response);
+	// ePrivilege=1
 	rpc NotifyUserVoiceStatus (.CVoiceChat_UserVoiceStatus_Notification) returns (.NoResponse);
+	// ePrivilege=1
 	rpc RequestOneOnOneChat (.CVoiceChat_RequestOneOnOneChat_Request) returns (.CVoiceChat_RequestOneOnOneChat_Response);
+	// ePrivilege=1
 	rpc UpdateUserVideoStatus (.CVoiceChat_UpdateUserVideoStatus_Request) returns (.CVoiceChat_UpdateUserVideoStatus_Response);
+	// ePrivilege=1
 	rpc UpdateVoiceChatWebRTCData (.CVoiceChat_UpdateVoiceChatWebRTCData_Request) returns (.CVoiceChat_UpdateVoiceChatWebRTCData_Response);
+	// ePrivilege=1
 	rpc UploadClientVoiceChatLogs (.CVoiceChat_UploadClientVoiceChatLogs_Request) returns (.CVoiceChat_UploadClientVoiceChatLogs_Response);
 }
 

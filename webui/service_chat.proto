@@ -6,6 +6,7 @@ message CChat_RequestFriendPersonaStates_Response {
 }
 
 service Chat {
+	// ePrivilege=1
 	rpc RequestFriendPersonaStates (.CChat_RequestFriendPersonaStates_Request) returns (.CChat_RequestFriendPersonaStates_Response);
 }
 

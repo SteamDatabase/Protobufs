@@ -1141,35 +1141,65 @@ message CMsgSteamLearnTrainInfo {
 }
 
 service SteamLearn {
+	// ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc BatchOperation (.CMsgSteamLearn_BatchOperation_Request) returns (.CMsgSteamLearn_BatchOperation_Response);
+	// ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc CacheData (.CMsgSteamLearn_CacheData_Request) returns (.CMsgSteamLearn_CacheData_Response);
+	// ePrivilege=1
 	rpc CreateProject (.CMsgSteamLearn_CreateProject_Request) returns (.CMsgSteamLearn_CreateProject_Response);
+	// ePrivilege=1
 	rpc EditProject (.CMsgSteamLearn_EditProject_Request) returns (.CMsgSteamLearn_EditProject_Response);
+	// ePrivilege=1
 	rpc EditProjectConfig (.CMsgSteamLearn_EditProjectConfig_Request) returns (.CMsgSteamLearn_EditProjectConfig_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetAccessTokensWeb (.CMsgSteamLearn_GetAccessTokens_Request) returns (.CMsgSteamLearn_GetAccessTokens_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetBatchedStatus (.CMsgSteamLearn_GetBatchedStatus_Request) returns (.CMsgSteamLearn_GetBatchedStatus_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetDataSource (.CMsgSteamLearn_GetDataSource_Request) returns (.CMsgSteamLearn_GetDataSource_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetEmbeddingValues (.CMsgSteamLearn_GetEmbeddingValues_Request) returns (.CMsgSteamLearn_GetEmbeddingValues_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetFetchStatus (.CMsgSteamLearn_GetFetchStatus_Request) returns (.CMsgSteamLearn_GetFetchStatus_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetFetchStatusVersions (.CMsgSteamLearn_GetFetchStatusVersions_Request) returns (.CMsgSteamLearn_GetFetchStatusVersions_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetLogEvents (.CMsgSteamLearn_GetLogEvents_Request) returns (.CMsgSteamLearn_GetLogEvents_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetNearestEmbedding (.CMsgSteamLearn_GetNearestEmbedding_Request) returns (.CMsgSteamLearn_GetNearestEmbedding_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetProject (.CMsgSteamLearn_GetProject_Request) returns (.CMsgSteamLearn_GetProject_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetProjectConfig (.CMsgSteamLearn_GetProjectConfig_Request) returns (.CMsgSteamLearn_GetProjectConfig_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetSnapshotStatus (.CMsgSteamLearn_GetSnapshotStatus_Request) returns (.CMsgSteamLearn_GetSnapshotStatus_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetTrainLogs (.CMsgSteamLearn_GetTrainLogs_Request) returns (.CMsgSteamLearn_GetTrainLogs_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetTrainStatus (.CMsgSteamLearn_GetTrainStatus_Request) returns (.CMsgSteamLearn_GetTrainStatus_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetTrainStatusVersions (.CMsgSteamLearn_GetTrainStatusVersions_Request) returns (.CMsgSteamLearn_GetTrainStatusVersions_Response);
+	// ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc Inference (.CMsgSteamLearn_Inference_Request) returns (.CMsgSteamLearn_Inference_Response);
+	// ePrivilege=1
 	rpc InferenceBackend (.CMsgSteamLearn_InferenceBackend_Request) returns (.CMsgSteamLearn_InferenceBackend_Response);
+	// ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc InferenceMetadata (.CMsgSteamLearn_InferenceMetadata_Request) returns (.CMsgSteamLearn_InferenceMetadata_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc ListDataSources (.CMsgSteamLearn_ListDataSources_Request) returns (.CMsgSteamLearn_ListDataSources_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc ListProjectConfigs (.CMsgSteamLearn_ListProjectConfigs_Request) returns (.CMsgSteamLearn_ListProjectConfigs_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc ListProjects (.CMsgSteamLearn_ListProjects_Request) returns (.CMsgSteamLearn_ListProjects_Response);
+	// ePrivilege=1
 	rpc PublishProject (.CMsgSteamLearn_PublishProject_Request) returns (.CMsgSteamLearn_PublishProject_Response);
+	// ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc RegisterDataSource (.CMsgSteamLearn_RegisterDataSource_Request) returns (.CMsgSteamLearn_RegisterDataSource_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc SetTrainLive (.CMsgSteamLearn_SetTrainLive_Request) returns (.CMsgSteamLearn_SetTrainLive_Response);
+	// ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc SnapshotProject (.CMsgSteamLearn_SnapshotProject_Request) returns (.CMsgSteamLearn_SnapshotProject_Response);
+	// ePrivilege=1
 	rpc Train (.CMsgSteamLearn_Train_Request) returns (.CMsgSteamLearn_Train_Response);
 }
 

@@ -21,6 +21,7 @@ message CPromotionStats_GetOptInDemoStats_Response_PerAppStats {
 }
 
 service PromotionStats {
+	// bConstMethod=true, ePrivilege=1
 	rpc GetOptInDemoStats (.CPromotionStats_GetOptInDemoStats_Request) returns (.CPromotionStats_GetOptInDemoStats_Response);
 }
 

@@ -63,7 +63,9 @@ message CUserNewsAchievementDisplayData_CAchievement {
 }
 
 service UserNews {
+	// ePrivilege=1
 	rpc GetAppDetailsSpotlight (.CUserNews_GetAppDetailsSpotlight_Request) returns (.CUserNews_GetAppDetailsSpotlight_Response);
+	// ePrivilege=1
 	rpc GetUserNews (.CUserNews_GetUserNews_Request) returns (.CUserNews_GetUserNews_Response);
 }
 

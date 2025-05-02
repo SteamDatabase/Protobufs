@@ -111,11 +111,17 @@ message SaleReward_ItemDefinition {
 }
 
 service SaleItemRewards {
+	// bConstMethod=true, ePrivilege=1
 	rpc CanClaimItem (.CSaleItemRewards_CanClaimItem_Request) returns (.CSaleItemRewards_CanClaimItem_Response);
+	// ePrivilege=1
 	rpc ClaimItem (.CSaleItemRewards_ClaimItem_Request) returns (.CSaleItemRewards_ClaimItem_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetClaimedSaleRewards (.CSaleItemRewards_GetClaimedSaleRewards_Request) returns (.CSaleItemRewards_GetClaimedSaleRewards_Response);
+	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc GetCurrentDefinition (.CSaleItemRewards_GetCurrentDefinition_Request) returns (.CSaleItemRewards_GetCurrentDefinition_Response);
+	// bConstMethod=true, ePrivilege=4
 	rpc GetRewardDefinitions (.CSaleItemRewards_GetRewardDefinitions_Request) returns (.CSaleItemRewards_GetRewardDefinitions_Response);
+	// ePrivilege=4
 	rpc SetRewardDefinitions (.CSaleItemRewards_SetRewardDefinitions_Request) returns (.CSaleItemRewards_SetRewardDefinitions_Response);
 }
 

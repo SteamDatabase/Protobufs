@@ -40,11 +40,17 @@ message CMsgAvailableHardwareUpdate {
 }
 
 service HardwareUpdate {
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc CheckForUpdates (.CHardwareUpdate_CheckForUpdates_Request) returns (.CHardwareUpdate_CheckForUpdates_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc GetState (.CHardwareUpdate_GetState_Request) returns (.CHardwareUpdate_GetState_Response);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyStateChanged (.CHardwareUpdate_StateChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyUpdateProgress (.CHardwareUpdate_UpdateProgress_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyUpdateStateChanged (.CHardwareUpdate_UpdateStateChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc Update (.CHardwareUpdate_Update_Request) returns (.CHardwareUpdate_Update_Response);
 }
 

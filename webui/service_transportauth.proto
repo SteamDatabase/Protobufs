@@ -11,7 +11,9 @@ message CTransportAuth_StartShutdown_Notification {
 }
 
 service TransportAuth {
+	// ePrivilege=1, eClientExecutionSite=3
 	rpc Authenticate (.CTransportAuth_Authenticate_Request) returns (.CTransportAuth_Authenticate_Response);
+	// ePrivilege=1, eClientExecutionSite=3
 	rpc NotifyStartShutdown (.CTransportAuth_StartShutdown_Notification) returns (.NoResponse);
 }
 

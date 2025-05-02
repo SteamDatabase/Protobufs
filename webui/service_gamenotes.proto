@@ -10,6 +10,7 @@ message CGameNotes_UploadImage_Response {
 }
 
 service GameNotes {
+	// ePrivilege=1, eClientExecutionSite=1
 	rpc UploadImage (.CGameNotes_UploadImage_Request) returns (.CGameNotes_UploadImage_Response);
 }
 

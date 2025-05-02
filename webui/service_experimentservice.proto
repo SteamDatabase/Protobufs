@@ -1,6 +1,7 @@
 import "common_base.proto";
 
 service ExperimentService {
+	// ePrivilege=1
 	rpc ReportProductImpressionsFromClient (.NotImplemented) returns (.NoResponse);
 }
 
