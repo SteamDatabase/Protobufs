@@ -6,6 +6,7 @@ message CMsgInferenceIterateBeamSearch {
 	optional float item_decay = 3;
 	optional uint32 next_item_count = 4;
 	repeated .CMsgInferenceIterateBeamSearch_CustomItemScalar item_scalars = 5;
+	optional float next_item_threshold = 6;
 }
 
 message CMsgInferenceIterateBeamSearch_CustomItemScalar {
@@ -711,6 +712,18 @@ message CMsgSteamLearnFetchInfo {
 message CMsgSteamLearnModelNodeBatchNormalization {
 }
 
+message CMsgSteamLearnModelNodeBert {
+}
+
+message CMsgSteamLearnModelNodeBertFinetune {
+	optional int32 bert_model = 1 [(.description) = "enum"];
+	optional uint32 unfrozen_layers = 2;
+}
+
+message CMsgSteamLearnModelNodeBertTokenizer {
+	optional int32 bert_model = 1 [(.description) = "enum"];
+}
+
 message CMsgSteamLearnModelNodeCombine {
 }
 
@@ -1020,6 +1033,9 @@ message CMsgSteamLearnProjectNode {
 	optional .CMsgSteamLearnModelNodeExternalModel external_model = 44;
 	optional .CMsgSteamLearnModelNodeReshape2D reshape_2d = 45;
 	optional .CMsgSteamLearnModelNodeRowExtract row_extract = 46;
+	optional .CMsgSteamLearnModelNodeBert bert = 47;
+	optional .CMsgSteamLearnModelNodeBertTokenizer bert_tokenizer = 48;
+	optional .CMsgSteamLearnModelNodeBertFinetune bert_finetune = 49;
 }
 
 message CMsgSteamLearnProjectNodeConnector {
