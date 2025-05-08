@@ -117,8 +117,23 @@ enum EGCCitadelClientMessages {
 	k_EMsgClientToGCGetLeaderboardResponse = 9237;
 	k_EMsgClientToGCGetAccountLeaderboards = 9238;
 	k_EMsgClientToGCGetAccountLeaderboardsResponse = 9239;
-	k_EMsgClientToGCSetHideHolidayModels = 9240;
-	k_EMsgClientToGCSetHideHolidayModelsResponse = 9241;
+	k_EMsgClientToGCTarotGetUserData = 9242;
+	k_EMsgClientToGCTarotGetUserDataResponse = 9243;
+	k_EMsgGCToClientTarotUserDataUpdated = 9244;
+	k_EMsgClientToGCTarotPlaceTile = 9245;
+	k_EMsgClientToGCTarotPlaceTileResponse = 9246;
+	k_EMsgClientToGCTarotApplyRune = 9247;
+	k_EMsgClientToGCTarotApplyRuneResponse = 9248;
+	k_EMsgClientToGCTarotCompleteBoard = 9249;
+	k_EMsgClientToGCTarotCompleteBoardResponse = 9250;
+	k_EMsgClientToGCTarotDevCreateTile = 9251;
+	k_EMsgClientToGCTarotDevCreateTileResponse = 9252;
+	k_EMsgClientToGCTarotDevCreateBoard = 9253;
+	k_EMsgClientToGCTarotDevCreateBoardResponse = 9254;
+	k_EMsgClientToGCTarotDevGenerateTestTiles = 9255;
+	k_EMsgClientToGCTarotDevGenerateTestTilesResponse = 9256;
+	k_EMsgClientToGCTarotDevModifyEnergy = 9257;
+	k_EMsgClientToGCTarotDevModifyEnergyResponse = 9258;
 }
 
 enum ECitadelAccountPermissionFlag {
@@ -257,6 +272,22 @@ message CSOAccountHeroInfo {
 	optional .CSOAccountHeroInfo.EHeroStatus status = 3 [default = k_eLocked];
 	optional uint32 wins = 4;
 	optional uint32 kills = 5;
+	optional uint32 hero_xp = 6;
+}
+
+message CSOAccountChallenge {
+	enum EChallengeStatus {
+		k_eInvalid = 0;
+		k_eRejected = 1;
+		k_eActiveChoice = 2;
+		k_eActive = 3;
+		k_eCompleted = 4;
+		k_eExpired = 5;
+	}
+
+	optional uint32 account_id = 1 [(key_field) = true];
+	optional uint64 challenge_id = 2;
+	optional .CSOAccountChallenge.EChallengeStatus status = 3 [default = k_eInvalid];
 }
 
 message CMsgCitadelClientHello {
@@ -555,6 +586,7 @@ message CMsgClientToGCPartyAction {
 		k_eSetExperimentalHeroesEnabled = 22;
 		k_eSetDesiresLaningTogether = 23;
 		k_eSetMMPreference = 24;
+		k_eSetHideoutServerID = 25;
 	}
 
 	optional fixed64 party_id = 1;
@@ -1195,6 +1227,9 @@ message CMsgHeroBuild {
 	message BuildModEntry {
 		optional uint32 ability_id = 1;
 		optional string annotation = 2;
+		optional uint32 required_flex_slots = 3;
+		optional uint32 sell_priority = 4;
+		optional uint32 imbue_target_ability_id = 5;
 	}
 
 	message BuildModCategory {
@@ -1203,6 +1238,7 @@ message CMsgHeroBuild {
 		optional string description = 3;
 		optional float width = 4;
 		optional float height = 5;
+		optional bool optional = 6;
 	}
 
 	message CurrencyChange {
@@ -1230,6 +1266,8 @@ message CMsgHeroBuild {
 	optional uint32 language = 7;
 	optional uint32 version = 8;
 	optional uint32 origin_build_id = 9;
+	repeated uint32 tags = 11;
+	optional bool development_build = 12;
 	optional .CMsgHeroBuild.Details_V0 details = 10;
 }
 
@@ -1254,6 +1292,7 @@ message CMsgClientToGCFindHeroBuilds {
 	repeated int32 language = 3;
 	optional string search_text = 4;
 	optional uint32 hero_build_id = 5;
+	repeated uint32 tags = 6;
 }
 
 message CMsgHeroBuildPreference {
@@ -1587,12 +1626,4 @@ message CMsgClientToGCGetAccountLeaderboardsResponse {
 	optional .CMsgClientToGCGetAccountLeaderboardsResponse.EResult result = 1 [default = k_eSuccess];
 	optional string account_name = 2;
 	repeated .CMsgClientToGCGetAccountLeaderboardsResponse.LeaderboardEntry entries = 3;
-}
-
-message CMsgClientToGCSetHideHolidayModels {
-	optional bool hide_holiday_models = 1;
-}
-
-message CMsgClientToGCSetHideHolidayModelsResponse {
-	optional bool success = 1;
 }

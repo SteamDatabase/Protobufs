@@ -312,6 +312,7 @@ message CSOCitadelParty {
 	optional .CSOCitadelParty.PrivateLobbySettings private_lobby_settings = 17;
 	optional bool desires_laning_together = 18;
 	optional .ECitadelMMPreference mm_preference = 19 [default = k_ECitadelMMPreference_Invalid];
+	optional uint64 party_hideout_server_id = 20;
 }
 
 message CMsgMatchPlayerPathsData {
@@ -382,6 +383,7 @@ message CMsgMatchPlayerDamageMatrix {
 		k_eType_HealPrevented = 2;
 		k_eType_Mitigated = 3;
 		k_eType_LethalDamage = 4;
+		k_eType_Regen = 5;
 	}
 
 	repeated .CMsgMatchPlayerDamageMatrix.DamageDealer damage_dealers = 1;
@@ -398,6 +400,7 @@ message CMsgMatchMetaDataContents {
 
 	message Deaths {
 		optional uint32 game_time_s = 1;
+		optional float time_to_kill_s = 2;
 		optional uint32 killer_player_slot = 9;
 		optional .CMsgMatchMetaDataContents.Position death_pos = 10;
 		optional .CMsgMatchMetaDataContents.Position killer_pos = 11;

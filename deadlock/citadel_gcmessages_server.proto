@@ -1,5 +1,6 @@
 import "steammessages.proto";
 import "gcsdk_gcmessages.proto";
+import "base_gcmessages.proto";
 import "citadel_gcmessages_common.proto";
 
 enum EGCCitadelServerMessages {
@@ -77,6 +78,15 @@ message CMsgServerCrashSentinelFile {
 	optional uint32 server_region_id = 12;
 }
 
+message CMsgAccountEquippedItems {
+	message HeroItems {
+		optional uint32 hero_id = 1;
+		repeated .CSOEconItem items = 2;
+	}
+
+	repeated .CMsgAccountEquippedItems.HeroItems hero_items = 1;
+}
+
 message CServerLobbyData_PlayerMMR {
 	message Player {
 		optional uint32 account_id = 1;
@@ -95,6 +105,7 @@ message CServerLobbyData_PlayerInfo {
 	repeated .CMsgAccountHeroStats account_stats = 2;
 	optional uint32 mmr_level = 4;
 	repeated .CMsgAccountBookStats book_info = 5;
+	optional .CMsgAccountEquippedItems equipped_items = 6;
 }
 
 message CServerLobbyData_PostMatchSurvey {
@@ -131,7 +142,8 @@ message CSOCitadelServerStaticLobby {
 		optional uint32 lane_id = 10;
 		optional .CMsgGCAccountData gc_account_data = 13;
 		optional bool party_desires_laning_together = 14;
-		optional bool hide_holiday_models = 15;
+		optional .ECitadelBotDifficulty bot_difficulty = 16 [default = k_ECitadelBotDifficulty_None];
+		optional uint32 hero_xp = 17;
 	}
 
 	message DevSettings {
@@ -474,6 +486,7 @@ message CMsgMatchData {
 		optional uint32 hero_bullets_lucky_shots = 44;
 		optional uint32 hero_build_id = 45;
 		optional uint32 objective_damage = 46;
+		optional float avg_time_to_kill_s = 47;
 	}
 
 	enum EEndReason {

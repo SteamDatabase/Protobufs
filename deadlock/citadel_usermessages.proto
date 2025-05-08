@@ -490,6 +490,7 @@ message CCitadelUserMessage_AbilityNotify {
 	optional int32 entindex_victim = 1 [default = -1];
 	optional int32 entindex_attacker = 2 [default = -1];
 	optional uint32 ability_id = 3;
+	optional int32 modifier_state = 4;
 }
 
 message CCitadelUserMessage_CurrencyChanged {

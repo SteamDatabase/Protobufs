@@ -6,12 +6,12 @@ enum ECitadelGameEvents {
 	GE_PlayerAnimEvent = 451;
 	GE_ParticleSystemManager = 458;
 	GE_ScreenTextPretty = 459;
-	GE_ServerRequestedTracer = 460;
 	GE_BulletImpact = 461;
 	GE_EnableSatVolumesEvent = 462;
 	GE_PlaceSatVolumeEvent = 463;
 	GE_DisableSatVolumesEvent = 464;
 	GE_RemoveSatVolumeEvent = 465;
+	GE_RemoveBullet = 466;
 }
 
 enum PARTICLE_SYSTEM_MANAGER_MESSAGE {
@@ -51,6 +51,8 @@ message CMsgFireBullets {
 	optional uint32 shot_number = 16;
 	optional int32 ignore_entity = 17 [default = -1];
 	optional float max_range = 18;
+	optional uint32 shot_id = 19;
+	optional bool predict_hits_against_units = 20 [default = true];
 }
 
 message CMsgBulletImpact {
@@ -201,4 +203,10 @@ message CMsgRemoveSatVolumeEvent {
 }
 
 message CMsgDisableSatVolumesEvent {
+}
+
+message CMsgRemoveBullet {
+	optional int32 shooter_entindex = 1 [default = -1];
+	optional uint32 shot_id = 2;
+	optional uint32 bullet_index = 3;
 }
