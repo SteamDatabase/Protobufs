@@ -149,7 +149,7 @@ service StoreQuery {
 	rpc GetItemByUserCombinedTagsPriority (.CStoreQuery_GetItemByUserCombinedTagsPriority_Request) returns (.CStoreQuery_GetItemByUserCombinedTagsPriority_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetItemsByUserRecommendedTags (.CStoreQuery_GetItemsByUserRecommendedTags_Request) returns (.CStoreQuery_GetItemsByUserRecommendedTags_Response);
-	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=1
 	rpc Query (.CStoreQuery_Query_Request) returns (.CStoreQuery_Query_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc SearchSuggestions (.CStoreQuery_SearchSuggestions_Request) returns (.CStoreQuery_SearchSuggestions_Response);

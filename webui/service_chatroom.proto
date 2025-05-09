@@ -772,7 +772,7 @@ service ChatRoom {
 	rpc GetChatRoomGroupSummary (.CChatRoom_GetChatRoomGroupSummary_Request) returns (.CChatRoom_GetChatRoomGroupSummary_Response);
 	// ePrivilege=1
 	rpc GetInviteInfo (.CChatRoom_GetInviteInfo_Request) returns (.CChatRoom_GetInviteInfo_Response);
-	// ePrivilege=2
+	// ePrivilege=1
 	rpc GetInviteLinkInfo (.CChatRoom_GetInviteLinkInfo_Request) returns (.CChatRoom_GetInviteLinkInfo_Response);
 	// ePrivilege=3
 	rpc GetInviteLinksForGroup (.CChatRoom_GetInviteLinksForGroup_Request) returns (.CChatRoom_GetInviteLinksForGroup_Response);

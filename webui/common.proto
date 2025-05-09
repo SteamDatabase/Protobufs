@@ -2764,6 +2764,10 @@ message CMsgClientSettings {
 	optional int32 steamos_magnifier_scale = 22007;
 	optional bool steamos_manual_gpu_clock_enabled = 22008;
 	optional int32 steamos_manual_gpu_clock_hz = 22009;
+	optional string steamos_platform_performance_profile = 22010;
+	optional bool steamos_charge_limit_enabled = 22011;
+	optional int32 steamos_charge_limit = 22012;
+	optional bool steamos_charge_limit_devmode = 22013;
 	optional bool setting_validation_bool = 23001;
 	optional int32 setting_validation_enum = 23002 [(.description) = "enum"];
 	optional int32 setting_validation_int32 = 23003;

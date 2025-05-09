@@ -121,7 +121,7 @@ service Quest {
 	rpc ActivateProfileModifierItem (.CQuest_ActivateProfileModifierItem_Request) returns (.CQuest_ActivateProfileModifierItem_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetCommunityInventory (.CQuest_GetCommunityInventory_Request) returns (.CQuest_GetCommunityInventory_Response);
-	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=4
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=4
 	rpc GetCommunityItemDefinitions (.CQuest_GetCommunityItemDefinitions_Request) returns (.CQuest_GetCommunityItemDefinitions_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetNumTradingCardsEarned (.CQuest_GetNumTradingCardsEarned_Request) returns (.CQuest_GetNumTradingCardsEarned_Response);

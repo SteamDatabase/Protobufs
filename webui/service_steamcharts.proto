@@ -41,7 +41,6 @@ message CSteamCharts_GetMonthTopAppReleases_Request {
 }
 
 message CSteamCharts_GetMonthTopAppReleases_Response {
-	repeated .CSteamCharts_GetMonthTopAppReleases_Response_AppNewRelease top_app_releases = 1;
 	repeated .CSteamCharts_GetMonthTopAppReleases_Response_AppNewRelease top_dlc_releases = 2;
 	repeated .CSteamCharts_GetMonthTopAppReleases_Response_AppNewRelease top_combined_app_and_dlc_releases = 3;
 }

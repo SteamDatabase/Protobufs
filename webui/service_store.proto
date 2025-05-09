@@ -392,15 +392,15 @@ service Store {
 	rpc GetDiscoveryQueueSettings (.CStore_GetDiscoveryQueueSettings_Request) returns (.CStore_GetDiscoveryQueueSettings_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetDiscoveryQueueSkippedApps (.CStore_GetDiscoveryQueueSkippedApps_Request) returns (.CStore_GetDiscoveryQueueSkippedApps_Response);
-	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=1
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=1
 	rpc GetLocalizedNameForTags (.CStore_GetLocalizedNameForTags_Request) returns (.CStore_GetLocalizedNameForTags_Response);
-	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=1
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=1
 	rpc GetMostPopularTags (.CStore_GetMostPopularTags_Request) returns (.CStore_GetMostPopularTags_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetRecommendedTagsForUser (.CStore_GetRecommendedTagsForUser_Request) returns (.CStore_GetRecommendedTagsForUser_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetStorePreferences (.CStore_GetStorePreferences_Request) returns (.CStore_GetStorePreferences_Response);
-	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=1
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=1
 	rpc GetTagList (.CStore_GetTagList_Request) returns (.CStore_GetTagList_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetTrendingAppsAmongFriends (.CStore_GetTrendingAppsAmongFriends_Request) returns (.CStore_GetTrendingAppsAmongFriends_Response);

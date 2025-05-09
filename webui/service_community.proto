@@ -394,7 +394,7 @@ service Community {
 	rpc GetClanCrowdInMetadata (.CCommunity_GetClanCrowdInMetadata_Request) returns (.CCommunity_GetClanCrowdInMetadata_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetClanEventCrowdInMetadata (.CCommunity_GetClanEventCrowdInMetadata_Request) returns (.CCommunity_GetClanEventCrowdInMetadata_Response);
-	// ePrivilege=2
+	// ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetCommentThread (.CCommunity_GetCommentThread_Request) returns (.CCommunity_GetCommentThread_Response);
 	// ePrivilege=2
 	rpc GetCommentThreadRatings (.CCommunity_GetCommentThreadRatings_Request) returns (.CCommunity_GetCommentThreadRatings_Response);
