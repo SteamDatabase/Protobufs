@@ -312,6 +312,9 @@ message CMsgServerSignoutData_DetailedStats {
 			optional uint32 lane_creep = 10;
 			optional uint32 neutral_creep = 11;
 			optional uint32 team_bonus = 12;
+			optional uint32 ability_assassinate = 13;
+			optional uint32 item_trophy_collector = 14;
+			optional uint32 item_cultist_sacrifice = 15;
 		}
 
 		optional uint32 match_time_s = 1;
