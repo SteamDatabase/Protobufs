@@ -1,0 +1,43 @@
+import "common.proto";
+
+message CUserStoreVisit_GetFrequentlyVisitedPages_Request {
+}
+
+message CUserStoreVisit_GetFrequentlyVisitedPages_Response {
+	optional .CUserStoreVisitData visit_data = 1;
+	repeated .CUserStoreVisit_GetFrequentlyVisitedPages_Response_FrequentHubs frequent_hubs = 2;
+}
+
+message CUserStoreVisit_GetFrequentlyVisitedPages_Response_FrequentHubs {
+	optional .StoreItemID item_id = 1;
+	optional uint32 time_visit = 2;
+	optional uint32 visit_count = 3;
+}
+
+message CUserStoreVisit_GetMostVisitedItemsOnStore_Request {
+	optional .StoreBrowseContext context = 1;
+	optional .StoreBrowseItemDataRequest data_request = 2;
+	optional uint32 count = 3 [default = 10];
+}
+
+message CUserStoreVisit_GetMostVisitedItemsOnStore_Response {
+	repeated .StoreItemID item_ids = 1;
+	repeated .StoreItem items = 2;
+}
+
+message CUserStoreVisitData {
+	repeated .CUserStoreVisitData_RecentApps recent_apps = 1;
+}
+
+message CUserStoreVisitData_RecentApps {
+	optional .StoreItemID item_id = 1;
+	optional fixed32 time_visit = 2;
+}
+
+service UserStoreVisit {
+	// bConstMethod=true, ePrivilege=1
+	rpc GetFrequentlyVisitedPages (.CUserStoreVisit_GetFrequentlyVisitedPages_Request) returns (.CUserStoreVisit_GetFrequentlyVisitedPages_Response);
+	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=1
+	rpc GetMostVisitedItemsOnStore (.CUserStoreVisit_GetMostVisitedItemsOnStore_Request) returns (.CUserStoreVisit_GetMostVisitedItemsOnStore_Response);
+}
+
