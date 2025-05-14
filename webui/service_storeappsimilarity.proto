@@ -67,6 +67,7 @@ message StoreAppSimilarityPriorityOptions {
 	optional int32 popularity_factor = 20 [default = 5, (.description) = "enum"];
 	optional int32 popularity_reciprocal = 21 [default = 10000];
 	optional int64 popularity_base_score = 22 [default = 5000000];
+	optional uint32 played_since = 23;
 }
 
 service StoreAppSimilarity {

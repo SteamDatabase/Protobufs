@@ -6,7 +6,8 @@ message CMsgInferenceIterateBeamSearch {
 	optional float item_decay = 3;
 	optional uint32 next_item_count = 4;
 	repeated .CMsgInferenceIterateBeamSearch_CustomItemScalar item_scalars = 5;
-	optional float next_item_threshold = 6;
+	optional uint32 item_sequence_end = 7;
+	optional float item_sequence_end_threshold = 8;
 }
 
 message CMsgInferenceIterateBeamSearch_CustomItemScalar {

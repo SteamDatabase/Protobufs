@@ -173,6 +173,7 @@ message CMarketingMessages_GetMarketingMessagesViewerRangeStats_Request {
 
 message CMarketingMessages_GetMarketingMessagesViewerRangeStats_Response {
 	repeated .CMarketingMessageHourlyStats stats = 1;
+	repeated .CMarketingMessageClickedHourlyStats clicked_stats = 2;
 }
 
 message CMarketingMessages_GetMarketingMessageViewerStats_Request {

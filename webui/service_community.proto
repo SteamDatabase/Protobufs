@@ -280,6 +280,20 @@ message CCommunity_GetUserPartnerEventViewStatus_Response_PartnerEvent {
 	optional uint32 clan_account_id = 4;
 }
 
+message CCommunity_HideAndReportComment_Request {
+	optional uint64 gidfeature = 1;
+	optional uint64 gidfeature2 = 2;
+	optional uint64 gidcomment = 3;
+	optional fixed64 steamid = 4;
+	optional string commentthreadtype = 5;
+	optional bool hide = 6;
+	optional int32 report_reason = 7 [(.description) = "enum"];
+	optional string report_text = 8;
+}
+
+message CCommunity_HideAndReportComment_Response {
+}
+
 message CCommunity_MarkPartnerEventsForUser_Request {
 	repeated .CCommunity_MarkPartnerEventsForUser_Request_PartnerEventMarking markings = 1;
 }
@@ -404,6 +418,8 @@ service Community {
 	rpc GetUserPartnerEventsAppPriorities (.CCommunity_GetUserPartnerEventsAppPriorities_Request) returns (.CCommunity_GetUserPartnerEventsAppPriorities_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetUserPartnerEventViewStatus (.CCommunity_GetUserPartnerEventViewStatus_Request) returns (.CCommunity_GetUserPartnerEventViewStatus_Response);
+	// ePrivilege=3
+	rpc HideAndReportComment (.CCommunity_HideAndReportComment_Request) returns (.CCommunity_HideAndReportComment_Response);
 	// ePrivilege=1
 	rpc MarkPartnerEventsForUser (.CCommunity_MarkPartnerEventsForUser_Request) returns (.CCommunity_MarkPartnerEventsForUser_Response);
 	// ePrivilege=1
