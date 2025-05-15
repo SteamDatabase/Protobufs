@@ -228,6 +228,7 @@ message CCitadelUserMsg_AbilitiesChanged {
 		EUpgraded = 1;
 		ESold = 2;
 		ESwappedActivatedAbility = 3;
+		EFailure = 4;
 	}
 
 	optional int32 purchaser_player_slot = 1 [default = -1];
