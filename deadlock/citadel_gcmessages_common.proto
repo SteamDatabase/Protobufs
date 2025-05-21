@@ -595,6 +595,7 @@ message CMsgMatchMetaDataContents {
 		k_eAbilityAssassinate = 9;
 		k_eItemTrophyCollector = 10;
 		k_eItemCultistSacrifice = 11;
+		k_eBreakable = 12;
 	}
 
 	optional .CMsgMatchMetaDataContents.MatchInfo match_info = 2;
