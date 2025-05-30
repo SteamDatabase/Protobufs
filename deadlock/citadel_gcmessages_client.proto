@@ -1266,9 +1266,10 @@ message CMsgHeroBuild {
 	optional uint32 language = 7;
 	optional uint32 version = 8;
 	optional uint32 origin_build_id = 9;
+	optional .CMsgHeroBuild.Details_V0 details = 10;
 	repeated uint32 tags = 11;
 	optional bool development_build = 12;
-	optional .CMsgHeroBuild.Details_V0 details = 10;
+	optional uint32 publish_timestamp = 13;
 }
 
 message CMsgClientToGCUpdateHeroBuild {
