@@ -2779,6 +2779,7 @@ message CMsgClientSettings {
 	optional bool system_bluetooth_enabled = 24000;
 	optional bool hardware_updater_enabled = 24001;
 	optional bool vr_show_perf_graph_in_hmd = 25000;
+	optional bool accessibility_debug_visualizer = 26000;
 	optional bool controller_enable_chord = 140011;
 	optional bool controller_poll_rate = 140012;
 }
@@ -3525,12 +3526,14 @@ message CMsgControllerConfiguration {
 	optional string description = 3;
 	optional string creator = 4;
 	optional int32 controller_type = 5;
-	repeated .CMsgGameActionSet sets = 6;
-	repeated .CMsgControllerMode modes = 7;
-	optional string error_msg = 8;
-	optional string action_block_path = 9;
-	optional .CMsgControllerActionSetMiscSettings misc_action_set_settings = 10;
-	optional string url = 11;
+	optional uint32 capability_bits = 6;
+	optional int32 controller_style = 7;
+	repeated .CMsgGameActionSet sets = 8;
+	repeated .CMsgControllerMode modes = 9;
+	optional string error_msg = 10;
+	optional string action_block_path = 11;
+	optional .CMsgControllerActionSetMiscSettings misc_action_set_settings = 12;
+	optional string url = 13;
 }
 
 // Used by: common.proto
