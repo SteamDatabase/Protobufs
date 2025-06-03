@@ -8,6 +8,7 @@ message CMsgInferenceIterateBeamSearch {
 	repeated .CMsgInferenceIterateBeamSearch_CustomItemScalar item_scalars = 5;
 	optional uint32 item_sequence_end = 7;
 	optional float item_sequence_end_threshold = 8;
+	optional float repeat_multiplier = 9;
 }
 
 message CMsgInferenceIterateBeamSearch_CustomItemScalar {
@@ -306,6 +307,7 @@ message CMsgSteamLearn_Inference_Request {
 	repeated uint64 keys = 8;
 	optional string named_inference = 9;
 	optional .CMsgInferenceIterateBeamSearch iterate_beam_search = 13;
+	optional uint32 debug_spew = 14;
 }
 
 message CMsgSteamLearn_Inference_Response {
@@ -323,6 +325,7 @@ message CMsgSteamLearn_InferenceBackend_Request {
 	repeated float additional_data = 7;
 	optional string named_inference = 8;
 	optional .CMsgInferenceIterateBeamSearch iterate_beam_search = 13;
+	optional uint32 debug_spew = 14;
 }
 
 message CMsgSteamLearn_InferenceBackend_Response {
@@ -939,6 +942,7 @@ message CMsgSteamLearnModelNodeTrain {
 	optional int32 loss = 6 [(.description) = "enum"];
 	optional float learning_rate = 7;
 	optional bool uses_weight_mask = 8;
+	optional float label_smoothing = 9;
 }
 
 message CMsgSteamLearnModelNodeTransformer {
