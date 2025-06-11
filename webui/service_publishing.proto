@@ -1,5 +1,17 @@
 import "common_base.proto";
 
+message COptInDef {
+	optional string opt_in_name = 1;
+	optional int32 type = 2 [(.description) = "enum"];
+	optional bool active = 3;
+	optional uint32 start_date = 4;
+	optional uint32 end_date = 5;
+	optional string jsondata = 6;
+	optional uint32 opt_in_id = 7;
+	optional uint32 last_modified_time = 8;
+	optional uint32 last_modifier_accountid = 9;
+}
+
 message CPartnerAppOptInData {
 	optional uint32 appid = 1;
 	optional bool opt_in = 2;
@@ -110,6 +122,17 @@ message CPublishing_GetOptInEmailTracking_Response {
 	repeated .CPartnerOptInEmailTracking results = 2;
 }
 
+message CPublishing_GetOptInHistoryInternal_Request {
+	optional string opt_in_name = 1;
+	optional uint32 start = 2 [default = 0];
+	optional uint32 count = 3 [default = 20];
+	optional bool include_json = 4;
+}
+
+message CPublishing_GetOptInHistoryInternal_Response {
+	repeated .COptInDef opt_ins = 1;
+}
+
 message CPublishing_GetPartnerAppOptInEmailDefAndStats_Request {
 	optional string opt_in_name = 1;
 }
@@ -202,6 +225,8 @@ service Publishing {
 	rpc GetOptInAppealsSummaryStats (.CPublishing_GetOptInAppealsSummaryStats_Request) returns (.CPublishing_GetOptInAppealsSummaryStats_Response);
 	// ePrivilege=1
 	rpc GetOptInEmailTracking (.CPublishing_GetOptInEmailTracking_Request) returns (.CPublishing_GetOptInEmailTracking_Response);
+	// ePrivilege=4
+	rpc GetOptInHistoryInternal (.CPublishing_GetOptInHistoryInternal_Request) returns (.CPublishing_GetOptInHistoryInternal_Response);
 	// ePrivilege=1
 	rpc GetPartnerAppOptInEmailDefAndStats (.CPublishing_GetPartnerAppOptInEmailDefAndStats_Request) returns (.CPublishing_GetPartnerAppOptInEmailDefAndStats_Response);
 	// bConstMethod=true, ePrivilege=1

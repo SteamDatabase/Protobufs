@@ -159,7 +159,7 @@ message CCommunity_GetBestEventsForUser_Response {
 
 message CCommunity_GetBotReviewScoreForRecommendation_Request {
 	repeated uint64 recommendation_ids = 1;
-	optional bool force_rerun = 2;
+	optional uint32 app_id = 2;
 }
 
 message CCommunity_GetBotReviewScoreForRecommendation_Response {
