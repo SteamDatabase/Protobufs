@@ -2780,6 +2780,10 @@ message CMsgClientSettings {
 	optional bool hardware_updater_enabled = 24001;
 	optional bool vr_show_perf_graph_in_hmd = 25000;
 	optional bool accessibility_debug_visualizer = 26000;
+	optional bool accessibility_screen_reader_enabled = 26001;
+	optional float accessibility_screen_reader_rate = 26002;
+	optional float accessibility_screen_reader_pitch = 26003;
+	optional float accessibility_screen_reader_volume = 26004;
 	optional bool controller_enable_chord = 140011;
 	optional bool controller_poll_rate = 140012;
 }
@@ -5415,6 +5419,11 @@ message CVRGamepadUIShared_PathProperty_PowerOptions {
 	optional bool can_shutdown = 2;
 	optional bool can_restart_system = 3;
 	optional bool can_exitvr = 4;
+}
+
+message CVRGamepadUIShared_PathProperty_VRVersionInfo {
+	optional string version = 1;
+	optional uint32 webpack_build_timestamp = 2;
 }
 
 // Used by: common.proto

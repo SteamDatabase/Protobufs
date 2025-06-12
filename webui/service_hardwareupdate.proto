@@ -19,6 +19,7 @@ message CHardwareUpdate_StateChanged_Notification {
 }
 
 message CHardwareUpdate_Update_Request {
+	optional string serial_number = 1;
 }
 
 message CHardwareUpdate_Update_Response {
