@@ -46,6 +46,7 @@ enum EGCServerSignoutData {
 	k_EServerSignoutData_PenalizedPlayers = 9;
 	k_EServerSignoutData_ReportCheaters = 10;
 	k_EServerSignoutData_MatchDevStats = 11;
+	k_EServerSignoutData_MatchKills = 14;
 }
 
 message CMsgServerCrashSentinelFile {
@@ -386,6 +387,17 @@ message CMsgServerSignoutData_BookRewards {
 	}
 
 	repeated .CMsgServerSignoutData_BookRewards.AccountRewards account_rewards = 1;
+}
+
+message CMsgServerSignoutData_MatchKills {
+	message Kill {
+		optional uint32 killer = 1;
+		optional uint32 victim = 2;
+		optional uint32 match_time = 3;
+		optional uint32 killer_streak = 4;
+	}
+
+	repeated .CMsgServerSignoutData_MatchKills.Kill kills = 1;
 }
 
 message CMsgServerSignoutData_AccountStatChanges {
