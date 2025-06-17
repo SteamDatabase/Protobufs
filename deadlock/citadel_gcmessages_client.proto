@@ -979,6 +979,7 @@ message CMsgClientToGCGetMatchMetaDataResponse {
 		k_eResult_RateLimited = 5;
 		k_eResult_InvalidMatch = 6;
 		k_eResult_MatchInFlight = 7;
+		k_eResult_Timeout = 8;
 	}
 
 	optional .CMsgClientToGCGetMatchMetaDataResponse.EResult result = 1 [default = k_eResult_InternalError];
@@ -1392,6 +1393,7 @@ message CMsgClientToGCReportPlayerFromMatchResponse {
 		k_eReportingWindowExpired = 6;
 		k_eTooBusy = 7;
 		k_eBannedFromReporting = 8;
+		k_eTimeout = 9;
 	}
 
 	optional .CMsgClientToGCReportPlayerFromMatchResponse.EResponse response = 1 [default = k_eInternalError];
@@ -1526,6 +1528,7 @@ message CMsgClientToGCCommendPlayerFromMatchResponse {
 		k_eDisabled = 2;
 		k_eTooBusy = 3;
 		k_eRateLimited = 4;
+		k_eTimeout = 5;
 	}
 
 	optional .CMsgClientToGCCommendPlayerFromMatchResponse.EResponse result = 1 [default = k_eInternalError];
