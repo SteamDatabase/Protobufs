@@ -2787,6 +2787,9 @@ message CMsgClientSettings {
 	optional float accessibility_screen_reader_rate = 26002;
 	optional float accessibility_screen_reader_pitch = 26003;
 	optional float accessibility_screen_reader_volume = 26004;
+	optional bool accessibility_high_contrast_mode = 26005;
+	optional bool accessibility_reduce_motion = 26006;
+	optional int32 accessibility_color_filter = 26007 [(.description) = "enum"];
 	optional bool controller_enable_chord = 140011;
 	optional bool controller_poll_rate = 140012;
 }
