@@ -134,6 +134,10 @@ enum EGCCitadelClientMessages {
 	k_EMsgClientToGCTarotDevGenerateTestTilesResponse = 9256;
 	k_EMsgClientToGCTarotDevModifyEnergy = 9257;
 	k_EMsgClientToGCTarotDevModifyEnergyResponse = 9258;
+	k_EMsgClientToGCGetSurveyQuestion = 9267;
+	k_EMsgClientToGCGetSurveyQuestionResponse = 9268;
+	k_EMsgClientToGCSubmitSurvey = 9269;
+	k_EMsgClientToGCSubmitSurveyResponse = 9270;
 }
 
 enum ECitadelAccountPermissionFlag {
@@ -1045,6 +1049,7 @@ message CMsgClientToGCDevAction {
 		k_eBanAccount = 11;
 		k_eExonerateAccount = 12;
 		k_eRequireAccountInMM = 13;
+		k_eResetAccountSurvey = 14;
 	}
 
 	optional .CMsgClientToGCDevAction.EAction action = 1 [default = k_eSetDeveloper];
@@ -1630,4 +1635,51 @@ message CMsgClientToGCGetAccountLeaderboardsResponse {
 	optional .CMsgClientToGCGetAccountLeaderboardsResponse.EResult result = 1 [default = k_eSuccess];
 	optional string account_name = 2;
 	repeated .CMsgClientToGCGetAccountLeaderboardsResponse.LeaderboardEntry entries = 3;
+}
+
+message CMsgSurveyQuestion {
+	enum EQuestionType {
+		k_eInvalid = 0;
+		k_eItemPower = 1;
+		k_eItemDesign = 2;
+		k_eHeroPlayAgainst = 3;
+		k_eMoreFunHero = 4;
+	}
+
+	optional uint32 question_id = 1;
+	optional .CMsgSurveyQuestion.EQuestionType question_type = 2 [default = k_eInvalid];
+	repeated uint32 question_params = 3;
+	optional uint32 remaining_questions = 4;
+	optional uint32 answered_questions = 5;
+}
+
+message CMsgClientToGCGetSurveyQuestion {
+}
+
+message CMsgClientToGCGetSurveyQuestionResponse {
+	enum EResult {
+		k_eSuccess = 0;
+		k_eInternalError = 1;
+		k_eTooBusy = 2;
+	}
+
+	optional .CMsgClientToGCGetSurveyQuestionResponse.EResult result = 1 [default = k_eSuccess];
+	optional .CMsgSurveyQuestion question = 2;
+}
+
+message CMsgClientToGCSubmitSurvey {
+	optional uint32 question_id = 1;
+	optional bool is_skip = 2;
+	optional uint32 response_value = 3;
+}
+
+message CMsgClientToGCSubmitSurveyResponse {
+	enum EResult {
+		k_eSuccess = 0;
+		k_eInternalError = 1;
+		k_eTooBusy = 2;
+	}
+
+	optional .CMsgClientToGCSubmitSurveyResponse.EResult result = 1 [default = k_eSuccess];
+	optional .CMsgSurveyQuestion question = 2;
 }
