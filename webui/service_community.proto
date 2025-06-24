@@ -47,6 +47,17 @@ message CClanMatchEventByRange {
 	repeated .CClanEventUserNewsTuple events = 4;
 }
 
+message CCommunity_ClanLocGroupImage {
+	optional uint64 loc_group_id = 1;
+	optional string image_hash = 2;
+	optional string thumbnail_hash = 3;
+	optional int32 file_type = 4 [(.description) = "enum"];
+	optional int32 group = 5 [(.description) = "enum"];
+	optional uint32 width = 6;
+	optional uint32 height = 7;
+	optional string extensions = 8;
+}
+
 message CCommunity_ClearSinglePartnerEventsAppPriority_Request {
 	optional uint32 appid = 1;
 }
@@ -199,6 +210,17 @@ message CCommunity_GetClanEventCrowdInMetadata_Request {
 message CCommunity_GetClanEventCrowdInMetadata_Response {
 	optional uint64 crowdin_project_id = 1;
 	optional uint64 crowdin_file_id = 2;
+}
+
+message CCommunity_GetClanLocGroupImages_Request {
+	optional uint64 steamid = 1;
+	optional int32 group = 2 [(.description) = "enum"];
+	optional uint32 language = 3;
+	repeated uint64 loc_group_ids = 4;
+}
+
+message CCommunity_GetClanLocGroupImages_Response {
+	repeated .CCommunity_ClanLocGroupImage images = 1;
 }
 
 message CCommunity_GetCommentThread_Request {
@@ -438,6 +460,8 @@ service Community {
 	rpc GetClanCrowdInMetadata (.CCommunity_GetClanCrowdInMetadata_Request) returns (.CCommunity_GetClanCrowdInMetadata_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetClanEventCrowdInMetadata (.CCommunity_GetClanEventCrowdInMetadata_Request) returns (.CCommunity_GetClanEventCrowdInMetadata_Response);
+	// bConstMethod=true, ePrivilege=0
+	rpc GetClanLocGroupImages (.CCommunity_GetClanLocGroupImages_Request) returns (.CCommunity_GetClanLocGroupImages_Response);
 	// ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetCommentThread (.CCommunity_GetCommentThread_Request) returns (.CCommunity_GetCommentThread_Response);
 	// ePrivilege=2
