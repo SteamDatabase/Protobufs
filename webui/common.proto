@@ -2638,6 +2638,8 @@ message CMsgClientSettings {
 	optional float overlay_fps_counter_bgopacity = 4027;
 	optional float overlay_fps_counter_scale_factor = 4028;
 	optional .CMsgHotkey overlay_fps_counter_key = 4029;
+	optional bool overlay_fps_counter_fps_graph = 4030;
+	optional bool overlay_fps_counter_cpu_graph = 4031;
 	optional bool smooth_scroll_webviews = 5000;
 	optional bool enable_gpu_accelerated_webviews = 5001;
 	optional bool enable_hardware_video_decoding = 5003;
