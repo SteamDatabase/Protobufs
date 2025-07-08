@@ -2712,17 +2712,16 @@ message CMsgClientSettings {
 	optional bool startup_movie_used_for_resume = 16003;
 	optional bool game_notes_enable_spellcheck = 17001;
 	optional int32 screenshot_items_per_row = 18000;
-	optional string g_background_path = 18201;
-	optional string g_background_max_keep = 18202;
-	optional int32 g_background_time_resolution = 18203;
-	optional .CMsgHotkey g_background_mk = 18207;
-	optional .CMsgHotkey g_background_tg = 18208;
-	optional bool g_background_a_m = 18209;
+	optional string gamerecording_background_path = 18201;
+	optional string gamerecording_background_max_keep = 18202;
+	optional int32 gamerecording_background_time_resolution = 18203;
+	optional .CMsgHotkey gamerecording_background_mk = 18207;
+	optional .CMsgHotkey gamerecording_background_tg = 18208;
+	optional bool gamerecording_background_a_m = 18209;
 	optional string gamerecording_video_bitrate = 18210;
-	optional bool g_background_a_s = 18211;
-	optional int32 g_background_mode = 18212 [(.description) = "enum"];
-	optional int32 g_background_audio = 18213 [(.description) = "enum"];
-	optional int32 g_max_fps = 18214;
+	optional int32 gamerecording_background_mode = 18212 [(.description) = "enum"];
+	optional int32 gamerecording_background_audio = 18213 [(.description) = "enum"];
+	optional int32 gamerecording_max_fps = 18214;
 	optional .CMsgHotkey gamerecording_hotkey_ic = 18215;
 	optional float gamerecording_ic_seconds = 18216;
 	optional int32 gamerecording_export_limit_type = 18217 [(.description) = "enum"];
@@ -2793,7 +2792,8 @@ message CMsgClientSettings {
 	optional float accessibility_screen_reader_volume = 26004;
 	optional bool accessibility_high_contrast_mode = 26005;
 	optional bool accessibility_reduce_motion = 26006;
-	optional int32 accessibility_color_filter = 26007 [(.description) = "enum"];
+	optional uint32 accessibility_minimum_font_size = 26008;
+	optional string accessibility_color_filter_name = 26009;
 	optional bool controller_enable_chord = 140011;
 	optional bool controller_poll_rate = 140012;
 }

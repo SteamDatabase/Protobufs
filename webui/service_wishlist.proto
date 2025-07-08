@@ -39,6 +39,7 @@ message CWishlist_GetWishlistItemsOnSale_Request {
 
 message CWishlist_GetWishlistItemsOnSale_Response {
 	repeated .CWishlist_GetWishlistItemsOnSale_Response_WishlistItem items = 1;
+	optional int32 total_items_on_sale = 2;
 }
 
 message CWishlist_GetWishlistItemsOnSale_Response_WishlistItem {
