@@ -2794,6 +2794,7 @@ message CMsgClientSettings {
 	optional bool accessibility_reduce_motion = 26006;
 	optional uint32 accessibility_minimum_font_size = 26008;
 	optional string accessibility_color_filter_name = 26009;
+	optional float accessibility_desktop_ui_scale = 26010;
 	optional bool controller_enable_chord = 140011;
 	optional bool controller_poll_rate = 140012;
 }
