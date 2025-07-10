@@ -95,8 +95,7 @@ message RecommendationDetails {
 	optional int32 deck_playtime_at_review = 49;
 	optional uint32 is_bot_review_pct = 50;
 	optional uint32 positivity_pct = 51;
-	repeated uint32 tags = 52;
-	repeated uint64 tags__field_53 = 53;
+	repeated uint64 tags = 53;
 }
 
 service UserReviews {
