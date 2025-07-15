@@ -1,0 +1,94 @@
+import "common_base.proto";
+
+message CLEDManager_GetState_Request {
+}
+
+message CLEDManager_GetState_Response {
+	optional .CMsgLEDManagerState state = 1;
+}
+
+message CLEDManager_SetBrightness_Request {
+	optional int32 device_id = 1;
+	optional float brightness = 2;
+}
+
+message CLEDManager_SetBrightness_Response {
+}
+
+message CLEDManager_SetColor_Request {
+	optional int32 device_id = 1;
+	optional .CMsgLEDColor color = 2;
+}
+
+message CLEDManager_SetColor_Response {
+}
+
+message CLEDManager_SetEffect_Request {
+	optional int32 device_id = 1;
+	optional string effect = 2;
+}
+
+message CLEDManager_SetEffect_Response {
+}
+
+message CLEDManager_SetEnabled_Request {
+	optional int32 device_id = 1;
+	optional bool enabled = 2;
+}
+
+message CLEDManager_SetEnabled_Response {
+}
+
+message CLEDManager_SetSpeed_Request {
+	optional int32 device_id = 1;
+	optional float speed = 2;
+}
+
+message CLEDManager_SetSpeed_Response {
+}
+
+message CLEDManager_StateChanged_Notification {
+}
+
+message CMsgLEDColor {
+	optional float r = 1;
+	optional float g = 2;
+	optional float b = 3;
+}
+
+message CMsgLEDManagerDevice {
+	optional int32 id = 1;
+	optional bool enabled = 2;
+	optional string name = 3;
+	repeated string effects_available = 4;
+	optional string effect = 5;
+	optional bool supports_color = 9;
+	optional .CMsgLEDColor color = 10;
+	optional bool supports_speed = 11;
+	optional float speed = 12;
+	optional bool supports_brightness = 13;
+	optional float brightness = 14;
+}
+
+message CMsgLEDManagerState {
+	optional bool is_service_available = 1;
+	repeated .CMsgLEDManagerDevice devices = 2;
+}
+
+service LEDManager {
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc GetState (.CLEDManager_GetState_Request) returns (.CLEDManager_GetState_Response);
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc NotifyStateChanged (.CLEDManager_StateChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc SetBrightness (.CLEDManager_SetBrightness_Request) returns (.CLEDManager_SetBrightness_Response);
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc SetColor (.CLEDManager_SetColor_Request) returns (.CLEDManager_SetColor_Response);
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc SetEffect (.CLEDManager_SetEffect_Request) returns (.CLEDManager_SetEffect_Response);
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc SetEnabled (.CLEDManager_SetEnabled_Request) returns (.CLEDManager_SetEnabled_Response);
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc SetSpeed (.CLEDManager_SetSpeed_Request) returns (.CLEDManager_SetSpeed_Response);
+}
+
