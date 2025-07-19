@@ -1,5 +1,13 @@
 import "common_base.proto";
 
+message CClientMetrics_ReportAccessibilitySettings_Notification {
+	optional float accessibility_desktop_ui_scale = 1;
+	optional bool accessibility_screen_reader_enabled = 2;
+	optional bool accessibility_high_contrast_mode = 3;
+	optional bool accessibility_reduce_motion = 4;
+	optional string accessibility_color_filter_name = 5;
+}
+
 message CClientMetrics_ReportClientArgs_Notification {
 	repeated string client_args = 1;
 	optional bool gpu_webview_regkey_disabled = 2;
@@ -78,6 +86,8 @@ service ClientMetrics {
 	rpc ClientDownloadResponseCodeCounts (.NotImplemented) returns (.NoResponse);
 	// ePrivilege=1
 	rpc ClientIPv6ConnectivityReport (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
+	rpc ReportAccessibilitySettings (.CClientMetrics_ReportAccessibilitySettings_Notification) returns (.NoResponse);
 	// ePrivilege=1
 	rpc ReportClientArgs (.CClientMetrics_ReportClientArgs_Notification) returns (.NoResponse);
 	// ePrivilege=2, eWebAPIKeyRequirement=1
