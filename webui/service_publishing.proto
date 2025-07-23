@@ -149,10 +149,6 @@ message CPublishing_GetPartnerAppOptInsIDs_Response {
 	repeated uint32 opted_in_appids = 1;
 }
 
-message CPublishing_GetPartnerOptInInvites_Response {
-	repeated .CPartnerAppOptInData data = 1;
-}
-
 message CPublishing_GetPartnerPaidGivenPackageList_Request {
 	repeated uint32 packageids = 1;
 }
@@ -231,8 +227,6 @@ service Publishing {
 	rpc GetPartnerAppOptInEmailDefAndStats (.CPublishing_GetPartnerAppOptInEmailDefAndStats_Request) returns (.CPublishing_GetPartnerAppOptInEmailDefAndStats_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetPartnerAppOptInsIDs (.CPublishing_GetPartnerAppOptInsIDs_Request) returns (.CPublishing_GetPartnerAppOptInsIDs_Response);
-	// bConstMethod=true, ePrivilege=1
-	rpc GetPartnerOptInInvites (.NotImplemented) returns (.CPublishing_GetPartnerOptInInvites_Response);
 	// bConstMethod=true, ePrivilege=4
 	rpc GetPartnerPaidGivenPackageList (.CPublishing_GetPartnerPaidGivenPackageList_Request) returns (.CPublishing_GetPartnerPaidGivenPackageList_Response);
 	// bConstMethod=true, ePrivilege=1

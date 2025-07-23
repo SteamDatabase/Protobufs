@@ -40,13 +40,6 @@ message CTwoFactor_AddAuthenticator_Response {
 	optional int32 confirm_type = 12;
 }
 
-message CTwoFactor_CreateEmergencyCodes_Response {
-	repeated string codes = 1;
-}
-
-message CTwoFactor_DestroyEmergencyCodes_Response {
-}
-
 message CTwoFactor_FinalizeAddAuthenticator_Request {
 	optional fixed64 steamid = 1;
 	optional string authenticator_code = 2;
@@ -58,7 +51,6 @@ message CTwoFactor_FinalizeAddAuthenticator_Request {
 
 message CTwoFactor_FinalizeAddAuthenticator_Response {
 	optional bool success = 1;
-	optional bool want_more = 2;
 	optional uint64 server_time = 3;
 	optional int32 status = 4;
 }
@@ -159,17 +151,9 @@ message CTwoFactor_UsageEvent {
 	optional int32 confirmation_action = 4;
 }
 
-message CTwoFactor_ValidateToken_Response {
-	optional bool valid = 1;
-}
-
 service TwoFactor {
 	// ePrivilege=1
 	rpc AddAuthenticator (.CTwoFactor_AddAuthenticator_Request) returns (.CTwoFactor_AddAuthenticator_Response);
-	// ePrivilege=1
-	rpc CreateEmergencyCodes (.NotImplemented) returns (.CTwoFactor_CreateEmergencyCodes_Response);
-	// ePrivilege=1
-	rpc DestroyEmergencyCodes (.NotImplemented) returns (.CTwoFactor_DestroyEmergencyCodes_Response);
 	// ePrivilege=1
 	rpc FinalizeAddAuthenticator (.CTwoFactor_FinalizeAddAuthenticator_Request) returns (.CTwoFactor_FinalizeAddAuthenticator_Response);
 	// ePrivilege=1
@@ -186,7 +170,5 @@ service TwoFactor {
 	rpc SendEmail (.CTwoFactor_SendEmail_Request) returns (.CTwoFactor_SendEmail_Response);
 	// ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc UpdateTokenVersion (.CTwoFactor_UpdateTokenVersion_Request) returns (.CTwoFactor_UpdateTokenVersion_Response);
-	// ePrivilege=1
-	rpc ValidateToken (.NotImplemented) returns (.CTwoFactor_ValidateToken_Response);
 }
 

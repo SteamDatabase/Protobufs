@@ -18,15 +18,6 @@ message CStore_GetVoteDefinitions_Response {
 	repeated uint32 labor_of_love_winners = 2;
 }
 
-message CStore_GetVoteDefinitionsForEvents_Response {
-	repeated .CStore_GetVoteDefinitionsForEvents_Response_Vote_Defintion definitions = 1;
-}
-
-message CStore_GetVoteDefinitionsForEvents_Response_Vote_Defintion {
-	optional int32 voteid = 1;
-	optional uint32 appid = 2;
-}
-
 message CStore_SetVote_Request {
 	optional int32 voteid = 1;
 	optional uint32 appid = 2;
@@ -84,8 +75,6 @@ service StoreSales {
 	rpc GetUserVotes (.CStore_GetUserVotes_Request) returns (.CStore_GetUserVotes_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetVoteDefinitions (.CStore_GetVoteDefinitions_Request) returns (.CStore_GetVoteDefinitions_Response);
-	// bConstMethod=true, ePrivilege=7
-	rpc GetVoteDefinitionsForEvents (.NotImplemented) returns (.CStore_GetVoteDefinitionsForEvents_Response);
 	// ePrivilege=1
 	rpc SetVote (.CStore_SetVote_Request) returns (.CStore_SetVote_Response);
 }
