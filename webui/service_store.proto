@@ -353,7 +353,6 @@ message CStore_UserPreferences {
 	optional int32 timestamp_content_descriptor_preferences_updated = 11;
 	optional int32 provide_deck_feedback = 12 [(.description) = "enum"];
 	optional string additional_languages = 13;
-	optional int32 review_score_outliers_preference = 14 [(.description) = "enum"];
 }
 
 message CStore_UserTagPreferences {
