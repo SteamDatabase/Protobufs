@@ -126,6 +126,27 @@ message CForums_Topic_Reaction {
 	optional uint32 count = 2;
 }
 
+message CForums_UndeleteDisputedComment_Request {
+	optional fixed64 steamid = 1;
+	optional int32 comment_thread_type = 2 [(.description) = "enum"];
+	optional uint64 gidfeature = 3;
+	optional uint64 gidfeature2 = 4;
+	optional uint64 gidcomment = 5;
+}
+
+message CForums_UndeleteDisputedComment_Response {
+}
+
+message CForums_UndeleteDisputedTopic_Request {
+	optional fixed64 steamid = 1;
+	optional int32 comment_thread_type = 2 [(.description) = "enum"];
+	optional uint64 gidfeature = 3;
+	optional uint64 gidfeature2 = 4;
+}
+
+message CForums_UndeleteDisputedTopic_Response {
+}
+
 message CForums_UserBan {
 	optional uint32 accountid_ban_actor = 1;
 	optional uint32 time_ban_start = 2;
@@ -157,5 +178,9 @@ service Forums {
 	rpc ResolveReportedPost (.CForums_ResolveReportedPost_Request) returns (.CForums_ResolveReportedPost_Response);
 	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc ResolveReportedPosts (.CForums_ResolveReportedPosts_Request) returns (.CForums_ResolveReportedPosts_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
+	rpc UndeleteDisputedComment (.CForums_UndeleteDisputedComment_Request) returns (.CForums_UndeleteDisputedComment_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
+	rpc UndeleteDisputedTopic (.CForums_UndeleteDisputedTopic_Request) returns (.CForums_UndeleteDisputedTopic_Response);
 }
 

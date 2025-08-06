@@ -1,0 +1,278 @@
+import "common_base.proto";
+
+message AdditionalSubjectData {
+	repeated .AdditionalSubjectData_DataEntry data = 1;
+}
+
+message AdditionalSubjectData_DataEntry {
+	optional string key = 1;
+	optional string value = 2;
+}
+
+message CContentModeration_CancelContentReport_Request {
+	optional uint64 report_id = 1;
+}
+
+message CContentModeration_CancelContentReport_Response {
+}
+
+message CContentModeration_ClaimBatchForModeration_Request {
+	repeated int32 accepted_subject_types = 1 [(.description) = "enum"];
+	optional uint32 support_company = 2;
+	repeated int32 accepted_languages = 3;
+	optional int32 moderator_level = 4 [(.description) = "enum"];
+	optional bool disputed = 5;
+}
+
+message CContentModeration_ClaimBatchForModeration_Response {
+	optional int32 selected_subject_type = 1 [(.description) = "enum"];
+	repeated .ContentReportSubject subject = 2;
+}
+
+message CContentModeration_CreateContentReport_Request {
+	optional int32 report_reason = 1 [(.description) = "enum"];
+	optional string report_text = 2;
+	optional uint64 owner_steamid = 3;
+	optional int32 language = 4;
+	optional int32 subject_type = 5 [(.description) = "enum"];
+	optional uint64 subject_group_id = 6;
+	optional uint64 subject_id = 7;
+	optional .AdditionalSubjectData additional_subject_data = 8;
+}
+
+message CContentModeration_CreateContentReport_Response {
+	optional uint64 report_id = 1;
+}
+
+message CContentModeration_DisputeModerationForReport_Request {
+	optional uint64 report_id = 1;
+	optional string details = 2;
+}
+
+message CContentModeration_DisputeModerationForReport_Response {
+}
+
+message CContentModeration_DisputeModerationForSubject_Request {
+	optional int32 subject_type = 1 [(.description) = "enum"];
+	optional uint64 subject_group_id = 2;
+	optional uint64 subject_id = 3;
+	optional string details = 4;
+}
+
+message CContentModeration_DisputeModerationForSubject_Response {
+}
+
+message CContentModeration_EscalateSubject_Request {
+	optional int32 subject_type = 1 [(.description) = "enum"];
+	optional uint64 subject_group_id = 2;
+	optional uint64 subject_id = 3;
+	optional int32 required_level = 4 [(.description) = "enum"];
+}
+
+message CContentModeration_EscalateSubject_Response {
+}
+
+message CContentModeration_GetClaimed_Request {
+	optional uint64 steamid = 1;
+}
+
+message CContentModeration_GetClaimed_Response {
+	repeated .ContentReportSubject subject = 2;
+}
+
+message CContentModeration_GetContentReportSubject_Request {
+	optional int32 subject_type = 1 [(.description) = "enum"];
+	optional uint64 subject_group_id = 2;
+	optional uint64 subject_id = 3;
+}
+
+message CContentModeration_GetContentReportSubject_Response {
+	optional .ContentReportSubject subject = 1;
+}
+
+message CContentModeration_GetContentReportSubjectGroup_Request {
+	optional int32 subject_type = 1 [(.description) = "enum"];
+	optional uint64 subject_group_id = 2;
+}
+
+message CContentModeration_GetContentReportSubjectGroup_Response {
+	repeated .ContentReportSubject subjects = 1;
+}
+
+message CContentModeration_GetReportedSubjectsByOwner_Request {
+	optional uint64 steamid = 1;
+}
+
+message CContentModeration_GetReportedSubjectsByOwner_Response {
+	repeated .ContentReportSubject subject = 1;
+}
+
+message CContentModeration_GetReportsSubmittedByUser_Request {
+	optional uint64 steamid = 1;
+}
+
+message CContentModeration_GetReportsSubmittedByUser_Response {
+	repeated .ContentReport content_report = 1;
+}
+
+message CContentModeration_GetSubjectOverview_Request {
+}
+
+message CContentModeration_GetSubjectOverview_Response {
+	repeated .CContentModeration_GetSubjectOverview_Response_Bucket buckets = 1;
+	optional uint32 pending_for_any_moderator = 2;
+	optional uint32 pending_for_supervisor = 3;
+	optional uint32 pending_for_valve = 4;
+}
+
+message CContentModeration_GetSubjectOverview_Response_Bucket {
+	optional int32 subject_type = 1 [(.description) = "enum"];
+	optional uint32 unresolved_count = 2;
+	optional uint32 oldest_unresolved = 3;
+	optional uint32 unclaimed_count = 4;
+	optional uint32 oldest_disputed = 5;
+	optional uint32 disputed_count = 6;
+	optional uint32 unclaimed_disputed_count = 7;
+	optional uint32 pending_for_any_moderator = 8;
+	optional uint32 pending_for_supervisor = 9;
+	optional uint32 pending_for_valve = 10;
+}
+
+message CContentModeration_ReleaseClaimed_Request {
+	optional uint64 steamid = 1;
+}
+
+message CContentModeration_ReleaseClaimed_Response {
+}
+
+message CContentModeration_ResolveDisputedSubject_Request {
+	optional int32 subject_type = 1 [(.description) = "enum"];
+	optional uint64 subject_group_id = 2;
+	optional uint64 subject_id = 3;
+	optional int32 updated_resolution = 4 [(.description) = "enum"];
+	optional int32 updated_reason = 5 [(.description) = "enum"];
+}
+
+message CContentModeration_ResolveDisputedSubject_Response {
+}
+
+message CContentModeration_ResolveSubject_Request {
+	optional int32 subject_type = 1 [(.description) = "enum"];
+	optional uint64 subject_group_id = 2;
+	optional uint64 subject_id = 3;
+	optional int32 resolution = 4 [(.description) = "enum"];
+	optional int32 reason = 5 [(.description) = "enum"];
+}
+
+message CContentModeration_ResolveSubject_Response {
+}
+
+message CContentModeration_ResolveSubjectGroup_Request {
+	optional int32 subject_type = 1 [(.description) = "enum"];
+	optional uint64 subject_group_id = 2;
+	optional int32 resolution = 3 [(.description) = "enum"];
+	optional int32 reason = 4 [(.description) = "enum"];
+}
+
+message CContentModeration_ResolveSubjectGroup_Response {
+}
+
+message CContentModeration_UpdateSubject_Request {
+	optional int32 subject_type = 1 [(.description) = "enum"];
+	optional uint64 subject_group_id = 2;
+	optional uint64 subject_id = 3;
+	optional int32 csam_status = 4 [(.description) = "enum"];
+	optional int32 terrorism_status = 5 [(.description) = "enum"];
+}
+
+message CContentModeration_UpdateSubject_Response {
+}
+
+message ContentReport {
+	optional uint64 report_id = 1;
+	optional uint64 reporter_steamid = 2;
+	optional uint32 time_reported = 3;
+	optional int32 report_reason = 4 [(.description) = "enum"];
+	optional string report_text = 5;
+	optional int32 subject_type = 6 [(.description) = "enum"];
+	optional uint64 subject_group_id = 7;
+	optional uint64 subject_id = 8;
+	optional int32 resolved = 9 [(.description) = "enum"];
+	optional uint32 time_resolved = 10;
+	optional uint64 resolver_steamid = 11;
+	optional uint32 time_notified = 12;
+	optional .AdditionalSubjectData additional_subject_data = 13;
+	optional uint32 time_disputed = 14;
+	optional string dispute_details = 15;
+	optional uint64 dispute_resolver_steamid = 16;
+	optional int32 dispute_resolved = 17 [(.description) = "enum"];
+	optional uint32 time_dispute_resolved = 18;
+}
+
+message ContentReportSubject {
+	optional int32 subject_type = 1 [(.description) = "enum"];
+	optional uint64 subject_group_id = 2;
+	optional uint64 subject_id = 3;
+	optional uint64 owner_steam_id = 4;
+	optional int32 language = 5;
+	optional int32 resolved = 6 [(.description) = "enum"];
+	optional uint32 time_resolved = 7;
+	optional uint32 unresolved_report_count = 8;
+	optional uint32 oldest_unresolved_report_time = 9;
+	optional uint64 resolver_steamid = 10;
+	optional uint64 assigned_moderator_steamid = 11;
+	optional uint64 time_claimed_by_moderator = 12;
+	repeated .ContentReport reports = 13;
+	optional .AdditionalSubjectData additional_subject_data = 14;
+	optional int32 csam_status = 15 [(.description) = "enum"];
+	optional int32 terrorism_status = 16 [(.description) = "enum"];
+	optional int32 content_moderated_reason = 17 [(.description) = "enum"];
+	optional uint32 unresolved_dispute_count = 18;
+	optional uint32 oldest_unresolved_dispute_time = 19;
+	optional uint32 dispute_resolved_time = 20;
+	optional uint64 dispute_resolver_steamid = 21;
+	optional uint32 dispute_resolved = 22;
+	optional uint32 dispute_resolved_reason = 23;
+	optional uint32 owner_dispute_time = 24;
+	optional uint32 owner_dispute_resolved_time = 25;
+	optional string owner_dispute_details = 26;
+	optional int32 required_moderator_level = 27 [(.description) = "enum"];
+}
+
+service ContentModeration {
+	// ePrivilege=1
+	rpc CancelContentReport (.CContentModeration_CancelContentReport_Request) returns (.CContentModeration_CancelContentReport_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
+	rpc ClaimBatchForModeration (.CContentModeration_ClaimBatchForModeration_Request) returns (.CContentModeration_ClaimBatchForModeration_Response);
+	// ePrivilege=1
+	rpc CreateContentReport (.CContentModeration_CreateContentReport_Request) returns (.CContentModeration_CreateContentReport_Response);
+	// ePrivilege=1
+	rpc DisputeModerationForReport (.CContentModeration_DisputeModerationForReport_Request) returns (.CContentModeration_DisputeModerationForReport_Response);
+	// ePrivilege=1
+	rpc DisputeModerationForSubject (.CContentModeration_DisputeModerationForSubject_Request) returns (.CContentModeration_DisputeModerationForSubject_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
+	rpc EscalateSubject (.CContentModeration_EscalateSubject_Request) returns (.CContentModeration_EscalateSubject_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
+	rpc GetClaimed (.CContentModeration_GetClaimed_Request) returns (.CContentModeration_GetClaimed_Response);
+	// ePrivilege=1
+	rpc GetContentReportSubject (.CContentModeration_GetContentReportSubject_Request) returns (.CContentModeration_GetContentReportSubject_Response);
+	// ePrivilege=1
+	rpc GetContentReportSubjectGroup (.CContentModeration_GetContentReportSubjectGroup_Request) returns (.CContentModeration_GetContentReportSubjectGroup_Response);
+	// bConstMethod=true, ePrivilege=1
+	rpc GetReportedSubjectsByOwner (.CContentModeration_GetReportedSubjectsByOwner_Request) returns (.CContentModeration_GetReportedSubjectsByOwner_Response);
+	// bConstMethod=true, ePrivilege=1
+	rpc GetReportsSubmittedByUser (.CContentModeration_GetReportsSubmittedByUser_Request) returns (.CContentModeration_GetReportsSubmittedByUser_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
+	rpc GetSubjectOverview (.CContentModeration_GetSubjectOverview_Request) returns (.CContentModeration_GetSubjectOverview_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
+	rpc ReleaseClaimed (.CContentModeration_ReleaseClaimed_Request) returns (.CContentModeration_ReleaseClaimed_Response);
+	// ePrivilege=1
+	rpc ResolveDisputedSubject (.CContentModeration_ResolveDisputedSubject_Request) returns (.CContentModeration_ResolveDisputedSubject_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
+	rpc ResolveSubject (.CContentModeration_ResolveSubject_Request) returns (.CContentModeration_ResolveSubject_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
+	rpc ResolveSubjectGroup (.CContentModeration_ResolveSubjectGroup_Request) returns (.CContentModeration_ResolveSubjectGroup_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
+	rpc UpdateSubject (.CContentModeration_UpdateSubject_Request) returns (.CContentModeration_UpdateSubject_Response);
+}
+

@@ -106,6 +106,7 @@ message CFamilyGroups_GetFamilyGroupForUser_Response {
 	optional uint32 cooldown_seconds_remaining = 7;
 	optional .CFamilyGroups_GetFamilyGroup_Response family_group = 8;
 	optional bool can_undelete_last_joined_family = 9;
+	repeated .FamilyGroupMembership membership_history = 10;
 }
 
 message CFamilyGroups_GetInviteCheckResults_Request {
@@ -265,6 +266,14 @@ message CFamilyGroups_RespondToRequestedPurchase_Request {
 message CFamilyGroups_RespondToRequestedPurchase_Response {
 }
 
+message CFamilyGroups_RollbackFamilyGroup_Request {
+	optional uint64 family_groupid = 1;
+	optional uint32 rtime32_target = 2;
+}
+
+message CFamilyGroups_RollbackFamilyGroup_Response {
+}
+
 message CFamilyGroups_SetFamilyCooldownOverrides_Request {
 	optional uint64 family_groupid = 1;
 	optional uint32 cooldown_count = 2;
@@ -320,6 +329,14 @@ message FamilyGroupMember {
 	optional int32 role = 2 [(.description) = "enum"];
 	optional uint32 time_joined = 3;
 	optional uint32 cooldown_seconds_remaining = 4;
+}
+
+message FamilyGroupMembership {
+	optional uint64 family_groupid = 1;
+	optional uint32 rtime_joined = 2;
+	optional uint32 rtime_left = 3;
+	optional uint32 role = 4;
+	optional bool participated = 5;
 }
 
 message FamilyGroupPendingInvite {
@@ -396,6 +413,8 @@ service FamilyGroups {
 	rpc ResendInvitationToFamilyGroup (.CFamilyGroups_ResendInvitationToFamilyGroup_Request) returns (.CFamilyGroups_ResendInvitationToFamilyGroup_Response);
 	// ePrivilege=1
 	rpc RespondToRequestedPurchase (.CFamilyGroups_RespondToRequestedPurchase_Request) returns (.CFamilyGroups_RespondToRequestedPurchase_Response);
+	// ePrivilege=5
+	rpc RollbackFamilyGroup (.CFamilyGroups_RollbackFamilyGroup_Request) returns (.CFamilyGroups_RollbackFamilyGroup_Response);
 	// ePrivilege=1
 	rpc SetFamilyCooldownOverrides (.CFamilyGroups_SetFamilyCooldownOverrides_Request) returns (.CFamilyGroups_SetFamilyCooldownOverrides_Response);
 	// ePrivilege=1
