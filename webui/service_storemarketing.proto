@@ -40,6 +40,8 @@ message CStoreMarketing_GetItemsToFeature_Response_Spotlight {
 	optional string spotlight_body = 5;
 	optional string asset_url = 6;
 	optional string spotlight_link_url = 7;
+	optional uint32 start_date = 8;
+	optional uint32 end_date = 9;
 }
 
 message CStorePageCluster {
