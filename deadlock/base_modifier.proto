@@ -19,6 +19,7 @@ message CModifierTableEntry {
 	optional int32 aura_provider_serial_number = 11;
 	optional uint32 aura_provider_ehandle = 12 [default = 16777215];
 	optional uint32 ability_subclass = 13;
+	optional bool in_aura_range = 14;
 	optional bool bool1_ = 20;
 	optional bool bool2_ = 21;
 	optional bool bool3_ = 22;

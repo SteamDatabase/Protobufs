@@ -12,4 +12,5 @@ message CCitadelUserCmdPB {
 	optional int32 enemy_hero_aimed_at = 10 [default = -1];
 	repeated int32 view_delta_x = 11;
 	repeated int32 view_delta_y = 12;
+	optional bool is_in_third_person_view = 13;
 }

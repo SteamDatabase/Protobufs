@@ -58,6 +58,8 @@ enum CitadelUserMessageIds {
 	k_EUserMsg_SeasonalAchievementUnlocked = 357;
 	k_EUserMsg_MusicQueue = 358;
 	k_EUserMsg_AG2ParamTrigger = 359;
+	k_EUserMsg_ItemPurchaseNotification = 360;
+	k_EUserMsg_EntityPortalled = 361;
 }
 
 enum CitadelEntityMessageIds {
@@ -120,8 +122,9 @@ enum ECitadelChatMessage {
 enum PostProcessingGameStates {
 	PostProcState_Killed = 0;
 	PostProcState_Black = 1;
-	PostProcState_Blinded = 2;
-	PostProcState_ShivPossessed = 3;
+	PostProcState_DoormanHotelVictim = 2;
+	PostProcState_Blinded = 3;
+	PostProcState_DrifterDarknessCaster = 4;
 }
 
 message CUserMessageEmpty {
@@ -484,7 +487,8 @@ message CCitadelUserMsg_PlayerLifetimeStatInfo {
 
 message CCitadelUserMsg_StaminaDrained {
 	optional int32 entindex_victim = 1 [default = -1];
-	optional int32 stamina_drained = 2;
+	optional float stamina_before = 3;
+	optional float stamina_after = 4;
 }
 
 message CCitadelUserMessage_AbilityNotify {
@@ -608,6 +612,13 @@ message CCitadelUserMsg_FlexSlotUnlocked {
 	optional int32 flexslot_unlocked = 2;
 }
 
+message CCitadelUserMessage_ItemPurchaseNotification {
+	optional int32 userid = 1 [default = -1];
+	optional uint32 ability_id = 2;
+	optional bool sell = 3;
+	optional bool quickbuy = 4;
+}
+
 message CCitadelUserMsg_SeasonalAchievementUnlocked {
 	optional uint32 account_id = 1;
 	optional uint32 hero_id = 2;
@@ -621,4 +632,9 @@ message CCitadelUserMsg_MusicQueue {
 message CCitadelUserMsg_AG2ParamTrigger {
 	optional string param_id = 1;
 	optional string param_value = 2;
+}
+
+message CCitadelUserMsg_EntityPortalled {
+	optional uint32 entity_portalled = 1 [default = 16777215];
+	optional .CMsgTransform portal_transform = 2;
 }

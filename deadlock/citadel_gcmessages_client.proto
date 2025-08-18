@@ -100,8 +100,6 @@ enum EGCCitadelClientMessages {
 	k_EMsgClientToGCGetFriendGameStatusResponse = 9214;
 	k_EMsgClientToGCUpdateHeroBuildPreference = 9215;
 	k_EMsgClientToGCUpdateHeroBuildPreferenceResponse = 9216;
-	k_EMsgClientToGCGetOldHeroBuildData = 9217;
-	k_EMsgClientToGCGetOldHeroBuildDataResponse = 9218;
 	k_EMsgClientToGCUpdateSpectatorStatus = 9219;
 	k_EMsgClientToGCCommendPlayerFromMatch = 9223;
 	k_EMsgClientToGCCommendPlayerFromMatchResponse = 9224;
@@ -134,10 +132,29 @@ enum EGCCitadelClientMessages {
 	k_EMsgClientToGCTarotDevGenerateTestTilesResponse = 9256;
 	k_EMsgClientToGCTarotDevModifyEnergy = 9257;
 	k_EMsgClientToGCTarotDevModifyEnergyResponse = 9258;
+	k_EMsgClientToGCGenerateChallengeSet = 9259;
+	k_EMsgClientToGCGenerateChallengeSetResponse = 9260;
+	k_EMsgClientToGCChallengeActivate = 9261;
+	k_EMsgClientToGCChallengeActivateResponse = 9262;
+	k_EMsgClientToGCChallengeClaim = 9263;
+	k_EMsgClientToGCChallengeClaimResponse = 9264;
+	k_EMsgClientToGCChallengeCancel = 9265;
+	k_EMsgClientToGCChallengeCancelResponse = 9266;
 	k_EMsgClientToGCGetSurveyQuestion = 9267;
 	k_EMsgClientToGCGetSurveyQuestionResponse = 9268;
 	k_EMsgClientToGCSubmitSurvey = 9269;
 	k_EMsgClientToGCSubmitSurveyResponse = 9270;
+	k_EMsgClientToGCGetRankData = 9271;
+	k_EMsgGCToClientGetRankDataResponse = 9272;
+	k_EMsgGCToClientRankDataUpdate = 9273;
+	k_EMsgClientToGCGetHideoutSDRTicket = 9274;
+	k_EMsgClientToGCGetHideoutSDRTicketResponse = 9275;
+	k_EMsgClientToGCSubmitHeroReleaseVote = 9276;
+	k_EMsgClientToGCPartySendChatMsg = 9277;
+	k_EMsgClientToGCPartySendChatMsgResponse = 9278;
+	k_EMsgGCToClientPartyChatMsg = 9279;
+	k_EMsgClientToGCRequestHeroReleaseVoteStatus = 9280;
+	k_EMsgGCToClientUpdateHeroReleaseVoteStatus = 9281;
 }
 
 enum ECitadelAccountPermissionFlag {
@@ -221,6 +238,10 @@ enum ECitadelClientAccountEvent {
 	k_eSandboxViaHeroPage = 55;
 	k_eViewedSettings_SteamInput = 56;
 	k_eViewedSettings_Social = 57;
+	k_eCalibrationMatch = 58;
+	k_eSandboxViaPlayMenu = 59;
+	k_eBotMatch_Medium = 60;
+	k_eSandboxViaHideoutTeleport = 61;
 }
 
 enum ECommendType {
@@ -289,9 +310,19 @@ message CSOAccountChallenge {
 		k_eExpired = 5;
 	}
 
+	enum ERewardType {
+		k_eReward_HeroXP = 0;
+	}
+
 	optional uint32 account_id = 1 [(key_field) = true];
 	optional uint64 challenge_id = 2;
 	optional .CSOAccountChallenge.EChallengeStatus status = 3 [default = k_eInvalid];
+	optional uint32 progress = 4;
+	optional uint32 max_progress = 5;
+	optional uint32 choice_group = 6;
+	optional .CSOAccountChallenge.ERewardType reward_type = 7 [default = k_eReward_HeroXP];
+	optional uint32 reward_param = 8;
+	optional uint32 reward_amount = 9;
 }
 
 message CMsgCitadelClientHello {
@@ -407,23 +438,6 @@ message CMsgDevMatchInfo {
 	optional uint32 compat_version = 20;
 }
 
-message CMsgGCToClientHeroLabsSchedule {
-	message TimeRange {
-		optional int32 start_time = 1;
-		optional int32 end_time = 2;
-	}
-
-	message Schedule {
-		optional uint32 schedule_id = 1;
-		repeated .CMsgGCToClientHeroLabsSchedule.TimeRange weekends = 2;
-		repeated .CMsgGCToClientHeroLabsSchedule.TimeRange weekdays = 3;
-		optional bool is_open = 4;
-		repeated .ECitadelRegionMode regions = 5;
-	}
-
-	repeated .CMsgGCToClientHeroLabsSchedule.Schedule schedules = 1;
-}
-
 message CMsgGCToClientDevPlaytestStatus {
 	message HeroWhitelist {
 		optional uint32 hero_id = 1;
@@ -457,6 +471,15 @@ message CMsgClientToGCReplacementSDRTicket {
 }
 
 message CMsgClientToGCReplacementSDRTicketResponse {
+	optional bytes ticket = 1;
+	optional string error_message = 2;
+}
+
+message CMsgClientToGCGetHideoutSDRTicket {
+	optional fixed64 lobby_id = 1;
+}
+
+message CMsgClientToGCGetHideoutSDRTicketResponse {
 	optional bytes ticket = 1;
 	optional string error_message = 2;
 }
@@ -499,6 +522,8 @@ message CMsgClientToGCPartyCreate {
 	optional .ECitadelMMPreference mm_preference = 8 [default = k_ECitadelMMPreference_Invalid];
 	optional .CSOCitadelParty.PrivateLobbySettings private_lobby_settings = 9;
 	optional .ECitadelBotDifficulty bot_difficulty = 10 [default = k_ECitadelBotDifficulty_None];
+	optional string hideout_search_key = 11;
+	optional bool dev_force_hideout = 12;
 }
 
 message CMsgClientToGCPartyCreateResponse {
@@ -590,7 +615,6 @@ message CMsgClientToGCPartyAction {
 		k_eSetExperimentalHeroesEnabled = 22;
 		k_eSetDesiresLaningTogether = 23;
 		k_eSetMMPreference = 24;
-		k_eSetHideoutServerID = 25;
 	}
 
 	optional fixed64 party_id = 1;
@@ -1229,55 +1253,6 @@ message CMsgClientToGCSubmitPlaytestUserResponse {
 	optional .CMsgClientToGCSubmitPlaytestUserResponse.EResponse response = 1 [default = eResponse_Success];
 }
 
-message CMsgHeroBuild {
-	message BuildModEntry {
-		optional uint32 ability_id = 1;
-		optional string annotation = 2;
-		optional uint32 required_flex_slots = 3;
-		optional uint32 sell_priority = 4;
-		optional uint32 imbue_target_ability_id = 5;
-	}
-
-	message BuildModCategory {
-		repeated .CMsgHeroBuild.BuildModEntry mods = 1;
-		optional string name = 2;
-		optional string description = 3;
-		optional float width = 4;
-		optional float height = 5;
-		optional bool optional = 6;
-	}
-
-	message CurrencyChange {
-		optional uint32 ability_id = 1;
-		optional int32 currency_type = 2;
-		optional int32 delta = 3;
-		optional string annotation = 4;
-	}
-
-	message AbilityOrder {
-		repeated .CMsgHeroBuild.CurrencyChange currency_changes = 1;
-	}
-
-	message Details_V0 {
-		repeated .CMsgHeroBuild.BuildModCategory mod_categories = 1;
-		optional .CMsgHeroBuild.AbilityOrder ability_order = 2;
-	}
-
-	optional uint32 hero_build_id = 1;
-	optional uint32 hero_id = 2;
-	optional uint32 author_account_id = 3;
-	optional uint32 last_updated_timestamp = 4;
-	optional string name = 5;
-	optional string description = 6;
-	optional uint32 language = 7;
-	optional uint32 version = 8;
-	optional uint32 origin_build_id = 9;
-	optional .CMsgHeroBuild.Details_V0 details = 10;
-	repeated uint32 tags = 11;
-	optional bool development_build = 12;
-	optional uint32 publish_timestamp = 13;
-}
-
 message CMsgClientToGCUpdateHeroBuild {
 	optional .CMsgHeroBuild hero_build = 1;
 }
@@ -1300,12 +1275,6 @@ message CMsgClientToGCFindHeroBuilds {
 	optional string search_text = 4;
 	optional uint32 hero_build_id = 5;
 	repeated uint32 tags = 6;
-}
-
-message CMsgHeroBuildPreference {
-	optional bool favorited = 1;
-	optional bool ignored = 2;
-	optional bool reported = 3;
 }
 
 message CMsgClientToGCFindHeroBuildsResponse {
@@ -1345,32 +1314,6 @@ message CMsgClientToGCUpdateHeroBuildPreferenceResponse {
 	optional .CMsgClientToGCUpdateHeroBuildPreferenceResponse.EResponse response = 1 [default = k_eInternalError];
 }
 
-message CMsgClientToGCGetOldHeroBuildData {
-	optional uint32 author_account_id = 1;
-}
-
-message CMsgClientToGCGetOldHeroBuildDataResponse {
-	message OldDetails_V0 {
-		repeated uint32 recommended_mod_ability_ids = 1;
-	}
-
-	message OldBuild {
-		optional string name = 1;
-		optional uint32 hero_id = 2;
-		optional string description = 3;
-		optional .CMsgClientToGCGetOldHeroBuildDataResponse.OldDetails_V0 details = 4;
-	}
-
-	enum EResponse {
-		k_eInternalError = 0;
-		k_eSuccess = 1;
-	}
-
-	optional .CMsgClientToGCGetOldHeroBuildDataResponse.EResponse response = 1 [default = k_eInternalError];
-	optional uint32 author_account_id = 2;
-	repeated .CMsgClientToGCGetOldHeroBuildDataResponse.OldBuild results = 3;
-}
-
 message CMsgClientToGCReportPlayerFromMatch {
 	enum EReportType {
 		k_eReport_None = 0;
@@ -1379,6 +1322,7 @@ message CMsgClientToGCReportPlayerFromMatch {
 		k_eReport_LeftMatch = 3;
 		k_eReport_Matchmaking = 4;
 		k_eReport_Cheating = 5;
+		k_eReport_Smurfing = 6;
 	}
 
 	optional uint64 match_id = 1;
@@ -1637,6 +1581,64 @@ message CMsgClientToGCGetAccountLeaderboardsResponse {
 	repeated .CMsgClientToGCGetAccountLeaderboardsResponse.LeaderboardEntry entries = 3;
 }
 
+message CMsgClientToGCGenerateChallengeSet {
+}
+
+message CMsgClientToGCGenerateChallengeSetResponse {
+	enum EResult {
+		k_eSuccess = 0;
+		k_eInternalError = 1;
+		k_eChallengeActive = 2;
+		k_eChallengeChoiceExists = 3;
+	}
+
+	optional .CMsgClientToGCGenerateChallengeSetResponse.EResult result = 1 [default = k_eSuccess];
+}
+
+message CMsgClientToGCChallengeActivate {
+	optional uint64 challenge_id = 1;
+}
+
+message CMsgClientToGCChallengeActivateResponse {
+	enum EResult {
+		k_eSuccess = 0;
+		k_eInternalError = 1;
+		k_eInvalidChallenge = 2;
+	}
+
+	optional .CMsgClientToGCChallengeActivateResponse.EResult result = 1 [default = k_eSuccess];
+}
+
+message CMsgClientToGCChallengeClaim {
+	optional uint64 challenge_id = 1;
+}
+
+message CMsgClientToGCChallengeClaimResponse {
+	enum EResult {
+		k_eSuccess = 0;
+		k_eInternalError = 1;
+		k_eInvalidChallenge = 2;
+		k_eChallengeIncomplete = 3;
+	}
+
+	optional .CMsgClientToGCChallengeClaimResponse.EResult result = 1 [default = k_eSuccess];
+}
+
+message CMsgClientToGCChallengeCancel {
+	optional uint64 challenge_id = 1;
+}
+
+message CMsgClientToGCChallengeCancelResponse {
+	enum EResult {
+		k_eSuccess = 0;
+		k_eInternalError = 1;
+		k_eInvalidChallenge = 2;
+		k_eChallengeComplete = 3;
+	}
+
+	optional .CMsgClientToGCChallengeCancelResponse.EResult result = 1 [default = k_eSuccess];
+}
+
 message CMsgSurveyQuestion {
 	enum EQuestionType {
 		k_eInvalid = 0;
@@ -1682,4 +1684,64 @@ message CMsgClientToGCSubmitSurveyResponse {
 
 	optional .CMsgClientToGCSubmitSurveyResponse.EResult result = 1 [default = k_eSuccess];
 	optional .CMsgSurveyQuestion question = 2;
+}
+
+message CMsgClientToGCGetRankData {
+}
+
+message CMsgGCToClientGetRankDataResponse {
+	enum EResultCode {
+		k_Succeeded = 0;
+		k_Failed = 1;
+	}
+
+	optional .CMsgGCToClientGetRankDataResponse.EResultCode result = 1 [default = k_Succeeded];
+	optional int32 current_rank_confidence = 2;
+	optional int32 calibrated_rank_confidence = 3;
+	optional bool requires_calibration = 4;
+}
+
+message CMsgGCToClientRankDataUpdate {
+	optional .CMsgGCToClientGetRankDataResponse rank_info = 2;
+}
+
+message CMsgHeroReleaseVoteStatus {
+	optional uint32 remaining_votes = 1;
+	repeated uint32 votes_cast = 2 [packed = true];
+}
+
+message CMsgClientToGCRequestHeroReleaseVoteStatus {
+}
+
+message CMsgClientToGCSubmitHeroReleaseVote {
+	optional uint32 vote_option = 1;
+}
+
+message CMsgClientToGCPartySendChatMsg {
+	optional fixed64 party_id = 1;
+	optional string chat_msg = 2;
+}
+
+message CMsgClientToGCPartySendChatMsgResponse {
+	enum EResultCode {
+		k_eSuccess = 0;
+		k_eInternalError = 1;
+		k_eInvalidPermission = 2;
+		k_eDisabled = 3;
+		k_eRateLimited = 4;
+		k_eInvalidMsg = 5;
+	}
+
+	optional .CMsgClientToGCPartySendChatMsgResponse.EResultCode result = 1 [default = k_eSuccess];
+}
+
+message CMsgGCToClientPartyChatMsg {
+	message ChatLine {
+		optional uint32 account_id = 1;
+		optional string chat_msg = 2;
+		optional uint32 time_stamp = 3;
+	}
+
+	optional fixed64 party_id = 1;
+	repeated .CMsgGCToClientPartyChatMsg.ChatLine chat_lines = 2;
 }

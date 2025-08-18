@@ -1,5 +1,6 @@
 import "steammessages.proto";
 import "gcsdk_gcmessages.proto";
+import "base_gcmessages.proto";
 import "valveextensions.proto";
 
 enum CMsgLaneColor {
@@ -24,6 +25,7 @@ enum ECitadelMatchMode {
 	k_ECitadelMatchMode_ServerTest = 5;
 	k_ECitadelMatchMode_Tutorial = 6;
 	k_ECitadelMatchMode_HeroLabs = 7;
+	k_ECitadelMatchMode_Calibration = 8;
 }
 
 enum ECitadelLobbyTeam {
@@ -175,6 +177,25 @@ message CSOCitadelLobby {
 	optional uint32 game_mode_version = 16;
 }
 
+message CSOCitadelHideoutLobby {
+	message Member {
+		optional uint32 account_id = 1;
+		repeated uint32 account_awards = 20 [packed = true];
+	}
+
+	optional uint64 hideout_lobby_id = 1;
+	optional uint64 party_id = 2;
+	optional fixed64 server_steam_id = 3;
+	optional uint32 udp_connect_ip = 4;
+	optional uint32 udp_connect_port = 5;
+	optional bytes sdr_address = 6;
+	optional uint32 server_version = 7;
+	optional uint32 compat_version = 8;
+	repeated .CSOCitadelHideoutLobby.Member members = 9;
+	optional uint32 active_account_hideout = 10;
+	repeated .CExtraMsgBlock extra_messages = 11;
+}
+
 message CLobbyData_PostMatchSurvey {
 	message PlayerSurvey {
 		optional uint32 account_id = 1;
@@ -218,6 +239,7 @@ message CMsgAnyToGCReportAsserts {
 
 	optional uint32 version = 1;
 	repeated .CMsgAnyToGCReportAsserts.TrackedAssert asserts = 2;
+	optional uint64 match_id = 3;
 }
 
 message CMsgAnyToGCReportAssertsResponse {
@@ -227,6 +249,15 @@ message CMsgAnyToGCReportAssertsResponse {
 message CMsgRegionPingTimesClient {
 	repeated fixed32 data_center_codes = 1 [packed = true];
 	repeated uint32 ping_times = 2 [packed = true];
+}
+
+message CMsgEquippedItemList {
+	repeated .CSOEconItem items = 1;
+}
+
+message CMsgPlayerHeroData {
+	optional uint32 hero_xp = 1;
+	optional .CMsgEquippedItemList hero_equips = 2;
 }
 
 message CSOCitadelParty {
@@ -312,7 +343,7 @@ message CSOCitadelParty {
 	optional .CSOCitadelParty.PrivateLobbySettings private_lobby_settings = 17;
 	optional bool desires_laning_together = 18;
 	optional .ECitadelMMPreference mm_preference = 19 [default = k_ECitadelMMPreference_Invalid];
-	optional uint64 party_hideout_server_id = 20;
+	optional string hideout_search_key = 21;
 }
 
 message CMsgMatchPlayerPathsData {
@@ -324,7 +355,6 @@ message CMsgMatchPlayerPathsData {
 		optional float y_max = 5;
 		repeated uint32 x_pos = 6 [packed = true];
 		repeated uint32 y_pos = 7 [packed = true];
-		repeated bool alive = 8 [packed = true];
 		repeated uint32 health = 9 [packed = true];
 		repeated .CMsgMatchPlayerPathsData.ECombatType combat_type = 10 [packed = true];
 		repeated .CMsgMatchPlayerPathsData.EMoveType move_type = 11 [packed = true];
@@ -484,6 +514,10 @@ message CMsgMatchMetaDataContents {
 		repeated .CMsgMatchMetaDataContents.CustomUserStat custom_user_stats = 41;
 		optional uint32 damage_mitigated = 42;
 		optional uint32 level = 43;
+		optional uint32 player_barriering = 44;
+		optional uint32 teammate_healing = 45;
+		optional uint32 teammate_barriering = 46;
+		optional uint32 self_damage = 47;
 	}
 
 	message AbilityStat {
@@ -520,6 +554,8 @@ message CMsgMatchMetaDataContents {
 		repeated float stats_type_stat = 21 [packed = true];
 		repeated .CMsgMatchMetaDataContents.BookReward book_rewards = 22;
 		optional uint32 abandon_match_time_s = 23;
+		optional .CMsgPlayerHeroData hero_data = 25;
+		optional bool rewards_eligible = 26;
 	}
 
 	message Objective {
@@ -576,6 +612,7 @@ message CMsgMatchMetaDataContents {
 		optional uint32 average_badge_team0 = 23;
 		optional uint32 average_badge_team1 = 24;
 		optional uint32 game_mode_version = 25;
+		optional bool rewards_eligible = 26;
 	}
 
 	enum EMatchOutcome {
@@ -636,4 +673,59 @@ message CMsgAccountStats {
 message CMsgGCAccountData {
 	optional uint32 account_id = 1;
 	optional float cheater_report_score = 2;
+}
+
+message CMsgHeroBuild {
+	message BuildModEntry {
+		optional uint32 ability_id = 1;
+		optional string annotation = 2;
+		optional uint32 required_flex_slots = 3;
+		optional uint32 sell_priority = 4;
+		optional uint32 imbue_target_ability_id = 5;
+	}
+
+	message BuildModCategory {
+		repeated .CMsgHeroBuild.BuildModEntry mods = 1;
+		optional string name = 2;
+		optional string description = 3;
+		optional float width = 4;
+		optional float height = 5;
+		optional bool optional = 6;
+	}
+
+	message CurrencyChange {
+		optional uint32 ability_id = 1;
+		optional int32 currency_type = 2;
+		optional int32 delta = 3;
+		optional string annotation = 4;
+	}
+
+	message AbilityOrder {
+		repeated .CMsgHeroBuild.CurrencyChange currency_changes = 1;
+	}
+
+	message Details_V0 {
+		repeated .CMsgHeroBuild.BuildModCategory mod_categories = 1;
+		optional .CMsgHeroBuild.AbilityOrder ability_order = 2;
+	}
+
+	optional uint32 hero_build_id = 1;
+	optional uint32 hero_id = 2;
+	optional uint32 author_account_id = 3;
+	optional uint32 last_updated_timestamp = 4;
+	optional string name = 5;
+	optional string description = 6;
+	optional uint32 language = 7;
+	optional uint32 version = 8;
+	optional uint32 origin_build_id = 9;
+	optional .CMsgHeroBuild.Details_V0 details = 10;
+	repeated uint32 tags = 11;
+	optional bool development_build = 12;
+	optional uint32 publish_timestamp = 13;
+}
+
+message CMsgHeroBuildPreference {
+	optional bool favorited = 1;
+	optional bool ignored = 2;
+	optional bool reported = 3;
 }

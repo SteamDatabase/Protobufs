@@ -26,6 +26,10 @@ enum EGCCitadelServerMessages {
 	k_EMsgServerToGCUpdateMatchInfo = 10041;
 	k_EMsgServerToGCReportCheater = 10042;
 	k_EMsgServerToGCReportCheaterResponse = 10043;
+	k_EMsgServerToGCRequestPlayerHeroData = 10044;
+	k_EMsgServerToGCRequestPlayerHeroDataResponse = 10045;
+	k_EMsgGCToServerAllocateForHideout = 10046;
+	k_EMsgGCToServerAllocateForHideoutResponse = 10047;
 }
 
 enum EGCServerLobbyData {
@@ -46,6 +50,8 @@ enum EGCServerSignoutData {
 	k_EServerSignoutData_PenalizedPlayers = 9;
 	k_EServerSignoutData_ReportCheaters = 10;
 	k_EServerSignoutData_MatchDevStats = 11;
+	k_EServerSignoutData_ChallengeProgress = 12;
+	k_EServerSignoutData_HeroXPGrant = 13;
 	k_EServerSignoutData_MatchKills = 14;
 }
 
@@ -63,6 +69,7 @@ message CMsgServerCrashSentinelFile {
 		optional .ECitadelMatchMode match_mode = 6 [default = k_ECitadelMatchMode_Invalid];
 		optional .ECitadelGameMode game_mode = 7 [default = k_ECitadelGameMode_Invalid];
 		optional bool was_server_shutdown = 8;
+		optional uint64 hideout_lobby_id = 9;
 	}
 
 	optional uint32 version = 1;
@@ -79,18 +86,18 @@ message CMsgServerCrashSentinelFile {
 	optional uint32 server_region_id = 12;
 }
 
-message CMsgAccountEquippedItems {
-	message HeroItems {
-		optional uint32 hero_id = 1;
-		repeated .CSOEconItem items = 2;
+message CMsgAccountChallengesActive {
+	message Challenge {
+		optional uint64 challenge_id = 1;
+		optional uint32 progress = 2;
+		optional uint32 max_progress = 3;
 	}
 
-	repeated .CMsgAccountEquippedItems.HeroItems hero_items = 1;
+	repeated .CMsgAccountChallengesActive.Challenge challenges = 1;
 }
 
 message CServerLobbyData_PlayerMMR {
 	message Player {
-		optional uint32 account_id = 1;
 		optional uint32 player_mmr = 2;
 		optional uint32 player_uncertainty = 3;
 		optional uint32 hero_mmr = 4;
@@ -103,10 +110,9 @@ message CServerLobbyData_PlayerMMR {
 
 message CServerLobbyData_PlayerInfo {
 	optional uint32 account_id = 1;
-	repeated .CMsgAccountHeroStats account_stats = 2;
-	optional uint32 mmr_level = 4;
 	repeated .CMsgAccountBookStats book_info = 5;
-	optional .CMsgAccountEquippedItems equipped_items = 6;
+	optional .CMsgAccountChallengesActive challenges = 7;
+	optional .CMsgEquippedItemList global_equips = 8;
 }
 
 message CServerLobbyData_PostMatchSurvey {
@@ -144,7 +150,9 @@ message CSOCitadelServerStaticLobby {
 		optional .CMsgGCAccountData gc_account_data = 13;
 		optional bool party_desires_laning_together = 14;
 		optional .ECitadelBotDifficulty bot_difficulty = 16 [default = k_ECitadelBotDifficulty_None];
-		optional uint32 hero_xp = 17;
+		optional bool requires_skill_calibration = 18;
+		optional .CMsgPlayerHeroData hero_data = 19;
+		optional uint32 match_number = 20;
 	}
 
 	message DevSettings {
@@ -178,6 +186,7 @@ message CSOCitadelServerStaticLobby {
 	optional uint32 average_badge_team_0 = 25;
 	optional uint32 average_badge_team_1 = 26;
 	optional string gameplay_experiment = 27;
+	optional bool rewards_eligible = 28;
 }
 
 message CMsgServerSignoutData_ServerPerfStats {
@@ -298,6 +307,10 @@ message CMsgServerSignoutData_DetailedStats {
 			optional uint32 absorption_provided = 23;
 			optional uint32 heal_prevented = 26;
 			optional uint32 heal_lost = 27;
+			optional uint32 player_barriering = 28;
+			optional uint32 teammate_healing = 45;
+			optional uint32 teammate_barriering = 46;
+			optional uint32 self_damage = 47;
 		}
 
 		message GoldStats {
@@ -387,6 +400,41 @@ message CMsgServerSignoutData_BookRewards {
 	}
 
 	repeated .CMsgServerSignoutData_BookRewards.AccountRewards account_rewards = 1;
+}
+
+message CMsgServerSignoutData_ChallengeProgress {
+	message ChallengeProgress {
+		optional uint64 challenge_id = 1;
+		optional uint32 progress = 2;
+	}
+
+	message AccountChallenges {
+		optional uint32 account_id = 1;
+		repeated .CMsgServerSignoutData_ChallengeProgress.ChallengeProgress challenges = 2;
+	}
+
+	repeated .CMsgServerSignoutData_ChallengeProgress.AccountChallenges account_challenges = 1;
+}
+
+message CMsgServerSignoutData_HeroXPGrant {
+	message HeroXPGrant {
+		optional uint32 hero_id = 1;
+		optional uint32 xp_grant = 2;
+		optional .CMsgServerSignoutData_HeroXPGrant.EGrantReason reason = 3 [default = k_eGrant_Win];
+	}
+
+	message AccountXPGrant {
+		optional uint32 account_id = 1;
+		repeated .CMsgServerSignoutData_HeroXPGrant.HeroXPGrant xp_grant = 2;
+	}
+
+	enum EGrantReason {
+		k_eGrant_Win = 0;
+		k_eGrant_Loss = 1;
+		k_eGrant_Award = 2;
+	}
+
+	repeated .CMsgServerSignoutData_HeroXPGrant.AccountXPGrant account_xp = 1;
 }
 
 message CMsgServerSignoutData_MatchKills {
@@ -502,6 +550,12 @@ message CMsgMatchData {
 		optional uint32 hero_build_id = 45;
 		optional uint32 objective_damage = 46;
 		optional float avg_time_to_kill_s = 47;
+		optional bool requires_skill_calibration = 48;
+		optional uint32 player_barriering = 49;
+		optional uint32 teammate_healing = 50;
+		optional uint32 teammate_barriering = 51;
+		optional uint32 self_damage = 52;
+		optional uint32 match_number = 53;
 	}
 
 	enum EEndReason {
@@ -570,6 +624,15 @@ message CMsgGCToServerAllocateForMatchResponse {
 	optional bool success = 1;
 }
 
+message CMsgGCToServerAllocateForHideout {
+	optional uint64 hideout_lobby_id = 1;
+}
+
+message CMsgGCToServerAllocateForHideoutResponse {
+	optional uint64 hideout_lobby_id = 1;
+	optional bool success = 2;
+}
+
 message CMsgServerToGCEnterMatchmaking {
 	optional uint32 server_version = 1;
 	optional string search_key = 2;
@@ -580,10 +643,13 @@ message CMsgServerToGCEnterMatchmaking {
 	optional uint32 server_port = 7;
 	optional bytes sdr_address = 9;
 	optional uint32 replay_group_id = 10;
+	optional bool allow_matches = 11;
+	optional bool allow_hideout = 12;
 }
 
 message CMsgGCToServerCancelAllocateForMatch {
 	optional uint64 match_id = 1;
+	optional uint64 hideout_lobby_id = 2;
 }
 
 message CMsgServerToGCUpdateLobbyServerState {
@@ -621,6 +687,8 @@ message CMsgServerToGCAbandonMatch {
 	optional .ECitadelGameMode game_mode = 16 [default = k_ECitadelGameMode_Invalid];
 	optional bool was_server_shutdown = 17;
 	optional uint32 region_id = 18;
+	optional uint64 hideout_lobby_id = 19;
+	optional uint64 routing_id = 20;
 }
 
 message CMsgServerToGCAbandonMatchResponse {
@@ -630,8 +698,6 @@ message CMsgServerToGCTestConnection {
 }
 
 message CMsgServerToGCTestConnectionResponse {
-	optional uint32 state = 1;
-	optional uint64 lobby_id = 2;
 }
 
 message CMsgGCToServerSetServerConVar {
@@ -671,4 +737,23 @@ message CMsgServerToGCReportCheater {
 
 message CMsgServerToGCReportCheaterResponse {
 	optional bool success = 1;
+}
+
+message CMsgServerToGCRequestPlayerHeroData {
+	optional uint32 account_id = 1;
+	optional uint32 hero_id = 2;
+}
+
+message CMsgServerToGCRequestPlayerHeroDataResponse {
+	enum EResult {
+		k_eInternalError = 0;
+		k_eSuccess = 1;
+		k_eTooBusy = 2;
+		k_eDisabled = 3;
+		k_eTimeout = 4;
+		k_eInvalidPermission = 5;
+	}
+
+	optional .CMsgServerToGCRequestPlayerHeroDataResponse.EResult result = 1 [default = k_eInternalError];
+	optional .CMsgPlayerHeroData hero_data = 2;
 }

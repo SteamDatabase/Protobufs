@@ -15,6 +15,13 @@ enum ECitadelClientMessages {
 	CITADEL_CM_GetDamageStats = 1012;
 	CITADEL_CM_CheaterVote = 1013;
 	CITADEL_CM_MutePlayers = 1014;
+	CITADEL_CM_HitMismatch = 1015;
+	CITADEL_CM_HideoutStart = 1016;
+	CITADEL_CM_HeroBuild = 1017;
+	CITADEL_CM_HideoutMenuState = 1018;
+	CITADEL_CM_HideoutSpawn = 1019;
+	CITADEL_CM_HideoutMatchmakingState = 1020;
+	CITADEL_CM_PlayerStatsUpdated = 1021;
 }
 
 message CCitadelClientMsg_Pause {
@@ -117,4 +124,38 @@ message CCitadelClientMsg_CheaterVote {
 message CCitadelClientMsg_MutePlayers {
 	repeated int32 player_slots = 1;
 	optional bool unmute = 2;
+}
+
+message CCitadelClientMsg_HitMismatch {
+	optional int32 client_hit_entity_index = 1 [default = -1];
+	optional int32 server_hit_entity_index = 2 [default = -1];
+}
+
+message CCitadelClientMsg_HideoutStart {
+}
+
+message CCitadelClientMsg_HeroBuild {
+	optional .CMsgHeroBuild hero_build = 1;
+}
+
+message CCitadelClientMsg_HideoutMenuState {
+	enum MenuState {
+		k_eNone = 0;
+		k_eEscapeMenu = 1;
+		k_eDashboard = 2;
+	}
+
+	optional .CCitadelClientMsg_HideoutMenuState.MenuState menu_state = 1 [default = k_eNone];
+}
+
+message CCitadelClientMsg_HideoutSpawn {
+	optional uint32 hero_id = 1;
+	optional bool show_intro = 2;
+}
+
+message CCitadelClientMsg_HideoutMatchmakingState {
+	optional bool is_matchmaking = 1;
+}
+
+message CCitadelClientMsg_PlayerStatsUpdated {
 }

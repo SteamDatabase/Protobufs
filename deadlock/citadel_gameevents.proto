@@ -53,6 +53,10 @@ message CMsgFireBullets {
 	optional float max_range = 18;
 	optional uint32 shot_id = 19;
 	optional bool predict_hits_against_units = 20 [default = true];
+	optional float bullet_radius_override = 21 [default = 0];
+	optional float bullet_speed_override = 22 [default = 0];
+	optional float bullet_gravity_override = 23 [default = 0];
+	optional int32 muzzle_number = 24;
 }
 
 message CMsgBulletImpact {
@@ -61,11 +65,11 @@ message CMsgBulletImpact {
 	optional .CMsgVector surface_normal = 3;
 	optional uint32 damage = 4;
 	optional uint32 surface_type = 5;
-	optional int32 ability_entindex = 7 [default = -1];
-	optional int32 impacted_entindex = 8 [default = -1];
-	optional uint32 impacted_hitbox = 9;
+	optional uint32 ability_ehandle = 7 [default = 16777215];
+	optional uint32 impacted_ehandle = 8 [default = 16777215];
+	optional uint32 impacted_bone_index = 9;
 	optional uint32 weapon_subclass_id = 10;
-	optional int32 shooter_entindex = 11 [default = -1];
+	optional uint32 shooter_ehandle = 11 [default = 16777215];
 }
 
 message CMsgPlayerAnimEvent {
