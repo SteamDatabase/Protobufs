@@ -67,6 +67,19 @@ message CFriendMessages_MessageReaction_Notification {
 	optional bool is_add = 7;
 }
 
+message CFriendMessages_ReportMessage_Request {
+	optional fixed64 steamid_from = 1;
+	optional fixed64 steamid_to = 2;
+	optional uint32 timestamp = 3;
+	optional uint32 ordinal = 4;
+	optional int32 report_reason = 5 [(.description) = "enum"];
+	optional string report_text = 6;
+	optional string language = 7;
+}
+
+message CFriendMessages_ReportMessage_Response {
+}
+
 message CFriendMessages_SendMessage_Request {
 	optional fixed64 steamid = 1;
 	optional int32 chat_entry_type = 2;
@@ -125,6 +138,8 @@ service FriendMessages {
 	rpc GetRecentMessages (.CFriendMessages_GetRecentMessages_Request) returns (.CFriendMessages_GetRecentMessages_Response);
 	// ePrivilege=1
 	rpc IsInFriendsUIBeta (.CFriendMessages_IsInFriendsUIBeta_Request) returns (.CFriendMessages_IsInFriendsUIBeta_Response);
+	// ePrivilege=1
+	rpc ReportMessage (.CFriendMessages_ReportMessage_Request) returns (.CFriendMessages_ReportMessage_Response);
 	// ePrivilege=1
 	rpc SendMessage (.CFriendMessages_SendMessage_Request) returns (.CFriendMessages_SendMessage_Response);
 	// ePrivilege=1
