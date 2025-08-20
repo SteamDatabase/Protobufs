@@ -22,6 +22,7 @@ enum ECitadelClientMessages {
 	CITADEL_CM_HideoutSpawn = 1019;
 	CITADEL_CM_HideoutMatchmakingState = 1020;
 	CITADEL_CM_PlayerStatsUpdated = 1021;
+	CITADEL_CM_HideoutUpdateHeroReleaseVoteStatus = 1022;
 }
 
 message CCitadelClientMsg_Pause {
@@ -158,4 +159,8 @@ message CCitadelClientMsg_HideoutMatchmakingState {
 }
 
 message CCitadelClientMsg_PlayerStatsUpdated {
+}
+
+message CCitadelClientMsg_HideoutUpdateHeroReleaseVoteStatus {
+	optional uint32 votes_cast_total = 1;
 }
