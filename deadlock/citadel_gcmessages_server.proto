@@ -487,6 +487,7 @@ message CMsgServerSignoutData_PenalizedPlayers {
 		k_EPenaltyReason_Abandon = 0;
 		k_EPenaltyReason_DisconnectedTooLong = 1;
 		k_EPenaltyReason_AFK = 2;
+		k_EPenaltyReason_DisconnectedTooLongPregame = 3;
 	}
 
 	repeated .CMsgServerSignoutData_PenalizedPlayers.Penalty penalized_players = 1;
