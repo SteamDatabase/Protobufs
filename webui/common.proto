@@ -5248,6 +5248,24 @@ message CVirtualMenuKey {
 	optional uint32 binding_type = 14;
 }
 
+// Used by: common.proto
+message CVRGamepadUI_Frame {
+	optional uint32 frame_id = 1;
+	optional .CVRGamepadUI_Frame_FrameMenu menu = 2;
+	optional string tmp_title = 1000;
+}
+
+// Used by: common.proto
+message CVRGamepadUI_Frame_FrameMenu {
+	repeated .CVRGamepadUI_Frame_FrameMenu_Item items = 1;
+}
+
+// Used by: common.proto
+message CVRGamepadUI_Frame_FrameMenu_Item {
+	optional .CVRGamepadUIShared_Icon tmp_icon = 1000;
+	optional string tmp_label = 1001;
+}
+
 message CVRGamepadUI_Message_DashboardActionInvoked_Request {
 	optional uint32 action_id = 1;
 	optional bool toggle_value = 2;
@@ -5291,10 +5309,17 @@ message CVRGamepadUI_Message_Header {
 }
 
 message CVRGamepadUI_Message_HideDashboardPopup_Request {
-	optional uint32 dashboard_popup_request_id = 1;
+	optional uint32 dashboard_popup_id = 1;
+	//optional uint32 dashboard_popup_request_id = 1;
 }
 
 message CVRGamepadUI_Message_HideDashboardPopup_Response {
+}
+
+message CVRGamepadUI_Message_InitFrameSystem_Request {
+}
+
+message CVRGamepadUI_Message_InitFrameSystem_Response {
 }
 
 message CVRGamepadUI_Message_RemoteVideoStream_Request {
@@ -5306,7 +5331,8 @@ message CVRGamepadUI_Message_RemoteVideoStream_Response {
 }
 
 message CVRGamepadUI_Message_ShowDashboardPopup_Request {
-	optional uint32 dashboard_popup_request_id = 1;
+	optional uint32 dashboard_popup_id = 1;
+	//optional uint32 dashboard_popup_request_id = 1;
 	optional string popup_overlay_key = 2;
 	optional string parent_overlay_key = 3;
 	optional .CVRGamepadUI_Message_ShowDashboardPopup_Request_NormalizedPosition origin_on_parent = 4;
@@ -5370,6 +5396,21 @@ message CVRGamepadUI_Message_ShowOverlay_Request {
 message CVRGamepadUI_Message_ShowOverlay_Response {
 }
 
+message CVRGamepadUI_Message_UpdateFrameUIs_Request {
+	repeated .CVRGamepadUI_Frame updated_frames = 1;
+	repeated uint32 deleted_frames = 2;
+}
+
+message CVRGamepadUI_Message_UpdateFrameUIs_Response {
+	repeated .CVRGamepadUI_Message_UpdateFrameUIs_Response_FrameUpdateResult results = 1;
+}
+
+// Used by: common.proto
+message CVRGamepadUI_Message_UpdateFrameUIs_Response_FrameUpdateResult {
+	optional uint32 frame_id = 1;
+	optional uint32 frame_menu_dashboard_popup_id = 2;
+}
+
 // Used by: common.proto
 message CVRGamepadUIShared_DashboardAction {
 	optional uint32 action_id = 1;
@@ -5393,6 +5434,14 @@ message CVRGamepadUIShared_DashboardActionIcon {
 
 // Used by: common.proto
 message CVRGamepadUIShared_DashboardTabIcon {
+	optional int32 enum = 1 [(.description) = "enum"];
+	optional uint32 appid = 2;
+	optional string overlay = 3;
+	optional uint32 hwnd = 4;
+}
+
+// Used by: common.proto
+message CVRGamepadUIShared_Icon {
 	optional int32 enum = 1 [(.description) = "enum"];
 	optional uint32 appid = 2;
 	optional string overlay = 3;
@@ -5757,6 +5806,7 @@ message StoreItem_ReleaseInfo {
 message StoreItem_Reviews {
 	optional .StoreItem_Reviews_StoreReviewSummary summary_filtered = 1;
 	optional .StoreItem_Reviews_StoreReviewSummary summary_unfiltered = 2;
+	optional .StoreItem_Reviews_StoreReviewSummary summary_language_specific = 3;
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, UserStoreVisit, Wishlist
