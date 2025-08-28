@@ -1646,6 +1646,7 @@ message CMsgSurveyQuestion {
 		k_eItemDesign = 2;
 		k_eHeroPlayAgainst = 3;
 		k_eMoreFunHero = 4;
+		k_eHeroPower = 5;
 	}
 
 	optional uint32 question_id = 1;
