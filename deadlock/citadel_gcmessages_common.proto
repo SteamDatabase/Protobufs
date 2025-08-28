@@ -613,6 +613,7 @@ message CMsgMatchMetaDataContents {
 		optional uint32 average_badge_team1 = 24;
 		optional uint32 game_mode_version = 25;
 		optional bool rewards_eligible = 26;
+		optional bool not_scored = 27;
 	}
 
 	enum EMatchOutcome {
