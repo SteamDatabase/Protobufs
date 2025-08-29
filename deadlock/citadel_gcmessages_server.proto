@@ -311,6 +311,7 @@ message CMsgServerSignoutData_DetailedStats {
 			optional uint32 teammate_healing = 45;
 			optional uint32 teammate_barriering = 46;
 			optional uint32 self_damage = 47;
+			repeated uint32 damage_per_hero_ability = 48;
 		}
 
 		message GoldStats {
@@ -557,6 +558,7 @@ message CMsgMatchData {
 		optional uint32 teammate_barriering = 51;
 		optional uint32 self_damage = 52;
 		optional uint32 match_number = 53;
+		repeated uint32 damage_per_hero_ability = 54;
 	}
 
 	enum EEndReason {
