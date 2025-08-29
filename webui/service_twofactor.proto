@@ -86,15 +86,6 @@ message CTwoFactor_RemoveAuthenticatorViaChallengeStart_Response {
 	optional bool success = 1;
 }
 
-message CTwoFactor_SendEmail_Request {
-	optional fixed64 steamid = 1;
-	optional uint32 email_type = 2;
-	optional bool include_activation_code = 3;
-}
-
-message CTwoFactor_SendEmail_Response {
-}
-
 message CTwoFactor_Status_Request {
 	optional fixed64 steamid = 1;
 	optional int32 include = 2 [(.description) = "enum"];
@@ -166,8 +157,6 @@ service TwoFactor {
 	rpc RemoveAuthenticatorViaChallengeContinue (.CTwoFactor_RemoveAuthenticatorViaChallengeContinue_Request) returns (.CTwoFactor_RemoveAuthenticatorViaChallengeContinue_Response);
 	// ePrivilege=9
 	rpc RemoveAuthenticatorViaChallengeStart (.CTwoFactor_RemoveAuthenticatorViaChallengeStart_Request) returns (.CTwoFactor_RemoveAuthenticatorViaChallengeStart_Response);
-	// ePrivilege=1
-	rpc SendEmail (.CTwoFactor_SendEmail_Request) returns (.CTwoFactor_SendEmail_Response);
 	// ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc UpdateTokenVersion (.CTwoFactor_UpdateTokenVersion_Request) returns (.CTwoFactor_UpdateTokenVersion_Response);
 }
