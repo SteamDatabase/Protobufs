@@ -162,6 +162,7 @@ message CContentModeration_ResolveSubject_Request {
 	optional uint64 subject_id = 3;
 	optional int32 resolution = 4 [(.description) = "enum"];
 	optional int32 reason = 5 [(.description) = "enum"];
+	optional string note = 6;
 }
 
 message CContentModeration_ResolveSubject_Response {
@@ -172,6 +173,7 @@ message CContentModeration_ResolveSubjectGroup_Request {
 	optional uint64 subject_group_id = 2;
 	optional int32 resolution = 3 [(.description) = "enum"];
 	optional int32 reason = 4 [(.description) = "enum"];
+	optional string note = 5;
 }
 
 message CContentModeration_ResolveSubjectGroup_Response {

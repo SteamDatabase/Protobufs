@@ -96,6 +96,17 @@ message CForums_ResolveReportedPosts_Response {
 	optional uint32 resolved_count = 1;
 }
 
+message CForums_SetTopicLocked_Request {
+	optional fixed64 steamid = 1;
+	optional uint64 gidforum = 2;
+	optional uint64 gidtopic = 3;
+	optional bool locked = 4;
+	optional string audit_note = 5;
+}
+
+message CForums_SetTopicLocked_Response {
+}
+
 message CForums_Topic {
 	optional uint64 gidforumtopic = 1;
 	optional uint32 originalpost_accountid = 2;
@@ -178,6 +189,8 @@ service Forums {
 	rpc ResolveReportedPost (.CForums_ResolveReportedPost_Request) returns (.CForums_ResolveReportedPost_Response);
 	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc ResolveReportedPosts (.CForums_ResolveReportedPosts_Request) returns (.CForums_ResolveReportedPosts_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
+	rpc SetTopicLocked (.CForums_SetTopicLocked_Request) returns (.CForums_SetTopicLocked_Response);
 	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc UndeleteDisputedComment (.CForums_UndeleteDisputedComment_Request) returns (.CForums_UndeleteDisputedComment_Response);
 	// ePrivilege=1, eWebAPIKeyRequirement=2
