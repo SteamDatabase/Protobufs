@@ -70,6 +70,8 @@ message CMsgServerCrashSentinelFile {
 		optional .ECitadelGameMode game_mode = 7 [default = k_ECitadelGameMode_Invalid];
 		optional bool was_server_shutdown = 8;
 		optional uint64 hideout_lobby_id = 9;
+		optional bool allow_matches = 10;
+		optional bool allow_hideout = 11;
 	}
 
 	optional uint32 version = 1;
@@ -692,6 +694,8 @@ message CMsgServerToGCAbandonMatch {
 	optional uint32 region_id = 18;
 	optional uint64 hideout_lobby_id = 19;
 	optional uint64 routing_id = 20;
+	optional bool allow_matches = 21;
+	optional bool allow_hideout = 22;
 }
 
 message CMsgServerToGCAbandonMatchResponse {
