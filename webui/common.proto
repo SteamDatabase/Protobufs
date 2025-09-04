@@ -2687,7 +2687,6 @@ message CMsgClientSettings {
 	optional bool music_pause_on_app_start = 11001;
 	optional bool music_pause_on_voice_chat = 11002;
 	optional bool music_download_high_quality = 11003;
-	optional bool music_playlist_notification = 11004;
 	optional int32 broadcast_permissions = 12000 [(.description) = "enum"];
 	optional int32 broadcast_output_width = 12001;
 	optional int32 broadcast_output_height = 12002;
