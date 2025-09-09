@@ -151,6 +151,7 @@ message CStore_GetRecommendedTagsForUser_Response_Tag {
 }
 
 message CStore_GetStorePreferences_Request {
+	optional string country_code = 1;
 }
 
 message CStore_GetStorePreferences_Response {

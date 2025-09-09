@@ -5251,18 +5251,26 @@ message CVirtualMenuKey {
 message CVRGamepadUI_Frame {
 	optional uint32 frame_id = 1;
 	optional .CVRGamepadUI_Frame_FrameMenu menu = 2;
+	repeated .CVRGamepadUIShared_Action defined_actions = 3;
 	optional string tmp_title = 1000;
 }
 
 // Used by: common.proto
 message CVRGamepadUI_Frame_FrameMenu {
-	repeated .CVRGamepadUI_Frame_FrameMenu_Item items = 1;
+	repeated .CVRGamepadUI_Frame_FrameMenu_Item items_for_left_frame_menu = 1;
+	repeated .CVRGamepadUI_Frame_FrameMenu_Item items_for_tab_frame_menu = 2;
 }
 
 // Used by: common.proto
 message CVRGamepadUI_Frame_FrameMenu_Item {
-	optional .CVRGamepadUIShared_Icon tmp_icon = 1000;
-	optional string tmp_label = 1001;
+	optional int32 type = 1 [(.description) = "enum"];
+	optional uint32 action_id = 2;
+	optional .CVRGamepadUI_Frame_FrameMenu_Item_SteamMainMenuOptions steam_main_menu_options = 3;
+}
+
+// Used by: common.proto
+message CVRGamepadUI_Frame_FrameMenu_Item_SteamMainMenuOptions {
+	optional bool allow_show_as_active = 1;
 }
 
 message CVRGamepadUI_Message_DashboardActionInvoked_Request {
@@ -5327,6 +5335,13 @@ message CVRGamepadUI_Message_RemoteVideoStream_Request {
 }
 
 message CVRGamepadUI_Message_RemoteVideoStream_Response {
+}
+
+message CVRGamepadUI_Message_SetDisplayBrightness_Request {
+	optional float user_brightness_value = 1;
+}
+
+message CVRGamepadUI_Message_SetDisplayBrightness_Response {
 }
 
 message CVRGamepadUI_Message_ShowDashboardPopup_Request {
@@ -5398,6 +5413,8 @@ message CVRGamepadUI_Message_ShowOverlay_Response {
 message CVRGamepadUI_Message_UpdateFrameUIs_Request {
 	repeated .CVRGamepadUI_Frame updated_frames = 1;
 	repeated uint32 deleted_frames = 2;
+	repeated uint32 shown_frames = 3;
+	repeated uint32 hidden_frames = 4;
 }
 
 message CVRGamepadUI_Message_UpdateFrameUIs_Response {
@@ -5408,6 +5425,17 @@ message CVRGamepadUI_Message_UpdateFrameUIs_Response {
 message CVRGamepadUI_Message_UpdateFrameUIs_Response_FrameUpdateResult {
 	optional uint32 frame_id = 1;
 	optional uint32 frame_menu_dashboard_popup_id = 2;
+}
+
+// Used by: common.proto
+message CVRGamepadUIShared_Action {
+	optional uint32 action_id = 1;
+	optional string display_name = 2;
+	optional int32 invocation = 3 [(.description) = "enum"];
+	optional .CVRGamepadUIShared_Icon icon = 4;
+	optional .CVRGamepadUIShared_Icon icon_active = 5;
+	optional bool enabled = 6;
+	optional bool active = 7;
 }
 
 // Used by: common.proto
