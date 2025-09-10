@@ -57,6 +57,7 @@ enum EGCServerSignoutData {
 	k_EServerSignoutData_ChallengeProgress = 12;
 	k_EServerSignoutData_HeroXPGrant = 13;
 	k_EServerSignoutData_MatchKills = 14;
+	k_EServerSignoutData_PlayerBehavior = 15;
 }
 
 message CMsgServerCrashSentinelFile {
@@ -480,6 +481,27 @@ message CMsgServerSignoutData_PlayerChat {
 	}
 
 	repeated .CMsgServerSignoutData_PlayerChat.ChatLine chat_lines = 1;
+}
+
+message CMsgServerSignoutData_PlayerBehavior {
+	message Player {
+		optional uint32 account_id = 1;
+		optional uint32 team_chat_messages = 2;
+		optional uint32 all_chat_messages = 3;
+		optional uint32 pings = 4;
+		optional uint32 voice_chat_seconds = 5;
+		optional uint32 pauses = 6;
+		optional uint32 total_pause_time = 7;
+		optional uint32 disconnects = 8;
+		optional uint32 first_all_chat_gametime = 9;
+		optional uint32 first_voice_chat_gametime = 10;
+		optional uint32 total_idle_time = 11;
+		optional uint32 total_inactive_time = 12;
+		optional uint32 total_disconnect_time = 13;
+		optional uint32 first_team_chat_gametime = 14;
+	}
+
+	repeated .CMsgServerSignoutData_PlayerBehavior.Player players = 1;
 }
 
 message CMsgServerSignoutData_PenalizedPlayers {
