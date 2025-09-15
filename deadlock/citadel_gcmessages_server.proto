@@ -499,6 +499,9 @@ message CMsgServerSignoutData_PlayerBehavior {
 		optional uint32 total_inactive_time = 12;
 		optional uint32 total_disconnect_time = 13;
 		optional uint32 first_team_chat_gametime = 14;
+		optional uint32 first_all_chat_time = 15;
+		optional uint32 first_voice_chat_time = 16;
+		optional uint32 first_team_chat_time = 17;
 	}
 
 	repeated .CMsgServerSignoutData_PlayerBehavior.Player players = 1;
