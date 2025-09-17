@@ -2144,6 +2144,7 @@ message CMsgClientPersonaState_Friend {
 	optional bool avatar_pending_review = 80;
 	optional bool on_steam_deck = 81;
 	repeated .CMsgClientPersonaState_Friend_OtherGameData other_game_data = 82;
+	optional uint32 gaming_device_type = 83;
 }
 
 // Used by: ChatRoom, ChatRoomClient, common.proto
@@ -5361,6 +5362,7 @@ message CVRGamepadUI_Message_ShowDashboardPopup_Request {
 	optional string parent_device_path = 13;
 	optional int32 sort_order = 14 [(.description) = "enum"];
 	optional int32 parent_enum = 15 [(.description) = "enum"];
+	optional int32 special_identifier = 16 [(.description) = "enum"];
 }
 
 // Used by: common.proto

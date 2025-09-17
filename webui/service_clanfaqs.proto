@@ -35,6 +35,14 @@ message CClanFAQS_Delete_Request {
 message CClanFAQS_Delete_Response {
 }
 
+message CClanFAQs_FetchLocalizationFromCrowdIn_Request {
+	optional uint64 faq_id = 1;
+	optional uint32 language = 2;
+}
+
+message CClanFAQs_FetchLocalizationFromCrowdIn_Response {
+}
+
 message CClanFAQS_GetAllDrafts_Request {
 	optional uint64 steamid = 1;
 	optional uint64 faq_id = 2;
@@ -60,6 +68,15 @@ message CClanFAQS_GetAllLatestVersionPublishedFAQS_Request {
 
 message CClanFAQS_GetAllLatestVersionPublishedFAQS_Response {
 	repeated .CClanFAQContent faqs = 1;
+}
+
+message CClanFAQs_GetCrowdInMetadata_Request {
+	optional uint64 faq_id = 1;
+}
+
+message CClanFAQs_GetCrowdInMetadata_Response {
+	optional uint64 crowdin_project_id = 1;
+	optional uint64 crowdin_file_id = 2;
 }
 
 message CClanFAQS_GetFAQ_Request {
@@ -190,11 +207,15 @@ service ClanFAQS {
 	// ePrivilege=1
 	rpc Delete (.CClanFAQS_Delete_Request) returns (.CClanFAQS_Delete_Response);
 	// ePrivilege=1
+	rpc FetchLocalizationFromCrowdIn (.CClanFAQs_FetchLocalizationFromCrowdIn_Request) returns (.CClanFAQs_FetchLocalizationFromCrowdIn_Response);
+	// ePrivilege=1
 	rpc GetAllDrafts (.CClanFAQS_GetAllDrafts_Request) returns (.CClanFAQS_GetAllDrafts_Response);
 	// ePrivilege=1
 	rpc GetAllFAQsForClan (.CClanFAQS_GetAllFAQsForClan_Request) returns (.CClanFAQS_GetAllFAQsForClan_Response);
 	// ePrivilege=1
 	rpc GetAllLatestVersionPublishedFAQS (.CClanFAQS_GetAllLatestVersionPublishedFAQS_Request) returns (.CClanFAQS_GetAllLatestVersionPublishedFAQS_Response);
+	// ePrivilege=1
+	rpc GetCrowdInMetadata (.CClanFAQs_GetCrowdInMetadata_Request) returns (.CClanFAQs_GetCrowdInMetadata_Response);
 	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc GetFAQ (.CClanFAQS_GetFAQ_Request) returns (.CClanFAQS_GetFAQ_Response);
 	// ePrivilege=1

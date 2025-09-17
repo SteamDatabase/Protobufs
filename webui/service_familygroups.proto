@@ -211,6 +211,7 @@ message CFamilyGroups_JoinFamilyGroup_Response {
 	optional int32 two_factor_method = 2 [(.description) = "enum"];
 	optional bool cooldown_skip_granted = 3;
 	optional bool invite_already_accepted = 4;
+	optional uint32 cooldown_seconds_remaining = 5;
 }
 
 message CFamilyGroups_ModifyFamilyGroupDetails_Request {

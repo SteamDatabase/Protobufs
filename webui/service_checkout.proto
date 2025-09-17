@@ -59,6 +59,7 @@ message CCheckout_ValidateCart_Response_CartItem {
 	optional .CartAmount coupon_discount = 11;
 	optional bool can_purchase_as_gift = 12;
 	optional bool restrict_add_additional_to_cart = 13;
+	optional uint32 quantity = 14;
 }
 
 message CCheckout_ValidateCart_Response_CartItem_Errors {
