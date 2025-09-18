@@ -65,7 +65,6 @@ message CStoreQuery_SearchSuggestions_Request {
 	optional bool use_spellcheck = 7;
 	optional bool search_tags = 8;
 	optional bool search_creators = 9;
-	optional bool prefilter_creators = 10;
 }
 
 message CStoreQuery_SearchSuggestions_Response {

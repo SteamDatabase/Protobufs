@@ -1,0 +1,37 @@
+import "common_base.proto";
+
+message CMsgSleepManagerState {
+}
+
+message CSleepManager_GetState_Request {
+}
+
+message CSleepManager_GetState_Response {
+	optional .CMsgSleepManagerState state = 1;
+}
+
+message CSleepManager_RequestSuspend_Notification {
+}
+
+message CSleepManager_ResumeFromSuspend_Notification {
+}
+
+message CSleepManager_ShowPowerMenu_Notification {
+}
+
+message CSleepManager_StateChanged_Notification {
+}
+
+service SleepManager {
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc GetState (.CSleepManager_GetState_Request) returns (.CSleepManager_GetState_Response);
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc NotifyRequestSuspend (.CSleepManager_RequestSuspend_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc NotifyResumeFromSuspend (.CSleepManager_ResumeFromSuspend_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc NotifyShowPowerMenu (.CSleepManager_ShowPowerMenu_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc NotifyStateChanged (.CSleepManager_StateChanged_Notification) returns (.NoResponse);
+}
+

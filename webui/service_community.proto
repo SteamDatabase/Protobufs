@@ -168,20 +168,6 @@ message CCommunity_GetBestEventsForUser_Response {
 	repeated .CCommunity_PartnerEventResult results = 1;
 }
 
-message CCommunity_GetBotReviewScoreForRecommendation_Request {
-	repeated uint64 recommendation_ids = 1;
-	optional uint32 app_id = 2;
-}
-
-message CCommunity_GetBotReviewScoreForRecommendation_Response {
-	repeated .CCommunity_GetBotReviewScoreForRecommendation_Response_BotReviewScoreEntry bot_review_score = 1;
-}
-
-message CCommunity_GetBotReviewScoreForRecommendation_Response_BotReviewScoreEntry {
-	optional uint64 key = 1;
-	optional uint32 value = 2;
-}
-
 message CCommunity_GetClanAnnouncementVoteForUser_Request {
 	optional uint64 announcementid = 1;
 }
@@ -451,8 +437,6 @@ service Community {
 	rpc GetAvatarHistory (.CCommunity_GetAvatarHistory_Request) returns (.CCommunity_GetAvatarHistory_Response);
 	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetBestEventsForUser (.CCommunity_GetBestEventsForUser_Request) returns (.CCommunity_GetBestEventsForUser_Response);
-	// bConstMethod=true, ePrivilege=1
-	rpc GetBotReviewScoreForRecommendation (.CCommunity_GetBotReviewScoreForRecommendation_Request) returns (.CCommunity_GetBotReviewScoreForRecommendation_Response);
 	// ePrivilege=1
 	rpc GetClanAnnouncementVoteForUser (.CCommunity_GetClanAnnouncementVoteForUser_Request) returns (.CCommunity_GetClanAnnouncementVoteForUser_Response);
 	// bConstMethod=true, ePrivilege=1

@@ -116,6 +116,9 @@ message CSteamInputService_GyroCalibration_Notification {
 	optional float acceleromter_noise = 3;
 	optional float gyroscope_noise = 4;
 	optional float calibration_progress = 5;
+	optional uint32 calibration_state = 6;
+	optional float gyroscope_noise_tolerance = 7;
+	optional float accelerometer_noise_tolerance = 8;
 }
 
 message CSteamInputService_GyroQuaternionChanged_Notification {
@@ -127,6 +130,14 @@ message CSteamInputService_GyroQuaternionChanged_Notification {
 	optional uint32 estimated_packet_rate = 6;
 }
 
+message CSteamInputService_GyroSoftwareCalibration_Request {
+	optional uint32 controller_index = 1;
+	optional int32 side = 2;
+}
+
+message CSteamInputService_GyroSoftwareCalibration_Response {
+}
+
 message CSteamInputService_GyroSpeedChanged_Notification {
 	optional uint32 controller_index = 1;
 	optional uint32 imu_index = 2;
@@ -135,6 +146,8 @@ message CSteamInputService_GyroSpeedChanged_Notification {
 }
 
 service SteamInputManager {
+	// ePrivilege=1, eClientExecutionSite=2
+	rpc CancelGyroSoftwareCalibration (.CSteamInputService_GyroSoftwareCalibration_Request) returns (.CSteamInputService_GyroSoftwareCalibration_Response);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc EndControllerStateFlow (.CSteamInputService_ControllerStateFlow_Request) returns (.CSteamInputService_ControllerStateFlow_Response);
 	// ePrivilege=1, eClientExecutionSite=2
@@ -153,5 +166,7 @@ service SteamInputManager {
 	rpc NotifyGyroSpeedStateChanged (.CSteamInputService_GyroSpeedChanged_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc StartControllerStateFlow (.CSteamInputService_ControllerStateFlow_Request) returns (.CSteamInputService_ControllerStateFlow_Response);
+	// ePrivilege=1, eClientExecutionSite=2
+	rpc StartGyroSoftwareCalibration (.CSteamInputService_GyroSoftwareCalibration_Request) returns (.CSteamInputService_GyroSoftwareCalibration_Response);
 }
 
