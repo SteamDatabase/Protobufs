@@ -41,6 +41,26 @@ message CStoreQuery_GetItemsByUserRecommendedTags_Response_Section {
 	optional string tag_name = 3;
 }
 
+message CStoreQuery_MoreLikeThis_Request {
+	optional string query_name = 1;
+	optional .StoreBrowseContext context = 2;
+	optional .StoreBrowseItemDataRequest data_request = 3;
+	optional .StoreItemID item_id = 4;
+	optional int32 count = 5 [default = 20];
+	optional .CStoreQueryFilters filters = 6;
+	optional .CStoreQuery_MoreLikeThis_Request_MoreLikeThisOptions options = 7;
+}
+
+message CStoreQuery_MoreLikeThis_Request_MoreLikeThisOptions {
+	optional float tag_weight = 1 [default = 90];
+}
+
+message CStoreQuery_MoreLikeThis_Response {
+	optional .CStoreQueryResultMetadata metadata = 1;
+	repeated .StoreItemID ids = 2;
+	repeated .StoreItem store_items = 3;
+}
+
 message CStoreQuery_Query_Request {
 	optional string query_name = 1;
 	optional .CStoreQueryParams query = 2;
@@ -120,6 +140,7 @@ message CStoreQueryFilters_TypeFilters {
 	optional bool include_hardware = 16;
 	optional bool include_series = 17;
 	optional bool include_music = 18;
+	optional uint32 dlc_for_appid = 19;
 }
 
 message CStoreQueryParams {
@@ -148,6 +169,8 @@ service StoreQuery {
 	rpc GetItemByUserCombinedTagsPriority (.CStoreQuery_GetItemByUserCombinedTagsPriority_Request) returns (.CStoreQuery_GetItemByUserCombinedTagsPriority_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetItemsByUserRecommendedTags (.CStoreQuery_GetItemsByUserRecommendedTags_Request) returns (.CStoreQuery_GetItemsByUserRecommendedTags_Response);
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=1
+	rpc MoreLikeThis (.CStoreQuery_MoreLikeThis_Request) returns (.CStoreQuery_MoreLikeThis_Response);
 	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=1
 	rpc Query (.CStoreQuery_Query_Request) returns (.CStoreQuery_Query_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
