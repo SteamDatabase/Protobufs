@@ -1,5 +1,5 @@
-import "common.proto";
 import "common_base.proto";
+import "common.proto";
 
 message CHardwarePackageDetails {
 	optional uint32 packageid = 1;
@@ -22,6 +22,7 @@ message CHardwarePackageDetails {
 
 message CStoreBrowse_GetContentHubConfig_Request {
 	optional .StoreBrowseContext context = 1;
+	repeated int32 excluded_content_descriptorids = 2 [(.description) = "enum"];
 }
 
 message CStoreBrowse_GetContentHubConfig_Response {
