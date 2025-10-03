@@ -2810,6 +2810,7 @@ message CMsgClientSettings {
 	optional string accessibility_screen_reader_locale = 26011;
 	optional bool controller_enable_chord = 140011;
 	optional bool controller_poll_rate = 140012;
+	optional bool controller_siapi_config_author_mode = 140013;
 }
 
 message CMsgClientSharedLibraryLockStatus {
