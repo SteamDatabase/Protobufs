@@ -24,8 +24,6 @@ enum EGCCitadelServerMessages {
 	k_EMsgGCToServerSetServerConVar = 10039;
 	k_EMsgGCToServerSetServerConVarResponse = 10040;
 	k_EMsgServerToGCUpdateMatchInfo = 10041;
-	k_EMsgServerToGCReportCheater = 10042;
-	k_EMsgServerToGCReportCheaterResponse = 10043;
 	k_EMsgServerToGCRequestPlayerHeroData = 10044;
 	k_EMsgServerToGCRequestPlayerHeroDataResponse = 10045;
 	k_EMsgGCToServerAllocateForHideout = 10046;
@@ -52,7 +50,6 @@ enum EGCServerSignoutData {
 	k_EServerSignoutData_PlayerChat = 7;
 	k_EServerSignoutData_BookRewards = 8;
 	k_EServerSignoutData_PenalizedPlayers = 9;
-	k_EServerSignoutData_ReportCheaters = 10;
 	k_EServerSignoutData_MatchDevStats = 11;
 	k_EServerSignoutData_ChallengeProgress = 12;
 	k_EServerSignoutData_HeroXPGrant = 13;
@@ -255,7 +252,7 @@ message CMsgServerToGCMatchSignoutPermission {
 message CMsgServerToGCMatchSignoutPermissionResponse {
 	optional bool can_sign_out = 1;
 	optional uint32 retry_time_s = 2;
-	repeated .EGCServerSignoutData requested_data = 3;
+	repeated uint32 requested_data = 3;
 }
 
 message CMsgServerSignoutData_Disconnections {
@@ -766,19 +763,6 @@ message CMsgGCToServerAddSpectatorResponse {
 
 	optional .CMsgGCToServerAddSpectatorResponse.EResponse result = 1 [default = k_eInternalError];
 	optional uint32 requesting_account_id = 2;
-}
-
-message CMsgServerToGCReportCheater {
-	optional uint32 account_id = 1;
-	optional uint64 match_id = 2;
-	optional fixed64 lobby_id = 3;
-	optional string reason = 4;
-	optional bool record_data_only = 5;
-	optional float cheater_score = 6;
-}
-
-message CMsgServerToGCReportCheaterResponse {
-	optional bool success = 1;
 }
 
 message CMsgServerToGCRequestPlayerHeroData {
