@@ -1,5 +1,11 @@
 import "common_base.proto";
 
+message CPromoAssociation {
+	optional int32 type = 1 [(.description) = "enum"];
+	optional fixed64 gid = 2;
+	optional fixed64 promotion_planid = 3;
+}
+
 message CPromotionNotificationResults {
 	optional fixed64 notification_id = 1;
 	optional fixed64 tracking_id = 2;
@@ -167,6 +173,15 @@ message CPromotionPlanning_GetPlan_Request {
 
 message CPromotionPlanning_GetPlan_Response {
 	optional .CPromotionPlan plan = 1;
+}
+
+message CPromotionPlanning_GetPlanByAssociationID_Request {
+	repeated .CPromoAssociation requested = 1;
+}
+
+message CPromotionPlanning_GetPlanByAssociationID_Response {
+	repeated .CPromoAssociation matching = 1;
+	repeated .CPromotionPlan plans = 2;
 }
 
 message CPromotionPlanning_GetPlanByInputAccessKey_Request {
@@ -351,6 +366,8 @@ service PromotionPlanning {
 	rpc GetAllPlansForPartner (.CPromotionPlanning_GetAllPlansForPartner_Request) returns (.CPromotionPlanning_GetAllPlansForPartner_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetPlan (.CPromotionPlanning_GetPlan_Request) returns (.CPromotionPlanning_GetPlan_Response);
+	// bConstMethod=true, ePrivilege=1
+	rpc GetPlanByAssociationID (.CPromotionPlanning_GetPlanByAssociationID_Request) returns (.CPromotionPlanning_GetPlanByAssociationID_Response);
 	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc GetPlanByInputAccessKey (.CPromotionPlanning_GetPlanByInputAccessKey_Request) returns (.CPromotionPlanning_GetPlanByInputAccessKey_Response);
 	// bConstMethod=true, ePrivilege=1

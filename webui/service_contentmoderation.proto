@@ -38,6 +38,7 @@ message CContentModeration_CreateContentReport_Request {
 	optional uint64 subject_group_id = 6;
 	optional uint64 subject_id = 7;
 	optional .AdditionalSubjectData additional_subject_data = 8;
+	optional bool detected_by_automation = 9;
 }
 
 message CContentModeration_CreateContentReport_Response {
@@ -70,6 +71,24 @@ message CContentModeration_EscalateSubject_Request {
 }
 
 message CContentModeration_EscalateSubject_Response {
+}
+
+message CContentModeration_GetAuditLog_Request {
+	optional int32 subject_type = 1 [(.description) = "enum"];
+	optional uint64 subject_group_id = 2;
+	optional uint64 subject_id = 3;
+}
+
+message CContentModeration_GetAuditLog_Response {
+	repeated .CContentModeration_GetAuditLog_Response_AuditLogEntry entries = 1;
+}
+
+message CContentModeration_GetAuditLog_Response_AuditLogEntry {
+	optional uint32 timestamp = 1;
+	optional fixed64 actor_steamid = 2;
+	optional bool automated_action = 3;
+	optional int32 action = 4 [(.description) = "enum"];
+	optional string additional_json_data = 5;
 }
 
 message CContentModeration_GetClaimed_Request {
@@ -163,6 +182,7 @@ message CContentModeration_ResolveSubject_Request {
 	optional int32 resolution = 4 [(.description) = "enum"];
 	optional int32 reason = 5 [(.description) = "enum"];
 	optional string note = 6;
+	optional int32 resolved_by_automation = 7 [(.description) = "enum"];
 }
 
 message CContentModeration_ResolveSubject_Response {
@@ -174,6 +194,7 @@ message CContentModeration_ResolveSubjectGroup_Request {
 	optional int32 resolution = 3 [(.description) = "enum"];
 	optional int32 reason = 4 [(.description) = "enum"];
 	optional string note = 5;
+	optional int32 resolved_by_automation = 6 [(.description) = "enum"];
 }
 
 message CContentModeration_ResolveSubjectGroup_Response {
@@ -209,6 +230,7 @@ message ContentReport {
 	optional uint64 dispute_resolver_steamid = 16;
 	optional int32 dispute_resolved = 17 [(.description) = "enum"];
 	optional uint32 time_dispute_resolved = 18;
+	optional bool detected_by_automation = 19 [default = false];
 }
 
 message ContentReportSubject {
@@ -239,6 +261,8 @@ message ContentReportSubject {
 	optional uint32 owner_dispute_resolved_time = 25;
 	optional string owner_dispute_details = 26;
 	optional int32 required_moderator_level = 27 [(.description) = "enum"];
+	optional int32 resolved_by_automation = 28 [default = 0, (.description) = "enum"];
+	optional bool detected_by_automation = 29 [default = false];
 }
 
 service ContentModeration {
@@ -254,6 +278,8 @@ service ContentModeration {
 	rpc DisputeModerationForSubject (.CContentModeration_DisputeModerationForSubject_Request) returns (.CContentModeration_DisputeModerationForSubject_Response);
 	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc EscalateSubject (.CContentModeration_EscalateSubject_Request) returns (.CContentModeration_EscalateSubject_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
+	rpc GetAuditLog (.CContentModeration_GetAuditLog_Request) returns (.CContentModeration_GetAuditLog_Response);
 	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc GetClaimed (.CContentModeration_GetClaimed_Request) returns (.CContentModeration_GetClaimed_Response);
 	// ePrivilege=1
