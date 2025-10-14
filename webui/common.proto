@@ -5099,6 +5099,7 @@ message CStorePageFilter_ContentHubFilter_OptInInfo {
 // Used by: Store, StoreBrowse, StoreQuery
 message CStorePageFilter_SalePageFilter {
 	optional uint32 sale_tagid = 1;
+	optional uint32 creator_clan_account_id = 2;
 }
 
 // Used by: Store, StoreBrowse, StoreQuery
@@ -5819,6 +5820,7 @@ message StoreItem_PurchaseOption {
 	optional bool requires_shipping = 45;
 	optional .StoreItem_PurchaseOption_RecurrenceInfo recurrence_info = 46;
 	optional uint32 free_to_keep_ends = 47;
+	optional bool must_purchase_as_set = 48 [default = false];
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, UserStoreVisit, Wishlist
