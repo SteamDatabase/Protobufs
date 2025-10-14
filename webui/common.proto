@@ -2660,6 +2660,8 @@ message CMsgClientSettings {
 	optional bool start_in_big_picture_mode = 5007;
 	optional uint32 jumplist_flags = 5008;
 	optional bool enable_ui_sounds = 5009;
+	optional bool enable_gamescope_composer = 5010;
+	optional bool enable_gamescope_composer_vr = 5011;
 	optional bool disable_all_toasts = 6000;
 	optional bool disable_toasts_in_game = 6001;
 	optional bool play_sound_on_toast = 6002;
@@ -2786,6 +2788,7 @@ message CMsgClientSettings {
 	optional bool steamos_charge_limit_devmode = 22013;
 	optional bool steamos_system_tracing_enabled = 22014;
 	optional bool steamos_vrs_enabled = 22015;
+	optional bool steamos_separate_led_colors = 22016;
 	optional bool setting_validation_bool = 23001;
 	optional int32 setting_validation_enum = 23002 [(.description) = "enum"];
 	optional int32 setting_validation_int32 = 23003;
@@ -2796,6 +2799,7 @@ message CMsgClientSettings {
 	optional .CMsgHotkey setting_validation_hotkey = 23008;
 	optional bool system_bluetooth_enabled = 24000;
 	optional bool hardware_updater_enabled = 24001;
+	optional bool game_framerate_reporting_enabled = 24002;
 	optional bool vr_show_perf_graph_in_hmd = 25000;
 	optional bool accessibility_debug_visualizer = 26000;
 	optional bool accessibility_screen_reader_enabled = 26001;

@@ -157,7 +157,7 @@ message CEconItem_Tag {
 service Econ {
 	// ePrivilege=1
 	rpc ClientGetItemShopOverlayAuthURL (.CEcon_ClientGetItemShopOverlayAuthURL_Request) returns (.CEcon_ClientGetItemShopOverlayAuthURL_Response);
-	// ePrivilege=1
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=1
 	rpc GetAssetClassInfo (.CEcon_GetAssetClassInfo_Request) returns (.CEcon_GetAssetClassInfo_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=2
 	rpc GetInventoryItemsWithDescriptions (.CEcon_GetInventoryItemsWithDescriptions_Request) returns (.CEcon_GetInventoryItemsWithDescriptions_Response);
