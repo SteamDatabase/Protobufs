@@ -295,6 +295,7 @@ message CSOCitadelParty {
 		optional uint64 permissions = 10;
 		optional uint64 new_player_progress = 11;
 		repeated uint32 owned_heroes = 12 [packed = true];
+		optional uint32 low_priority_games_remaining = 13;
 	}
 
 	message LeftMember {
