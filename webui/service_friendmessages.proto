@@ -5,6 +5,11 @@ message CFriendMessages_AckMessage_Notification {
 	optional uint32 timestamp = 2;
 }
 
+message CFriendMessages_DismissSessionNotice_Notification {
+	optional fixed64 steamid_friend = 1;
+	optional int32 notice_type = 2 [(.description) = "enum"];
+}
+
 message CFriendMessages_GetRecentMessages_Request {
 	optional fixed64 steamid1 = 1;
 	optional fixed64 steamid2 = 2;
@@ -111,6 +116,12 @@ message CFriendMessages_SendMessage_Response {
 	optional string message_without_bb_code = 4;
 }
 
+message CFriendMessages_SessionNotice_Notification {
+	optional fixed64 steamid_friend = 1;
+	optional int32 notice_type = 2 [(.description) = "enum"];
+	optional bool active = 3;
+}
+
 message CFriendMessages_UpdateMessageReaction_Request {
 	optional fixed64 steamid = 1;
 	optional uint32 server_timestamp = 2;
@@ -139,11 +150,14 @@ message CFriendsMessages_GetActiveMessageSessions_Response_FriendMessageSession 
 	optional uint32 last_message = 2;
 	optional uint32 last_view = 3;
 	optional uint32 unread_message_count = 4;
+	repeated int32 notices = 5 [(.description) = "enum"];
 }
 
 service FriendMessages {
 	// ePrivilege=1
 	rpc AckMessage (.CFriendMessages_AckMessage_Notification) returns (.NoResponse);
+	// ePrivilege=1
+	rpc DismissSessionNotice (.CFriendMessages_DismissSessionNotice_Notification) returns (.NoResponse);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetActiveMessageSessions (.CFriendsMessages_GetActiveMessageSessions_Request) returns (.CFriendsMessages_GetActiveMessageSessions_Response);
 	// bConstMethod=true, ePrivilege=1
@@ -164,5 +178,6 @@ service FriendMessagesClient {
 	rpc IncomingMessage (.CFriendMessages_IncomingMessage_Notification) returns (.NoResponse);
 	rpc MessageReaction (.CFriendMessages_MessageReaction_Notification) returns (.NoResponse);
 	rpc NotifyAckMessageEcho (.CFriendMessages_AckMessage_Notification) returns (.NoResponse);
+	rpc SessionNotice (.CFriendMessages_SessionNotice_Notification) returns (.NoResponse);
 }
 

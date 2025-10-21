@@ -27,6 +27,16 @@ message CUserReviews_Recommendation_LoyaltyReaction {
 	optional uint32 count = 2;
 }
 
+message CUserReviews_Recommendation_Tag {
+	optional int32 id = 1 [(.description) = "enum"];
+	repeated .CUserReviews_Recommendation_Tag_Range ranges = 2;
+}
+
+message CUserReviews_Recommendation_Tag_Range {
+	optional uint32 start = 1;
+	optional uint32 end = 2;
+}
+
 message CUserReviews_Update_Request {
 	optional uint64 recommendationid = 1;
 	optional string review_text = 2;
@@ -95,6 +105,7 @@ message RecommendationDetails {
 	optional uint32 is_bot_review_pct = 50;
 	optional uint32 positivity_pct = 51;
 	repeated uint64 tags = 53;
+	repeated .CUserReviews_Recommendation_Tag tags_with_ranges = 54;
 }
 
 service UserReviews {

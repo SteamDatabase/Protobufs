@@ -5699,6 +5699,7 @@ message StoreItem {
 	repeated .StoreItem_PurchaseOption purchase_options = 41;
 	repeated .StoreItem_PurchaseOption accessories = 42;
 	optional .StoreItem_PurchaseOption self_purchase_option = 43;
+	repeated .StoreItem_PurchaseOption invalid_purchase_options = 44;
 	optional .StoreItem_Screenshots screenshots = 50;
 	optional .StoreItem_Trailers trailers = 51;
 	repeated .StoreItem_SupportedLanguage supported_languages = 52;
