@@ -784,3 +784,25 @@ message CMsgServerToGCRequestPlayerHeroDataResponse {
 	optional .CMsgServerToGCRequestPlayerHeroDataResponse.EResult result = 1 [default = k_eInternalError];
 	optional .CMsgPlayerHeroData hero_data = 2;
 }
+
+message CMsgServerSteamLearnCitadelPlayerMatchState {
+	optional uint32 net_worth = 1;
+	optional uint32 deaths = 2;
+	optional uint32 team_net_worth = 3;
+	optional uint32 enemy_team_net_worth = 4;
+	optional uint32 team_kills = 5;
+	optional uint32 enemy_team_kills = 6;
+	optional float game_time = 7;
+	optional float velocity_ratio_veryfast = 8;
+	optional float velocity_ratio_fast = 9;
+	optional float velocity_ratio_normal = 10;
+	optional float velocity_ratio_slow = 11;
+	optional float slide_ratio = 12;
+	optional float item_cooldown_ratio = 13;
+	optional uint32 parries = 14;
+	optional float time_in_shop_ratio = 15;
+	optional uint32 denies = 16;
+	optional float time_spent_not_contributing_to_game_events = 17;
+	optional uint32 mmr = 18;
+	optional uint32 total_games_played = 19;
+}
