@@ -2799,7 +2799,7 @@ message CMsgClientSettings {
 	optional .CMsgHotkey setting_validation_hotkey = 23008;
 	optional bool system_bluetooth_enabled = 24000;
 	optional bool hardware_updater_enabled = 24001;
-	optional bool game_framerate_reporting_enabled = 24002;
+	optional int32 game_framerate_report_enabled = 24007 [(.description) = "enum"];
 	optional bool vr_show_perf_graph_in_hmd = 25000;
 	optional bool accessibility_debug_visualizer = 26000;
 	optional bool accessibility_screen_reader_enabled = 26001;
@@ -4239,6 +4239,18 @@ message CMsgNetworkDevicesData_Device_Wireless_AP {
 	optional string user_name = 7;
 	optional string password = 8;
 	optional int32 strength_raw = 9;
+	optional string band_filter = 10;
+}
+
+message CMsgNetworkDeviceSetOptions {
+	optional .CMsgNetworkDeviceSetOptions_Wireless wireless = 2;
+}
+
+// Used by: common.proto
+message CMsgNetworkDeviceSetOptions_Wireless {
+	optional uint32 ap_id = 1;
+	optional bool is_autoconnect = 2;
+	optional string band_filter = 3;
 }
 
 message CMsgPersonaChangeResponse {
