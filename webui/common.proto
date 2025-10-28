@@ -770,11 +770,6 @@ message CLibraryBootstrapData {
 	repeated .CAppBootstrapData app_data = 1;
 }
 
-message CLocalizationToken {
-	optional uint32 language = 1;
-	optional string localized_string = 2;
-}
-
 message CMsgAchievementChange {
 	optional uint32 appid = 1;
 }

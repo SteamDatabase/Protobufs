@@ -7,6 +7,7 @@ message CForums_DeleteModeratedComment_Request {
 	optional uint64 gidfeature2 = 4;
 	optional uint64 gidcomment = 5;
 	optional int32 reason = 6 [(.description) = "enum"];
+	optional int32 resolution = 7 [(.description) = "enum"];
 }
 
 message CForums_DeleteModeratedComment_Response {
@@ -18,6 +19,7 @@ message CForums_DeleteModeratedTopic_Request {
 	optional uint64 gidfeature = 3;
 	optional uint64 gidfeature2 = 4;
 	optional int32 reason = 5 [(.description) = "enum"];
+	optional int32 resolution = 6 [(.description) = "enum"];
 }
 
 message CForums_DeleteModeratedTopic_Response {

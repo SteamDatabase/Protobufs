@@ -916,6 +916,11 @@ message CMsgSteamLearnModelNodeTextVectorization {
 	optional uint32 other_fetch_id = 8;
 }
 
+message CMsgSteamLearnModelNodeThreshold {
+	optional float threshold_value = 1;
+	optional int32 comparison = 2 [(.description) = "enum"];
+}
+
 message CMsgSteamLearnModelNodeTimeDistributedDense {
 	optional int32 activation = 1 [(.description) = "enum"];
 	optional uint32 width = 2;
@@ -1047,6 +1052,7 @@ message CMsgSteamLearnProjectNode {
 	optional .CMsgSteamLearnModelNodeBert bert = 47;
 	optional .CMsgSteamLearnModelNodeBertTokenizer bert_tokenizer = 48;
 	optional .CMsgSteamLearnModelNodeBertFinetune bert_finetune = 49;
+	optional .CMsgSteamLearnModelNodeThreshold threshold = 50;
 }
 
 message CMsgSteamLearnProjectNodeConnector {

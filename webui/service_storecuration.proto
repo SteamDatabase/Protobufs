@@ -1,0 +1,81 @@
+import "common_base.proto";
+
+message CLocalizationToken {
+	optional uint32 language = 1;
+	optional string localized_string = 2;
+}
+
+message CStoreCuration_GetListDetails_Request {
+	optional fixed64 steamid = 1;
+	optional uint64 listid = 2;
+}
+
+message CStoreCuration_GetListDetails_Response {
+	optional .CStoreCuration_ListDetails list_details = 1;
+}
+
+message CStoreCuration_GetLists_Request {
+	optional fixed64 steamid = 1;
+	optional int32 list_state = 2 [(.description) = "enum"];
+	optional uint32 start = 3;
+	optional uint32 count = 4;
+	optional bool return_total_only = 5;
+	optional bool return_metadata_only = 6;
+	optional int32 max_apps = 7;
+	optional fixed64 sale_clan_event_gid = 8;
+}
+
+message CStoreCuration_GetLists_Response {
+	repeated .CStoreCuration_ListDetails list_details = 1;
+	optional uint32 total = 2;
+}
+
+message CStoreCuration_ListDetails {
+	optional uint64 listid = 1;
+	optional string title = 2;
+	optional string blurb = 3;
+	optional string link = 4;
+	optional int32 list_state = 5 [(.description) = "enum"];
+	optional uint32 sort_order = 6;
+	optional uint32 time_created = 7;
+	optional uint32 time_updated = 8;
+	optional uint32 accountid = 9;
+	repeated .CStoreCuration_ListDetails_ListItem apps = 10;
+	optional int32 list_type = 11 [(.description) = "enum"];
+	repeated .CLocalizationToken title_localization = 12;
+	repeated .CLocalizationToken blurb_localization = 13;
+	repeated .CLocalizationToken link_localization = 14;
+	optional fixed64 sale_clan_steamid = 15;
+	optional fixed64 sale_clan_event_gid = 16;
+	optional string list_jsondata = 17;
+	optional uint32 clan_account_id = 18;
+}
+
+message CStoreCuration_ListDetails_ListItem {
+	optional .CStoreCuration_RecommendedApp recommended_app = 1;
+	optional string blurb = 2;
+	optional uint32 sort_order = 3;
+}
+
+message CStoreCuration_RecommendedApp {
+	optional uint32 appid = 1;
+	optional uint32 clanid = 2;
+	optional string link_url = 3;
+	optional string link_text = 4;
+	optional string blurb = 5;
+	optional uint32 time_recommended = 6;
+	optional int32 comment_count = 7;
+	optional int32 upvote_count = 8;
+	optional uint32 accountid_creator = 9;
+	optional int32 recommendation_state = 10 [(.description) = "enum"];
+	optional bool received_compensation = 11;
+	optional bool received_for_free = 12;
+}
+
+service StoreCuration {
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
+	rpc GetListDetails (.CStoreCuration_GetListDetails_Request) returns (.CStoreCuration_GetListDetails_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
+	rpc GetLists (.CStoreCuration_GetLists_Request) returns (.CStoreCuration_GetLists_Response);
+}
+
