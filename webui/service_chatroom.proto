@@ -174,10 +174,6 @@ message CChatRoom_GetChatRoomGroupState_Response {
 	optional .CChatRoomGroupState state = 1;
 }
 
-message CChatRoom_GetChatRoomGroupSummary_Request {
-	optional uint64 chat_group_id = 1;
-}
-
 message CChatRoom_GetInviteInfo_Request {
 	optional fixed64 steamid_invitee = 1;
 	optional uint64 chat_group_id = 2;
@@ -782,8 +778,6 @@ service ChatRoom {
 	rpc GetBanList (.CChatRoom_GetBanList_Request) returns (.CChatRoom_GetBanList_Response);
 	// ePrivilege=3
 	rpc GetChatRoomGroupState (.CChatRoom_GetChatRoomGroupState_Request) returns (.CChatRoom_GetChatRoomGroupState_Response);
-	// ePrivilege=2
-	rpc GetChatRoomGroupSummary (.CChatRoom_GetChatRoomGroupSummary_Request) returns (.CChatRoom_GetChatRoomGroupSummary_Response);
 	// ePrivilege=1
 	rpc GetInviteInfo (.CChatRoom_GetInviteInfo_Request) returns (.CChatRoom_GetInviteInfo_Response);
 	// ePrivilege=1

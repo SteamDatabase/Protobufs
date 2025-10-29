@@ -29,14 +29,6 @@ message CParental_DisableParentalSettings_Request {
 message CParental_DisableParentalSettings_Response {
 }
 
-message CParental_DisableWithRecoveryCode_Request {
-	optional uint32 recovery_code = 1;
-	optional fixed64 steamid = 10;
-}
-
-message CParental_DisableWithRecoveryCode_Response {
-}
-
 message CParental_EnableParentalSettings_Request {
 	optional string password = 1;
 	optional .ParentalSettings settings = 2;
@@ -238,8 +230,6 @@ service Parental {
 	rpc ApprovePlaytime (.CParental_ApprovePlaytime_Request) returns (.CParental_ApprovePlaytime_Response);
 	// ePrivilege=1
 	rpc DisableParentalSettings (.CParental_DisableParentalSettings_Request) returns (.CParental_DisableParentalSettings_Response);
-	// ePrivilege=0
-	rpc DisableWithRecoveryCode (.CParental_DisableWithRecoveryCode_Request) returns (.CParental_DisableWithRecoveryCode_Response);
 	// ePrivilege=1
 	rpc EnableParentalSettings (.CParental_EnableParentalSettings_Request) returns (.CParental_EnableParentalSettings_Response);
 	// bConstMethod=true, ePrivilege=1

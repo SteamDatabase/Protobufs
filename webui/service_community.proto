@@ -10,8 +10,6 @@ message CCDDBAppDetailCommon {
 	optional uint32 appid = 1;
 	optional string name = 2;
 	optional string icon = 3;
-	optional string logo = 4;
-	optional string logo_small = 5;
 	optional bool tool = 6;
 	optional bool demo = 7;
 	optional bool media = 8;
@@ -95,7 +93,6 @@ message CCommunity_Comment_Reaction {
 message CCommunity_DeleteCommentFromThread_Request {
 	optional fixed64 steamid = 1;
 	optional int32 comment_thread_type = 2 [(.description) = "enum"];
-	//optional uint32 comment_thread_type = 2;
 	optional fixed64 gidfeature = 3;
 	optional fixed64 gidfeature2 = 4;
 	optional fixed64 gidcomment = 5;
@@ -211,7 +208,6 @@ message CCommunity_GetClanLocGroupImages_Response {
 message CCommunity_GetCommentThread_Request {
 	optional fixed64 steamid = 1;
 	optional int32 comment_thread_type = 2 [(.description) = "enum"];
-	//optional uint32 comment_thread_type = 2;
 	optional fixed64 gidfeature = 3;
 	optional fixed64 gidfeature2 = 4;
 	optional fixed64 commentthreadid = 5;
@@ -363,7 +359,6 @@ message CCommunity_PartnerEventsShowMoreForApp_Response {
 message CCommunity_PostCommentToThread_Request {
 	optional fixed64 steamid = 1;
 	optional int32 comment_thread_type = 2 [(.description) = "enum"];
-	//optional uint32 comment_thread_type = 2;
 	optional fixed64 gidfeature = 3;
 	optional fixed64 gidfeature2 = 4;
 	optional string text = 6;

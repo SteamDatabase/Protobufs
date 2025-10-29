@@ -20,8 +20,6 @@ message CPlayer_AddFriend_Response {
 }
 
 message CPlayer_CommunityPreferences {
-	optional bool hide_adult_content_violence = 1 [default = true];
-	optional bool hide_adult_content_sex = 2 [default = true];
 	optional uint32 timestamp_updated = 3;
 	optional bool parenthesize_nicknames = 4 [default = false];
 	optional int32 text_filter_setting = 5 [(.description) = "enum"];
@@ -155,37 +153,6 @@ message CPlayer_GetFavoriteBadge_Response {
 	optional uint32 border_color = 5;
 	optional uint32 appid = 6;
 	optional uint32 level = 7;
-}
-
-message CPlayer_GetFriendsAppsActivity_Request {
-	optional string news_language = 1;
-	optional uint32 request_flags = 2;
-}
-
-message CPlayer_GetFriendsAppsActivity_Response {
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo trending = 1;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo recent_purchases = 2;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo unowned = 3;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo popular = 4;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo dont_forget = 5;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo being_discussed = 6;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo new_to_group = 7;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo returned_to_group = 8;
-	optional uint32 active_friend_count = 9 [default = 0];
-}
-
-message CPlayer_GetFriendsAppsActivity_Response_AppFriendsInfo {
-	optional uint32 appid = 1;
-	repeated .CPlayer_GetFriendsAppsActivity_Response_FriendPlayTime friends = 2;
-	optional uint32 display_order = 3;
-}
-
-message CPlayer_GetFriendsAppsActivity_Response_FriendPlayTime {
-	optional fixed64 steamid = 1;
-	optional uint32 minutes_played_this_week = 2;
-	optional uint32 minutes_played_two_weeks = 3;
-	optional uint32 minutes_played_forever = 4;
-	optional uint32 event_count = 5;
 }
 
 message CPlayer_GetFriendsGameplayInfo_Request {
@@ -340,7 +307,6 @@ message CPlayer_GetOwnedGames_Response_Game {
 	optional int32 playtime_2weeks = 3;
 	optional int32 playtime_forever = 4;
 	optional string img_icon_url = 5;
-	optional string img_logo_url = 6;
 	optional bool has_community_visible_stats = 7;
 	optional int32 playtime_windows_forever = 8;
 	optional int32 playtime_mac_forever = 9;
@@ -880,8 +846,6 @@ service Player {
 	rpc GetEmoticonList (.CPlayer_GetEmoticonList_Request) returns (.CPlayer_GetEmoticonList_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetFavoriteBadge (.CPlayer_GetFavoriteBadge_Request) returns (.CPlayer_GetFavoriteBadge_Response);
-	// bConstMethod=true, ePrivilege=1
-	rpc GetFriendsAppsActivity (.CPlayer_GetFriendsAppsActivity_Request) returns (.CPlayer_GetFriendsAppsActivity_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetFriendsGameplayInfo (.CPlayer_GetFriendsGameplayInfo_Request) returns (.CPlayer_GetFriendsGameplayInfo_Response);
 	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=1
