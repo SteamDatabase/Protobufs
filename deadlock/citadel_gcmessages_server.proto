@@ -785,7 +785,16 @@ message CMsgServerToGCRequestPlayerHeroDataResponse {
 	optional .CMsgPlayerHeroData hero_data = 2;
 }
 
-message CMsgServerSteamLearnCitadelPlayerMatchState {
+message CMsgServerSteamLearnCitadelSignOutPlayerInfo {
+	optional int32 account_id = 1;
+	optional uint32 hero_id = 2;
+	optional uint32 mmr = 3;
+	optional uint32 total_games_played = 4;
+	optional .ECitadelMatchMode match_mode = 10 [default = k_ECitadelMatchMode_Invalid];
+	optional .ECitadelGameMode game_mode = 11 [default = k_ECitadelGameMode_Invalid];
+}
+
+message CMsgServerSteamLearnCitadelPlayerMechanicalBehavior {
 	optional uint32 net_worth = 1;
 	optional uint32 deaths = 2;
 	optional uint32 team_net_worth = 3;
@@ -802,7 +811,12 @@ message CMsgServerSteamLearnCitadelPlayerMatchState {
 	optional uint32 parries = 14;
 	optional float time_in_shop_ratio = 15;
 	optional uint32 denies = 16;
-	optional float time_spent_not_contributing_to_game_events = 17;
 	optional uint32 mmr = 18;
 	optional uint32 total_games_played = 19;
+	optional float build_effectiveness = 20;
+	optional float net_worth_team_ratio = 21;
+	optional float net_worth_game_ratio = 22;
+	optional float time_spent_not_contributing_to_game_events_ratio = 23;
+	optional float dash_jumps_per_minute = 24;
+	optional float wall_jumps_per_minute = 25;
 }
