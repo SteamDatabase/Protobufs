@@ -1,6 +1,8 @@
 import "common_base.proto";
 
 message CMsgSleepManagerState {
+	optional bool is_low_power_download_supported = 1;
+	optional int32 current_state = 2 [(.description) = "enum"];
 }
 
 message CSleepManager_GetState_Request {
@@ -11,6 +13,7 @@ message CSleepManager_GetState_Response {
 }
 
 message CSleepManager_RequestSuspend_Notification {
+	optional bool optionally_transition_to_low_power_downloads = 1;
 }
 
 message CSleepManager_ResumeFromSuspend_Notification {
@@ -20,6 +23,14 @@ message CSleepManager_ShowPowerMenu_Notification {
 }
 
 message CSleepManager_StateChanged_Notification {
+}
+
+message CSleepManager_SwitchToPowerState_Request {
+	optional int32 state = 1 [(.description) = "enum"];
+	optional string reason = 2;
+}
+
+message CSleepManager_SwitchToPowerState_Response {
 }
 
 service SleepManager {
@@ -33,5 +44,7 @@ service SleepManager {
 	rpc NotifyShowPowerMenu (.CSleepManager_ShowPowerMenu_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyStateChanged (.CSleepManager_StateChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc SwitchToPowerState (.CSleepManager_SwitchToPowerState_Request) returns (.CSleepManager_SwitchToPowerState_Response);
 }
 
