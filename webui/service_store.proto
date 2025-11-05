@@ -107,6 +107,22 @@ message CStore_GetDiscoveryQueueSkippedApps_Response {
 	repeated uint32 appids = 1;
 }
 
+message CStore_GetGamesFollowed_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CStore_GetGamesFollowed_Response {
+	repeated uint32 appids = 1;
+}
+
+message CStore_GetGamesFollowedCount_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CStore_GetGamesFollowedCount_Response {
+	optional uint32 followed_game_count = 1;
+}
+
 message CStore_GetLocalizedNameForTags_Request {
 	optional string language = 1;
 	repeated uint32 tagids = 2;
@@ -381,6 +397,10 @@ service Store {
 	rpc GetDiscoveryQueueSettings (.CStore_GetDiscoveryQueueSettings_Request) returns (.CStore_GetDiscoveryQueueSettings_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetDiscoveryQueueSkippedApps (.CStore_GetDiscoveryQueueSkippedApps_Request) returns (.CStore_GetDiscoveryQueueSkippedApps_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
+	rpc GetGamesFollowed (.CStore_GetGamesFollowed_Request) returns (.CStore_GetGamesFollowed_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
+	rpc GetGamesFollowedCount (.CStore_GetGamesFollowedCount_Request) returns (.CStore_GetGamesFollowedCount_Response);
 	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=1
 	rpc GetLocalizedNameForTags (.CStore_GetLocalizedNameForTags_Request) returns (.CStore_GetLocalizedNameForTags_Response);
 	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=1

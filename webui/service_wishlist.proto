@@ -88,6 +88,7 @@ message CWishlistFilters {
 	optional .CWishlistFilters_ExcludeTypeFilters exclude_types = 22;
 	optional .CWishlistFilters_SteamDeckFilters steam_deck_filters = 23;
 	repeated int32 tagids_must_match = 24;
+	repeated int32 excluded_content_descriptors = 25 [(.description) = "enum"];
 }
 
 message CWishlistFilters_ExcludeTypeFilters {

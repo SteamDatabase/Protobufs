@@ -2771,8 +2771,11 @@ message CVRGamepadUI_Message_DashboardTabClicked_Response {
 
 message CVRGamepadUI_Message_Error_Response {
 	optional int32 error = 1 [(.description) = "enum"];
+	//optional int32 error_code = 1 [(.description) = "enum"];
 	optional string description = 2;
+	//optional string error_description = 2;
 	optional int32 origin = 3 [(.description) = "enum"];
+	optional bool was_transmitted = 4;
 }
 
 message CVRGamepadUI_Message_ExecuteSteamURL_Request {

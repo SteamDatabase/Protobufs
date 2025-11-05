@@ -229,6 +229,19 @@ message CContentModeration_UpdateSubject_Request {
 message CContentModeration_UpdateSubject_Response {
 }
 
+message CContentModeration_WriteToAuditLog_Request {
+	optional int32 subject_type = 1 [(.description) = "enum"];
+	optional uint64 subject_group_id = 2;
+	optional uint64 subject_id = 3;
+	optional int32 action = 4 [(.description) = "enum"];
+	optional bool automated_action = 5;
+	optional string additional_json_data = 6;
+	optional fixed64 actor_steamid = 7;
+}
+
+message CContentModeration_WriteToAuditLog_Response {
+}
+
 message ContentReport {
 	optional uint64 report_id = 1;
 	optional uint64 reporter_steamid = 2;
@@ -324,5 +337,7 @@ service ContentModeration {
 	rpc ResolveSubjectGroup (.CContentModeration_ResolveSubjectGroup_Request) returns (.CContentModeration_ResolveSubjectGroup_Response);
 	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc UpdateSubject (.CContentModeration_UpdateSubject_Request) returns (.CContentModeration_UpdateSubject_Response);
+	// ePrivilege=1
+	rpc WriteToAuditLog (.CContentModeration_WriteToAuditLog_Request) returns (.CContentModeration_WriteToAuditLog_Response);
 }
 

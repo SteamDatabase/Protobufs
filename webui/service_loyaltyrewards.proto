@@ -90,6 +90,7 @@ message CLoyaltyRewards_GetReactionConfig_Response_ReactionConfig {
 	optional uint32 points_transferred = 3;
 	repeated int32 valid_target_types = 4 [(.description) = "enum"];
 	repeated uint32 valid_ugc_types = 5;
+	optional bool purchaseable = 6;
 }
 
 message CLoyaltyRewards_GetReactions_Request {

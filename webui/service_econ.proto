@@ -73,11 +73,20 @@ message CEconItem_Action {
 	optional string name = 2;
 }
 
+message CEconItem_AssetAccessory {
+	optional uint64 classid = 1;
+	optional uint64 instanceid = 2;
+	repeated .CEconItem_AssetProperty standalone_properties = 3;
+	repeated .CEconItem_AssetProperty parent_relationship_properties = 4;
+	repeated .CEconItem_AssetAccessory nested_accessories = 5;
+}
+
 message CEconItem_AssetProperties {
 	optional uint32 appid = 1;
 	optional uint64 contextid = 2;
 	optional uint64 assetid = 3;
 	repeated .CEconItem_AssetProperty asset_properties = 4;
+	repeated .CEconItem_AssetAccessory asset_accessories = 5;
 }
 
 message CEconItem_AssetProperty {

@@ -476,9 +476,20 @@ message CChatRoom_ReportMessage_Request {
 	optional int32 report_reason = 6 [(.description) = "enum"];
 	optional string report_text = 7;
 	optional string language = 8;
+	optional int32 subject_type = 9 [(.description) = "enum"];
 }
 
 message CChatRoom_ReportMessage_Response {
+}
+
+message CChatRoom_ResolveReport_Request {
+	optional uint64 subject_group_id = 1;
+	optional uint64 subject_id = 2;
+	optional int32 resolution = 3 [(.description) = "enum"];
+	optional int32 reason = 4 [(.description) = "enum"];
+}
+
+message CChatRoom_ResolveReport_Response {
 }
 
 message CChatRoom_RevokeInvite_Request {
@@ -828,6 +839,8 @@ service ChatRoom {
 	rpc ReplaceRoleActions (.CChatRoom_ReplaceRoleActions_Request) returns (.CChatRoom_ReplaceRoleActions_Response);
 	// ePrivilege=3
 	rpc ReportMessage (.CChatRoom_ReportMessage_Request) returns (.CChatRoom_ReportMessage_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
+	rpc ResolveReport (.CChatRoom_ResolveReport_Request) returns (.CChatRoom_ResolveReport_Response);
 	// ePrivilege=1
 	rpc RevokeInviteToGroup (.CChatRoom_RevokeInvite_Request) returns (.CChatRoom_RevokeInvite_Response);
 	// ePrivilege=3

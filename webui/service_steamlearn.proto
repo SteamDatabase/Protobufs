@@ -859,6 +859,10 @@ message CMsgSteamLearnModelNodeKMeansCluster {
 	optional bool generate_clusters = 3;
 }
 
+message CMsgSteamLearnModelNodeLogic {
+	optional int32 logic_operator = 1 [(.description) = "enum"];
+}
+
 message CMsgSteamLearnModelNodeMaskedHead {
 }
 
@@ -1053,6 +1057,7 @@ message CMsgSteamLearnProjectNode {
 	optional .CMsgSteamLearnModelNodeBertTokenizer bert_tokenizer = 48;
 	optional .CMsgSteamLearnModelNodeBertFinetune bert_finetune = 49;
 	optional .CMsgSteamLearnModelNodeThreshold threshold = 50;
+	optional .CMsgSteamLearnModelNodeLogic logic = 51;
 }
 
 message CMsgSteamLearnProjectNodeConnector {
