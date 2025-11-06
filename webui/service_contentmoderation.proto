@@ -77,6 +77,7 @@ message CContentModeration_EscalateSubject_Request {
 	optional uint64 subject_group_id = 2;
 	optional uint64 subject_id = 3;
 	optional int32 required_level = 4 [(.description) = "enum"];
+	optional int32 reason = 5 [(.description) = "enum"];
 }
 
 message CContentModeration_EscalateSubject_Response {
