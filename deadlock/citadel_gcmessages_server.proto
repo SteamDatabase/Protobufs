@@ -316,6 +316,8 @@ message CMsgServerSignoutData_DetailedStats {
 			optional uint32 teammate_barriering = 46;
 			optional uint32 self_damage = 47;
 			repeated uint32 damage_per_hero_ability = 48;
+			optional uint32 player_bullet_damage = 49;
+			optional uint32 player_ability_damage = 50;
 		}
 
 		message GoldStats {
