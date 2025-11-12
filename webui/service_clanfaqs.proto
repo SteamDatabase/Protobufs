@@ -38,6 +38,7 @@ message CClanFAQS_Delete_Response {
 message CClanFAQs_FetchLocalizationFromCrowdIn_Request {
 	optional uint64 faq_id = 1;
 	optional uint32 language = 2;
+	optional fixed64 steamid = 3;
 }
 
 message CClanFAQs_FetchLocalizationFromCrowdIn_Response {
@@ -72,6 +73,7 @@ message CClanFAQS_GetAllLatestVersionPublishedFAQS_Response {
 
 message CClanFAQs_GetCrowdInMetadata_Request {
 	optional uint64 faq_id = 1;
+	optional fixed64 steamid = 2;
 }
 
 message CClanFAQs_GetCrowdInMetadata_Response {

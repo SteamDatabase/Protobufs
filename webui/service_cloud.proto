@@ -322,6 +322,30 @@ message CCloud_GetFileDetails_Request {
 
 message CCloud_GetFileDetails_Response {
 	optional .CCloud_UserFile details = 1;
+	optional string rangecheck_host = 2;
+}
+
+message CCloud_GetSingleFileInfo_Request {
+	optional uint32 app_id = 1;
+	optional string file_name = 2;
+}
+
+message CCloud_GetSingleFileInfo_Response {
+	optional uint32 app_id = 2;
+	optional string file_name = 3;
+	optional bytes sha_file = 4;
+	optional uint64 time_stamp = 5;
+	optional uint32 raw_file_size = 6;
+	optional bool is_explicit_delete = 7;
+}
+
+message CCloud_ShareFile_Request {
+	optional uint32 app_id = 1;
+	optional string file_name = 2;
+}
+
+message CCloud_ShareFile_Response {
+	optional fixed64 hcontent = 1 [default = 18446744073709551615];
 }
 
 message CCloud_UserFile {
@@ -335,6 +359,7 @@ message CCloud_UserFile {
 	optional uint32 flags = 8;
 	repeated string platforms_to_sync = 9;
 	optional string file_sha = 10;
+	optional uint32 compressed_file_size = 11;
 }
 
 message ClientCloudFileUploadBlockDetails {
@@ -399,8 +424,12 @@ service Cloud {
 	rpc GetClientEncryptionKey (.CCloud_GetClientEncryptionKey_Request) returns (.CCloud_GetClientEncryptionKey_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=2
 	rpc GetFileDetails (.CCloud_GetFileDetails_Request) returns (.CCloud_GetFileDetails_Response);
+	// bConstMethod=true, ePrivilege=1
+	rpc GetSingleFileInfo (.CCloud_GetSingleFileInfo_Request) returns (.CCloud_GetSingleFileInfo_Response);
 	// ePrivilege=1
 	rpc ResumeAppSession (.CCloud_AppSessionResume_Request) returns (.CCloud_AppSessionResume_Response);
+	// ePrivilege=1
+	rpc ShareFile (.CCloud_ShareFile_Request) returns (.CCloud_ShareFile_Response);
 	// ePrivilege=1
 	rpc SignalAppExitSyncDone (.NotImplemented) returns (.NoResponse);
 	// ePrivilege=1

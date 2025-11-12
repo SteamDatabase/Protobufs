@@ -2835,6 +2835,7 @@ message CVRGamepadUI_Message_ShowDashboardPopup_Request {
 	optional int32 sort_order = 14 [(.description) = "enum"];
 	optional int32 parent_enum = 15 [(.description) = "enum"];
 	optional int32 special_identifier = 16 [(.description) = "enum"];
+	optional .CVRGamepadUI_Message_ShowDashboardPopup_Request_Scale scale = 17;
 }
 
 // Used by: common.proto
@@ -2865,6 +2866,11 @@ message CVRGamepadUI_Message_ShowDashboardPopup_Request_Rect {
 message CVRGamepadUI_Message_ShowDashboardPopup_Request_Rotation {
 	optional float pitch_degrees = 1;
 	optional float yaw_degrees = 2;
+}
+
+// Used by: common.proto
+message CVRGamepadUI_Message_ShowDashboardPopup_Request_Scale {
+	optional float scaler_value = 1;
 }
 
 message CVRGamepadUI_Message_ShowDashboardPopup_Response {
