@@ -1,0 +1,14 @@
+
+message CBilling_GetRecurringSubscriptionsCount_Request {
+}
+
+message CBilling_GetRecurringSubscriptionsCount_Response {
+	optional int32 active_subscriptions_count = 1;
+	optional int32 inactive_subscriptions_count = 2;
+}
+
+service Billing {
+	// bConstMethod=true, ePrivilege=1
+	rpc GetRecurringSubscriptionsCount (.CBilling_GetRecurringSubscriptionsCount_Request) returns (.CBilling_GetRecurringSubscriptionsCount_Response);
+}
+

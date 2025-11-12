@@ -74,6 +74,7 @@ message CCheckout_ValidateCart_Response_CartItem_Errors {
 	optional bool too_many_in_cart = 9;
 	optional bool has_existing_billing_agreement = 10;
 	repeated int32 missing_must_own_appids = 11;
+	optional bool adult_content_restricted = 12;
 }
 
 message CCheckout_ValidateCart_Response_CartItem_Warnings {

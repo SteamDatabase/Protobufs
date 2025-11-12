@@ -35,6 +35,10 @@ message CStoreBrowse_GetContentHubConfig_Response_ContentHubConfig {
 	optional string handle = 3;
 	optional string display_name = 4;
 	optional string url_path = 5;
+	repeated uint32 replaces_tags = 6;
+	repeated uint32 must_have_tags = 7;
+	repeated uint32 any_one_of_tags = 8;
+	repeated uint32 must_not_have_tags = 9;
 }
 
 message CStoreBrowse_GetDLCForApps_Request {

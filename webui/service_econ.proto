@@ -1,3 +1,4 @@
+import "common_base.proto";
 
 message CEcon_Asset {
 	optional uint32 appid = 1;
@@ -28,6 +29,15 @@ message CEcon_GetAssetClassInfo_Request {
 
 message CEcon_GetAssetClassInfo_Response {
 	repeated .CEconItem_Description descriptions = 1;
+}
+
+message CEcon_GetAssetPropertySchema_Request {
+	optional uint32 appid = 1;
+	optional string language = 2;
+}
+
+message CEcon_GetAssetPropertySchema_Response {
+	repeated .CEconItem_AssetPropertySchema property_schemas = 1;
 }
 
 message CEcon_GetInventoryItemsWithDescriptions_Request {
@@ -93,6 +103,18 @@ message CEconItem_AssetProperty {
 	optional uint32 propertyid = 1;
 	optional int64 int_value = 2;
 	optional float float_value = 3;
+	optional string string_value = 4;
+}
+
+message CEconItem_AssetPropertySchema {
+	optional uint32 id = 1;
+	optional string name = 2;
+	optional int32 type = 3 [(.description) = "enum"];
+	optional float float_min = 4;
+	optional float float_max = 5;
+	optional int64 int_min = 6;
+	optional int64 int_max = 7;
+	optional string localized_label = 8;
 }
 
 message CEconItem_ClassIdentifiers {
@@ -162,6 +184,8 @@ service Econ {
 	rpc ClientGetItemShopOverlayAuthURL (.CEcon_ClientGetItemShopOverlayAuthURL_Request) returns (.CEcon_ClientGetItemShopOverlayAuthURL_Response);
 	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=1
 	rpc GetAssetClassInfo (.CEcon_GetAssetClassInfo_Request) returns (.CEcon_GetAssetClassInfo_Response);
+	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=1
+	rpc GetAssetPropertySchema (.CEcon_GetAssetPropertySchema_Request) returns (.CEcon_GetAssetPropertySchema_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=2
 	rpc GetInventoryItemsWithDescriptions (.CEcon_GetInventoryItemsWithDescriptions_Request) returns (.CEcon_GetInventoryItemsWithDescriptions_Response);
 	// ePrivilege=1
