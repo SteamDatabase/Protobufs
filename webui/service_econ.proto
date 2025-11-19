@@ -115,6 +115,7 @@ message CEconItem_AssetPropertySchema {
 	optional int64 int_min = 6;
 	optional int64 int_max = 7;
 	optional string localized_label = 8;
+	optional bool hide_from_description = 9;
 }
 
 message CEconItem_ClassIdentifiers {

@@ -416,6 +416,15 @@ message CCommunity_SetRecommendationBotReviewStatus_Request_ReviewLabel {
 message CCommunity_SetRecommendationBotReviewStatus_Response {
 }
 
+message CCommunity_VerifyClanMembership_Request {
+	optional uint64 steamid = 1;
+	repeated uint64 steamids_verifymembership = 2;
+}
+
+message CCommunity_VerifyClanMembership_Response {
+	repeated uint64 steamids_nonmembers = 1;
+}
+
 service Community {
 	// ePrivilege=1
 	rpc ClearSinglePartnerEventsAppPriority (.CCommunity_ClearSinglePartnerEventsAppPriority_Request) returns (.CCommunity_ClearSinglePartnerEventsAppPriority_Response);
@@ -467,5 +476,7 @@ service Community {
 	rpc RateCommentThread (.CCommunity_RateCommentThread_Request) returns (.CCommunity_RateCommentThread_Response);
 	// ePrivilege=1
 	rpc SetRecommendationBotReviewStatus (.CCommunity_SetRecommendationBotReviewStatus_Request) returns (.CCommunity_SetRecommendationBotReviewStatus_Response);
+	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=2
+	rpc VerifyClanMembership (.CCommunity_VerifyClanMembership_Request) returns (.CCommunity_VerifyClanMembership_Response);
 }
 

@@ -165,6 +165,9 @@ message CContentModeration_GetSubjectOverview_Response_Bucket {
 	optional uint32 pending_for_any_moderator = 8;
 	optional uint32 pending_for_supervisor = 9;
 	optional uint32 pending_for_valve = 10;
+	optional uint32 oldest_unresolved_for_any_moderator = 11;
+	optional uint32 oldest_unresolved_for_supervisor = 12;
+	optional uint32 oldest_unresolved_for_valve = 13;
 }
 
 message CContentModeration_ReleaseClaimed_Request {
@@ -263,6 +266,9 @@ message ContentReport {
 	optional int32 dispute_resolved = 17 [(.description) = "enum"];
 	optional uint32 time_dispute_resolved = 18;
 	optional bool detected_by_automation = 19 [default = false];
+	optional int32 resolved_by_automation = 20 [default = 0, (.description) = "enum"];
+	optional int32 content_moderated_reason = 21 [(.description) = "enum"];
+	optional int32 dispute_resolved_reason = 22 [(.description) = "enum"];
 }
 
 message ContentReportSubject {
@@ -302,7 +308,7 @@ service ContentModeration {
 	rpc CancelContentReport (.CContentModeration_CancelContentReport_Request) returns (.CContentModeration_CancelContentReport_Response);
 	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc ClaimBatchForModeration (.CContentModeration_ClaimBatchForModeration_Request) returns (.CContentModeration_ClaimBatchForModeration_Response);
-	// ePrivilege=1, eWebAPIKeyRequirement=2
+	// ePrivilege=5
 	rpc ClaimSubject (.CContentModeration_ClaimSubject_Request) returns (.CContentModeration_ClaimSubject_Response);
 	// ePrivilege=1
 	rpc CreateContentReport (.CContentModeration_CreateContentReport_Request) returns (.CContentModeration_CreateContentReport_Response);
@@ -328,7 +334,7 @@ service ContentModeration {
 	rpc GetSubjectOverview (.CContentModeration_GetSubjectOverview_Request) returns (.CContentModeration_GetSubjectOverview_Response);
 	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc ReleaseClaimed (.CContentModeration_ReleaseClaimed_Request) returns (.CContentModeration_ReleaseClaimed_Response);
-	// ePrivilege=1, eWebAPIKeyRequirement=2
+	// ePrivilege=5
 	rpc ReleaseSubject (.CContentModeration_ReleaseSubject_Request) returns (.CContentModeration_ReleaseSubject_Response);
 	// ePrivilege=1
 	rpc ResolveDisputedSubject (.CContentModeration_ResolveDisputedSubject_Request) returns (.CContentModeration_ResolveDisputedSubject_Response);
@@ -338,7 +344,7 @@ service ContentModeration {
 	rpc ResolveSubjectGroup (.CContentModeration_ResolveSubjectGroup_Request) returns (.CContentModeration_ResolveSubjectGroup_Response);
 	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc UpdateSubject (.CContentModeration_UpdateSubject_Request) returns (.CContentModeration_UpdateSubject_Response);
-	// ePrivilege=1
+	// ePrivilege=5
 	rpc WriteToAuditLog (.CContentModeration_WriteToAuditLog_Request) returns (.CContentModeration_WriteToAuditLog_Response);
 }
 

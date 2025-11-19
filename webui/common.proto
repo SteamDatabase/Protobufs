@@ -2726,13 +2726,27 @@ message CVRGamepadUI_Frame {
 	optional uint32 frame_id = 1;
 	optional .CVRGamepadUI_Frame_FrameMenu menu = 2;
 	repeated .CVRGamepadUIShared_Action defined_actions = 3;
+	optional .CVRGamepadUI_Frame_FrameControls controls = 4;
 	optional string tmp_title = 1000;
+}
+
+// Used by: common.proto
+message CVRGamepadUI_Frame_FrameControls {
+	repeated .CVRGamepadUI_Frame_FrameControls_Item items_for_bottom_frame_controls = 1;
+	repeated .CVRGamepadUI_Frame_FrameControls_Item items_for_tab_hover_menu = 2;
+}
+
+// Used by: common.proto
+message CVRGamepadUI_Frame_FrameControls_Item {
+	optional int32 type = 1 [(.description) = "enum"];
+	optional uint32 action_id = 2;
 }
 
 // Used by: common.proto
 message CVRGamepadUI_Frame_FrameMenu {
 	repeated .CVRGamepadUI_Frame_FrameMenu_Item items_for_left_frame_menu = 1;
 	repeated .CVRGamepadUI_Frame_FrameMenu_Item items_for_tab_frame_menu = 2;
+	//repeated .CVRGamepadUI_Frame_FrameMenu_Item items_for_tab_hover_menu = 2;
 }
 
 // Used by: common.proto

@@ -75,6 +75,7 @@ message CCheckout_ValidateCart_Response_CartItem_Errors {
 	optional bool has_existing_billing_agreement = 10;
 	repeated int32 missing_must_own_appids = 11;
 	optional bool adult_content_restricted = 12;
+	optional bool commercial_license_restricted = 13;
 }
 
 message CCheckout_ValidateCart_Response_CartItem_Warnings {
