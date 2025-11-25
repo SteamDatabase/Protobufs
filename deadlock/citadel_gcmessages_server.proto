@@ -348,10 +348,12 @@ message CMsgServerSignoutData_DetailedStats {
 		optional uint32 creep_damage = 4;
 		optional uint32 creep_damage_mitigated = 5;
 		optional uint32 player_damage = 6;
-		optional uint32 player_damage_mitigated = 7;
 		optional uint32 first_damage_time_s = 8;
 		optional .ECitadelTeamObjective team_objective_id = 9 [default = k_eCitadelTeamObjective_Core];
 		optional .ECitadelLobbyTeam team = 10 [default = k_ECitadelLobbyTeam_Team0];
+		optional uint32 players_damaged = 11;
+		optional uint32 players_destroyed = 12;
+		repeated uint32 enemy_count_dmg_mitigated = 13;
 	}
 
 	message MidBoss {
