@@ -128,6 +128,15 @@ message CContentModeration_GetContentReportSubjectGroup_Response {
 	repeated .ContentReportSubject subjects = 1;
 }
 
+message CContentModeration_GetModeratorPreferences_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CContentModeration_GetModeratorPreferences_Response {
+	optional int32 preferred_level = 1 [(.description) = "enum"];
+	repeated int32 enabled_subject_types = 2 [(.description) = "enum"];
+}
+
 message CContentModeration_GetReportedSubjectsByOwner_Request {
 	optional uint64 steamid = 1;
 }
@@ -205,6 +214,7 @@ message CContentModeration_ResolveSubject_Request {
 	optional int32 reason = 5 [(.description) = "enum"];
 	optional string note = 6;
 	optional int32 resolved_by_automation = 7 [(.description) = "enum"];
+	optional bool skip_lock = 8;
 }
 
 message CContentModeration_ResolveSubject_Response {
@@ -220,6 +230,18 @@ message CContentModeration_ResolveSubjectGroup_Request {
 }
 
 message CContentModeration_ResolveSubjectGroup_Response {
+}
+
+message CContentModeration_SetModeratorPreferences_Request {
+	optional int32 preferred_level = 1 [(.description) = "enum"];
+	optional .CContentModeration_SetModeratorPreferences_Request_SubjectTypeList enabled_subject_types = 2;
+}
+
+message CContentModeration_SetModeratorPreferences_Request_SubjectTypeList {
+	repeated int32 subject_types = 1 [(.description) = "enum"];
+}
+
+message CContentModeration_SetModeratorPreferences_Response {
 }
 
 message CContentModeration_UpdateSubject_Request {
@@ -306,7 +328,7 @@ message ContentReportSubject {
 service ContentModeration {
 	// ePrivilege=1
 	rpc CancelContentReport (.CContentModeration_CancelContentReport_Request) returns (.CContentModeration_CancelContentReport_Response);
-	// ePrivilege=1, eWebAPIKeyRequirement=2
+	// ePrivilege=5
 	rpc ClaimBatchForModeration (.CContentModeration_ClaimBatchForModeration_Request) returns (.CContentModeration_ClaimBatchForModeration_Response);
 	// ePrivilege=5
 	rpc ClaimSubject (.CContentModeration_ClaimSubject_Request) returns (.CContentModeration_ClaimSubject_Response);
@@ -316,33 +338,37 @@ service ContentModeration {
 	rpc DisputeModerationForReport (.CContentModeration_DisputeModerationForReport_Request) returns (.CContentModeration_DisputeModerationForReport_Response);
 	// ePrivilege=1
 	rpc DisputeModerationForSubject (.CContentModeration_DisputeModerationForSubject_Request) returns (.CContentModeration_DisputeModerationForSubject_Response);
-	// ePrivilege=1, eWebAPIKeyRequirement=2
+	// ePrivilege=5
 	rpc EscalateSubject (.CContentModeration_EscalateSubject_Request) returns (.CContentModeration_EscalateSubject_Response);
-	// ePrivilege=1, eWebAPIKeyRequirement=2
+	// ePrivilege=5
 	rpc GetAuditLog (.CContentModeration_GetAuditLog_Request) returns (.CContentModeration_GetAuditLog_Response);
-	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
+	// bConstMethod=true, ePrivilege=5
 	rpc GetClaimed (.CContentModeration_GetClaimed_Request) returns (.CContentModeration_GetClaimed_Response);
-	// ePrivilege=1
+	// ePrivilege=5
 	rpc GetContentReportSubject (.CContentModeration_GetContentReportSubject_Request) returns (.CContentModeration_GetContentReportSubject_Response);
-	// ePrivilege=1
+	// ePrivilege=5
 	rpc GetContentReportSubjectGroup (.CContentModeration_GetContentReportSubjectGroup_Request) returns (.CContentModeration_GetContentReportSubjectGroup_Response);
+	// bConstMethod=true, ePrivilege=5
+	rpc GetModeratorPreferences (.CContentModeration_GetModeratorPreferences_Request) returns (.CContentModeration_GetModeratorPreferences_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetReportedSubjectsByOwner (.CContentModeration_GetReportedSubjectsByOwner_Request) returns (.CContentModeration_GetReportedSubjectsByOwner_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetReportsSubmittedByUser (.CContentModeration_GetReportsSubmittedByUser_Request) returns (.CContentModeration_GetReportsSubmittedByUser_Response);
-	// ePrivilege=1, eWebAPIKeyRequirement=2
+	// ePrivilege=5
 	rpc GetSubjectOverview (.CContentModeration_GetSubjectOverview_Request) returns (.CContentModeration_GetSubjectOverview_Response);
-	// ePrivilege=1, eWebAPIKeyRequirement=2
+	// ePrivilege=5
 	rpc ReleaseClaimed (.CContentModeration_ReleaseClaimed_Request) returns (.CContentModeration_ReleaseClaimed_Response);
 	// ePrivilege=5
 	rpc ReleaseSubject (.CContentModeration_ReleaseSubject_Request) returns (.CContentModeration_ReleaseSubject_Response);
-	// ePrivilege=1
+	// ePrivilege=5
 	rpc ResolveDisputedSubject (.CContentModeration_ResolveDisputedSubject_Request) returns (.CContentModeration_ResolveDisputedSubject_Response);
-	// ePrivilege=1, eWebAPIKeyRequirement=2
+	// ePrivilege=5
 	rpc ResolveSubject (.CContentModeration_ResolveSubject_Request) returns (.CContentModeration_ResolveSubject_Response);
-	// ePrivilege=1, eWebAPIKeyRequirement=2
+	// ePrivilege=5
 	rpc ResolveSubjectGroup (.CContentModeration_ResolveSubjectGroup_Request) returns (.CContentModeration_ResolveSubjectGroup_Response);
-	// ePrivilege=1, eWebAPIKeyRequirement=2
+	// ePrivilege=5
+	rpc SetModeratorPreferences (.CContentModeration_SetModeratorPreferences_Request) returns (.CContentModeration_SetModeratorPreferences_Response);
+	// ePrivilege=5
 	rpc UpdateSubject (.CContentModeration_UpdateSubject_Request) returns (.CContentModeration_UpdateSubject_Response);
 	// ePrivilege=5
 	rpc WriteToAuditLog (.CContentModeration_WriteToAuditLog_Request) returns (.CContentModeration_WriteToAuditLog_Response);

@@ -194,6 +194,7 @@ message CPublishing_TestFirePartnerAppOptInEmail_Request {
 	optional fixed64 email_def_id = 1;
 	optional uint32 appid = 2;
 	optional uint32 partnerid = 3;
+	optional uint32 language_override = 4 [default = 0];
 }
 
 message CPublishing_TestFirePartnerAppOptInEmail_Response {

@@ -690,8 +690,6 @@ message CMsgClientAccountInfo {
 	optional string ip_country = 2;
 	optional int32 count_authed_computers = 5;
 	optional uint32 account_flags = 7;
-	optional uint64 facebook_id = 8;
-	optional string facebook_name = 9;
 	optional string steamguard_machine_name_user_chosen = 15;
 	optional bool is_phone_verified = 16;
 	optional uint32 two_factor_state = 17;
@@ -1311,6 +1309,15 @@ message CMsgClientSettings {
 	optional string accessibility_color_filter_name = 26009;
 	optional float accessibility_desktop_ui_scale = 26010;
 	optional string accessibility_screen_reader_locale = 26011;
+	optional bool remote_play_wifi_ap_enabled = 27000;
+	optional int32 remote_play_wifi_ap_channel_5ghz = 27001;
+	optional int32 remote_play_wifi_ap_channel_6ghz = 27002;
+	optional int32 remote_play_wifi_ap_channel_width = 27003;
+	optional bool remote_play_wifi_ap_hotspot_mode = 27004;
+	optional string remote_play_wifi_ap_hotspot_ssid = 27005;
+	optional string remote_play_wifi_ap_hotspot_password = 27006;
+	optional string remote_play_wifi_ap_hotspot_routing = 27007;
+	optional bool remote_play_wifi_ap_show_advanced = 27008;
 	optional bool controller_enable_chord = 140011;
 	optional bool controller_poll_rate = 140012;
 	optional bool controller_siapi_config_author_mode = 140013;
@@ -2374,6 +2381,13 @@ message CSteamVR_Settings_SetValue_Request {
 	optional string string = 6;
 }
 
+// Used by: common.proto
+message CSteamVR_Vector3 {
+	optional float x = 1;
+	optional float y = 2;
+	optional float z = 3;
+}
+
 message CSteamVR_VoiceChat_Active_Notification {
 }
 
@@ -2467,6 +2481,17 @@ message CSteamVR_VoiceChat_SetPerUserVideo_Request {
 }
 
 message CSteamVR_VoiceChat_SetPerUserVideo_Response {
+}
+
+message CSteamVR_VoiceChat_SetSpatialAudioListener_Notification {
+	optional .CSteamVR_Vector3 position = 1;
+	optional .CSteamVR_Vector3 forward = 2;
+	optional .CSteamVR_Vector3 up = 3;
+}
+
+message CSteamVR_VoiceChat_SetSpatialAudioSource_Notification {
+	optional fixed64 steamid = 1;
+	optional .CSteamVR_Vector3 position = 2;
 }
 
 message CSteamVR_VRGamepadUI_Message {
@@ -2745,8 +2770,7 @@ message CVRGamepadUI_Frame_FrameControls_Item {
 // Used by: common.proto
 message CVRGamepadUI_Frame_FrameMenu {
 	repeated .CVRGamepadUI_Frame_FrameMenu_Item items_for_left_frame_menu = 1;
-	repeated .CVRGamepadUI_Frame_FrameMenu_Item items_for_tab_frame_menu = 2;
-	//repeated .CVRGamepadUI_Frame_FrameMenu_Item items_for_tab_hover_menu = 2;
+	repeated .CVRGamepadUI_Frame_FrameMenu_Item items_for_tab_hover_menu = 2;
 }
 
 // Used by: common.proto
@@ -2976,6 +3000,7 @@ message CVRGamepadUIShared_PathProperty_DashboardBarActions {
 	repeated .CVRGamepadUIShared_Action defined_actions = 2;
 	repeated .CVRGamepadUIShared_PathProperty_DashboardBarActions_BarButton bar_buttons = 3;
 	repeated .CVRGamepadUIShared_PathProperty_DashboardBarActions_BarMenuItem bar_menu_items = 4;
+	repeated uint32 playspace_actions = 5;
 }
 
 // Used by: common.proto
@@ -3038,6 +3063,7 @@ message CVRGamepadUIShared_PathProperty_PowerOptions {
 message CVRGamepadUIShared_PathProperty_VRVersionInfo {
 	optional string version = 1;
 	optional uint32 webpack_build_timestamp = 2;
+	optional string hmd_tracking_info = 3;
 }
 
 // Used by: LoyaltyRewards, SaleItemRewards

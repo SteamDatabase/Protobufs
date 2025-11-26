@@ -1,6 +1,7 @@
 
 message CMobileApp_GetMobileSummary_Request {
 	optional fixed64 authenticator_gid = 1;
+	optional string device_identifier = 2;
 }
 
 message CMobileApp_GetMobileSummary_Response {

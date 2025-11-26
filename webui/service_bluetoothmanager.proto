@@ -69,6 +69,15 @@ message CBluetoothManager_SetDiscovering_Request {
 message CBluetoothManager_SetDiscovering_Response {
 }
 
+message CBluetoothManager_SetLoginAdvertising_Request {
+	optional bool enabled = 1;
+	optional uint64 client_id = 2;
+	optional uint32 device_id = 3;
+}
+
+message CBluetoothManager_SetLoginAdvertising_Response {
+}
+
 message CBluetoothManager_SetTrusted_Request {
 	optional uint32 device = 1;
 	optional bool trusted = 2;
@@ -146,6 +155,8 @@ service BluetoothManager {
 	rpc Pair (.CBluetoothManager_Pair_Request) returns (.CBluetoothManager_Pair_Response);
 	// ePrivilege=1, eClientExecutionSite=1
 	rpc SetDiscovering (.CBluetoothManager_SetDiscovering_Request) returns (.CBluetoothManager_SetDiscovering_Response);
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc SetLoginAdvertising (.CBluetoothManager_SetLoginAdvertising_Request) returns (.CBluetoothManager_SetLoginAdvertising_Response);
 	// ePrivilege=1, eClientExecutionSite=1
 	rpc SetTrusted (.CBluetoothManager_SetTrusted_Request) returns (.CBluetoothManager_SetTrusted_Response);
 	// ePrivilege=1, eClientExecutionSite=1

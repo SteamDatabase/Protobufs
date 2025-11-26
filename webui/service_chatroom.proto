@@ -609,6 +609,7 @@ message CChatRoom_SetUserChatGroupPreferences_Request_ChatGroupPreferences {
 	optional int32 desktop_notification_level = 1 [(.description) = "enum"];
 	optional int32 mobile_notification_level = 2 [(.description) = "enum"];
 	optional bool unread_indicator_muted = 3;
+	optional bool direct_messages_allowed = 4;
 }
 
 message CChatRoom_SetUserChatGroupPreferences_Request_ChatRoomPreferences {
@@ -741,6 +742,7 @@ message CUserChatRoomGroupState {
 	optional int32 mobile_notification_level = 5 [default = 0, (.description) = "enum"];
 	optional uint32 time_last_group_ack = 6;
 	optional bool unread_indicator_muted = 7 [default = false];
+	optional bool direct_messages_allowed = 8;
 }
 
 message CUserChatRoomState {

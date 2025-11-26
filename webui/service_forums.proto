@@ -179,9 +179,9 @@ message CForums_UserPermissions {
 }
 
 service Forums {
-	// ePrivilege=1, eWebAPIKeyRequirement=2
+	// ePrivilege=1
 	rpc DeleteModeratedComment (.CForums_DeleteModeratedComment_Request) returns (.CForums_DeleteModeratedComment_Response);
-	// ePrivilege=1, eWebAPIKeyRequirement=2
+	// ePrivilege=1
 	rpc DeleteModeratedTopic (.CForums_DeleteModeratedTopic_Request) returns (.CForums_DeleteModeratedTopic_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetTopicDetails (.CForums_GetTopicDetails_Request) returns (.CForums_GetTopicDetails_Response);
@@ -191,11 +191,11 @@ service Forums {
 	rpc ResolveReportedPost (.CForums_ResolveReportedPost_Request) returns (.CForums_ResolveReportedPost_Response);
 	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc ResolveReportedPosts (.CForums_ResolveReportedPosts_Request) returns (.CForums_ResolveReportedPosts_Response);
-	// ePrivilege=1, eWebAPIKeyRequirement=2
+	// ePrivilege=1
 	rpc SetTopicLocked (.CForums_SetTopicLocked_Request) returns (.CForums_SetTopicLocked_Response);
-	// ePrivilege=1, eWebAPIKeyRequirement=2
+	// ePrivilege=1
 	rpc UndeleteDisputedComment (.CForums_UndeleteDisputedComment_Request) returns (.CForums_UndeleteDisputedComment_Response);
-	// ePrivilege=1, eWebAPIKeyRequirement=2
+	// ePrivilege=1
 	rpc UndeleteDisputedTopic (.CForums_UndeleteDisputedTopic_Request) returns (.CForums_UndeleteDisputedTopic_Response);
 }
 
