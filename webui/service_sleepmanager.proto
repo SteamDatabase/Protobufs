@@ -12,6 +12,12 @@ message CSleepManager_GetState_Response {
 	optional .CMsgSleepManagerState state = 1;
 }
 
+message CSleepManager_RequestSleep_Request {
+}
+
+message CSleepManager_RequestSleep_Response {
+}
+
 message CSleepManager_RequestSuspend_Notification {
 	optional bool optionally_transition_to_low_power_downloads = 1;
 }
@@ -44,6 +50,8 @@ service SleepManager {
 	rpc NotifyShowPowerMenu (.CSleepManager_ShowPowerMenu_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=1
 	rpc NotifyStateChanged (.CSleepManager_StateChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc RequestSleep (.CSleepManager_RequestSleep_Request) returns (.CSleepManager_RequestSleep_Response);
 	// ePrivilege=1, eClientExecutionSite=1
 	rpc SwitchToPowerState (.CSleepManager_SwitchToPowerState_Request) returns (.CSleepManager_SwitchToPowerState_Response);
 }

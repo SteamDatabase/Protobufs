@@ -1642,6 +1642,7 @@ message CMsgNetworkDeviceConnect {
 	optional .CMsgNetworkDeviceConnect_Credentials credentials = 4;
 	optional .CMsgNetworkDeviceIP4Config ip4 = 5;
 	optional .CMsgNetworkDeviceIP6Config ip6 = 6;
+	optional .CMsgNetworkDeviceConnect_Wireless wireless = 7;
 }
 
 // Used by: common.proto
@@ -1659,6 +1660,11 @@ message CMsgNetworkDeviceConnect_CustomAP {
 // Used by: common.proto
 message CMsgNetworkDeviceConnect_KnownAP {
 	optional uint32 ap_id = 1;
+}
+
+// Used by: common.proto
+message CMsgNetworkDeviceConnect_Wireless {
+	optional string band_filter = 1;
 }
 
 // Used by: common.proto
@@ -1737,6 +1743,8 @@ message CMsgNetworkDevicesData_Device_Wireless_AP {
 	optional string password = 8;
 	optional int32 strength_raw = 9;
 	optional string band_filter = 10;
+	optional bool has_non_6ghz_channel = 11;
+	optional bool is_saved = 12;
 }
 
 message CMsgNetworkDeviceSetOptions {
