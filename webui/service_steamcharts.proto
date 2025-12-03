@@ -103,6 +103,29 @@ message CSteamCharts_GetTopReleasesPages_Response_TopReleasesPage {
 	repeated .StoreItemID item_ids = 4;
 }
 
+message CSteamCharts_GetYearTopAppReleases_Request {
+	optional uint32 rtime_year = 1;
+	optional bool include_dlc = 2;
+}
+
+message CSteamCharts_GetYearTopAppReleases_Response {
+	repeated .CSteamCharts_GetYearTopAppReleases_Response_AppNewRelease top_dlc_releases = 2;
+	repeated .CSteamCharts_GetYearTopAppReleases_Response_AppNewRelease top_combined_app_and_dlc_releases = 3;
+	repeated .CSteamCharts_GetYearTopAppReleases_Response_TopApps top_app_list = 4;
+}
+
+message CSteamCharts_GetYearTopAppReleases_Response_AppNewRelease {
+	optional uint32 appid = 1;
+	optional uint32 rtime_release = 2;
+	optional int32 app_release_rank = 3 [(.description) = "enum"];
+}
+
+message CSteamCharts_GetYearTopAppReleases_Response_TopApps {
+	optional uint32 appid = 1;
+	optional int32 app_release_rank = 3 [(.description) = "enum"];
+	optional int32 type = 4 [(.description) = "enum"];
+}
+
 service SteamCharts {
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetBestOfYearPages (.CSteamCharts_GetBestOfYearPages_Request) returns (.CSteamCharts_GetBestOfYearPages_Response);
@@ -116,5 +139,7 @@ service SteamCharts {
 	rpc GetMostPlayedSteamDeckGames (.CSteamCharts_GetMostPlayedSteamDeckGames_Request) returns (.CSteamCharts_GetMostPlayedSteamDeckGames_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetTopReleasesPages (.CSteamCharts_GetTopReleasesPages_Request) returns (.CSteamCharts_GetTopReleasesPages_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
+	rpc GetYearTopAppReleases (.CSteamCharts_GetYearTopAppReleases_Request) returns (.CSteamCharts_GetYearTopAppReleases_Response);
 }
 

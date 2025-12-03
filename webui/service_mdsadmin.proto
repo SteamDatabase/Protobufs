@@ -1,0 +1,130 @@
+import "common_base.proto";
+
+message CBuildManagement_SetAppBuildSortOrder_Request {
+	optional uint32 appid = 1;
+	repeated string betakeys = 2;
+}
+
+message CBuildManagement_SetAppBuildSortOrder_Response {
+}
+
+message CMDSAdmin_AppBuildUpdated_Notification {
+	optional uint32 appid = 1;
+	optional uint32 buildid = 2;
+}
+
+message CMDSAdmin_AppContentPurge_Request {
+	optional uint32 app_id = 1;
+}
+
+message CMDSAdmin_AppContentPurge_Response {
+}
+
+message CMDSAdmin_AppContentPurgeStatus_Request {
+	optional uint32 app_id = 1;
+}
+
+message CMDSAdmin_AppContentPurgeStatus_Response {
+	optional uint32 app_id = 1;
+	optional int32 status = 2 [(.description) = "enum"];
+	optional uint32 accountid_requester = 3;
+	optional uint32 accountid_confirmer = 4;
+	optional uint64 time_requested = 5;
+	optional uint64 time_confirmed = 6;
+	optional uint64 time_ended = 7;
+}
+
+message CMDSAdmin_BeginOriginMigrationJob_Request {
+	optional uint32 depot_id = 1;
+	optional bool allow_creating_new_migration = 2;
+	optional bool restart_migration = 3;
+}
+
+message CMDSAdmin_BeginOriginMigrationJob_Response {
+}
+
+message CMDSAdmin_CSPurgeDepot_Notification {
+	optional uint32 depot_id = 1;
+}
+
+message CMDSAdmin_DepotDownloadBytesInfo {
+	optional uint32 depotid = 1;
+	optional uint32 parentappid = 2;
+	optional string oslist = 3;
+}
+
+message CMDSAdmin_GetDepotDownloadBytes_Request {
+	repeated .CMDSAdmin_DepotDownloadBytesInfo depots = 1;
+}
+
+message CMDSAdmin_GetDepotDownloadBytes_Response {
+	optional uint64 windows = 1;
+	optional uint64 macos = 2;
+	optional uint64 linux = 3;
+}
+
+message CMDSAdmin_InvalidateDepotMetadata_Notification {
+	optional uint32 depotid = 1;
+	optional uint32 sysid_sender = 2;
+	optional uint64 manifestid = 3;
+}
+
+message CMDSAdmin_ManifestAppBranchInfo_Request {
+	optional uint32 appid = 1;
+	optional uint32 depot_id = 2;
+	optional uint64 manifest_id = 3;
+	optional string branch = 4;
+}
+
+message CMDSAdmin_ManifestAppBranchInfo_Response {
+	optional bool manifest_part_of_app_branch = 1;
+	optional bool app_was_released_or_is_current_build = 2;
+	optional uint64 time_most_recent_release = 3;
+}
+
+message CMDSAdmin_MDSFlushDepotCache_Notification {
+	optional uint32 depot_id = 1;
+}
+
+message CMDSAdmin_MDSFlushManifestVersion_Notification {
+	optional uint32 depot_id = 1;
+	optional uint64 manifestid = 2;
+}
+
+message CMDSAdmin_NewChunkAnnouncement_Notification {
+	optional uint32 depot_id = 1;
+	optional bytes sha = 2;
+}
+
+message CMDSAdmin_ReloadOriginStorageInfo_Notification {
+}
+
+service MDSAdmin {
+	// ePrivilege=1
+	rpc AppBuildUpdated (.CMDSAdmin_AppBuildUpdated_Notification) returns (.NoResponse);
+	// ePrivilege=1
+	rpc BeginOriginMigrationJob (.CMDSAdmin_BeginOriginMigrationJob_Request) returns (.CMDSAdmin_BeginOriginMigrationJob_Response);
+	// ePrivilege=1
+	rpc CSPurgeDepot (.CMDSAdmin_CSPurgeDepot_Notification) returns (.NoResponse);
+	// ePrivilege=1
+	rpc GetAppContentPurgeStatus (.CMDSAdmin_AppContentPurgeStatus_Request) returns (.CMDSAdmin_AppContentPurgeStatus_Response);
+	// ePrivilege=1
+	rpc GetDepotDownloadBytes (.CMDSAdmin_GetDepotDownloadBytes_Request) returns (.CMDSAdmin_GetDepotDownloadBytes_Response);
+	// ePrivilege=1
+	rpc GetManifestAppBranchInfo (.CMDSAdmin_ManifestAppBranchInfo_Request) returns (.CMDSAdmin_ManifestAppBranchInfo_Response);
+	// ePrivilege=1
+	rpc InvalidateDepotMetadata (.CMDSAdmin_InvalidateDepotMetadata_Notification) returns (.NoResponse);
+	// ePrivilege=1
+	rpc MDSFlushDepotCache (.CMDSAdmin_MDSFlushDepotCache_Notification) returns (.NoResponse);
+	// ePrivilege=1
+	rpc MDSFlushManifestVersion (.CMDSAdmin_MDSFlushManifestVersion_Notification) returns (.NoResponse);
+	// ePrivilege=1
+	rpc NewChunkAnnouncement (.CMDSAdmin_NewChunkAnnouncement_Notification) returns (.NoResponse);
+	// ePrivilege=1
+	rpc ReloadOriginStorageInfo (.CMDSAdmin_ReloadOriginStorageInfo_Notification) returns (.NoResponse);
+	// ePrivilege=5
+	rpc RequestAppContentPurge (.CMDSAdmin_AppContentPurge_Request) returns (.CMDSAdmin_AppContentPurge_Response);
+	// ePrivilege=1
+	rpc SetAppBuildSortOrder (.CBuildManagement_SetAppBuildSortOrder_Request) returns (.CBuildManagement_SetAppBuildSortOrder_Response);
+}
+

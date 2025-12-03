@@ -128,6 +128,24 @@ message CContentModeration_GetContentReportSubjectGroup_Response {
 	repeated .ContentReportSubject subjects = 1;
 }
 
+message CContentModeration_GetModeratorActivity_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 rt_start = 2;
+}
+
+message CContentModeration_GetModeratorActivity_Response {
+	repeated .CContentModeration_GetModeratorActivity_Response_ModerationActivity activities = 1;
+}
+
+message CContentModeration_GetModeratorActivity_Response_ModerationActivity {
+	optional int32 subject_type = 1 [(.description) = "enum"];
+	optional uint64 subject_group_id = 2;
+	optional uint64 subject_id = 3;
+	optional uint32 timestamp = 4;
+	optional int32 action = 5 [(.description) = "enum"];
+	optional string json_data = 6;
+}
+
 message CContentModeration_GetModeratorPreferences_Request {
 	optional fixed64 steamid = 1;
 }
@@ -250,6 +268,7 @@ message CContentModeration_UpdateSubject_Request {
 	optional uint64 subject_id = 3;
 	optional int32 csam_status = 4 [(.description) = "enum"];
 	optional int32 terrorism_status = 5 [(.description) = "enum"];
+	optional int32 credible_threat_of_violence_status = 6 [(.description) = "enum"];
 }
 
 message CContentModeration_UpdateSubject_Response {
@@ -323,6 +342,7 @@ message ContentReportSubject {
 	optional int32 required_moderator_level = 27 [(.description) = "enum"];
 	optional int32 resolved_by_automation = 28 [default = 0, (.description) = "enum"];
 	optional bool detected_by_automation = 29 [default = false];
+	optional int32 credible_threat_of_violence_status = 30 [(.description) = "enum"];
 }
 
 service ContentModeration {
@@ -348,6 +368,8 @@ service ContentModeration {
 	rpc GetContentReportSubject (.CContentModeration_GetContentReportSubject_Request) returns (.CContentModeration_GetContentReportSubject_Response);
 	// ePrivilege=5
 	rpc GetContentReportSubjectGroup (.CContentModeration_GetContentReportSubjectGroup_Request) returns (.CContentModeration_GetContentReportSubjectGroup_Response);
+	// ePrivilege=5
+	rpc GetModeratorActivity (.CContentModeration_GetModeratorActivity_Request) returns (.CContentModeration_GetModeratorActivity_Response);
 	// bConstMethod=true, ePrivilege=5
 	rpc GetModeratorPreferences (.CContentModeration_GetModeratorPreferences_Request) returns (.CContentModeration_GetModeratorPreferences_Response);
 	// bConstMethod=true, ePrivilege=1

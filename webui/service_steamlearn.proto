@@ -677,7 +677,7 @@ message CMsgSteamLearnDataSource {
 	optional .CMsgSteamLearnDataSourceDescObject structure = 5;
 	optional uint32 structure_crc = 6;
 	optional uint32 cache_duration_seconds = 7;
-	optional int32 key_type = 8 [default = 1, (.description) = "enum"];
+	optional int32 key_type = 8 [(.description) = "enum"];
 	optional bool supports_auto_snapshots = 9;
 }
 
@@ -712,6 +712,7 @@ message CMsgSteamLearnDataSourceElementUsage {
 	optional float sequence_prefix_frequency = 17;
 	optional uint32 other_project_id = 18;
 	optional uint32 other_fetch_id = 19;
+	optional uint32 dropout_pct = 20;
 }
 
 message CMsgSteamLearnFetchInfo {
@@ -1131,6 +1132,7 @@ message CMsgSteamLearnScheduledTrainConfig {
 	optional uint32 scheduled_day_of_week = 4;
 	optional uint32 scheduled_day_of_month = 5;
 	optional float auto_activate_accuracy_threshold = 6;
+	optional string failed_auto_activate_emails = 7;
 }
 
 message CMsgSteamLearnSnapshotStorage {

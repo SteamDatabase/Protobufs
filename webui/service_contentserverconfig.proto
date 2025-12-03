@@ -1,0 +1,15 @@
+
+message CContentServerConfig_GetManifestRequestCode_Request {
+	optional uint32 depot_id = 1;
+	optional uint64 manifest_id = 2;
+}
+
+message CContentServerConfig_GetManifestRequestCode_Response {
+	optional uint64 manifest_request_code = 1;
+}
+
+service ContentServerConfig {
+	// ePrivilege=1
+	rpc GetManifestRequestCode (.CContentServerConfig_GetManifestRequestCode_Request) returns (.CContentServerConfig_GetManifestRequestCode_Response);
+}
+

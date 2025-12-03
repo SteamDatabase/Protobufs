@@ -1,0 +1,32 @@
+import "common_base.proto";
+
+message CDepotContentDetection_GetAllDetectedAppContent_Request {
+	optional int32 detection_type = 1 [(.description) = "enum"];
+}
+
+message CDepotContentDetection_GetAllDetectedAppContent_Response {
+	repeated .DetectedAppContent detected_app_content = 1;
+}
+
+message CDepotContentDetection_GetDetectedContentSingleApp_Request {
+	optional uint32 appid = 1;
+}
+
+message CDepotContentDetection_GetDetectedContentSingleApp_Response {
+	optional int32 detected_anticheat = 1 [(.description) = "enum"];
+	optional int32 detected_gameengine = 2 [(.description) = "enum"];
+}
+
+message DetectedAppContent {
+	optional uint32 app_id = 1;
+	optional uint32 depot_id = 2;
+	optional int32 detected_content = 3;
+}
+
+service DepotContentDetection {
+	// bConstMethod=true, ePrivilege=4
+	rpc GetAllDetectedAppContent (.CDepotContentDetection_GetAllDetectedAppContent_Request) returns (.CDepotContentDetection_GetAllDetectedAppContent_Response);
+	// bConstMethod=true, ePrivilege=7
+	rpc GetDetectedContentSingleApp (.CDepotContentDetection_GetDetectedContentSingleApp_Request) returns (.CDepotContentDetection_GetDetectedContentSingleApp_Response);
+}
+

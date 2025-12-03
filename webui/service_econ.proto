@@ -1,5 +1,50 @@
 import "common_base.proto";
 
+message CEcon_AcceptTradeOffer_Request {
+	optional uint64 tradeofferid = 1;
+	optional string webcookie = 2;
+	optional string ip = 3;
+	optional uint64 machine_authid = 4;
+}
+
+message CEcon_AcceptTradeOffer_Response {
+	optional uint64 tradeid = 1;
+	optional uint32 trade_response = 2;
+	optional uint32 appid = 3;
+}
+
+message CEcon_AcknowledgeTradeUI_Request {
+	optional int32 ack_type = 1;
+	optional bool acknowledge = 2;
+}
+
+message CEcon_AcknowledgeTradeUI_Response {
+}
+
+message CEcon_ApplyTradeCooldown_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 duration_seconds = 2;
+	optional int32 cooldown_type = 3;
+}
+
+message CEcon_ApplyTradeCooldown_Response {
+}
+
+message CEcon_AppSummary {
+	optional uint32 appid = 1;
+	optional string name = 2;
+	optional uint32 asset_count = 3;
+}
+
+message CEcon_AppSupportsRefund_Request {
+	optional uint32 appid = 1;
+	repeated uint32 gameitemid = 2;
+}
+
+message CEcon_AppSupportsRefund_Response {
+	optional bool supports_refunds = 1;
+}
+
 message CEcon_Asset {
 	optional uint32 appid = 1;
 	optional uint64 contextid = 2;
@@ -12,12 +57,177 @@ message CEcon_Asset {
 	optional int64 est_usd = 9;
 }
 
+message CEcon_BuildItemShopReturnURL_Request {
+	optional string overlay_auth_cookie = 1;
+	optional uint32 appid = 2;
+	optional string url = 3;
+	optional string itemshop_auth = 4;
+}
+
+message CEcon_BuildItemShopReturnURL_Response {
+	optional string url = 1;
+}
+
+message CEcon_CancelAllTradeOffers_Notification {
+	optional fixed64 steamid = 1;
+	optional bool add_trade_hold = 2;
+	optional uint32 appid = 3;
+	optional bool escrow_only = 4;
+}
+
+message CEcon_CancelAllTradeOffers_Request {
+	optional fixed64 steamid = 1;
+	optional bool add_trade_hold = 2;
+	optional uint32 appid = 3;
+	optional bool escrow_only = 4;
+}
+
+message CEcon_CancelAllTradeOffers_Response {
+	optional uint32 num_cancelled = 1;
+	optional uint32 num_escrow_cancelled = 2;
+	optional uint32 num_failures = 3;
+	optional uint32 num_escrow_failures = 4;
+}
+
+message CEcon_CancelTradeOffer_Request {
+	optional uint64 tradeofferid = 1;
+}
+
+message CEcon_CancelTradeOffer_Response {
+}
+
+message CEcon_CanUserTradeWithAnyone_Request {
+}
+
+message CEcon_CanUserTradeWithAnyone_Response {
+	optional uint32 trade_response = 1;
+	optional uint32 allowed_to_trade = 2;
+	optional uint32 probation_default_time = 3;
+	optional uint32 probation_remaining = 4;
+}
+
+message CEcon_CanUserTradeWithPartner_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CEcon_CanUserTradeWithPartner_Response {
+	optional uint32 trade_response = 1;
+	optional uint32 allowed_to_trade = 2;
+	optional uint32 steamguard_required_days = 3;
+	optional uint32 new_device_cooldown_days = 4;
+	optional uint32 default_password_reset_probation_days = 5;
+	optional uint32 password_reset_probation_days = 6;
+	optional uint32 default_email_change_probation_days = 7;
+	optional uint32 email_change_probation_days = 8;
+	optional uint32 time_allowed_to_trade = 9;
+}
+
+message CEcon_CheckItemShopPartnerHMAC_Request {
+	optional uint32 appid = 1;
+	optional string data = 2;
+	optional string hmac = 3;
+}
+
+message CEcon_CheckItemShopPartnerHMAC_Response {
+	optional bool ok = 1;
+}
+
+message CEcon_CheckTradeOfferAccessToken_Request {
+	optional uint64 steamid = 1;
+	optional string trade_offer_access_token = 2;
+}
+
+message CEcon_CheckTradeOfferAccessToken_Response {
+}
+
+message CEcon_CheckTradePartnerTrustworthiness_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CEcon_CheckTradePartnerTrustworthiness_Response {
+	optional uint32 abuse_score = 1;
+	optional uint32 trade_abuse_score = 2;
+	optional uint32 keyword_abuse_score = 3;
+}
+
 message CEcon_ClientGetItemShopOverlayAuthURL_Request {
 	optional string return_url = 1;
 }
 
 message CEcon_ClientGetItemShopOverlayAuthURL_Response {
 	optional string url = 1;
+}
+
+message CEcon_ConfirmTradeOffer_Request {
+	optional fixed64 steamid = 1;
+	optional uint64 tradeofferid = 2;
+	optional fixed64 confirmation_code = 3;
+	optional string mid = 4;
+	optional bool cancel_offer = 5;
+	optional bool already_authed = 6;
+}
+
+message CEcon_ConfirmTradeOffer_Response {
+	optional uint64 tradeid = 1;
+	optional uint32 trade_response = 2;
+	optional uint32 appid = 3;
+}
+
+message CEcon_CreateTradeOffer_Request {
+	optional fixed64 steamid_target = 1;
+	repeated .CEcon_Asset items_to_give = 2;
+	repeated .CEcon_Asset items_to_receive = 3;
+	optional string message = 4;
+	optional uint64 tradeofferid_countered = 5;
+	optional string webcookie = 6;
+	optional .CEcon_CreateTradeOffer_Request_ForumTopicIdentifier trading_topic = 7;
+	optional string trade_offer_access_token = 8;
+	optional bool from_realtime_trade = 9;
+	optional string ip_sender = 10;
+	optional uint64 machine_authid_sender = 11;
+	optional string ip_target = 12;
+	optional uint64 machine_authid_target = 13;
+}
+
+message CEcon_CreateTradeOffer_Request_ForumTopicIdentifier {
+	optional uint64 steamid_owner = 1;
+	optional string forumtype = 2;
+	optional uint64 gidfeature = 3;
+	optional uint64 gidtopic = 4;
+}
+
+message CEcon_CreateTradeOffer_Response {
+	optional uint64 tradeofferid = 1;
+	optional uint32 trade_response = 2;
+	optional uint32 appid = 3;
+}
+
+message CEcon_DeclineTradeOffer_Request {
+	optional uint64 tradeofferid = 1;
+}
+
+message CEcon_DeclineTradeOffer_Response {
+}
+
+message CEcon_FinishItemShopTxn_Request {
+	optional string overlay_auth_cookie = 1;
+	optional uint32 appid = 2;
+	optional bool sandbox = 3;
+	optional uint64 orderid = 4;
+	optional string language = 5;
+}
+
+message CEcon_FinishItemShopTxn_Response {
+}
+
+message CEcon_FlushInventoryServiceDBOs_Request {
+	optional uint64 steamid = 1;
+}
+
+message CEcon_FlushInventoryServiceDBOs_Response {
+}
+
+message CEcon_Generic_Response {
 }
 
 message CEcon_GetAssetClassInfo_Request {
@@ -31,6 +241,21 @@ message CEcon_GetAssetClassInfo_Response {
 	repeated .CEconItem_Description descriptions = 1;
 }
 
+message CEcon_GetAssetClassProperties_Request {
+	optional uint64 classid = 1;
+	optional uint64 instanceid = 2;
+}
+
+message CEcon_GetAssetClassProperties_Response {
+	repeated .CEcon_GetAssetClassProperties_Response_Property properties = 1;
+}
+
+message CEcon_GetAssetClassProperties_Response_Property {
+	optional string property = 1;
+	optional string value = 2;
+	optional bool instance = 3;
+}
+
 message CEcon_GetAssetPropertySchema_Request {
 	optional uint32 appid = 1;
 	optional string language = 2;
@@ -38,6 +263,71 @@ message CEcon_GetAssetPropertySchema_Request {
 
 message CEcon_GetAssetPropertySchema_Response {
 	repeated .CEconItem_AssetPropertySchema property_schemas = 1;
+}
+
+message CEcon_GetEconAppSettings_Request {
+	optional uint32 appid = 1;
+}
+
+message CEcon_GetEconAppSettings_Response {
+	optional uint32 appid = 1;
+	optional uint32 asset_class_version = 2;
+	optional uint64 context_version = 3;
+}
+
+message CEcon_GetEconSummary_Request {
+	optional fixed64 steamid = 1;
+	optional bool show_private = 2;
+	optional bool cached_asset_count_only = 3;
+}
+
+message CEcon_GetEconSummary_Response {
+	repeated .CEcon_AppSummary apps = 1;
+	optional uint32 num_trades = 2;
+	optional uint32 time_last_trade = 3;
+	optional fixed64 steamid_last_trade_partner = 4;
+	optional uint32 num_market_listings = 5;
+	optional uint32 num_market_transactions = 6;
+	optional uint32 time_last_market_sale = 7;
+	optional fixed64 steamid_last_market_sale = 8;
+	optional uint32 time_last_market_purchase = 9;
+	optional fixed64 steamid_last_market_purchase = 10;
+	optional uint32 num_trades_in_escrow = 11;
+	optional uint32 time_all_escrow_end = 12;
+	optional bool cached_data_needs_updating = 13;
+	optional uint32 num_trade_partners = 14;
+}
+
+message CEcon_GetEligibleOneOffRefunds_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 appid = 2;
+	optional string language = 3;
+}
+
+message CEcon_GetEligibleOneOffRefunds_Response {
+	optional bool allow_refund = 1;
+	optional bool allow_ticket = 2;
+	repeated .CEcon_GetEligibleOneOffRefunds_Response_Asset assets = 3;
+	repeated .CEconItem_Description descriptions = 4;
+}
+
+message CEcon_GetEligibleOneOffRefunds_Response_Asset {
+	optional uint64 refundid = 1;
+	optional uint64 parent_refundid = 2;
+	optional bool allow_refund = 3;
+	optional bool refund_removes_item_from_inventory = 4;
+	optional bool refund_returns_item_to_inventory = 5;
+	optional int64 refund_amount = 6;
+	optional int32 refund_ecurrencycode = 7;
+	optional uint64 related_microtxn_id = 8;
+	optional uint64 related_market_purchase_id = 9;
+	optional uint64 related_trade_id = 10;
+	optional .CEcon_Asset asset = 11;
+	optional string current_state = 12;
+	optional string item_name = 13;
+	optional bool allow_ticket = 14;
+	optional bool refund_complete = 15;
+	optional bool refund_desired = 16;
 }
 
 message CEcon_GetInventoryItemsWithDescriptions_Request {
@@ -70,12 +360,302 @@ message CEcon_GetInventoryItemsWithDescriptions_Response {
 	repeated .CEconItem_AssetProperties asset_properties = 7;
 }
 
+message CEcon_GetItemShopPartnerToken_Request {
+	optional uint32 appid = 1;
+}
+
+message CEcon_GetItemShopPartnerToken_Response {
+	optional string token = 1;
+}
+
+message CEcon_GetItemShopTxnState_Request {
+	optional string overlay_auth_cookie = 1;
+	optional uint32 appid = 2;
+	optional bool sandbox = 3;
+	optional uint64 orderid = 4;
+}
+
+message CEcon_GetItemShopTxnState_Response {
+	optional uint32 state = 1;
+}
+
+message CEcon_GetProvisionalTradeHistory_Request {
+	optional string language = 1;
+}
+
+message CEcon_GetTopTradePartners_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CEcon_GetTopTradePartners_Response {
+	repeated .CEcon_TopTradePartner partners = 1;
+}
+
+message CEcon_GetTradeHistory_Response {
+	optional uint32 total_trades = 1;
+	optional bool more = 2;
+	repeated .CEcon_GetTradeHistory_Response_Trade trades = 3;
+	repeated .CEconItem_Description descriptions = 4;
+	repeated .CEcon_GetTradeHistory_Response_DeviceDetails devices = 5;
+}
+
+message CEcon_GetTradeHistory_Response_DeviceDetails {
+	optional fixed64 token_id = 1;
+	optional uint32 first_authed = 2;
+	optional bool current_device = 3;
+	optional int32 platform_type = 4;
+	optional int32 guard_type = 5;
+	optional int32 authentication_type = 6;
+}
+
+message CEcon_GetTradeHistory_Response_Trade {
+	optional fixed64 tradeid = 1;
+	optional fixed64 steamid_other = 2;
+	optional uint32 time_init = 3;
+	optional uint32 time_escrow_end = 4;
+	optional uint32 status = 5;
+	repeated .CEcon_GetTradeHistory_Response_Trade_TradedAsset assets_received = 6;
+	repeated .CEcon_GetTradeHistory_Response_Trade_TradedAsset assets_given = 7;
+	repeated .CEcon_GetTradeHistory_Response_Trade_TradedCurrency currency_received = 8;
+	repeated .CEcon_GetTradeHistory_Response_Trade_TradedCurrency currency_given = 9;
+	optional uint32 time_settlement = 10;
+	optional uint32 time_mod = 11;
+	optional fixed64 rollback_trade = 12;
+	optional .CEcon_GetTradeHistory_Response_Trade_Authorization trade_auth = 13;
+}
+
+message CEcon_GetTradeHistory_Response_Trade_Authorization {
+	optional bool is_sender = 1;
+	optional int32 confirm_type = 2;
+	optional uint32 time_confirmed = 3;
+	optional string country = 4;
+	optional string state = 5;
+	optional string city = 6;
+	optional fixed64 token_id = 7;
+}
+
+message CEcon_GetTradeHistory_Response_Trade_TradedAsset {
+	optional uint32 appid = 1;
+	optional uint64 contextid = 2;
+	optional uint64 assetid = 3;
+	optional int64 amount = 4;
+	optional uint64 classid = 5;
+	optional uint64 instanceid = 6;
+	optional uint64 new_assetid = 7;
+	optional uint64 new_contextid = 8;
+	optional uint64 rollback_new_assetid = 9;
+	optional uint64 rollback_new_contextid = 10;
+}
+
+message CEcon_GetTradeHistory_Response_Trade_TradedCurrency {
+	optional uint32 appid = 1;
+	optional uint64 contextid = 2;
+	optional uint32 currencyid = 3;
+	optional int64 amount = 4;
+	optional uint64 fee_amount = 5;
+	optional uint64 classid = 6;
+	optional uint32 new_currencyid = 7;
+	optional uint64 new_contextid = 8;
+	optional uint32 rollback_new_currencyid = 9;
+	optional uint64 rollback_new_contextid = 10;
+}
+
+message CEcon_GetTradeOffer_Response {
+	optional .CEcon_TradeOffer offer = 1;
+	repeated .CEconItem_Description descriptions = 2;
+}
+
 message CEcon_GetTradeOfferAccessToken_Request {
 	optional bool generate_new_token = 1;
 }
 
 message CEcon_GetTradeOfferAccessToken_Response {
 	optional string trade_offer_access_token = 1;
+}
+
+message CEcon_GetTradeOfferForAnyUser_Request {
+	optional fixed64 steamid = 1;
+	optional uint64 tradeofferid = 2;
+	optional string language = 3;
+}
+
+message CEcon_GetTradeOfferForConfirmation_Request {
+	optional fixed64 steamid = 1;
+	optional uint64 tradeofferid = 2;
+	optional string language = 3;
+	optional fixed64 confirmation_code = 4;
+}
+
+message CEcon_GetTradeOfferForConfirmation_Response {
+	optional .CEcon_TradeOffer offer = 1;
+	repeated .CEconItem_Description descriptions = 2;
+	repeated .CEconItem_AssetProperties asset_properties = 3;
+}
+
+message CEcon_GetTradePermissionsForApp_Request {
+	optional uint32 appid = 1;
+	optional bool force_context_list_refresh = 2;
+	optional bool add_app_if_doesnt_exist = 3;
+	optional uint32 num_new_items = 4;
+	optional uint32 num_removed_items = 5;
+}
+
+message CEcon_GetTradePermissionsForApp_Response {
+	optional bool can_receive = 1;
+	optional bool can_send = 2;
+	optional bool exceeded_max_asset_count = 3;
+	optional bool app_missing = 4;
+	optional bool disabled_in_region = 5;
+}
+
+message CEcon_GetUserTradeEligibility_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CEcon_IsSafeToCommitTrade_Request {
+	optional fixed64 steamid_partya = 1;
+	optional fixed64 steamid_partyb = 2;
+	repeated uint32 involved_apps = 3;
+}
+
+message CEcon_NeedTradeUI_Request {
+}
+
+message CEcon_NeedTradeUI_Response {
+	repeated int32 needed_types = 1;
+}
+
+message CEcon_ProcessOneOffRefund_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 appid = 2;
+	optional uint64 refundid = 3;
+}
+
+message CEcon_ProcessOneOffRefund_Response {
+}
+
+message CEcon_QueryRefundAllowed_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 appid = 2;
+	optional uint64 transactionid = 3;
+	optional string language = 4;
+}
+
+message CEcon_QueryRefundAllowed_Response {
+	optional bool allow_refund = 1;
+	repeated .CEcon_QueryRefundAllowed_Response_Asset assets = 2;
+	repeated .CEconItem_Description descriptions = 3;
+}
+
+message CEcon_QueryRefundAllowed_Response_Asset {
+	optional bool allow_refund = 1;
+	optional bool in_inventory = 2;
+	optional bool bundle = 3;
+	optional int32 gameid = 4;
+	optional .CEcon_Asset asset = 5;
+	optional string current_state = 6;
+	optional string item_name = 7;
+}
+
+message CEcon_RefundPurchase_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 appid = 2;
+	optional uint64 transactionid = 3;
+	optional bool force = 4;
+}
+
+message CEcon_RefundPurchase_Response {
+}
+
+message CEcon_RevertAllTrades_Request {
+	optional fixed64 steamid = 1;
+	optional bool force = 2;
+	optional bool account_recovery = 3;
+	optional bool deauth_all_devices = 4 [default = false];
+	optional bool apply_cooldown = 5 [default = false];
+}
+
+message CEcon_RevertAllTrades_Response {
+	optional uint32 trades = 1;
+	optional uint32 errors = 2;
+	optional uint32 trade_offers = 3;
+	optional uint32 escrowed_trades = 4;
+}
+
+message CEcon_RevertTrade_Request {
+	optional fixed64 tradeid = 1;
+	optional bool force = 2;
+	optional bool in_recovery = 3;
+}
+
+message CEcon_RevertTrade_Response {
+}
+
+message CEcon_SetForceTradeTrustedTime_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 time_force_trusted_until = 2;
+}
+
+message CEcon_SetTradeBanTime_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 time_banned_until = 2;
+	optional uint32 time_probation_until = 3;
+}
+
+message CEcon_StartItemShopTxn_Request {
+	optional string overlay_auth_cookie = 1;
+	optional uint32 appid = 2;
+	optional string cart = 3;
+	optional string currency = 4;
+	optional uint32 total = 5;
+	optional bool sandbox = 6;
+	optional string referrer = 7;
+	optional string language = 8;
+	optional string itemshop_auth = 9;
+}
+
+message CEcon_StartItemShopTxn_Response {
+	optional uint64 orderid = 1;
+	optional string url = 2;
+	optional string displaytext = 3;
+	optional uint64 transid = 4;
+}
+
+message CEcon_TopTradePartner {
+	optional fixed64 steamid = 1;
+	optional uint32 num_trades = 2;
+	optional uint32 time_first_trade = 3;
+	optional uint32 time_last_trade = 4;
+}
+
+message CEcon_TradeLeftEscrow_Request {
+	optional fixed64 steamid = 1;
+	optional uint64 tradeid = 2;
+	optional uint32 trade_status = 3;
+}
+
+message CEcon_TradeLeftEscrow_Response {
+}
+
+message CEcon_TradeOffer {
+	optional uint64 tradeofferid = 1;
+	optional uint32 accountid_other = 2;
+	optional string message = 3;
+	optional uint32 expiration_time = 4;
+	optional int32 trade_offer_state = 5 [(.description) = "enum"];
+	repeated .CEcon_Asset items_to_give = 6;
+	repeated .CEcon_Asset items_to_receive = 7;
+	optional bool is_our_offer = 8;
+	optional uint32 time_created = 9;
+	optional uint32 time_updated = 10;
+	optional fixed64 tradeid = 11;
+	optional bool from_real_time_trade = 12;
+	optional uint32 escrow_end_date = 13;
+	optional int32 confirmation_method = 14 [(.description) = "enum"];
+	optional int32 partner_confirmation_method = 15 [(.description) = "enum"];
+	optional uint32 eresult = 16 [default = 1];
+	optional bool delay_settlement = 17;
+	optional uint32 settlement_date = 18;
 }
 
 message CEconItem_Action {
@@ -182,14 +762,98 @@ message CEconItem_Tag {
 
 service Econ {
 	// ePrivilege=1
+	rpc AcceptTradeOffer (.CEcon_AcceptTradeOffer_Request) returns (.CEcon_AcceptTradeOffer_Response);
+	// ePrivilege=1
+	rpc AcknowledgeTradeUI (.CEcon_AcknowledgeTradeUI_Request) returns (.CEcon_AcknowledgeTradeUI_Response);
+	// ePrivilege=1
+	rpc ApplyTradeCooldown (.CEcon_ApplyTradeCooldown_Request) returns (.CEcon_ApplyTradeCooldown_Response);
+	// ePrivilege=0
+	rpc AppSupportsRefund (.CEcon_AppSupportsRefund_Request) returns (.CEcon_AppSupportsRefund_Response);
+	// ePrivilege=2
+	rpc BuildItemShopReturnURL (.CEcon_BuildItemShopReturnURL_Request) returns (.CEcon_BuildItemShopReturnURL_Response);
+	// ePrivilege=2
+	rpc CancelAllTradeOffers (.CEcon_CancelAllTradeOffers_Request) returns (.CEcon_CancelAllTradeOffers_Response);
+	// ePrivilege=1
+	rpc CancelTradeOffer (.CEcon_CancelTradeOffer_Request) returns (.CEcon_CancelTradeOffer_Response);
+	// ePrivilege=1
+	rpc CanUserTradeWithAnyone (.CEcon_CanUserTradeWithAnyone_Request) returns (.CEcon_CanUserTradeWithAnyone_Response);
+	// ePrivilege=1
+	rpc CanUserTradeWithPartner (.CEcon_CanUserTradeWithPartner_Request) returns (.CEcon_CanUserTradeWithPartner_Response);
+	// ePrivilege=0
+	rpc CheckItemShopPartnerHMAC (.CEcon_CheckItemShopPartnerHMAC_Request) returns (.CEcon_CheckItemShopPartnerHMAC_Response);
+	// ePrivilege=0
+	rpc CheckTradeOfferAccessToken (.CEcon_CheckTradeOfferAccessToken_Request) returns (.CEcon_CheckTradeOfferAccessToken_Response);
+	// ePrivilege=1
+	rpc CheckTradePartnerTrustworthiness (.CEcon_CheckTradePartnerTrustworthiness_Request) returns (.CEcon_CheckTradePartnerTrustworthiness_Response);
+	// ePrivilege=1
 	rpc ClientGetItemShopOverlayAuthURL (.CEcon_ClientGetItemShopOverlayAuthURL_Request) returns (.CEcon_ClientGetItemShopOverlayAuthURL_Response);
+	// ePrivilege=0
+	rpc ConfirmTradeOffer (.CEcon_ConfirmTradeOffer_Request) returns (.CEcon_ConfirmTradeOffer_Response);
+	// ePrivilege=1
+	rpc CreateTradeOffer (.CEcon_CreateTradeOffer_Request) returns (.CEcon_CreateTradeOffer_Response);
+	// ePrivilege=1
+	rpc DeclineTradeOffer (.CEcon_DeclineTradeOffer_Request) returns (.CEcon_DeclineTradeOffer_Response);
+	// ePrivilege=2
+	rpc FinishItemShopTxn (.CEcon_FinishItemShopTxn_Request) returns (.CEcon_FinishItemShopTxn_Response);
+	// ePrivilege=0
+	rpc FlushInventoryServiceDBOs (.CEcon_FlushInventoryServiceDBOs_Request) returns (.CEcon_FlushInventoryServiceDBOs_Response);
 	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=1
 	rpc GetAssetClassInfo (.CEcon_GetAssetClassInfo_Request) returns (.CEcon_GetAssetClassInfo_Response);
+	// ePrivilege=0
+	rpc GetAssetClassInfoInternal (.CEcon_GetAssetClassInfo_Request) returns (.CEcon_GetAssetClassInfo_Response);
+	// ePrivilege=0
+	rpc GetAssetClassProperties (.CEcon_GetAssetClassProperties_Request) returns (.CEcon_GetAssetClassProperties_Response);
 	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=1
 	rpc GetAssetPropertySchema (.CEcon_GetAssetPropertySchema_Request) returns (.CEcon_GetAssetPropertySchema_Response);
+	// ePrivilege=7
+	rpc GetEconAppSettings (.CEcon_GetEconAppSettings_Request) returns (.CEcon_GetEconAppSettings_Response);
+	// ePrivilege=0
+	rpc GetEconSummary (.CEcon_GetEconSummary_Request) returns (.CEcon_GetEconSummary_Response);
+	// ePrivilege=0
+	rpc GetEligibleOneOffRefunds (.CEcon_GetEligibleOneOffRefunds_Request) returns (.CEcon_GetEligibleOneOffRefunds_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=2
 	rpc GetInventoryItemsWithDescriptions (.CEcon_GetInventoryItemsWithDescriptions_Request) returns (.CEcon_GetInventoryItemsWithDescriptions_Response);
+	// ePrivilege=0
+	rpc GetItemShopPartnerToken (.CEcon_GetItemShopPartnerToken_Request) returns (.CEcon_GetItemShopPartnerToken_Response);
+	// ePrivilege=2
+	rpc GetItemShopTxnState (.CEcon_GetItemShopTxnState_Request) returns (.CEcon_GetItemShopTxnState_Response);
+	// ePrivilege=1
+	rpc GetProvisionalTradeHistory (.CEcon_GetProvisionalTradeHistory_Request) returns (.CEcon_GetTradeHistory_Response);
+	// ePrivilege=0
+	rpc GetTopTradePartners (.CEcon_GetTopTradePartners_Request) returns (.CEcon_GetTopTradePartners_Response);
 	// ePrivilege=1
 	rpc GetTradeOfferAccessToken (.CEcon_GetTradeOfferAccessToken_Request) returns (.CEcon_GetTradeOfferAccessToken_Response);
+	// ePrivilege=0
+	rpc GetTradeOfferForAnyUser (.CEcon_GetTradeOfferForAnyUser_Request) returns (.CEcon_GetTradeOffer_Response);
+	// ePrivilege=0
+	rpc GetTradeOfferForConfirmation (.CEcon_GetTradeOfferForConfirmation_Request) returns (.CEcon_GetTradeOfferForConfirmation_Response);
+	// ePrivilege=1
+	rpc GetTradePermissionsForApp (.CEcon_GetTradePermissionsForApp_Request) returns (.CEcon_GetTradePermissionsForApp_Response);
+	// ePrivilege=0
+	rpc GetUserTradeEligibility (.CEcon_GetUserTradeEligibility_Request) returns (.CEcon_CanUserTradeWithAnyone_Response);
+	// ePrivilege=0
+	rpc IsSafeToCommitTrade (.CEcon_IsSafeToCommitTrade_Request) returns (.CEcon_Generic_Response);
+	// ePrivilege=1
+	rpc NeedTradeUI (.CEcon_NeedTradeUI_Request) returns (.CEcon_NeedTradeUI_Response);
+	// ePrivilege=2
+	rpc NotifyCancelAllTradeOffers (.CEcon_CancelAllTradeOffers_Notification) returns (.NoResponse);
+	// ePrivilege=0
+	rpc ProcessOneOffRefund (.CEcon_ProcessOneOffRefund_Request) returns (.CEcon_ProcessOneOffRefund_Response);
+	// ePrivilege=0
+	rpc QueryRefundAllowed (.CEcon_QueryRefundAllowed_Request) returns (.CEcon_QueryRefundAllowed_Response);
+	// ePrivilege=0
+	rpc RefundPurchase (.CEcon_RefundPurchase_Request) returns (.CEcon_RefundPurchase_Response);
+	// ePrivilege=1
+	rpc RevertAllTrades (.CEcon_RevertAllTrades_Request) returns (.CEcon_RevertAllTrades_Response);
+	// ePrivilege=1
+	rpc RevertTrade (.CEcon_RevertTrade_Request) returns (.CEcon_RevertTrade_Response);
+	// ePrivilege=0
+	rpc SetForceTradeTrustedTime (.CEcon_SetForceTradeTrustedTime_Request) returns (.CEcon_Generic_Response);
+	// ePrivilege=2
+	rpc SetTradeBanTime (.CEcon_SetTradeBanTime_Request) returns (.CEcon_Generic_Response);
+	// ePrivilege=2
+	rpc StartItemShopTxn (.CEcon_StartItemShopTxn_Request) returns (.CEcon_StartItemShopTxn_Response);
+	// ePrivilege=0
+	rpc TradeLeftEscrow (.CEcon_TradeLeftEscrow_Request) returns (.CEcon_TradeLeftEscrow_Response);
 }
 

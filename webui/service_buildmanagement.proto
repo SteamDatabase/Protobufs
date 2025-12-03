@@ -1,0 +1,16 @@
+
+message CBuildManagement_SetAppBuildLiveConfirmed_Request {
+	optional uint32 appid = 1;
+	optional uint32 buildid = 2;
+	optional string betakey = 3;
+	optional string desc = 4;
+}
+
+message CBuildManagement_SetAppBuildLiveConfirmed_Response {
+}
+
+service BuildManagement {
+	// ePrivilege=1
+	rpc SetAppBuildLiveConfirmed (.CBuildManagement_SetAppBuildLiveConfirmed_Request) returns (.CBuildManagement_SetAppBuildLiveConfirmed_Response);
+}
+
