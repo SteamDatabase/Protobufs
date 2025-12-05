@@ -1339,7 +1339,6 @@ message CMsgControllerConfiguration {
 	optional string description = 3;
 	optional string creator = 4;
 	optional int32 controller_type = 5;
-	optional string capability_bits = 6;
 	optional int32 controller_style = 7;
 	repeated .CMsgGameActionSet sets = 8;
 	repeated .CMsgControllerMode modes = 9;
