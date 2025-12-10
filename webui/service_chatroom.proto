@@ -487,6 +487,9 @@ message CChatRoom_ResolveReport_Request {
 	optional uint64 subject_id = 2;
 	optional int32 resolution = 3 [(.description) = "enum"];
 	optional int32 reason = 4 [(.description) = "enum"];
+	optional int32 subject_type = 5 [(.description) = "enum"];
+	optional uint64 chat_group_id = 6;
+	optional uint32 kick_expiration_time = 7;
 }
 
 message CChatRoom_ResolveReport_Response {

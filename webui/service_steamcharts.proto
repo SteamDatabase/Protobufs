@@ -42,7 +42,9 @@ message CSteamCharts_GetMonthTopAppReleases_Request {
 
 message CSteamCharts_GetMonthTopAppReleases_Response {
 	repeated .CSteamCharts_GetMonthTopAppReleases_Response_AppNewRelease top_dlc_releases = 2;
+	//repeated .CTopAppNewRelease top_dlc_releases = 2;
 	repeated .CSteamCharts_GetMonthTopAppReleases_Response_AppNewRelease top_combined_app_and_dlc_releases = 3;
+	//repeated .CTopAppNewRelease top_combined_app_and_dlc_releases = 3;
 }
 
 message CSteamCharts_GetMonthTopAppReleases_Response_AppNewRelease {
@@ -109,21 +111,21 @@ message CSteamCharts_GetYearTopAppReleases_Request {
 }
 
 message CSteamCharts_GetYearTopAppReleases_Response {
-	repeated .CSteamCharts_GetYearTopAppReleases_Response_AppNewRelease top_dlc_releases = 2;
-	repeated .CSteamCharts_GetYearTopAppReleases_Response_AppNewRelease top_combined_app_and_dlc_releases = 3;
+	repeated .CTopAppNewRelease top_dlc_releases = 2;
+	repeated .CTopAppNewRelease top_combined_app_and_dlc_releases = 3;
 	repeated .CSteamCharts_GetYearTopAppReleases_Response_TopApps top_app_list = 4;
-}
-
-message CSteamCharts_GetYearTopAppReleases_Response_AppNewRelease {
-	optional uint32 appid = 1;
-	optional uint32 rtime_release = 2;
-	optional int32 app_release_rank = 3 [(.description) = "enum"];
 }
 
 message CSteamCharts_GetYearTopAppReleases_Response_TopApps {
 	optional uint32 appid = 1;
 	optional int32 app_release_rank = 3 [(.description) = "enum"];
 	optional int32 type = 4 [(.description) = "enum"];
+}
+
+message CTopAppNewRelease {
+	optional uint32 appid = 1;
+	optional uint32 rtime_release = 2;
+	optional int32 app_release_rank = 3 [(.description) = "enum"];
 }
 
 service SteamCharts {
