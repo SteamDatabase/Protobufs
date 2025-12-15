@@ -180,7 +180,8 @@ message CSOCitadelLobby {
 message CSOCitadelHideoutLobby {
 	message Member {
 		optional uint32 account_id = 1;
-		repeated uint32 account_awards = 20 [packed = true];
+		optional bool hideout_holiday_award_2024 = 30;
+		repeated uint32 hideout_holiday_awards_2025 = 31 [packed = true];
 	}
 
 	optional uint64 hideout_lobby_id = 1;
@@ -557,6 +558,7 @@ message CMsgMatchMetaDataContents {
 		optional uint32 abandon_match_time_s = 23;
 		optional .CMsgPlayerHeroData hero_data = 25;
 		optional bool rewards_eligible = 26;
+		optional bool earned_holiday_award_2025 = 29;
 	}
 
 	message Objective {

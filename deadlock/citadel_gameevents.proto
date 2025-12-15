@@ -57,6 +57,7 @@ message CMsgFireBullets {
 	optional float bullet_speed_override = 22 [default = 0];
 	optional float bullet_gravity_override = 23 [default = 0];
 	optional int32 muzzle_number = 24;
+	optional bool ability_as_bullet = 25;
 }
 
 message CMsgBulletImpact {
@@ -70,6 +71,7 @@ message CMsgBulletImpact {
 	optional uint32 impacted_bone_index = 9;
 	optional uint32 weapon_subclass_id = 10;
 	optional uint32 shooter_ehandle = 11 [default = 16777215];
+	optional float bullet_radius_override = 12;
 }
 
 message CMsgPlayerAnimEvent {

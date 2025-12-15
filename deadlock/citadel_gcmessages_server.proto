@@ -114,9 +114,11 @@ message CServerLobbyData_PlayerMMR {
 
 message CServerLobbyData_PlayerInfo {
 	optional uint32 account_id = 1;
+	repeated .CMsgAccountHeroStats account_stats = 2;
 	repeated .CMsgAccountBookStats book_info = 5;
 	optional .CMsgAccountChallengesActive challenges = 7;
 	optional .CMsgEquippedItemList global_equips = 8;
+	optional uint32 total_holiday_awards_2025 = 9;
 }
 
 message CServerLobbyData_PostMatchSurvey {

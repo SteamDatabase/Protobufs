@@ -55,7 +55,7 @@ enum CitadelUserMessageIds {
 	k_EUserMsg_CallCheaterVote = 354;
 	k_EUserMsg_MeleeHit = 355;
 	k_EUserMsg_FlexSlotUnlocked = 356;
-	k_EUserMsg_SeasonalAchievementUnlocked = 357;
+	k_EUserMsg_SeasonalKill = 357;
 	k_EUserMsg_MusicQueue = 358;
 	k_EUserMsg_AG2ParamTrigger = 359;
 	k_EUserMsg_ItemPurchaseNotification = 360;
@@ -619,9 +619,9 @@ message CCitadelUserMessage_ItemPurchaseNotification {
 	optional bool quickbuy = 4;
 }
 
-message CCitadelUserMsg_SeasonalAchievementUnlocked {
-	optional uint32 account_id = 1;
-	optional uint32 hero_id = 2;
+message CCitadelUserMsg_SeasonalKill {
+	optional uint32 killer = 1 [default = 16777215];
+	optional uint32 victim = 2 [default = 16777215];
 }
 
 message CCitadelUserMsg_MusicQueue {
