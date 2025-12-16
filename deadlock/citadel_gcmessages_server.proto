@@ -628,6 +628,7 @@ message CMsgMatchData {
 	optional bool low_pri_pool = 16;
 	optional bool not_scored = 17;
 	optional float winner_pct_time_in_enemy = 21;
+	optional bool forgive_existing_abandons = 22;
 }
 
 message CMsgServerToGCMatchSignout {
