@@ -1092,7 +1092,6 @@ message CMsgClientServerTimestampResponse {
 
 message CMsgClientSettings {
 	optional bool no_save_personal_info = 1;
-	optional bool oobe_test_mode_enabled = 2;
 	optional bool in_client_beta = 3;
 	optional bool is_steam_sideloaded = 4;
 	optional string preferred_monitor = 5;
@@ -1240,7 +1239,6 @@ message CMsgClientSettings {
 	optional bool gamerecording_force_mic_mono = 18226;
 	optional bool gamerecording_automatic_gain_control = 18227;
 	optional bool show_timestamps_in_console = 20000;
-	optional bool force_oobe = 20001;
 	optional int32 override_browser_composer_mode = 20002;
 	optional bool cef_remote_debugging_enabled = 20003;
 	optional bool force_deck_perf_tab = 20004;
@@ -1318,6 +1316,13 @@ message CMsgClientSettings {
 	optional string remote_play_wifi_ap_hotspot_password = 27006;
 	optional string remote_play_wifi_ap_hotspot_routing = 27007;
 	optional bool remote_play_wifi_ap_show_advanced = 27008;
+	optional string remote_play_wifi_ap_paired_ssid = 27009;
+	optional bool oobe_completed = 28001;
+	optional bool oobe_test_mode_enabled = 28002;
+	optional bool force_oobe = 28003;
+	optional bool oobe_stage_2_completed = 28004;
+	optional bool oobe_stage_2_test_mode_enabled = 28005;
+	optional bool force_stage_2_oobe = 28006;
 	optional bool controller_enable_chord = 140011;
 	optional bool controller_poll_rate = 140012;
 	optional bool controller_siapi_config_author_mode = 140013;
@@ -2854,6 +2859,13 @@ message CVRGamepadUI_Message_RemoteVideoStream_Request {
 }
 
 message CVRGamepadUI_Message_RemoteVideoStream_Response {
+}
+
+message CVRGamepadUI_Message_SetCurrentLanguage_Request {
+	optional string language = 1;
+}
+
+message CVRGamepadUI_Message_SetCurrentLanguage_Response {
 }
 
 message CVRGamepadUI_Message_SetDisplayBrightness_Request {

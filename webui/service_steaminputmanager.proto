@@ -149,6 +149,19 @@ message CSteamInputService_GyroSpeedChanged_Notification {
 	optional .ControllerGyroEulerAngles gyro_filtered_speed = 4;
 }
 
+message CSteamInputService_PairDongleTritonUSB_Request {
+	optional uint32 controller_index = 1;
+	optional uint32 dongle_index = 2;
+	optional uint32 slot = 3;
+}
+
+message CSteamInputService_PairDongleTritonUSB_Response {
+}
+
+message CSteamInputService_UnpairedTritonPluggedIn_Notification {
+	optional uint32 controller_index = 1;
+}
+
 service SteamInputManager {
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc CancelGyroSoftwareCalibration (.CSteamInputService_GyroSoftwareCalibration_Request) returns (.CSteamInputService_GyroSoftwareCalibration_Response);
@@ -170,6 +183,10 @@ service SteamInputManager {
 	rpc NotifyGyroQuaternionStateChanged (.CSteamInputService_GyroQuaternionChanged_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyGyroSpeedStateChanged (.CSteamInputService_GyroSpeedChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=2
+	rpc NotifyUnpairedTritonPluggedIn (.CSteamInputService_UnpairedTritonPluggedIn_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=2
+	rpc PairDongleTritonUSB (.CSteamInputService_PairDongleTritonUSB_Request) returns (.CSteamInputService_PairDongleTritonUSB_Response);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc StartControllerStateFlow (.CSteamInputService_ControllerStateFlow_Request) returns (.CSteamInputService_ControllerStateFlow_Response);
 	// ePrivilege=1, eClientExecutionSite=2

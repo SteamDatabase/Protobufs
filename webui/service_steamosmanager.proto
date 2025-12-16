@@ -34,6 +34,12 @@ message CSteamOSManager_OptOutOfSideloadedClient_Request {
 message CSteamOSManager_OptOutOfSideloadedClient_Response {
 }
 
+message CSteamOSManager_RefreshScreenReaderAutoLocale_Request {
+}
+
+message CSteamOSManager_RefreshScreenReaderAutoLocale_Response {
+}
+
 message CSteamOSManager_StateChanged_Notification {
 }
 
@@ -79,5 +85,7 @@ service SteamOSManager {
 	rpc NotifyStateChanged (.CSteamOSManager_StateChanged_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=1
 	rpc OptOutOfSideloadedClient (.CSteamOSManager_OptOutOfSideloadedClient_Request) returns (.CSteamOSManager_OptOutOfSideloadedClient_Response);
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc RefreshScreenReaderAutoLocale (.CSteamOSManager_RefreshScreenReaderAutoLocale_Request) returns (.CSteamOSManager_RefreshScreenReaderAutoLocale_Response);
 }
 

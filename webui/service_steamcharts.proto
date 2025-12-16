@@ -41,16 +41,8 @@ message CSteamCharts_GetMonthTopAppReleases_Request {
 }
 
 message CSteamCharts_GetMonthTopAppReleases_Response {
-	repeated .CSteamCharts_GetMonthTopAppReleases_Response_AppNewRelease top_dlc_releases = 2;
-	//repeated .CTopAppNewRelease top_dlc_releases = 2;
-	repeated .CSteamCharts_GetMonthTopAppReleases_Response_AppNewRelease top_combined_app_and_dlc_releases = 3;
-	//repeated .CTopAppNewRelease top_combined_app_and_dlc_releases = 3;
-}
-
-message CSteamCharts_GetMonthTopAppReleases_Response_AppNewRelease {
-	optional uint32 appid = 1;
-	optional uint32 rtime_release = 2;
-	optional int32 app_release_rank = 3 [(.description) = "enum"];
+	repeated .CTopAppNewRelease top_dlc_releases = 2;
+	repeated .CTopAppNewRelease top_combined_app_and_dlc_releases = 3;
 }
 
 message CSteamCharts_GetMostPlayedGames_Request {
