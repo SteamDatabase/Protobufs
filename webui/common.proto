@@ -1317,6 +1317,7 @@ message CMsgClientSettings {
 	optional string remote_play_wifi_ap_hotspot_routing = 27007;
 	optional bool remote_play_wifi_ap_show_advanced = 27008;
 	optional string remote_play_wifi_ap_paired_ssid = 27009;
+	optional bool skip_steamframe_pairing_dialog = 27010;
 	optional bool oobe_completed = 28001;
 	optional bool oobe_test_mode_enabled = 28002;
 	optional bool force_oobe = 28003;
