@@ -490,6 +490,7 @@ message CChatRoom_ResolveReport_Request {
 	optional int32 subject_type = 5 [(.description) = "enum"];
 	optional uint64 chat_group_id = 6;
 	optional uint32 kick_expiration_time = 7;
+	optional bool skip_lock = 8;
 }
 
 message CChatRoom_ResolveReport_Response {
