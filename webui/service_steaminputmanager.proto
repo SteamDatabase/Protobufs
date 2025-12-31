@@ -95,6 +95,10 @@ message CSteamInputService_ControllerButtonStateChanged_Notification {
 	optional bool right_aux = 36;
 }
 
+message CSteamInputService_ControllerDisconnected_Notification {
+	optional uint32 controller_index = 1;
+}
+
 message CSteamInputService_ControllerPowerMenu_Notification {
 	optional uint32 idx = 1;
 }
@@ -219,6 +223,8 @@ service SteamInputManager {
 	rpc NotifyAxesStateChanged (.CSteamInputService_ControllerAxesStateChange_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyButtonStateChanged (.CSteamInputService_ControllerButtonStateChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=2
+	rpc NotifyControllerDisconnected (.CSteamInputService_ControllerDisconnected_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyControllerPowerMenu (.CSteamInputService_ControllerPowerMenu_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2
