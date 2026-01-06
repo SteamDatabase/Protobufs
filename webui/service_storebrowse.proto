@@ -39,6 +39,7 @@ message CStoreBrowse_GetContentHubConfig_Response_ContentHubConfig {
 	repeated uint32 must_have_tags = 7;
 	repeated uint32 any_one_of_tags = 8;
 	repeated uint32 must_not_have_tags = 9;
+	optional string hub_description = 10;
 }
 
 message CStoreBrowse_GetDLCForApps_Request {
