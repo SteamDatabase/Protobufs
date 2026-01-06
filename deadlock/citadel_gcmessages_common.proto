@@ -533,6 +533,12 @@ message CMsgMatchMetaDataContents {
 		optional uint32 starting_xp = 3;
 	}
 
+	message PlayerAccolade {
+		optional uint32 accolade_id = 1;
+		optional int32 accolade_stat_value = 2;
+		optional int32 accolade_threshold_achieved = 3;
+	}
+
 	message Players {
 		optional uint32 account_id = 1;
 		optional uint32 player_slot = 2;
@@ -559,6 +565,14 @@ message CMsgMatchMetaDataContents {
 		optional .CMsgPlayerHeroData hero_data = 25;
 		optional bool rewards_eligible = 26;
 		optional bool earned_holiday_award_2025 = 29;
+		repeated .CMsgTrackedStat player_tracked_stats = 48;
+		repeated .CMsgMatchMetaDataContents.PlayerAccolade accolades = 27;
+		optional uint32 mvp_rank = 28;
+	}
+
+	message Teams {
+		optional .ECitadelLobbyTeam team = 1 [default = k_ECitadelLobbyTeam_Team0];
+		repeated .CMsgTrackedStat team_tracked_stats = 2;
 	}
 
 	message Objective {
@@ -617,6 +631,8 @@ message CMsgMatchMetaDataContents {
 		optional uint32 game_mode_version = 25;
 		optional bool rewards_eligible = 26;
 		optional bool not_scored = 27;
+		repeated .CMsgTrackedStat match_tracked_stats = 29;
+		repeated .CMsgMatchMetaDataContents.Teams teams = 30;
 	}
 
 	enum EMatchOutcome {
@@ -672,6 +688,11 @@ message CMsgAccountBookStats {
 message CMsgAccountStats {
 	optional uint32 account_id = 1;
 	repeated .CMsgAccountHeroStats stats = 2;
+}
+
+message CMsgTrackedStat {
+	optional uint32 tracked_stat_id = 1;
+	optional int32 tracked_stat_value = 2;
 }
 
 message CMsgGCAccountData {

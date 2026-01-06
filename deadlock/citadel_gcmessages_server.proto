@@ -39,6 +39,7 @@ enum EGCServerLobbyData {
 	k_EServerLobbyData_PlayerInfo = 2;
 	k_EServerLobbyData_PostMatchSurvey = 3;
 	k_EServerLobbyData_AutoTest = 4;
+	k_EServerLobbyData_PlayerStatValues = 5;
 }
 
 enum EGCServerSignoutData {
@@ -132,6 +133,22 @@ message CServerLobbyData_PostMatchSurvey {
 
 message CServerLobbyData_AutoTest {
 	optional uint32 max_duration_s = 2;
+}
+
+message CServerLobbyData_PlayerStatValues {
+	message AccoladeThresholds {
+		optional uint32 accolade_id = 1;
+		repeated uint32 thresholds = 2;
+	}
+
+	message StatDistribution {
+		optional uint32 tracked_stat_id = 1;
+		optional float tracked_stat_mean = 2;
+		optional float tracked_stat_std_dev = 3;
+	}
+
+	repeated .CServerLobbyData_PlayerStatValues.AccoladeThresholds accolades = 1;
+	repeated .CServerLobbyData_PlayerStatValues.StatDistribution stat_distributions = 2;
 }
 
 message CSOCitadelServerDynamicLobby {
@@ -599,7 +616,13 @@ message CMsgMatchData {
 		optional uint32 match_number = 53;
 		repeated uint32 damage_per_hero_ability = 54;
 		repeated .CMsgMatchData.AuxStat aux_stats = 55;
+		repeated .CMsgTrackedStat player_tracked_stats = 56;
 		optional float new_player_score = 57;
+	}
+
+	message TeamInfo {
+		optional .ECitadelLobbyTeam team = 1 [default = k_ECitadelLobbyTeam_Team0];
+		repeated .CMsgTrackedStat team_tracked_stats = 2;
 	}
 
 	enum EEndReason {
@@ -627,6 +650,8 @@ message CMsgMatchData {
 	optional bool new_player_pool = 15;
 	optional bool low_pri_pool = 16;
 	optional bool not_scored = 17;
+	repeated .CMsgMatchData.TeamInfo teams = 19;
+	repeated .CMsgTrackedStat match_tracked_stats = 20;
 	optional float winner_pct_time_in_enemy = 21;
 	optional bool forgive_existing_abandons = 22;
 }
