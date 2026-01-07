@@ -219,6 +219,7 @@ message CContentModeration_ResolveDisputedSubject_Request {
 	optional uint64 subject_id = 3;
 	optional int32 updated_resolution = 4 [(.description) = "enum"];
 	optional int32 updated_reason = 5 [(.description) = "enum"];
+	repeated .ContentReportSubjectSanction updated_sanctions = 6;
 }
 
 message CContentModeration_ResolveDisputedSubject_Response {
@@ -233,6 +234,7 @@ message CContentModeration_ResolveSubject_Request {
 	optional string note = 6;
 	optional int32 resolved_by_automation = 7 [(.description) = "enum"];
 	optional bool skip_lock = 8;
+	repeated .ContentReportSubjectSanction sanctions_applied = 9;
 }
 
 message CContentModeration_ResolveSubject_Response {
@@ -245,6 +247,7 @@ message CContentModeration_ResolveSubjectGroup_Request {
 	optional int32 reason = 4 [(.description) = "enum"];
 	optional string note = 5;
 	optional int32 resolved_by_automation = 6 [(.description) = "enum"];
+	repeated .ContentReportSubjectSanction sanctions_applied = 9;
 }
 
 message CContentModeration_ResolveSubjectGroup_Response {
@@ -310,6 +313,8 @@ message ContentReport {
 	optional int32 resolved_by_automation = 20 [default = 0, (.description) = "enum"];
 	optional int32 content_moderated_reason = 21 [(.description) = "enum"];
 	optional int32 dispute_resolved_reason = 22 [(.description) = "enum"];
+	repeated .ContentReportSubjectSanction sanctions_applied = 23;
+	repeated .ContentReportSubjectSanction sanctions_applied_on_dispute = 24;
 }
 
 message ContentReportSubject {
@@ -343,6 +348,13 @@ message ContentReportSubject {
 	optional int32 resolved_by_automation = 28 [default = 0, (.description) = "enum"];
 	optional bool detected_by_automation = 29 [default = false];
 	optional int32 credible_threat_of_violence_status = 30 [(.description) = "enum"];
+	repeated .ContentReportSubjectSanction sanctions_applied = 31;
+	repeated .ContentReportSubjectSanction sanctions_applied_after_dispute = 32;
+}
+
+message ContentReportSubjectSanction {
+	optional int32 sanction = 1 [(.description) = "enum"];
+	optional int32 days = 2;
 }
 
 service ContentModeration {

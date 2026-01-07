@@ -385,6 +385,7 @@ message CMsgSteamLearn_InferenceMetadata_Response {
 	optional .CMsgSteamLearn_InferenceMetadata_Response_SnapshotHistogram snapshot_histogram = 7;
 	repeated .CMsgSteamLearn_InferenceMetadata_Response_AppInfoEntry app_info = 8;
 	repeated .CMsgSteamLearn_InferenceMetadata_Response_SequenceTable sequence_tables = 9;
+	optional float optimal_f1_score = 10;
 }
 
 message CMsgSteamLearn_InferenceMetadata_Response_AppInfo {
