@@ -355,6 +355,9 @@ message CMsgServerSignoutData_DetailedStats {
 			optional uint32 ability_assassinate = 13;
 			optional uint32 item_trophy_collector = 14;
 			optional uint32 item_cultist_sacrifice = 15;
+			optional uint32 comeback_kills = 16;
+			optional uint32 comeback_treasure = 17;
+			optional uint32 comeback_misc = 18;
 		}
 
 		optional uint32 match_time_s = 1;
