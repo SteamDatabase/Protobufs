@@ -125,6 +125,7 @@ message CLoyaltyRewards_GetReactionsSummaryForUser_Response_Breakdown {
 	optional uint32 received = 3;
 	optional int64 points_given = 4;
 	optional int64 points_received = 5;
+	optional bool purchaseable = 6;
 }
 
 message CLoyaltyRewards_GetSummary_Request {
