@@ -214,6 +214,7 @@ message CPublishedFile_GetItemInfo_Request {
 	optional uint32 appid = 1;
 	optional uint32 last_time_updated = 2;
 	repeated .CPublishedFile_GetItemInfo_Request_WorkshopItem workshop_items = 3;
+	optional int32 desired_revision = 4 [default = 0, (.description) = "enum"];
 }
 
 message CPublishedFile_GetItemInfo_Request_WorkshopItem {
