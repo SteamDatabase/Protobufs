@@ -341,7 +341,6 @@ message CClientMetrics_EndGameRecording_Notification {
 }
 
 message CClientMetrics_GamePerformance_Notification {
-	repeated .CClientMetrics_GamePerformance_Notification_FrameRateReport reports = 1;
 	repeated .CClientMetrics_GamePerformance_Notification_FrameRate frame_rates = 2;
 	optional .CClientMetrics_GamePerformance_Notification_SystemInformation system_info = 3;
 }
@@ -351,20 +350,6 @@ message CClientMetrics_GamePerformance_Notification_FrameRate {
 	optional fixed64 gameid = 1;
 	optional uint32 frame_rate = 2;
 	optional int32 session_seconds = 3;
-}
-
-// Used by: common.proto
-message CClientMetrics_GamePerformance_Notification_FrameRateReport {
-	optional fixed64 gameid = 1;
-	optional uint32 frame_rate = 2;
-	optional string manufacturer = 3;
-	optional string model = 4;
-	optional string dx_video_card = 5;
-	optional int32 dx_vendorid = 6;
-	optional int32 dx_deviceid = 7;
-	optional uint32 num_gpu = 8;
-	optional uint64 system_ram = 9;
-	optional int32 session_seconds = 10;
 }
 
 // Used by: common.proto
