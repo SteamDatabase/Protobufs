@@ -49,6 +49,13 @@ message CSteamOSManager_OptOutOfSideloadedClient_Request {
 message CSteamOSManager_OptOutOfSideloadedClient_Response {
 }
 
+message CSteamOSManager_PrepareFactoryImageTest_Request {
+	optional bool factory_reset = 1;
+}
+
+message CSteamOSManager_PrepareFactoryImageTest_Response {
+}
+
 message CSteamOSManager_RefreshScreenReaderAutoLocale_Request {
 }
 
@@ -103,6 +110,8 @@ service SteamOSManager {
 	rpc NotifyStateChanged (.CSteamOSManager_StateChanged_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=1
 	rpc OptOutOfSideloadedClient (.CSteamOSManager_OptOutOfSideloadedClient_Request) returns (.CSteamOSManager_OptOutOfSideloadedClient_Response);
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc PrepareFactoryImageTest (.CSteamOSManager_PrepareFactoryImageTest_Request) returns (.CSteamOSManager_PrepareFactoryImageTest_Response);
 	// ePrivilege=1, eClientExecutionSite=1
 	rpc RefreshScreenReaderAutoLocale (.CSteamOSManager_RefreshScreenReaderAutoLocale_Request) returns (.CSteamOSManager_RefreshScreenReaderAutoLocale_Response);
 	// ePrivilege=1, eClientExecutionSite=1
