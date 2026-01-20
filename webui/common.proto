@@ -343,6 +343,7 @@ message CClientMetrics_EndGameRecording_Notification {
 message CClientMetrics_GamePerformance_Notification {
 	repeated .CClientMetrics_GamePerformance_Notification_FrameRate frame_rates = 2;
 	optional .CClientMetrics_GamePerformance_Notification_SystemInformation system_info = 3;
+	//optional .UserSystemInformation system_info = 3;
 }
 
 // Used by: common.proto
@@ -1302,7 +1303,6 @@ message CMsgClientSettings {
 	optional int32 system_idle_suspend_ac_sec = 24004;
 	optional bool system_enable_low_power_downloads = 24005;
 	optional bool system_allow_battery_low_power_downloads = 24006;
-	optional int32 game_framerate_report_enabled = 24007 [(.description) = "enum"];
 	optional bool vr_show_perf_graph_in_hmd = 25000;
 	optional bool accessibility_debug_visualizer = 26000;
 	optional bool accessibility_screen_reader_enabled = 26001;
@@ -3486,5 +3486,26 @@ message UserContentDescriptorPreferences {
 message UserContentDescriptorPreferences_ContentDescriptor {
 	optional uint32 content_descriptorid = 1;
 	optional uint32 timestamp_added = 2;
+}
+
+// Used by: common.proto
+message UserSystemInformation {
+	optional string manufacturer = 1;
+	optional string model = 2;
+	optional string dx_video_card = 3;
+	optional int32 dx_vendorid = 4;
+	optional int32 dx_deviceid = 5;
+	optional uint32 num_gpu = 6;
+	optional uint64 system_ram = 7;
+	optional string os = 8;
+	optional string cpu_vendor = 9;
+	optional string cpu_name = 10;
+	optional uint32 gaming_device_type = 11;
+	optional string dx_driver_version = 12;
+	optional string dx_driver_name = 13;
+	optional string adapter_description = 14;
+	optional string driver_version = 15;
+	optional string driver_date = 16;
+	optional uint32 vram_size = 17;
 }
 
