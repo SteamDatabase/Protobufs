@@ -181,7 +181,7 @@ message CSOCitadelHideoutLobby {
 	message Member {
 		optional uint32 account_id = 1;
 		optional bool hideout_holiday_award_2024 = 30;
-		repeated uint32 hideout_holiday_awards_2025 = 31 [packed = true];
+		optional bool hideout_holiday_award_2025 = 32;
 	}
 
 	optional uint64 hideout_lobby_id = 1;

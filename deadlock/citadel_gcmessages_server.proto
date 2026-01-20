@@ -119,7 +119,6 @@ message CServerLobbyData_PlayerInfo {
 	repeated .CMsgAccountBookStats book_info = 5;
 	optional .CMsgAccountChallengesActive challenges = 7;
 	optional .CMsgEquippedItemList global_equips = 8;
-	optional uint32 total_holiday_awards_2025 = 9;
 }
 
 message CServerLobbyData_PostMatchSurvey {
