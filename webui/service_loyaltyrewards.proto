@@ -78,6 +78,7 @@ message CLoyaltyRewards_GetProfileCustomizationsConfig_Response {
 }
 
 message CLoyaltyRewards_GetReactionConfig_Request {
+	optional int32 elanguage = 1;
 }
 
 message CLoyaltyRewards_GetReactionConfig_Response {
@@ -91,6 +92,9 @@ message CLoyaltyRewards_GetReactionConfig_Response_ReactionConfig {
 	repeated int32 valid_target_types = 4 [(.description) = "enum"];
 	repeated uint32 valid_ugc_types = 5;
 	optional bool purchaseable = 6;
+	optional string localized_title = 7;
+	optional string localized_desc = 8;
+	optional uint32 available_until = 9;
 }
 
 message CLoyaltyRewards_GetReactions_Request {

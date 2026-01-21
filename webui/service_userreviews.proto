@@ -47,6 +47,7 @@ message CUserReviews_Update_Request {
 	optional bool received_compensation = 7;
 	optional bool comments_disabled = 8;
 	optional bool hide_in_steam_china = 9;
+	optional uint64 saved_hardware_id = 10;
 }
 
 message CUserReviews_Update_Response {
@@ -105,6 +106,8 @@ message RecommendationDetails {
 	optional uint32 is_bot_review_pct = 50;
 	optional uint32 positivity_pct = 51;
 	repeated .CUserReviews_Recommendation_Tag tags_with_ranges = 54;
+	optional uint64 saved_hardware_id = 56;
+	optional uint64 hardware_cluster_id = 57;
 }
 
 service UserReviews {
