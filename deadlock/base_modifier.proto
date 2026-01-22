@@ -6,10 +6,10 @@ enum MODIFIER_ENTRY_TYPE {
 }
 
 message CModifierTableEntry {
-	required .MODIFIER_ENTRY_TYPE entry_type = 1 [default = MODIFIER_ENTRY_TYPE_ACTIVE];
-	required uint32 parent = 2 [default = 16777215];
-	required uint32 serial_number = 3;
-	optional uint32 modifier_subclass = 4;
+	optional .MODIFIER_ENTRY_TYPE entry_type = 1 [default = MODIFIER_ENTRY_TYPE_ACTIVE];
+	optional uint32 parent = 2 [default = 16777215];
+	optional uint32 serial_number = 3;
+	optional uint32 modifier_subclass = 4 [default = 0];
 	optional int32 stack_count = 5;
 	optional int32 max_stack_count = 6;
 	optional float last_applied_time = 7;
@@ -18,7 +18,7 @@ message CModifierTableEntry {
 	optional uint32 ability = 10 [default = 16777215];
 	optional int32 aura_provider_serial_number = 11;
 	optional uint32 aura_provider_ehandle = 12 [default = 16777215];
-	optional uint32 ability_subclass = 13;
+	optional uint32 ability_subclass = 13 [default = 0];
 	optional bool in_aura_range = 14;
 	optional bool bool1_ = 20;
 	optional bool bool2_ = 21;
@@ -38,6 +38,12 @@ message CModifierTableEntry {
 	optional float float8_ = 52;
 	optional float float9_ = 53;
 	optional float float10_ = 54;
+	optional float float11_ = 55;
+	optional float float12_ = 56;
+	optional float float13_ = 57;
+	optional float float14_ = 58;
+	optional float float15_ = 59;
+	optional float float16_ = 60;
 	optional uint64 uint1_ = 35;
 	optional uint64 uint2_ = 36;
 	optional uint64 uint3_ = 37;

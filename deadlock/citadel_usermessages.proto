@@ -35,7 +35,7 @@ enum CitadelUserMessageIds {
 	k_EUserMsg_DeathReplayData = 333;
 	k_EUserMsg_PlayerLifetimeStatInfo = 334;
 	k_EUserMsg_ForceShopClosed = 336;
-	k_EUserMsg_StaminaDrained = 337;
+	k_EUserMsg_StaminaConsumed = 337;
 	k_EUserMsg_AbilityNotify = 338;
 	k_EUserMsg_GetDamageStatsResponse = 339;
 	k_EUserMsg_ParticipantStartSoundEvent = 340;
@@ -60,6 +60,10 @@ enum CitadelUserMessageIds {
 	k_EUserMsg_AG2ParamTrigger = 359;
 	k_EUserMsg_ItemPurchaseNotification = 360;
 	k_EUserMsg_EntityPortalled = 361;
+	k_EUserMsg_StreetBrawlScoring = 362;
+	k_EUserMsg_HudGameAnnouncement = 363;
+	k_EUserMsg_ItemDraftReaction = 364;
+	k_EUserMsg_ImportantAbilityUsed = 365;
 }
 
 enum CitadelEntityMessageIds {
@@ -72,6 +76,7 @@ enum ChatMsgPingMarkerInfo {
 	k_EPingMarkerInfo_HideMarkerAndSound = 2 [(schema_friendly_name) = "No Marker or Sound (just VO)"];
 	k_EPingMarkerInfo_OnlyShowMarker = 3 [(schema_friendly_name) = "Only Show Ping Indicator at Ping Location (no ping sound)"];
 	k_EPingMarkerInfo_OnlyPlaySound = 4 [(schema_friendly_name) = "Only Play Ping Sound (and VO)"];
+	k_EPingMarkerInfo_OnlyMiniMap = 5 [(schema_friendly_name) = "Only show on Minimap, no world, no sound"];
 }
 
 enum CameraOperation {
@@ -125,6 +130,7 @@ enum PostProcessingGameStates {
 	PostProcState_DoormanHotelVictim = 2;
 	PostProcState_Blinded = 3;
 	PostProcState_DrifterDarknessCaster = 4;
+	PostProcState_MatchIntro = 5;
 }
 
 message CUserMessageEmpty {
@@ -174,7 +180,7 @@ message PingCommonData {
 }
 
 message CCitadelUserMsg_MapPing {
-	required .PingCommonData ping_data = 1;
+	optional .PingCommonData ping_data = 1;
 	optional uint32 event_type = 2;
 	optional .ChatMsgPingMarkerInfo ping_marker_and_sound_info = 3 [default = k_EPingMarkerInfo_ShowMarkerAndSound];
 	optional bool pinged_enemy_entity = 4;
@@ -185,7 +191,7 @@ message CCitadelUserMsg_MapPing {
 }
 
 message CCitadelUserMsg_PingWheel {
-	required .PingCommonData ping_data = 1;
+	optional .PingCommonData ping_data = 1;
 	optional uint32 ping_wheel_option_id = 2;
 }
 
@@ -197,10 +203,16 @@ message CCitadelUserMsg_AbilityPing {
 }
 
 message CCitadelUserMsg_QuickResponse {
-	required .PingCommonData ping_data = 1;
+	optional .PingCommonData ping_data = 1;
 	optional uint32 responding_to_ping_message_id = 2;
 	optional int32 responding_to_player_slot = 3 [default = -1];
 	optional .CMsgLaneColor lane_color = 4 [default = k_ELaneColor_Invalid];
+}
+
+message CCitadelUserMsg_ItemDraftReaction {
+	optional .PingCommonData ping_data = 1;
+	optional bool rare = 2;
+	optional bool legendary = 3;
 }
 
 message CCitadelUserMsg_MapLine {
@@ -365,7 +377,7 @@ message CCitadelUserMsg_CameraController {
 		optional bool increase_spring_strength_to_keep_target_on_screen = 5 [default = true];
 	}
 
-	required .CameraAction action = 1 [default = k_EAction_AddOp];
+	optional .CameraAction action = 1 [default = k_EAction_AddOp];
 	optional .CameraOperation operation = 2 [default = k_ECameraOp_Maintain];
 	optional .CameraParam param = 3 [default = k_EParam_ClearAllOps];
 	optional .CameraParamMode param_mode = 12 [default = k_EParamMode_AllowInOneContext];
@@ -381,6 +393,8 @@ message CCitadelUserMsg_CameraController {
 }
 
 message CCitadelUserMsg_PostMatchDetails {
+	option (maximum_size_bytes) = 1000000;
+
 	optional bytes match_details = 1;
 }
 
@@ -404,6 +418,7 @@ message CCitadelEntityMsg_BreakablePropSpawnDebris {
 	optional .CEntityMsg entity_msg = 1;
 	optional .CMsgVector damage_pos = 2;
 	optional float damage = 3;
+	optional .CMsgVector damage_force = 4;
 }
 
 message CCitadelUserMsg_ReturnIdol {
@@ -452,7 +467,7 @@ message CCitadelUserMsg_PostProcessingAnim {
 	optional int32 entindex_owner = 1 [default = -1];
 	optional bool clear_all_states = 2;
 	optional .PostProcessingGameStates state = 3 [default = PostProcState_Killed];
-	optional float start_time = 4;
+	optional float delay = 4;
 	optional float fade_in_time = 5;
 	optional float hold_time = 6;
 	optional float fade_out_time = 7;
@@ -485,17 +500,20 @@ message CCitadelUserMsg_PlayerLifetimeStatInfo {
 	optional bool is_official_match = 4;
 }
 
-message CCitadelUserMsg_StaminaDrained {
-	optional int32 entindex_victim = 1 [default = -1];
+message CCitadelUserMsg_StaminaConsumed {
+	optional int32 entindex_target = 1 [default = -1];
 	optional float stamina_before = 3;
 	optional float stamina_after = 4;
+	optional bool drained = 5;
+	optional float stamina_max = 6;
+	optional float gametime = 7;
 }
 
 message CCitadelUserMessage_AbilityNotify {
 	optional int32 entindex_victim = 1 [default = -1];
 	optional int32 entindex_attacker = 2 [default = -1];
 	optional uint32 ability_id = 3;
-	optional int32 modifier_state = 4;
+	optional uint32 status_impact = 4;
 }
 
 message CCitadelUserMessage_CurrencyChanged {
@@ -529,27 +547,27 @@ message CCitadelUserMsg_GetDamageStatsResponse {
 }
 
 message CCitadelUserMsg_ParticipantStartSoundEvent {
-	required .CMsgSosStartSoundEvent event = 1;
+	optional .CMsgSosStartSoundEvent event = 1;
 	repeated int32 player_slots = 2;
 }
 
 message CCitadelUserMsg_ParticipantStopSoundEvent {
-	required .CMsgSosStopSoundEvent event = 1;
+	optional .CMsgSosStopSoundEvent event = 1;
 	repeated int32 player_slots = 2;
 }
 
 message CCitadelUserMsg_ParticipantStopSoundEventHash {
-	required .CMsgSosStopSoundEventHash event = 1;
+	optional .CMsgSosStopSoundEventHash event = 1;
 	repeated int32 player_slots = 2;
 }
 
 message CCitadelUserMsg_ParticipantSetSoundEventParams {
-	required .CMsgSosSetSoundEventParams event = 1;
+	optional .CMsgSosSetSoundEventParams event = 1;
 	repeated int32 player_slots = 2;
 }
 
 message CCitadelUserMsg_ParticipantSetLibraryStackFields {
-	required .CMsgSosSetLibraryStackFields event = 1;
+	optional .CMsgSosSetLibraryStackFields event = 1;
 	repeated int32 player_slots = 2;
 }
 
@@ -565,9 +583,9 @@ message CCitadelUserMsg_BossKilled {
 }
 
 message CCitadelUserMsg_BossDamaged {
-	required int32 objective_team = 1;
-	required int32 objective_id = 2;
-	required uint32 entity_damaged = 3 [default = 16777215];
+	optional int32 objective_team = 1;
+	optional int32 objective_id = 2;
+	optional uint32 entity_damaged = 3 [default = 16777215];
 }
 
 message CCitadelUserMsg_MidBossSpawned {
@@ -575,9 +593,9 @@ message CCitadelUserMsg_MidBossSpawned {
 
 message CCitadelUserMsg_RejuvStatus {
 	optional int32 killing_team = 1;
-	required uint32 player_pawn = 2 [default = 16777215];
-	required int32 user_team = 3;
-	required int32 event_type = 4;
+	optional uint32 player_pawn = 2 [default = 16777215];
+	optional int32 user_team = 3;
+	optional int32 event_type = 4;
 }
 
 message CCitadelUserMsg_KillStreak {
@@ -589,19 +607,19 @@ message CCitadelUserMsg_KillStreak {
 }
 
 message CCitadelUserMsg_TeamMsg {
-	required int32 event_type = 1;
-	required int32 team_number = 2;
-	required int32 lane_color = 3;
-	required uint32 player_controller = 4 [default = 16777215];
+	optional int32 event_type = 1;
+	optional int32 team_number = 2;
+	optional int32 lane_color = 3;
+	optional uint32 player_controller = 4 [default = 16777215];
 }
 
 message CCitadelUserMsg_PlayerRespawned {
-	required uint32 player_pawn = 1 [default = 16777215];
-	required float facing_yaw = 2;
+	optional uint32 player_pawn = 1 [default = 16777215];
+	optional float facing_yaw = 2;
 }
 
 message CCitadelUserMsg_CallCheaterVote {
-	required int32 player_slot = 1 [default = -1];
+	optional int32 player_slot = 1 [default = -1];
 }
 
 message CCitadelUserMessage_MeleeHit {
@@ -627,7 +645,7 @@ message CCitadelUserMsg_SeasonalKill {
 }
 
 message CCitadelUserMsg_MusicQueue {
-	required int32 music_state = 1;
+	optional int32 music_state = 1;
 	optional bool override = 2;
 }
 
@@ -639,4 +657,25 @@ message CCitadelUserMsg_AG2ParamTrigger {
 message CCitadelUserMsg_EntityPortalled {
 	optional uint32 entity_portalled = 1 [default = 16777215];
 	optional .CMsgTransform portal_transform = 2;
+}
+
+message CCitadelUserMsg_StreetBrawlScoring {
+	optional int32 scoring_team = 1;
+	optional bool just_a_test = 2;
+	optional int32 sapphire_score = 3;
+	optional int32 amber_score = 4;
+}
+
+message CCitadelUserMsg_HudGameAnnouncement {
+	optional string title_locstring = 1;
+	optional string description_locstring = 2;
+	repeated string classname = 3;
+	repeated string dialog_variable_name = 4;
+	repeated string dialog_variable_locstring = 5;
+}
+
+message CCitadelUserMessage_ImportantAbilityUsed {
+	optional uint32 player = 1 [default = 16777215];
+	optional uint32 caster = 2 [default = 16777215];
+	optional string ability_name = 3;
 }

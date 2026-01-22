@@ -134,6 +134,7 @@ enum ECitadelGameMode {
 	k_ECitadelGameMode_Normal = 1;
 	k_ECitadelGameMode_1v1Test = 2;
 	k_ECitadelGameMode_Sandbox = 3;
+	k_ECitadelGameMode_StreetBrawl = 4;
 }
 
 enum ELobbyServerState {
@@ -154,9 +155,9 @@ enum EBannedFeature {
 enum EFeatureBanReason {
 	k_eFeatureBanReason_Invalid = 0;
 	k_eFeatureBanReason_DevCommand = 1;
-	k_eFeatureBanReason_PlayerReports = 2;
+	k_eFeatureBanReason_ReportedByOtherPlayers = 2;
 	k_eFeatureBanReason_MatchAbandons = 3;
-	k_eFeatureBanReason_ExcessivePlayerReports = 4;
+	k_eFeatureBanReason_TooManyReportsSubmitted = 4;
 }
 
 message CSOCitadelLobby {
@@ -280,7 +281,6 @@ message CSOCitadelParty {
 		optional bool cheats_enabled = 7;
 		repeated .CSOCitadelParty.ServerRegion available_regions = 8;
 		optional bool duplicate_heroes_enabled = 9;
-		optional bool experimental_heroes_enabled = 10;
 	}
 
 	message Member {
@@ -472,6 +472,12 @@ message CMsgMatchMetaDataContents {
 		optional uint32 id = 3;
 	}
 
+	message PowerUpBuff {
+		optional string type = 1;
+		optional uint32 value = 2;
+		optional bool is_permanent = 3;
+	}
+
 	message PlayerStats {
 		optional uint32 time_stamp_s = 1;
 		optional uint32 net_worth = 2;
@@ -520,6 +526,10 @@ message CMsgMatchMetaDataContents {
 		optional uint32 teammate_healing = 45;
 		optional uint32 teammate_barriering = 46;
 		optional uint32 self_damage = 47;
+		optional uint32 bullet_kills = 48;
+		optional uint32 melee_kills = 49;
+		optional uint32 ability_kills = 50;
+		optional uint32 headshot_kills = 51;
 	}
 
 	message AbilityStat {
@@ -564,10 +574,11 @@ message CMsgMatchMetaDataContents {
 		optional uint32 abandon_match_time_s = 23;
 		optional .CMsgPlayerHeroData hero_data = 25;
 		optional bool rewards_eligible = 26;
-		optional bool earned_holiday_award_2025 = 29;
 		repeated .CMsgTrackedStat player_tracked_stats = 48;
 		repeated .CMsgMatchMetaDataContents.PlayerAccolade accolades = 27;
 		optional uint32 mvp_rank = 28;
+		optional bool earned_holiday_award_2025 = 29;
+		repeated .CMsgMatchMetaDataContents.PowerUpBuff power_up_buffs = 30;
 	}
 
 	message Teams {
@@ -585,6 +596,7 @@ message CMsgMatchMetaDataContents {
 		optional uint32 first_damage_time_s = 8;
 		optional .ECitadelTeamObjective team_objective_id = 9 [default = k_eCitadelTeamObjective_Core];
 		optional .ECitadelLobbyTeam team = 10 [default = k_ECitadelLobbyTeam_Team0];
+		optional uint32 player_spirit_damage = 11;
 	}
 
 	message MidBoss {
@@ -602,6 +614,11 @@ message CMsgMatchMetaDataContents {
 	message WatchedDeathReplay {
 		optional uint32 game_time_s = 1;
 		optional uint32 player_slot = 2;
+	}
+
+	message StreetBrawlRound {
+		optional uint32 round_duration_s = 1;
+		optional .ECitadelLobbyTeam winning_team = 2 [default = k_ECitadelLobbyTeam_Team0];
 	}
 
 	message MatchInfo {
@@ -631,13 +648,17 @@ message CMsgMatchMetaDataContents {
 		optional uint32 game_mode_version = 25;
 		optional bool rewards_eligible = 26;
 		optional bool not_scored = 27;
+		repeated uint32 team_score = 28;
 		repeated .CMsgTrackedStat match_tracked_stats = 29;
 		repeated .CMsgMatchMetaDataContents.Teams teams = 30;
+		optional .ECitadelBotDifficulty bot_difficulty = 32 [default = k_ECitadelBotDifficulty_None];
+		repeated .CMsgMatchMetaDataContents.StreetBrawlRound street_brawl_rounds = 33;
 	}
 
 	enum EMatchOutcome {
 		k_eOutcome_TeamWin = 0;
 		k_eOutcome_Error = 1;
+		k_eOutcome_MatchDraw = 2;
 	}
 
 	enum EGoldSource {
@@ -753,4 +774,10 @@ message CMsgHeroBuildPreference {
 	optional bool favorited = 1;
 	optional bool ignored = 2;
 	optional bool reported = 3;
+}
+
+message CMsgHeroReleaseVoteTally {
+	optional uint32 remaining_votes = 1;
+	repeated uint32 votes_cast = 2 [packed = true];
+	optional uint32 daily_reward_time_stamp = 3;
 }

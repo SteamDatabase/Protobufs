@@ -144,8 +144,8 @@ message CMsgParticleSystemManager {
 		optional bool should_draw = 1;
 	}
 
-	required .PARTICLE_SYSTEM_MANAGER_MESSAGE type = 1 [default = PARTICLE_SYSTEM_MANAGER_EVENT_CREATE];
-	required uint32 index = 2;
+	optional .PARTICLE_SYSTEM_MANAGER_MESSAGE type = 1 [default = PARTICLE_SYSTEM_MANAGER_EVENT_CREATE];
+	optional uint32 index = 2;
 	optional .CMsgParticleSystemManager.CreateParticle create_particle = 3;
 	optional .CMsgParticleSystemManager.DestroyParticle destroy_particle = 4;
 	optional .CMsgParticleSystemManager.DestroyParticleInvolving destroy_particle_involving = 5;

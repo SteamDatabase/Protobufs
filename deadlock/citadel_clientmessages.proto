@@ -22,7 +22,7 @@ enum ECitadelClientMessages {
 	CITADEL_CM_HideoutSpawn = 1019;
 	CITADEL_CM_HideoutMatchmakingState = 1020;
 	CITADEL_CM_PlayerStatsUpdated = 1021;
-	CITADEL_CM_HideoutUpdateHeroReleaseVoteStatus = 1022;
+	CITADEL_CM_HideoutUpdateHeroReleaseVoteTally = 1022;
 }
 
 message CCitadelClientMsg_Pause {
@@ -136,6 +136,8 @@ message CCitadelClientMsg_HideoutStart {
 }
 
 message CCitadelClientMsg_HeroBuild {
+	option (maximum_size_bytes) = 16384;
+
 	optional .CMsgHeroBuild hero_build = 1;
 }
 
@@ -161,6 +163,11 @@ message CCitadelClientMsg_HideoutMatchmakingState {
 message CCitadelClientMsg_PlayerStatsUpdated {
 }
 
-message CCitadelClientMsg_HideoutUpdateHeroReleaseVoteStatus {
-	optional uint32 votes_cast_total = 1;
+message CCitadelClientMsg_HideoutUpdateHeroReleaseVoteTally {
+	message VoteRoundToTallyEntry {
+		optional uint32 key = 1;
+		optional .CMsgHeroReleaseVoteTally value = 2;
+	}
+
+	repeated .CCitadelClientMsg_HideoutUpdateHeroReleaseVoteTally.VoteRoundToTallyEntry vote_round_to_tally = 1;
 }

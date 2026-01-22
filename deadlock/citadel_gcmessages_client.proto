@@ -153,8 +153,8 @@ enum EGCCitadelClientMessages {
 	k_EMsgClientToGCPartySendChatMsg = 9277;
 	k_EMsgClientToGCPartySendChatMsgResponse = 9278;
 	k_EMsgGCToClientPartyChatMsg = 9279;
-	k_EMsgClientToGCRequestHeroReleaseVoteStatus = 9280;
-	k_EMsgGCToClientUpdateHeroReleaseVoteStatus = 9281;
+	k_EMsgClientToGCRequestHeroReleaseVoteTally = 9280;
+	k_EMsgGCToClientUpdateHeroReleaseVoteTally = 9281;
 }
 
 enum ECitadelAccountPermissionFlag {
@@ -183,7 +183,6 @@ enum EDevBanReason {
 enum ECitadelClientAccountEvent {
 	k_eLaunchedHeroTest = 1;
 	k_eViewedProfile = 2;
-	k_eViewedSocial = 3;
 	k_eViewedHeroes = 4;
 	k_eViewedHeroDetails = 5;
 	k_eViewedPatchNotes = 6;
@@ -242,6 +241,7 @@ enum ECitadelClientAccountEvent {
 	k_eSandboxViaPlayMenu = 59;
 	k_eBotMatch_Medium = 60;
 	k_eSandboxViaHideoutTeleport = 61;
+	k_eRosterSelectSingleHero = 62;
 }
 
 enum ECommendType {
@@ -277,7 +277,12 @@ message CSOGameAccountClient {
 	optional uint32 low_priority_games_remaining = 12;
 	optional uint32 report_ban_until = 13;
 	optional uint32 ranked_badge_level = 14;
-	optional uint32 hero_labs_matches_since_test_hero = 21;
+	optional uint32 priority_tokens = 15;
+	optional uint32 priority_token_progress = 16;
+	optional uint32 priority_tokens_earned = 17;
+	optional uint32 brawl_wins = 18;
+	optional uint32 brawl_losses = 19;
+	optional uint32 brawl_kills = 20;
 }
 
 message CSOAccountSyncStorage {
@@ -298,6 +303,8 @@ message CSOAccountHeroInfo {
 	optional uint32 wins = 4;
 	optional uint32 kills = 5;
 	optional uint32 hero_xp = 6;
+	optional uint32 brawl_wins = 7;
+	optional uint32 brawl_kills = 8;
 }
 
 message CSOAccountChallenge {
@@ -418,6 +425,13 @@ message CMsgDevMatchInfo {
 		optional uint32 hero_id = 4;
 	}
 
+	message Team {
+		optional .ECitadelLobbyTeam team = 1 [default = k_ECitadelLobbyTeam_Team0];
+		optional uint32 net_worth = 2;
+		optional uint64 objectives_mask = 3;
+		optional uint32 brawl_score = 4;
+	}
+
 	optional uint32 start_time = 1;
 	optional .ECitadelLobbyTeam winning_team = 2 [default = k_ECitadelLobbyTeam_Team0];
 	optional uint64 match_id = 3;
@@ -436,6 +450,7 @@ message CMsgDevMatchInfo {
 	optional uint32 match_score = 18;
 	optional .ECitadelRegionMode region_mode = 19 [default = k_ECitadelRegionMode_ROW];
 	optional uint32 compat_version = 20;
+	repeated .CMsgDevMatchInfo.Team team_stats = 22;
 }
 
 message CMsgGCToClientDevPlaytestStatus {
@@ -447,6 +462,7 @@ message CMsgGCToClientDevPlaytestStatus {
 	message DevQueueSize {
 		optional .ECitadelMatchMode match_mode = 1 [default = k_ECitadelMatchMode_Invalid];
 		optional uint32 queue_size = 2;
+		optional .ECitadelGameMode game_mode = 3 [default = k_ECitadelGameMode_Invalid];
 	}
 
 	repeated .CMsgGCToClientDevPlaytestStatus.DevQueueSize dev_queue_size = 1;
@@ -460,6 +476,7 @@ message CMsgGCToClientDevPlaytestStatus {
 	repeated uint32 valid_client_versions = 15;
 	optional uint32 active_match_count = 21;
 	optional uint32 roster_non_limited_heroes = 22;
+	optional uint32 matches_per_priority_token = 23;
 }
 
 message CMsgGCToClientSDRTicket {
@@ -524,6 +541,7 @@ message CMsgClientToGCPartyCreate {
 	optional .ECitadelBotDifficulty bot_difficulty = 10 [default = k_ECitadelBotDifficulty_None];
 	optional string hideout_search_key = 11;
 	optional bool dev_force_hideout = 12;
+	optional .ECitadelGameMode game_mode = 13 [default = k_ECitadelGameMode_Invalid];
 }
 
 message CMsgClientToGCPartyCreateResponse {
@@ -601,7 +619,6 @@ message CMsgClientToGCPartyAction {
 		k_eSetMemberTeam = 8;
 		k_eSetChatMode = 9;
 		k_eSetPlayerSlot = 10;
-		k_eSetRegionMode = 11;
 		k_eSetSearchKey = 12;
 		k_eSetBotDifficulty = 13;
 		k_eSetRandomizedLanes = 14;
@@ -612,9 +629,9 @@ message CMsgClientToGCPartyAction {
 		k_eShuffleLobby = 19;
 		k_eShuffleLanes = 20;
 		k_eSetDuplicateHeroesEnabled = 21;
-		k_eSetExperimentalHeroesEnabled = 22;
 		k_eSetDesiresLaningTogether = 23;
 		k_eSetMMPreference = 24;
+		k_eSetPrivateLobbyGameMode = 25;
 	}
 
 	optional fixed64 party_id = 1;
@@ -829,7 +846,8 @@ message CMsgClientToGCDevSetMMBias {
 message CMsgClientToGCGetMatchHistory {
 	optional uint32 account_id = 1;
 	optional uint64 continue_cursor = 2;
-	optional uint32 ranked_interval = 3;
+	optional .ECitadelGameMode game_mode = 4 [default = k_ECitadelGameMode_Invalid];
+	optional .ECitadelMatchMode match_mode = 5 [default = k_ECitadelMatchMode_Invalid];
 }
 
 message CMsgClientToGCGetMatchHistoryResponse {
@@ -855,6 +873,9 @@ message CMsgClientToGCGetMatchHistoryResponse {
 		optional .ECitadelGameMode game_mode = 20 [default = k_ECitadelGameMode_Invalid];
 		optional bool not_scored = 21;
 		optional uint32 game_mode_version = 22;
+		optional uint32 brawl_score_team0 = 23;
+		optional uint32 brawl_score_team1 = 24;
+		optional uint32 brawl_avg_round_time_s = 25;
 	}
 
 	enum EResult {
@@ -1706,16 +1727,22 @@ message CMsgGCToClientRankDataUpdate {
 	optional .CMsgGCToClientGetRankDataResponse rank_info = 2;
 }
 
-message CMsgHeroReleaseVoteStatus {
-	optional uint32 remaining_votes = 1;
-	repeated uint32 votes_cast = 2 [packed = true];
+message CMsgClientToGCRequestHeroReleaseVoteTally {
+	repeated uint32 vote_rounds = 1 [packed = true];
 }
 
-message CMsgClientToGCRequestHeroReleaseVoteStatus {
+message CMsgGCToClientUpdateHeroReleaseVoteTally {
+	message VoteRoundToTallyEntry {
+		optional uint32 key = 1;
+		optional .CMsgHeroReleaseVoteTally value = 2;
+	}
+
+	repeated .CMsgGCToClientUpdateHeroReleaseVoteTally.VoteRoundToTallyEntry vote_round_to_tally = 1;
 }
 
 message CMsgClientToGCSubmitHeroReleaseVote {
-	optional uint32 vote_option = 1;
+	optional uint32 vote_round = 1;
+	optional uint32 vote_option = 2;
 }
 
 message CMsgClientToGCPartySendChatMsg {
@@ -1745,4 +1772,38 @@ message CMsgGCToClientPartyChatMsg {
 
 	optional fixed64 party_id = 1;
 	repeated .CMsgGCToClientPartyChatMsg.ChatLine chat_lines = 2;
+}
+
+message CMsgPostGameProgressData {
+	message PlayerAccolade {
+		optional uint32 accolade_id = 1;
+		optional string accolade_name = 2;
+		optional string accolade_desc = 3;
+		optional uint32 accolade_stars_achieved = 4;
+		optional int32 accolade_stat_value = 5;
+	}
+
+	message PlayerAward {
+		optional uint32 award_column = 1;
+		optional uint32 award_id = 2;
+		optional int32 award_value = 3;
+		optional uint32 award_rank = 4;
+		optional string award_desc = 5;
+		optional string award_class = 6;
+	}
+
+	message PlayerData {
+		optional uint32 player_slot = 1;
+		optional uint32 account_id = 2;
+		optional uint32 hero_id = 3;
+		optional .ECitadelLobbyTeam team = 4 [default = k_ECitadelLobbyTeam_Team0];
+		optional uint32 mvp_rank = 5;
+		repeated .CMsgPostGameProgressData.PlayerAccolade accolades = 6;
+		repeated .CMsgPostGameProgressData.PlayerAward awards = 7;
+	}
+
+	optional uint64 match_id = 1;
+	optional .ECitadelLobbyTeam winning_team = 2 [default = k_ECitadelLobbyTeam_Team0];
+	optional .CMsgPostGameProgressData.PlayerData local_player = 3;
+	repeated .CMsgPostGameProgressData.PlayerData mvp_players = 4;
 }
