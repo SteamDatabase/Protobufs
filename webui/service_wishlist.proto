@@ -66,6 +66,7 @@ message CWishlist_GetWishlistSortedFiltered_Response_WishlistItem {
 	optional uint32 priority = 2;
 	optional uint32 date_added = 3;
 	optional .StoreItem store_item = 4;
+	repeated uint64 category_ids = 5;
 }
 
 message CWishlist_RemoveFromWishlist_Request {
@@ -89,6 +90,7 @@ message CWishlistFilters {
 	optional .CWishlistFilters_SteamDeckFilters steam_deck_filters = 23;
 	repeated int32 tagids_must_match = 24;
 	repeated int32 excluded_content_descriptors = 25 [(.description) = "enum"];
+	repeated uint64 category_ids = 26;
 }
 
 message CWishlistFilters_ExcludeTypeFilters {

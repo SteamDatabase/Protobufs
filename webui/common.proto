@@ -1137,6 +1137,8 @@ message CMsgClientSettings {
 	optional bool overlay_fps_counter_fps_graph = 4030;
 	optional bool overlay_fps_counter_cpu_graph = 4031;
 	optional bool overlay_fps_counter_allow_km_driver = 4032;
+	optional bool achievement_notification_toast = 4033;
+	optional bool achievement_notification_sound = 4034;
 	optional bool smooth_scroll_webviews = 5000;
 	optional bool enable_gpu_accelerated_webviews = 5001;
 	optional bool enable_hardware_video_decoding = 5003;
@@ -1148,6 +1150,7 @@ message CMsgClientSettings {
 	optional bool enable_ui_sounds = 5009;
 	optional bool enable_gamescope_composer = 5010;
 	optional bool enable_gamescope_composer_vr = 5011;
+	optional bool show_switch_to_desktop_at_login = 5012;
 	optional bool disable_all_toasts = 6000;
 	optional bool disable_toasts_in_game = 6001;
 	optional bool play_sound_on_toast = 6002;
@@ -1301,6 +1304,7 @@ message CMsgClientSettings {
 	optional string accessibility_color_filter_name = 26009;
 	optional float accessibility_desktop_ui_scale = 26010;
 	optional string accessibility_screen_reader_locale = 26011;
+	optional bool accessibility_mono_audio = 26012;
 	optional bool remote_play_wifi_ap_enabled = 27000;
 	optional int32 remote_play_wifi_ap_channel_5ghz = 27001;
 	optional int32 remote_play_wifi_ap_channel_6ghz = 27002;
@@ -3474,7 +3478,7 @@ message UserContentDescriptorPreferences_ContentDescriptor {
 	optional uint32 timestamp_added = 2;
 }
 
-// Used by: common.proto
+// Used by: User, common.proto
 message UserSystemInformation {
 	optional string manufacturer = 1;
 	optional string model = 2;
