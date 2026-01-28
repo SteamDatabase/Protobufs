@@ -1,5 +1,13 @@
 import "common_base.proto";
 
+message CUserReviews_BackfillSavedHardware_Request {
+	optional uint64 saved_hardware_id = 1;
+}
+
+message CUserReviews_BackfillSavedHardware_Response {
+	optional uint32 num_backfilled = 1;
+}
+
 message CUserReviews_GetFriendsRecommendedApp_Request {
 	optional uint32 appid = 1;
 }
@@ -111,6 +119,8 @@ message RecommendationDetails {
 }
 
 service UserReviews {
+	// ePrivilege=1
+	rpc BackfillSavedHardware (.CUserReviews_BackfillSavedHardware_Request) returns (.CUserReviews_BackfillSavedHardware_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetFriendsRecommendedApp (.CUserReviews_GetFriendsRecommendedApp_Request) returns (.CUserReviews_GetFriendsRecommendedApp_Response);
 	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2

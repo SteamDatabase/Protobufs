@@ -132,6 +132,7 @@ message CForums_Topic {
 	optional int32 ban_check_result = 20 [(.description) = "enum"];
 	repeated .CForums_Topic_Reaction reactions = 21;
 	optional string full_text = 22;
+	optional int32 delete_reason = 23 [(.description) = "enum"];
 }
 
 message CForums_Topic_Reaction {

@@ -1,0 +1,21 @@
+
+message CGamePerformanceStats_GetGameFrameRateStats_Request {
+	optional uint32 appid = 1;
+}
+
+message CGamePerformanceStats_GetGameFrameRateStats_Response {
+	repeated .CGamePerformanceStats_GetGameFrameRateStats_Response_FrameRate frame_rates = 1;
+}
+
+message CGamePerformanceStats_GetGameFrameRateStats_Response_FrameRate {
+	optional uint64 clusterid = 1;
+	optional uint32 frame_rate = 2;
+	optional uint64 weighted_report_count = 3;
+	optional uint32 report_days = 4;
+}
+
+service GamePerformanceStats {
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
+	rpc GetGameFrameRateStats (.CGamePerformanceStats_GetGameFrameRateStats_Request) returns (.CGamePerformanceStats_GetGameFrameRateStats_Response);
+}
+
