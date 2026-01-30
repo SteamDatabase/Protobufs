@@ -176,6 +176,7 @@ message CSOCitadelServerStaticLobby {
 		optional bool requires_skill_calibration = 18;
 		optional .CMsgPlayerHeroData hero_data = 19;
 		optional uint32 match_number = 20;
+		optional bool randomed_hero = 21;
 	}
 
 	message DevSettings {
@@ -209,6 +210,7 @@ message CSOCitadelServerStaticLobby {
 	optional uint32 average_badge_team_1 = 26;
 	optional string gameplay_experiment = 27;
 	optional bool rewards_eligible = 28;
+	repeated uint32 banned_heroes = 29;
 }
 
 message CSOCitadelServerHideoutLobby {
@@ -537,6 +539,16 @@ message CMsgServerSignoutData_PlayerBehavior {
 }
 
 message CMsgServerSignoutData_StreetBrawlData {
+	message DraftItem {
+		optional uint32 ability_id = 1;
+		optional uint32 flags = 2;
+		optional .CMsgServerSignoutData_StreetBrawlData.EDraftItemOutcome outcome = 3 [default = k_eNotChosen];
+	}
+
+	message DraftItemSet {
+		repeated .CMsgServerSignoutData_StreetBrawlData.DraftItem items = 1;
+	}
+
 	message RoundPlayer {
 		optional uint32 player_slot = 1;
 		optional uint32 player_damage = 2;
@@ -546,6 +558,7 @@ message CMsgServerSignoutData_StreetBrawlData {
 		optional uint32 assists = 6;
 		optional uint32 objective_damage = 7;
 		optional uint32 objective_spirit_damage = 8;
+		repeated .CMsgServerSignoutData_StreetBrawlData.DraftItemSet draft_item_sets = 9;
 	}
 
 	message Round {
@@ -553,6 +566,18 @@ message CMsgServerSignoutData_StreetBrawlData {
 		optional uint32 round_time = 2;
 		optional .ECitadelLobbyTeam winning_team = 3 [default = k_ECitadelLobbyTeam_Team0];
 		repeated .CMsgServerSignoutData_StreetBrawlData.RoundPlayer players = 5;
+	}
+
+	enum EDraftItemOutcome {
+		k_eNotChosen = 0;
+		k_eChosen = 1;
+		k_eRerolled = 2;
+	}
+
+	enum EDraftItemFlags {
+		k_eHasUpgradeBit = 1;
+		k_eHasAdditionalItem = 2;
+		k_eRareItem = 4;
 	}
 
 	repeated .CMsgServerSignoutData_StreetBrawlData.Round rounds = 1;

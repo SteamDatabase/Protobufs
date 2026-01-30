@@ -214,6 +214,7 @@ message CMsgHeroSelectionMatchInfo {
 	}
 
 	repeated .CMsgHeroSelectionMatchInfo.Hero hero_selections = 1;
+	repeated uint32 banned_heroes = 2;
 }
 
 message CMsgStartFindingMatchInfo {

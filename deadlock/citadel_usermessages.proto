@@ -64,6 +64,7 @@ enum CitadelUserMessageIds {
 	k_EUserMsg_HudGameAnnouncement = 363;
 	k_EUserMsg_ItemDraftReaction = 364;
 	k_EUserMsg_ImportantAbilityUsed = 365;
+	k_EUserMsg_BannedHeroes = 366;
 }
 
 enum CitadelEntityMessageIds {
@@ -678,4 +679,8 @@ message CCitadelUserMessage_ImportantAbilityUsed {
 	optional uint32 player = 1 [default = 16777215];
 	optional uint32 caster = 2 [default = 16777215];
 	optional string ability_name = 3;
+}
+
+message CCitadelUserMsg_BannedHeroes {
+	repeated uint32 banned_hero_ids = 1;
 }
