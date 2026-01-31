@@ -115,6 +115,13 @@ message CSteamInputService_ControllerStateFlow_Request {
 message CSteamInputService_ControllerStateFlow_Response {
 }
 
+message CSteamInputService_ForgetDonglePairingBond_Request {
+	optional uint32 dongle_index = 1;
+}
+
+message CSteamInputService_ForgetDonglePairingBond_Response {
+}
+
 message CSteamInputService_ForgetTritonPairingBond_Request {
 	optional uint32 controller_index = 1;
 	optional uint32 slot_index = 2;
@@ -123,13 +130,29 @@ message CSteamInputService_ForgetTritonPairingBond_Request {
 message CSteamInputService_ForgetTritonPairingBond_Response {
 }
 
+message CSteamInputService_GetControllerName_Request {
+	optional string serial_number = 1;
+}
+
+message CSteamInputService_GetControllerName_Response {
+	optional string controller_name = 1;
+}
+
 message CSteamInputService_GetDongles_Request {
+	optional bool include_bonds = 1;
 }
 
 message CSteamInputService_GetDongles_Response {
 	optional bool steam_controller_v1 = 1;
-	repeated uint32 ibex_internal = 2;
-	repeated uint32 ibex_external = 3;
+	repeated .CSteamInputService_GetDongles_Response_Dongle ibex_internal = 2;
+	repeated .CSteamInputService_GetDongles_Response_Dongle ibex_external = 3;
+}
+
+message CSteamInputService_GetDongles_Response_Dongle {
+	optional uint32 index = 1;
+	optional string dongle_serial_number = 2;
+	optional string paired_serial_number = 3;
+	optional bool paired = 4;
 }
 
 message CSteamInputService_GetTritonPairingInfo_Request {
@@ -189,21 +212,21 @@ message CSteamInputService_GyroSpeedChanged_Notification {
 	optional .ControllerGyroEulerAngles gyro_filtered_speed = 4;
 }
 
+message CSteamInputService_PairDongleTritonConnected_Request {
+	optional uint32 controller_index = 1;
+	optional uint32 dongle_index = 2;
+	optional uint32 slot = 3;
+}
+
+message CSteamInputService_PairDongleTritonConnected_Response {
+}
+
 message CSteamInputService_PairDongleTritonDocked_Request {
 	optional uint32 docked_puck_index = 1;
 	optional uint32 target_dongle_index = 2;
 }
 
 message CSteamInputService_PairDongleTritonDocked_Response {
-}
-
-message CSteamInputService_PairDongleTritonUSB_Request {
-	optional uint32 controller_index = 1;
-	optional uint32 dongle_index = 2;
-	optional uint32 slot = 3;
-}
-
-message CSteamInputService_PairDongleTritonUSB_Response {
 }
 
 message CSteamInputService_ShouldTritonPairInOobe_Request {
@@ -243,9 +266,13 @@ service SteamInputManager {
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc EndControllerStateFlow (.CSteamInputService_ControllerStateFlow_Request) returns (.CSteamInputService_ControllerStateFlow_Response);
 	// ePrivilege=1, eClientExecutionSite=2
+	rpc ForgetDonglePairingBond (.CSteamInputService_ForgetDonglePairingBond_Request) returns (.CSteamInputService_ForgetDonglePairingBond_Response);
+	// ePrivilege=1, eClientExecutionSite=2
 	rpc ForgetTritonPairingBond (.CSteamInputService_ForgetTritonPairingBond_Request) returns (.CSteamInputService_ForgetTritonPairingBond_Response);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc GetControllerAccessibilityStrings (.CSteamInputService_ControllerAccessibilityStrings_Request) returns (.CSteamInputService_ControllerAccessibilityStrings_Response);
+	// ePrivilege=1, eClientExecutionSite=2
+	rpc GetControllerName (.CSteamInputService_GetControllerName_Request) returns (.CSteamInputService_GetControllerName_Response);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc GetDongles (.CSteamInputService_GetDongles_Request) returns (.CSteamInputService_GetDongles_Response);
 	// ePrivilege=1, eClientExecutionSite=2
@@ -277,9 +304,9 @@ service SteamInputManager {
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyUnpairedTritonPluggedIn (.CSteamInputService_UnpairedTritonPluggedIn_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2
-	rpc PairDongleTritonDocked (.CSteamInputService_PairDongleTritonDocked_Request) returns (.CSteamInputService_PairDongleTritonDocked_Response);
+	rpc PairDongleTritonConnected (.CSteamInputService_PairDongleTritonConnected_Request) returns (.CSteamInputService_PairDongleTritonConnected_Response);
 	// ePrivilege=1, eClientExecutionSite=2
-	rpc PairDongleTritonUSB (.CSteamInputService_PairDongleTritonUSB_Request) returns (.CSteamInputService_PairDongleTritonUSB_Response);
+	rpc PairDongleTritonDocked (.CSteamInputService_PairDongleTritonDocked_Request) returns (.CSteamInputService_PairDongleTritonDocked_Response);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc ShouldTritonPairInOobe (.CSteamInputService_ShouldTritonPairInOobe_Request) returns (.CSteamInputService_ShouldTritonPairInOobe_Response);
 	// ePrivilege=1, eClientExecutionSite=2
