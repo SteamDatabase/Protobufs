@@ -201,7 +201,7 @@ message CCLCMsg_Diagnostic {
 }
 
 message CSVCMsg_ServerInfo {
-	option (maximum_size_bytes) = 102400;
+	option (maximum_size_bytes) = 409600;
 
 	optional int32 protocol = 1;
 	optional int32 server_count = 2;
@@ -222,6 +222,8 @@ message CSVCMsg_ServerInfo {
 }
 
 message CSVCMsg_ClassInfo {
+	option (maximum_size_bytes) = 8192;
+
 	message class_t {
 		optional int32 class_id = 1;
 		optional string class_name = 3;
@@ -242,6 +244,8 @@ message CSVCMsg_VoiceInit {
 }
 
 message CSVCMsg_Print {
+	option (maximum_size_bytes) = 8192;
+
 	optional string text = 1;
 }
 
@@ -404,7 +408,7 @@ message CSVCMsg_TempEntities {
 }
 
 message CSVCMsg_CreateStringTable {
-	option (maximum_size_bytes) = 49152;
+	option (maximum_size_bytes) = 102400;
 
 	optional string name = 1;
 	optional int32 num_entries = 2;

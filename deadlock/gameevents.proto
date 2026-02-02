@@ -51,7 +51,7 @@ message CMsgClearDecalsForEntityEvent {
 }
 
 message CMsgSource1LegacyGameEventList {
-	option (maximum_size_bytes) = 24576;
+	option (maximum_size_bytes) = 32768;
 
 	message key_t {
 		optional int32 type = 1;

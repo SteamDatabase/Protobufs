@@ -76,6 +76,7 @@ message CMsgServerCrashSentinelFile {
 		optional uint64 hideout_lobby_id = 9;
 		optional bool allow_matches = 10;
 		optional bool allow_hideout = 11;
+		optional bool was_lost_lobby = 12;
 	}
 
 	optional uint32 version = 1;
@@ -821,6 +822,7 @@ message CMsgServerToGCAbandonMatch {
 	optional uint64 routing_id = 20;
 	optional bool allow_matches = 21;
 	optional bool allow_hideout = 22;
+	optional bool was_lost_lobby = 23;
 }
 
 message CMsgServerToGCAbandonMatchResponse {

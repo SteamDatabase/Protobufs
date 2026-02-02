@@ -267,6 +267,8 @@ message CCitadelUserMsg_AbilityLateFailure {
 }
 
 message CCitadelUserMsg_RecentDamageSummary {
+	option (maximum_size_bytes) = 8192;
+
 	message DamageRecord {
 		optional int32 damage = 1;
 		optional int32 hits = 2;
