@@ -521,6 +521,7 @@ message CMsgGameMatchSignOutPerfData {
 	optional float server_max_oversleep_frame_time = 25;
 	optional float server_average_sleep_frame_time = 26;
 	optional float server_max_sleep_frame_time = 27;
+	optional uint32 num_multitick_frames = 28;
 }
 
 message CMsgGameMatchSignOutBanData {
