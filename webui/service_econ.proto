@@ -163,7 +163,7 @@ message CEconItem_Description {
 	optional .CEconItem_ContainerProperties container_properties = 33;
 	optional string market_bucket_group_name = 34;
 	optional string market_bucket_group_id = 35;
-	optional bool on_market = 36;
+	optional uint32 sealed_type = 37;
 }
 
 message CEconItem_DescriptionLine {
