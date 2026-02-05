@@ -112,6 +112,7 @@ enum PARTICLE_MESSAGE {
 	GAME_PARTICLE_MANAGER_EVENT_UPDATE_FAN = 37;
 	GAME_PARTICLE_MANAGER_EVENT_SET_CLUSTER_GROWTH = 38;
 	GAME_PARTICLE_MANAGER_EVENT_REMOVE_FAN = 39;
+	GAME_PARTICLE_MANAGER_EVENT_CREATE_SMOKE_GRID = 40;
 }
 
 enum EHapticPulseType {
@@ -547,6 +548,10 @@ message CUserMsg_ParticleManager {
 	message DestroyPhysicsSim {
 	}
 
+	message CreateSmokeGrid {
+		optional string vdata_name = 1;
+	}
+
 	message SetVData {
 		optional string vdata_name = 1;
 	}
@@ -636,6 +641,7 @@ message CUserMsg_ParticleManager {
 	optional .CUserMsg_ParticleManager.UpdateFan update_fan = 40;
 	optional .CUserMsg_ParticleManager.SetParticleClusterGrowth set_particle_cluster_growth = 41;
 	optional .CUserMsg_ParticleManager.RemoveFan remove_fan = 42;
+	optional .CUserMsg_ParticleManager.CreateSmokeGrid create_smoke_grid = 43;
 
 	extensions 100 to 201;
 }
