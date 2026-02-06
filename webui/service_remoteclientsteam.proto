@@ -4,6 +4,7 @@ message CRemoteClient_RegisterStatusUpdate_Notification {
 	optional fixed64 session_id = 1;
 	optional fixed64 steamid = 2;
 	optional fixed64 device_id = 3;
+	optional bool disable_polling = 4;
 }
 
 message CRemoteClient_RemotePacket_Notification {
