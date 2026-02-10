@@ -301,10 +301,8 @@ message CSOAccountHeroInfo {
 	optional uint32 hero_id = 2;
 	optional .CSOAccountHeroInfo.EHeroStatus status = 3 [default = k_eLocked];
 	optional uint32 wins = 4;
-	optional uint32 kills = 5;
 	optional uint32 hero_xp = 6;
 	optional uint32 brawl_wins = 7;
-	optional uint32 brawl_kills = 8;
 }
 
 message CSOAccountChallenge {
