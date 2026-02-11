@@ -177,6 +177,10 @@ message CMsgSteamLearn_GetNearestEmbedding_Request {
 	optional uint32 fetch_id = 7;
 	optional uint32 popularity_weight = 8;
 	optional uint32 focus_weight = 9;
+	repeated uint32 scope_items = 10;
+	optional uint32 scope_range = 11;
+	optional uint32 scope_decay_range = 12;
+	optional uint32 scope_decay_strength = 13;
 }
 
 message CMsgSteamLearn_GetNearestEmbedding_Response {

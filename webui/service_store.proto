@@ -29,6 +29,7 @@ message CReservationPositionMessage {
 message CSteamDeckCompatibility_SetFeedback_Request {
 	optional uint32 appid = 1;
 	optional int32 feedback = 2 [(.description) = "enum"];
+	optional uint32 feedback_details = 3;
 }
 
 message CSteamDeckCompatibility_SetFeedback_Response {
