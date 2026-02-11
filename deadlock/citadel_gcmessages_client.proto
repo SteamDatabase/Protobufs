@@ -1666,6 +1666,7 @@ message CMsgSurveyQuestion {
 		k_eHeroPlayAgainst = 3;
 		k_eMoreFunHero = 4;
 		k_eHeroPower = 5;
+		k_eHeroPlayAs = 6;
 	}
 
 	optional uint32 question_id = 1;
@@ -1676,6 +1677,7 @@ message CMsgSurveyQuestion {
 }
 
 message CMsgClientToGCGetSurveyQuestion {
+	optional .CMsgSurveyQuestion.EQuestionType dev_force_new_question_type = 1 [default = k_eInvalid];
 }
 
 message CMsgClientToGCGetSurveyQuestionResponse {
@@ -1693,6 +1695,7 @@ message CMsgClientToGCSubmitSurvey {
 	optional uint32 question_id = 1;
 	optional bool is_skip = 2;
 	optional uint32 response_value = 3;
+	optional .CMsgSurveyQuestion.EQuestionType dev_force_new_question_type = 4 [default = k_eInvalid];
 }
 
 message CMsgClientToGCSubmitSurveyResponse {
