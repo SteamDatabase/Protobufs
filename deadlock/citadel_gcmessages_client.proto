@@ -985,6 +985,8 @@ message CMsgClientToGCUpdateRosterResponse {
 		k_eMMBusy = 5;
 		k_eInvalidHeroSelection = 6;
 		k_eHeroesNotUnlocked = 7;
+		k_eNotInMatchmaking = 8;
+		k_eInvalidPartyRoster = 9;
 	}
 
 	optional .CMsgClientToGCUpdateRosterResponse.EResponse result = 1 [default = k_eInternalError];
