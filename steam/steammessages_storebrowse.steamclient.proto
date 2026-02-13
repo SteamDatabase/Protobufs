@@ -118,7 +118,6 @@ message StoreBrowseContext {
 	optional string language = 1;
 	optional int32 elanguage = 2;
 	optional string country_code = 3;
-	optional int32 steam_realm = 4;
 }
 
 message StoreBrowseItemDataRequest {
@@ -219,6 +218,8 @@ message StoreItem {
 		optional uint32 steam_release_date = 1;
 		optional uint32 original_release_date = 2;
 		optional uint32 original_steam_release_date = 3;
+		optional uint32 release_from_early_access_date = 11;
+		optional uint32 release_from_early_access_style = 12;
 		optional bool is_coming_soon = 4;
 		optional bool is_preload = 5;
 		optional string custom_release_date_message = 6;
@@ -314,8 +315,6 @@ message StoreItem {
 			optional string trailer_name = 1;
 			optional string trailer_url_format = 2;
 			optional .ETrailerCategory trailer_category = 13 [default = k_ETrailerCategory_Invalid];
-			repeated .StoreItem.Trailers.VideoSource trailer_480p = 3;
-			repeated .StoreItem.Trailers.VideoSource trailer_max = 4;
 			repeated .StoreItem.Trailers.VideoSource microtrailer = 5;
 			repeated .StoreItem.Trailers.AdaptiveTrailer adaptive_trailers = 6;
 			optional string screenshot_medium = 10;

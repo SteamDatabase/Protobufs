@@ -440,6 +440,31 @@ message CPlayer_GetGameAchievements_Response {
 	repeated .CPlayer_GetGameAchievements_Response.Achievement achievements = 1;
 }
 
+message CPlayer_GetUserStats_Request {
+	optional uint64 steamid = 1;
+	optional uint32 appid = 2;
+	optional bytes sha_schema = 3;
+	optional uint32 crc_stats = 4;
+}
+
+message CPlayer_GetUserStats_Response {
+	message Unlock_Time {
+		optional uint32 achievement_bit = 1;
+		optional fixed32 unlock_time = 2;
+	}
+
+	message Stats {
+		optional uint32 stat_id = 1;
+		optional uint32 stat_value = 2;
+		repeated .CPlayer_GetUserStats_Response.Unlock_Time unlock_times = 3;
+	}
+
+	optional bytes sha_schema = 1;
+	optional uint32 crc_stats = 2;
+	optional bytes schema = 3;
+	repeated .CPlayer_GetUserStats_Response.Stats stats = 4;
+}
+
 message CPlayer_GetFavoriteBadge_Request {
 	optional uint64 steamid = 1;
 }
@@ -878,6 +903,7 @@ service Player {
 	rpc GetTopAchievementsForGames (.CPlayer_GetTopAchievementsForGames_Request) returns (.CPlayer_GetTopAchievementsForGames_Response);
 	rpc GetAchievementsProgress (.CPlayer_GetAchievementsProgress_Request) returns (.CPlayer_GetAchievementsProgress_Response);
 	rpc GetGameAchievements (.CPlayer_GetGameAchievements_Request) returns (.CPlayer_GetGameAchievements_Response);
+	rpc GetUserStats (.CPlayer_GetUserStats_Request) returns (.CPlayer_GetUserStats_Response);
 	rpc GetFavoriteBadge (.CPlayer_GetFavoriteBadge_Request) returns (.CPlayer_GetFavoriteBadge_Response);
 	rpc SetFavoriteBadge (.CPlayer_SetFavoriteBadge_Request) returns (.CPlayer_SetFavoriteBadge_Response);
 	rpc GetProfileCustomization (.CPlayer_GetProfileCustomization_Request) returns (.CPlayer_GetProfileCustomization_Response);

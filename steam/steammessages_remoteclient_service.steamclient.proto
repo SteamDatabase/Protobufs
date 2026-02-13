@@ -27,6 +27,8 @@ service RemoteClientSteamClient {
 	rpc NotifyRegisterStatusUpdate (.CRemoteClient_RegisterStatusUpdate_Notification) returns (.NoResponse);
 	rpc NotifyUnregisterStatusUpdate (.CRemoteClient_UnregisterStatusUpdate_Notification) returns (.NoResponse);
 	rpc NotifyRemotePacket (.CRemoteClient_RemotePacket_Notification) returns (.NoResponse);
+	rpc NotifyEnableSteamBroadcast (.CRemoteClient_EnableSteamBroadcast_Notification) returns (.NoResponse);
+	rpc NotifyDisableSteamBroadcast (.CRemoteClient_DisableSteamBroadcast_Notification) returns (.NoResponse);
 	rpc NotifySteamBroadcastPacket (.CRemoteClient_SteamBroadcast_Notification) returns (.NoResponse);
 	rpc NotifySteamToSteamPacket (.CRemoteClient_SteamToSteam_Notification) returns (.NoResponse);
 	rpc NotifyRemotePlayTogetherPacket (.CRemotePlayTogether_Notification) returns (.NoResponse);

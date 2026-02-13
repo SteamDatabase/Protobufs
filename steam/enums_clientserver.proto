@@ -229,18 +229,14 @@ enum EMsg {
 	k_EMsgClientRemoveFriend = 714;
 	k_EMsgClientGamesPlayedNoDataBlob = 715;
 	k_EMsgClientChangeStatus = 716;
-	k_EMsgClientVacStatusResponse = 717;
 	k_EMsgClientFriendMsg = 718;
 	k_EMsgClientGameConnect_obsolete = 719;
 	k_EMsgClientGamesPlayed2_obsolete = 720;
 	k_EMsgClientGameEnded_obsolete = 721;
 	k_EMsgClientSystemIM = 726;
 	k_EMsgClientSystemIMAck = 727;
-	k_EMsgClientGetLicenses = 728;
 	k_EMsgClientGetLegacyGameKey = 730;
 	k_EMsgClientContentServerLogOn_Deprecated = 731;
-	k_EMsgClientAckVACBan2 = 732;
-	k_EMsgClientGetPurchaseReceipts = 736;
 	k_EMsgClientGamesPlayed3_obsolete = 738;
 	k_EMsgClientAckGuestPass = 740;
 	k_EMsgClientRedeemGuestPass = 741;
@@ -248,7 +244,6 @@ enum EMsg {
 	k_EMsgClientRegisterKey = 743;
 	k_EMsgClientInviteUserToClan = 744;
 	k_EMsgClientAcknowledgeClanInvite = 745;
-	k_EMsgClientPurchaseWithMachineID = 746;
 	k_EMsgClientAppUsageEvent = 747;
 	k_EMsgClientLogOnResponse = 751;
 	k_EMsgClientSetHeartbeatRate = 755;
@@ -269,7 +264,6 @@ enum EMsg {
 	k_EMsgClientGameConnectTokens = 779;
 	k_EMsgClientLicenseList = 780;
 	k_EMsgClientVACBanStatus = 782;
-	k_EMsgClientEncryptPct = 784;
 	k_EMsgClientGetLegacyGameKeyResponse = 785;
 	k_EMsgClientAddFriend = 791;
 	k_EMsgClientAddFriendResponse = 792;

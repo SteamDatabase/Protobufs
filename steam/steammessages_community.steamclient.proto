@@ -4,16 +4,6 @@ import "enums.proto";
 
 option cc_generic_services = true;
 
-enum ECommentDeleteReason {
-	k_ECommentDeleteReason_Invalid = 0;
-	k_ECommentDeleteReason_User = 1;
-	k_ECommentDeleteReason_ThreadOwner = 2;
-	k_ECommentDeleteReason_Moderator = 3;
-	k_ECommentDeleteReason_Support = 4;
-	k_ECommentDeleteReason_Spam = 5;
-	k_ECommentDeleteReason_AccountDeletion = 6;
-}
-
 enum EClanImageGroup {
 	k_EClanImageGroup_None = 0;
 	k_EClanImageGroup_Announcement = 1;

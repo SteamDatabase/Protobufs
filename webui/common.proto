@@ -1325,6 +1325,14 @@ message CMsgClientSettings {
 	optional bool controller_enable_chord = 140011;
 	optional bool controller_poll_rate = 140012;
 	optional bool controller_siapi_config_author_mode = 140013;
+	optional string controller_chat_radial_menu_option_0 = 140030;
+	optional string controller_chat_radial_menu_option_1 = 140031;
+	optional string controller_chat_radial_menu_option_2 = 140032;
+	optional string controller_chat_radial_menu_option_3 = 140033;
+	optional string controller_chat_radial_menu_option_4 = 140034;
+	optional string controller_chat_radial_menu_option_5 = 140035;
+	optional string controller_chat_radial_menu_option_6 = 140036;
+	optional string controller_chat_radial_menu_option_7 = 140037;
 }
 
 message CMsgCloudPendingRemoteOperations {

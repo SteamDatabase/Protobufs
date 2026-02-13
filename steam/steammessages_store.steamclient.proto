@@ -414,6 +414,7 @@ message CStore_ReloadAllReservationPositionMessages_Notification {
 message CSteamDeckCompatibility_SetFeedback_Request {
 	optional uint32 appid = 1;
 	optional .ESteamDeckCompatibilityFeedback feedback = 2 [default = k_ESteamDeckCompatibilityFeedback_Unset];
+	optional uint32 feedback_details = 3;
 }
 
 message CSteamDeckCompatibility_SetFeedback_Response {

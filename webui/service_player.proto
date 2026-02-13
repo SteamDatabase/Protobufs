@@ -577,6 +577,31 @@ message CPlayer_GetTopAchievementsForGames_Response_Game {
 	repeated .CPlayer_GetTopAchievementsForGames_Response_Achievement achievements = 3;
 }
 
+message CPlayer_GetUserStats_Request {
+	optional uint64 steamid = 1;
+	optional uint32 appid = 2;
+	optional bytes sha_schema = 3;
+	optional uint32 crc_stats = 4;
+}
+
+message CPlayer_GetUserStats_Response {
+	optional bytes sha_schema = 1;
+	optional uint32 crc_stats = 2;
+	optional bytes schema = 3;
+	repeated .CPlayer_GetUserStats_Response_Stats stats = 4;
+}
+
+message CPlayer_GetUserStats_Response_Stats {
+	optional uint32 stat_id = 1;
+	optional uint32 stat_value = 2;
+	repeated .CPlayer_GetUserStats_Response_Unlock_Time unlock_times = 3;
+}
+
+message CPlayer_GetUserStats_Response_Unlock_Time {
+	optional uint32 achievement_bit = 1;
+	optional fixed32 unlock_time = 2;
+}
+
 message CPlayer_IgnoreFriend_Request {
 	optional fixed64 steamid = 1;
 	optional bool unignore = 2;
@@ -896,6 +921,8 @@ service Player {
 	rpc GetTimeSSAAccepted (.CPlayer_GetTimeSSAAccepted_Request) returns (.CPlayer_GetTimeSSAAccepted_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=2
 	rpc GetTopAchievementsForGames (.CPlayer_GetTopAchievementsForGames_Request) returns (.CPlayer_GetTopAchievementsForGames_Response);
+	// bConstMethod=true, ePrivilege=2
+	rpc GetUserStats (.CPlayer_GetUserStats_Request) returns (.CPlayer_GetUserStats_Response);
 	// ePrivilege=1
 	rpc IgnoreFriend (.CPlayer_IgnoreFriend_Request) returns (.CPlayer_IgnoreFriend_Response);
 	// ePrivilege=3
