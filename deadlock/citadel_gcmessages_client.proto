@@ -284,6 +284,7 @@ message CSOGameAccountClient {
 	optional uint32 brawl_wins = 18;
 	optional uint32 brawl_losses = 19;
 	optional uint32 brawl_kills = 20;
+	optional uint32 last_mm_match_time = 21;
 }
 
 message CSOAccountSyncStorage {
