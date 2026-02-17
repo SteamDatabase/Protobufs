@@ -135,6 +135,7 @@ enum ECitadelGameMode {
 	k_ECitadelGameMode_1v1Test = 2;
 	k_ECitadelGameMode_Sandbox = 3;
 	k_ECitadelGameMode_StreetBrawl = 4;
+	k_ECitadelGameMode_ExploreNYC = 5;
 }
 
 enum ELobbyServerState {
