@@ -155,6 +155,17 @@ message CContentModeration_GetModeratorPreferences_Response {
 	repeated int32 enabled_subject_types = 2 [(.description) = "enum"];
 }
 
+message CContentModeration_GetOneReportSubmittedByUser_Request {
+	optional uint64 steamid = 1;
+	optional int32 subject_type = 2 [(.description) = "enum"];
+	optional uint64 subject_group_id = 3;
+	optional uint64 subject_id = 4;
+}
+
+message CContentModeration_GetOneReportSubmittedByUser_Response {
+	optional .ContentReport content_report = 1;
+}
+
 message CContentModeration_GetReportedSubjectsByOwner_Request {
 	optional uint64 steamid = 1;
 }
@@ -165,10 +176,13 @@ message CContentModeration_GetReportedSubjectsByOwner_Response {
 
 message CContentModeration_GetReportsSubmittedByUser_Request {
 	optional uint64 steamid = 1;
+	optional uint32 start = 2;
+	optional uint32 count = 3;
 }
 
 message CContentModeration_GetReportsSubmittedByUser_Response {
 	repeated .ContentReport content_report = 1;
+	optional uint32 total_count = 2;
 }
 
 message CContentModeration_GetSubjectOverview_Request {
@@ -384,6 +398,8 @@ service ContentModeration {
 	rpc GetModeratorActivity (.CContentModeration_GetModeratorActivity_Request) returns (.CContentModeration_GetModeratorActivity_Response);
 	// bConstMethod=true, ePrivilege=5
 	rpc GetModeratorPreferences (.CContentModeration_GetModeratorPreferences_Request) returns (.CContentModeration_GetModeratorPreferences_Response);
+	// bConstMethod=true, ePrivilege=1
+	rpc GetOneReportSubmittedByUser (.CContentModeration_GetOneReportSubmittedByUser_Request) returns (.CContentModeration_GetOneReportSubmittedByUser_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetReportedSubjectsByOwner (.CContentModeration_GetReportedSubjectsByOwner_Request) returns (.CContentModeration_GetReportedSubjectsByOwner_Response);
 	// bConstMethod=true, ePrivilege=1
