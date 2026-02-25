@@ -42,6 +42,9 @@ message CSteamOSManagerState {
 	optional bool is_vrs_available = 28;
 	optional bool is_wifi_driver_reload_available = 29;
 	optional bool is_password_change_supported = 30;
+	optional bool is_session_management_supported = 31;
+	repeated string desktop_sessions_available = 32;
+	optional string desktop_session_default = 33;
 }
 
 message CSteamOSManager_GetState_Request {
@@ -110,6 +113,19 @@ message CSteamOSManager_PrepareFactoryImageTest_Request {
 message CSteamOSManager_PrepareFactoryImageTest_Response {
 }
 
+message CSteamOSManager_SwitchToDesktop_Request {
+}
+
+message CSteamOSManager_SwitchToDesktop_Response {
+}
+
+message CSteamOSManager_SetDefaultDesktopSession_Request {
+	optional string session_name = 1;
+}
+
+message CSteamOSManager_SetDefaultDesktopSession_Response {
+}
+
 message CSteamOSSLSPlugin {
 	optional .ESLSHelper etype = 1 [default = k_ESLSHelper_Invalid];
 	optional bool is_available = 2;
@@ -159,6 +175,8 @@ service SteamOSManager {
 	rpc RefreshScreenReaderAutoLocale (.CSteamOSManager_RefreshScreenReaderAutoLocale_Request) returns (.CSteamOSManager_RefreshScreenReaderAutoLocale_Response);
 	rpc SetUserPassword (.CSteamOS_SetUserPassword_Request) returns (.CSteamOS_SetUserPassword_Response);
 	rpc GetUserHasPassword (.CSteamOS_GetUserHasPassword_Request) returns (.CSteamOS_GetUserHasPassword_Response);
+	rpc SwitchToDesktop (.CSteamOSManager_SwitchToDesktop_Request) returns (.CSteamOSManager_SwitchToDesktop_Response);
+	rpc SetDefaultDesktopSession (.CSteamOSManager_SetDefaultDesktopSession_Request) returns (.CSteamOSManager_SetDefaultDesktopSession_Response);
 }
 
 service SteamOSSLS {
