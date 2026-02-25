@@ -2797,6 +2797,12 @@ message CVRGamepadUI_Frame_FrameMenu_Item {
 	optional int32 type = 1 [(.description) = "enum"];
 	optional uint32 action_id = 2;
 	optional .CVRGamepadUI_Frame_FrameMenu_Item_SteamMainMenuOptions steam_main_menu_options = 3;
+	optional .CVRGamepadUI_Frame_FrameMenu_Item_SteamGameOverlayOptions steam_game_overlay_options = 4;
+}
+
+// Used by: common.proto
+message CVRGamepadUI_Frame_FrameMenu_Item_SteamGameOverlayOptions {
+	optional uint32 app_id = 1;
 }
 
 // Used by: common.proto

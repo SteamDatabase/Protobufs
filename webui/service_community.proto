@@ -206,6 +206,17 @@ message CCommunity_GetClanLocGroupImages_Response {
 	repeated .CCommunity_ClanLocGroupImage images = 1;
 }
 
+message CCommunity_GetClanMetadata_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CCommunity_GetClanMetadata_Response {
+	optional bool is_ogg = 1;
+	optional string name = 2;
+	optional string profile_url = 3;
+	optional uint32 appid = 4;
+}
+
 message CCommunity_GetCommentThread_Request {
 	optional fixed64 steamid = 1;
 	optional int32 comment_thread_type = 2 [(.description) = "enum"];
@@ -450,6 +461,8 @@ service Community {
 	rpc GetClanEventCrowdInMetadata (.CCommunity_GetClanEventCrowdInMetadata_Request) returns (.CCommunity_GetClanEventCrowdInMetadata_Response);
 	// bConstMethod=true, ePrivilege=0
 	rpc GetClanLocGroupImages (.CCommunity_GetClanLocGroupImages_Request) returns (.CCommunity_GetClanLocGroupImages_Response);
+	// bConstMethod=true, ePrivilege=1
+	rpc GetClanMetadata (.CCommunity_GetClanMetadata_Request) returns (.CCommunity_GetClanMetadata_Response);
 	// ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetCommentThread (.CCommunity_GetCommentThread_Request) returns (.CCommunity_GetCommentThread_Response);
 	// ePrivilege=2
