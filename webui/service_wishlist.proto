@@ -10,6 +10,26 @@ message CWishlist_AddToWishlist_Response {
 	optional uint32 wishlist_count = 1;
 }
 
+message CWishlist_AddWishlistItemCategory_Request {
+	optional uint32 appid = 1;
+	optional uint64 categoryid = 2;
+	optional string category_name = 3;
+}
+
+message CWishlist_AddWishlistItemCategory_Response {
+	optional uint64 categoryid = 1;
+	optional string name = 2;
+	optional int32 item_count = 3;
+}
+
+message CWishlist_GetItemCategories_Request {
+	optional uint32 appid = 1;
+}
+
+message CWishlist_GetItemCategories_Response {
+	repeated .CWishlistCategory categories = 1;
+}
+
 message CWishlist_GetWishlist_Request {
 	optional fixed64 steamid = 1;
 }
@@ -22,6 +42,13 @@ message CWishlist_GetWishlist_Response_WishlistItem {
 	optional uint32 appid = 1;
 	optional uint32 priority = 2;
 	optional uint32 date_added = 3;
+}
+
+message CWishlist_GetWishlistCategories_Request {
+}
+
+message CWishlist_GetWishlistCategories_Response {
+	repeated .CWishlistCategory categories = 1;
 }
 
 message CWishlist_GetWishlistItemCount_Request {
@@ -77,6 +104,20 @@ message CWishlist_RemoveFromWishlist_Response {
 	optional uint32 wishlist_count = 1;
 }
 
+message CWishlist_RemoveWishlistItemCategory_Request {
+	optional uint32 appid = 1;
+	optional uint64 categoryid = 2;
+}
+
+message CWishlist_RemoveWishlistItemCategory_Response {
+}
+
+message CWishlistCategory {
+	optional uint64 categoryid = 1;
+	optional string name = 2;
+	optional int32 item_count = 3;
+}
+
 message CWishlistFilters {
 	optional bool macos_only = 1;
 	optional bool steamos_linux_only = 2;
@@ -107,8 +148,14 @@ message CWishlistFilters_SteamDeckFilters {
 service Wishlist {
 	// ePrivilege=1
 	rpc AddToWishlist (.CWishlist_AddToWishlist_Request) returns (.CWishlist_AddToWishlist_Response);
+	// ePrivilege=1
+	rpc AddWishlistItemCategory (.CWishlist_AddWishlistItemCategory_Request) returns (.CWishlist_AddWishlistItemCategory_Response);
+	// bConstMethod=true, ePrivilege=1
+	rpc GetItemCategories (.CWishlist_GetItemCategories_Request) returns (.CWishlist_GetItemCategories_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetWishlist (.CWishlist_GetWishlist_Request) returns (.CWishlist_GetWishlist_Response);
+	// bConstMethod=true, ePrivilege=1
+	rpc GetWishlistCategories (.CWishlist_GetWishlistCategories_Request) returns (.CWishlist_GetWishlistCategories_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetWishlistItemCount (.CWishlist_GetWishlistItemCount_Request) returns (.CWishlist_GetWishlistItemCount_Response);
 	// bConstMethod=true, ePrivilege=1
@@ -117,5 +164,7 @@ service Wishlist {
 	rpc GetWishlistSortedFiltered (.CWishlist_GetWishlistSortedFiltered_Request) returns (.CWishlist_GetWishlistSortedFiltered_Response);
 	// ePrivilege=1
 	rpc RemoveFromWishlist (.CWishlist_RemoveFromWishlist_Request) returns (.CWishlist_RemoveFromWishlist_Response);
+	// ePrivilege=1
+	rpc RemoveWishlistItemCategory (.CWishlist_RemoveWishlistItemCategory_Request) returns (.CWishlist_RemoveWishlistItemCategory_Response);
 }
 

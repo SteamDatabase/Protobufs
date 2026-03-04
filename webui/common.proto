@@ -351,6 +351,7 @@ message CClientMetrics_GamePerformance_Notification_FrameRate {
 	optional fixed64 gameid = 1;
 	optional uint32 frame_rate = 2;
 	optional int32 session_seconds = 3;
+	optional uint32 framegen_frame_rate = 4;
 }
 
 message CClientMetrics_IPv6Connectivity_Notification {
@@ -2771,6 +2772,7 @@ message CVRGamepadUI_Frame {
 	optional .CVRGamepadUI_Frame_FrameMenu menu = 2;
 	repeated .CVRGamepadUIShared_Action defined_actions = 3;
 	optional .CVRGamepadUI_Frame_FrameControls controls = 4;
+	optional bool is_vrlink_remote = 5;
 	optional string tmp_title = 1000;
 }
 
