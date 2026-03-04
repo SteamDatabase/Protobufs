@@ -540,6 +540,7 @@ message CMsgOpenCrate {
 	optional uint64 subject_item_id = 2;
 	optional bool for_rental = 3;
 	optional uint32 points_remaining = 4;
+	optional uint32 volatile_limit = 5;
 }
 
 message CSOEconRentalHistory {

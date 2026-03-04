@@ -14,6 +14,7 @@ enum ESource2PlayStatsFieldType {
 	Source2PlayStats_String = 12;
 	Source2PlayStats_LowCardinalityString = 13;
 	Source2PlayStats_UTCDateTime = 14;
+	Source2PlayStats_SteamIDTrustBucket = 15;
 }
 
 message CMsgSource2SystemSpecs {
@@ -164,6 +165,7 @@ message CMsgSource2PlayStatsPackedRecordList {
 	repeated string string_vals = 15;
 	repeated string low_cardinality_string_vals = 16;
 	repeated fixed32 utcdatetime_vals = 17 [packed = true];
+	repeated fixed64 steamidtrustbucket_vals = 18 [packed = true];
 }
 
 message CSource2Metrics_RecordPlayStats_Notification {
