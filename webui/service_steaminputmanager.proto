@@ -326,7 +326,6 @@ message CSteamInputService_WaitInitialControllerStateEnumerated_Request {
 }
 
 message CSteamInputService_WaitInitialControllerStateEnumerated_Response {
-	repeated uint32 controller = 1;
 }
 
 service SteamInputManager {
