@@ -989,6 +989,7 @@ message CMsgClientToGCUpdateRosterResponse {
 		k_eHeroesNotUnlocked = 7;
 		k_eNotInMatchmaking = 8;
 		k_eInvalidPartyRoster = 9;
+		k_eInvalidMode = 10;
 	}
 
 	optional .CMsgClientToGCUpdateRosterResponse.EResponse result = 1 [default = k_eInternalError];
@@ -1320,7 +1321,6 @@ message CMsgClientToGCFindHeroBuildsResponse {
 
 	optional .CMsgClientToGCFindHeroBuildsResponse.EResponse response = 1 [default = k_eInternalError];
 	repeated .CMsgClientToGCFindHeroBuildsResponse.HeroBuildResult results = 2;
-	optional uint32 build_window_start_time_override = 3;
 }
 
 message CMsgClientToGCUpdateHeroBuildPreference {
