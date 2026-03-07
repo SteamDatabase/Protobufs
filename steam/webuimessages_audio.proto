@@ -1,0 +1,19 @@
+import "steammessages_base.proto";
+import "webuimessages_base.proto";
+
+option optimize_for = SPEED;
+option cc_generic_services = true;
+
+message CAudio_PlaySpeakerTestOnChannel_Request {
+	optional int32 channel_num = 1;
+}
+
+message CAudio_PlaySpeakerTestOnChannel_Response {
+	optional bool success = 1;
+}
+
+service Audio {
+	option (webui_service_execution_site) = k_EClientExecutionSiteSteamUI;
+
+	rpc PlaySpeakerTestOnChannel (.CAudio_PlaySpeakerTestOnChannel_Request) returns (.CAudio_PlaySpeakerTestOnChannel_Response);
+}

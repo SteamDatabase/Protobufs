@@ -1,0 +1,14 @@
+
+message CAudio_PlaySpeakerTestOnChannel_Request {
+	optional int32 channel_num = 1;
+}
+
+message CAudio_PlaySpeakerTestOnChannel_Response {
+	optional bool success = 1;
+}
+
+service Audio {
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc PlaySpeakerTestOnChannel (.CAudio_PlaySpeakerTestOnChannel_Request) returns (.CAudio_PlaySpeakerTestOnChannel_Response);
+}
+
