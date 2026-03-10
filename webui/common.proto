@@ -2799,12 +2799,18 @@ message CVRGamepadUI_Frame_FrameMenu_Item {
 	optional int32 type = 1 [(.description) = "enum"];
 	optional uint32 action_id = 2;
 	optional .CVRGamepadUI_Frame_FrameMenu_Item_SteamMainMenuOptions steam_main_menu_options = 3;
-	optional .CVRGamepadUI_Frame_FrameMenu_Item_SteamGameOverlayOptions steam_game_overlay_options = 4;
+	optional .CVRGamepadUI_Frame_FrameMenu_Item_SteamGameInfo steam_game_info = 4;
+	optional .CVRGamepadUI_Frame_FrameMenu_Item_SteamGameWindowItemsOptions steam_game_window_item_options = 5;
 }
 
 // Used by: common.proto
-message CVRGamepadUI_Frame_FrameMenu_Item_SteamGameOverlayOptions {
+message CVRGamepadUI_Frame_FrameMenu_Item_SteamGameInfo {
 	optional uint32 app_id = 1;
+}
+
+// Used by: common.proto
+message CVRGamepadUI_Frame_FrameMenu_Item_SteamGameWindowItemsOptions {
+	optional bool show_for_single_window = 1;
 }
 
 // Used by: common.proto

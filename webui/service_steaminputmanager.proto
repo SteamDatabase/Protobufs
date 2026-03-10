@@ -93,6 +93,7 @@ message CSteamInputService_ControllerButtonStateChanged_Notification {
 	optional bool r4 = 34;
 	optional bool r5 = 35;
 	optional bool right_aux = 36;
+	optional uint64 button_state_bits = 37;
 }
 
 message CSteamInputService_ControllerDisconnected_Notification {
@@ -124,6 +125,9 @@ message CSteamInputService_EnableDockedInput_Request {
 }
 
 message CSteamInputService_EnableDockedInput_Response {
+}
+
+message CSteamInputService_FirstSteamControllerConnection_Notification {
 }
 
 message CSteamInputService_ForgetDonglePairingBond_Request {
@@ -361,6 +365,8 @@ service SteamInputManager {
 	rpc NotifyControllerPairingChanged (.CSteamInputService_ControllerPairingChanged_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyControllerPowerMenu (.CSteamInputService_ControllerPowerMenu_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=2
+	rpc NotifyFirstSteamControllerConnection (.CSteamInputService_FirstSteamControllerConnection_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyGyroAccelerometerStateChanged (.CSteamInputService_GyroAccelerometerChanged_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2

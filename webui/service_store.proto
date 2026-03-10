@@ -360,6 +360,8 @@ message CStore_UserPreferences {
 	optional int32 provide_deck_feedback = 12 [(.description) = "enum"];
 	optional string additional_languages = 13;
 	optional int32 game_frame_rate_reporting = 14 [(.description) = "enum"];
+	optional bool disable_microtrailers = 15;
+	optional bool disable_animated_marketing = 16;
 }
 
 message CStore_UserTagPreferences {

@@ -286,6 +286,7 @@ message CContentModeration_UpdateSubject_Request {
 	optional int32 csam_status = 4 [(.description) = "enum"];
 	optional int32 terrorism_status = 5 [(.description) = "enum"];
 	optional int32 credible_threat_of_violence_status = 6 [(.description) = "enum"];
+	optional .AdditionalSubjectData additional_subject_data = 7;
 }
 
 message CContentModeration_UpdateSubject_Response {
