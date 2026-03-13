@@ -4,12 +4,12 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 REPOS=(
-	"SteamDatabase/SteamTracking:Protobufs:steam"
-	"SteamDatabase/SteamTracking:ProtobufsWebui:webui"
-	"SteamDatabase/GameTracking-CS2:Protobufs:csgo"
-	"SteamDatabase/GameTracking-Dota2:Protobufs:dota2"
-	"SteamDatabase/GameTracking-Deadlock:Protobufs:deadlock"
-	"SteamDatabase/GameTracking-TF2:Protobufs:tf2"
+	"SteamTracking/SteamTracking:Protobufs:steam"
+	"SteamTracking/SteamTracking:ProtobufsWebui:webui"
+	"SteamTracking/GameTracking-CS2:Protobufs:csgo"
+	"SteamTracking/GameTracking-Dota2:Protobufs:dota2"
+	"SteamTracking/GameTracking-Deadlock:Protobufs:deadlock"
+	"SteamTracking/GameTracking-TF2:Protobufs:tf2"
 )
 
 mkdir -p sources
