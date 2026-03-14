@@ -566,7 +566,6 @@ message CMsgMatchMetaDataContents {
 		optional uint32 last_hits = 13;
 		optional uint32 denies = 14;
 		optional uint32 ability_points = 15;
-		optional uint32 party = 16;
 		optional uint32 assigned_lane = 17;
 		optional uint32 level = 18;
 		repeated .CMsgMatchMetaDataContents.Ping pings = 19;
