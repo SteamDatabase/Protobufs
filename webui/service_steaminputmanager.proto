@@ -127,6 +127,14 @@ message CSteamInputService_EnableDockedInput_Request {
 message CSteamInputService_EnableDockedInput_Response {
 }
 
+message CSteamInputService_EnableQosStatus_Request {
+	optional uint32 controller_index = 1;
+	optional bool enable = 2;
+}
+
+message CSteamInputService_EnableQosStatus_Response {
+}
+
 message CSteamInputService_FirstSteamControllerConnection_Notification {
 }
 
@@ -314,6 +322,11 @@ message CSteamInputService_ShouldTritonPairInOobe_Response {
 message CSteamInputService_TritonDonglesChanged_Notification {
 }
 
+message CSteamInputService_TritonQos_Notification {
+	optional uint32 controller_index = 1;
+	optional .CTritonQosStatus status = 2;
+}
+
 message CSteamInputService_TritonUndocked_Notification {
 	optional uint32 docked_puck_index = 1;
 }
@@ -332,11 +345,24 @@ message CSteamInputService_WaitInitialControllerStateEnumerated_Request {
 message CSteamInputService_WaitInitialControllerStateEnumerated_Response {
 }
 
+message CTritonQosStatus {
+	optional int32 period_ms = 1;
+	optional uint32 packets_sent = 2;
+	optional uint32 packet_retransmissions = 3;
+	optional uint32 interval_max_ms = 4;
+	optional int32 rssi_measure = 5;
+	optional uint32 reason = 6;
+	optional uint32 rf_channel = 7;
+	optional uint32 backup_channel = 8;
+}
+
 service SteamInputManager {
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc CancelGyroSoftwareCalibration (.CSteamInputService_GyroSoftwareCalibration_Request) returns (.CSteamInputService_GyroSoftwareCalibration_Response);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc EnableDockedInput (.CSteamInputService_EnableDockedInput_Request) returns (.CSteamInputService_EnableDockedInput_Response);
+	// ePrivilege=1, eClientExecutionSite=2
+	rpc EnableQosStatus (.CSteamInputService_EnableQosStatus_Request) returns (.CSteamInputService_EnableQosStatus_Response);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc EndControllerStateFlow (.CSteamInputService_ControllerStateFlow_Request) returns (.CSteamInputService_ControllerStateFlow_Response);
 	// ePrivilege=1, eClientExecutionSite=2
@@ -377,6 +403,8 @@ service SteamInputManager {
 	rpc NotifyGyroSpeedStateChanged (.CSteamInputService_GyroSpeedChanged_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyTritonDonglesChanged (.CSteamInputService_TritonDonglesChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=2
+	rpc NotifyTritonQos (.CSteamInputService_TritonQos_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyTritonUndocked (.CSteamInputService_TritonUndocked_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2

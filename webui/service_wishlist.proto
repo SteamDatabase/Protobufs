@@ -30,6 +30,15 @@ message CWishlist_GetItemCategories_Response {
 	repeated .CWishlistCategory categories = 1;
 }
 
+message CWishlist_GetSharedWishlistCategories_Request {
+	optional fixed64 steamid = 1;
+	optional string share_token = 2;
+}
+
+message CWishlist_GetSharedWishlistCategories_Response {
+	repeated .CWishlistCategory categories = 1;
+}
+
 message CWishlist_GetWishlist_Request {
 	optional fixed64 steamid = 1;
 }
@@ -152,6 +161,8 @@ service Wishlist {
 	rpc AddWishlistItemCategory (.CWishlist_AddWishlistItemCategory_Request) returns (.CWishlist_AddWishlistItemCategory_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetItemCategories (.CWishlist_GetItemCategories_Request) returns (.CWishlist_GetItemCategories_Response);
+	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
+	rpc GetSharedWishlistCategories (.CWishlist_GetSharedWishlistCategories_Request) returns (.CWishlist_GetSharedWishlistCategories_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetWishlist (.CWishlist_GetWishlist_Request) returns (.CWishlist_GetWishlist_Response);
 	// bConstMethod=true, ePrivilege=1
