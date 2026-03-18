@@ -752,6 +752,7 @@ message CMsgGCCStrike15_v2_ClientRequestJoinFriendData {
 	optional uint32 join_ipp = 4;
 	optional .CMsgGCCStrike15_v2_MatchmakingGC2ClientReserve res = 5;
 	optional string errormsg = 6;
+	optional bool is_local_server = 7;
 }
 
 message CMsgGCCStrike15_v2_ClientRequestJoinServerData {
