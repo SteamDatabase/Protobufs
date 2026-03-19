@@ -91,6 +91,7 @@ message CWishlist_GetWishlistSortedFiltered_Request {
 	optional .CWishlistFilters filters = 5;
 	optional int32 start_index = 6 [default = 0];
 	optional int32 page_size = 7 [default = 100];
+	optional string share_token = 8;
 }
 
 message CWishlist_GetWishlistSortedFiltered_Response {
