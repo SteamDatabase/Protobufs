@@ -176,6 +176,12 @@ enum EStreamHostPlayAudioPreference {
 	k_EStreamHostPlayAudioAlways = 1;
 }
 
+enum EStreamHostDisplaySetting {
+	k_EStreamHostDisplaySettingNone = 0;
+	k_EStreamHostDisplaySettingClient = 1;
+	k_EStreamHostDisplaySettingCustom = 2;
+}
+
 enum EStreamingDataType {
 	k_EStreamingAudioData = 0;
 	k_EStreamingVideoData = 1;
@@ -427,16 +433,19 @@ message CStreamingClientConfig {
 }
 
 message CStreamingServerConfig {
-	optional bool change_desktop_resolution = 1;
-	optional bool dynamically_adjust_resolution_OBSOLETE = 2;
-	optional bool enable_capture_nvfbc = 3;
-	optional bool enable_hardware_encoding_nvidia_OBSOLETE = 4;
-	optional bool enable_hardware_encoding_amd_OBSOLETE = 5;
-	optional bool enable_hardware_encoding_intel_OBSOLETE = 6;
-	optional int32 software_encoding_threads = 7;
-	optional bool enable_traffic_priority = 8;
-	optional .EStreamHostPlayAudioPreference host_play_audio = 9 [default = k_EStreamHostPlayAudioDefault];
-	optional bool enable_hardware_encoding = 10;
+	optional .EStreamHostPlayAudioPreference host_play_audio = 1 [default = k_EStreamHostPlayAudioDefault];
+	optional string custom_display_device = 2;
+	optional .EStreamHostDisplaySetting display_resolution_setting = 3 [default = k_EStreamHostDisplaySettingNone];
+	optional int32 custom_display_resolution_x = 4;
+	optional int32 custom_display_resolution_y = 5;
+	optional .EStreamHostDisplaySetting display_refresh_rate_setting = 6 [default = k_EStreamHostDisplaySettingNone];
+	optional string custom_display_refresh_rate = 7;
+	optional .EStreamHostDisplaySetting display_hdr_setting = 8 [default = k_EStreamHostDisplaySettingNone];
+	optional bool custom_display_hdr = 9;
+	optional bool enable_capture_nvfbc = 10;
+	optional bool enable_hardware_encoding = 11;
+	optional int32 software_encoding_threads = 12;
+	optional bool enable_traffic_priority = 13;
 }
 
 message CNegotiatedConfig {

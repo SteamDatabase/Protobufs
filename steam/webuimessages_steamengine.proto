@@ -5,13 +5,13 @@ option optimize_for = SPEED;
 option cc_generic_services = true;
 
 message CSteamEngine_UpdateTextFilterDictionary_Notification {
-	required string language = 1;
-	required string type = 2;
+	optional string language = 1;
+	optional string type = 2;
 }
 
 message CSteamEngine_GetTextFilterDictionary_Request {
-	required string language = 1;
-	required string type = 2;
+	optional string language = 1;
+	optional string type = 2;
 }
 
 message CSteamEngine_GetTextFilterDictionary_Response {
@@ -19,8 +19,8 @@ message CSteamEngine_GetTextFilterDictionary_Response {
 }
 
 message CSteamEngine_TextFilterDictionaryChanged_Notification {
-	required string language = 1;
-	required string type = 2;
+	optional string language = 1;
+	optional string type = 2;
 }
 
 message CSteamEngine_GetGameIDForPID_Request {
@@ -32,8 +32,8 @@ message CSteamEngine_GetGameIDForPID_Response {
 }
 
 message CSteamEngine_SetOverlayEscapeKeyHandling_Notification {
-	required uint64 gameid = 1;
-	required bool should_handle = 2;
+	optional uint64 gameid = 1;
+	optional bool should_handle = 2;
 }
 
 message CSteamEngine_SearchAppDataCacheByStoreKeywords_Request {

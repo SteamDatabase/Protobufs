@@ -80,23 +80,21 @@ message CMsgMouseLeave {
 
 message CMsgBrowserCreate {
 	optional uint32 request_id = 1;
-	optional string useragent = 3;
-	optional string user_css = 5;
-	optional bool native_dropdowns = 6;
-	optional float dpi_scaling = 7;
-	optional bool offscreen = 8 [default = true];
-	optional uint32 initial_width = 9 [default = 0];
-	optional uint32 initial_height = 10 [default = 0];
-	optional string window_icon = 11;
-	optional bool borderless = 12 [default = false];
-	optional string vroverlay_key = 13;
-	optional uint32 browser_type = 14 [default = 0];
-	optional int32 initial_top = 15 [default = -2147483648];
-	optional int32 initial_left = 16 [default = -2147483648];
-	optional bool only_allow_trusted_popups = 17 [default = false];
-	optional string initial_url = 18;
-	optional fixed64 hwnd_parent = 19;
-	optional uint32 creation_flags = 20 [default = 0];
+	optional string useragent = 2;
+	optional string user_css = 3;
+	optional bool native_dropdowns = 4;
+	optional float dpi_scaling = 5;
+	optional uint32 initial_width = 6;
+	optional uint32 initial_height = 7;
+	optional string window_icon = 8;
+	optional string vroverlay_key = 9;
+	optional uint32 browser_type = 10;
+	optional int32 initial_top = 11 [default = -2147483648];
+	optional int32 initial_left = 12 [default = -2147483648];
+	optional bool only_allow_trusted_popups = 13;
+	optional string initial_url = 14;
+	optional fixed64 hwnd_parent = 15;
+	optional uint32 creation_flags = 16;
 }
 
 message CMsgBrowserCreateResponse {
@@ -1070,4 +1068,9 @@ message CMsgSetAccessibilitySettings {
 	optional bool reduced_motion_enabled = 1;
 	optional .EAccessibilityContrastMode preferred_contrast = 2 [default = k_EBrowserContrastMode_NoPreference];
 	optional uint32 minimum_font_size = 3;
+}
+
+message CMsgSetBrowserViewDomainRequestMapping {
+	optional string request_domain = 1;
+	optional string default_local_path = 2;
 }

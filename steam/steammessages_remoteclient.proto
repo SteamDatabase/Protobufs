@@ -67,6 +67,9 @@ message CMsgRemoteClientStartStream {
 	repeated .CMsgRemoteClientStartStream.ReservedGamepad gamepads = 9;
 	optional int32 audio_channel_count = 10 [default = 2];
 	repeated .EStreamTransport supported_transport = 11;
+	optional int32 maximum_framerate_numerator = 12;
+	optional int32 maximum_framerate_denominator = 13;
+	optional bool display_hdr = 14;
 }
 
 message CMsgRemoteClientStartStreamResponse {

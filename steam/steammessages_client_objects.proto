@@ -644,7 +644,7 @@ message CMsgMonitorInfo {
 		required string monitor_display_name = 2;
 	}
 
-	required string selected_display_name = 1;
+	required string selected_device_name = 1;
 	repeated .CMsgMonitorInfo.MonitorInfo monitors = 2;
 }
 

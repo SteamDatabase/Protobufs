@@ -1,0 +1,20 @@
+import "common_base.proto";
+
+message CScreensaver_ActiveStateChanged_Notification {
+	optional bool active = 1;
+}
+
+message CScreensaver_GetActiveState_Request {
+}
+
+message CScreensaver_GetActiveState_Response {
+	optional bool active = 1;
+}
+
+service Screensaver {
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc GetActiveState (.CScreensaver_GetActiveState_Request) returns (.CScreensaver_GetActiveState_Response);
+	// ePrivilege=1, eClientExecutionSite=1
+	rpc NotifyActiveStateChanged (.CScreensaver_ActiveStateChanged_Notification) returns (.NoResponse);
+}
+

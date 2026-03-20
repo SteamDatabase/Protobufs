@@ -1152,6 +1152,7 @@ message CMsgClientSettings {
 	optional bool enable_gamescope_composer = 5010;
 	optional bool enable_gamescope_composer_vr = 5011;
 	optional bool show_switch_to_desktop_at_login = 5012;
+	optional bool enable_steamrt64_client = 5013;
 	optional bool disable_all_toasts = 6000;
 	optional bool disable_toasts_in_game = 6001;
 	optional bool play_sound_on_toast = 6002;
@@ -1245,6 +1246,7 @@ message CMsgClientSettings {
 	optional bool hdr_compat_testing = 20006;
 	optional bool developer_mode_enabled = 20007;
 	optional bool show_advanced_update_channels = 20008;
+	optional bool browserview_underlays_allowed = 20009;
 	optional int32 gamescope_hdr_visualization = 21001 [(.description) = "enum"];
 	optional int32 gamescope_app_target_framerate = 21002;
 	optional bool gamescope_enable_app_target_framerate = 21003;
@@ -1293,6 +1295,8 @@ message CMsgClientSettings {
 	optional int32 system_idle_suspend_ac_sec = 24004;
 	optional bool system_enable_low_power_downloads = 24005;
 	optional bool system_allow_battery_low_power_downloads = 24006;
+	optional int32 system_idle_screensaver_battery_sec = 24008;
+	optional int32 system_idle_screensaver_ac_sec = 24009;
 	optional bool vr_show_perf_graph_in_hmd = 25000;
 	optional bool accessibility_debug_visualizer = 26000;
 	optional bool accessibility_screen_reader_enabled = 26001;
@@ -1632,7 +1636,7 @@ message CMsgIPAddress {
 }
 
 message CMsgMonitorInfo {
-	optional string selected_display_name = 1;
+	optional string selected_device_name = 1;
 	repeated .CMsgMonitorInfo_MonitorInfo monitors = 2;
 }
 
@@ -2644,16 +2648,19 @@ message CStreamingClientConfig {
 }
 
 message CStreamingServerConfig {
-	optional bool change_desktop_resolution = 1;
-	optional bool dynamically_adjust_resolution_OBSOLETE = 2;
-	optional bool enable_capture_nvfbc = 3;
-	optional bool enable_hardware_encoding_nvidia_OBSOLETE = 4;
-	optional bool enable_hardware_encoding_amd_OBSOLETE = 5;
-	optional bool enable_hardware_encoding_intel_OBSOLETE = 6;
-	optional int32 software_encoding_threads = 7;
-	optional bool enable_traffic_priority = 8;
-	optional int32 host_play_audio = 9 [default = 0, (.description) = "enum"];
-	optional bool enable_hardware_encoding = 10;
+	optional int32 host_play_audio = 1 [(.description) = "enum"];
+	optional string custom_display_device = 2;
+	optional int32 display_resolution_setting = 3 [(.description) = "enum"];
+	optional int32 custom_display_resolution_x = 4;
+	optional int32 custom_display_resolution_y = 5;
+	optional int32 display_refresh_rate_setting = 6 [(.description) = "enum"];
+	optional string custom_display_refresh_rate = 7;
+	optional int32 display_hdr_setting = 8 [(.description) = "enum"];
+	optional bool custom_display_hdr = 9;
+	optional bool enable_capture_nvfbc = 10;
+	optional bool enable_hardware_encoding = 11;
+	optional int32 software_encoding_threads = 12;
+	optional bool enable_traffic_priority = 13;
 }
 
 // Used by: common.proto
@@ -3098,6 +3105,19 @@ message CVRGamepadUIShared_PathProperty_PowerOptions {
 	optional bool can_shutdown = 2;
 	optional bool can_restart_system = 3;
 	optional bool can_exitvr = 4;
+}
+
+message CVRGamepadUIShared_PathProperty_RunningApps {
+	repeated .CVRGamepadUIShared_PathProperty_RunningApps_App apps = 1;
+}
+
+// Used by: common.proto
+message CVRGamepadUIShared_PathProperty_RunningApps_App {
+	optional uint32 app_id = 1;
+	optional uint64 game_id = 2;
+	optional string display_name = 3;
+	optional int32 composition_state = 4 [(.description) = "enum"];
+	optional string app_overlay_overlay_key = 5;
 }
 
 message CVRGamepadUIShared_PathProperty_VRVersionInfo {

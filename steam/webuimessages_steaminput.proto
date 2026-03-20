@@ -59,6 +59,7 @@ message CSteamInputService_ControllerButtonStateChanged_Notification {
 	optional bool r4 = 34;
 	optional bool r5 = 35;
 	optional bool right_aux = 36;
+	optional uint64 button_state_bits = 37;
 }
 
 message ControllerVector2 {
@@ -194,6 +195,7 @@ message CSteamInputService_GetDongles_Response {
 		optional string dongle_serial_number = 2;
 		optional string paired_serial_number = 3;
 		optional bool paired = 4;
+		optional bool docked = 5;
 	}
 
 	optional bool steam_controller_v1 = 1;
@@ -281,54 +283,62 @@ message CSteamInputService_GetControllerName_Response {
 	optional string controller_name = 1;
 }
 
+message CSteamInputService_EnableDockedInput_Request {
+	optional uint32 controller_index = 1;
+	optional bool enable = 2;
+}
+
+message CSteamInputService_EnableDockedInput_Response {
+}
+
 message CSteamInputService_RawControllerDetailItem {
-	required uint32 controller_index = 1;
-	required bool initialized = 2;
-	required uint32 controller_type = 3;
-	required uint32 controller_style = 4;
-	required uint32 xinput_index = 5;
-	required bool is_wireless_steam_dongle = 6;
-	required uint32 vendor_id = 7;
-	required uint32 product_id = 8;
-	required uint64 capabilities = 9;
-	required uint32 firmware_version = 10;
-	required string firmware_build_time = 11;
-	required string serial_number = 12;
-	required string cpu_id = 13;
-	required string name = 14;
-	required bool is_remote_device = 15;
-	required bool is_bluetooth = 16;
-	required bool has_touchscreen = 17;
+	optional uint32 controller_index = 1;
+	optional bool initialized = 2;
+	optional uint32 controller_type = 3;
+	optional uint32 controller_style = 4;
+	optional uint32 xinput_index = 5;
+	optional bool is_wireless_steam_dongle = 6;
+	optional uint32 vendor_id = 7;
+	optional uint32 product_id = 8;
+	optional uint64 capabilities = 9;
+	optional uint32 firmware_version = 10;
+	optional string firmware_build_time = 11;
+	optional string serial_number = 12;
+	optional string cpu_id = 13;
+	optional string name = 14;
+	optional bool is_remote_device = 15;
+	optional bool is_bluetooth = 16;
+	optional bool has_touchscreen = 17;
 	repeated string mac_addr = 18;
-	required uint32 battery_level = 19;
-	required bool is_charging = 20;
-	required float led_brightness = 21;
-	required float led_saturation = 22;
-	required int32 turn_on_sound = 23;
-	required int32 turn_off_sound = 24;
-	required int32 led_red = 25;
-	required int32 led_green = 26;
-	required int32 led_blue = 27;
-	required int32 deadzone_left_stick = 28;
-	required int32 deadzone_right_stick = 29;
-	required bool haptics_enabled = 30;
-	required bool gyro_sw_antidrift_enabled = 31;
-	required bool gyro_one_euro_filter_enabled = 32;
-	required int32 haptic_strength_left = 33;
-	required int32 haptic_strength_right = 34;
-	required float pad_pressure_curve_left = 35;
-	required float pad_pressure_curve_right = 36;
-	required bool left_stick_touch_disable_lpad = 37;
-	required bool right_stick_touch_disable_rpad = 38;
-	required int32 player_slot_led_setting = 39;
-	required bool has_nintendo_layout = 40;
-	required bool has_reversed_layout = 41;
-	required bool has_universal_face_button_glyphs = 42;
-	required float gyro_stationary_tolerance = 43;
-	required float accel_stationary_tolerance = 44;
-	required int32 aux_capsense_threshold = 45;
-	required int32 aux_capsense_hysterisis = 46;
-	required int32 rumble_setting = 47;
+	optional uint32 battery_level = 19;
+	optional bool is_charging = 20;
+	optional float led_brightness = 21;
+	optional float led_saturation = 22;
+	optional int32 turn_on_sound = 23;
+	optional int32 turn_off_sound = 24;
+	optional int32 led_red = 25;
+	optional int32 led_green = 26;
+	optional int32 led_blue = 27;
+	optional int32 deadzone_left_stick = 28;
+	optional int32 deadzone_right_stick = 29;
+	optional bool haptics_enabled = 30;
+	optional bool gyro_sw_antidrift_enabled = 31;
+	optional bool gyro_one_euro_filter_enabled = 32;
+	optional int32 haptic_strength_left = 33;
+	optional int32 haptic_strength_right = 34;
+	optional float pad_pressure_curve_left = 35;
+	optional float pad_pressure_curve_right = 36;
+	optional bool left_stick_touch_disable_lpad = 37;
+	optional bool right_stick_touch_disable_rpad = 38;
+	optional int32 player_slot_led_setting = 39;
+	optional bool has_nintendo_layout = 40;
+	optional bool has_reversed_layout = 41;
+	optional bool has_universal_face_button_glyphs = 42;
+	optional float gyro_stationary_tolerance = 43;
+	optional float accel_stationary_tolerance = 44;
+	optional int32 aux_capsense_threshold = 45;
+	optional int32 aux_capsense_hysterisis = 46;
+	optional int32 rumble_setting = 47;
 }
 
 message CSteamInputService_ControllerListChanged_Notification {
@@ -345,6 +355,33 @@ message CSteamInputService_GetControllerList_Request {
 
 message CSteamInputService_GetControllerList_Response {
 	repeated .CSteamInputService_RawControllerDetailItem controllers = 1;
+}
+
+message CSteamInputService_FirstSteamControllerConnection_Notification {
+}
+
+message CTritonQosStatus {
+	optional int32 period_ms = 1;
+	optional uint32 packets_sent = 2;
+	optional uint32 packet_retransmissions = 3;
+	optional uint32 interval_max_ms = 4;
+	optional int32 rssi_measure = 5;
+	optional uint32 reason = 6;
+	optional uint32 rf_channel = 7;
+	optional uint32 backup_channel = 8;
+}
+
+message CSteamInputService_TritonQos_Notification {
+	optional uint32 controller_index = 1;
+	optional .CTritonQosStatus status = 2;
+}
+
+message CSteamInputService_EnableQosStatus_Request {
+	optional uint32 controller_index = 1;
+	optional bool enable = 2;
+}
+
+message CSteamInputService_EnableQosStatus_Response {
 }
 
 service SteamInputManager {
@@ -364,6 +401,8 @@ service SteamInputManager {
 	rpc NotifyControllerDisconnected (.CSteamInputService_ControllerDisconnected_Notification) returns (.WebUINoResponse);
 	rpc NotifyControllerPairingChanged (.CSteamInputService_ControllerPairingChanged_Notification) returns (.WebUINoResponse);
 	rpc NotifyControllerListChanged (.CSteamInputService_ControllerListChanged_Notification) returns (.WebUINoResponse);
+	rpc NotifyFirstSteamControllerConnection (.CSteamInputService_FirstSteamControllerConnection_Notification) returns (.WebUINoResponse);
+	rpc NotifyTritonQos (.CSteamInputService_TritonQos_Notification) returns (.WebUINoResponse);
 	rpc StartControllerStateFlow (.CSteamInputService_ControllerStateFlow_Request) returns (.CSteamInputService_ControllerStateFlow_Response);
 	rpc EndControllerStateFlow (.CSteamInputService_ControllerStateFlow_Request) returns (.CSteamInputService_ControllerStateFlow_Response);
 	rpc GetControllerAccessibilityStrings (.CSteamInputService_ControllerAccessibilityStrings_Request) returns (.CSteamInputService_ControllerAccessibilityStrings_Response);
@@ -379,4 +418,6 @@ service SteamInputManager {
 	rpc ForgetDonglePairingBond (.CSteamInputService_ForgetDonglePairingBond_Request) returns (.CSteamInputService_ForgetDonglePairingBond_Response);
 	rpc GetControllerName (.CSteamInputService_GetControllerName_Request) returns (.CSteamInputService_GetControllerName_Response);
 	rpc GetControllerList (.CSteamInputService_GetControllerList_Request) returns (.CSteamInputService_GetControllerList_Response);
+	rpc EnableDockedInput (.CSteamInputService_EnableDockedInput_Request) returns (.CSteamInputService_EnableDockedInput_Response);
+	rpc EnableQosStatus (.CSteamInputService_EnableQosStatus_Request) returns (.CSteamInputService_EnableQosStatus_Response);
 }

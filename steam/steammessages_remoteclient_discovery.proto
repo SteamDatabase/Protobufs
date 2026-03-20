@@ -58,11 +58,11 @@ enum EStreamDeviceFormFactor {
 enum EStreamTransport {
 	k_EStreamTransportNone = 0;
 	k_EStreamTransportUDP = 1;
-	k_EStreamTransportUDPRelay = 2;
+	k_EStreamTransportUDPRelay_OBSOLETE = 2;
 	k_EStreamTransportWebRTC_OBSOLETE = 3;
 	k_EStreamTransportSDR = 4;
 	k_EStreamTransportUDP_SNS = 5;
-	k_EStreamTransportUDPRelay_SNS = 6;
+	k_EStreamTransportUDPRelay_SNS_OBSOLETE = 6;
 }
 
 enum EStreamInterface {
@@ -208,6 +208,9 @@ message CMsgRemoteDeviceStreamingRequest {
 	repeated .CMsgRemoteDeviceStreamingRequest.ReservedGamepad gamepads = 18;
 	optional uint64 gameid = 19;
 	optional .EStreamInterface stream_interface = 20 [default = k_EStreamInterfaceDefault];
+	optional int32 maximum_framerate_numerator = 21;
+	optional int32 maximum_framerate_denominator = 22;
+	optional bool display_hdr = 23;
 }
 
 message CMsgRemoteDeviceStreamingCancelRequest {

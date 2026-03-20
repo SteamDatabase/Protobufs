@@ -218,6 +218,17 @@ message CCommunity_GetClanAnnouncementVoteForUser_Response {
 	optional bool voted_down = 2;
 }
 
+message CCommunity_GetClanMetadata_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CCommunity_GetClanMetadata_Response {
+	optional bool is_ogg = 1;
+	optional string name = 2;
+	optional string profile_url = 3;
+	optional uint32 appid = 4;
+}
+
 message CCommunity_GetClanLocGroupImages_Request {
 	optional uint64 steamid = 1;
 	optional .EClanImageGroup group = 2 [default = k_EClanImageGroup_None];
@@ -434,6 +445,7 @@ service Community {
 	rpc VerifyClanMembership (.CCommunity_VerifyClanMembership_Request) returns (.CCommunity_VerifyClanMembership_Response);
 	rpc RateClanAnnouncement (.CCommunity_RateClanAnnouncement_Request) returns (.CCommunity_RateClanAnnouncement_Response);
 	rpc GetClanAnnouncementVoteForUser (.CCommunity_GetClanAnnouncementVoteForUser_Request) returns (.CCommunity_GetClanAnnouncementVoteForUser_Response);
+	rpc GetClanMetadata (.CCommunity_GetClanMetadata_Request) returns (.CCommunity_GetClanMetadata_Response);
 	rpc GetClanLocGroupImages (.CCommunity_GetClanLocGroupImages_Request) returns (.CCommunity_GetClanLocGroupImages_Response);
 	rpc GetAvatarHistory (.CCommunity_GetAvatarHistory_Request) returns (.CCommunity_GetAvatarHistory_Response);
 	rpc GetClanEventCrowdInMetadata (.CCommunity_GetClanEventCrowdInMetadata_Request) returns (.CCommunity_GetClanEventCrowdInMetadata_Response);

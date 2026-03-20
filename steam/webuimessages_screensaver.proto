@@ -1,0 +1,24 @@
+import "enums.proto";
+import "steammessages_base.proto";
+import "webuimessages_base.proto";
+
+option optimize_for = SPEED;
+option cc_generic_services = true;
+
+message CScreensaver_GetActiveState_Request {
+}
+
+message CScreensaver_GetActiveState_Response {
+	optional bool active = 1;
+}
+
+message CScreensaver_ActiveStateChanged_Notification {
+	optional bool active = 1;
+}
+
+service Screensaver {
+	option (webui_service_execution_site) = k_EClientExecutionSiteSteamUI;
+
+	rpc GetActiveState (.CScreensaver_GetActiveState_Request) returns (.CScreensaver_GetActiveState_Response);
+	rpc NotifyActiveStateChanged (.CScreensaver_ActiveStateChanged_Notification) returns (.WebUINoResponse);
+}

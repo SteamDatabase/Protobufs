@@ -254,6 +254,7 @@ message CClientMetrics_GamePerformance_Notification {
 		optional fixed64 gameid = 1;
 		optional uint32 frame_rate = 2;
 		optional int32 session_seconds = 3;
+		optional uint32 framegen_frame_rate = 4;
 	}
 
 	repeated .CClientMetrics_GamePerformance_Notification.FrameRate frame_rates = 2;

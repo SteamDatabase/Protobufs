@@ -156,6 +156,7 @@ message StoreItem {
 	message IncludedItems {
 		repeated .StoreItem included_apps = 1;
 		repeated .StoreItem included_packages = 2;
+		repeated .StoreItem included_bundles = 3;
 	}
 
 	message Categories {

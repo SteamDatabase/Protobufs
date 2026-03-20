@@ -107,8 +107,6 @@ enum EMsg {
 	k_EMsgAIGetAppGCFlagsResponse = 424;
 	k_EMsgAIGetAppList = 425;
 	k_EMsgAIGetAppListResponse = 426;
-	k_EMsgAISGetCouponDefinition = 429;
-	k_EMsgAISGetCouponDefinitionResponse = 430;
 	k_EMsgAISUpdateSubordinateContentDescription = 431;
 	k_EMsgAISUpdateSubordinateContentDescriptionResponse = 432;
 	k_EMsgAISBroadcastSubordinateContentDescription = 434;
