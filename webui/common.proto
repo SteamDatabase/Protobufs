@@ -1298,6 +1298,8 @@ message CMsgClientSettings {
 	optional int32 system_idle_screensaver_battery_sec = 24008;
 	optional int32 system_idle_screensaver_ac_sec = 24009;
 	optional bool vr_show_perf_graph_in_hmd = 25000;
+	optional bool vr_audio_spatialize = 25001;
+	optional bool vr_audio_spatialize_surround = 25002;
 	optional bool accessibility_debug_visualizer = 26000;
 	optional bool accessibility_screen_reader_enabled = 26001;
 	optional float accessibility_screen_reader_rate = 26002;
@@ -3274,6 +3276,7 @@ message StoreItem {
 	optional .StoreBrowseFilterFailure user_filter_failure = 70;
 	repeated .StoreItem_Link links = 71;
 	optional string purchase_description = 72;
+	//optional string purchase_description_bbcode = 72;
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, UserStoreVisit, Wishlist

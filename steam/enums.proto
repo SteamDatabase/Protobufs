@@ -730,7 +730,8 @@ enum EContentReportResolution {
 	k_EContentReportResolution_RemoveAndKick = 13;
 	k_EContentReportResolution_Sanctioned = 14;
 	k_EContentReportResolution_Sustained = 15;
-	k_EContentReportResolution_MAX = 16;
+	k_EContentReportResolution_Broken = 16;
+	k_EContentReportResolution_MAX = 17;
 }
 
 enum EContentModerationSanction {

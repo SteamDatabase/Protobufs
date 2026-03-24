@@ -392,6 +392,7 @@ message StoreItem {
 	optional .StoreItem.Assets assets_without_overrides = 60;
 	optional .StoreBrowseFilterFailure user_filter_failure = 70;
 	repeated .StoreItem.Link links = 71;
+	optional string purchase_description_bbcode = 72;
 }
 
 message StoreGameRating {
