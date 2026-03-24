@@ -1789,7 +1789,6 @@ message CMsgPostGameProgressData {
 	}
 
 	message PlayerAward {
-		optional uint32 award_column = 1;
 		optional uint32 award_id = 2;
 		optional int32 award_value = 3;
 		optional uint32 award_rank = 4;
