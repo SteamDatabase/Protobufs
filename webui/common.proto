@@ -3277,6 +3277,7 @@ message StoreItem {
 	repeated .StoreItem_Link links = 71;
 	optional string purchase_description = 72;
 	//optional string purchase_description_bbcode = 72;
+	repeated .StoreItem_PackageGroup package_groups = 74;
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, UserStoreVisit, Wishlist
@@ -3297,6 +3298,7 @@ message StoreItem_Assets {
 	optional string clan_avatar = 14;
 	optional string page_background_path = 15;
 	optional string raw_page_background = 16;
+	optional string edition_comparison = 17;
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, UserStoreVisit, Wishlist
@@ -3340,6 +3342,15 @@ message StoreItem_Link {
 	optional int32 link_type = 1 [(.description) = "enum"];
 	optional string url = 2;
 	optional string text = 3;
+}
+
+// Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, UserStoreVisit, Wishlist
+message StoreItem_PackageGroup {
+	optional string name = 1;
+	optional string heading = 2;
+	optional int32 display_type = 3 [(.description) = "enum"];
+	optional string dropdown_title = 4;
+	optional string dropdown_description_bbcode = 5;
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, UserStoreVisit, Wishlist
@@ -3387,6 +3398,8 @@ message StoreItem_PurchaseOption {
 	optional .StoreItem_PurchaseOption_RecurrenceInfo recurrence_info = 46;
 	optional uint32 free_to_keep_ends = 47;
 	optional bool must_purchase_as_set = 48 [default = false];
+	optional string package_group = 49;
+	optional bool is_edition = 50;
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, UserStoreVisit, Wishlist

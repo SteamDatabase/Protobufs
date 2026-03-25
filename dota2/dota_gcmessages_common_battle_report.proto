@@ -198,8 +198,8 @@ message CMsgBattleReport {
 	}
 
 	message Highlight {
-		required uint32 highlight_id = 1;
-		required .CMsgBattleReport_HighlightCategory category = 2 [default = k_eHighlightGeneral];
+		optional uint32 highlight_id = 1;
+		optional .CMsgBattleReport_HighlightCategory category = 2 [default = k_eHighlightGeneral];
 		optional .CMsgBattleReport_HighlightTier tier = 3 [default = k_eHighlightTierLow];
 		optional .CMsgBattleReport_HighlightRarity rarity = 4 [default = k_eHighlightCommon];
 		optional float score = 5;

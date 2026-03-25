@@ -4,7 +4,7 @@ enum EDotaBroadcastMessages {
 }
 
 message CDOTABroadcastMsg {
-	required .EDotaBroadcastMessages type = 1 [default = DOTA_BM_LANLobbyRequest];
+	optional .EDotaBroadcastMessages type = 1 [default = DOTA_BM_LANLobbyRequest];
 	optional bytes msg = 2;
 }
 

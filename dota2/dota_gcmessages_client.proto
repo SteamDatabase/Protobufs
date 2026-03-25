@@ -3407,7 +3407,6 @@ message CMsgClientToGCGetEventRankingResponse {
 
 message CMsgClientToGCGetEventCoupon {
 	optional .EEvent event_id = 1 [default = EVENT_ID_NONE];
-	repeated uint32 coupon_ids = 2;
 }
 
 message CMsgClientToGCGetEventCouponResponse {
