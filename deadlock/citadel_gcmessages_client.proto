@@ -333,6 +333,8 @@ message CSOAccountChallenge {
 }
 
 message CMsgCitadelClientHello {
+	optional bytes pgi_hash = 1;
+	optional bytes pgi_version = 2;
 }
 
 message CMsgClientToGCStartMatchmaking {
@@ -341,6 +343,7 @@ message CMsgClientToGCStartMatchmaking {
 	optional .CMsgStartFindingMatchInfo match_info = 3;
 	optional .CMsgRegionPingTimesClient ping_times = 4;
 	optional .CMsgHeroSelectionMatchInfo heroes = 5;
+	optional bool pgi_verified = 6;
 }
 
 message CMsgClientToGCStartMatchmakingResponse {
@@ -371,6 +374,7 @@ message CMsgClientToGCStartMatchmakingResponse {
 		k_EResult_NoHeroLabsWhileInLowPri = 23;
 		k_EResult_AccountLocked = 24;
 		k_EResult_TooManyLimitedHeroes = 25;
+		k_EResult_UnverifiedPGI = 26;
 	}
 
 	optional .CMsgClientToGCStartMatchmakingResponse.EResultCode result = 1 [default = k_EResult_OK];
@@ -408,6 +412,7 @@ message CMsgClientWelcomeCitadel {
 	repeated .CExtraMsgBlock extra_messages = 2;
 	optional uint32 compatibility_version = 3;
 	optional .ECitadelRegionMode region_mode = 4 [default = k_ECitadelRegionMode_ROW];
+	optional bool pgi_verified = 5;
 }
 
 message CMsgClientToGCIsInMatchmaking {
@@ -527,6 +532,7 @@ message CMsgPartyMMInfo {
 	optional .CMsgRegionPingTimesClient ping_times = 2;
 	optional uint32 client_version = 3;
 	optional .ECitadelRegionMode region_mode = 4 [default = k_ECitadelRegionMode_ROW];
+	optional bool pgi_verified = 5;
 }
 
 message CMsgClientToGCPartyCreate {
@@ -741,6 +747,7 @@ message CMsgClientToGCPartyStartMatchResponse {
 		k_eHeroLabsMMNotOpen = 29;
 		k_eHeroLabsNotUnlocked = 30;
 		k_eNoHeroLabsWhileInLowPri = 31;
+		k_eUnverifiedPGI = 32;
 	}
 
 	optional .CMsgClientToGCPartyStartMatchResponse.EResponse result = 1 [default = k_eInternalError];
