@@ -3271,12 +3271,12 @@ message StoreItem {
 	optional uint32 game_count = 56;
 	optional string internal_name = 57;
 	optional string full_description = 58;
+	//optional string full_description_bbcode = 58;
 	optional bool is_free_temporarily = 59;
 	optional .StoreItem_Assets assets_without_overrides = 60;
 	optional .StoreBrowseFilterFailure user_filter_failure = 70;
 	repeated .StoreItem_Link links = 71;
-	optional string purchase_description = 72;
-	//optional string purchase_description_bbcode = 72;
+	optional string purchase_description_bbcode = 72;
 	repeated .StoreItem_PackageGroup package_groups = 74;
 }
 

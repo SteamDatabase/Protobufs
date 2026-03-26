@@ -98,6 +98,24 @@ message CForums_ResolveReportedPosts_Response {
 	optional uint32 resolved_count = 1;
 }
 
+message CForums_SanctionReportedPost_Request {
+	optional uint64 steamid = 1;
+	optional uint64 gidforum = 3;
+	optional uint64 gidtopic = 4;
+	optional uint64 gidpost = 5;
+	optional int32 reason = 7 [(.description) = "enum"];
+	repeated .CForums_SanctionReportedPost_Request_Sanction sanctions = 8;
+	optional string note = 9;
+}
+
+message CForums_SanctionReportedPost_Request_Sanction {
+	optional int32 sanction = 1 [(.description) = "enum"];
+	optional int32 days = 2;
+}
+
+message CForums_SanctionReportedPost_Response {
+}
+
 message CForums_SetTopicLocked_Request {
 	optional fixed64 steamid = 1;
 	optional uint64 gidforum = 2;
@@ -192,6 +210,8 @@ service Forums {
 	rpc ResolveReportedPost (.CForums_ResolveReportedPost_Request) returns (.CForums_ResolveReportedPost_Response);
 	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc ResolveReportedPosts (.CForums_ResolveReportedPosts_Request) returns (.CForums_ResolveReportedPosts_Response);
+	// ePrivilege=1, eWebAPIKeyRequirement=2
+	rpc SanctionReportedPost (.CForums_SanctionReportedPost_Request) returns (.CForums_SanctionReportedPost_Response);
 	// ePrivilege=1
 	rpc SetTopicLocked (.CForums_SetTopicLocked_Request) returns (.CForums_SetTopicLocked_Response);
 	// ePrivilege=1
