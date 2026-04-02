@@ -45,6 +45,7 @@ message CMsgAvailableHardwareUpdate {
 	optional string serial_number = 3;
 	optional string current_ts = 4;
 	optional string update_ts = 5;
+	optional bool mandatory_update = 6;
 }
 
 service HardwareUpdate {

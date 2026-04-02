@@ -1332,6 +1332,7 @@ message CMsgClientSettings {
 	optional bool controller_enable_chord = 140011;
 	optional bool controller_poll_rate = 140012;
 	optional bool controller_siapi_config_author_mode = 140013;
+	optional bool controller_show_ibex_tour = 140014;
 	optional string controller_chat_radial_menu_option_0 = 140030;
 	optional string controller_chat_radial_menu_option_1 = 140031;
 	optional string controller_chat_radial_menu_option_2 = 140032;
