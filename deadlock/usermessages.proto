@@ -238,8 +238,8 @@ message CUserMessageSendAudio {
 }
 
 message CUserMessageAudioParameter {
-	optional uint32 parameter_type = 1 [default = 0];
-	optional uint32 name_hash_code = 2 [default = 0];
+	optional uint32 parameter_type = 1;
+	optional uint32 name_hash_code = 2;
 	optional float value = 3;
 	optional uint32 int_value = 4;
 }
@@ -664,7 +664,7 @@ message CUserMessageHapticsManagerPulse {
 
 message CUserMessageHapticsManagerEffect {
 	optional int32 hand_id = 1;
-	optional uint32 effect_name_hash_code = 2 [default = 0];
+	optional uint32 effect_name_hash_code = 2;
 	optional float effect_scale = 3;
 }
 
