@@ -147,6 +147,7 @@ message CAppOverview {
 	optional int32 display_name_elanguage = 75 [default = -1];
 	optional bool has_custom_sort_as = 76;
 	optional uint64 bitfield_supported_languages = 77 [default = 0];
+	repeated .CAppOverview_PerClientData remote_per_client_data = 78;
 }
 
 message CAppOverview_Change {

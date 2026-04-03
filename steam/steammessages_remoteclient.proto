@@ -20,16 +20,69 @@ message CMsgRemoteClientStatus {
 	optional .CMsgRemoteClientBroadcastStatus status = 3;
 }
 
+message CMsgRemoteClientDownloadStatus {
+	optional uint32 current_connections = 1;
+	optional uint32 current_bps = 2;
+	optional uint64 total_bytes_downloaded = 3;
+	optional uint32 recent_bps = 4;
+	optional uint64 remote_client_id = 5;
+	optional int32 download_throttle_rate = 6;
+	optional string remote_client_name = 7;
+}
+
+message CMsgRemoteClientUploadStatus {
+	optional uint32 served_app_id = 1;
+	optional uint32 num_clients = 2;
+	optional uint32 send_bytes_per_sec = 3;
+	optional uint32 read_bytes_per_sec = 4;
+	optional uint64 send_bytes_total = 5;
+	optional uint64 read_bytes_total = 6;
+	optional uint64 remote_client_id = 7;
+	optional string remote_client_name = 8;
+}
+
+message CMsgRemoteClientRestrictAutoUpdates {
+	optional bool restrict_auto_updates = 1;
+	optional int32 restrict_auto_updates_start = 2;
+	optional int32 restrict_auto_updates_end = 3;
+}
+
+message AppStageProgress {
+	optional uint64 in_progress = 1;
+	optional uint64 total = 2;
+	optional int32 estimated_time_remaining_secs = 3;
+	optional float weight = 4;
+}
+
+message AppUpdateInfo {
+	optional fixed32 time_update_start = 1;
+	optional uint64 bytes_to_download = 2;
+	optional uint64 bytes_downloaded = 3;
+	optional uint64 bytes_to_process = 4;
+	optional uint64 bytes_processed = 5;
+	optional int32 estimated_seconds_remaining = 6 [default = -1];
+	optional int32 update_result = 7;
+	optional uint32 update_state = 8;
+	optional uint32 download_type = 9;
+	optional uint64 staging_bytes_staged = 10;
+	optional uint64 staging_bytes_to_stage = 11;
+	optional uint32 bytes_to_disc_per_second = 12;
+	repeated .AppStageProgress progress_weights = 13;
+	optional uint32 time_deferred_until = 14;
+	optional uint32 source_build_id = 15;
+	optional uint32 target_build_id = 16;
+}
+
 message CMsgRemoteClientAppStatus {
-	message AppUpdateInfo {
-		optional fixed32 time_update_start = 1;
-		optional uint64 bytes_to_download = 2;
-		optional uint64 bytes_downloaded = 3;
-		optional uint64 bytes_to_process = 4;
-		optional uint64 bytes_processed = 5;
-		optional int32 estimated_seconds_remaining = 6 [default = -1];
-		optional int32 update_result = 7;
-		optional uint32 update_state = 8;
+	message AppStatus {
+		optional uint32 app_id = 1;
+		optional uint32 app_install_state = 2;
+		optional .AppUpdateInfo update_info = 3;
+		optional .CMsgRemoteClientAppStatus.ShortcutInfo shortcut_info = 4;
+		optional bool vr_not_required = 5 [default = true];
+		optional bool shader_update_available = 6;
+		optional bool workshop_update_avilable = 7;
+		optional bool download_complete = 8;
 	}
 
 	message ShortcutInfo {
@@ -39,15 +92,73 @@ message CMsgRemoteClientAppStatus {
 		optional string exepath = 4;
 	}
 
-	message AppStatus {
+	repeated .CMsgRemoteClientAppStatus.AppStatus status_updates = 1;
+}
+
+message CMsgRemoteClientDownloadsManagement {
+	message ChangeAppQueuePlacement {
 		optional uint32 app_id = 1;
-		optional uint32 app_state = 2;
-		optional .CMsgRemoteClientAppStatus.AppUpdateInfo update_info = 3;
-		optional .CMsgRemoteClientAppStatus.ShortcutInfo shortcut_info = 4;
-		optional bool vr_not_required = 5 [default = true];
+		optional uint32 queue_placement = 2;
 	}
 
-	repeated .CMsgRemoteClientAppStatus.AppStatus status_updates = 1;
+	message ChangeDownloadIndex {
+		optional uint32 app_id = 1;
+		optional uint32 download_index = 3;
+	}
+
+	optional .CMsgRemoteClientDownloadsManagement.ChangeAppQueuePlacement change_queue_placement = 1;
+	optional .CMsgRemoteClientDownloadsManagement.ChangeDownloadIndex change_download_index = 2;
+	optional bool enable_all_downloads = 3;
+	optional uint32 remove_from_download_list_app_id = 4;
+	optional bool suspend_download_throttling = 5;
+}
+
+message CMsgRemoteClientUpdateDownloadsController {
+	optional bool update_download_items = 1;
+	optional bool update_download_overview = 2;
+}
+
+message CMsgRemoteClientPeerContentServerChanged {
+	optional uint32 app_id = 1;
+	optional uint32 num_connections = 2;
+	optional uint64 remote_client_id = 3;
+}
+
+message CMsgRemoteClientDownloadingAppChanged {
+	optional uint32 downloading_app_id = 1;
+}
+
+message CMsgRemoteClientSuspendLanPeerContent {
+	optional bool suspend = 1;
+}
+
+message CMsgRemoteClientDownloadScheduleChanged {
+	optional bool download_enabled = 1;
+	optional uint32 start_index = 2;
+	optional bool final_message = 3;
+	optional uint32 num_apps_scheduled = 4;
+	repeated uint32 apps_scheduled = 5;
+}
+
+message CMsgRemoteClientDownloadScheduleItemChanged {
+	optional uint32 app_id = 2;
+}
+
+message CMsgRemoteClientAppUpdateStopped {
+	optional uint32 app_id = 1;
+	optional .AppUpdateInfo update_info = 2;
+	optional string error_detail = 3;
+	optional int32 install_folder_index = 4;
+	optional uint32 app_install_state = 5;
+}
+
+message CMsgRemoteClientAppUpdateInfoComplete {
+	optional uint32 result = 1;
+}
+
+message CMsgRemoteClientDownloadingAppID {
+	optional uint32 downloading_app_id = 1;
+	optional .AppUpdateInfo update_info = 2;
 }
 
 message CMsgRemoteClientStartStream {

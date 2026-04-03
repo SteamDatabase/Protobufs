@@ -25,6 +25,7 @@ enum ERemoteClientService {
 	k_ERemoteClientServiceSiteLicense = 4;
 	k_ERemoteClientServiceContentCache = 8;
 	k_ERemoteClientServiceContentServer = 16;
+	k_ERemoteClientServiceManageDownloads = 32;
 }
 
 enum EVRLinkCaps {
