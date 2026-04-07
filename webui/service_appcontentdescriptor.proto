@@ -58,6 +58,7 @@ message CAppContentDescriptors_SaveSurvey_Request {
 	optional string keyvalues = 4;
 	repeated int32 categories = 5 [(.description) = "enum"];
 	optional .AIContentSurvey ai_survey = 6;
+	optional string internal_notes = 7;
 }
 
 message CAppContentDescriptors_SaveSurvey_Response {
@@ -83,6 +84,7 @@ message ContentDescriptorSurvey {
 	optional .GeneratedGameRatings ratings = 10;
 	repeated int32 categories = 11 [(.description) = "enum"];
 	optional .AIContentSurvey ai_survey = 12;
+	optional string internal_notes = 13;
 }
 
 message GeneratedGameContent {
