@@ -1,0 +1,971 @@
+import "common.proto";
+import "common_base.proto";
+
+message CSupportData_App {
+	optional uint32 appid = 1;
+	optional int32 playtime_minutes = 2;
+	optional bool borrowed = 3;
+	repeated .CSupportData_License licenses = 4;
+	repeated uint32 owned_dlc_appid = 5;
+}
+
+message CSupportData_License {
+	optional uint32 packageid = 1;
+	optional uint32 creation_date = 2;
+	optional bool active = 3;
+	optional uint32 payment_method = 4;
+	optional fixed64 payment_gid = 5;
+	optional uint32 flags = 6;
+	optional fixed64 transid = 7;
+	optional string country_code = 8;
+}
+
+message CSupportData_RedeemableGifts {
+	optional fixed64 gid_guestpass = 1;
+	optional uint32 packageid = 2;
+	optional uint32 accountid_giver = 3;
+	optional uint32 time_created = 4;
+	optional fixed64 gid_transid = 5;
+	optional fixed64 gid_line_item = 6;
+	optional bool in_inventory = 7;
+	optional uint32 time_sent = 8;
+}
+
+message CSupportData_RevokedGifts {
+	optional fixed64 gid_guestpass = 1;
+	optional uint32 packageid = 2;
+	optional uint32 time_redeemed = 3;
+	optional uint32 time_revoked = 4;
+	optional bool approved_refund = 5;
+}
+
+message CSupportWizard_AccountRecoveryBindRelated_Request {
+	optional fixed64 recovery_session_id = 1;
+	optional uint32 related_account_id = 2;
+}
+
+message CSupportWizard_AccountRecoveryBindRelated_Response {
+}
+
+message CSupportWizard_AccountRecoveryCanUseProofOfPurchase_Request {
+	optional fixed64 recovery_session_id = 1;
+}
+
+message CSupportWizard_AccountRecoveryCanUseProofOfPurchase_Response {
+	optional fixed32 transaction_time = 1;
+	optional string last_digits = 2;
+	optional uint32 payment_method = 3;
+}
+
+message CSupportWizard_AccountRecoveryChangeEmail_Request {
+	optional fixed64 recovery_session_id = 1;
+	optional uint32 accountid = 2;
+	optional string new_email_address = 3;
+	optional string email_change_code = 4;
+}
+
+message CSupportWizard_AccountRecoveryChangeEmail_Response {
+	optional bool email_prefs_differ = 1;
+}
+
+message CSupportWizard_AccountRecoveryChangePassword_Request {
+	optional fixed64 recovery_session_id = 1;
+	optional uint32 accountid = 2;
+	optional string encrypted_password = 3;
+	optional uint64 rsa_timestamp = 4;
+}
+
+message CSupportWizard_AccountRecoveryChangePassword_Response {
+}
+
+message CSupportWizard_AccountRecoveryChangePhone_Request {
+	optional fixed64 recovery_session_id = 1;
+	optional uint32 accountid = 2;
+	optional string new_phone_number = 3;
+	optional string phone_change_code = 4;
+}
+
+message CSupportWizard_AccountRecoveryChangePhone_Response {
+}
+
+message CSupportWizard_AccountRecoveryCreateSession_Request {
+	optional int32 email_message_source_type = 1 [default = -1];
+	optional uint32 account_id = 2;
+	optional uint64 client_instance_id = 3;
+	optional bool logged_in = 4;
+	optional uint32 family_member_id = 5;
+}
+
+message CSupportWizard_AccountRecoveryCreateSession_Response {
+	optional fixed64 recovery_session_id = 1;
+}
+
+message CSupportWizard_AccountRecoveryGetAccounts_Request {
+	optional fixed64 recovery_session_id = 1;
+}
+
+message CSupportWizard_AccountRecoveryGetAccounts_Response {
+	repeated .CSupportWizard_AccountRecoveryGetAccounts_Response_AccountDetails accounts = 1;
+}
+
+message CSupportWizard_AccountRecoveryGetAccounts_Response_AccountDetails {
+	optional uint32 accountid = 1;
+	optional string login = 2;
+}
+
+message CSupportWizard_AccountRecoveryGetMatchedAccountDetails_Request {
+	optional fixed64 recovery_session_id = 1;
+	optional uint32 accountid = 2;
+}
+
+message CSupportWizard_AccountRecoveryGetMatchedAccountDetails_Response {
+	optional uint32 accountid = 1;
+	optional string account_name = 2;
+	optional string email = 3;
+	optional string phone = 4;
+	optional bool requires_twofactor = 5;
+	optional uint32 verified_methods = 6;
+	optional uint32 changed_methods = 7;
+	optional uint32 search_type = 8;
+	optional int32 recovery_result = 11;
+}
+
+message CSupportWizard_AccountRecoveryProofRequiredForChange_Request {
+	optional fixed64 recovery_session_id = 1;
+	optional uint32 accountid = 2;
+	optional int32 change_method = 3;
+	optional uint32 lost_recovery_methods = 4;
+}
+
+message CSupportWizard_AccountRecoveryProofRequiredForChange_Response {
+	optional bool contact_support = 1;
+	optional int32 verify_method = 2;
+	optional string method_detail = 3;
+	optional bool known_detail = 4;
+	optional string search_text = 5;
+	optional int32 recovery_result = 6;
+}
+
+message CSupportWizard_AccountRecoveryRemovePhoneNumber_Request {
+	optional fixed64 recovery_session_id = 1;
+	optional uint32 accountid = 2;
+}
+
+message CSupportWizard_AccountRecoveryRemovePhoneNumber_Response {
+}
+
+message CSupportWizard_AccountRecoveryRemoveTwoFactor_Request {
+	optional fixed64 recovery_session_id = 1;
+	optional uint32 accountid = 2;
+	optional string encrypted_password = 3;
+	optional uint64 rsa_timestamp = 4;
+	optional string twofactor_code = 5;
+	optional bool remove_phone_number = 6;
+}
+
+message CSupportWizard_AccountRecoveryRemoveTwoFactor_Response {
+	optional uint32 revocation_attempts_remaining = 1;
+}
+
+message CSupportWizard_AccountRecoveryResumeFromLink_Request {
+	optional fixed64 recovery_session_id = 1;
+	optional string recovery_code = 2;
+	optional int32 recovery_method = 3;
+}
+
+message CSupportWizard_AccountRecoveryResumeFromLink_Response {
+	optional uint32 matched_accountid = 1;
+	optional fixed64 recovery_session_id = 2;
+}
+
+message CSupportWizard_AccountRecoverySearch_Request {
+	optional string search_text = 1;
+	optional bool passed_captcha = 2;
+	optional bool skip_account_name_search = 3;
+}
+
+message CSupportWizard_AccountRecoverySearch_Response {
+	optional fixed64 recovery_session_id = 1;
+	optional int32 search_type = 2 [(.description) = "enum"];
+}
+
+message CSupportWizard_AccountRecoverySendCode_Request {
+	optional fixed64 recovery_session_id = 1;
+	optional int32 recovery_method = 2;
+	optional string user_language = 3;
+	optional string web_link = 4;
+}
+
+message CSupportWizard_AccountRecoverySendCode_Response {
+}
+
+message CSupportWizard_AccountRecoverySendEmailChangeCode_Request {
+	optional fixed64 recovery_session_id = 1;
+	optional uint32 accountid = 2;
+	optional string new_email_address = 3;
+	optional string user_language = 4;
+}
+
+message CSupportWizard_AccountRecoverySendEmailChangeCode_Response {
+}
+
+message CSupportWizard_AccountRecoverySendPhoneChangeCode_Request {
+	optional fixed64 recovery_session_id = 1;
+	optional uint32 accountid = 2;
+	optional string new_phone_number = 3;
+}
+
+message CSupportWizard_AccountRecoverySendPhoneChangeCode_Response {
+	optional int32 phone_number_type = 1;
+	optional bool send_sms_failed = 2;
+}
+
+message CSupportWizard_AccountRecoveryVerifyCode_Request {
+	optional fixed64 recovery_session_id = 1;
+	optional string recovery_code = 2;
+	optional int32 recovery_method = 3;
+}
+
+message CSupportWizard_AccountRecoveryVerifyCode_Response {
+	optional uint32 matched_accountid = 1;
+}
+
+message CSupportWizard_AccountRecoveryVerifyPassword_Request {
+	optional fixed64 recovery_session_id = 1;
+	optional string encrypted_password = 2;
+	optional uint64 rsa_timestamp = 3;
+}
+
+message CSupportWizard_AccountRecoveryVerifyPassword_Response {
+	optional uint32 matched_accountid = 1;
+}
+
+message CSupportWizard_AccountRecoveryVerifyPayPal_Request {
+	optional fixed64 recovery_session_id = 1;
+	optional string pp_auth_code = 2;
+}
+
+message CSupportWizard_AccountRecoveryVerifyPayPal_Response {
+	optional uint32 matched_accountid = 1;
+}
+
+message CSupportWizard_BeginAccountSelfLockSession_Request {
+	optional int32 email_message_source_type = 1 [default = -1];
+	optional uint32 authed_account_id = 2;
+}
+
+message CSupportWizard_BeginAccountSelfLockSession_Response {
+	optional uint64 session_id = 1;
+	optional string self_unlock_code = 2;
+}
+
+message CSupportWizard_CheckAccountRecoverySearchLimit_Request {
+	optional string ip_address = 1;
+}
+
+message CSupportWizard_CheckAccountRecoverySearchLimit_Response {
+	optional int32 limit = 1 [(.description) = "enum"];
+}
+
+message CSupportWizard_CheckAccountRecoverySessionState_Request {
+	optional fixed64 recovery_session_id = 1;
+}
+
+message CSupportWizard_CheckAccountRecoverySessionState_Response {
+	optional bool is_valid = 1;
+	optional fixed64 matched_steamid = 2;
+}
+
+message CSupportWizard_CheckRecoveryCodeRateLimit_Request {
+	optional string destination = 1;
+	optional fixed64 recovery_session_id = 2;
+	optional int32 action = 3 [(.description) = "enum"];
+}
+
+message CSupportWizard_CheckRecoveryCodeRateLimit_Response {
+	optional bool rate_limited = 1;
+}
+
+message CSupportWizard_CreateHardwareRMA_Request {
+	optional string serial_number = 1;
+	optional int32 rma_type = 2;
+	optional .CSupportWizard_CreateHardwareRMA_Request_SteamItem steam_item = 3;
+	optional .CSupportData_Address shipping_addr = 4;
+	optional bool refund_to_wallet = 5;
+	optional string reason = 6;
+	optional int32 help_issueid = 7 [default = 0];
+}
+
+message CSupportWizard_CreateHardwareRMA_Request_SteamItem {
+	optional fixed64 transid = 1;
+	optional fixed64 line_item = 2;
+}
+
+message CSupportWizard_CreateHardwareRMA_Response {
+	optional fixed64 rma_id = 1;
+	optional int32 rma_result = 2;
+}
+
+message CSupportWizard_DecodeUnauthorizedLoginLink_Request {
+	optional string encrypted_link = 1;
+}
+
+message CSupportWizard_DecodeUnauthorizedLoginLink_Response {
+	optional .CUnauthorizedLoginLink data = 1;
+	optional string account_name = 2;
+}
+
+message CSupportWizard_GetAccountDeletionStatus_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CSupportWizard_GetAccountDeletionStatus_Response {
+	optional bool completed = 1;
+	optional uint32 time_processed = 2;
+	optional uint32 time_created = 3;
+}
+
+message CSupportWizard_GetAccountRecoveryDetails_Request {
+	optional fixed64 recovery_session_id = 1;
+}
+
+message CSupportWizard_GetAccountRecoveryDetails_Response {
+	optional bool expired = 1;
+	optional fixed64 matched_steamid = 2;
+	optional string search_text = 3;
+	optional string ip_address = 4;
+	optional string country = 5;
+}
+
+message CSupportWizard_GetAccountShipmentSummary_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CSupportWizard_GetAccountShipmentSummary_Response {
+	repeated fixed64 shipped_units = 1;
+	repeated fixed64 in_process_units = 2;
+	repeated fixed64 lost_to_fraud_units = 3;
+}
+
+message CSupportWizard_GetAccountSteamChinaAccessDeletionStatus_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CSupportWizard_GetAccountSteamChinaAccessDeletionStatus_Response {
+	optional bool completed = 1;
+	optional uint32 time_processed = 2;
+	optional uint32 time_created = 3;
+}
+
+message CSupportWizard_GetChargebackAccountInfo_Request {
+	optional fixed64 steamid = 1;
+	optional string language = 2;
+}
+
+message CSupportWizard_GetChargebackAccountInfo_Response {
+	optional uint32 lock_expiration_time = 1;
+	optional uint32 times_locked_for_chargeback = 2;
+	repeated .CSupportData_PurchaseDescription current_chargedback_purchases = 3;
+	optional int64 total_all_time_usd = 4;
+	optional int64 total_since_lock_usd = 5;
+	optional bool has_active_chargeback = 6;
+	optional fixed64 alert_gid = 7;
+}
+
+message CSupportWizard_GetCSGOCooldownInfo_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CSupportWizard_GetCSGOCooldownInfo_Response {
+	optional bool permanent = 1;
+	optional bool global = 2;
+	optional int32 level = 3;
+	optional string reason = 4;
+	optional uint32 expiration_time = 5;
+	optional bool expired = 6;
+	optional int32 code = 7;
+	optional bool muted = 8;
+}
+
+message CSupportWizard_GetGiftRefundInfo_Request {
+	optional fixed64 steamid = 1;
+	optional fixed64 transid = 2;
+	optional fixed64 gid_line_item = 3;
+	optional string language = 4;
+}
+
+message CSupportWizard_GetGiftRefundInfo_Response {
+	repeated .CSupportWizard_GetGiftRefundInfo_Response_RefundInfo refund_info = 1;
+}
+
+message CSupportWizard_GetGiftRefundInfo_Response_RefundInfo {
+	optional uint32 packageid = 1;
+	optional bool license_grant = 2;
+	optional uint32 accountid_current_owner = 3;
+	optional bool marked_refundable_by_owner = 4;
+	optional int32 playtime_minutes = 5;
+	repeated .CSupportWizard_GetGiftRefundInfo_Response_RefundInfo_AppsPlayed apps_played = 6;
+}
+
+message CSupportWizard_GetGiftRefundInfo_Response_RefundInfo_AppsPlayed {
+	optional uint32 appid = 1;
+	optional int32 playtime_minutes = 2;
+}
+
+message CSupportWizard_GetHardwareRMADetails_Request {
+	optional fixed64 rmaid = 1;
+}
+
+message CSupportWizard_GetHardwareRMADetails_Response {
+	optional fixed64 transid = 1;
+	optional fixed64 line_item = 2;
+	optional string item_description = 3;
+	optional uint32 quantity = 4;
+	optional uint32 accountid = 5;
+	optional fixed64 rmaid = 6;
+	optional string rmaid_text = 7;
+	optional string serial_number = 8;
+	optional int32 rma_state = 9;
+	optional int32 rma_type = 10;
+	optional .CSupportData_Address shipping_addr = 11;
+	optional bool refund_to_wallet = 12;
+	optional string shipping_label = 13;
+	optional uint32 date_created = 14;
+	optional uint32 date_received_by_distributor = 15;
+	optional int32 help_issue = 16;
+	optional string reason = 17;
+	optional uint32 physical_itemid = 18;
+	repeated .CSupportWizard_GetHardwareRMADetails_Response_Component component = 19;
+	optional int32 edistributor = 20;
+	optional int32 shipping_label_type = 21;
+	optional string shipping_label_tracking = 22;
+	optional string issue_code = 23;
+}
+
+message CSupportWizard_GetHardwareRMADetails_Response_Component {
+	optional int32 product_type = 1;
+	optional string serial_number = 2;
+	optional string product_description = 3;
+}
+
+message CSupportWizard_GetHardwareRMAs_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CSupportWizard_GetHardwareRMAs_Response {
+	repeated .CSupportWizard_GetHardwareRMAs_Response_RMAItem rma = 1;
+}
+
+message CSupportWizard_GetHardwareRMAs_Response_RMAItem {
+	optional fixed64 transid = 1;
+	optional fixed64 line_item = 2;
+	optional uint32 quantity = 3;
+	optional fixed64 rmaid = 4;
+	optional int32 rma_state = 5;
+	optional int32 rma_type = 6;
+	optional int32 date_created = 7;
+	optional bool refund_to_wallet = 8;
+	optional uint32 physical_itemid = 9;
+	optional int32 help_issue = 10;
+	optional string reason = 11;
+	optional string physical_item_name = 12;
+	optional string rmaid_text = 13;
+}
+
+message CSupportWizard_GetHelpInfo_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 appid = 2;
+	optional int32 data_requirement = 3 [default = 0, (.description) = "enum"];
+	optional string language = 4;
+	optional bool only_matching_line_items = 5;
+}
+
+message CSupportWizard_GetHelpInfo_Response {
+	repeated .CSupportData_App apps = 1;
+	repeated .CSupportData_PurchaseDescription purchases = 2;
+	repeated .CSupportData_RedeemableGifts redeemable_gifts = 4;
+	repeated .CSupportData_RevokedGifts revoked_gifts = 5;
+}
+
+message CSupportWizard_GetPurchaseAndWalletHistory_Request {
+	optional int32 steam_realm = 1 [default = 1];
+	optional int32 max_records = 2;
+	optional .CSupportWizard_WalletHistoryCursor cursor = 3;
+	optional string language = 4;
+}
+
+message CSupportWizard_GetPurchaseAndWalletHistory_Response {
+	repeated .CSupportWizard_GetPurchaseAndWalletHistory_Response_Txn txns = 1;
+	optional bool more_transactions_available = 2;
+	optional .CSupportWizard_WalletHistoryCursor cursor = 3;
+}
+
+message CSupportWizard_GetPurchaseAndWalletHistory_Response_MarketTxns {
+	repeated uint64 market_purchaseids = 1;
+	optional uint32 timestamp_first = 2;
+	optional uint32 timestamp_last = 3;
+}
+
+message CSupportWizard_GetPurchaseAndWalletHistory_Response_Txn {
+	optional uint32 timestamp = 1;
+	optional int64 wallet_trans_amount = 2;
+	optional uint32 wallet_currency = 3;
+	optional int64 wallet_balance_new = 4;
+	optional uint32 wallet_source = 5;
+	optional .CSupportData_PurchaseDescription purchase = 6;
+	optional .CSupportData_Transaction transaction = 7;
+	optional .CSupportWizard_GetPurchaseAndWalletHistory_Response_MarketTxns market_txns = 8;
+	repeated fixed64 purchase_refids = 9;
+	optional bool wallet_balance_delayed = 10;
+	optional string country = 11;
+	optional string usstate = 12;
+}
+
+message CSupportWizard_GetPurchaseDescription_Request {
+	optional fixed64 steamid = 1;
+	optional fixed64 transid = 2;
+	optional int32 data_requirement = 3 [default = 0, (.description) = "enum"];
+	optional string language = 4;
+}
+
+message CSupportWizard_GetPurchaseDescription_Response {
+	repeated .CSupportData_Transaction transactions = 1;
+	optional .CSupportData_PurchaseDescription purchase = 2;
+	repeated .CSupportData_PurchasedGift purchased_gifts = 3;
+}
+
+message CSupportWizard_GetPurchasedGiftInfo_Request {
+	optional fixed64 steamid = 1;
+	optional fixed64 transid = 2;
+	optional string language = 3;
+}
+
+message CSupportWizard_GetPurchasedGiftInfo_Response {
+	repeated .CSupportData_PurchasedGift purchased_gifts = 1;
+}
+
+message CSupportWizard_GetReceivedWalletGifts_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CSupportWizard_GetReceivedWalletGifts_Response {
+	repeated .CSupportWizard_GetReceivedWalletGifts_Response_ReceivedWalletGift gifts = 1;
+}
+
+message CSupportWizard_GetReceivedWalletGifts_Response_ReceivedWalletGift {
+	optional .CSupportData_WalletCreditLineItem line_item = 1;
+	optional uint32 accountid_giver = 2;
+	optional uint32 time_redeemed = 3;
+	optional uint32 time_revoked = 4;
+	optional uint32 time_transaction = 5;
+	optional fixed64 transid = 6;
+	optional bool marked_refundable = 7;
+}
+
+message CSupportWizard_GetRecentTransactionsForPackages_Request {
+	optional fixed64 steamid = 1;
+	repeated uint32 packageids = 2;
+	optional bool all_packages_must_match = 3;
+	optional uint32 time_start = 4;
+	optional uint32 purchase_status = 5;
+	optional string language = 6;
+}
+
+message CSupportWizard_GetRecentTransactionsForPackages_Response {
+	repeated .CSupportData_PurchaseDescription purchases = 1;
+}
+
+message CSupportWizard_GetRedeemableGifts_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 start_time = 2;
+	optional uint32 end_time = 3;
+}
+
+message CSupportWizard_GetRedeemableGifts_Response {
+	repeated .CSupportData_RedeemableGifts gifts = 1;
+}
+
+message CSupportWizard_GetRefundedPurchases_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 since_timestamp = 2;
+	optional string language = 3;
+}
+
+message CSupportWizard_GetRefundedPurchases_Response {
+	repeated .CSupportData_PurchaseDescription refunded_purchases = 1;
+}
+
+message CSupportWizard_GetRefundInfo_Request {
+	optional fixed64 steamid = 1;
+	optional fixed64 transid = 2;
+	repeated fixed64 gid_line_items = 4;
+}
+
+message CSupportWizard_GetRefundInfo_Response {
+	repeated .CSupportWizard_GetRefundInfo_Response_User users_affected = 1;
+}
+
+message CSupportWizard_GetRefundInfo_Response_User {
+	optional uint32 accountid = 1;
+	repeated .CSupportWizard_GetRefundInfo_Response_User_Package packages_to_remove = 2;
+}
+
+message CSupportWizard_GetRefundInfo_Response_User_Package {
+	optional uint32 packageid = 1;
+	optional fixed64 gid_line_item = 2;
+	optional bool marked_refundable = 3;
+	optional fixed64 gid_guestpass = 4;
+	optional bool in_inventory = 5;
+	repeated .CSupportWizard_GetRefundInfo_Response_User_Package_App apps_to_remove = 6;
+	repeated .CSupportWizard_GetRefundInfo_Response_User_Package_AppKept apps_kept = 7;
+}
+
+message CSupportWizard_GetRefundInfo_Response_User_Package_App {
+	optional uint32 appid = 1;
+	optional int32 playtime_online = 2;
+	optional int32 playtime_offline = 3;
+	optional int32 playtime_shared = 4;
+	optional int32 playtime_total = 5;
+	optional bool vac_banned = 6;
+	optional uint32 last_playtime = 7;
+	optional fixed64 gid_license = 8;
+	optional bool game_banned = 9;
+	optional int32 playtime_windows = 10;
+	optional int32 playtime_linux = 11;
+	optional int32 playtime_mac = 12;
+	optional int32 playtime_thirdparty = 13;
+	optional uint32 query_playtime_thirdparty = 14;
+	optional uint32 first_mac_playtime = 15;
+	optional uint32 last_mac_playtime = 16;
+}
+
+message CSupportWizard_GetRefundInfo_Response_User_Package_AppKept {
+	optional uint32 appid = 1;
+	optional fixed64 gid_license_removed = 2;
+	repeated fixed64 gid_licenses_kept = 3;
+	repeated uint32 packageids_kept = 4;
+}
+
+message CSupportWizard_GetRefundPaymentStatus_Request {
+	optional fixed64 transid = 1;
+	optional fixed64 gid_line_item = 2;
+	optional string reference_code = 3;
+}
+
+message CSupportWizard_GetRefundPaymentStatus_Response {
+	optional bool payment_commit_canceled = 1;
+	optional int32 refund_currency = 2;
+	optional int64 payment_credit_amount = 3;
+	optional int64 wallet_credit_amount = 4;
+	optional uint32 wallet_credit_delay_until = 5;
+	optional bool wallet_credit_spent = 6;
+}
+
+message CSupportWizard_GetRelatedAccountsByEmailWithAppID_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 appid = 2;
+}
+
+message CSupportWizard_GetRelatedAccountsByEmailWithAppID_Response {
+	repeated .CSupportWizard_GetRelatedAccountsByEmailWithAppID_Response_AccountDetails accounts = 1;
+}
+
+message CSupportWizard_GetRelatedAccountsByEmailWithAppID_Response_AccountDetails {
+	optional uint32 accountid = 1;
+	optional string login = 2;
+}
+
+message CSupportWizard_GetRelatedAccountsByHWID_Request {
+	optional fixed64 steamid = 1;
+	optional bool sort = 2;
+	optional int32 limit = 3 [default = 200];
+	optional bool include_self = 4;
+}
+
+message CSupportWizard_GetRelatedAccountsByHWID_Response {
+	repeated uint32 accountids = 1;
+}
+
+message CSupportWizard_GetTransactions_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 start_time = 2;
+	optional uint32 end_time = 3;
+	optional uint32 limit = 4;
+	optional string language = 5;
+}
+
+message CSupportWizard_GetTransactions_Response {
+	repeated .CSupportData_Transaction transactions = 1;
+	repeated .CSupportData_PurchaseDescription purchases = 2;
+}
+
+message CSupportWizard_GetTransactionsAgainstWalletCredit_Request {
+	optional fixed64 steamid = 1;
+	optional fixed64 wallet_credit_transid = 2;
+	optional string language = 3;
+}
+
+message CSupportWizard_GetTransactionsAgainstWalletCredit_Response {
+	optional fixed64 wallet_credit_transid = 1;
+	repeated .CSupportWizard_GetTransactionsAgainstWalletCredit_Response_WalletTransaction wallet_transactions = 2;
+	optional bool funds_used = 3;
+	optional bool payment_method_refundable = 4;
+	optional bool payment_method_refundable_with_extra_info = 5;
+	optional bool refundable = 6;
+	optional .CSupportData_PurchaseDescription wallet_credit_purchase = 7;
+}
+
+message CSupportWizard_GetTransactionsAgainstWalletCredit_Response_WalletTransaction {
+	optional fixed64 transid = 1;
+	optional int32 wallet_source = 2;
+	optional int64 amount = 3;
+	optional int32 currency_code = 4;
+	optional .CSupportData_PurchaseDescription purchase = 5;
+}
+
+message CSupportWizard_GetUserRefundCount_Request {
+	optional int32 start_time = 1;
+	optional int32 end_time = 2;
+}
+
+message CSupportWizard_GetUserRefundCount_Response {
+	optional int32 refunds_granted = 1;
+	optional double ratio_refunds_to_purchases = 2;
+}
+
+message CSupportWizard_GetWalletGiftDetails_Request {
+	optional fixed64 transid = 1;
+}
+
+message CSupportWizard_GetWalletGiftDetails_Response {
+	optional .CSupportData_WalletCreditLineItem line_item = 1;
+	optional uint32 accountid_giver = 2;
+	optional uint32 time_redeemed = 3;
+	optional uint32 accountid_receiver = 4;
+}
+
+message CSupportWizard_IsGiftMarkedRefundable_Request {
+	optional fixed64 gid_guestpass = 1;
+	optional fixed64 gid_walletgift = 2;
+}
+
+message CSupportWizard_IsGiftMarkedRefundable_Response {
+	optional fixed64 gid_guestpass = 1;
+	optional bool marked_refundable = 2;
+	optional uint32 accountid_recipient = 4;
+	optional fixed64 transid = 5;
+	optional fixed64 gid_line_item = 6;
+}
+
+message CSupportWizard_MakeAccountsFriends_Request {
+	repeated uint32 account_id = 1;
+}
+
+message CSupportWizard_MakeAccountsFriends_Response {
+}
+
+message CSupportWizard_RecordAccountRecoverySearchIP_Request {
+	optional string ip_address = 1;
+}
+
+message CSupportWizard_RecordAccountRecoverySearchIP_Response {
+}
+
+message CSupportWizard_RemoveAccountFromDeletionQueue_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CSupportWizard_RemoveAccountFromDeletionQueue_Response {
+}
+
+message CSupportWizard_RemoveAccountFromSteamChinaAccessDeletionQueue_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CSupportWizard_RemoveAccountFromSteamChinaAccessDeletionQueue_Response {
+}
+
+message CSupportWizard_SelfUnlockWithCode_Request {
+	optional string self_unlock_code = 1;
+}
+
+message CSupportWizard_SelfUnlockWithCode_Response {
+}
+
+message CSupportWizard_SetGiftRefundable_Request {
+	optional fixed64 gid_guestpass = 1;
+	optional fixed64 gid_walletgift = 2;
+	optional bool mark_refundable = 3;
+}
+
+message CSupportWizard_SetGiftRefundable_Response {
+}
+
+message CSupportWizard_TranslateTextArray_Request {
+	repeated string texts = 1;
+	optional string to = 2;
+	optional string from = 3;
+}
+
+message CSupportWizard_TranslateTextArray_Response {
+	repeated string translations = 1;
+}
+
+message CSupportWizard_UpdateHardwareRMA_Request {
+	optional fixed64 rmaid = 1;
+	optional .CSupportData_Address shipping_addr = 2;
+}
+
+message CSupportWizard_UpdateHardwareRMA_Response {
+}
+
+message CSupportWizard_VerifySerialNumberForRMA_Request {
+	optional string serial_number = 1;
+	optional string country_code = 2;
+}
+
+message CSupportWizard_VerifySerialNumberForRMA_Response {
+	optional int32 availability_reason = 1 [(.description) = "enum"];
+}
+
+message CSupportWizard_WalletHistoryCursor {
+	optional uint64 wallet_txnid = 1;
+	optional uint32 timestamp_newest = 2;
+	optional int64 balance = 3;
+	optional int32 currency = 4;
+}
+
+message CUnauthorizedLoginLink {
+	optional uint32 accountid = 1;
+	optional uint32 time_email_sent = 2;
+	optional uint32 ip_address = 3;
+	optional string email_address_sent = 4;
+	optional uint32 email_template_type = 5;
+	optional uint32 language = 6;
+	optional uint64 gid_security_history = 7;
+	optional string ip_address_string = 8;
+}
+
+service SupportWizard {
+	// ePrivilege=0
+	rpc AccountRecoveryBindRelated (.CSupportWizard_AccountRecoveryBindRelated_Request) returns (.CSupportWizard_AccountRecoveryBindRelated_Response);
+	// ePrivilege=0
+	rpc AccountRecoveryCanUseProofOfPurchase (.CSupportWizard_AccountRecoveryCanUseProofOfPurchase_Request) returns (.CSupportWizard_AccountRecoveryCanUseProofOfPurchase_Response);
+	// ePrivilege=0
+	rpc AccountRecoveryChangeEmail (.CSupportWizard_AccountRecoveryChangeEmail_Request) returns (.CSupportWizard_AccountRecoveryChangeEmail_Response);
+	// ePrivilege=0
+	rpc AccountRecoveryChangePassword (.CSupportWizard_AccountRecoveryChangePassword_Request) returns (.CSupportWizard_AccountRecoveryChangePassword_Response);
+	// ePrivilege=0
+	rpc AccountRecoveryChangePhone (.CSupportWizard_AccountRecoveryChangePhone_Request) returns (.CSupportWizard_AccountRecoveryChangePhone_Response);
+	// ePrivilege=0
+	rpc AccountRecoveryCreateSession (.CSupportWizard_AccountRecoveryCreateSession_Request) returns (.CSupportWizard_AccountRecoveryCreateSession_Response);
+	// ePrivilege=0
+	rpc AccountRecoveryGetAccounts (.CSupportWizard_AccountRecoveryGetAccounts_Request) returns (.CSupportWizard_AccountRecoveryGetAccounts_Response);
+	// ePrivilege=0
+	rpc AccountRecoveryGetMatchedAccountDetails (.CSupportWizard_AccountRecoveryGetMatchedAccountDetails_Request) returns (.CSupportWizard_AccountRecoveryGetMatchedAccountDetails_Response);
+	// ePrivilege=0
+	rpc AccountRecoveryProofRequiredForChange (.CSupportWizard_AccountRecoveryProofRequiredForChange_Request) returns (.CSupportWizard_AccountRecoveryProofRequiredForChange_Response);
+	// ePrivilege=0
+	rpc AccountRecoveryRemovePhoneNumber (.CSupportWizard_AccountRecoveryRemovePhoneNumber_Request) returns (.CSupportWizard_AccountRecoveryRemovePhoneNumber_Response);
+	// ePrivilege=0
+	rpc AccountRecoveryRemoveTwoFactor (.CSupportWizard_AccountRecoveryRemoveTwoFactor_Request) returns (.CSupportWizard_AccountRecoveryRemoveTwoFactor_Response);
+	// ePrivilege=0
+	rpc AccountRecoveryResumeFromLink (.CSupportWizard_AccountRecoveryResumeFromLink_Request) returns (.CSupportWizard_AccountRecoveryResumeFromLink_Response);
+	// ePrivilege=0
+	rpc AccountRecoverySearch (.CSupportWizard_AccountRecoverySearch_Request) returns (.CSupportWizard_AccountRecoverySearch_Response);
+	// ePrivilege=0
+	rpc AccountRecoverySendCode (.CSupportWizard_AccountRecoverySendCode_Request) returns (.CSupportWizard_AccountRecoverySendCode_Response);
+	// ePrivilege=0
+	rpc AccountRecoverySendEmailChangeCode (.CSupportWizard_AccountRecoverySendEmailChangeCode_Request) returns (.CSupportWizard_AccountRecoverySendEmailChangeCode_Response);
+	// ePrivilege=0
+	rpc AccountRecoverySendPhoneChangeCode (.CSupportWizard_AccountRecoverySendPhoneChangeCode_Request) returns (.CSupportWizard_AccountRecoverySendPhoneChangeCode_Response);
+	// ePrivilege=0
+	rpc AccountRecoveryVerifyCode (.CSupportWizard_AccountRecoveryVerifyCode_Request) returns (.CSupportWizard_AccountRecoveryVerifyCode_Response);
+	// ePrivilege=0
+	rpc AccountRecoveryVerifyPassword (.CSupportWizard_AccountRecoveryVerifyPassword_Request) returns (.CSupportWizard_AccountRecoveryVerifyPassword_Response);
+	// ePrivilege=0
+	rpc AccountRecoveryVerifyPayPal (.CSupportWizard_AccountRecoveryVerifyPayPal_Request) returns (.CSupportWizard_AccountRecoveryVerifyPayPal_Response);
+	// ePrivilege=0
+	rpc BeginAccountSelfLockSession (.CSupportWizard_BeginAccountSelfLockSession_Request) returns (.CSupportWizard_BeginAccountSelfLockSession_Response);
+	// ePrivilege=0
+	rpc CheckAccountRecoverySearchLimit (.CSupportWizard_CheckAccountRecoverySearchLimit_Request) returns (.CSupportWizard_CheckAccountRecoverySearchLimit_Response);
+	// ePrivilege=0
+	rpc CheckAccountRecoverySessionState (.CSupportWizard_CheckAccountRecoverySessionState_Request) returns (.CSupportWizard_CheckAccountRecoverySessionState_Response);
+	// ePrivilege=0
+	rpc CheckRecoveryCodeRateLimit (.CSupportWizard_CheckRecoveryCodeRateLimit_Request) returns (.CSupportWizard_CheckRecoveryCodeRateLimit_Response);
+	// ePrivilege=1
+	rpc CreateHardwareRMA (.CSupportWizard_CreateHardwareRMA_Request) returns (.CSupportWizard_CreateHardwareRMA_Response);
+	// ePrivilege=0
+	rpc DecodeUnauthorizedLoginLink (.CSupportWizard_DecodeUnauthorizedLoginLink_Request) returns (.CSupportWizard_DecodeUnauthorizedLoginLink_Response);
+	// ePrivilege=1
+	rpc GetAccountDeletionStatus (.CSupportWizard_GetAccountDeletionStatus_Request) returns (.CSupportWizard_GetAccountDeletionStatus_Response);
+	// ePrivilege=0
+	rpc GetAccountRecoveryDetails (.CSupportWizard_GetAccountRecoveryDetails_Request) returns (.CSupportWizard_GetAccountRecoveryDetails_Response);
+	// ePrivilege=5
+	rpc GetAccountShipmentSummary (.CSupportWizard_GetAccountShipmentSummary_Request) returns (.CSupportWizard_GetAccountShipmentSummary_Response);
+	// ePrivilege=1
+	rpc GetAccountSteamChinaAccessDeletionStatus (.CSupportWizard_GetAccountSteamChinaAccessDeletionStatus_Request) returns (.CSupportWizard_GetAccountSteamChinaAccessDeletionStatus_Response);
+	// ePrivilege=1
+	rpc GetChargebackAccountInfo (.CSupportWizard_GetChargebackAccountInfo_Request) returns (.CSupportWizard_GetChargebackAccountInfo_Response);
+	// ePrivilege=1
+	rpc GetCSGOCooldownInfo (.CSupportWizard_GetCSGOCooldownInfo_Request) returns (.CSupportWizard_GetCSGOCooldownInfo_Response);
+	// ePrivilege=1
+	rpc GetGiftRefundInfo (.CSupportWizard_GetGiftRefundInfo_Request) returns (.CSupportWizard_GetGiftRefundInfo_Response);
+	// ePrivilege=0
+	rpc GetHardwareRMADetails (.CSupportWizard_GetHardwareRMADetails_Request) returns (.CSupportWizard_GetHardwareRMADetails_Response);
+	// ePrivilege=1
+	rpc GetHardwareRMAs (.CSupportWizard_GetHardwareRMAs_Request) returns (.CSupportWizard_GetHardwareRMAs_Response);
+	// ePrivilege=1
+	rpc GetHelpInfo (.CSupportWizard_GetHelpInfo_Request) returns (.CSupportWizard_GetHelpInfo_Response);
+	// ePrivilege=1
+	rpc GetPurchaseAndWalletHistory (.CSupportWizard_GetPurchaseAndWalletHistory_Request) returns (.CSupportWizard_GetPurchaseAndWalletHistory_Response);
+	// ePrivilege=1
+	rpc GetPurchaseDescription (.CSupportWizard_GetPurchaseDescription_Request) returns (.CSupportWizard_GetPurchaseDescription_Response);
+	// ePrivilege=1
+	rpc GetPurchasedGiftInfo (.CSupportWizard_GetPurchasedGiftInfo_Request) returns (.CSupportWizard_GetPurchasedGiftInfo_Response);
+	// ePrivilege=1
+	rpc GetReceivedWalletGifts (.CSupportWizard_GetReceivedWalletGifts_Request) returns (.CSupportWizard_GetReceivedWalletGifts_Response);
+	// ePrivilege=1
+	rpc GetRecentTransactionsForPackages (.CSupportWizard_GetRecentTransactionsForPackages_Request) returns (.CSupportWizard_GetRecentTransactionsForPackages_Response);
+	// ePrivilege=1
+	rpc GetRedeemableGifts (.CSupportWizard_GetRedeemableGifts_Request) returns (.CSupportWizard_GetRedeemableGifts_Response);
+	// ePrivilege=1
+	rpc GetRefundedPurchases (.CSupportWizard_GetRefundedPurchases_Request) returns (.CSupportWizard_GetRefundedPurchases_Response);
+	// ePrivilege=1
+	rpc GetRefundInfo (.CSupportWizard_GetRefundInfo_Request) returns (.CSupportWizard_GetRefundInfo_Response);
+	// ePrivilege=1
+	rpc GetRefundPaymentStatus (.CSupportWizard_GetRefundPaymentStatus_Request) returns (.CSupportWizard_GetRefundPaymentStatus_Response);
+	// ePrivilege=1
+	rpc GetRelatedAccountsByEmailWithAppID (.CSupportWizard_GetRelatedAccountsByEmailWithAppID_Request) returns (.CSupportWizard_GetRelatedAccountsByEmailWithAppID_Response);
+	// ePrivilege=5
+	rpc GetRelatedAccountsByHWID (.CSupportWizard_GetRelatedAccountsByHWID_Request) returns (.CSupportWizard_GetRelatedAccountsByHWID_Response);
+	// ePrivilege=1
+	rpc GetTransactions (.CSupportWizard_GetTransactions_Request) returns (.CSupportWizard_GetTransactions_Response);
+	// ePrivilege=1
+	rpc GetTransactionsAgainstWalletCredit (.CSupportWizard_GetTransactionsAgainstWalletCredit_Request) returns (.CSupportWizard_GetTransactionsAgainstWalletCredit_Response);
+	// ePrivilege=1
+	rpc GetUserRefundCount (.CSupportWizard_GetUserRefundCount_Request) returns (.CSupportWizard_GetUserRefundCount_Response);
+	// ePrivilege=1
+	rpc GetWalletGiftDetails (.CSupportWizard_GetWalletGiftDetails_Request) returns (.CSupportWizard_GetWalletGiftDetails_Response);
+	// ePrivilege=1
+	rpc IsGiftMarkedRefundable (.CSupportWizard_IsGiftMarkedRefundable_Request) returns (.CSupportWizard_IsGiftMarkedRefundable_Response);
+	// ePrivilege=5
+	rpc MakeAccountsFriends (.CSupportWizard_MakeAccountsFriends_Request) returns (.CSupportWizard_MakeAccountsFriends_Response);
+	// ePrivilege=0
+	rpc RecordAccountRecoverySearchIP (.CSupportWizard_RecordAccountRecoverySearchIP_Request) returns (.CSupportWizard_RecordAccountRecoverySearchIP_Response);
+	// ePrivilege=1
+	rpc RemoveAccountFromDeletionQueue (.CSupportWizard_RemoveAccountFromDeletionQueue_Request) returns (.CSupportWizard_RemoveAccountFromDeletionQueue_Response);
+	// ePrivilege=1
+	rpc RemoveAccountFromSteamChinaAccessDeletionQueue (.CSupportWizard_RemoveAccountFromSteamChinaAccessDeletionQueue_Request) returns (.CSupportWizard_RemoveAccountFromSteamChinaAccessDeletionQueue_Response);
+	// ePrivilege=1
+	rpc SelfUnlockWithCode (.CSupportWizard_SelfUnlockWithCode_Request) returns (.CSupportWizard_SelfUnlockWithCode_Response);
+	// ePrivilege=1
+	rpc SetGiftRefundable (.CSupportWizard_SetGiftRefundable_Request) returns (.CSupportWizard_SetGiftRefundable_Response);
+	// ePrivilege=0
+	rpc TranslateTextArray (.CSupportWizard_TranslateTextArray_Request) returns (.CSupportWizard_TranslateTextArray_Response);
+	// ePrivilege=1
+	rpc UpdateHardwareRMA (.CSupportWizard_UpdateHardwareRMA_Request) returns (.CSupportWizard_UpdateHardwareRMA_Response);
+	// ePrivilege=1
+	rpc VerifySerialNumberForRMA (.CSupportWizard_VerifySerialNumberForRMA_Request) returns (.CSupportWizard_VerifySerialNumberForRMA_Response);
+}
+

@@ -1,0 +1,67 @@
+
+message CCrashReport_FinishCrashUpload_Request {
+	optional fixed64 gid = 1;
+}
+
+message CCrashReport_FinishCrashUpload_Response {
+}
+
+message CCrashReport_GetUserReports_Request {
+	optional fixed64 steamid = 1;
+	optional int32 limit = 2 [default = 5];
+}
+
+message CCrashReport_GetUserReports_Response {
+	repeated .CCrashReport_GetUserReports_Response_Report reports = 1;
+	optional bool hit_limit = 2;
+}
+
+message CCrashReport_GetUserReports_Response_Report {
+	optional bool have_dump_file = 2;
+	optional uint32 dump_file_size = 3;
+	optional string product = 4;
+	optional string build = 5;
+	optional string version = 6;
+	optional string platform = 7;
+	optional uint32 crash_time = 8;
+	optional string stack = 9;
+	optional string note = 10;
+}
+
+message CCrashReport_StartCrashUpload_Request {
+	optional fixed64 steamid = 1;
+	optional bool have_dump_file = 2;
+	optional uint32 dump_file_size = 3;
+	optional string product = 4;
+	optional string build = 5;
+	optional string version = 6;
+	optional string platform = 7;
+	optional uint32 crash_time = 8;
+	optional string stack = 9;
+	optional string note = 10;
+}
+
+message CCrashReport_StartCrashUpload_Response {
+	optional string url = 1;
+	optional fixed64 gid = 2;
+	optional .CMsgKeyValueSet headers = 3;
+}
+
+message CMsgKeyValuePair {
+	optional string name = 1;
+	optional string value = 2;
+}
+
+message CMsgKeyValueSet {
+	repeated .CMsgKeyValuePair pairs = 1;
+}
+
+service CrashReport {
+	// ePrivilege=0, eWebAPIKeyRequirement=1
+	rpc FinishCrashUpload (.CCrashReport_FinishCrashUpload_Request) returns (.CCrashReport_FinishCrashUpload_Response);
+	// ePrivilege=0
+	rpc GetUserReports (.CCrashReport_GetUserReports_Request) returns (.CCrashReport_GetUserReports_Response);
+	// ePrivilege=0, eWebAPIKeyRequirement=1
+	rpc StartCrashUpload (.CCrashReport_StartCrashUpload_Request) returns (.CCrashReport_StartCrashUpload_Response);
+}
+

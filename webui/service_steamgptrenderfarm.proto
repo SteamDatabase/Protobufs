@@ -1,0 +1,83 @@
+import "common.proto";
+
+message CSteamGPT_CreateLabelingTask_Response {
+	optional uint64 labeling_taskid = 1;
+}
+
+message CSteamGPT_GenerateMetaModelLog_Request {
+	optional uint32 appid = 1;
+	optional string log_header = 2;
+	repeated string interval_headers = 4;
+	repeated uint32 interval_logs_count = 5;
+	repeated string logs_to_inference = 6;
+	optional uint64 upstream_modelid = 7;
+}
+
+message CSteamGPT_GenerateMetaModelLog_Response {
+	optional string log = 1;
+}
+
+message CSteamGPT_GetAvailableTask_Request {
+	optional string problem = 1;
+	optional uint32 appid = 2;
+	optional uint32 data_version = 3;
+	optional uint32 task_status = 4;
+}
+
+message CSteamGPT_GetAvailableTask_Response {
+	optional fixed64 matchid = 1;
+	repeated .CSteamGPT_GetAvailableTask_Response_SubtaskInfo subtasks = 2;
+	optional string problem = 3;
+}
+
+message CSteamGPT_GetAvailableTask_Response_SubtaskInfo {
+	optional int64 taskid = 1;
+	optional fixed64 steamid = 2;
+	optional uint32 task_type = 4;
+	optional string reevidence_data = 5;
+	optional fixed64 parent_example_row_id = 6;
+	optional string evaluation_evidence_log = 7;
+	optional .CSteamGPT_TaskDetails task_details = 8;
+}
+
+message CSteamGPT_GetTask_Request {
+	optional int64 taskid = 1;
+	optional uint32 appid = 2;
+}
+
+message CSteamGPT_GetTask_Response {
+	optional string problem = 1;
+	optional uint32 appid = 2;
+	optional fixed64 steamid = 3;
+	optional fixed64 matchid = 4;
+	optional uint32 task_type = 8;
+	optional string evaluation_evidence_log = 10;
+	optional .CSteamGPT_TaskDetails task_details = 11;
+}
+
+message CSteamGPT_OnTaskUpdate_Request {
+	optional uint32 appid = 1;
+	optional fixed64 matchid = 2;
+	repeated int64 subtask_taskids = 3;
+	optional uint32 task_status = 4;
+	optional int32 process_return_code = 5;
+}
+
+message CSteamGPT_OnTaskUpdate_Response {
+}
+
+service SteamGPTRenderFarm {
+	// ePrivilege=0, eWebAPIKeyRequirement=4
+	rpc CreateExample (.CSteamGPT_CreateExample_Request) returns (.CSteamGPT_CreateExample_Response);
+	// ePrivilege=0, eWebAPIKeyRequirement=4
+	rpc CreateLabelingTask (.CSteamGPT_CreateLabelingTask_Request) returns (.CSteamGPT_CreateLabelingTask_Response);
+	// ePrivilege=0, eWebAPIKeyRequirement=4
+	rpc GenerateMetaModelLog (.CSteamGPT_GenerateMetaModelLog_Request) returns (.CSteamGPT_GenerateMetaModelLog_Response);
+	// ePrivilege=0, eWebAPIKeyRequirement=4
+	rpc GetAvailableTask (.CSteamGPT_GetAvailableTask_Request) returns (.CSteamGPT_GetAvailableTask_Response);
+	// ePrivilege=0, eWebAPIKeyRequirement=4
+	rpc GetTask (.CSteamGPT_GetTask_Request) returns (.CSteamGPT_GetTask_Response);
+	// ePrivilege=0, eWebAPIKeyRequirement=4
+	rpc OnTaskUpdate (.CSteamGPT_OnTaskUpdate_Request) returns (.CSteamGPT_OnTaskUpdate_Response);
+}
+

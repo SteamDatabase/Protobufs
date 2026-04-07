@@ -1,0 +1,50 @@
+
+message CHardwareTeam_GetRMAUpdates_Request {
+	repeated string product_names = 1;
+	optional fixed64 last_change_number = 2;
+	optional uint32 max_results = 3;
+}
+
+message CHardwareTeam_GetRMAUpdates_Response {
+	repeated .CHardwareTeam_RMAInformation result = 1;
+}
+
+message CHardwareTeam_RepairDetails {
+	optional string close_date = 1;
+	optional string part_number = 2;
+	optional string old_component = 3;
+	optional string new_component = 4;
+	optional string old_serial = 5;
+	optional string new_serial = 6;
+	optional string fault = 7;
+	optional string repair = 8;
+	optional string warranty_repair = 9;
+	optional string cid = 10;
+	optional string nff = 11;
+	optional string complaint_matches_fault = 12;
+}
+
+message CHardwareTeam_RMAInformation {
+	optional uint64 steam_rma_id = 1;
+	optional uint64 change_number = 2;
+	optional string product_name = 3;
+	optional uint32 quantity = 4;
+	optional string rma_state = 5;
+	optional string rma_type = 6;
+	optional string distributor = 7;
+	optional uint32 time_created = 8;
+	optional uint32 time_updated = 9;
+	optional uint32 date_received = 10;
+	optional string serial_number = 11;
+	optional string rma_reason = 12;
+	optional string rma_id = 13;
+	optional string issue_code = 14;
+	optional string help_request_ref_code = 15;
+	repeated .CHardwareTeam_RepairDetails repair_details = 16;
+}
+
+service HardwareTeam {
+	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=4
+	rpc GetRMAUpdates (.CHardwareTeam_GetRMAUpdates_Request) returns (.CHardwareTeam_GetRMAUpdates_Response);
+}
+

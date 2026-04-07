@@ -1,0 +1,128 @@
+import "common_base.proto";
+
+message CSteamML_Debug_Response {
+	optional .CSteamML_Inference_Response inference_response = 1;
+	repeated .CSteamML_Debug_Response_CModelTable model_table = 2;
+}
+
+message CSteamML_Debug_Response_CModelTable {
+	optional fixed64 modelid = 1;
+	optional string pipeline_stage = 2;
+	repeated .CSteamML_Debug_Response_CModelTable_CSchemaTable schema_table = 3;
+}
+
+message CSteamML_Debug_Response_CModelTable_CSchemaTable {
+	optional fixed64 schemaid = 1;
+	repeated .CSteamML_Debug_Response_CModelTable_CSchemaTable_CTableEntry entry = 2;
+}
+
+message CSteamML_Debug_Response_CModelTable_CSchemaTable_CTableEntry {
+	optional string header = 1;
+	optional float float_val = 2;
+	optional int32 int_val = 3;
+}
+
+message CSteamML_Inference_Response {
+	optional .CSteamML_Inference_Response_CTrustPrediction trust = 1;
+}
+
+message CSteamML_Inference_Response_CTrustPrediction {
+	repeated .CSteamML_Inference_Response_CTrustPrediction_Prediction prediction = 1;
+}
+
+message CSteamML_Inference_Response_CTrustPrediction_Prediction {
+	optional fixed64 modelid = 1;
+	optional fixed32 score_times_1e9 = 2;
+}
+
+message Trust_GetTrustHistory_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 appid = 2;
+}
+
+message Trust_GetTrustHistory_Response {
+	repeated .Trust_GetTrustHistory_Response_CTrustValue trust_values = 1;
+	optional uint64 modelid_active = 2;
+}
+
+message Trust_GetTrustHistory_Response_CTrustValue {
+	optional int32 appid = 1;
+	optional int32 calc_time = 2;
+	optional int32 value = 3;
+	optional int64 modelid = 4;
+}
+
+message Trust_GetTrustScore_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 appid = 2;
+}
+
+message Trust_GetTrustScore_Response {
+	optional uint32 trust_score = 1;
+	optional uint32 precision = 2;
+	optional int32 account_age = 3 [(.description) = "enum"];
+	optional int32 account_bucket = 4 [(.description) = "enum"];
+	optional int32 related_account = 5 [(.description) = "enum"];
+	optional uint32 related_account_confidence = 6;
+	optional uint32 related_account_confidence_score = 7;
+	optional uint32 inference_eresult = 8;
+}
+
+message Trust_GetTrustScoreInternal_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 appid = 2;
+	optional bool ignore_future_bans = 3;
+	optional bool force_bucket_write = 4;
+}
+
+message Trust_GetTrustScoreInternal_Response {
+	optional uint32 trust_score = 1;
+	optional uint32 precision = 2;
+	optional int32 account_age = 3 [(.description) = "enum"];
+	optional int32 account_bucket = 4 [(.description) = "enum"];
+	optional int32 related_account = 5 [(.description) = "enum"];
+	optional uint32 inference_eresult = 8;
+}
+
+message Trust_GetTrustValueDebug_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 appid = 2;
+}
+
+message Trust_GetTrustValueDebug_Response {
+	optional .CSteamML_Debug_Response backend_response = 1;
+}
+
+message Trust_GetTrustValueExplained_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 appid = 2;
+}
+
+message Trust_GetTrustValueExplained_Response {
+	repeated .Trust_GetTrustValueExplained_Response_Partialvalue partialvalues = 1;
+}
+
+message Trust_GetTrustValueExplained_Response_Partialvalue {
+	optional fixed32 score_times_1e9 = 1;
+	optional fixed64 schemaid_skipped = 2;
+}
+
+service Trust {
+	// ePrivilege=1
+	rpc AccountTrustDeleteDBO (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
+	rpc ComputeAccountTrustBucket (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
+	rpc ComputeTrustValues (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=1
+	rpc GetTrustHistory (.Trust_GetTrustHistory_Request) returns (.Trust_GetTrustHistory_Response);
+	// bConstMethod=true, ePrivilege=7, eWebAPIKeyRequirement=5
+	rpc GetTrustScore (.Trust_GetTrustScore_Request) returns (.Trust_GetTrustScore_Response);
+	// bConstMethod=true, ePrivilege=1
+	rpc GetTrustScoreInternal (.Trust_GetTrustScoreInternal_Request) returns (.Trust_GetTrustScoreInternal_Response);
+	// ePrivilege=1
+	rpc GetTrustValueDebug (.Trust_GetTrustValueDebug_Request) returns (.Trust_GetTrustValueDebug_Response);
+	// ePrivilege=1
+	rpc GetTrustValueExplained (.Trust_GetTrustValueExplained_Request) returns (.Trust_GetTrustValueExplained_Response);
+}
+

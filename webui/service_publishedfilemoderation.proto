@@ -1,0 +1,150 @@
+import "common_base.proto";
+import "common.proto";
+
+message CPublishedFileModeration_BackfillSnapshots_Request {
+	optional uint32 appid = 1;
+	optional int32 revision = 2 [(.description) = "enum"];
+	repeated uint32 filetypes = 3;
+}
+
+message CPublishedFileModeration_BackfillSnapshots_Response {
+	optional uint32 count = 1;
+}
+
+message CPublishedFileModeration_ClaimApprovalRequests_Request {
+	optional int32 revision = 1 [(.description) = "enum"];
+	optional uint32 count = 2;
+	optional uint32 appid = 3;
+}
+
+message CPublishedFileModeration_ClaimApprovalRequests_Response {
+}
+
+message CPublishedFileModeration_GetAllApprovalRequests_Request {
+	optional uint32 appid = 1;
+	optional int32 revision = 2 [default = 2, (.description) = "enum"];
+	optional uint32 start = 3 [default = 0];
+	optional uint32 count = 4 [default = 100];
+}
+
+message CPublishedFileModeration_GetAllApprovalRequests_Response {
+	repeated .CPublishedFileModeration_GetAllApprovalRequests_Response_ApprovalRequest requests = 1;
+}
+
+message CPublishedFileModeration_GetAllApprovalRequests_Response_ApprovalRequest {
+	optional uint64 publishedfileid = 1;
+	optional int32 revision = 2 [(.description) = "enum"];
+	optional uint32 timestamp_request = 3;
+	optional uint32 timestamp_claimed = 4;
+}
+
+message CPublishedFileModeration_GetApprovalRequests_Request {
+	optional fixed64 steamid = 1;
+}
+
+message CPublishedFileModeration_GetApprovalRequests_Response {
+	repeated .CPublishedFileModeration_GetApprovalRequests_Response_ApprovalRequest requests = 1;
+}
+
+message CPublishedFileModeration_GetApprovalRequests_Response_ApprovalRequest {
+	optional uint64 publishedfileid = 1;
+	optional int32 revision = 2 [(.description) = "enum"];
+	optional uint32 timestamp_request = 3;
+	optional uint32 timestamp_claimed = 4;
+}
+
+message CPublishedFileModeration_GetSnapshotData_Request {
+	optional uint64 publishedfileid = 1;
+	optional int32 revision = 2 [(.description) = "enum"];
+}
+
+message CPublishedFileModeration_GetSnapshotData_Response {
+	optional .PublishedFileDetailsSnapshot snapshot = 1;
+}
+
+message CPublishedFileModeration_ProcessApprovalRequest_Request {
+	optional uint64 publishedfileid = 1;
+	optional int32 revision = 2 [(.description) = "enum"];
+	optional uint64 change_number = 3;
+	optional bool approved = 4;
+	optional uint32 appid = 5;
+}
+
+message CPublishedFileModeration_ProcessApprovalRequest_Response {
+}
+
+message CPublishedFileModeration_ReleaseApprovalRequests_Request {
+	optional uint32 appid = 1;
+}
+
+message CPublishedFileModeration_ReleaseApprovalRequests_Response {
+}
+
+message CPublishedFileModeration_SaveSnapshot_Request {
+	optional uint64 publishedfileid = 1;
+	optional int32 revision = 2 [(.description) = "enum"];
+}
+
+message CPublishedFileModeration_SaveSnapshot_Response {
+}
+
+message PublishedFileDetailsSnapshot {
+	optional uint64 change_number = 1;
+	optional fixed64 hcontent_file = 2;
+	optional fixed64 hcontent_preview = 3;
+	optional .PublishedFileDetailsSnapshot_LocalizedText english_text = 4;
+	repeated .PublishedFileDetailsSnapshot_LocalizedText text = 5;
+	repeated .PublishedFileDetailsSnapshot_Preview previews = 6;
+	repeated .PublishedFileDetailsSnapshot_Tag tags = 7;
+	repeated .PublishedFileDetailsSnapshot_KVTag kvtags = 8;
+	optional string metadata = 9;
+	repeated .PublishedFileSubSection sub_sections = 10;
+	optional uint32 accountid_previewfile = 11;
+}
+
+message PublishedFileDetailsSnapshot_KVTag {
+	optional uint32 tagtypeid = 1;
+	optional uint32 tagvalue = 2;
+}
+
+message PublishedFileDetailsSnapshot_LocalizedText {
+	optional int32 language = 1;
+	optional string title = 2;
+	optional string file_description = 3;
+}
+
+message PublishedFileDetailsSnapshot_Preview {
+	optional uint64 previewid = 1;
+	optional uint32 preview_type = 2;
+	optional uint32 appid = 3;
+	optional uint32 accountid = 4;
+	optional uint32 sortorder = 5;
+	optional fixed64 hcontent_file = 6;
+	optional string filename = 7;
+	optional string youtubevideoid = 8;
+	optional string external_reference = 9;
+}
+
+message PublishedFileDetailsSnapshot_Tag {
+	optional uint32 tagid = 1;
+}
+
+service PublishedFileModeration {
+	// ePrivilege=4
+	rpc BackfillSnapshots (.CPublishedFileModeration_BackfillSnapshots_Request) returns (.CPublishedFileModeration_BackfillSnapshots_Response);
+	// ePrivilege=1
+	rpc ClaimApprovalRequests (.CPublishedFileModeration_ClaimApprovalRequests_Request) returns (.CPublishedFileModeration_ClaimApprovalRequests_Response);
+	// ePrivilege=2, eWebAPIKeyRequirement=5
+	rpc GetAllApprovalRequests (.CPublishedFileModeration_GetAllApprovalRequests_Request) returns (.CPublishedFileModeration_GetAllApprovalRequests_Response);
+	// ePrivilege=1
+	rpc GetApprovalRequests (.CPublishedFileModeration_GetApprovalRequests_Request) returns (.CPublishedFileModeration_GetApprovalRequests_Response);
+	// ePrivilege=1
+	rpc GetSnapshotData (.CPublishedFileModeration_GetSnapshotData_Request) returns (.CPublishedFileModeration_GetSnapshotData_Response);
+	// ePrivilege=2, eWebAPIKeyRequirement=5
+	rpc ProcessApprovalRequest (.CPublishedFileModeration_ProcessApprovalRequest_Request) returns (.CPublishedFileModeration_ProcessApprovalRequest_Response);
+	// ePrivilege=1
+	rpc ReleaseApprovalRequests (.CPublishedFileModeration_ReleaseApprovalRequests_Request) returns (.CPublishedFileModeration_ReleaseApprovalRequests_Response);
+	// ePrivilege=1
+	rpc SaveSnapshot (.CPublishedFileModeration_SaveSnapshot_Request) returns (.CPublishedFileModeration_SaveSnapshot_Response);
+}
+

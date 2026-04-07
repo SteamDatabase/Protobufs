@@ -1,0 +1,197 @@
+import "common.proto";
+
+message CSteamGPT_CreateTask_Request {
+	optional string problem = 1;
+	optional uint32 appid = 2;
+	optional fixed64 steamid = 3;
+	optional fixed64 matchid = 4;
+	optional int32 delay_seconds = 5;
+	optional uint32 task_type = 7;
+	optional string evaluation_evidence_log = 8;
+	optional .CSteamGPT_TaskDetails task_details = 9;
+}
+
+message CSteamGPT_CreateTask_Response {
+	optional int64 taskid = 1;
+}
+
+message CSteamGPT_GetAvailableTaskSourceDetails_Request {
+	optional uint32 appid = 1;
+	optional string problem = 2;
+	optional string subproblem = 3;
+	optional string source_type = 4;
+	optional uint32 max_results = 5;
+}
+
+message CSteamGPT_GetAvailableTaskSourceDetails_Response {
+	repeated string source_details = 1;
+}
+
+message CSteamGPT_GetExamplesForFineTuning_Request {
+	optional string problem = 1;
+	optional string label = 2;
+	optional uint32 appid = 3;
+	optional int32 page_size = 4;
+	optional int32 page_num = 5;
+	optional int32 example_size_softmax = 6;
+	optional int32 versionid = 7;
+	optional uint32 start_time = 8;
+	optional int32 seed = 9;
+	optional uint64 upstream_modelid = 10;
+}
+
+message CSteamGPT_GetExamplesForFineTuning_Response {
+	repeated string examples = 1;
+	repeated string metadata = 2;
+	repeated uint32 create_times = 3;
+}
+
+message CSteamGPT_GetExamplesFromTestSet_Request {
+	optional uint32 appid = 1;
+	optional uint64 start_index = 2;
+	optional uint32 max_results = 3;
+}
+
+message CSteamGPT_GetExamplesFromTestSet_Response {
+	repeated .CSteamGPTTestSetExample examples = 1;
+}
+
+message CSteamGPT_GetLabelingTasks_Request {
+	optional uint32 appid = 1;
+	optional string problem = 2;
+	optional string subproblem = 3;
+	optional string source_type = 4;
+	optional string source_details = 5;
+	optional uint64 labeler_steamid = 6;
+	optional uint64 player_steamid = 7;
+	optional uint64 matchid = 8;
+	optional uint64 taskid = 9;
+	optional uint32 maxresults = 10;
+}
+
+message CSteamGPT_GetLabelingTasks_Response {
+	repeated .CSteamGPT_GetNextLabelingTask_Response tasks = 1;
+}
+
+message CSteamGPT_GetNextLabelingTask_Request {
+	optional uint32 appid = 1;
+	optional string problem = 2;
+	optional string subproblem = 3;
+	optional string source_type = 4;
+	optional string source_details = 5;
+	optional fixed64 labeler_steamid = 6;
+	optional uint32 max_age_days = 7;
+}
+
+message CSteamGPT_GetNextLabelingTask_Response {
+	optional uint64 labeling_taskid = 1;
+	optional .CSteamGPT_CreateLabelingTask_Request details = 3;
+	optional uint64 steamid = 4;
+	optional uint64 matchid = 5;
+	optional bool player_match_example_exists = 6;
+	optional bool existing_example_is_in_test_set = 7;
+}
+
+message CSteamGPT_GetTestSetInferenceResults_Request {
+	optional uint32 appid = 1;
+	repeated string problems = 2;
+	repeated string labels = 3;
+}
+
+message CSteamGPT_GetTestSetInferenceResults_Response {
+	repeated .CSteamGPT_GetTestSetInferenceResults_Response_Example examples = 1;
+}
+
+message CSteamGPT_GetTestSetInferenceResults_Response_Example {
+	repeated string labels = 1;
+	repeated .CSteamGPT_GetTestSetInferenceResults_Response_Example_InferenceResult inference_results = 2;
+}
+
+message CSteamGPT_GetTestSetInferenceResults_Response_Example_InferenceResult {
+	optional string subproblem = 1;
+	optional uint32 score = 2;
+}
+
+message CSteamGPT_PerformMultiCategoryInference_Request {
+	optional string model_base_name = 1;
+	optional uint64 model_id = 2;
+	optional string buffer_to_inference = 3;
+	repeated .CSteamGPT_PerformMultiCategoryInference_Request_CategoryDef category_definitions = 4;
+}
+
+message CSteamGPT_PerformMultiCategoryInference_Request_CategoryDef {
+	optional string category_name = 1;
+	optional uint32 num_outputs = 2;
+}
+
+message CSteamGPT_PerformMultiCategoryInference_Response {
+	repeated .CSteamGPT_PerformMultiCategoryInference_Response_CategoryResult category_results = 1;
+}
+
+message CSteamGPT_PerformMultiCategoryInference_Response_CategoryResult {
+	optional string category_name = 1;
+	repeated .CSteamGPT_PerformMultiCategoryInference_Response_InferenceResult inference_results = 2;
+}
+
+message CSteamGPT_PerformMultiCategoryInference_Response_InferenceResult {
+	optional string label = 1;
+	optional float score = 2;
+}
+
+message CSteamGPT_ReEvidenceExamples_Request {
+	optional string problem = 1;
+	optional uint32 appid = 2;
+	optional uint32 data_version = 3;
+	optional uint64 upstream_modelid = 4;
+}
+
+message CSteamGPT_ReEvidenceExamples_Response {
+}
+
+message CSteamGPT_SubmitLabel_Request {
+	optional uint32 appid = 1;
+	optional uint64 labeler_steamid = 2;
+	optional uint64 labeling_taskid = 3;
+	optional string metadata = 4;
+	repeated string labels = 5;
+	optional bool is_test_set = 6;
+}
+
+message CSteamGPT_SubmitLabel_Response {
+	optional uint32 num_examples_added = 1;
+}
+
+message CSteamGPTTestSetExample {
+	optional bytes example = 1;
+	optional string problem = 2;
+	optional string label = 3;
+	optional uint32 accountid = 4;
+	optional uint64 matchid = 5;
+	optional uint64 index = 6;
+}
+
+service SteamGPT {
+	// ePrivilege=0, eWebAPIKeyRequirement=5
+	rpc CreateExample (.CSteamGPT_CreateExample_Request) returns (.CSteamGPT_CreateExample_Response);
+	// ePrivilege=0, eWebAPIKeyRequirement=5
+	rpc CreateTask (.CSteamGPT_CreateTask_Request) returns (.CSteamGPT_CreateTask_Response);
+	// ePrivilege=0
+	rpc GetAvailableTaskSourceDetails (.CSteamGPT_GetAvailableTaskSourceDetails_Request) returns (.CSteamGPT_GetAvailableTaskSourceDetails_Response);
+	// bConstMethod=true, ePrivilege=0, eWebAPIKeyRequirement=1
+	rpc GetExamplesForFineTuning (.CSteamGPT_GetExamplesForFineTuning_Request) returns (.CSteamGPT_GetExamplesForFineTuning_Response);
+	// ePrivilege=0, eWebAPIKeyRequirement=5
+	rpc GetExamplesFromTestSet (.CSteamGPT_GetExamplesFromTestSet_Request) returns (.CSteamGPT_GetExamplesFromTestSet_Response);
+	// ePrivilege=0
+	rpc GetLabelingTasks (.CSteamGPT_GetLabelingTasks_Request) returns (.CSteamGPT_GetLabelingTasks_Response);
+	// ePrivilege=0
+	rpc GetNextLabelingTask (.CSteamGPT_GetNextLabelingTask_Request) returns (.CSteamGPT_GetNextLabelingTask_Response);
+	// ePrivilege=0, eWebAPIKeyRequirement=5
+	rpc GetTestSetInferenceResults (.CSteamGPT_GetTestSetInferenceResults_Request) returns (.CSteamGPT_GetTestSetInferenceResults_Response);
+	// ePrivilege=0
+	rpc PerformMultiCategoryInference (.CSteamGPT_PerformMultiCategoryInference_Request) returns (.CSteamGPT_PerformMultiCategoryInference_Response);
+	// ePrivilege=0
+	rpc ReEvidenceExamples (.CSteamGPT_ReEvidenceExamples_Request) returns (.CSteamGPT_ReEvidenceExamples_Response);
+	// ePrivilege=0
+	rpc SubmitLabel (.CSteamGPT_SubmitLabel_Request) returns (.CSteamGPT_SubmitLabel_Response);
+}
+

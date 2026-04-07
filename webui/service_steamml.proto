@@ -1,0 +1,96 @@
+import "common_base.proto";
+
+message CSteamML_GetLogContents_Request {
+	optional fixed64 steamid = 1;
+	optional uint32 appid = 2;
+	optional string channel = 3;
+	optional string subchannel = 4;
+	optional int32 line_limit = 5;
+	optional bool reverse_order = 6;
+	optional int32 version = 7;
+}
+
+message CSteamML_GetLogContents_Response {
+	optional .CSteamMLLog log = 1;
+}
+
+message CSteamMLLog {
+	optional string key = 1;
+	repeated .CSteamMLLogLine lines = 2;
+}
+
+message CSteamMLLogLine {
+	optional bytes contents = 1;
+	optional fixed32 time_created = 2;
+	optional bool contents_is_compressed = 3;
+	optional int32 version = 4;
+}
+
+message SteamML_FullAccountUpdate_Request {
+	repeated fixed64 steamids = 1;
+	repeated uint32 appids = 2;
+	optional int32 problem = 3 [(.description) = "enum"];
+}
+
+message SteamML_FullAccountUpdate_Response {
+}
+
+message SteamML_GetLogContentsForTraining_Request {
+	optional string name = 1;
+	optional int32 lane = 2;
+	optional int32 stride = 3;
+	optional int32 salt = 4;
+	optional int32 goal_examples = 5;
+	optional float train_pcg = 6;
+	optional bool train_accept = 7;
+	optional uint32 appid = 8;
+	optional string channel = 9;
+	optional bool restart = 10;
+	optional bool count_lines_as_examples = 11;
+	optional bool retry = 12;
+	optional int32 version = 13;
+}
+
+message SteamML_GetLogContentsForTraining_Response {
+	repeated .CSteamMLLog logs = 1;
+}
+
+message SteamML_PartialAccountUpdate_Request {
+	repeated fixed64 steamids = 1;
+	repeated uint32 appids = 2;
+	repeated int32 schema_updates = 3 [(.description) = "enum"];
+}
+
+message SteamML_PartialAccountUpdate_Response {
+}
+
+message SteamML_SetModelStatus_Request {
+	optional fixed64 modelid = 1;
+	optional uint32 appid = 2;
+	optional bool calculate = 3;
+	optional bool report = 4;
+	optional bool evaluate = 5;
+	optional int32 problem = 6 [(.description) = "enum"];
+	optional uint32 threshold_record = 8;
+	optional uint32 threshold_ban = 9;
+	optional uint32 count_required = 10;
+}
+
+message SteamML_SetModelStatus_Response {
+}
+
+service SteamML {
+	// ePrivilege=0, eWebAPIKeyRequirement=1
+	rpc FullAccountUpdate (.SteamML_FullAccountUpdate_Request) returns (.SteamML_FullAccountUpdate_Response);
+	// bConstMethod=true, ePrivilege=1
+	rpc GetLogContents (.CSteamML_GetLogContents_Request) returns (.CSteamML_GetLogContents_Response);
+	// ePrivilege=0, eWebAPIKeyRequirement=1
+	rpc GetLogContentsForTraining (.SteamML_GetLogContentsForTraining_Request) returns (.SteamML_GetLogContentsForTraining_Response);
+	// ePrivilege=1
+	rpc OnEmitMLInfo (.NotImplemented) returns (.NoResponse);
+	// ePrivilege=0, eWebAPIKeyRequirement=1
+	rpc PartialAccountUpdate (.SteamML_PartialAccountUpdate_Request) returns (.SteamML_PartialAccountUpdate_Response);
+	// ePrivilege=1
+	rpc SetModelStatus (.SteamML_SetModelStatus_Request) returns (.SteamML_SetModelStatus_Response);
+}
+

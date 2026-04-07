@@ -1,0 +1,1160 @@
+import "common_base.proto";
+
+message CBundleDetails {
+	optional uint32 bundleid = 1;
+	repeated .CPackageQuantity package_quantities = 2;
+	optional double discount_percentage = 3;
+	optional bool enabled = 4;
+	optional string name = 5;
+	optional bool must_purchase_as_set = 7;
+	optional uint32 publisherid = 8;
+	optional bool min_bundle_item_price_exempt = 9;
+	repeated .CBundleDetails_LocalizedName localized_names = 10;
+	optional bool collaborative_bundle = 11;
+	optional uint32 changenumber = 12;
+}
+
+message CBundleDetails_LocalizedName {
+	optional int32 elanguage = 1;
+	optional string name = 2;
+}
+
+message CPackageQuantity {
+	optional uint32 packageid = 1;
+	optional int32 quantity = 2;
+	optional int32 ordinal = 3;
+}
+
+message CProductInfo_AddToMasterDiscount_Request {
+	optional uint32 master_discountid = 1;
+	optional uint32 packageid = 2;
+}
+
+message CProductInfo_AddToMasterDiscount_Response {
+}
+
+message CProductInfo_AdminPackage {
+	repeated .CProductInfo_AdminPackage_Partner partners = 1;
+}
+
+message CProductInfo_AdminPackage_Partner {
+	optional string name = 1;
+	optional uint32 id = 2;
+}
+
+message CProductInfo_AdminPackage_Query {
+	optional bool query_partner_names = 1;
+	optional bool query_partnerids = 2;
+}
+
+message CProductInfo_AllPackagePriceProposal {
+	optional uint32 packageid = 1;
+	optional fixed32 time = 2;
+	optional int32 state = 3 [(.description) = "enum"];
+}
+
+message CProductInfo_Amount {
+	optional int32 currency_code = 1;
+	optional int64 amount = 2;
+}
+
+message CProductInfo_AppInfoSection_ClearCache_Request {
+	optional uint32 appid = 1;
+}
+
+message CProductInfo_AppInfoSection_ClearCache_Response {
+}
+
+message CProductInfo_AppInfoSection_Commit_Request {
+	optional uint32 appid = 1;
+	optional uint32 sectionid = 2;
+	optional string change_notes = 3;
+}
+
+message CProductInfo_AppInfoSection_Commit_Response {
+}
+
+message CProductInfo_AppInfoSection_Get_Request {
+	optional uint32 appid = 1;
+	optional uint32 sectionid = 2;
+	optional uint32 revision = 3 [default = 0];
+}
+
+message CProductInfo_AppInfoSection_Get_Response {
+	optional uint32 appid = 1;
+	optional uint32 sectionid = 2;
+	optional uint32 revision = 3;
+	optional string section = 4;
+	optional uint32 timestamp = 5;
+	optional uint32 accountid = 6;
+	optional bool is_committed = 7;
+	optional string change_notes = 8;
+}
+
+message CProductInfo_AppInfoSection_GetCommittedSections_Request {
+	optional uint32 appid = 1;
+}
+
+message CProductInfo_AppInfoSection_GetCommittedSections_Response {
+	optional uint32 appid = 1;
+	repeated .CProductInfo_AppInfoSection_GetCommittedSections_Response_CommittedSections sections = 2;
+}
+
+message CProductInfo_AppInfoSection_GetCommittedSections_Response_CommittedSections {
+	optional uint32 sectionid = 1;
+	optional uint32 revision = 2;
+	optional uint32 accountid = 3;
+	optional uint32 timestamp = 4;
+	optional string change_notes = 5;
+}
+
+message CProductInfo_AppInfoSection_GetHasUncommittedChanges_Request {
+	optional uint32 appid = 1;
+	optional uint32 sectionid = 2;
+}
+
+message CProductInfo_AppInfoSection_GetHasUncommittedChanges_Response {
+	optional bool has_uncommitted_changes = 1;
+}
+
+message CProductInfo_AppInfoSection_GetHistory_Request {
+	optional uint32 appid = 1;
+	optional uint32 sectionid = 2;
+}
+
+message CProductInfo_AppInfoSection_GetHistory_Response {
+	optional uint32 appid = 1;
+	repeated .CProductInfo_AppInfoSection_GetHistory_Response_HistoryEntry history = 2;
+}
+
+message CProductInfo_AppInfoSection_GetHistory_Response_HistoryEntry {
+	optional uint32 sectionid = 1;
+	optional uint32 revision = 2;
+	optional uint32 accountid = 3;
+	optional uint32 timestamp = 4;
+	optional string change_notes = 5;
+}
+
+message CProductInfo_AppInfoSection_GetUncommittedSections_Request {
+	optional uint32 appid = 1;
+}
+
+message CProductInfo_AppInfoSection_GetUncommittedSections_Response {
+	optional uint32 appid = 1;
+	repeated .CProductInfo_AppInfoSection_GetUncommittedSections_Response_UncommittedSections sections = 2;
+}
+
+message CProductInfo_AppInfoSection_GetUncommittedSections_Response_UncommittedSections {
+	optional uint32 sectionid = 1;
+	optional uint32 revision = 2;
+	optional uint32 accountid = 3;
+	optional uint32 timestamp = 4;
+}
+
+message CProductInfo_AppInfoSection_Revert_Request {
+	optional uint32 appid = 1;
+	optional uint32 sectionid = 2;
+}
+
+message CProductInfo_AppInfoSection_Revert_Response {
+}
+
+message CProductInfo_AppInfoSection_RevertUnchanged_Request {
+	optional uint32 appid = 1;
+}
+
+message CProductInfo_AppInfoSection_RevertUnchanged_Response {
+}
+
+message CProductInfo_AppInfoSection_Save_Request {
+	optional uint32 appid = 1;
+	optional uint32 sectionid = 2;
+	optional string section = 3;
+}
+
+message CProductInfo_AppInfoSection_Save_Response {
+	optional uint32 revision = 1;
+}
+
+message CProductInfo_AppLaunchOptionUpdated_Notification {
+	optional uint32 appid = 1;
+}
+
+message CProductInfo_ApplyApprovedPrices_Request {
+	repeated .CProductInfo_ApplyApprovedPrices_Request_ApprovedProposal approved_proposals = 1;
+}
+
+message CProductInfo_ApplyApprovedPrices_Request_ApprovedProposal {
+	optional uint32 packageid = 1;
+	optional uint64 proposal_key = 2;
+}
+
+message CProductInfo_ApplyApprovedPrices_Response {
+	optional string error_msg = 1;
+}
+
+message CProductInfo_AppRetirementUpdated_Notification {
+	optional uint32 appid = 1;
+	optional bool retired = 2;
+	optional uint32 time_retired = 3;
+}
+
+message CProductInfo_ApproveProposedPrices_Request {
+	repeated .CProductInfo_ApproveProposedPrices_Request_ApprovedProposal approved_proposals = 1;
+	optional string approval_note = 2;
+	optional bool apply_now = 3 [default = true];
+}
+
+message CProductInfo_ApproveProposedPrices_Request_ApprovedProposal {
+	optional uint32 packageid = 1;
+	optional uint64 proposal_key = 2;
+}
+
+message CProductInfo_ApproveProposedPrices_Response {
+	optional string error_msg = 1;
+}
+
+message CProductInfo_CancelPackageDiscount_Request {
+	optional uint32 packageid = 1;
+	optional uint32 discountid = 2;
+}
+
+message CProductInfo_CancelPackageDiscount_Response {
+}
+
+message CProductInfo_CancelProposedPrices_Request {
+	repeated uint32 packageid = 1;
+	optional string reason_code = 2;
+	optional string email_message = 3;
+}
+
+message CProductInfo_CancelProposedPrices_Response {
+}
+
+message CProductInfo_CddbPackage {
+	optional uint32 packageid = 1;
+	optional string name = 2;
+	repeated uint32 appids = 3;
+	repeated uint32 depotids = 4;
+	optional int32 billing_type = 5 [(.description) = "enum"];
+	optional int32 activation_code = 6 [(.description) = "enum"];
+	optional int32 game_code = 7;
+	optional string game_code_description = 8;
+	optional int32 territory_code = 9;
+	optional bool is_available = 10;
+	optional bool is_overridden_by_sql = 11;
+	optional string extended_info = 13;
+	optional int32 current_revision = 14;
+	optional int32 last_revision = 15;
+	optional fixed64 last_modification_steamid = 16;
+	optional fixed32 last_modification_time = 17;
+	repeated .CProductInfo_CddbPackage_AppItemID appitems = 18;
+}
+
+message CProductInfo_CddbPackage_AppItemID {
+	optional uint32 appid = 1;
+	optional uint32 itemid = 2;
+	optional string desc = 3;
+}
+
+message CProductInfo_CddbPackage_Query {
+	optional bool query_package_name = 1;
+	optional bool query_package_appids = 2;
+	optional bool query_package_depotids = 3;
+	optional bool query_info = 4;
+	optional bool query_extended_info = 5;
+}
+
+message CProductInfo_CloneCommercialPackageFromRetail_Request {
+	optional uint32 packageid = 1;
+	optional string name = 2;
+}
+
+message CProductInfo_CloneCommercialPackageFromRetail_Response {
+	optional uint32 packageid = 1;
+	optional string error_msg = 2;
+}
+
+message CProductInfo_CommitAppInfoSectionValues_Request {
+	optional uint32 appid = 1;
+	optional uint32 sectionid = 2;
+	optional string values = 3;
+	optional string change_notes = 4;
+}
+
+message CProductInfo_CommitAppInfoSectionValues_Response {
+	optional uint32 revision = 1;
+}
+
+message CProductInfo_CostInfo {
+	repeated .CProductInfo_Amount base_amounts = 1;
+	repeated .CProductInfo_CostInfo_AmountByRegion region_amounts = 2;
+	repeated .CProductInfo_CostInfo_AmountByCountryCode country_amounts = 3;
+}
+
+message CProductInfo_CostInfo_AmountByCountryCode {
+	optional string country_code = 1;
+	optional .CProductInfo_Amount amount = 2;
+}
+
+message CProductInfo_CostInfo_AmountByRegion {
+	optional string region = 1;
+	optional .CProductInfo_Amount amount = 2;
+}
+
+message CProductInfo_CreateBundle_Request {
+	optional .CBundleDetails details = 1;
+}
+
+message CProductInfo_CreateBundle_Response {
+	optional uint32 bundleid = 1;
+}
+
+message CProductInfo_CreateOrUpdateMasterDiscount_Request {
+	optional uint32 master_discountid = 1;
+	optional uint32 percentage = 2;
+	optional string name = 3;
+	optional string discount_description = 4;
+	repeated uint32 packageids = 5;
+	repeated uint32 required_packageids = 6;
+	optional uint32 mastersub_appid = 7;
+}
+
+message CProductInfo_CreateOrUpdateMasterDiscount_Response {
+	optional uint64 master_discountid = 1;
+}
+
+message CProductInfo_CreatePackage_Request {
+	optional .CProductInfo_CddbPackage package = 1;
+}
+
+message CProductInfo_CreatePackage_Response {
+	optional uint32 packageid = 1;
+	optional uint32 changenumber = 5;
+}
+
+message CProductInfo_CreatePackageDiscount_Request {
+	optional uint32 packageid = 1;
+}
+
+message CProductInfo_CreatePackageDiscount_Response {
+	optional uint32 discountid = 1;
+}
+
+message CProductInfo_CreateProposedPrices_Request {
+	repeated .CProductInfo_PackagePriceProposal packages = 1;
+}
+
+message CProductInfo_CreateProposedPrices_Response {
+	optional string error_msg = 1;
+}
+
+message CProductInfo_CurrencyPrice {
+	optional uint32 currency_code = 1;
+	optional uint64 price = 2;
+}
+
+message CProductInfo_DiscountInfo {
+	optional uint32 discountid = 1;
+	optional uint32 packageid = 2;
+	repeated uint32 required_packageids = 3;
+	optional string discount_name = 4;
+	optional string discount_description = 5;
+	optional fixed32 start_time = 6;
+	optional fixed32 end_time = 7;
+	optional uint32 revision = 8;
+	optional uint32 percentage = 9;
+	optional string discount_group = 10;
+	optional .CProductInfo_CostInfo discount_amounts = 11;
+	optional uint32 quantity = 12;
+	optional uint64 master_discountid = 13;
+	optional uint32 mastersub_appid = 14;
+	optional uint32 flags = 15;
+}
+
+message CProductInfo_FindBundles_Request {
+	repeated uint32 packageids = 1;
+	repeated uint32 appsids = 2;
+	optional bool all = 3;
+}
+
+message CProductInfo_FindBundles_Response {
+	repeated .CBundleDetails bundles = 1;
+}
+
+message CProductInfo_GenerateAlternativePackagePricing_Request {
+	optional uint32 pricing_method = 1;
+	optional uint32 rt_date = 2;
+}
+
+message CProductInfo_GenerateAlternativePackagePricing_Response {
+	optional uint32 alternative_package_pricing_id = 1;
+}
+
+message CProductInfo_GenerateAppId_Request {
+	optional string name = 1;
+	optional uint32 range_size = 2;
+}
+
+message CProductInfo_GenerateAppId_Response {
+	optional uint32 appid = 1;
+}
+
+message CProductInfo_GeneratePricingGuidelines_Request {
+	optional uint32 recommended_pricing_id = 1;
+}
+
+message CProductInfo_GeneratePricingGuidelines_Response {
+	optional uint32 result_recommended_pricing_id = 1;
+}
+
+message CProductInfo_GetAllProposedPrices_Request {
+}
+
+message CProductInfo_GetAllProposedPrices_Response {
+	repeated .CProductInfo_AllPackagePriceProposal packages = 1;
+}
+
+message CProductInfo_GetAppsInCollection_Request {
+	optional uint32 collection_appid = 1;
+	repeated .CProductInfo_GetAppsInCollection_Request_CollectionFilters filters = 2;
+}
+
+message CProductInfo_GetAppsInCollection_Request_CollectionFilters {
+	optional string filter_key = 1;
+	optional string filter_value = 2;
+}
+
+message CProductInfo_GetAppsInCollection_Response {
+	repeated uint32 appids = 1;
+}
+
+message CProductInfo_GetBatchPackageLastPriceRaise_Request {
+	repeated uint32 packageid = 1;
+}
+
+message CProductInfo_GetBatchPackageLastPriceRaise_Response {
+	repeated .CProductInfo_GetBatchPackageLastPriceRaise_Response_CPackageAndTime package_time_pairs = 1;
+}
+
+message CProductInfo_GetBatchPackageLastPriceRaise_Response_CPackageAndTime {
+	optional uint32 packageid = 1;
+	optional fixed32 time = 2;
+}
+
+message CProductInfo_GetBundleDetails_Request {
+	repeated uint32 bundleids = 1;
+}
+
+message CProductInfo_GetBundleDetails_Response {
+	repeated .CBundleDetails bundles = 1;
+}
+
+message CProductInfo_GetCddbPackages_Request {
+	repeated uint32 packageids = 1;
+	repeated int32 revisions = 2;
+}
+
+message CProductInfo_GetCddbPackages_Response {
+	repeated .CProductInfo_CddbPackage packages = 1;
+	repeated uint32 unknown_packageids = 2;
+	repeated .CProductInfo_GetCddbPackages_Response_UnretrievedPackage unretrieved_packages = 3;
+}
+
+message CProductInfo_GetCddbPackages_Response_UnretrievedPackage {
+	optional uint32 packageid = 1;
+	optional string error = 2;
+}
+
+message CProductInfo_GetCostSetFromPriceGuideline_Request {
+	optional string price_category = 1;
+}
+
+message CProductInfo_GetCostSetFromPriceGuideline_Response {
+	optional uint64 usd_price = 1;
+	optional uint32 cost_set_id = 2;
+}
+
+message CProductInfo_GetCouponDefinition_Request {
+	optional uint32 couponid = 1;
+}
+
+message CProductInfo_GetCouponDefinition_Response {
+	optional uint32 couponid = 1;
+	optional string coupon_name = 2;
+	optional bool archived = 3;
+	optional bool has_unpublished_changes = 4;
+	optional .CProductInfo_GetCouponDefinition_Response_CouponDefinition active = 5;
+	optional .CProductInfo_GetCouponDefinition_Response_CouponDefinition in_progress = 6;
+}
+
+message CProductInfo_GetCouponDefinition_Response_CouponDefinition {
+	optional string keyvalues = 1;
+	optional uint32 last_modified = 2;
+	optional uint32 accountid = 3;
+}
+
+message CProductInfo_GetCouponDefinitionList_Request {
+	optional bool archived_coupons = 1;
+}
+
+message CProductInfo_GetCouponDefinitionList_Response {
+	repeated .CProductInfo_GetCouponDefinition_Response coupons = 1;
+}
+
+message CProductInfo_GetCurrencyCodeForCountry_Request {
+	optional string country_code = 1;
+}
+
+message CProductInfo_GetCurrencyCodeForCountry_Response {
+	optional string currency_code = 1;
+}
+
+message CProductInfo_GetCurrentRecommendedPricingID_Request {
+}
+
+message CProductInfo_GetCurrentRecommendedPricingID_Response {
+	optional uint32 recommended_pricing_id = 1;
+}
+
+message CProductInfo_GetMasterDiscountDetails_Request {
+	optional uint64 master_discountid = 1;
+}
+
+message CProductInfo_GetMasterDiscountDetails_Response {
+	repeated .CProductInfo_DiscountInfo discounts = 1;
+	optional uint32 percentage = 2;
+	optional string name = 3;
+	optional string discount_description = 4;
+	optional uint32 mastersub_appid = 5;
+}
+
+message CProductInfo_GetMaxCouponDiscount_Request {
+	optional uint32 appid = 1;
+}
+
+message CProductInfo_GetMaxCouponDiscount_Response {
+	optional uint32 max_discount = 1;
+}
+
+message CProductInfo_GetPackageDiscountsByIds_Request {
+	repeated uint32 discountids = 1;
+}
+
+message CProductInfo_GetPackageDiscountsByIds_Response {
+	repeated .CProductInfo_DiscountInfo discounts = 1;
+}
+
+message CProductInfo_GetPackageLastPriceRaise_Request {
+	optional uint32 packageid = 1;
+}
+
+message CProductInfo_GetPackageLastPriceRaise_Response {
+	optional fixed32 time = 1;
+}
+
+message CProductInfo_GetPackagePrice_Request {
+	optional uint32 packageid = 1;
+}
+
+message CProductInfo_GetPackagePrice_Response {
+	optional .CProductInfo_CostInfo current_prices = 1;
+}
+
+message CProductInfo_GetPackagesAndUSDPriceForApps_Request {
+	repeated uint32 appids = 1;
+	optional uint32 partnerid = 2;
+}
+
+message CProductInfo_GetPackagesAndUSDPriceForApps_Response {
+	repeated .CProductInfo_GetPackagesAndUSDPriceForApps_Response_CAppToPackages apps_to_packages = 1;
+	repeated .CProductInfo_GetPackagesAndUSDPriceForApps_Response_CPackageWithUSCents packages_with_usd_price = 2;
+}
+
+message CProductInfo_GetPackagesAndUSDPriceForApps_Response_CAppToPackages {
+	optional uint32 appid = 1;
+	repeated uint32 packageid = 2;
+}
+
+message CProductInfo_GetPackagesAndUSDPriceForApps_Response_CPackageWithUSCents {
+	optional uint32 packageid = 1;
+	optional int64 usd_cents = 2;
+}
+
+message CProductInfo_GetPackagesDiscounts_Request {
+	repeated uint32 packageids = 1;
+	optional bool exclude_expired = 2;
+	optional bool include_costs = 3 [default = true];
+}
+
+message CProductInfo_GetPackagesDiscounts_Response {
+	repeated .CProductInfo_DiscountInfo discounts = 1;
+}
+
+message CProductInfo_GetPackagesDiscountsByTimeRange_Request {
+	repeated uint32 packageids = 1;
+	optional uint32 start_rtime = 3;
+	optional uint32 end_rtime = 4;
+}
+
+message CProductInfo_GetPackagesDiscountsByTimeRange_Response {
+	repeated .CProductInfo_DiscountInfo discounts = 1;
+}
+
+message CProductInfo_GetPhysicalItemList_Request {
+}
+
+message CProductInfo_GetPhysicalItemList_Response {
+	repeated .CProductInfo_GetPhysicalItemList_Response_PhysicalItem physical_items = 1;
+}
+
+message CProductInfo_GetPhysicalItemList_Response_PhysicalItem {
+	optional uint32 physical_itemid = 1;
+	optional string item_description = 2;
+}
+
+message CProductInfo_GetPhysicalItems_Request {
+	repeated uint32 physical_itemids = 1;
+}
+
+message CProductInfo_GetPhysicalItems_Response {
+	repeated .CProductInfo_PhysicalItem physical_items = 1;
+	repeated uint32 unknown_physical_itemids = 2;
+}
+
+message CProductInfo_GetPriceProposalHistory_Request {
+	optional uint64 proposal_key = 1;
+}
+
+message CProductInfo_GetPriceProposalHistory_Response {
+	repeated .CProductInfo_PackagePriceProposal prices = 1;
+}
+
+message CProductInfo_GetPricesForMultiplePackages_Request {
+	repeated uint32 packageids = 1;
+}
+
+message CProductInfo_GetPricesForMultiplePackages_Response {
+	repeated .CProductInfo_GetPricesForMultiplePackages_Response_PackagePrices package_prices = 1;
+}
+
+message CProductInfo_GetPricesForMultiplePackages_Response_PackagePrices {
+	optional uint32 packageid = 1;
+	optional .CProductInfo_CostInfo current_costs = 2;
+}
+
+message CProductInfo_GetPricingGuidelinesFromDatabase_Request {
+}
+
+message CProductInfo_GetPricingGuidelinesFromDatabase_Response {
+	repeated .CProductInfo_PricePoint price_points = 1;
+}
+
+message CProductInfo_GetPricingGuidelinesSubmissionFloor_Request {
+}
+
+message CProductInfo_GetPricingGuidelinesSubmissionFloor_Response {
+	repeated .CProductInfo_PricePoint lowest_base_price_points = 1;
+	repeated .CProductInfo_PricePoint lowest_discount_price_points = 2;
+}
+
+message CProductInfo_GetPricingGuidelinesVisibilityFloor_Request {
+}
+
+message CProductInfo_GetPricingGuidelinesVisibilityFloor_Response {
+	repeated .CProductInfo_PricePoint lowest_base_price_points = 1;
+	repeated .CProductInfo_PricePoint lowest_discount_price_points = 2;
+}
+
+message CProductInfo_GetPricingHistory_Request {
+	repeated uint32 packageid = 1;
+}
+
+message CProductInfo_GetPricingHistory_Response {
+	repeated .CProductInfo_PackagePriceProposal prices = 1;
+}
+
+message CProductInfo_GetPricingToolData_Request {
+	optional uint32 publisherid = 1;
+}
+
+message CProductInfo_GetPricingToolData_Response {
+	repeated .CProductInfo_GetPricingToolData_Response_Package packages = 1;
+}
+
+message CProductInfo_GetPricingToolData_Response_Package {
+	optional uint32 packageid = 1;
+	optional string package_name = 2;
+	repeated uint32 appids = 3;
+	optional string grouped_app_name = 4;
+	optional bool contains_game = 5;
+	optional bool contains_dlc = 6;
+	optional bool released = 7;
+}
+
+message CProductInfo_GetProposedPrices_Request {
+	optional .CProductInfo_SearchForPackages_Filter filter = 1;
+	optional int32 page = 2 [default = 1];
+	optional int32 count = 3 [default = 100];
+	optional bool include_approved = 4 [default = false];
+}
+
+message CProductInfo_GetProposedPrices_Response {
+	repeated .CProductInfo_PackagePriceProposal packages = 1;
+	optional int32 total = 2;
+}
+
+message CProductInfo_ModifyBundle_Request {
+	optional .CBundleDetails details = 1;
+	optional bool commit_collaborative_change = 2;
+}
+
+message CProductInfo_ModifyBundle_Response {
+}
+
+message CProductInfo_NotifyForceReloadAppsInSolr_Notification {
+	repeated uint32 appids = 1;
+}
+
+message CProductInfo_Package {
+	optional uint32 packageid = 1;
+	optional .CProductInfo_CddbPackage cddb = 2;
+	optional .CProductInfo_AdminPackage admin = 3;
+	optional .CProductInfo_PackagePolicies policies = 5;
+}
+
+message CProductInfo_PackagePolicies {
+	optional bool can_be_granted_from_third_party = 1;
+	optional bool steamguard_restricted = 2;
+	optional bool always_count_as_owned = 3;
+	optional bool gifts_are_tradable = 4;
+	optional int32 requires_pre_approval = 5 [(.description) = "enum"];
+	optional bool allow_cross_region_trading_and_gifting = 6;
+	repeated .CProductInfo_PackagePolicies_IpLoginRestriction ip_login_restrictions = 10;
+	repeated .CProductInfo_PackagePolicies_CouponToGrant coupons_to_grant = 11;
+	optional bool always_count_as_unowned = 12;
+}
+
+message CProductInfo_PackagePolicies_CouponToGrant {
+	optional uint32 couponid = 1;
+	optional int32 count = 2;
+	optional bool imported_from_coupon = 3;
+}
+
+message CProductInfo_PackagePolicies_IpLoginRestriction {
+	optional string ip_block_cidr = 1;
+}
+
+message CProductInfo_PackagePolicies_Query {
+	optional bool query_simple_policies = 1;
+	optional bool query_ip_login_restrictions = 2;
+	optional bool query_coupon_grants = 3;
+}
+
+message CProductInfo_PackagePriceProposal {
+	optional uint32 packageid = 1;
+	optional .CProductInfo_PriceProposal proposed_prices = 2;
+	optional string notes = 3;
+	optional uint32 account = 4;
+	optional fixed32 time = 5;
+	optional int32 state = 6 [(.description) = "enum"];
+	optional uint64 proposal_key = 7;
+	optional bool partner_will_publish = 8;
+	optional uint32 account_proposer = 9;
+}
+
+message CProductInfo_PhysicalItem {
+	optional uint32 physical_itemid = 1;
+	optional string item_description = 2;
+	optional int64 value = 3;
+	optional int32 ecurrency_code = 4;
+	optional uint32 retail_packageid = 5;
+	optional int32 weight_in_hundredths_of_pound = 6;
+	optional bool ship_rmas_back_to_valve = 7 [default = false];
+	optional bool subsidized_bundled_shipping = 8 [default = false];
+	optional bool restrict_customer_rmas = 9 [default = false];
+	repeated .CProductInfo_PhysicalItem_CountrySKU country_skus = 10;
+}
+
+message CProductInfo_PhysicalItem_CountrySKU {
+	optional string country = 1;
+	optional int32 edistributor = 2;
+	optional string product_identifier = 3;
+	optional int32 release_state = 4 [default = 0];
+	optional int32 release_state_time = 5 [default = 0];
+	optional int32 order_process_time = 6 [default = 0];
+	optional int32 edistributor_bstock = 7;
+	optional string product_identifier_bstock = 8;
+	repeated .CProductInfo_PhysicalItem_ShippingCost shipping_costs = 9;
+	optional int64 value = 10;
+	optional int32 value_ecurrency_code = 11;
+}
+
+message CProductInfo_PhysicalItem_ShippingCost {
+	optional int32 eshipping_method = 1;
+	optional int64 cost = 2;
+	optional int32 ecurrency_code = 3;
+}
+
+message CProductInfo_PricePoint {
+	optional uint64 usd_price = 1;
+	repeated .CProductInfo_CurrencyPrice currency_prices = 2;
+	repeated .CProductInfo_RegionPrice region_prices = 3;
+	optional int32 convert_method = 4 [(.description) = "enum"];
+	optional uint32 rtime_convert_start = 5;
+}
+
+message CProductInfo_PriceProposal {
+	repeated .CProductInfo_PriceProposal_ProposedAmount base_amounts = 1;
+	repeated .CProductInfo_PriceProposal_ProposedAmount region_amounts = 2;
+	repeated .CProductInfo_PriceProposal_ProposedAmount country_amounts = 3;
+}
+
+message CProductInfo_PriceProposal_ProposedAmount {
+	optional string name = 1;
+	optional .CProductInfo_Amount amount = 2;
+	optional bool approved = 3;
+	optional uint32 account = 4;
+	optional fixed32 time = 5;
+}
+
+message CProductInfo_PublishCouponDefinition_Request {
+	optional uint32 couponid = 1;
+}
+
+message CProductInfo_PublishCouponDefinition_Response {
+}
+
+message CProductInfo_RegionPrice {
+	optional uint32 region_code = 1;
+	optional uint32 currency_code = 2;
+	optional uint64 price = 3;
+}
+
+message CProductInfo_SaveCouponDefinition_Request {
+	optional uint32 couponid = 1;
+	optional string keyvalues = 2;
+	optional bool create_new_coupon = 3;
+}
+
+message CProductInfo_SaveCouponDefinition_Response {
+	optional uint32 couponid = 1;
+}
+
+message CProductInfo_SearchForPackages_Filter {
+	repeated uint32 packageids = 1;
+	repeated string name_filters = 2;
+	repeated uint32 partner_filters = 3;
+	optional int32 start_index = 4;
+	optional int32 max_count = 5;
+	repeated uint32 contain_appordepotids = 6;
+}
+
+message CProductInfo_SearchForPackages_Request {
+	optional .CProductInfo_SearchForPackages_Filter filter = 1;
+	optional .CProductInfo_CddbPackage_Query cddb = 2;
+	optional .CProductInfo_AdminPackage_Query admin = 3;
+	optional .CProductInfo_PackagePolicies_Query policies = 5;
+}
+
+message CProductInfo_SearchForPackages_Response {
+	repeated .CProductInfo_Package packages = 1;
+	repeated uint32 unknown_packageids = 2;
+}
+
+message CProductInfo_SetCddbPackages_Request {
+	repeated .CProductInfo_CddbPackage packages = 1;
+	optional bool create_packages_only = 2;
+}
+
+message CProductInfo_SetCddbPackages_Response {
+	repeated .CProductInfo_SetCddbPackages_Response_PackageSet packages_set = 1;
+	repeated .CProductInfo_SetCddbPackages_Response_PackageNotSet packages_not_set = 2;
+	optional uint32 changenumber = 3;
+}
+
+message CProductInfo_SetCddbPackages_Response_PackageNotSet {
+	optional uint32 packageid = 1;
+	optional string error = 2;
+}
+
+message CProductInfo_SetCddbPackages_Response_PackageSet {
+	optional uint32 packageid = 1;
+	optional int32 revision = 2;
+	optional fixed64 last_modification_steamid = 3;
+	optional fixed32 last_modification_time = 4;
+}
+
+message CProductInfo_SetPackagePrice_Request {
+	optional uint32 packageid = 1;
+	optional .CProductInfo_CostInfo current_prices = 2;
+	optional bool update_discounts = 3;
+}
+
+message CProductInfo_SetPackagePrice_Response {
+	optional string error_msg = 1;
+}
+
+message CProductInfo_SetPhysicalItem_Request {
+	optional .CProductInfo_PhysicalItem physical_item = 1;
+}
+
+message CProductInfo_SetPhysicalItem_Response {
+	optional uint32 physical_itemid = 1;
+}
+
+message CProductInfo_SetRichPresenceLocalization_Request {
+	optional uint32 appid = 1;
+	repeated .CProductInfo_SetRichPresenceLocalization_Request_LanguageSection languages = 2;
+	optional uint64 steamid = 3;
+}
+
+message CProductInfo_SetRichPresenceLocalization_Request_LanguageSection {
+	optional string language = 1;
+	repeated .CProductInfo_SetRichPresenceLocalization_Request_Token tokens = 2;
+}
+
+message CProductInfo_SetRichPresenceLocalization_Request_Token {
+	optional string token = 1;
+	optional string value = 2;
+}
+
+message CProductInfo_SetRichPresenceLocalization_Response {
+}
+
+message CProductInfo_SetSteamChinaPartnerSiteToolsEnabled_Request {
+	optional uint32 appid = 1;
+	optional bool enable = 2;
+}
+
+message CProductInfo_SetSteamChinaPartnerSiteToolsEnabled_Response {
+	optional bool clear_depot_cache = 1;
+	optional uint32 china_dev_package_id = 2;
+}
+
+message CProductInfo_UpdateAdditionalRevenueShareAppDetails_Notification {
+}
+
+message CProductInfo_UpdateAppsWithSpecialDLCCache_Notification {
+}
+
+message CProductInfo_UpdateCddbPackages_Request {
+	repeated .CProductInfo_UpdateCddbPackages_Request_PackageData packages = 1;
+	optional bool is_admin = 2;
+}
+
+message CProductInfo_UpdateCddbPackages_Request_PackageData {
+	optional uint32 packageid = 1;
+	optional string name = 2;
+	repeated uint32 appids_to_add = 3;
+	repeated uint32 appids_to_remove = 4;
+	repeated uint32 depotids_to_add = 5;
+	repeated uint32 depotids_to_remove = 6;
+	optional int32 billing_type = 7 [(.description) = "enum"];
+	optional int32 activation_code = 8 [(.description) = "enum"];
+	optional int32 game_code = 9;
+	optional string game_code_description = 10;
+	optional int32 territory_code = 11;
+	optional bool is_available = 12;
+	optional string extended_info = 13;
+}
+
+message CProductInfo_UpdateCddbPackages_Response {
+}
+
+message CProductInfo_UpdateMultipleDiscounts_Request {
+	repeated .CProductInfo_DiscountInfo discounts = 1;
+}
+
+message CProductInfo_UpdateMultipleDiscounts_Response {
+	repeated .CProductInfo_UpdateMultipleDiscounts_Response_UpdatedDiscountResult results = 1;
+}
+
+message CProductInfo_UpdateMultipleDiscounts_Response_UpdatedDiscountResult {
+	optional uint32 packageid = 1;
+	optional uint32 discountid = 2;
+	optional uint32 revision = 3;
+	optional uint32 eresult = 4;
+}
+
+message CProductInfo_UpdatePackageDiscount_Request {
+	optional .CProductInfo_DiscountInfo discount = 1;
+}
+
+message CProductInfo_UpdatePackageDiscount_Response {
+	optional uint32 revision = 1;
+	optional uint32 discountid = 2;
+}
+
+message CProductInfo_UpdateProposedPrices_Request {
+	repeated .CProductInfo_PackagePriceProposal packages = 1;
+}
+
+message CProductInfo_UpdateProposedPrices_Response {
+	optional string error_msg = 1;
+}
+
+message CProductInfo_UpdateStandaloneDLCCache_Notification {
+}
+
+message CProductInfo_WaitForEditsToGoLive_Request {
+	optional uint32 changenumber_to_wait_for = 1;
+	optional uint32 max_time_ms_to_wait = 2;
+}
+
+message CProductInfo_WaitForEditsToGoLive_Response {
+	optional bool wait_successful = 1;
+	optional uint32 changenumber_waited_on = 2;
+}
+
+service ProductInfo {
+	// ePrivilege=1
+	rpc AddToMasterDiscount (.CProductInfo_AddToMasterDiscount_Request) returns (.CProductInfo_AddToMasterDiscount_Response);
+	// ePrivilege=1
+	rpc ApplyApprovedPrices (.CProductInfo_ApplyApprovedPrices_Request) returns (.CProductInfo_ApplyApprovedPrices_Response);
+	// ePrivilege=1
+	rpc ApproveProposedPrices (.CProductInfo_ApproveProposedPrices_Request) returns (.CProductInfo_ApproveProposedPrices_Response);
+	// ePrivilege=1
+	rpc CancelPackageDiscount (.CProductInfo_CancelPackageDiscount_Request) returns (.CProductInfo_CancelPackageDiscount_Response);
+	// ePrivilege=1
+	rpc CancelProposedPrices (.CProductInfo_CancelProposedPrices_Request) returns (.CProductInfo_CancelProposedPrices_Response);
+	// ePrivilege=7
+	rpc ClearAppInfoSectionCache (.CProductInfo_AppInfoSection_ClearCache_Request) returns (.CProductInfo_AppInfoSection_ClearCache_Response);
+	// ePrivilege=1
+	rpc CloneCommercialPackageFromRetail (.CProductInfo_CloneCommercialPackageFromRetail_Request) returns (.CProductInfo_CloneCommercialPackageFromRetail_Response);
+	// ePrivilege=7
+	rpc CommitAppInfoSection (.CProductInfo_AppInfoSection_Commit_Request) returns (.CProductInfo_AppInfoSection_Commit_Response);
+	// ePrivilege=7
+	rpc CommitAppInfoSectionValues (.CProductInfo_CommitAppInfoSectionValues_Request) returns (.CProductInfo_CommitAppInfoSectionValues_Response);
+	// ePrivilege=1
+	rpc CreateBundle (.CProductInfo_CreateBundle_Request) returns (.CProductInfo_CreateBundle_Response);
+	// ePrivilege=4
+	rpc CreateOrUpdateMasterDiscount (.CProductInfo_CreateOrUpdateMasterDiscount_Request) returns (.CProductInfo_CreateOrUpdateMasterDiscount_Response);
+	// ePrivilege=1
+	rpc CreatePackage (.CProductInfo_CreatePackage_Request) returns (.CProductInfo_CreatePackage_Response);
+	// ePrivilege=1
+	rpc CreatePackageDiscount (.CProductInfo_CreatePackageDiscount_Request) returns (.CProductInfo_CreatePackageDiscount_Response);
+	// ePrivilege=1
+	rpc CreateProposedPrices (.CProductInfo_CreateProposedPrices_Request) returns (.CProductInfo_CreateProposedPrices_Response);
+	// ePrivilege=2
+	rpc FindBundles (.CProductInfo_FindBundles_Request) returns (.CProductInfo_FindBundles_Response);
+	// ePrivilege=4
+	rpc GenerateAlternativePackagePricing (.CProductInfo_GenerateAlternativePackagePricing_Request) returns (.CProductInfo_GenerateAlternativePackagePricing_Response);
+	// ePrivilege=1
+	rpc GenerateAppId (.CProductInfo_GenerateAppId_Request) returns (.CProductInfo_GenerateAppId_Response);
+	// ePrivilege=4
+	rpc GeneratePricingGuidelines (.CProductInfo_GeneratePricingGuidelines_Request) returns (.CProductInfo_GeneratePricingGuidelines_Response);
+	// ePrivilege=1
+	rpc GetAllProposedPrices (.CProductInfo_GetAllProposedPrices_Request) returns (.CProductInfo_GetAllProposedPrices_Response);
+	// bConstMethod=true, ePrivilege=7
+	rpc GetAppInfoSection (.CProductInfo_AppInfoSection_Get_Request) returns (.CProductInfo_AppInfoSection_Get_Response);
+	// bConstMethod=true, ePrivilege=7
+	rpc GetAppInfoSectionHistory (.CProductInfo_AppInfoSection_GetHistory_Request) returns (.CProductInfo_AppInfoSection_GetHistory_Response);
+	// ePrivilege=0
+	rpc GetAppsInCollection (.CProductInfo_GetAppsInCollection_Request) returns (.CProductInfo_GetAppsInCollection_Response);
+	// ePrivilege=1
+	rpc GetBatchPackageLastPriceRaise (.CProductInfo_GetBatchPackageLastPriceRaise_Request) returns (.CProductInfo_GetBatchPackageLastPriceRaise_Response);
+	// ePrivilege=2
+	rpc GetBundleDetails (.CProductInfo_GetBundleDetails_Request) returns (.CProductInfo_GetBundleDetails_Response);
+	// ePrivilege=1
+	rpc GetCddbPackages (.CProductInfo_GetCddbPackages_Request) returns (.CProductInfo_GetCddbPackages_Response);
+	// bConstMethod=true, ePrivilege=7
+	rpc GetCommittedAppInfoSections (.CProductInfo_AppInfoSection_GetCommittedSections_Request) returns (.CProductInfo_AppInfoSection_GetCommittedSections_Response);
+	// ePrivilege=4
+	rpc GetCostSetFromPriceGuideline (.CProductInfo_GetCostSetFromPriceGuideline_Request) returns (.CProductInfo_GetCostSetFromPriceGuideline_Response);
+	// ePrivilege=4
+	rpc GetCouponDefinition (.CProductInfo_GetCouponDefinition_Request) returns (.CProductInfo_GetCouponDefinition_Response);
+	// ePrivilege=4
+	rpc GetCouponDefinitionList (.CProductInfo_GetCouponDefinitionList_Request) returns (.CProductInfo_GetCouponDefinitionList_Response);
+	// ePrivilege=1
+	rpc GetCurrencyCodeForCountry (.CProductInfo_GetCurrencyCodeForCountry_Request) returns (.CProductInfo_GetCurrencyCodeForCountry_Response);
+	// ePrivilege=4
+	rpc GetCurrentRecommendedPricingID (.CProductInfo_GetCurrentRecommendedPricingID_Request) returns (.CProductInfo_GetCurrentRecommendedPricingID_Response);
+	// bConstMethod=true, ePrivilege=7
+	rpc GetHasUncommittedChanges (.CProductInfo_AppInfoSection_GetHasUncommittedChanges_Request) returns (.CProductInfo_AppInfoSection_GetHasUncommittedChanges_Response);
+	// ePrivilege=4
+	rpc GetMasterDiscountDetails (.CProductInfo_GetMasterDiscountDetails_Request) returns (.CProductInfo_GetMasterDiscountDetails_Response);
+	// ePrivilege=0
+	rpc GetMaxCouponDiscount (.CProductInfo_GetMaxCouponDiscount_Request) returns (.CProductInfo_GetMaxCouponDiscount_Response);
+	// ePrivilege=1
+	rpc GetPackageDiscountsByIds (.CProductInfo_GetPackageDiscountsByIds_Request) returns (.CProductInfo_GetPackageDiscountsByIds_Response);
+	// ePrivilege=1
+	rpc GetPackageLastPriceRaise (.CProductInfo_GetPackageLastPriceRaise_Request) returns (.CProductInfo_GetPackageLastPriceRaise_Response);
+	// ePrivilege=1
+	rpc GetPackagePrice (.CProductInfo_GetPackagePrice_Request) returns (.CProductInfo_GetPackagePrice_Response);
+	// ePrivilege=1
+	rpc GetPackagesAndUSDPriceForApps (.CProductInfo_GetPackagesAndUSDPriceForApps_Request) returns (.CProductInfo_GetPackagesAndUSDPriceForApps_Response);
+	// ePrivilege=1
+	rpc GetPackagesDiscounts (.CProductInfo_GetPackagesDiscounts_Request) returns (.CProductInfo_GetPackagesDiscounts_Response);
+	// ePrivilege=1
+	rpc GetPackagesDiscountsByTimeRange (.CProductInfo_GetPackagesDiscountsByTimeRange_Request) returns (.CProductInfo_GetPackagesDiscountsByTimeRange_Response);
+	// ePrivilege=1
+	rpc GetPhysicalItemList (.CProductInfo_GetPhysicalItemList_Request) returns (.CProductInfo_GetPhysicalItemList_Response);
+	// ePrivilege=1
+	rpc GetPhysicalItems (.CProductInfo_GetPhysicalItems_Request) returns (.CProductInfo_GetPhysicalItems_Response);
+	// ePrivilege=1
+	rpc GetPriceProposalHistory (.CProductInfo_GetPriceProposalHistory_Request) returns (.CProductInfo_GetPriceProposalHistory_Response);
+	// ePrivilege=1
+	rpc GetPricesForMultiplePackages (.CProductInfo_GetPricesForMultiplePackages_Request) returns (.CProductInfo_GetPricesForMultiplePackages_Response);
+	// ePrivilege=0
+	rpc GetPricingGuidelinesFromDatabase (.CProductInfo_GetPricingGuidelinesFromDatabase_Request) returns (.CProductInfo_GetPricingGuidelinesFromDatabase_Response);
+	// ePrivilege=0
+	rpc GetPricingGuidelinesSubmissionFloor (.CProductInfo_GetPricingGuidelinesSubmissionFloor_Request) returns (.CProductInfo_GetPricingGuidelinesSubmissionFloor_Response);
+	// ePrivilege=0
+	rpc GetPricingGuidelinesVisibilityFloor (.CProductInfo_GetPricingGuidelinesVisibilityFloor_Request) returns (.CProductInfo_GetPricingGuidelinesVisibilityFloor_Response);
+	// ePrivilege=1
+	rpc GetPricingHistory (.CProductInfo_GetPricingHistory_Request) returns (.CProductInfo_GetPricingHistory_Response);
+	// ePrivilege=8
+	rpc GetPricingToolData (.CProductInfo_GetPricingToolData_Request) returns (.CProductInfo_GetPricingToolData_Response);
+	// ePrivilege=1
+	rpc GetProposedPrices (.CProductInfo_GetProposedPrices_Request) returns (.CProductInfo_GetProposedPrices_Response);
+	// bConstMethod=true, ePrivilege=7
+	rpc GetUncommittedAppInfoSections (.CProductInfo_AppInfoSection_GetUncommittedSections_Request) returns (.CProductInfo_AppInfoSection_GetUncommittedSections_Response);
+	// ePrivilege=1
+	rpc ModifyBundle (.CProductInfo_ModifyBundle_Request) returns (.CProductInfo_ModifyBundle_Response);
+	// ePrivilege=0
+	rpc NotifyAppLaunchOptionUpdated (.CProductInfo_AppLaunchOptionUpdated_Notification) returns (.NoResponse);
+	// ePrivilege=0
+	rpc NotifyAppRetirementUpdated (.CProductInfo_AppRetirementUpdated_Notification) returns (.NoResponse);
+	// ePrivilege=4
+	rpc NotifyForceReloadAppsInSolr (.CProductInfo_NotifyForceReloadAppsInSolr_Notification) returns (.NoResponse);
+	// ePrivilege=4
+	rpc PublishCouponDefinition (.CProductInfo_PublishCouponDefinition_Request) returns (.CProductInfo_PublishCouponDefinition_Response);
+	// ePrivilege=7
+	rpc RevertAppInfoSection (.CProductInfo_AppInfoSection_Revert_Request) returns (.CProductInfo_AppInfoSection_Revert_Response);
+	// ePrivilege=7
+	rpc RevertUnchangedAppInfoSections (.CProductInfo_AppInfoSection_RevertUnchanged_Request) returns (.CProductInfo_AppInfoSection_RevertUnchanged_Response);
+	// ePrivilege=7
+	rpc SaveAppInfoSection (.CProductInfo_AppInfoSection_Save_Request) returns (.CProductInfo_AppInfoSection_Save_Response);
+	// ePrivilege=4
+	rpc SaveCouponDefinition (.CProductInfo_SaveCouponDefinition_Request) returns (.CProductInfo_SaveCouponDefinition_Response);
+	// ePrivilege=0
+	rpc SearchForPackages (.CProductInfo_SearchForPackages_Request) returns (.CProductInfo_SearchForPackages_Response);
+	// ePrivilege=1
+	rpc SetCddbPackages (.CProductInfo_SetCddbPackages_Request) returns (.CProductInfo_SetCddbPackages_Response);
+	// ePrivilege=1
+	rpc SetPackagePrice (.CProductInfo_SetPackagePrice_Request) returns (.CProductInfo_SetPackagePrice_Response);
+	// ePrivilege=1
+	rpc SetPhysicalItem (.CProductInfo_SetPhysicalItem_Request) returns (.CProductInfo_SetPhysicalItem_Response);
+	// ePrivilege=7, eWebAPIKeyRequirement=5
+	rpc SetRichPresenceLocalization (.CProductInfo_SetRichPresenceLocalization_Request) returns (.CProductInfo_SetRichPresenceLocalization_Response);
+	// ePrivilege=4
+	rpc SetSteamChinaPartnerSiteToolsEnabled (.CProductInfo_SetSteamChinaPartnerSiteToolsEnabled_Request) returns (.CProductInfo_SetSteamChinaPartnerSiteToolsEnabled_Response);
+	// ePrivilege=0
+	rpc UpdateAdditionalRevenueShareAppDetails (.CProductInfo_UpdateAdditionalRevenueShareAppDetails_Notification) returns (.NoResponse);
+	// ePrivilege=0
+	rpc UpdateAppsWithSpecialDLCCache (.CProductInfo_UpdateAppsWithSpecialDLCCache_Notification) returns (.NoResponse);
+	// ePrivilege=1
+	rpc UpdateCddbPackages (.CProductInfo_UpdateCddbPackages_Request) returns (.CProductInfo_UpdateCddbPackages_Response);
+	// ePrivilege=1
+	rpc UpdateMultipleDiscounts (.CProductInfo_UpdateMultipleDiscounts_Request) returns (.CProductInfo_UpdateMultipleDiscounts_Response);
+	// ePrivilege=1
+	rpc UpdatePackageDiscount (.CProductInfo_UpdatePackageDiscount_Request) returns (.CProductInfo_UpdatePackageDiscount_Response);
+	// ePrivilege=1
+	rpc UpdateProposedPrices (.CProductInfo_UpdateProposedPrices_Request) returns (.CProductInfo_UpdateProposedPrices_Response);
+	// ePrivilege=0
+	rpc UpdateStandaloneDLCCache (.CProductInfo_UpdateStandaloneDLCCache_Notification) returns (.NoResponse);
+	// ePrivilege=0
+	rpc WaitForEditsToGoLive (.CProductInfo_WaitForEditsToGoLive_Request) returns (.CProductInfo_WaitForEditsToGoLive_Response);
+}
+

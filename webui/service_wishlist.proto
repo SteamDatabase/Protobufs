@@ -22,6 +22,14 @@ message CWishlist_AddWishlistItemCategory_Response {
 	optional int32 item_count = 3;
 }
 
+message CWishlist_CreateShareToken_Request {
+	optional .CWishlistFilters filters = 1;
+}
+
+message CWishlist_CreateShareToken_Response {
+	optional string token = 1;
+}
+
 message CWishlist_GetItemCategories_Request {
 	optional uint32 appid = 1;
 }
@@ -37,6 +45,15 @@ message CWishlist_GetSharedWishlistCategories_Request {
 
 message CWishlist_GetSharedWishlistCategories_Response {
 	repeated .CWishlistCategory categories = 1;
+}
+
+message CWishlist_GetStoreSaleWishlistEnhancementEvent_Request {
+	optional uint32 clanid = 1 [default = 0];
+	optional uint32 promotionid = 2 [default = 0];
+}
+
+message CWishlist_GetStoreSaleWishlistEnhancementEvent_Response {
+	repeated .WishlistEnhancementEvent results = 1;
 }
 
 message CWishlist_GetWishlist_Request {
@@ -122,6 +139,21 @@ message CWishlist_RemoveWishlistItemCategory_Request {
 message CWishlist_RemoveWishlistItemCategory_Response {
 }
 
+message CWishlist_RevokeShareTokens_Request {
+}
+
+message CWishlist_RevokeShareTokens_Response {
+	optional uint32 revoked_count = 1;
+}
+
+message CWishlist_SetStoreSaleWishlistEnhancementEvent_Request {
+	optional .WishlistEnhancementEvent value = 1;
+	optional bool is_delete = 7;
+}
+
+message CWishlist_SetStoreSaleWishlistEnhancementEvent_Response {
+}
+
 message CWishlistCategory {
 	optional uint64 categoryid = 1;
 	optional string name = 2;
@@ -155,15 +187,28 @@ message CWishlistFilters_SteamDeckFilters {
 	optional bool include_playable = 2;
 }
 
+message WishlistEnhancementEvent {
+	optional uint32 clanid = 1;
+	optional fixed64 gid_event = 2;
+	optional string url = 3;
+	optional uint32 rtime_start = 4;
+	optional uint32 rtime_end = 5;
+	optional uint32 promotionid = 6;
+}
+
 service Wishlist {
 	// ePrivilege=1
 	rpc AddToWishlist (.CWishlist_AddToWishlist_Request) returns (.CWishlist_AddToWishlist_Response);
 	// ePrivilege=1
 	rpc AddWishlistItemCategory (.CWishlist_AddWishlistItemCategory_Request) returns (.CWishlist_AddWishlistItemCategory_Response);
+	// ePrivilege=1
+	rpc CreateShareToken (.CWishlist_CreateShareToken_Request) returns (.CWishlist_CreateShareToken_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetItemCategories (.CWishlist_GetItemCategories_Request) returns (.CWishlist_GetItemCategories_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetSharedWishlistCategories (.CWishlist_GetSharedWishlistCategories_Request) returns (.CWishlist_GetSharedWishlistCategories_Response);
+	// ePrivilege=1
+	rpc GetStoreSaleWishlistEnhancementEvent (.CWishlist_GetStoreSaleWishlistEnhancementEvent_Request) returns (.CWishlist_GetStoreSaleWishlistEnhancementEvent_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=1
 	rpc GetWishlist (.CWishlist_GetWishlist_Request) returns (.CWishlist_GetWishlist_Response);
 	// bConstMethod=true, ePrivilege=1
@@ -178,5 +223,9 @@ service Wishlist {
 	rpc RemoveFromWishlist (.CWishlist_RemoveFromWishlist_Request) returns (.CWishlist_RemoveFromWishlist_Response);
 	// ePrivilege=1
 	rpc RemoveWishlistItemCategory (.CWishlist_RemoveWishlistItemCategory_Request) returns (.CWishlist_RemoveWishlistItemCategory_Response);
+	// ePrivilege=1
+	rpc RevokeShareTokens (.CWishlist_RevokeShareTokens_Request) returns (.CWishlist_RevokeShareTokens_Response);
+	// ePrivilege=1
+	rpc SetStoreSaleWishlistEnhancementEvent (.CWishlist_SetStoreSaleWishlistEnhancementEvent_Request) returns (.CWishlist_SetStoreSaleWishlistEnhancementEvent_Response);
 }
 

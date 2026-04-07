@@ -1,0 +1,48 @@
+
+message CLocalLLMDebug_ContinueConversation_Request {
+	optional uint64 conversation_id = 1;
+	optional string user_prompt = 2;
+	optional uint32 choice_count = 3;
+	optional uint32 choice_selected = 4;
+}
+
+message CLocalLLMDebug_ContinueConversation_Response {
+	repeated .CLocalLLMDebug_ContinueConversation_Response_Response response = 1;
+	optional string think = 2;
+}
+
+message CLocalLLMDebug_ContinueConversation_Response_Response {
+	optional string content = 1;
+	optional string think = 2;
+}
+
+message CLocalLLMDebug_SimpleInference_Request {
+	optional string model = 1;
+	optional string system_prompt = 2;
+	optional string user_prompt = 3;
+	optional bool json_response_format = 4;
+}
+
+message CLocalLLMDebug_SimpleInference_Response {
+	optional string response = 1;
+}
+
+message CLocalLLMDebug_StartConversation_Request {
+	optional string model = 1;
+	optional string system_prompt = 2;
+	optional bool json_response_format = 3;
+}
+
+message CLocalLLMDebug_StartConversation_Response {
+	optional uint64 conversation_id = 1;
+}
+
+service LocalLLMDebug {
+	// ePrivilege=1
+	rpc ContinueConversation (.CLocalLLMDebug_ContinueConversation_Request) returns (.CLocalLLMDebug_ContinueConversation_Response);
+	// bConstMethod=true, ePrivilege=1
+	rpc SimpleInference (.CLocalLLMDebug_SimpleInference_Request) returns (.CLocalLLMDebug_SimpleInference_Response);
+	// ePrivilege=1
+	rpc StartConversation (.CLocalLLMDebug_StartConversation_Request) returns (.CLocalLLMDebug_StartConversation_Response);
+}
+

@@ -1,0 +1,109 @@
+import "common_base.proto";
+
+message CSteamMLAdmin_CreateProblem_Request {
+	optional .CSteamMLProblemMsg problem = 1;
+}
+
+message CSteamMLAdmin_CreateProblem_Response {
+	optional .CSteamMLProblemMsg problem = 1;
+}
+
+message CSteamMLAdmin_DeleteProblem_Request {
+	optional int64 problemid = 1;
+}
+
+message CSteamMLAdmin_DeleteProblem_Response {
+}
+
+message CSteamMLAdmin_GetProblemList_Request {
+}
+
+message CSteamMLAdmin_GetProblemList_Response {
+	repeated .CSteamMLProblemMsg problems = 1;
+}
+
+message CSteamMLAdmin_GetSchemaDetails_Request {
+	optional int32 appid = 1;
+	optional fixed64 schemaid = 2;
+}
+
+message CSteamMLAdmin_GetSchemaDetails_Response {
+	optional string schema_description_json = 1;
+}
+
+message CSteamMLAdmin_GetSchemaList_Request {
+	optional int32 appid = 1;
+	optional bool include_steamml_app = 2;
+}
+
+message CSteamMLAdmin_GetSchemaList_Response {
+	repeated .CSteamMLSchemaDetailsMsg schemas = 1;
+}
+
+message CSteamMLAdmin_ReadProblem_Request {
+	optional int64 problemid = 1;
+}
+
+message CSteamMLAdmin_ReadProblem_Response {
+	optional .CSteamMLProblemMsg problem = 1;
+}
+
+message CSteamMLAdmin_ReloadSchemaStatus_Request {
+	optional int32 appid = 1;
+	optional int32 problem = 2 [(.description) = "enum"];
+}
+
+message CSteamMLAdmin_ReloadSchemaStatus_Response {
+}
+
+message CSteamMLAdmin_UpdateProblem_Request {
+	optional .CSteamMLProblemMsg problem = 1;
+}
+
+message CSteamMLAdmin_UpdateProblem_Response {
+	optional .CSteamMLProblemMsg problem = 1;
+}
+
+message CSteamMLProblemMsg {
+	optional string name = 1;
+	optional int64 problemid = 2;
+	optional string problem_description = 3;
+	optional fixed32 accountid = 4;
+	optional int32 create_time = 5;
+	optional int32 update_time = 6;
+	optional bool active = 7;
+	optional bool use_steam_data = 8;
+	optional bool use_app_specific_data = 9;
+	repeated fixed64 schemaid = 10;
+	optional int32 label_provider_type = 11;
+	optional string label_provider_python_function = 12;
+	optional fixed64 label_provider_schemaid = 13;
+}
+
+message CSteamMLSchemaDetailsMsg {
+	optional string name = 1;
+	optional int32 appid = 2;
+	optional fixed64 schemaid = 3;
+	optional uint32 keep_count = 4;
+	optional uint32 row_count = 5;
+}
+
+service SteamMLAdmin {
+	// ePrivilege=1
+	rpc CreateProblem (.CSteamMLAdmin_CreateProblem_Request) returns (.CSteamMLAdmin_CreateProblem_Response);
+	// ePrivilege=1
+	rpc DeleteProblem (.CSteamMLAdmin_DeleteProblem_Request) returns (.CSteamMLAdmin_DeleteProblem_Response);
+	// bConstMethod=true, ePrivilege=1
+	rpc GetProblemList (.CSteamMLAdmin_GetProblemList_Request) returns (.CSteamMLAdmin_GetProblemList_Response);
+	// bConstMethod=true, ePrivilege=1
+	rpc GetSchemaDetails (.CSteamMLAdmin_GetSchemaDetails_Request) returns (.CSteamMLAdmin_GetSchemaDetails_Response);
+	// bConstMethod=true, ePrivilege=1
+	rpc GetSchemaList (.CSteamMLAdmin_GetSchemaList_Request) returns (.CSteamMLAdmin_GetSchemaList_Response);
+	// bConstMethod=true, ePrivilege=1
+	rpc ReadProblem (.CSteamMLAdmin_ReadProblem_Request) returns (.CSteamMLAdmin_ReadProblem_Response);
+	// ePrivilege=0
+	rpc ReloadSchemaStatus (.CSteamMLAdmin_ReloadSchemaStatus_Request) returns (.CSteamMLAdmin_ReloadSchemaStatus_Response);
+	// ePrivilege=1
+	rpc UpdateProblem (.CSteamMLAdmin_UpdateProblem_Request) returns (.CSteamMLAdmin_UpdateProblem_Response);
+}
+

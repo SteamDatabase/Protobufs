@@ -1,0 +1,78 @@
+import "common_base.proto";
+
+message CPublishedFileCommerce_ChangeForSaleStatus_Request {
+	optional uint64 publishedfileid = 1;
+	optional int32 estatus = 2 [(.description) = "enum"];
+	optional bool from_periodic_job = 3;
+}
+
+message CPublishedFileCommerce_ChangeForSaleStatus_Response {
+	optional uint64 publishedfileid = 1;
+}
+
+message CPublishedFileCommerce_GetForSaleData_Request {
+	optional uint64 publishedfileid = 1;
+}
+
+message CPublishedFileCommerce_GetForSaleData_Response {
+	optional bool is_for_sale = 1;
+	optional uint32 price_category = 2;
+	optional uint32 itemid = 3;
+	optional string inventory_desc = 4;
+	optional int32 estatus = 5 [(.description) = "enum"];
+	optional uint32 time_submitted = 6;
+	optional uint32 time_approved = 7;
+	optional uint32 time_price_changed = 8;
+	optional uint32 num_purchases = 9;
+	optional uint32 num_refunds = 10;
+	optional uint32 price_category_floor = 11;
+	optional bool price_is_pay_what_you_want = 12;
+	optional uint32 discount_percentage = 13;
+}
+
+message CPublishedFileCommerce_NotifyPurchaseActivity_Request {
+	optional uint64 publishedfileid = 1;
+	optional uint64 steamid = 2;
+	optional bool was_purchased = 3;
+	optional uint32 refund_reason = 4;
+	optional uint64 transactionid = 5;
+}
+
+message CPublishedFileCommerce_NotifyPurchaseActivity_Response {
+}
+
+message CPublishedFileCommerce_SetBundleForSaleData_Request {
+	optional uint64 publishedfileid = 1;
+	optional uint32 discount_percentage = 2;
+	optional string inventory_desc = 3;
+	optional int32 estatus = 4 [(.description) = "enum"];
+}
+
+message CPublishedFileCommerce_SetBundleForSaleData_Response {
+}
+
+message CPublishedFileCommerce_SetForSaleData_Request {
+	optional uint64 publishedfileid = 1;
+	optional uint32 price_category = 2;
+	optional string inventory_desc = 3;
+	optional uint32 price_category_floor = 4;
+	optional bool price_is_pay_what_you_want = 5;
+	optional string inventory_name = 6;
+}
+
+message CPublishedFileCommerce_SetForSaleData_Response {
+}
+
+service PublishedFileCommerce {
+	// ePrivilege=2
+	rpc ChangeForSaleStatus (.CPublishedFileCommerce_ChangeForSaleStatus_Request) returns (.CPublishedFileCommerce_ChangeForSaleStatus_Response);
+	// bConstMethod=true, ePrivilege=0
+	rpc GetForSaleData (.CPublishedFileCommerce_GetForSaleData_Request) returns (.CPublishedFileCommerce_GetForSaleData_Response);
+	// ePrivilege=0
+	rpc NotifyPurchaseActivity (.CPublishedFileCommerce_NotifyPurchaseActivity_Request) returns (.CPublishedFileCommerce_NotifyPurchaseActivity_Response);
+	// ePrivilege=1
+	rpc SetBundleForSaleData (.CPublishedFileCommerce_SetBundleForSaleData_Request) returns (.CPublishedFileCommerce_SetBundleForSaleData_Response);
+	// ePrivilege=1
+	rpc SetForSaleData (.CPublishedFileCommerce_SetForSaleData_Request) returns (.CPublishedFileCommerce_SetForSaleData_Response);
+}
+
