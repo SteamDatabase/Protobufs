@@ -20,6 +20,7 @@ message CWishlist_AddWishlistItemCategory_Response {
 	optional uint64 categoryid = 1;
 	optional string name = 2;
 	optional int32 item_count = 3;
+	optional bool notification_opt_in = 4;
 }
 
 message CWishlist_CreateShareToken_Request {
@@ -154,10 +155,23 @@ message CWishlist_SetStoreSaleWishlistEnhancementEvent_Request {
 message CWishlist_SetStoreSaleWishlistEnhancementEvent_Response {
 }
 
+message CWishlist_SetWishlistCategoryNotifications_Request {
+	repeated .CWishlist_SetWishlistCategoryNotifications_Request_CategorySettings categories = 1;
+}
+
+message CWishlist_SetWishlistCategoryNotifications_Request_CategorySettings {
+	optional uint64 categoryid = 1;
+	optional bool notification_opt_in = 2;
+}
+
+message CWishlist_SetWishlistCategoryNotifications_Response {
+}
+
 message CWishlistCategory {
 	optional uint64 categoryid = 1;
 	optional string name = 2;
 	optional int32 item_count = 3;
+	optional bool notification_opt_in = 4;
 }
 
 message CWishlistFilters {
@@ -227,5 +241,7 @@ service Wishlist {
 	rpc RevokeShareTokens (.CWishlist_RevokeShareTokens_Request) returns (.CWishlist_RevokeShareTokens_Response);
 	// ePrivilege=1
 	rpc SetStoreSaleWishlistEnhancementEvent (.CWishlist_SetStoreSaleWishlistEnhancementEvent_Request) returns (.CWishlist_SetStoreSaleWishlistEnhancementEvent_Response);
+	// ePrivilege=1
+	rpc SetWishlistCategoryNotifications (.CWishlist_SetWishlistCategoryNotifications_Request) returns (.CWishlist_SetWishlistCategoryNotifications_Response);
 }
 

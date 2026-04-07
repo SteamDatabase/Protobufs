@@ -1,5 +1,4 @@
 import "common_base.proto";
-import "common.proto";
 
 message CPublishedFile_AddAppRelationship_Request {
 	optional uint64 publishedfileid = 1;
@@ -10,50 +9,12 @@ message CPublishedFile_AddAppRelationship_Request {
 message CPublishedFile_AddAppRelationship_Response {
 }
 
-message CPublishedFile_AddChangeHistory_Request {
-	optional fixed64 publishedfileid = 1;
-	optional uint32 timestamp = 2;
-	optional string change_description = 3;
-	optional fixed64 gid_file = 4;
-	optional int32 language = 5 [default = 0];
-}
-
-message CPublishedFile_AddChangeHistory_Response {
-}
-
 message CPublishedFile_AddChild_Request {
 	optional uint64 publishedfileid = 1;
 	optional uint64 child_publishedfileid = 2;
 }
 
 message CPublishedFile_AddChild_Response {
-}
-
-message CPublishedFile_AddReaction_Request {
-	optional uint64 publishedfileid = 1;
-	optional uint32 reactionid = 2;
-}
-
-message CPublishedFile_AddReaction_Response {
-}
-
-message CPublishedFile_AddTag_Request {
-	optional uint32 appid = 1;
-	optional string tag_name = 2;
-}
-
-message CPublishedFile_AddTag_Response {
-	optional uint32 tagid = 1;
-}
-
-message CPublishedFile_AdminUpdateFlags_Request {
-	optional fixed64 publishedfileid = 1;
-	optional uint32 flags_set = 2;
-	optional uint32 flags_unset = 3;
-	optional string note = 4;
-}
-
-message CPublishedFile_AdminUpdateFlags_Response {
 }
 
 message CPublishedFile_AreFilesInSubscriptionList_Request {
@@ -73,28 +34,12 @@ message CPublishedFile_AreFilesInSubscriptionList_Response_InList {
 	optional bool inlist = 2;
 }
 
-message CPublishedFile_BanUpVoters_Request {
-	optional fixed64 publishedfileid = 1;
-	optional bool unban = 2;
-}
-
-message CPublishedFile_BanUpVoters_Response {
-}
-
 message CPublishedFile_CanSubscribe_Request {
 	optional uint64 publishedfileid = 1;
 }
 
 message CPublishedFile_CanSubscribe_Response {
 	optional bool can_subscribe = 1;
-}
-
-message CPublishedFile_CheckForInappropriateContent_Request {
-	optional uint64 publishedfileid = 1;
-	optional bool ban_if_inappropriate = 2;
-}
-
-message CPublishedFile_CheckForInappropriateContent_Response {
 }
 
 message CPublishedFile_Delete_Request {
@@ -105,31 +50,9 @@ message CPublishedFile_Delete_Request {
 message CPublishedFile_Delete_Response {
 }
 
-message CPublishedFile_EnumerateUserTaggedFiles_Request {
-	optional fixed64 steamid = 1;
-	optional .PublishedFileFilter filter = 2;
-	optional uint32 start_index = 3;
-	optional uint32 count = 4;
-}
-
-message CPublishedFile_EnumerateUserTaggedFiles_Response {
-	optional fixed64 steamid = 1;
-	repeated .PublishedFileDetails publishedfiledetails = 2;
-	repeated .PublishedFilePerAppCount total_results_per_app = 3;
-	optional uint32 total_results = 4;
-}
-
 message CPublishedFile_FileDeleted_Client_Notification {
 	optional fixed64 published_file_id = 1;
 	optional uint32 app_id = 2;
-}
-
-message CPublishedFile_FileDeleted_Notification {
-	optional uint64 steamid = 1;
-	optional uint64 publishedfileid = 2;
-	optional uint32 creator_appid = 3;
-	optional uint32 file_type = 4;
-	optional uint32 permission = 5;
 }
 
 message CPublishedFile_FileSubscribed_Notification {
@@ -150,12 +73,6 @@ message CPublishedFile_FileSubscribed_Notification_RevisionData {
 	optional uint32 rtime_updated = 3;
 	optional string game_branch_min = 4;
 	optional string game_branch_max = 5;
-}
-
-message CPublishedFile_FilesUpdated_Notification {
-	optional uint64 steamid = 1;
-	repeated uint64 publishedfileids = 2;
-	optional int32 update_type = 3 [default = 0, (.description) = "enum"];
 }
 
 message CPublishedFile_FileUnsubscribed_Notification {
@@ -194,21 +111,6 @@ message CPublishedFile_GetAppRelationshipsBatched_Response_PublishedFileAppRelat
 	optional uint64 publishedfileid = 1;
 	optional uint32 result = 2;
 	repeated .CPublishedFile_GetAppRelationshipsBatched_Response_AppRelationship app_relationships = 3;
-}
-
-message CPublishedFile_GetAuditHistory_Request {
-	optional fixed64 publishedfileid = 1;
-}
-
-message CPublishedFile_GetAuditHistory_Response {
-	repeated .CPublishedFile_GetAuditHistory_Response_HistoryEntry entries = 1;
-}
-
-message CPublishedFile_GetAuditHistory_Response_HistoryEntry {
-	optional uint32 timestamp = 1;
-	optional fixed64 actor_steamid = 2;
-	optional uint32 action = 3;
-	optional string note = 4;
 }
 
 message CPublishedFile_GetChangeHistory_Request {
@@ -266,87 +168,6 @@ message CPublishedFile_GetContentDescriptors_Response_ContentDescriptor {
 	optional bool moderator_set = 4;
 }
 
-message CPublishedFile_GetCurrentBanStatus_Request {
-	optional fixed64 steamid = 1;
-	optional bool refresh = 2;
-	optional uint32 appid = 3;
-}
-
-message CPublishedFile_GetCurrentBanStatus_Response {
-	optional int32 num_banned_files = 1;
-	optional uint32 time_last_ban = 2;
-	optional bool is_currently_banned = 3;
-	optional uint32 expiration_time = 4;
-	repeated .CPublishedFile_GetCurrentBanStatus_Response_AppUGCBan app_bans = 5;
-}
-
-message CPublishedFile_GetCurrentBanStatus_Response_AppUGCBan {
-	optional uint32 appid = 1;
-	optional uint32 expiration_time = 2;
-	optional uint32 updated_time = 3;
-	optional uint32 accountid_moderator = 4;
-	optional string reason = 5;
-}
-
-message CPublishedFile_GetDailyUserActionHistory_Request {
-	optional uint64 publishedfileid = 1;
-	optional uint32 days = 2;
-}
-
-message CPublishedFile_GetDailyUserActionHistory_Response {
-	repeated .CPublishedFile_GetDailyUserActionHistory_Response_DailyUserActions actions = 1;
-}
-
-message CPublishedFile_GetDailyUserActionHistory_Response_DailyUserActions {
-	optional uint32 daystart = 1;
-	optional uint32 list_type = 2;
-	optional uint32 action = 3;
-	optional uint32 count = 4;
-}
-
-message CPublishedFile_GetDailyViewHistory_Request {
-	optional uint64 publishedfileid = 1;
-	optional uint32 days = 2;
-}
-
-message CPublishedFile_GetDailyViewHistory_Response {
-	repeated .CPublishedFile_GetDailyViewHistory_Response_DailyViews views = 1;
-}
-
-message CPublishedFile_GetDailyViewHistory_Response_DailyViews {
-	optional uint32 daystart = 1;
-	optional uint32 views = 2;
-}
-
-message CPublishedFile_GetDailyVoteLaterHistory_Request {
-	optional uint64 publishedfileid = 1;
-	optional uint32 days = 2;
-}
-
-message CPublishedFile_GetDailyVoteLaterHistory_Response {
-	repeated .CPublishedFile_GetDailyVoteLaterHistory_Response_DailyVotesLater votes_later = 1;
-}
-
-message CPublishedFile_GetDailyVoteLaterHistory_Response_DailyVotesLater {
-	optional uint32 daystart = 1;
-	optional uint32 votes_later = 2;
-}
-
-message CPublishedFile_GetDailyVotingHistory_Request {
-	optional uint64 publishedfileid = 1;
-	optional uint32 days = 2;
-}
-
-message CPublishedFile_GetDailyVotingHistory_Response {
-	repeated .CPublishedFile_GetDailyVotingHistory_Response_DailyVotes votes = 1;
-}
-
-message CPublishedFile_GetDailyVotingHistory_Response_DailyVotes {
-	optional uint32 daystart = 1;
-	optional int32 votes_up = 2;
-	optional int32 votes_down = 3;
-}
-
 message CPublishedFile_GetDetails_Request {
 	repeated fixed64 publishedfileids = 1;
 	optional bool includetags = 2;
@@ -368,44 +189,6 @@ message CPublishedFile_GetDetails_Request {
 
 message CPublishedFile_GetDetails_Response {
 	repeated .PublishedFileDetails publishedfiledetails = 1;
-}
-
-message CPublishedFile_GetFileVisibility_Request {
-	optional uint64 publishedfileid = 1;
-}
-
-message CPublishedFile_GetFileVisibility_Response {
-	optional int32 visibility = 1 [(.description) = "enum"];
-}
-
-message CPublishedFile_GetInappropriateContentLabels_Request {
-	optional fixed64 publishedfileid = 1;
-}
-
-message CPublishedFile_GetInappropriateContentLabels_Response {
-	repeated .CPublishedFile_GetInappropriateContentLabels_Response_InappropriateContentLabels labels_sex = 1;
-	repeated .CPublishedFile_GetInappropriateContentLabels_Response_InappropriateContentLabels labels_violence = 2;
-}
-
-message CPublishedFile_GetInappropriateContentLabels_Response_InappropriateContentLabels {
-	optional string label = 1;
-	optional float confidence = 2;
-}
-
-message CPublishedFile_GetInappropriateContentResults_Request {
-	optional uint64 publishedfileid = 1;
-}
-
-message CPublishedFile_GetInappropriateContentResults_Response {
-	repeated .CPublishedFile_GetInappropriateContentResults_Response_Result results = 1;
-}
-
-message CPublishedFile_GetInappropriateContentResults_Response_Result {
-	optional int32 provider = 1 [(.description) = "enum"];
-	optional uint32 time_created = 2;
-	optional string result = 3;
-	optional int32 inappropriate_result = 4 [(.description) = "enum"];
-	optional fixed64 fileid = 5;
 }
 
 message CPublishedFile_GetItemChanges_Request {
@@ -455,79 +238,6 @@ message CPublishedFile_GetItemInfo_Response_WorkshopItemInfo {
 	repeated .PublishedFileAuthorSnapshot author_snapshots = 6;
 }
 
-message CPublishedFile_GetLocalizedTags_Request {
-	optional uint32 appid = 1;
-	optional int32 language = 2;
-}
-
-message CPublishedFile_GetLocalizedTags_Response {
-	repeated .CPublishedFile_GetLocalizedTags_Response_LocalizedTag tags = 1;
-}
-
-message CPublishedFile_GetLocalizedTags_Response_LocalizedTag {
-	optional uint32 tagid = 1;
-	optional string tag_name = 2;
-	optional string tag_name_english = 3;
-}
-
-message CPublishedFile_GetNames_Request {
-	repeated uint64 publishedfileids = 1;
-}
-
-message CPublishedFile_GetNames_Response {
-	repeated .CPublishedFile_GetNames_Response_NameData names = 1;
-}
-
-message CPublishedFile_GetNames_Response_NameData {
-	optional uint64 publishedfileid = 1;
-	optional string name = 2;
-}
-
-message CPublishedFile_GetOwner_Request {
-	optional uint64 publishedfileid = 1;
-}
-
-message CPublishedFile_GetOwner_Response {
-	optional uint64 steamid = 1;
-}
-
-message CPublishedFile_GetParents_Request {
-	optional uint64 publishedfileid = 1;
-}
-
-message CPublishedFile_GetParents_Response {
-	optional uint32 total = 1;
-	repeated uint64 parentfilesbysamecreator = 2;
-	repeated uint64 bundles = 3;
-}
-
-message CPublishedFile_GetSavedWebQueries_Request {
-	optional uint32 appid = 1;
-}
-
-message CPublishedFile_GetSavedWebQueries_Response {
-	repeated .PublishedFileSavedWebQuery queries = 1;
-}
-
-message CPublishedFile_GetSavedWebQuery_Request {
-	optional uint32 appid = 1;
-	optional uint64 queryid = 2;
-}
-
-message CPublishedFile_GetSavedWebQuery_Response {
-	optional .PublishedFileSavedWebQuery query = 1;
-}
-
-message CPublishedFile_GetSolrDoc_Request {
-	optional fixed64 publishedfileid = 1;
-}
-
-message CPublishedFile_GetSolrDoc_Response {
-	optional string document = 1;
-	optional fixed64 rowversion = 2;
-	optional uint32 timestamp = 3;
-}
-
 message CPublishedFile_GetSubSectionData_Request {
 	optional uint64 publishedfileid = 1;
 	optional bool for_table_of_contents = 2;
@@ -537,30 +247,6 @@ message CPublishedFile_GetSubSectionData_Request {
 
 message CPublishedFile_GetSubSectionData_Response {
 	repeated .PublishedFileSubSection sub_sections = 1;
-}
-
-message CPublishedFile_GetUniqueSubscribers_Request {
-	optional fixed64 publishedfileid = 1;
-}
-
-message CPublishedFile_GetUniqueSubscribers_Response {
-	repeated uint32 accountids = 1;
-}
-
-message CPublishedFile_GetUpdatesSinceDate_Request {
-	optional uint32 appid = 1;
-	optional uint32 timestamp = 2;
-	optional int32 desired_revision = 3 [(.description) = "enum"];
-	repeated fixed64 publishedfileids = 4;
-}
-
-message CPublishedFile_GetUpdatesSinceDate_Response {
-	repeated .CPublishedFile_GetUpdatesSinceDate_Response_ItemUpdateInfo items = 1;
-}
-
-message CPublishedFile_GetUpdatesSinceDate_Response_ItemUpdateInfo {
-	optional fixed64 publishedfileid = 1;
-	optional int32 revision = 2 [(.description) = "enum"];
 }
 
 message CPublishedFile_GetUserFiles_Request {
@@ -639,88 +325,6 @@ message CPublishedFile_GetUserVoteSummary_Response_VoteSummary {
 	optional bool reported = 4;
 }
 
-message CPublishedFile_IsContributor_Request {
-	optional uint64 publishedfileid = 1;
-	optional uint64 steamid = 2;
-	optional bool include_pending = 3;
-}
-
-message CPublishedFile_IsContributor_Response {
-	optional bool is_contributor = 1;
-}
-
-message CPublishedFile_Localization_GetInfo_Request {
-	optional uint64 publishedfileid = 1;
-	optional bool include_strings = 2;
-}
-
-message CPublishedFile_Localization_GetInfo_Response {
-	repeated .CPublishedFile_Localization_GetInfo_Response_LocalizationInfo localization_info = 1;
-}
-
-message CPublishedFile_Localization_GetInfo_Response_LocalizationInfo {
-	optional int32 language = 1;
-	optional uint32 time_updated = 2;
-	optional string title = 3;
-	optional string file_description = 4;
-}
-
-message CPublishedFile_Localization_Remove_Request {
-	optional fixed64 publishedfileid = 1;
-	optional int32 language = 2;
-}
-
-message CPublishedFile_Localization_Remove_Response {
-}
-
-message CPublishedFile_Localization_Update_Request {
-	optional fixed64 publishedfileid = 1;
-	optional int32 language = 2;
-	optional string title = 3;
-	optional string file_description = 4;
-}
-
-message CPublishedFile_Localization_Update_Response {
-}
-
-message CPublishedFile_ManageAuthorSnapshot_Request {
-	optional fixed64 publishedfileid = 1;
-	optional uint32 timestamp = 2;
-	optional bool remove = 3;
-	optional string game_branch_min = 4;
-	optional string game_branch_max = 5;
-}
-
-message CPublishedFile_ManageAuthorSnapshot_Response {
-}
-
-message CPublishedFile_MarkTextForContentCheckTraining_Request {
-	optional uint64 publishedfileid = 1;
-	optional string label = 2;
-}
-
-message CPublishedFile_MarkTextForContentCheckTraining_Response {
-}
-
-message CPublishedFile_OnTagged_Notification {
-	optional fixed64 steamid = 1;
-	optional uint32 file_type = 2;
-	optional uint64 publishedfileid = 3;
-}
-
-message CPublishedFile_OnUntagged_Notification {
-	optional fixed64 steamid = 1;
-	optional uint32 file_type = 2;
-	optional uint64 publishedfileid = 3;
-}
-
-message CPublishedFile_PermanentlyDeletePublishedFilesForUser_Request {
-	optional fixed64 steamid = 1;
-}
-
-message CPublishedFile_PermanentlyDeletePublishedFilesForUser_Response {
-}
-
 message CPublishedFile_Publish_Request {
 	optional uint32 appid = 1;
 	optional uint32 consumer_appid = 2;
@@ -785,7 +389,6 @@ message CPublishedFile_QueryFiles_Request {
 	optional .CPublishedFile_QueryFiles_Request_DateRange date_range_updated = 45;
 	repeated int32 excluded_content_descriptors = 46 [(.description) = "enum"];
 	optional bool admin_query = 47;
-	optional int32 special_filter = 48 [(.description) = "enum"];
 }
 
 message CPublishedFile_QueryFiles_Request_DateRange {
@@ -808,18 +411,6 @@ message CPublishedFile_QueryFiles_Response {
 	optional string next_cursor = 3;
 }
 
-message CPublishedFile_QueryFilesToModerate_Request {
-	optional int32 page = 1;
-	optional int32 files_per_page = 2;
-	optional uint32 file_type = 3;
-}
-
-message CPublishedFile_QueryFilesToModerate_Response {
-	optional uint32 total = 1;
-	repeated .PublishedFileDetails publishedfiledetails = 2;
-	optional uint32 pages = 3;
-}
-
 message CPublishedFile_RefreshVotingQueue_Request {
 	optional uint32 appid = 1;
 	optional uint32 matching_file_type = 2;
@@ -831,13 +422,6 @@ message CPublishedFile_RefreshVotingQueue_Request {
 }
 
 message CPublishedFile_RefreshVotingQueue_Response {
-}
-
-message CPublishedFile_ReloadTags_Request {
-	optional uint32 appid = 1;
-}
-
-message CPublishedFile_ReloadTags_Response {
 }
 
 message CPublishedFile_RemoveAppRelationship_Request {
@@ -857,46 +441,6 @@ message CPublishedFile_RemoveChild_Request {
 message CPublishedFile_RemoveChild_Response {
 }
 
-message CPublishedFile_RemoveReaction_Request {
-	optional uint64 publishedfileid = 1;
-	optional uint32 reactionid = 2;
-}
-
-message CPublishedFile_RemoveReaction_Response {
-}
-
-message CPublishedFile_RemoveSubSection_Request {
-	optional uint64 publishedfileid = 1;
-	optional uint64 sectionid = 2;
-}
-
-message CPublishedFile_RemoveSubSection_Response {
-}
-
-message CPublishedFile_RequestAction_Request {
-	optional uint64 publishedfileid = 1;
-	optional uint32 action_requested = 2;
-}
-
-message CPublishedFile_RequestAction_Response {
-}
-
-message CPublishedFile_ResendItemVerificationEmail_Request {
-	optional uint64 publishedfileid = 1;
-}
-
-message CPublishedFile_ResendItemVerificationEmail_Response {
-}
-
-message CPublishedFile_RevertFileChange_Request {
-	optional fixed64 publishedfileid = 1;
-	optional uint32 timestamp = 2;
-	optional string change_description = 3;
-}
-
-message CPublishedFile_RevertFileChange_Response {
-}
-
 message CPublishedFile_SetCollectionChildren_Request {
 	optional uint32 appid = 1;
 	optional uint64 publishedfileid = 2;
@@ -904,28 +448,6 @@ message CPublishedFile_SetCollectionChildren_Request {
 }
 
 message CPublishedFile_SetCollectionChildren_Response {
-}
-
-message CPublishedFile_SetCollectionSortOrder_Request {
-	optional uint64 publishedfileid = 1;
-	repeated .CPublishedFile_SetCollectionSortOrder_Request_ChildItem children = 2;
-}
-
-message CPublishedFile_SetCollectionSortOrder_Request_ChildItem {
-	optional uint64 publishedfileid = 1;
-	optional uint32 sort_order = 2;
-}
-
-message CPublishedFile_SetCollectionSortOrder_Response {
-}
-
-message CPublishedFile_SetDeveloperMetadata_Request {
-	optional uint64 publishedfileid = 1;
-	optional uint32 appid = 2;
-	optional string metadata = 3;
-}
-
-message CPublishedFile_SetDeveloperMetadata_Response {
 }
 
 message CPublishedFile_SetPlaytimeForControllerConfigs_Request {
@@ -941,32 +463,6 @@ message CPublishedFile_SetPlaytimeForControllerConfigs_Request_ControllerConfigU
 message CPublishedFile_SetPlaytimeForControllerConfigs_Response {
 }
 
-message CPublishedFile_SetPreviewSortOrder_Request {
-	optional uint64 publishedfileid = 1;
-	repeated .CPublishedFile_SetPreviewSortOrder_Request_Preview previews = 2;
-}
-
-message CPublishedFile_SetPreviewSortOrder_Request_Preview {
-	optional uint64 previewid = 1;
-	optional uint32 sort_order = 2;
-}
-
-message CPublishedFile_SetPreviewSortOrder_Response {
-}
-
-message CPublishedFile_SetServiceProviderRevenueSplits_Request {
-	optional uint64 publishedfileid = 1;
-	repeated .CPublishedFile_SetServiceProviderRevenueSplits_Request_RevenueSplit splits = 2;
-}
-
-message CPublishedFile_SetServiceProviderRevenueSplits_Request_RevenueSplit {
-	optional uint64 steamid = 1;
-	optional uint32 percentage = 2;
-}
-
-message CPublishedFile_SetServiceProviderRevenueSplits_Response {
-}
-
 message CPublishedFile_SetSubscriptionListFromCollection_Request {
 	optional uint32 appid = 1;
 	optional uint32 list_type = 2;
@@ -975,30 +471,6 @@ message CPublishedFile_SetSubscriptionListFromCollection_Request {
 }
 
 message CPublishedFile_SetSubscriptionListFromCollection_Response {
-}
-
-message CPublishedFile_SetSubSectionData_Request {
-	optional uint64 publishedfileid = 1;
-	optional uint64 sectionid = 2;
-	optional string title = 3;
-	optional string description_text = 4;
-}
-
-message CPublishedFile_SetSubSectionData_Response {
-	optional uint64 sectionid = 1;
-}
-
-message CPublishedFile_SetSubSectionSortOrder_Request {
-	optional uint64 publishedfileid = 1;
-	repeated .CPublishedFile_SetSubSectionSortOrder_Request_SubSection sub_sections = 2;
-}
-
-message CPublishedFile_SetSubSectionSortOrder_Request_SubSection {
-	optional uint64 sectionid = 1;
-	optional uint32 sort_order = 2;
-}
-
-message CPublishedFile_SetSubSectionSortOrder_Response {
 }
 
 message CPublishedFile_StartPlaytimeTracking_Request {
@@ -1035,14 +507,6 @@ message CPublishedFile_Subscribe_Request {
 message CPublishedFile_Subscribe_Response {
 }
 
-message CPublishedFile_TransferOwnership_Request {
-	optional fixed64 publishedfileid = 1;
-	optional uint32 new_owner_accountid = 2;
-}
-
-message CPublishedFile_TransferOwnership_Response {
-}
-
 message CPublishedFile_Unsubscribe_Request {
 	optional uint64 publishedfileid = 1;
 	optional uint32 list_type = 2;
@@ -1051,23 +515,6 @@ message CPublishedFile_Unsubscribe_Request {
 }
 
 message CPublishedFile_Unsubscribe_Response {
-}
-
-message CPublishedFile_UnsubscribeAll_Request {
-	optional uint32 appid = 1;
-	optional uint32 filetype = 2;
-	optional bool notify_client = 3;
-}
-
-message CPublishedFile_UnsubscribeAll_Response {
-}
-
-message CPublishedFile_UnsubscribeCollection_Request {
-	optional uint64 publishedfileid = 1;
-	optional bool notify_client = 2;
-}
-
-message CPublishedFile_UnsubscribeCollection_Response {
 }
 
 message CPublishedFile_Update_Request {
@@ -1088,38 +535,6 @@ message CPublishedFile_Update_Request {
 message CPublishedFile_Update_Response {
 }
 
-message CPublishedFile_UpdateAppUGCBan_Request {
-	optional fixed64 steamid = 1;
-	optional uint32 appid = 2;
-	optional uint32 expiration_time = 3;
-	optional string reason = 4;
-}
-
-message CPublishedFile_UpdateAppUGCBan_Response {
-}
-
-message CPublishedFile_UpdateBanStatus_Request {
-	optional fixed64 publishedfileid = 1;
-	optional uint32 appid = 2;
-	optional bool banned = 3;
-	optional string reason = 4;
-}
-
-message CPublishedFile_UpdateBanStatus_Response {
-	optional fixed64 owner_steamid = 1;
-}
-
-message CPublishedFile_UpdateChangeHistory_Request {
-	optional fixed64 publishedfileid = 1;
-	optional uint32 timestamp = 2;
-	optional string change_description = 3;
-	optional bool remove = 4;
-	optional int32 language = 5 [default = 0];
-}
-
-message CPublishedFile_UpdateChangeHistory_Response {
-}
-
 message CPublishedFile_UpdateContentDescriptors_Request {
 	optional fixed64 publishedfileid = 1;
 	repeated int32 descriptors_to_add = 2 [(.description) = "enum"];
@@ -1130,124 +545,12 @@ message CPublishedFile_UpdateContentDescriptors_Response {
 	optional uint32 timestamp_updated = 1;
 }
 
-message CPublishedFile_UpdateIncompatibleStatus_Request {
-	optional fixed64 publishedfileid = 1;
-	optional uint32 appid = 2;
-	optional bool incompatible = 3;
-}
-
-message CPublishedFile_UpdateIncompatibleStatus_Response {
-}
-
-message CPublishedFile_UpdateKeyValueTags_Request {
-	optional uint64 publishedfileid = 1;
-	repeated .CPublishedFile_UpdateKeyValueTags_Request_TagUpdate tags_to_add = 2;
-	repeated .CPublishedFile_UpdateKeyValueTags_Request_TagUpdate tags_to_remove = 3;
-	optional uint32 appid = 5;
-	repeated string string_tags_to_remove_by_key = 6;
-	repeated string int_tags_to_remove_by_key = 7;
-}
-
-message CPublishedFile_UpdateKeyValueTags_Request_TagUpdate {
-	optional string tag_name = 1;
-	optional uint32 tag_val_uint32 = 2;
-	optional string tag_val_string = 3;
-}
-
-message CPublishedFile_UpdateKeyValueTags_Response {
-}
-
-message CPublishedFile_UpdateLocalizedTags_Request {
-	optional uint32 appid = 1;
-	repeated .CPublishedFile_UpdateLocalizedTags_Request_LocalizedTag tags = 2;
-}
-
-message CPublishedFile_UpdateLocalizedTags_Request_LocalizedTag {
-	optional uint32 tagid = 1;
-	optional int32 language = 2;
-	optional string tag_name = 3;
-}
-
-message CPublishedFile_UpdateLocalizedTags_Response {
-}
-
-message CPublishedFile_UpdateSavedWebQuery_Request {
-	optional uint32 appid = 1;
-	optional uint64 queryid = 2;
-	optional bool delete_query = 3;
-	optional .PublishedFileSavedWebQuery query = 4;
-}
-
-message CPublishedFile_UpdateSavedWebQuery_Response {
-	optional uint64 queryid = 1;
-}
-
-message CPublishedFile_UpdateTags_Request {
-	optional uint64 publishedfileid = 1;
-	optional uint32 appid = 2;
-	repeated string add_tags = 3;
-	repeated string remove_tags = 4;
-	optional int32 language = 5;
-}
-
-message CPublishedFile_UpdateTags_Response {
-}
-
-message CPublishedFile_UpdateVotes_Request {
-	repeated .CPublishedFile_UpdateVotes_Request_VoteData votes = 1;
-}
-
-message CPublishedFile_UpdateVotes_Request_VoteData {
-	optional uint64 publishedfileid = 1;
-	optional float score = 2;
-	optional uint32 votes_up = 3;
-	optional uint32 votes_down = 4;
-	optional float trusted_score = 5;
-	optional uint32 trusted_votes_up = 6;
-	optional uint32 trusted_votes_down = 7;
-}
-
-message CPublishedFile_UpdateVotes_Response {
-}
-
-message CPublishedFile_UpdateWithTextContentCheckResult_Request {
-	optional uint64 publishedfileid = 1;
-	optional uint64 gid_file = 2;
-	optional int32 ban_check_result = 3 [(.description) = "enum"];
-	optional string text_checked = 4;
-}
-
-message CPublishedFile_UpdateWithTextContentCheckResult_Response {
-}
-
-message CPublishedFile_VerifyItemSubmission_Request {
-	optional uint64 steamid = 1;
-	optional uint64 publishedfileid = 2;
-	optional bool verified = 3;
-	optional string verification_token = 4;
-}
-
-message CPublishedFile_VerifyItemSubmission_Response {
-}
-
 message CPublishedFile_Vote_Request {
 	optional uint64 publishedfileid = 1;
 	optional bool vote_up = 2;
 }
 
 message CPublishedFile_Vote_Response {
-}
-
-message CPublishedFile_VoteBanned_Notification {
-	optional fixed64 steamid = 1;
-	optional uint64 publishedfileid = 2;
-}
-
-message CPublishedFile_VoteLater_Request {
-	optional uint64 publishedfileid = 1;
-}
-
-message CPublishedFile_VoteLater_Response {
 }
 
 message PublishedFileAuthorSnapshot {
@@ -1389,192 +692,64 @@ message PublishedFileDetails_VoteData {
 	optional uint32 trusted_votes_down = 6;
 }
 
-message PublishedFileFilter {
-	optional fixed64 visible_to_steamid = 1;
-	optional uint32 matching_file_type = 2;
-	optional uint32 time_start = 3;
-	optional uint32 time_end = 4;
-	optional uint32 appid = 5;
-	optional uint32 shortcutid = 6;
-}
-
-message PublishedFilePerAppCount {
-	optional uint32 appid = 1;
-	optional uint32 shortcutid = 2;
-	optional uint32 total_results = 3;
-}
-
-message PublishedFileSavedWebQuery {
-	optional uint64 queryid = 1;
-	optional string query_name = 2;
-	optional string browse_sort = 3;
-	repeated string required_tags = 4;
-	repeated string excluded_tags = 5;
-	optional uint32 days_in_period = 6;
-	optional string search_text = 7;
-	optional uint32 created_date_range_filter_start = 9;
-	optional uint32 created_date_range_filter_end = 10;
-	optional uint32 updated_date_range_filter_start = 11;
-	optional uint32 updated_date_range_filter_end = 12;
-	optional string section = 13;
-	optional uint32 num_per_page = 14;
-	repeated string required_flags = 15;
-	optional int32 special_filter = 16 [(.description) = "enum"];
+message PublishedFileSubSection {
+	optional uint64 sectionid = 1;
+	optional string title = 2;
+	optional string description_text = 3;
+	optional uint32 sort_order = 4;
 }
 
 service PublishedFile {
 	// ePrivilege=1
 	rpc AddAppRelationship (.CPublishedFile_AddAppRelationship_Request) returns (.CPublishedFile_AddAppRelationship_Response);
 	// ePrivilege=1
-	rpc AddChangeHistory (.CPublishedFile_AddChangeHistory_Request) returns (.CPublishedFile_AddChangeHistory_Response);
-	// ePrivilege=1
 	rpc AddChild (.CPublishedFile_AddChild_Request) returns (.CPublishedFile_AddChild_Response);
-	// ePrivilege=1
-	rpc AddReaction (.CPublishedFile_AddReaction_Request) returns (.CPublishedFile_AddReaction_Response);
-	// ePrivilege=0
-	rpc AddTag (.CPublishedFile_AddTag_Request) returns (.CPublishedFile_AddTag_Response);
-	// ePrivilege=1
-	rpc AdminUpdateFlags (.CPublishedFile_AdminUpdateFlags_Request) returns (.CPublishedFile_AdminUpdateFlags_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc AreFilesInSubscriptionList (.CPublishedFile_AreFilesInSubscriptionList_Request) returns (.CPublishedFile_AreFilesInSubscriptionList_Response);
-	// ePrivilege=6
-	rpc BanUpVoters (.CPublishedFile_BanUpVoters_Request) returns (.CPublishedFile_BanUpVoters_Response);
 	// bConstMethod=true, ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc CanSubscribe (.CPublishedFile_CanSubscribe_Request) returns (.CPublishedFile_CanSubscribe_Response);
-	// ePrivilege=0
-	rpc CheckForInappropriateContent (.CPublishedFile_CheckForInappropriateContent_Request) returns (.CPublishedFile_CheckForInappropriateContent_Response);
 	// ePrivilege=3, eWebAPIKeyRequirement=5
 	rpc Delete (.CPublishedFile_Delete_Request) returns (.CPublishedFile_Delete_Response);
-	// bConstMethod=true, ePrivilege=0
-	rpc EnumerateUserTaggedFiles (.CPublishedFile_EnumerateUserTaggedFiles_Request) returns (.CPublishedFile_EnumerateUserTaggedFiles_Response);
 	// bConstMethod=true, ePrivilege=0
 	rpc GetAppRelationships (.CPublishedFile_GetAppRelationships_Request) returns (.CPublishedFile_GetAppRelationships_Response);
 	// bConstMethod=true, ePrivilege=0
 	rpc GetAppRelationshipsBatched (.CPublishedFile_GetAppRelationshipsBatched_Request) returns (.CPublishedFile_GetAppRelationshipsBatched_Response);
-	// bConstMethod=true, ePrivilege=1
-	rpc GetAuditHistory (.CPublishedFile_GetAuditHistory_Request) returns (.CPublishedFile_GetAuditHistory_Response);
 	// bConstMethod=true, ePrivilege=0
 	rpc GetChangeHistory (.CPublishedFile_GetChangeHistory_Request) returns (.CPublishedFile_GetChangeHistory_Response);
 	// bConstMethod=true, ePrivilege=0
 	rpc GetChangeHistoryEntry (.CPublishedFile_GetChangeHistoryEntry_Request) returns (.CPublishedFile_GetChangeHistoryEntry_Response);
 	// ePrivilege=0
 	rpc GetContentDescriptors (.CPublishedFile_GetContentDescriptors_Request) returns (.CPublishedFile_GetContentDescriptors_Response);
-	// ePrivilege=0
-	rpc GetCurrentBanStatus (.CPublishedFile_GetCurrentBanStatus_Request) returns (.CPublishedFile_GetCurrentBanStatus_Response);
-	// bConstMethod=true, ePrivilege=0
-	rpc GetDailyUserActionHistory (.CPublishedFile_GetDailyUserActionHistory_Request) returns (.CPublishedFile_GetDailyUserActionHistory_Response);
-	// bConstMethod=true, ePrivilege=0
-	rpc GetDailyViewHistory (.CPublishedFile_GetDailyViewHistory_Request) returns (.CPublishedFile_GetDailyViewHistory_Response);
-	// bConstMethod=true, ePrivilege=0
-	rpc GetDailyVoteLaterHistory (.CPublishedFile_GetDailyVoteLaterHistory_Request) returns (.CPublishedFile_GetDailyVoteLaterHistory_Response);
-	// bConstMethod=true, ePrivilege=0
-	rpc GetDailyVotingHistory (.CPublishedFile_GetDailyVotingHistory_Request) returns (.CPublishedFile_GetDailyVotingHistory_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=2
 	rpc GetDetails (.CPublishedFile_GetDetails_Request) returns (.CPublishedFile_GetDetails_Response);
-	// bConstMethod=true, ePrivilege=1
-	rpc GetFileVisibility (.CPublishedFile_GetFileVisibility_Request) returns (.CPublishedFile_GetFileVisibility_Response);
-	// bConstMethod=true, ePrivilege=0
-	rpc GetInappropriateContentLabels (.CPublishedFile_GetInappropriateContentLabels_Request) returns (.CPublishedFile_GetInappropriateContentLabels_Response);
-	// ePrivilege=0
-	rpc GetInappropriateContentResults (.CPublishedFile_GetInappropriateContentResults_Request) returns (.CPublishedFile_GetInappropriateContentResults_Response);
 	// ePrivilege=1
 	rpc GetItemChanges (.CPublishedFile_GetItemChanges_Request) returns (.CPublishedFile_GetItemChanges_Response);
 	// ePrivilege=2
 	rpc GetItemInfo (.CPublishedFile_GetItemInfo_Request) returns (.CPublishedFile_GetItemInfo_Response);
-	// ePrivilege=2
-	rpc GetItemInfoInternal (.CPublishedFile_GetItemInfo_Request) returns (.CPublishedFile_GetItemInfo_Response);
-	// bConstMethod=true, ePrivilege=0
-	rpc GetLocalizationInfo (.CPublishedFile_Localization_GetInfo_Request) returns (.CPublishedFile_Localization_GetInfo_Response);
-	// ePrivilege=1
-	rpc GetLocalizedTags (.CPublishedFile_GetLocalizedTags_Request) returns (.CPublishedFile_GetLocalizedTags_Response);
-	// bConstMethod=true, ePrivilege=0
-	rpc GetNames (.CPublishedFile_GetNames_Request) returns (.CPublishedFile_GetNames_Response);
-	// bConstMethod=true, ePrivilege=0
-	rpc GetOwner (.CPublishedFile_GetOwner_Request) returns (.CPublishedFile_GetOwner_Response);
-	// bConstMethod=true, ePrivilege=0
-	rpc GetParents (.CPublishedFile_GetParents_Request) returns (.CPublishedFile_GetParents_Response);
-	// ePrivilege=1
-	rpc GetSavedWebQueries (.CPublishedFile_GetSavedWebQueries_Request) returns (.CPublishedFile_GetSavedWebQueries_Response);
-	// ePrivilege=1
-	rpc GetSavedWebQuery (.CPublishedFile_GetSavedWebQuery_Request) returns (.CPublishedFile_GetSavedWebQuery_Response);
-	// ePrivilege=5
-	rpc GetSolrDoc (.CPublishedFile_GetSolrDoc_Request) returns (.CPublishedFile_GetSolrDoc_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=2
 	rpc GetSubSectionData (.CPublishedFile_GetSubSectionData_Request) returns (.CPublishedFile_GetSubSectionData_Response);
-	// ePrivilege=5
-	rpc GetUniqueSubscribers (.CPublishedFile_GetUniqueSubscribers_Request) returns (.CPublishedFile_GetUniqueSubscribers_Response);
-	// ePrivilege=0
-	rpc GetUpdatesSinceDate (.CPublishedFile_GetUpdatesSinceDate_Request) returns (.CPublishedFile_GetUpdatesSinceDate_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=2
 	rpc GetUserFileCount (.CPublishedFile_GetUserFiles_Request) returns (.CPublishedFile_GetUserFiles_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=2
 	rpc GetUserFiles (.CPublishedFile_GetUserFiles_Request) returns (.CPublishedFile_GetUserFiles_Response);
 	// bConstMethod=true, ePrivilege=1
 	rpc GetUserVoteSummary (.CPublishedFile_GetUserVoteSummary_Request) returns (.CPublishedFile_GetUserVoteSummary_Response);
-	// bConstMethod=true, ePrivilege=0
-	rpc IsContributor (.CPublishedFile_IsContributor_Request) returns (.CPublishedFile_IsContributor_Response);
-	// ePrivilege=1
-	rpc LocalizationRemove (.CPublishedFile_Localization_Remove_Request) returns (.CPublishedFile_Localization_Remove_Response);
-	// ePrivilege=1
-	rpc LocalizationUpdate (.CPublishedFile_Localization_Update_Request) returns (.CPublishedFile_Localization_Update_Response);
-	// ePrivilege=1
-	rpc ManageAuthorSnapshot (.CPublishedFile_ManageAuthorSnapshot_Request) returns (.CPublishedFile_ManageAuthorSnapshot_Response);
-	// ePrivilege=6
-	rpc MarkTextForContentCheckTraining (.CPublishedFile_MarkTextForContentCheckTraining_Request) returns (.CPublishedFile_MarkTextForContentCheckTraining_Response);
-	// ePrivilege=0
-	rpc NotifyFileDeleted (.CPublishedFile_FileDeleted_Notification) returns (.NoResponse);
-	// ePrivilege=0
-	rpc NotifyFilesUpdated (.CPublishedFile_FilesUpdated_Notification) returns (.NoResponse);
-	// ePrivilege=0
-	rpc NotifyVoteBanned (.CPublishedFile_VoteBanned_Notification) returns (.NoResponse);
-	// ePrivilege=0
-	rpc OnTagged (.CPublishedFile_OnTagged_Notification) returns (.NoResponse);
-	// ePrivilege=0
-	rpc OnUntagged (.CPublishedFile_OnUntagged_Notification) returns (.NoResponse);
-	// ePrivilege=4
-	rpc PermanentlyDeletePublishedFilesForUser (.CPublishedFile_PermanentlyDeletePublishedFilesForUser_Request) returns (.CPublishedFile_PermanentlyDeletePublishedFilesForUser_Response);
 	// ePrivilege=3
 	rpc Publish (.CPublishedFile_Publish_Request) returns (.CPublishedFile_Publish_Response);
 	// bConstMethod=true, ePrivilege=2, eWebAPIKeyRequirement=2
 	rpc QueryFiles (.CPublishedFile_QueryFiles_Request) returns (.CPublishedFile_QueryFiles_Response);
-	// ePrivilege=6
-	rpc QueryFilesToModerate (.CPublishedFile_QueryFilesToModerate_Request) returns (.CPublishedFile_QueryFilesToModerate_Response);
 	// ePrivilege=1, eWebAPIKeyRequirement=5
 	rpc RefreshVotingQueue (.CPublishedFile_RefreshVotingQueue_Request) returns (.CPublishedFile_RefreshVotingQueue_Response);
-	// ePrivilege=0
-	rpc ReloadTags (.CPublishedFile_ReloadTags_Request) returns (.CPublishedFile_ReloadTags_Response);
 	// ePrivilege=1
 	rpc RemoveAppRelationship (.CPublishedFile_RemoveAppRelationship_Request) returns (.CPublishedFile_RemoveAppRelationship_Response);
 	// ePrivilege=1
 	rpc RemoveChild (.CPublishedFile_RemoveChild_Request) returns (.CPublishedFile_RemoveChild_Response);
 	// ePrivilege=1
-	rpc RemoveReaction (.CPublishedFile_RemoveReaction_Request) returns (.CPublishedFile_RemoveReaction_Response);
-	// ePrivilege=3
-	rpc RemoveSubSection (.CPublishedFile_RemoveSubSection_Request) returns (.CPublishedFile_RemoveSubSection_Response);
-	// ePrivilege=0
-	rpc RequestAction (.CPublishedFile_RequestAction_Request) returns (.CPublishedFile_RequestAction_Response);
-	// ePrivilege=1
-	rpc ResendItemVerificationEmail (.CPublishedFile_ResendItemVerificationEmail_Request) returns (.CPublishedFile_ResendItemVerificationEmail_Response);
-	// ePrivilege=1
-	rpc RevertFileChange (.CPublishedFile_RevertFileChange_Request) returns (.CPublishedFile_RevertFileChange_Response);
-	// ePrivilege=1
 	rpc SetCollectionChildren (.CPublishedFile_SetCollectionChildren_Request) returns (.CPublishedFile_SetCollectionChildren_Response);
 	// ePrivilege=1
-	rpc SetCollectionSortOrder (.CPublishedFile_SetCollectionSortOrder_Request) returns (.CPublishedFile_SetCollectionSortOrder_Response);
-	// ePrivilege=0, eWebAPIKeyRequirement=5
-	rpc SetDeveloperMetadata (.CPublishedFile_SetDeveloperMetadata_Request) returns (.CPublishedFile_SetDeveloperMetadata_Response);
-	// ePrivilege=1
 	rpc SetPlaytimeForControllerConfigs (.CPublishedFile_SetPlaytimeForControllerConfigs_Request) returns (.CPublishedFile_SetPlaytimeForControllerConfigs_Response);
-	// ePrivilege=3
-	rpc SetPreviewSortOrder (.CPublishedFile_SetPreviewSortOrder_Request) returns (.CPublishedFile_SetPreviewSortOrder_Response);
-	// ePrivilege=1
-	rpc SetServiceProviderRevenueSplits (.CPublishedFile_SetServiceProviderRevenueSplits_Request) returns (.CPublishedFile_SetServiceProviderRevenueSplits_Response);
 	// ePrivilege=1
 	rpc SetSubscriptionListFromCollection (.CPublishedFile_SetSubscriptionListFromCollection_Request) returns (.CPublishedFile_SetSubscriptionListFromCollection_Response);
-	// ePrivilege=3
-	rpc SetSubSectionData (.CPublishedFile_SetSubSectionData_Request) returns (.CPublishedFile_SetSubSectionData_Response);
-	// ePrivilege=3
-	rpc SetSubSectionSortOrder (.CPublishedFile_SetSubSectionSortOrder_Request) returns (.CPublishedFile_SetSubSectionSortOrder_Response);
 	// ePrivilege=1
 	rpc StartPlaytimeTracking (.CPublishedFile_StartPlaytimeTracking_Request) returns (.CPublishedFile_StartPlaytimeTracking_Response);
 	// ePrivilege=1
@@ -1583,44 +758,14 @@ service PublishedFile {
 	rpc StopPlaytimeTrackingForAllAppItems (.CPublishedFile_StopPlaytimeTrackingForAllAppItems_Request) returns (.CPublishedFile_StopPlaytimeTrackingForAllAppItems_Response);
 	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc Subscribe (.CPublishedFile_Subscribe_Request) returns (.CPublishedFile_Subscribe_Response);
-	// ePrivilege=5
-	rpc TransferOwnership (.CPublishedFile_TransferOwnership_Request) returns (.CPublishedFile_TransferOwnership_Response);
 	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc Unsubscribe (.CPublishedFile_Unsubscribe_Request) returns (.CPublishedFile_Unsubscribe_Response);
-	// ePrivilege=1
-	rpc UnsubscribeAll (.CPublishedFile_UnsubscribeAll_Request) returns (.CPublishedFile_UnsubscribeAll_Response);
-	// ePrivilege=1
-	rpc UnsubscribeCollection (.CPublishedFile_UnsubscribeCollection_Request) returns (.CPublishedFile_UnsubscribeCollection_Response);
 	// ePrivilege=3
 	rpc Update (.CPublishedFile_Update_Request) returns (.CPublishedFile_Update_Response);
-	// ePrivilege=2, eWebAPIKeyRequirement=5
-	rpc UpdateAppUGCBan (.CPublishedFile_UpdateAppUGCBan_Request) returns (.CPublishedFile_UpdateAppUGCBan_Response);
-	// ePrivilege=2, eWebAPIKeyRequirement=5
-	rpc UpdateBanStatus (.CPublishedFile_UpdateBanStatus_Request) returns (.CPublishedFile_UpdateBanStatus_Response);
-	// ePrivilege=1
-	rpc UpdateChangeHistory (.CPublishedFile_UpdateChangeHistory_Request) returns (.CPublishedFile_UpdateChangeHistory_Response);
 	// ePrivilege=1
 	rpc UpdateContentDescriptors (.CPublishedFile_UpdateContentDescriptors_Request) returns (.CPublishedFile_UpdateContentDescriptors_Response);
-	// ePrivilege=2, eWebAPIKeyRequirement=5
-	rpc UpdateIncompatibleStatus (.CPublishedFile_UpdateIncompatibleStatus_Request) returns (.CPublishedFile_UpdateIncompatibleStatus_Response);
-	// ePrivilege=2, eWebAPIKeyRequirement=5
-	rpc UpdateKeyValueTags (.CPublishedFile_UpdateKeyValueTags_Request) returns (.CPublishedFile_UpdateKeyValueTags_Response);
-	// ePrivilege=1
-	rpc UpdateLocalizedTags (.CPublishedFile_UpdateLocalizedTags_Request) returns (.CPublishedFile_UpdateLocalizedTags_Response);
-	// ePrivilege=1
-	rpc UpdateSavedWebQuery (.CPublishedFile_UpdateSavedWebQuery_Request) returns (.CPublishedFile_UpdateSavedWebQuery_Response);
-	// ePrivilege=2, eWebAPIKeyRequirement=5
-	rpc UpdateTags (.CPublishedFile_UpdateTags_Request) returns (.CPublishedFile_UpdateTags_Response);
-	// ePrivilege=0
-	rpc UpdateVotes (.CPublishedFile_UpdateVotes_Request) returns (.CPublishedFile_UpdateVotes_Response);
-	// ePrivilege=0
-	rpc UpdateWithTextContentCheckResult (.CPublishedFile_UpdateWithTextContentCheckResult_Request) returns (.CPublishedFile_UpdateWithTextContentCheckResult_Response);
-	// ePrivilege=0
-	rpc VerifyItemSubmission (.CPublishedFile_VerifyItemSubmission_Request) returns (.CPublishedFile_VerifyItemSubmission_Response);
 	// ePrivilege=1, eWebAPIKeyRequirement=5
 	rpc Vote (.CPublishedFile_Vote_Request) returns (.CPublishedFile_Vote_Response);
-	// ePrivilege=1
-	rpc VoteLater (.CPublishedFile_VoteLater_Request) returns (.CPublishedFile_VoteLater_Response);
 }
 
 service PublishedFileClient {

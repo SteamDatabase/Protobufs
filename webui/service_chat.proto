@@ -1,16 +1,4 @@
 
-message CChat_RecordFileUploadedToChat_Request {
-	optional uint64 chat_group_id = 1;
-	optional uint64 chat_id = 2;
-	optional uint64 ugcid = 3;
-	optional uint32 appid = 4;
-	optional fixed64 friend_steamid = 5;
-	optional string bbcode_message = 6;
-}
-
-message CChat_RecordFileUploadedToChat_Response {
-}
-
 message CChat_RequestFriendPersonaStates_Request {
 }
 
@@ -18,8 +6,6 @@ message CChat_RequestFriendPersonaStates_Response {
 }
 
 service Chat {
-	// ePrivilege=1
-	rpc RecordFileUploadedToChat (.CChat_RecordFileUploadedToChat_Request) returns (.CChat_RecordFileUploadedToChat_Response);
 	// ePrivilege=1
 	rpc RequestFriendPersonaStates (.CChat_RequestFriendPersonaStates_Request) returns (.CChat_RequestFriendPersonaStates_Response);
 }
