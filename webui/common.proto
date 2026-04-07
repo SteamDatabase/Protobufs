@@ -3572,5 +3572,7 @@ message UserSystemInformation {
 	optional string driver_version = 15;
 	optional string driver_date = 16;
 	optional uint32 vram_size = 17;
+	optional uint32 screen_width = 18;
+	optional uint32 screen_height = 19;
 }
 
