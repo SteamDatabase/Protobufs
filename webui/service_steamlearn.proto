@@ -412,16 +412,23 @@ message CMsgSteamLearn_InferenceMetadata_Response_CompactTable {
 	repeated .CMsgSteamLearn_InferenceMetadata_Response_CompactTable_MapValuesEntry map_values = 2;
 	repeated .CMsgSteamLearn_InferenceMetadata_Response_CompactTable_MapMappingsEntry map_mappings = 3;
 	optional uint64 total_count = 4;
+	repeated .CMsgSteamLearn_InferenceMetadata_Response_CompactTable_MapStringValuesEntry map_string_values = 5;
 }
 
 message CMsgSteamLearn_InferenceMetadata_Response_CompactTable_Entry {
 	optional uint32 value = 1;
 	optional uint32 mapping = 2;
 	optional uint64 count = 3;
+	optional string value_string = 4;
 }
 
 message CMsgSteamLearn_InferenceMetadata_Response_CompactTable_MapMappingsEntry {
 	optional uint32 key = 1;
+	optional .CMsgSteamLearn_InferenceMetadata_Response_CompactTable_Entry value = 2;
+}
+
+message CMsgSteamLearn_InferenceMetadata_Response_CompactTable_MapStringValuesEntry {
+	optional string key = 1;
 	optional .CMsgSteamLearn_InferenceMetadata_Response_CompactTable_Entry value = 2;
 }
 
@@ -834,6 +841,9 @@ message CMsgSteamLearnDataSourceElementUsage {
 	optional uint32 other_project_id = 18;
 	optional uint32 other_fetch_id = 19;
 	optional uint32 dropout_pct = 20;
+	optional uint32 quantize_size = 21;
+	optional uint32 quantize_min = 22;
+	optional uint32 quantize_max = 23;
 }
 
 message CMsgSteamLearnFetchInfo {

@@ -1,5 +1,12 @@
 import "common_base.proto";
 
+// Used by: AccountScore, SteamGPTSummary
+message CAccountScore_Score {
+	optional int32 score_id = 1;
+	optional double value = 2;
+	optional uint32 time_computed = 3;
+}
+
 message CAppContentDescriptors_GetActiveSurvey_Request {
 	optional uint32 appid = 1;
 	optional bool include_descriptors = 2;
@@ -112,19 +119,32 @@ message CartCoupon {
 	optional int32 discount_pct = 8;
 }
 
-// Used by: AccountCart, Checkout
+// Used by: AccountCart, Checkout, Support, SupportWizard
 message CartGiftInfo {
 	optional int32 accountid_giftee = 1;
 	optional .CartGiftMessage gift_message = 2;
 	optional int32 time_scheduled_send = 3;
 }
 
-// Used by: AccountCart, Checkout
+// Used by: AccountCart, Checkout, Support, SupportWizard
 message CartGiftMessage {
 	optional string gifteename = 1;
 	optional string message = 2;
 	optional string sentiment = 3;
 	optional string signature = 4;
+}
+
+message CBilling_Address {
+	optional string first_name = 1;
+	optional string last_name = 2;
+	optional string address1 = 3;
+	optional string address2 = 4;
+	optional string city = 5;
+	optional string us_state = 6;
+	optional string country_code = 7;
+	optional string postcode = 8;
+	optional int32 zip_plus4 = 9;
+	optional string phone = 10;
 }
 
 // Used by: ChatRoom, ChatRoomClient, ClanChatRooms
@@ -607,6 +627,36 @@ message CCloud_PendingRemoteOperation {
 	optional uint32 time_last_updated = 4;
 	optional int32 os_type = 5;
 	optional int32 device_type = 6;
+}
+
+// Used by: FriendMessages, common.proto
+message CFriendMessages_GetRecentMessages_Request {
+	optional fixed64 steamid1 = 1;
+	optional fixed64 steamid2 = 2;
+	optional uint32 count = 3;
+	optional bool most_recent_conversation = 4;
+	optional fixed32 rtime32_start_time = 5;
+	optional bool bbcode_format = 6;
+	optional uint32 start_ordinal = 7;
+	optional uint32 time_last = 8;
+	optional uint32 ordinal_last = 9;
+}
+
+message CFriendsMessage_SupportGetActiveMessageSessions_Request {
+	optional fixed64 steamid = 1;
+	optional .CFriendsMessages_GetActiveMessageSessions_Request proxy_request = 2;
+	optional string reference_id = 3;
+}
+
+message CFriendsMessage_SupportGetRecentMessages_Request {
+	optional .CFriendMessages_GetRecentMessages_Request proxy_request = 1;
+	optional string reference_id = 2;
+}
+
+// Used by: FriendMessages, common.proto
+message CFriendsMessages_GetActiveMessageSessions_Request {
+	optional uint32 lastmessage_since = 1;
+	optional bool only_sessions_with_messages = 2;
 }
 
 message CGameNetworkingUI_AppSummary {
@@ -1649,7 +1699,7 @@ message CMsgHotkey {
 	optional string display_name = 6;
 }
 
-// Used by: Authentication, AuthenticationSupport, Community, common.proto
+// Used by: Authentication, AuthenticationSupport, ChatRoom, Community, FriendMessages, common.proto
 message CMsgIPAddress {
 	optional fixed32 v4 = 1;
 	optional bytes v6 = 2;
@@ -1902,6 +1952,29 @@ message CMsgSetModeShiftButton {
 	optional int32 modeid = 3;
 	optional int32 source = 4 [(.description) = "enum"];
 	repeated int32 mode_shift_buttons_digital_io = 5 [(.description) = "enum"];
+}
+
+// Used by: common.proto
+message CMsgSpew {
+	optional uint32 spew_type = 1;
+	optional uint32 spew_group = 2;
+	optional uint32 spew_level = 3;
+	optional uint32 log_level = 4;
+	optional fixed32 timestamp = 5;
+	optional .CMsgIPAddress net_adr = 6;
+	optional fixed64 steamid = 7;
+	optional fixed64 txnid = 8;
+	optional uint32 server_type = 9;
+	optional string format = 10;
+	optional bytes serialized_arguments = 11;
+	optional uint64 routingid = 12;
+	optional string file = 13;
+	optional uint32 line = 14;
+	optional string server_name = 15;
+	optional .CMsgIPAddress server_adr = 16;
+	optional string job_name = 17;
+	optional uint32 throttle_count = 18;
+	optional uint64 timestamp_ms = 19;
 }
 
 // Used by: common.proto
@@ -2368,6 +2441,22 @@ message CMsgWebUITransportFailure {
 	optional uint32 connect_count = 1;
 }
 
+// Used by: Store, Support
+message CPackageReservationStatus {
+	optional uint32 packageid = 1;
+	optional int32 reservation_state = 2;
+	optional int32 queue_position = 3;
+	optional int32 total_queue_size = 4;
+	optional string reservation_country_code = 5;
+	optional bool expired = 6;
+	optional uint32 time_expires = 7;
+	optional uint32 time_reserved = 8;
+	optional uint32 rtime_estimated_notification = 9;
+	optional string notificaton_token = 10;
+	optional int32 queue_head_position_at_reservation = 11;
+	optional int32 queue_head_position_now = 12;
+}
+
 message CProductImpressionsFromClient_Notification {
 	repeated .CProductImpressionsFromClient_Notification_Impression impressions = 1;
 }
@@ -2384,6 +2473,102 @@ message CRemotePlay_SessionStopped_Notification {
 	optional bool used_x264 = 2;
 	optional bool used_h264 = 3;
 	optional bool used_hevc = 4;
+}
+
+// Used by: SteamGPT, SteamGPTRenderFarm
+message CSteamGPT_CreateExample_Request {
+	optional string problem = 1;
+	optional string label = 2;
+	optional uint32 appid = 3;
+	optional fixed64 steamid = 4;
+	optional string exact_example = 5;
+	repeated .CSteamGPT_CreateExample_Request_SteamGPTLogAddress log_addresses = 6;
+	optional string metadata = 7;
+	optional int32 max_timestamp = 8;
+	optional uint32 data_version = 9;
+	optional string reevidence_data = 10;
+	optional fixed64 parent_row_id = 11;
+	optional uint64 match_id = 12;
+	optional uint64 labeling_task_id = 13;
+	optional bool is_test_set = 14;
+}
+
+// Used by: SteamGPT, SteamGPTRenderFarm
+message CSteamGPT_CreateExample_Request_SteamGPTLogAddress {
+	optional uint32 appid = 1;
+	optional string channel = 2;
+	optional string subchannel = 3;
+}
+
+// Used by: SteamGPT, SteamGPTRenderFarm
+message CSteamGPT_CreateExample_Response {
+	optional fixed64 exampleid = 1;
+}
+
+// Used by: SteamGPT, SteamGPTRenderFarm
+message CSteamGPT_CreateLabelingTask_Request {
+	optional uint32 appid = 1;
+	optional string movie_url = 2;
+	optional string problem = 3;
+	optional string subproblem = 4;
+	optional string source_type = 5;
+	optional string source_details = 6;
+	optional float movie_start_time_seconds = 7;
+	optional float movie_duration_seconds = 8;
+	optional float movie_target_event_time_seconds = 9;
+	optional uint32 game_target_event_tick = 10;
+	optional string evidence = 11;
+	optional uint32 evidence_version = 12;
+	optional fixed64 matchid = 13;
+	optional uint64 steamid = 14;
+	optional string reevidence_data = 15;
+}
+
+// Used by: SteamGPT, SteamGPTRenderFarm
+message CSteamGPT_TaskDetails {
+	optional .CSteamGPT_TaskDetails_UserAction user_action = 1;
+	optional .CSteamGPT_TaskDetails_ModelEvaluation model_evaluation = 2;
+	optional .CSteamGPT_TaskDetails_MetaModelEvaluation metamodel_evaluation = 3;
+	optional .CSteamGPT_TaskDetails_Reevidence reevidence = 4;
+	optional .CSteamGPT_TaskDetails_CSBot csbot = 5;
+	optional .CSteamGPT_TaskDetails_PlayerEvaluation player_evaluation = 6;
+}
+
+// Used by: SteamGPT, SteamGPTRenderFarm
+message CSteamGPT_TaskDetails_CSBot {
+	optional string game_mode = 1;
+}
+
+// Used by: SteamGPT, SteamGPTRenderFarm
+message CSteamGPT_TaskDetails_MetaModelEvaluation {
+	optional uint64 modelid = 1;
+	optional float inference_score = 2;
+	optional uint64 upstream_modelid = 3;
+}
+
+// Used by: SteamGPT, SteamGPTRenderFarm
+message CSteamGPT_TaskDetails_ModelEvaluation {
+	optional fixed64 eventid = 1;
+	optional uint64 modelid = 2;
+	optional float inference_score = 3;
+}
+
+// Used by: SteamGPT, SteamGPTRenderFarm
+message CSteamGPT_TaskDetails_PlayerEvaluation {
+	optional string submitter = 1;
+}
+
+// Used by: SteamGPT, SteamGPTRenderFarm
+message CSteamGPT_TaskDetails_Reevidence {
+	optional fixed64 original_example_rowid = 1;
+	optional string reevidence_data = 2;
+	optional uint32 data_version = 3;
+	optional uint64 upstream_modelid = 4;
+}
+
+// Used by: SteamGPT, SteamGPTRenderFarm
+message CSteamGPT_TaskDetails_UserAction {
+	optional fixed64 eventid = 1;
 }
 
 message CSteamVR_AudioSettings_ChangeSettings_Request {
@@ -2698,6 +2883,211 @@ message CStreamVideoMode {
 	optional uint32 refresh_rate = 3;
 	optional uint32 refresh_rate_numerator = 4;
 	optional uint32 refresh_rate_denominator = 5;
+}
+
+// Used by: Support, SupportWizard
+message CSupportData_Address {
+	optional string first_name = 1;
+	optional string last_name = 2;
+	optional string addr1 = 3;
+	optional string addr2 = 4;
+	optional string city = 5;
+	optional string state = 6;
+	optional string post_code = 7;
+	optional string country_code = 8;
+	optional string phone = 9;
+	optional string email = 10;
+}
+
+// Used by: Support, SupportWizard
+message CSupportData_CafeDetails {
+	optional uint32 publisherid = 1;
+	optional uint64 siteid = 2;
+}
+
+// Used by: Support, SupportWizard
+message CSupportData_CouponLineItem {
+	optional int32 couponid = 1;
+	optional fixed64 gid_coupon = 2;
+	optional fixed64 gid_line_item = 3;
+}
+
+// Used by: Support, SupportWizard
+message CSupportData_FundedTrans {
+	optional uint32 purchaser_accountid = 1;
+	optional fixed64 purchaser_transid = 2;
+	optional int64 amount = 3;
+	optional int32 currency_code = 4;
+	optional int64 amount_charged = 5;
+	optional int32 currency_code_charged = 6;
+	optional uint32 publisherid = 7;
+	optional uint64 siteid = 8;
+	optional fixed64 funded_transid = 9;
+}
+
+// Used by: Support, SupportWizard
+message CSupportData_MicroTxnLineItem {
+	optional uint64 itemid = 1;
+	optional string item_name = 2;
+	optional uint32 appid = 3;
+	optional int32 qty = 4;
+	optional int64 price = 5;
+	optional int64 tax = 6;
+	optional uint32 gameitemid = 7;
+}
+
+// Used by: Support, SupportWizard
+message CSupportData_PromotionDetails {
+	optional uint32 promotionid = 1;
+	optional int64 min_cart_amount = 2;
+	optional int64 min_cart_amount_display = 3;
+	optional int64 discount_amount = 4;
+	optional int32 currency_code = 5;
+}
+
+// Used by: Support, SupportWizard
+message CSupportData_PurchaseDescription {
+	optional fixed64 transactionid = 1;
+	optional uint32 time_transaction = 2;
+	optional int32 payment_method = 3;
+	optional int32 purchase_status = 4;
+	optional int32 purchase_result_detail = 5;
+	optional string store_country_code = 6;
+	optional string country_code = 7;
+	optional string us_state = 8;
+	optional int32 purchase_client = 9;
+	optional int32 purchase_platform = 10;
+	optional fixed64 payment_info_gid = 11;
+	optional int64 price = 12;
+	optional int64 tax = 13;
+	optional int64 discount = 14;
+	optional int64 shipping = 15;
+	optional int32 currency_code = 16;
+	optional int64 final_price = 17;
+	optional bool payment_method_refundable = 18;
+	optional bool payment_method_refundable_with_extra_info = 19;
+	repeated .CSupportData_PurchaseLineItem purchase_line_items = 20;
+	repeated .CSupportData_CouponLineItem coupon_line_items = 21;
+	repeated .CSupportData_WalletCreditLineItem wallet_credit_line_items = 22;
+	repeated .CSupportData_MicroTxnLineItem microtxn_line_items = 23;
+	optional int32 credit_card_type = 24;
+	optional string credit_card_last4 = 25;
+	optional int64 payment_from_wallet = 26;
+	optional .CSupportData_Address shipping_address = 27;
+	optional bool is_replayable = 28;
+	optional fixed64 replay_of_transactionid = 29;
+	optional int32 replayable_until = 30;
+	optional bool has_been_replayed = 31;
+	optional fixed64 gift_info_gid = 32;
+	optional bool in_vr = 33;
+	optional int32 connected_headset = 34;
+	repeated .CSupportData_FundedTrans funded_trans = 35;
+	optional .CSupportData_CafeDetails cafe_details = 36;
+	repeated .CSupportData_PromotionDetails promotion_line_items = 37;
+	optional int64 import_fee = 38;
+	optional int32 realm = 39;
+	optional bool allow_replay_override = 40;
+}
+
+// Used by: Support, SupportWizard
+message CSupportData_PurchasedGift {
+	optional uint32 packageid = 1;
+	optional string package_name = 2;
+	optional uint32 accountid_sender = 3;
+	optional uint32 accountid_receiver = 4;
+	optional uint32 time_gift_accepted = 5;
+	optional uint32 time_gift_sent = 6;
+	optional bool traded = 7;
+	optional fixed64 gid_line_item = 8;
+	optional fixed64 gid = 9;
+	optional string sent_to_email = 10;
+	optional uint32 time_created = 11;
+	optional .CartGiftInfo gift_info = 12;
+	optional fixed64 gift_info_gid = 13;
+}
+
+// Used by: Support, SupportWizard
+message CSupportData_PurchaseLineItem {
+	optional bool gift = 1;
+	optional uint32 packageid = 2;
+	optional string package_name = 3;
+	optional int64 price = 4;
+	optional int64 tax = 5;
+	optional int64 discount = 6;
+	optional int64 shipping = 7;
+	optional int64 discount_coupon = 8;
+	optional int64 discount_bundle = 9;
+	optional int32 bundleid = 10;
+	optional int32 currency_code = 11;
+	optional int64 final_price = 12;
+	optional fixed64 gid_line_item = 13;
+	optional int32 purchase_status = 14;
+	optional bool purchase_succeeded_later = 15;
+	optional int32 purchase_attempts = 16;
+	optional bool refundable = 17;
+	optional uint32 refund_time = 18;
+	repeated .CSupportData_PurchaseLineItem_ShipmentTracking shipments = 19;
+	optional int64 wallet_amount = 20;
+	optional string bundle_name = 21;
+	optional bool must_refund_entire_bundle = 22;
+	optional uint32 quantity = 23;
+	optional int64 discount_valve = 24;
+	optional int64 import_fee = 25;
+	optional fixed64 gift_info_gid = 26;
+}
+
+// Used by: Support, SupportWizard
+message CSupportData_PurchaseLineItem_ShipmentTracking {
+	optional int32 shipping_status = 1;
+	optional int32 release_state = 2;
+	optional int32 release_state_time = 3;
+	optional int32 order_process_time = 4;
+	optional int32 distributor_time = 5;
+	repeated .CSupportData_PurchaseLineItem_ShipmentTracking_TrackingData tracking_data = 6;
+	repeated string serial_number = 7;
+	optional int32 time_created = 8;
+}
+
+// Used by: Support, SupportWizard
+message CSupportData_PurchaseLineItem_ShipmentTracking_TrackingData {
+	optional string tracking_number = 1;
+	optional string tracking_url = 2;
+	optional int32 shipped_time = 3;
+}
+
+// Used by: Support, SupportWizard
+message CSupportData_Transaction {
+	optional uint32 accountid = 1;
+	optional fixed64 transid = 2;
+	optional uint32 ip_client = 3;
+	optional uint32 addressid = 4;
+	optional string country_code = 5;
+	optional string us_state = 6;
+	optional int32 currency_code = 7;
+	optional int64 trans_amount = 8;
+	optional int64 paid_amount = 9;
+	optional int64 wallet_amount = 10;
+	optional int32 trans_type = 11;
+	optional int32 auth_response = 12;
+	optional int32 auth_response_detail = 13;
+	optional int32 tp_type = 14;
+	optional int32 time_transaction = 15;
+	optional int32 trans_state = 17;
+	optional int32 fraud_status = 18;
+	optional int32 bs_trans_failure_reason = 19;
+	optional fixed64 ref_transid = 20;
+	optional fixed64 from_transid = 21;
+	optional int32 trans_history_flags = 22;
+	optional int32 location_code = 23;
+	optional int32 payment_method = 24;
+	optional int64 amt_est_usd = 25;
+}
+
+// Used by: Support, SupportWizard
+message CSupportData_WalletCreditLineItem {
+	optional int64 amount = 1;
+	optional int32 currency_code = 2;
+	optional bool gift = 3;
 }
 
 // Used by: Test_TransportError, TransportValidation
@@ -3191,6 +3581,14 @@ message LoyaltyRewardDefinition_CommunityItemData {
 	optional bool tiled = 13;
 }
 
+// Used by: PublishedFile, PublishedFileModeration
+message PublishedFileSubSection {
+	optional uint64 sectionid = 1;
+	optional string title = 2;
+	optional string description_text = 3;
+	optional uint32 sort_order = 4;
+}
+
 message SiteServerUI_CancelLogin_Request {
 }
 
@@ -3317,6 +3715,11 @@ message SiteServerUI_Status_Response {
 	optional bool connected = 3;
 	optional bool cache_enabled = 4;
 	optional int32 acct_status = 5;
+}
+
+message SteamML_OnEmitMLInfo_Notification {
+	optional fixed64 steamid = 1;
+	optional .CMsgSpew spew = 2;
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, UserStoreVisit, Wishlist
@@ -3685,6 +4088,19 @@ message StoreItemID {
 	optional uint32 tagid = 4;
 	optional uint32 creatorid = 5;
 	optional uint32 hubcategoryid = 6;
+}
+
+message Trust_AccountTrustDeleteDBO_Notification {
+	optional fixed64 steamid = 1;
+}
+
+message Trust_ComputeAccountTrustBucket_Notification {
+	optional fixed64 steamid = 1;
+}
+
+message Trust_ComputeTrustValues_Notification {
+	repeated fixed64 steamids = 1;
+	optional uint32 appid = 2;
 }
 
 // Used by: Player, PlayerClient, Store, StoreClient
