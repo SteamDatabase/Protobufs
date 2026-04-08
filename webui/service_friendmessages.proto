@@ -1,4 +1,5 @@
 import "common_base.proto";
+import "common.proto";
 
 message CFriendMessages_AckMessage_Notification {
 	optional fixed64 steamid_partner = 1;
@@ -8,18 +9,6 @@ message CFriendMessages_AckMessage_Notification {
 message CFriendMessages_DismissSessionNotice_Notification {
 	optional fixed64 steamid_friend = 1;
 	optional int32 notice_type = 2 [(.description) = "enum"];
-}
-
-message CFriendMessages_GetRecentMessages_Request {
-	optional fixed64 steamid1 = 1;
-	optional fixed64 steamid2 = 2;
-	optional uint32 count = 3;
-	optional bool most_recent_conversation = 4;
-	optional fixed32 rtime32_start_time = 5;
-	optional bool bbcode_format = 6;
-	optional uint32 start_ordinal = 7;
-	optional uint32 time_last = 8;
-	optional uint32 ordinal_last = 9;
 }
 
 message CFriendMessages_GetRecentMessages_Response {
@@ -41,6 +30,29 @@ message CFriendMessages_GetRecentMessages_Response_FriendMessage_MessageReaction
 	repeated uint32 reactors = 3;
 }
 
+message CFriendMessages_GetReportMetadata_Request {
+	optional uint64 subject_group_id = 1;
+	optional uint64 subject_id = 2;
+}
+
+message CFriendMessages_GetReportMetadata_Response {
+	optional .CFriendMessages_GetReportMetadata_Response_ChatMessage reported_msg = 1;
+	repeated .CFriendMessages_GetReportMetadata_Response_ChatMessage chat_history = 2;
+	optional uint32 friend_age_seconds = 3;
+	optional uint32 session_age_seconds = 4;
+	optional uint32 first_chatted_time = 5;
+	optional .CMsgIPAddress sender_ip = 6;
+	optional uint32 asn_age_seconds = 7;
+	optional uint32 future_log_collect_time = 8;
+	optional uint32 recent_chat_partner_count = 9;
+}
+
+message CFriendMessages_GetReportMetadata_Response_ChatMessage {
+	optional string msg = 1;
+	optional uint32 timestamp = 2;
+	optional uint32 sender_accountid = 3;
+}
+
 message CFriendMessages_IncomingMessage_Notification {
 	optional fixed64 steamid_friend = 1;
 	optional int32 chat_entry_type = 2;
@@ -60,6 +72,10 @@ message CFriendMessages_IsInFriendsUIBeta_Request {
 message CFriendMessages_IsInFriendsUIBeta_Response {
 	optional bool online_in_friendsui = 1;
 	optional bool has_used_friendsui = 2;
+}
+
+message CFriendMessages_MarkOfflineMessagesRead_Notification {
+	optional fixed64 steamid_friend = 1;
 }
 
 message CFriendMessages_MessageReaction_Notification {
@@ -134,11 +150,6 @@ message CFriendMessages_UpdateMessageReaction_Response {
 	repeated uint32 reactors = 1;
 }
 
-message CFriendsMessages_GetActiveMessageSessions_Request {
-	optional uint32 lastmessage_since = 1;
-	optional bool only_sessions_with_messages = 2;
-}
-
 message CFriendsMessages_GetActiveMessageSessions_Response {
 	repeated .CFriendsMessages_GetActiveMessageSessions_Response_FriendMessageSession message_sessions = 1;
 	optional uint32 timestamp = 2;
@@ -152,6 +163,29 @@ message CFriendsMessages_GetActiveMessageSessions_Response_FriendMessageSession 
 	repeated int32 notices = 5 [(.description) = "enum"];
 }
 
+message CFriendsMessages_GetFriendMessagesLog_Request {
+	optional .CGetFriendMessageLogContinue continue_value = 1;
+}
+
+message CFriendsMessages_GetFriendMessagesLog_Response {
+	repeated .CFriendsMessages_GetFriendMessagesLog_Response_FriendMessage messages = 1;
+	optional .CGetFriendMessageLogContinue continue_value = 2;
+}
+
+message CFriendsMessages_GetFriendMessagesLog_Response_FriendMessage {
+	optional uint32 accountid_sender = 1;
+	optional uint32 accountid_recipient = 2;
+	optional uint32 timestamp = 3;
+	optional uint32 ordinal = 4;
+	optional string message = 5;
+}
+
+message CGetFriendMessageLogContinue {
+	optional uint32 accountid_friend = 1;
+	optional uint32 timestamp = 2;
+	optional uint32 ordinal = 3;
+}
+
 service FriendMessages {
 	// ePrivilege=1
 	rpc AckMessage (.CFriendMessages_AckMessage_Notification) returns (.NoResponse);
@@ -160,15 +194,25 @@ service FriendMessages {
 	// bConstMethod=true, ePrivilege=1
 	rpc GetActiveMessageSessions (.CFriendsMessages_GetActiveMessageSessions_Request) returns (.CFriendsMessages_GetActiveMessageSessions_Response);
 	// bConstMethod=true, ePrivilege=1
+	rpc GetFriendMessagesLog (.CFriendsMessages_GetFriendMessagesLog_Request) returns (.CFriendsMessages_GetFriendMessagesLog_Response);
+	// bConstMethod=true, ePrivilege=1
 	rpc GetRecentMessages (.CFriendMessages_GetRecentMessages_Request) returns (.CFriendMessages_GetRecentMessages_Response);
+	// ePrivilege=5
+	rpc GetReportMetadata (.CFriendMessages_GetReportMetadata_Request) returns (.CFriendMessages_GetReportMetadata_Response);
 	// ePrivilege=1
 	rpc IsInFriendsUIBeta (.CFriendMessages_IsInFriendsUIBeta_Request) returns (.CFriendMessages_IsInFriendsUIBeta_Response);
+	// ePrivilege=1
+	rpc MarkOfflineMessagesRead (.CFriendMessages_MarkOfflineMessagesRead_Notification) returns (.NoResponse);
 	// ePrivilege=1
 	rpc ReportMessage (.CFriendMessages_ReportMessage_Request) returns (.CFriendMessages_ReportMessage_Response);
 	// ePrivilege=1, eWebAPIKeyRequirement=2
 	rpc ResolveReport (.CFriendMessages_ResolveReport_Request) returns (.CFriendMessages_ResolveReport_Response);
 	// ePrivilege=1
 	rpc SendMessage (.CFriendMessages_SendMessage_Request) returns (.CFriendMessages_SendMessage_Response);
+	// ePrivilege=5
+	rpc SupportGetActiveMessageSessions (.CFriendsMessages_GetActiveMessageSessions_Request) returns (.CFriendsMessages_GetActiveMessageSessions_Response);
+	// ePrivilege=5
+	rpc SupportGetRecentMessages (.CFriendMessages_GetRecentMessages_Request) returns (.CFriendMessages_GetRecentMessages_Response);
 	// ePrivilege=1
 	rpc UpdateMessageReaction (.CFriendMessages_UpdateMessageReaction_Request) returns (.CFriendMessages_UpdateMessageReaction_Response);
 }
