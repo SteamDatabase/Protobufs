@@ -788,6 +788,7 @@ message CPublishedFile_QueryFiles_Request {
 	optional int32 special_filter = 48 [(.description) = "enum"];
 	repeated uint32 appids_required_for_use = 49;
 	optional int32 search_text_target = 50 [(.description) = "enum"];
+	repeated uint32 excluded_appids_required_for_use = 51;
 }
 
 message CPublishedFile_QueryFiles_Request_DateRange {
@@ -1423,6 +1424,8 @@ message PublishedFileSavedWebQuery {
 	repeated string required_flags = 15;
 	optional int32 special_filter = 16 [(.description) = "enum"];
 	repeated uint32 appids_required_for_use = 17;
+	repeated uint32 excluded_appids_required_for_use = 18;
+	optional int32 search_text_target = 19 [(.description) = "enum"];
 }
 
 service PublishedFile {
