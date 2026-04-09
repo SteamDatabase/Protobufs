@@ -787,6 +787,7 @@ message CPublishedFile_QueryFiles_Request {
 	optional bool admin_query = 47;
 	optional int32 special_filter = 48 [(.description) = "enum"];
 	repeated uint32 appids_required_for_use = 49;
+	optional int32 search_text_target = 50 [(.description) = "enum"];
 }
 
 message CPublishedFile_QueryFiles_Request_DateRange {

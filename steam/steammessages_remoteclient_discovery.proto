@@ -16,6 +16,8 @@ enum ERemoteClientBroadcastMsg {
 	k_ERemoteDeviceStreamTransportSignal = 12;
 	k_ERemoteDeviceStreamingProgress = 13;
 	k_ERemoteDeviceAuthorizationConfirmed = 14;
+	k_ERemoteClientBroadcastMsgPairingState = 15;
+	k_ERemoteClientBroadcastMsgPairingExclusivity = 16;
 }
 
 enum ERemoteClientService {
@@ -181,6 +183,17 @@ message CMsgRemoteDeviceAuthorizationResponse {
 
 message CMsgRemoteDeviceAuthorizationConfirmed {
 	required .ERemoteDeviceAuthorizationResult result = 1 [default = k_ERemoteDeviceAuthorizationSuccess];
+}
+
+message CMsgRemoteClientBroadcastClientPairingState {
+	optional fixed64 my_paired_network_hash = 1;
+	optional uint32 my_pairing_time = 2;
+}
+
+message CMsgRemoteClientBroadcastClientPairingExclusivity {
+	optional fixed64 if_paired_network_hash_is = 1;
+	optional fixed64 unpair_unless_you_are_client_id = 2;
+	optional uint32 last_known_pairing_time = 3;
 }
 
 message CMsgRemoteDeviceStreamingRequest {
