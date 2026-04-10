@@ -28,54 +28,6 @@ message CChatRoom_AddRoleToUser_Request {
 message CChatRoom_AddRoleToUser_Response {
 }
 
-message CChatRoom_AppAddUsersToGroup_Request {
-	optional uint64 chat_group_id = 1;
-	repeated fixed64 steamids = 2;
-	optional uint32 appid = 5;
-	optional bool suppress_log_messages = 7;
-}
-
-message CChatRoom_AppAddUsersToGroup_Response {
-	repeated fixed64 users_added = 1;
-	repeated fixed64 users_already_member = 2;
-	repeated .CChatRoom_AppAddUsersToGroup_Response_UserFailed users_failed = 3;
-}
-
-message CChatRoom_AppAddUsersToGroup_Response_UserFailed {
-	optional fixed64 steamid = 1;
-	optional uint32 eresult = 2;
-}
-
-message CChatRoom_AppPostSystemMessageToGroup_Request {
-	optional uint32 appid = 1;
-	optional uint64 chat_group_id = 2;
-	optional string message = 4;
-	optional string loc_token = 5;
-	repeated .CChatRoom_AppPostSystemMessageToGroup_Request_LocParam params = 6;
-}
-
-message CChatRoom_AppPostSystemMessageToGroup_Request_LocParam {
-	optional string name = 1;
-	optional string value = 2;
-}
-
-message CChatRoom_AppPostSystemMessageToGroup_Response {
-}
-
-message CChatRoom_AppRemoveUsersFromGroup_Request {
-	optional uint64 chat_group_id = 1;
-	repeated fixed64 steamid_targets = 2;
-	optional int32 kick_expiration = 3;
-	optional uint32 appid = 4;
-	optional fixed64 steamid_kick_actor = 5;
-	optional bool suppress_log_messages = 7;
-}
-
-message CChatRoom_AppRemoveUsersFromGroup_Response {
-	repeated fixed64 steamid_not_in_group = 1;
-	repeated fixed64 steamid_removed = 2;
-}
-
 message CChatRoom_ChatMessageModified_Notification {
 	optional uint64 chat_group_id = 1;
 	optional uint64 chat_id = 2;
@@ -96,18 +48,6 @@ message CChatRoom_ChatRoomGroupRoomsChange_Notification {
 
 message CChatRoom_ChatRoomHeaderState_Notification {
 	optional .CChatRoomGroupHeaderState header_state = 1;
-}
-
-message CChatRoom_CreateAppChatRoomGroup_Request {
-	optional fixed64 steamid_owner = 1;
-	optional uint32 appid = 2;
-	optional string name = 3;
-	optional uint32 room_type = 4;
-}
-
-message CChatRoom_CreateAppChatRoomGroup_Response {
-	optional uint64 chat_group_id = 1;
-	optional uint64 default_chat_channel_id = 2;
 }
 
 message CChatRoom_CreateChatRoom_Request {
@@ -202,15 +142,6 @@ message CChatRoom_DeleteRoleFromUser_Request {
 message CChatRoom_DeleteRoleFromUser_Response {
 }
 
-message CChatRoom_DisableChatRoomGroup_Request {
-	optional uint64 chat_group_id = 1;
-	optional string audit_notes = 2;
-	optional bool re_enable = 3;
-}
-
-message CChatRoom_DisableChatRoomGroup_Response {
-}
-
 message CChatRoom_EndMiniGameForChatRoomGroup_Request {
 	optional uint64 chat_group_id = 1;
 	optional uint64 chat_id = 2;
@@ -241,10 +172,6 @@ message CChatRoom_GetChatRoomGroupState_Request {
 
 message CChatRoom_GetChatRoomGroupState_Response {
 	optional .CChatRoomGroupState state = 1;
-}
-
-message CChatRoom_GetChatRoomGroupSummary_Request {
-	optional uint64 chat_group_id = 1;
 }
 
 message CChatRoom_GetInviteInfo_Request {
@@ -348,26 +275,6 @@ message CChatRoom_GetMyChatRoomGroups_Request {
 
 message CChatRoom_GetMyChatRoomGroups_Response {
 	repeated .CChatRoomSummaryPair chat_room_groups = 1;
-}
-
-message CChatRoom_GetReportMetadata_Request {
-	optional uint64 subject_group_id = 1;
-	optional uint64 subject_id = 2;
-}
-
-message CChatRoom_GetReportMetadata_Response {
-	optional .CChatRoom_GetReportMetadata_Response_ChatMessage reported_msg = 1;
-	repeated .CChatRoom_GetReportMetadata_Response_ChatMessage chat_history = 2;
-	optional uint32 recent_chat_rooms = 3;
-	optional .CMsgIPAddress sender_ip = 4;
-	optional string group_name = 5;
-	optional string room_name = 6;
-}
-
-message CChatRoom_GetReportMetadata_Response_ChatMessage {
-	optional string msg = 1;
-	optional uint32 timestamp = 2;
-	optional uint32 sender_accountid = 3;
 }
 
 message CChatRoom_GetRoleActions_Request {
@@ -636,17 +543,6 @@ message CChatRoom_SendChatMessage_Response {
 	optional string message_without_bb_code = 4;
 }
 
-message CChatRoom_SetAppChatRoomConfig_Request {
-	optional uint64 chat_group_id = 1;
-	optional uint32 appid = 2;
-	optional string name = 3;
-	optional fixed64 avatar_ugc_id = 4;
-	optional bool allow_user_invites = 5;
-}
-
-message CChatRoom_SetAppChatRoomConfig_Response {
-}
-
 message CChatRoom_SetAppChatRoomGroupForceActive_Request {
 	optional uint64 chat_group_id = 1;
 	optional uint32 requesting_app_id = 2;
@@ -728,40 +624,6 @@ message CChatRoom_SetUserChatGroupPreferences_Request_ChatRoomPreferences {
 }
 
 message CChatRoom_SetUserChatGroupPreferences_Response {
-}
-
-message CChatRoom_SupportGetMessageHistory_Request {
-	optional .CChatRoom_GetMessageHistory_Request proxy_request = 1;
-	optional string reference_id = 2;
-	optional fixed64 steamid = 3;
-}
-
-message CChatRoom_SupportGetUserChatRoomGroups_Request {
-	optional fixed64 steamid = 1;
-	optional string reference_id = 2;
-}
-
-message CChatRoom_SupportGetUserChatRoomGroups_Response {
-	repeated .CChatRoom_SupportGetUserChatRoomGroups_Response_ChatGroupSummary groups = 1;
-}
-
-message CChatRoom_SupportGetUserChatRoomGroups_Response_ChatGroupSummary {
-	optional uint64 chat_group_id = 1;
-	optional string chat_group_name = 2;
-	optional uint32 clanid = 3;
-	optional bool disabled = 4;
-	optional uint64 default_chat_id = 5;
-	repeated .CChatRoom_SupportGetUserChatRoomGroups_Response_ChatRoomSumary chat_rooms = 6;
-	optional uint32 rt_last_message_any_room = 7;
-	optional uint32 time_joined = 20;
-	optional uint32 time_parted = 21;
-	optional bool kick_active = 22;
-}
-
-message CChatRoom_SupportGetUserChatRoomGroups_Response_ChatRoomSumary {
-	optional uint64 chat_id = 1;
-	optional string chat_name = 2;
-	optional uint32 time_last_message = 3;
 }
 
 message CChatRoom_UpdateMemberListView_Notification {
@@ -909,14 +771,6 @@ service ChatRoom {
 	rpc AckChatMessage (.CChatRoom_AckChatMessage_Notification) returns (.NoResponse);
 	// ePrivilege=3
 	rpc AddRoleToUser (.CChatRoom_AddRoleToUser_Request) returns (.CChatRoom_AddRoleToUser_Response);
-	// ePrivilege=0, eWebAPIKeyRequirement=5
-	rpc AppAddUsersToGroup (.CChatRoom_AppAddUsersToGroup_Request) returns (.CChatRoom_AppAddUsersToGroup_Response);
-	// ePrivilege=0, eWebAPIKeyRequirement=5
-	rpc AppPostSystemMessageToGroup (.CChatRoom_AppPostSystemMessageToGroup_Request) returns (.CChatRoom_AppPostSystemMessageToGroup_Response);
-	// ePrivilege=0, eWebAPIKeyRequirement=5
-	rpc AppRemoveUsersFromGroup (.CChatRoom_AppRemoveUsersFromGroup_Request) returns (.CChatRoom_AppRemoveUsersFromGroup_Response);
-	// ePrivilege=0, eWebAPIKeyRequirement=5
-	rpc CreateAppChatRoomGroup (.CChatRoom_CreateAppChatRoomGroup_Request) returns (.CChatRoom_CreateAppChatRoomGroup_Response);
 	// ePrivilege=3
 	rpc CreateChatRoom (.CChatRoom_CreateChatRoom_Request) returns (.CChatRoom_CreateChatRoom_Response);
 	// ePrivilege=3
@@ -935,16 +789,12 @@ service ChatRoom {
 	rpc DeleteRole (.CChatRoom_DeleteRole_Request) returns (.CChatRoom_DeleteRole_Response);
 	// ePrivilege=3
 	rpc DeleteRoleFromUser (.CChatRoom_DeleteRoleFromUser_Request) returns (.CChatRoom_DeleteRoleFromUser_Response);
-	// ePrivilege=1
-	rpc DisableChatRoomGroup (.CChatRoom_DisableChatRoomGroup_Request) returns (.CChatRoom_DisableChatRoomGroup_Response);
 	// ePrivilege=3
 	rpc EndMiniGameForChatRoomGroup (.CChatRoom_EndMiniGameForChatRoomGroup_Request) returns (.CChatRoom_EndMiniGameForChatRoomGroup_Response);
 	// ePrivilege=3
 	rpc GetBanList (.CChatRoom_GetBanList_Request) returns (.CChatRoom_GetBanList_Response);
 	// ePrivilege=3
 	rpc GetChatRoomGroupState (.CChatRoom_GetChatRoomGroupState_Request) returns (.CChatRoom_GetChatRoomGroupState_Response);
-	// ePrivilege=2
-	rpc GetChatRoomGroupSummary (.CChatRoom_GetChatRoomGroupSummary_Request) returns (.CChatRoom_GetChatRoomGroupSummary_Response);
 	// ePrivilege=1
 	rpc GetInviteInfo (.CChatRoom_GetInviteInfo_Request) returns (.CChatRoom_GetInviteInfo_Response);
 	// ePrivilege=1
@@ -959,8 +809,6 @@ service ChatRoom {
 	rpc GetMessageReactionReactors (.CChatRoom_GetMessageReactionReactors_Request) returns (.CChatRoom_GetMessageReactionReactors_Response);
 	// ePrivilege=1
 	rpc GetMyChatRoomGroups (.CChatRoom_GetMyChatRoomGroups_Request) returns (.CChatRoom_GetMyChatRoomGroups_Response);
-	// ePrivilege=5
-	rpc GetReportMetadata (.CChatRoom_GetReportMetadata_Request) returns (.CChatRoom_GetReportMetadata_Response);
 	// ePrivilege=1
 	rpc GetRoleActions (.CChatRoom_GetRoleActions_Request) returns (.CChatRoom_GetRoleActions_Response);
 	// ePrivilege=1
@@ -1007,8 +855,6 @@ service ChatRoom {
 	rpc SearchMembers (.CChatRoom_SearchMembers_Request) returns (.CChatRoom_SearchMembers_Response);
 	// ePrivilege=3
 	rpc SendChatMessage (.CChatRoom_SendChatMessage_Request) returns (.CChatRoom_SendChatMessage_Response);
-	// ePrivilege=0, eWebAPIKeyRequirement=5
-	rpc SetAppChatRoomConfig (.CChatRoom_SetAppChatRoomConfig_Request) returns (.CChatRoom_SetAppChatRoomConfig_Response);
 	// ePrivilege=1
 	rpc SetAppChatRoomGroupForceActive (.CChatRoom_SetAppChatRoomGroupForceActive_Request) returns (.CChatRoom_SetAppChatRoomGroupForceActive_Response);
 	// ePrivilege=1
@@ -1025,10 +871,6 @@ service ChatRoom {
 	rpc SetUserBanState (.CChatRoom_SetUserBanState_Request) returns (.CChatRoom_SetUserBanState_Response);
 	// ePrivilege=1
 	rpc SetUserChatGroupPreferences (.CChatRoom_SetUserChatGroupPreferences_Request) returns (.CChatRoom_SetUserChatGroupPreferences_Response);
-	// ePrivilege=5
-	rpc SupportGetMessageHistory (.CChatRoom_SupportGetMessageHistory_Request) returns (.CChatRoom_GetMessageHistory_Response);
-	// ePrivilege=5
-	rpc SupportGetUserChatRoomGroups (.CChatRoom_SupportGetUserChatRoomGroups_Request) returns (.CChatRoom_SupportGetUserChatRoomGroups_Response);
 	// ePrivilege=1
 	rpc UpdateMemberListView (.CChatRoom_UpdateMemberListView_Notification) returns (.NoResponse);
 	// ePrivilege=1
