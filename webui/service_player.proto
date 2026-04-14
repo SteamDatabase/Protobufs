@@ -189,6 +189,7 @@ message CPlayer_GetGameAchievements_Request {
 
 message CPlayer_GetGameAchievements_Response {
 	repeated .CPlayer_GetGameAchievements_Response_Achievement achievements = 1;
+	optional int32 schema_version = 2;
 }
 
 message CPlayer_GetGameAchievements_Response_Achievement {
@@ -199,6 +200,9 @@ message CPlayer_GetGameAchievements_Response_Achievement {
 	optional string icon_gray = 5;
 	optional bool hidden = 6;
 	optional string player_percent_unlocked = 7;
+	optional uint32 internal_key = 8;
+	optional uint32 min_progress = 9;
+	optional uint32 max_progress = 10;
 }
 
 message CPlayer_GetGameBadgeLevels_Request {
