@@ -3184,14 +3184,6 @@ message LoyaltyRewardDefinition_CommunityItemData {
 	optional bool tiled = 13;
 }
 
-// Used by: PublishedFile, PublishedFileModeration
-message PublishedFileSubSection {
-	optional uint64 sectionid = 1;
-	optional string title = 2;
-	optional string description_text = 3;
-	optional uint32 sort_order = 4;
-}
-
 message SiteServerUI_CancelLogin_Request {
 }
 
