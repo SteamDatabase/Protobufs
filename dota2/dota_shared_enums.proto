@@ -859,6 +859,7 @@ message CMsgDOTACombatLogEntry {
 	optional bool uses_charges = 79;
 	optional uint32 tracked_stat_id = 80;
 	optional float modifier_purged_duration = 81;
+	optional bool heal_from_regen = 82;
 }
 
 message CMsgPendingEventAward {
