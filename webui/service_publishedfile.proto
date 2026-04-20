@@ -285,6 +285,13 @@ message CPublishedFile_GetUserFiles_Request {
 	optional bool return_apps = 36;
 	repeated int32 excluded_content_descriptors = 37 [(.description) = "enum"];
 	optional bool admin_query = 38;
+	optional .CPublishedFile_GetUserFiles_Request_DateRange date_range_created = 39;
+	optional .CPublishedFile_GetUserFiles_Request_DateRange date_range_updated = 40;
+}
+
+message CPublishedFile_GetUserFiles_Request_DateRange {
+	optional uint32 timestamp_start = 1;
+	optional uint32 timestamp_end = 2;
 }
 
 message CPublishedFile_GetUserFiles_Request_KVTag {
@@ -389,6 +396,10 @@ message CPublishedFile_QueryFiles_Request {
 	optional .CPublishedFile_QueryFiles_Request_DateRange date_range_updated = 45;
 	repeated int32 excluded_content_descriptors = 46 [(.description) = "enum"];
 	optional bool admin_query = 47;
+	optional int32 special_filter = 48 [(.description) = "enum"];
+	repeated uint32 appids_required_for_use = 49;
+	optional int32 search_text_target = 50 [(.description) = "enum"];
+	repeated uint32 excluded_appids_required_for_use = 51;
 }
 
 message CPublishedFile_QueryFiles_Request_DateRange {
