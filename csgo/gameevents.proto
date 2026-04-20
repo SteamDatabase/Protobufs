@@ -35,6 +35,7 @@ message CMsgPlaceDecalEvent {
 	optional uint32 entityhandle = 10 [default = 16777215];
 	optional uint64 material_id = 11;
 	optional uint32 sequence_name = 12;
+	optional .CMsgVector position_objectspace = 14;
 }
 
 message CMsgClearWorldDecalsEvent {
@@ -51,7 +52,7 @@ message CMsgClearDecalsForEntityEvent {
 }
 
 message CMsgSource1LegacyGameEventList {
-	option (maximum_size_bytes) = 24576;
+	option (maximum_size_bytes) = 32768;
 
 	message key_t {
 		optional int32 type = 1;

@@ -195,6 +195,8 @@ message CNETMsg_SpawnGroup_Load {
 }
 
 message CNETMsg_SpawnGroup_ManifestUpdate {
+	option (maximum_size_bytes) = 2048;
+
 	optional uint32 spawngrouphandle = 1;
 	optional bytes spawngroupmanifest = 2;
 	optional bool manifestincomplete = 3;
