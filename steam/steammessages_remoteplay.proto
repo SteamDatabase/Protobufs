@@ -114,6 +114,7 @@ enum EStreamControlMessage {
 	k_EStreamControlResumeControllerInput = 144;
 	k_EStreamControlVRConnectionReady = 145;
 	k_EStreamControlSetCursorScale = 146;
+	k_EStreamControlCaptureFailed = 147;
 }
 
 enum EStreamVersion {
@@ -221,6 +222,14 @@ enum EStreamActivity {
 	k_EStreamActivityDesktop = 3;
 	k_EStreamActivitySecureDesktop = 4;
 	k_EStreamActivityMusic = 5;
+}
+
+enum ECaptureFailedReason {
+	k_ECaptureFailedReasonNone = 0;
+	k_ECaptureFailedReasonUnknown = 1;
+	k_ECaptureFailedReasonPipewireRequired = 2;
+	k_ECaptureFailedReasonPipewirePermissions = 3;
+	k_ECaptureFailedReasonMacOSPermissions = 4;
 }
 
 enum EStreamDataMessage {
@@ -856,6 +865,10 @@ message CControllerPersonalizationUpdateMsg {
 
 message CVRConnectionReady {
 	optional string connect_params = 1;
+}
+
+message CCaptureFailedMsg {
+	optional .ECaptureFailedReason reason = 1 [default = k_ECaptureFailedReasonNone];
 }
 
 message CStreamDataLostMsg {
