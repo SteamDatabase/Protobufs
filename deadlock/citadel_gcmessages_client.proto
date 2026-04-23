@@ -155,6 +155,8 @@ enum EGCCitadelClientMessages {
 	k_EMsgGCToClientPartyChatMsg = 9279;
 	k_EMsgClientToGCRequestHeroReleaseVoteTally = 9280;
 	k_EMsgGCToClientUpdateHeroReleaseVoteTally = 9281;
+	k_EMsgClientToGCSetAccountPrivacySetting = 9282;
+	k_EMsgClientToGCSetAccountPrivacySettingResponse = 9283;
 }
 
 enum ECitadelAccountPermissionFlag {
@@ -264,6 +266,12 @@ message CSOGameAccountClient {
 		k_eAccountBanned = 64;
 	}
 
+	enum EPrivacySetting {
+		k_ePrivacy_FriendsOnly = 0;
+		k_ePrivacy_Hidden = 1;
+		k_ePrivacy_Public = 2;
+	}
+
 	optional uint32 account_id = 1 [(key_field) = true];
 	optional uint64 flags = 2;
 	optional uint32 wins = 3;
@@ -285,6 +293,7 @@ message CSOGameAccountClient {
 	optional uint32 brawl_losses = 19;
 	optional uint32 brawl_kills = 20;
 	optional uint32 last_mm_match_time = 21;
+	optional .CSOGameAccountClient.EPrivacySetting privacy_setting = 22 [default = k_ePrivacy_FriendsOnly];
 }
 
 message CSOAccountSyncStorage {
@@ -1817,4 +1826,17 @@ message CMsgPostGameProgressData {
 	optional .ECitadelLobbyTeam winning_team = 2 [default = k_ECitadelLobbyTeam_Team0];
 	optional .CMsgPostGameProgressData.PlayerData local_player = 3;
 	repeated .CMsgPostGameProgressData.PlayerData mvp_players = 4;
+}
+
+message CMsgClientToGCSetAccountPrivacySetting {
+	optional .CSOGameAccountClient.EPrivacySetting privacy_setting = 1 [default = k_ePrivacy_FriendsOnly];
+}
+
+message CMsgClientToGCSetAccountPrivacySettingResponse {
+	enum EResultCode {
+		k_eSuccess = 0;
+		k_eInternalError = 1;
+	}
+
+	optional .CMsgClientToGCSetAccountPrivacySettingResponse.EResultCode result = 1 [default = k_eSuccess];
 }
