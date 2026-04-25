@@ -56,6 +56,12 @@ message CSteamInputService_ControllerAxesStateChange_Notification {
 	optional float trigger_right = 10;
 }
 
+message CSteamInputService_ControllerBatteryState_Notification {
+	optional uint32 controller_index = 1;
+	optional uint32 battery_level = 2;
+	optional bool charging = 3;
+}
+
 message CSteamInputService_ControllerButtonStateChanged_Notification {
 	optional uint32 controller_index = 1;
 	optional bool dpad_up = 2;
@@ -383,6 +389,8 @@ service SteamInputManager {
 	rpc NotifyAxesStateChanged (.CSteamInputService_ControllerAxesStateChange_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyButtonStateChanged (.CSteamInputService_ControllerButtonStateChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=2
+	rpc NotifyControllerBatteryState (.CSteamInputService_ControllerBatteryState_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyControllerDisconnected (.CSteamInputService_ControllerDisconnected_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2

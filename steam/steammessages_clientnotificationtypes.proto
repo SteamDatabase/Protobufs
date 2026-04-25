@@ -62,6 +62,7 @@ enum EClientNotificationType {
 	k_EClientNotificationType_PlaytestInvite = 59;
 	k_EClientNotificationType_TradeReversal = 60;
 	k_EClientNotificationType_HardwareUpdateAvailable = 61;
+	k_EClientNotificationType_ControllerLowBattery = 62;
 }
 
 enum ESystemUpdateNotificationType {
@@ -285,4 +286,9 @@ message CClientNotificationGameRecordingInstantClip {
 
 message CClientNotificationHardwareUpdateAvailable {
 	repeated uint32 etype = 1;
+}
+
+message CClientNotificationControllerLowBattery {
+	optional uint32 controller_type = 1;
+	optional float pct_remaining = 2;
 }

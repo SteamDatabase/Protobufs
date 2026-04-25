@@ -424,6 +424,11 @@ message CClientNotificationCloudSyncFailure {
 	optional uint32 appid = 1;
 }
 
+message CClientNotificationControllerLowBattery {
+	optional uint32 controller_type = 1;
+	optional float pct_remaining = 2;
+}
+
 message CClientNotificationDockUnsupportedFirmware {
 }
 

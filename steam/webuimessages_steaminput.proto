@@ -384,6 +384,12 @@ message CSteamInputService_EnableQosStatus_Request {
 message CSteamInputService_EnableQosStatus_Response {
 }
 
+message CSteamInputService_ControllerBatteryState_Notification {
+	optional uint32 controller_index = 1;
+	optional uint32 battery_level = 2;
+	optional bool charging = 3;
+}
+
 service SteamInputManager {
 	option (webui_service_execution_site) = k_EClientExecutionSiteClientdll;
 
@@ -401,6 +407,7 @@ service SteamInputManager {
 	rpc NotifyControllerDisconnected (.CSteamInputService_ControllerDisconnected_Notification) returns (.WebUINoResponse);
 	rpc NotifyControllerPairingChanged (.CSteamInputService_ControllerPairingChanged_Notification) returns (.WebUINoResponse);
 	rpc NotifyControllerListChanged (.CSteamInputService_ControllerListChanged_Notification) returns (.WebUINoResponse);
+	rpc NotifyControllerBatteryState (.CSteamInputService_ControllerBatteryState_Notification) returns (.WebUINoResponse);
 	rpc NotifyFirstSteamControllerConnection (.CSteamInputService_FirstSteamControllerConnection_Notification) returns (.WebUINoResponse);
 	rpc NotifyTritonQos (.CSteamInputService_TritonQos_Notification) returns (.WebUINoResponse);
 	rpc StartControllerStateFlow (.CSteamInputService_ControllerStateFlow_Request) returns (.CSteamInputService_ControllerStateFlow_Response);
