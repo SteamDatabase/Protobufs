@@ -1,0 +1,43 @@
+import "common_base.proto";
+
+message CSupportAgents_GetQuickText_Request {
+	optional uint32 quicktext_id = 1;
+	optional string language = 2;
+	optional bool from_sql = 3;
+}
+
+message CSupportAgents_GetQuickText_Response {
+	optional .CSupportData_QuickText quicktext = 1;
+	optional .CSupportData_QuickTextContent english_reference = 2;
+}
+
+message CSupportData_QuickText {
+	optional uint32 quicktext_id = 1;
+	optional bool requires_update = 2;
+	optional string title = 3;
+	optional bool hidden = 4;
+	optional bool approved = 5;
+	repeated uint32 help_request_types = 6;
+	optional .CSupportData_QuickTextContent content = 7;
+	optional string button_text = 8;
+	optional bool replacement = 9;
+	repeated uint32 payment_methods = 10;
+	repeated uint32 appids = 11;
+	optional int32 escalation_level = 12 [(.description) = "enum"];
+	optional bool partner_only = 13;
+}
+
+message CSupportData_QuickTextContent {
+	optional string content = 1;
+	optional uint32 major_revision = 2;
+	optional uint32 minor_revision = 3;
+	optional uint32 author = 4;
+	optional uint32 last_update = 5;
+	optional int32 language = 6;
+}
+
+service SupportAgents {
+	// bConstMethod=true, ePrivilege=5
+	rpc GetQuickText (.CSupportAgents_GetQuickText_Request) returns (.CSupportAgents_GetQuickText_Response);
+}
+

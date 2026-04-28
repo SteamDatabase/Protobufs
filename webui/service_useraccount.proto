@@ -99,6 +99,7 @@ message CUserAccount_GetOptOutEmailOptions_Response {
 	optional bool opt_out_theme_sale_starts = 18 [default = true];
 	optional bool opt_out_season_pass_ship = 19;
 	optional bool opt_out_roadmap_ship = 20;
+	optional bool is_self = 21;
 }
 
 message CUserAccount_GetUserCountry_Request {

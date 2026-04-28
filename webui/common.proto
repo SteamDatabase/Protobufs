@@ -2786,10 +2786,19 @@ message CVirtualMenuKey {
 message CVRGamepadUI_Frame {
 	optional uint32 frame_id = 1;
 	optional .CVRGamepadUI_Frame_FrameMenu menu = 2;
-	repeated .CVRGamepadUIShared_Action defined_actions = 3;
+	repeated .CVRGamepadUIShared_Action action_definitions = 3;
+	//repeated .CVRGamepadUIShared_Action defined_actions = 3;
 	optional .CVRGamepadUI_Frame_FrameControls controls = 4;
 	optional bool is_vrlink_remote = 5;
+	optional .CVRGamepadUI_Frame_FrameActions frame_actions = 6;
+	repeated string steamui_page_overlay_keys = 7;
 	optional string tmp_title = 1000;
+}
+
+// Used by: common.proto
+message CVRGamepadUI_Frame_FrameActions {
+	optional uint32 focus_main_panel_action = 1;
+	optional uint32 focus_left_frame_menu_action = 2;
 }
 
 // Used by: common.proto
@@ -2904,6 +2913,14 @@ message CVRGamepadUI_Message_RemoteVideoStream_Request {
 }
 
 message CVRGamepadUI_Message_RemoteVideoStream_Response {
+}
+
+message CVRGamepadUI_Message_ReportVRPanelErrorBoundaryError_Request {
+	optional string error_name = 1;
+	optional string error_message_with_stack = 2;
+}
+
+message CVRGamepadUI_Message_ReportVRPanelErrorBoundaryError_Response {
 }
 
 message CVRGamepadUI_Message_SetCurrentLanguage_Request {
@@ -3552,8 +3569,11 @@ message StoreItem_PurchaseOption {
 	optional .StoreItem_PurchaseOption_RecurrenceInfo recurrence_info = 46;
 	optional uint32 free_to_keep_ends = 47;
 	optional bool must_purchase_as_set = 48 [default = false];
-	optional string package_group = 49;
+	optional string package_group = 49 [default = "default"];
 	optional bool is_edition = 50;
+	optional uint32 free_to_keep_base_package = 51;
+	optional bool price_cannot_be_displayed_as_discount = 52 [default = false];
+	optional int64 price_to_base_discount_on = 53;
 }
 
 // Used by: Checkout, MarketingMessages, PartnerStoreBrowse, SteamCharts, Store, StoreAppSimilarity, StoreBrowse, StoreMarketing, StoreQuery, StoreTopSellers, UserStoreVisit, Wishlist
