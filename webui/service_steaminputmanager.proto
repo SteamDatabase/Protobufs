@@ -325,6 +325,9 @@ message CSteamInputService_ShouldTritonPairInOobe_Response {
 	optional uint32 dongle_index = 3;
 }
 
+message CSteamInputService_SteamDonglesChanged_Notification {
+}
+
 message CSteamInputService_TritonDonglesChanged_Notification {
 }
 
@@ -409,6 +412,8 @@ service SteamInputManager {
 	rpc NotifyGyroQuaternionStateChanged (.CSteamInputService_GyroQuaternionChanged_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyGyroSpeedStateChanged (.CSteamInputService_GyroSpeedChanged_Notification) returns (.NoResponse);
+	// ePrivilege=1, eClientExecutionSite=2
+	rpc NotifySteamDonglesChanged (.CSteamInputService_SteamDonglesChanged_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2
 	rpc NotifyTritonDonglesChanged (.CSteamInputService_TritonDonglesChanged_Notification) returns (.NoResponse);
 	// ePrivilege=1, eClientExecutionSite=2

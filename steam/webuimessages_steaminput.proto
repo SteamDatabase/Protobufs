@@ -158,7 +158,7 @@ message CSteamInputService_PairDongleTritonConnected_Request {
 message CSteamInputService_PairDongleTritonConnected_Response {
 }
 
-message CSteamInputService_TritonDonglesChanged_Notification {
+message CSteamInputService_SteamDonglesChanged_Notification {
 }
 
 message CSteamInputService_UnpairedTritonPluggedIn_Notification {
@@ -403,7 +403,7 @@ service SteamInputManager {
 	rpc NotifyUnpairedTritonPluggedIn (.CSteamInputService_UnpairedTritonPluggedIn_Notification) returns (.WebUINoResponse);
 	rpc NotifyUnpairedTritonDocked (.CSteamInputService_UnpairedTritonDocked_Notification) returns (.WebUINoResponse);
 	rpc NotifyTritonUndocked (.CSteamInputService_TritonUndocked_Notification) returns (.WebUINoResponse);
-	rpc NotifyTritonDonglesChanged (.CSteamInputService_TritonDonglesChanged_Notification) returns (.WebUINoResponse);
+	rpc NotifySteamDonglesChanged (.CSteamInputService_SteamDonglesChanged_Notification) returns (.WebUINoResponse);
 	rpc NotifyControllerDisconnected (.CSteamInputService_ControllerDisconnected_Notification) returns (.WebUINoResponse);
 	rpc NotifyControllerPairingChanged (.CSteamInputService_ControllerPairingChanged_Notification) returns (.WebUINoResponse);
 	rpc NotifyControllerListChanged (.CSteamInputService_ControllerListChanged_Notification) returns (.WebUINoResponse);

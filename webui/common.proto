@@ -424,6 +424,15 @@ message CClientNotificationCloudSyncFailure {
 	optional uint32 appid = 1;
 }
 
+message CClientNotificationControllerConnected {
+	optional uint32 controller_index = 1;
+}
+
+message CClientNotificationControllerDisconnected {
+	optional uint32 controller_type = 1;
+	optional string controller_name = 2;
+}
+
 message CClientNotificationControllerLowBattery {
 	optional uint32 controller_type = 1;
 	optional float pct_remaining = 2;

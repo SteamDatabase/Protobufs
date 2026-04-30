@@ -63,6 +63,8 @@ enum EClientNotificationType {
 	k_EClientNotificationType_TradeReversal = 60;
 	k_EClientNotificationType_HardwareUpdateAvailable = 61;
 	k_EClientNotificationType_ControllerLowBattery = 62;
+	k_EClientNotificationType_ControllerConnected = 63;
+	k_EClientNotificationType_ControllerDisconnected = 64;
 }
 
 enum ESystemUpdateNotificationType {
@@ -291,4 +293,13 @@ message CClientNotificationHardwareUpdateAvailable {
 message CClientNotificationControllerLowBattery {
 	optional uint32 controller_type = 1;
 	optional float pct_remaining = 2;
+}
+
+message CClientNotificationControllerConnected {
+	optional uint32 controller_index = 1;
+}
+
+message CClientNotificationControllerDisconnected {
+	optional uint32 controller_type = 1;
+	optional string controller_name = 2;
 }
