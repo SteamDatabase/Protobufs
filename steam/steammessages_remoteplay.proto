@@ -439,6 +439,14 @@ message CStreamingClientConfig {
 	repeated .CStreamVideoLimit decoder_limit = 24;
 	optional bool enable_unreliable_fec = 25 [default = false];
 	optional bool enable_video_av1 = 26 [default = false];
+	optional bool windowed = 27;
+	optional float window_pixel_density = 28;
+	optional int32 window_width = 29;
+	optional int32 window_height = 30;
+	optional int32 window_position_x = 31;
+	optional int32 window_position_y = 32;
+	optional int32 window_frame_offset_x = 33;
+	optional int32 window_frame_offset_y = 34;
 }
 
 message CStreamingServerConfig {
