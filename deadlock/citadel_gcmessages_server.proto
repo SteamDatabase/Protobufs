@@ -110,6 +110,7 @@ message CServerLobbyData_PlayerMMR {
 		optional uint32 hero_mmr = 4;
 		optional uint32 hero_mmr_with_uncertainty = 5;
 		optional uint32 player_slot = 6;
+		optional float hero_mmru_skill = 7;
 	}
 
 	repeated .CServerLobbyData_PlayerMMR.Player players = 1;
@@ -677,6 +678,7 @@ message CMsgMatchData {
 		repeated .CMsgMatchData.AuxStat aux_stats = 55;
 		repeated .CMsgTrackedStat player_tracked_stats = 56;
 		optional float new_player_score = 57;
+		optional float hero_mmru_skill = 58;
 	}
 
 	message TeamInfo {
