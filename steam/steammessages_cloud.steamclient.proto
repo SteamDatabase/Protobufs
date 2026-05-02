@@ -321,6 +321,7 @@ message CCloud_AppFileInfo {
 	optional uint32 platforms_to_sync = 6;
 	optional uint32 path_prefix_index = 7;
 	optional uint32 machine_name_index = 8;
+	optional bool reupload_requested = 9;
 }
 
 message CCloud_GetAppFileChangelist_Response {
