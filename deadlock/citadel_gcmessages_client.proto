@@ -1687,6 +1687,10 @@ message CMsgSurveyQuestion {
 		k_eMoreFunHero = 4;
 		k_eHeroPower = 5;
 		k_eHeroPlayAs = 6;
+		k_eHeroFrontliner = 7;
+		k_eHeroCarry = 8;
+		k_eHeroDisable = 9;
+		k_eHeroUtility = 10;
 	}
 
 	optional uint32 question_id = 1;
