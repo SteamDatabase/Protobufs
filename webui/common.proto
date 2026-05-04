@@ -3703,6 +3703,7 @@ message StoreItem_Trailers_Trailer {
 	repeated .StoreItem_Trailers_VideoSource trailer_max = 4;
 	repeated .StoreItem_Trailers_VideoSource microtrailer = 5;
 	repeated .StoreItem_Trailers_AdaptiveTrailer adaptive_trailers = 6;
+	optional string captions_manifest = 7;
 	optional string screenshot_medium = 10;
 	optional string screenshot_full = 11;
 	optional int32 trailer_base_id = 12;
